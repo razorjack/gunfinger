@@ -4,8 +4,8 @@
 use std::path::PathBuf;
 
 use super::clusters::other_ignore_file;
-use crate::Paths;
 use crate::files::{read_lines, read_text, stem_or, write_json};
+use crate::harness::Harness;
 use crate::padding::current_sources;
 use crate::{pair, parts};
 
@@ -40,7 +40,7 @@ pub struct PartsArgs {
     pub out: PathBuf,
 }
 
-pub fn pair(paths: &Paths, jobs: usize, args: PairArgs) -> Result<(), String> {
+pub fn pair(harness: &Harness, jobs: usize, args: PairArgs) -> Result<(), String> {
     let PairArgs { pairs, fine_rungs } = args;
     let listed: Vec<(String, String)> = read_text(&pairs)?
         .lines()
@@ -51,11 +51,11 @@ pub fn pair(paths: &Paths, jobs: usize, args: PairArgs) -> Result<(), String> {
                 .ok_or_else(|| format!("not two tab-separated paths: {line}"))
         })
         .collect::<Result<_, _>>()?;
-    let other = paths.other_store()?;
+    let other = harness.other_store()?;
     let reports = pair::run(
         &pair::Sources {
-            library: &paths.library()?,
-            store: &paths.store()?,
+            library: &harness.library()?,
+            store: &harness.store()?,
             other: other.as_ref(),
         },
         &listed,
@@ -68,21 +68,21 @@ pub fn pair(paths: &Paths, jobs: usize, args: PairArgs) -> Result<(), String> {
     )?;
     let stem = stem_or(&pairs, "pairs");
     write_json(
-        &paths.base_reports().join(format!("pairs-{stem}.json")),
+        &harness.base_reports().join(format!("pairs-{stem}.json")),
         &reports,
     )?;
     pair::print_summary(&reports);
     Ok(())
 }
 
-pub fn parts(paths: &Paths, jobs: usize, args: PartsArgs) -> Result<(), String> {
+pub fn parts(harness: &Harness, jobs: usize, args: PartsArgs) -> Result<(), String> {
     let PartsArgs {
         queries: queries_file,
         leave_out: leave_out_file,
         whole,
         out,
     } = args;
-    let Some(other) = paths.other_store()? else {
+    let Some(other) = harness.other_store()? else {
         return Err(String::from("parts needs --other-peaks-dir"));
     };
     let queries = read_lines(&queries_file)?;
@@ -107,7 +107,7 @@ pub fn parts(paths: &Paths, jobs: usize, args: PartsArgs) -> Result<(), String> 
     let report = parts::find(
         &other,
         &assets,
-        &paths.clusters()?,
+        &harness.clusters()?,
         &queries,
         left_out,
         searched,

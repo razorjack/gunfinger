@@ -3,9 +3,9 @@
 use std::path::PathBuf;
 
 use crate::files::{read_lines, write_json};
+use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::library_map::LibraryMap;
 use crate::padding::{ExactCopies, Padding};
-use crate::{Paths, UNCHANGED_INDEX};
 use crate::{fullest, sweep};
 
 #[derive(clap::Args)]
@@ -28,14 +28,14 @@ pub struct SweepArgs {
     pub filter: FilterStudy,
 }
 
-pub fn sweep(paths: &Paths, jobs: usize, args: SweepArgs) -> Result<(), String> {
+pub fn sweep(harness: &Harness, jobs: usize, args: SweepArgs) -> Result<(), String> {
     let SweepArgs {
         seed,
         other_rips,
         speeds,
         filter,
     } = args;
-    run_sweep(paths, seed, other_rips, speeds, &filter, jobs)
+    run_sweep(harness, seed, other_rips, speeds, &filter, jobs)
 }
 
 /// Sweep options for measuring the fullest-list filter (session 50). Each
@@ -116,41 +116,41 @@ impl FilterStudy {
 }
 
 pub fn run_sweep(
-    paths: &Paths,
+    harness: &Harness,
     seed: u64,
     other_rips: bool,
     speeds: sweep::Speeds,
     filter: &FilterStudy,
     jobs: usize,
 ) -> Result<(), String> {
-    paths.check_panel(seed)?;
-    if filter.rank_fullest_by.is_some() && paths.matching.name().is_some() {
+    harness.check_panel(seed)?;
+    if filter.rank_fullest_by.is_some() && harness.search.matching.name().is_some() {
         return Err(String::from(
             "--rank-fullest-by ranks the default matcher's lists; it takes no other matching option",
         ));
     }
     let padding = Padding {
         exact: filter.copies.exact()?,
-        ..paths.padding(&UNCHANGED_INDEX)?
+        ..harness.padding(&UNCHANGED_INDEX)?
     };
-    let map = match (other_rips, paths.map_file()) {
+    let map = match (other_rips, harness.map_file()) {
         (false, _) => None,
         (true, Some(map_file)) => Some(LibraryMap::load(&map_file)?),
         (true, None) => return Err(String::from("--other-rips needs --other-peaks-dir")),
     };
     let report = sweep::run(
-        &paths.library()?,
-        &paths.store()?,
-        &paths.clusters()?,
-        &paths.work,
+        &harness.library()?,
+        &harness.store()?,
+        &harness.clusters()?,
+        &harness.paths.work,
         &sweep::Options {
-            same_titles: &paths.same_titles()?,
+            same_titles: &harness.same_titles()?,
             seed,
-            panels: &paths.panels,
+            panels: &harness.paths.panels,
             padding: &padding,
-            ladder: &paths.rungs(),
-            matching: &paths.matching,
-            verify: paths.verify,
+            ladder: &harness.rungs(),
+            matching: &harness.search.matching,
+            verify: harness.search.verify,
             other_rips: map.as_ref(),
             trace: if filter.trace_candidates {
                 sweep::Trace::Candidates
@@ -171,7 +171,7 @@ pub fn run_sweep(
         "sweep-seed-{seed}{other_rips}{edge}{}.json",
         filter.suffix()
     );
-    write_json(&paths.reports().join(name), &report)?;
+    write_json(&harness.reports().join(name), &report)?;
     sweep::print_summary(&report);
     Ok(())
 }

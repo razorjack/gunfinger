@@ -16,9 +16,9 @@ use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakRecord;
 use serde::Serialize;
 
-use crate::Paths;
 use crate::clusters::Clusters;
 use crate::files::{read_json, write_json};
+use crate::harness::Harness;
 use crate::manifest::Referable;
 use crate::matching::Matching;
 use crate::padding::SecondLibrary;
@@ -81,7 +81,7 @@ pub struct SelfMatchArgs {
 }
 
 /// `seconds`: each report scored under today's rule and each minimum span.
-pub fn seconds(paths: &Paths, args: SecondsArgs) -> Result<(), String> {
+pub fn seconds(harness: &Harness, args: SecondsArgs) -> Result<(), String> {
     let SecondsArgs {
         reports,
         margin,
@@ -91,8 +91,8 @@ pub fn seconds(paths: &Paths, args: SecondsArgs) -> Result<(), String> {
     let rules: Vec<seconds::Rule> = std::iter::once(seconds::Rule::Windows)
         .chain(min_spans.iter().map(|&span| seconds::Rule::MinSpan(span)))
         .collect();
-    let clusters = paths.clusters()?;
-    for (path, kind, judged) in judged_reports(paths, &reports, &clusters, margin)? {
+    let clusters = harness.clusters()?;
+    for (path, kind, judged) in judged_reports(harness, &reports, &clusters, margin)? {
         let scored: Vec<seconds::Scored> = judged
             .iter()
             .flat_map(|mix| {
@@ -116,7 +116,7 @@ pub fn seconds(paths: &Paths, args: SecondsArgs) -> Result<(), String> {
             })
             .collect();
         write_json(
-            &paths.seconds_dir().join(judged_name(&path, kind, margin)),
+            &harness.seconds_dir().join(judged_name(&path, kind, margin)),
             &scored,
         )?;
         if kind == ReportKind::Rendered {
@@ -146,15 +146,15 @@ pub fn seconds(paths: &Paths, args: SecondsArgs) -> Result<(), String> {
 
 /// `gaps`: each report's gaps at each minimum length, and a summary of
 /// all of them.
-pub fn gaps(paths: &Paths, args: GapsArgs) -> Result<(), String> {
+pub fn gaps(harness: &Harness, args: GapsArgs) -> Result<(), String> {
     let GapsArgs {
         reports,
         margin,
         min_length: min_lengths,
     } = args;
-    let clusters = paths.clusters()?;
+    let clusters = harness.clusters()?;
     let mut every: Vec<gaps::Listing> = Vec::new();
-    for (path, kind, judged) in judged_reports(paths, &reports, &clusters, margin)? {
+    for (path, kind, judged) in judged_reports(harness, &reports, &clusters, margin)? {
         let listings: Vec<gaps::Listing> = judged
             .iter()
             .map(|mix| {
@@ -169,7 +169,7 @@ pub fn gaps(paths: &Paths, args: GapsArgs) -> Result<(), String> {
             })
             .collect();
         write_json(
-            &paths.gaps_dir().join(judged_name(&path, kind, margin)),
+            &harness.gaps_dir().join(judged_name(&path, kind, margin)),
             &listings,
         )?;
         gaps::print_summary(
@@ -189,7 +189,7 @@ pub fn gaps(paths: &Paths, args: GapsArgs) -> Result<(), String> {
     Ok(())
 }
 
-pub fn self_match(paths: &Paths, jobs: usize, args: SelfMatchArgs) -> Result<(), String> {
+pub fn self_match(harness: &Harness, jobs: usize, args: SelfMatchArgs) -> Result<(), String> {
     let SelfMatchArgs {
         reports,
         margin,
@@ -198,7 +198,7 @@ pub fn self_match(paths: &Paths, jobs: usize, args: SelfMatchArgs) -> Result<(),
         neighbours,
     } = args;
     match_gaps_against_themselves(
-        paths,
+        harness,
         &reports,
         &SelfMatchOptions {
             margin,
@@ -237,7 +237,7 @@ struct Judged {
 
 /// Reads `reports`, each with the mixes it holds and their truth.
 fn judged_reports(
-    paths: &Paths,
+    harness: &Harness,
     reports: &[PathBuf],
     clusters: &Clusters,
     margin: f64,
@@ -248,21 +248,22 @@ fn judged_reports(
         loaded.push((path, report));
     }
     let referable = if loaded.iter().any(|(_, report)| report.get("set").is_some()) {
-        Some(paths.referable(&paths.library()?)?)
+        Some(harness.referable(&harness.library()?)?)
     } else {
         None
     };
     loaded
         .into_iter()
         .map(|(path, report)| {
-            let (kind, judged) = judged(paths, path, report, clusters, referable.as_ref(), margin)?;
+            let (kind, judged) =
+                judged(harness, path, report, clusters, referable.as_ref(), margin)?;
             Ok((path.clone(), kind, judged))
         })
         .collect()
 }
 
 fn judged(
-    paths: &Paths,
+    harness: &Harness,
     path: &Path,
     report: serde_json::Value,
     clusters: &Clusters,
@@ -319,7 +320,7 @@ fn judged(
                     audio: Some(
                         report
                             .kind
-                            .renders(&paths.work, report.seed, report.label().as_deref())
+                            .renders(&harness.paths.work, report.seed, report.label().as_deref())
                             .join(format!("{}.mp3", result.mix.name)),
                     ),
                 })
@@ -328,7 +329,7 @@ fn judged(
         }
         (false, Some(referable)) => {
             let report: scan::ScanReport = serde_json::from_value(report).map_err(parse)?;
-            let set = manifest::load_set(&paths.sets(), &report.set, referable)
+            let set = manifest::load_set(&harness.sets(), &report.set, referable)
                 .map_err(|problems| format!("{}: {}", report.set, problems.join("; ")))?;
             let left_out: BTreeSet<String> = report.left_out_assets.iter().cloned().collect();
             Ok((
@@ -463,21 +464,21 @@ type ListedGap<'a> = (&'a Path, String, gaps::Gap, Vec<String>, Vec<f64>);
 /// `self-match`: every listed gap of each report, matched against itself,
 /// one gap per worker.
 fn match_gaps_against_themselves(
-    paths: &Paths,
+    harness: &Harness,
     reports: &[PathBuf],
     options: &SelfMatchOptions,
     jobs: usize,
 ) -> Result<(), String> {
-    let clusters = paths.clusters()?;
+    let clusters = harness.clusters()?;
     let profile = Profile::CURRENT;
     let min_length = options.min_length;
     let records = if options.neighbours {
-        Some(NeighbourRecords::open(paths)?)
+        Some(NeighbourRecords::open(harness)?)
     } else {
         None
     };
-    let ladder = paths.rungs();
-    for (path, kind, judged) in judged_reports(paths, reports, &clusters, options.margin)? {
+    let ladder = harness.rungs();
+    for (path, kind, judged) in judged_reports(harness, reports, &clusters, options.margin)? {
         let mut gaps: Vec<ListedGap> = Vec::new();
         for mix in &judged {
             let Some(audio) = &mix.audio else { continue };
@@ -512,9 +513,12 @@ fn match_gaps_against_themselves(
                     .map_err(|error| format!("{}: {error}", audio.display()))?
                     .samples;
                 let neighbours = match &records {
-                    Some(records) => {
-                        Some(records.search(neighbours, &samples, &paths.matching, &ladder)?)
-                    }
+                    Some(records) => Some(records.search(
+                        neighbours,
+                        &samples,
+                        &harness.search.matching,
+                        &ladder,
+                    )?),
                     None => None,
                 };
                 let at_one = Repeats::find(&samples, &profile, &[]);
@@ -538,7 +542,7 @@ fn match_gaps_against_themselves(
             .into_iter()
             .collect::<Result<_, String>>()?;
         let name = format!("self-match-{}", judged_name(&path, kind, options.margin));
-        write_json(&paths.gaps_dir().join(name), &matched)?;
+        write_json(&harness.gaps_dir().join(name), &matched)?;
         println!(
             "{}: {} gaps of at least {min_length:.0} s",
             path.display(),
@@ -573,14 +577,14 @@ struct NeighbourRecords {
 }
 
 impl NeighbourRecords {
-    fn open(paths: &Paths) -> Result<NeighbourRecords, String> {
+    fn open(harness: &Harness) -> Result<NeighbourRecords, String> {
         let (records, _) = load_records(
-            &paths.library()?,
-            &paths.store()?,
+            &harness.library()?,
+            &harness.store()?,
             &Profile::CURRENT,
             &BTreeSet::new(),
         );
-        let other = match paths.other_store()? {
+        let other = match harness.other_store()? {
             Some(store) => Some(SecondLibrary::from_store(store, &BTreeSet::new())?),
             None => None,
         };

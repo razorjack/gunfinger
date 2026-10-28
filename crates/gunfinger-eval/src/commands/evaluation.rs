@@ -3,9 +3,9 @@
 
 use super::sweep::{NO_FILTER_STUDY, run_sweep};
 use crate::files::write_json;
+use crate::harness::{Harness, IndexVariant, UNCHANGED_INDEX};
 use crate::padding::Padding;
 use crate::scan::{LeaveOut, SlotRun};
-use crate::{IndexVariant, Paths, UNCHANGED_INDEX};
 use crate::{calibrate, loss, memory, regress, robust, scan, stereo, sweep};
 
 #[derive(clap::Args)]
@@ -104,7 +104,7 @@ pub struct RegressArgs {
     pub seed: u64,
 }
 
-pub fn scan(paths: &Paths, jobs: usize, args: ScanArgs) -> Result<(), String> {
+pub fn scan(harness: &Harness, jobs: usize, args: ScanArgs) -> Result<(), String> {
     let ScanArgs {
         set,
         leave_out,
@@ -117,39 +117,39 @@ pub fn scan(paths: &Paths, jobs: usize, args: ScanArgs) -> Result<(), String> {
         None if !leave_out_slots.is_empty() => Some(LeaveOut::Slots(leave_out_slots)),
         None => None,
     };
-    run_scan(paths, &set, leave_out.as_ref(), &variant, jobs)
+    run_scan(harness, &set, leave_out.as_ref(), &variant, jobs)
 }
 
-pub fn calibrate(paths: &Paths, args: CalibrateArgs) -> Result<(), String> {
+pub fn calibrate(harness: &Harness, args: CalibrateArgs) -> Result<(), String> {
     let CalibrateArgs { set } = args;
-    calibrate::run(&paths.reports(), &set, paths.matching.rule())
+    calibrate::run(&harness.reports(), &set, harness.search.matching.rule())
 }
 
-pub fn robust(paths: &Paths, jobs: usize, args: RobustArgs) -> Result<(), String> {
+pub fn robust(harness: &Harness, jobs: usize, args: RobustArgs) -> Result<(), String> {
     let RobustArgs {
         seed,
         only,
         query_channels,
         variant,
     } = args;
-    let ladder = paths.ladder;
-    paths.check_panel(seed)?;
-    let padding = paths.padding(&variant)?;
+    let ladder = harness.search.ladder;
+    harness.check_panel(seed)?;
+    let padding = harness.padding(&variant)?;
     let report = robust::run(
-        &paths.library()?,
-        &paths.store()?,
-        &paths.clusters()?,
-        &paths.work,
+        &harness.library()?,
+        &harness.store()?,
+        &harness.clusters()?,
+        &harness.paths.work,
         &robust::Options {
-            same_titles: &paths.same_titles()?,
+            same_titles: &harness.same_titles()?,
             seed,
-            panels: &paths.panels,
+            panels: &harness.paths.panels,
             only: &only,
             ladder_name: ladder.name(),
-            ladder: &paths.rungs(),
+            ladder: &harness.rungs(),
             padding: &padding,
-            matching: &paths.matching,
-            verify: paths.verify,
+            matching: &harness.search.matching,
+            verify: harness.search.verify,
             query_channels,
             jobs,
         },
@@ -160,7 +160,7 @@ pub fn robust(paths: &Paths, jobs: usize, args: RobustArgs) -> Result<(), String
         choice => format!("-channels-{}", choice.name()),
     };
     write_json(
-        &paths
+        &harness
             .reports()
             .join(format!("robust-seed-{seed}{suffix}{channels}.json")),
         &report,
@@ -169,31 +169,31 @@ pub fn robust(paths: &Paths, jobs: usize, args: RobustArgs) -> Result<(), String
     Ok(())
 }
 
-pub fn loss(paths: &Paths, jobs: usize, args: LossArgs) -> Result<(), String> {
+pub fn loss(harness: &Harness, jobs: usize, args: LossArgs) -> Result<(), String> {
     let LossArgs { set } = args;
     let report = loss::run(
-        &paths.sets(),
-        &paths.library()?,
-        &paths.store()?,
-        &paths.clusters()?,
-        &paths.work,
+        &harness.sets(),
+        &harness.library()?,
+        &harness.store()?,
+        &harness.clusters()?,
+        &harness.paths.work,
         &loss::Options {
             set: &set,
-            ladder: &paths.rungs(),
+            ladder: &harness.rungs(),
             jobs,
         },
     )?;
-    write_json(&paths.reports().join(format!("loss-{set}.json")), &report)?;
+    write_json(&harness.reports().join(format!("loss-{set}.json")), &report)?;
     loss::print_summary(&report);
     Ok(())
 }
 
-pub fn baseline(paths: &Paths, args: BaselineArgs) -> Result<(), String> {
+pub fn baseline(harness: &Harness, args: BaselineArgs) -> Result<(), String> {
     let BaselineArgs { name, set, seed } = args;
-    regress::save(&paths.reports(), &paths.baseline(&name), &set, seed)
+    regress::save(&harness.reports(), &harness.baseline(&name), &set, seed)
 }
 
-pub fn memory(paths: &Paths, jobs: usize, args: MemoryArgs) -> Result<(), String> {
+pub fn memory(harness: &Harness, jobs: usize, args: MemoryArgs) -> Result<(), String> {
     let MemoryArgs {
         set,
         variant,
@@ -202,32 +202,33 @@ pub fn memory(paths: &Paths, jobs: usize, args: MemoryArgs) -> Result<(), String
         count_lines,
     } = args;
     let report = memory::run(
-        &paths.sets(),
-        &paths.library()?,
-        &paths.store()?,
+        &harness.sets(),
+        &harness.library()?,
+        &harness.store()?,
         &memory::Options {
             set: &set,
             // The measurement is the build's memory: never the saved index.
             padding: &Padding {
                 saved: None,
-                ..paths.padding(&variant)?
+                ..harness.padding(&variant)?
             },
             until,
             minutes,
             count_lines,
-            ladder: &paths.rungs(),
-            matching: paths.matching,
+            ladder: &harness.rungs(),
+            matching: harness.search.matching,
             jobs,
         },
     )?;
-    let matcher = paths
+    let matcher = harness
+        .search
         .matching
         .name()
         .map_or_else(String::new, |name| format!("-{name}"));
     write_json(
-        &paths.work.join("memory").join(format!(
+        &harness.paths.work.join("memory").join(format!(
             "memory{}{}-jobs-{jobs}-until-{}{matcher}{}.json",
-            paths
+            harness
                 .other_name()
                 .map_or_else(String::new, |name| format!("-library-{name}")),
             variant.suffix(),
@@ -240,7 +241,7 @@ pub fn memory(paths: &Paths, jobs: usize, args: MemoryArgs) -> Result<(), String
     Ok(())
 }
 
-pub fn regress(paths: &Paths, jobs: usize, args: RegressArgs) -> Result<(), String> {
+pub fn regress(harness: &Harness, jobs: usize, args: RegressArgs) -> Result<(), String> {
     let RegressArgs {
         name,
         no_rerun,
@@ -248,25 +249,30 @@ pub fn regress(paths: &Paths, jobs: usize, args: RegressArgs) -> Result<(), Stri
         seed,
     } = args;
     if !no_rerun {
-        run_standard_evaluation(paths, &set, seed, jobs)?;
+        run_standard_evaluation(harness, &set, seed, jobs)?;
     }
-    regress::compare(&paths.baseline(&name), &paths.reports(), &set, seed)
+    regress::compare(&harness.baseline(&name), &harness.reports(), &set, seed)
 }
 
 /// The sweep, the development scan and its leave-outs.
-fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64, jobs: usize) -> Result<(), String> {
+fn run_standard_evaluation(
+    harness: &Harness,
+    set: &str,
+    seed: u64,
+    jobs: usize,
+) -> Result<(), String> {
     run_sweep(
-        paths,
+        harness,
         seed,
         false,
         sweep::Speeds::Sweep,
         &NO_FILTER_STUDY,
         jobs,
     )?;
-    run_scan(paths, set, None, &UNCHANGED_INDEX, jobs)?;
+    run_scan(harness, set, None, &UNCHANGED_INDEX, jobs)?;
     for count in regress::LEAVE_OUTS {
         run_scan(
-            paths,
+            harness,
             set,
             Some(&LeaveOut::Drawn { count, seed }),
             &UNCHANGED_INDEX,
@@ -277,28 +283,28 @@ fn run_standard_evaluation(paths: &Paths, set: &str, seed: u64, jobs: usize) -> 
 }
 
 fn run_scan(
-    paths: &Paths,
+    harness: &Harness,
     set: &str,
     leave_out: Option<&LeaveOut>,
     variant: &IndexVariant,
     jobs: usize,
 ) -> Result<(), String> {
-    let padding = paths.padding(variant)?;
-    let library = paths.library()?;
+    let padding = harness.padding(variant)?;
+    let library = harness.library()?;
     let report = scan::run(
-        &paths.sets(),
+        &harness.sets(),
         set,
         &library,
-        &paths.store()?,
-        &paths.clusters()?,
+        &harness.store()?,
+        &harness.clusters()?,
         &scan::Options {
-            same_titles: &paths.same_titles()?,
-            referable: &paths.referable(&library)?,
+            same_titles: &harness.same_titles()?,
+            referable: &harness.referable(&library)?,
             leave_out,
             padding: &padding,
-            matching: &paths.matching,
-            ladder: &paths.rungs(),
-            verify: paths.verify,
+            matching: &harness.search.matching,
+            ladder: &harness.rungs(),
+            verify: harness.search.verify,
             jobs,
         },
     )?;
@@ -317,7 +323,7 @@ fn run_scan(
         ),
         None => format!("scan-{set}.json"),
     };
-    write_json(&paths.reports().join(name), &report)?;
+    write_json(&harness.reports().join(name), &report)?;
     scan::print_summary(&report);
     Ok(())
 }

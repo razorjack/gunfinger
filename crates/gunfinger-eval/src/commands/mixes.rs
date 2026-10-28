@@ -3,8 +3,8 @@
 use std::collections::BTreeSet;
 use std::path::{Path, PathBuf};
 
-use crate::Paths;
 use crate::files::{read_json, write_json};
+use crate::harness::Harness;
 use crate::{grid, mixes, robust};
 
 #[derive(clap::Args)]
@@ -69,7 +69,7 @@ pub struct GridArgs {
     pub seed: u64,
 }
 
-pub fn mixes(paths: &Paths, jobs: usize, args: MixesArgs) -> Result<(), String> {
+pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), String> {
     let MixesArgs {
         seed,
         count,
@@ -95,21 +95,21 @@ pub fn mixes(paths: &Paths, jobs: usize, args: MixesArgs) -> Result<(), String> 
         .transpose()?;
     let tagged = tagged.map(|path| tagged_assets(kind, &path)).transpose()?;
     let report = mixes::run(
-        &paths.library()?,
-        &paths.store()?,
-        &paths.clusters()?,
-        &paths.work,
+        &harness.library()?,
+        &harness.store()?,
+        &harness.clusters()?,
+        &harness.paths.work,
         &mixes::Options {
-            same_titles: &paths.same_titles()?,
+            same_titles: &harness.same_titles()?,
             seed,
             kind,
             other_root: other_root.as_deref(),
-            panels: &paths.panels,
+            panels: &harness.paths.panels,
             count,
-            ladder_name: paths.ladder.name(),
-            ladder: &paths.rungs(),
-            matching: &paths.matching,
-            verify: paths.verify,
+            ladder_name: harness.search.ladder.name(),
+            ladder: &harness.rungs(),
+            matching: &harness.search.matching,
+            verify: harness.search.verify,
             jobs,
             rides,
             tagged: tagged.as_ref(),
@@ -119,7 +119,7 @@ pub fn mixes(paths: &Paths, jobs: usize, args: MixesArgs) -> Result<(), String> 
         },
     )?;
     write_json(
-        &paths.reports().join(format!(
+        &harness.reports().join(format!(
             "mixes-{}.json",
             kind.name(seed, report.label().as_deref())
         )),
@@ -129,26 +129,26 @@ pub fn mixes(paths: &Paths, jobs: usize, args: MixesArgs) -> Result<(), String> 
     Ok(())
 }
 
-pub fn grid(paths: &Paths, jobs: usize, args: GridArgs) -> Result<(), String> {
+pub fn grid(harness: &Harness, jobs: usize, args: GridArgs) -> Result<(), String> {
     let GridArgs { seed } = args;
     let report = grid::run(
-        &paths.library()?,
-        &paths.store()?,
-        &paths.clusters()?,
-        &paths.work,
+        &harness.library()?,
+        &harness.store()?,
+        &harness.clusters()?,
+        &harness.paths.work,
         &grid::Options {
-            same_titles: &paths.same_titles()?,
+            same_titles: &harness.same_titles()?,
             seed,
-            panels: &paths.panels,
-            ladder_name: paths.ladder.name(),
-            ladder: &paths.rungs(),
-            matching: &paths.matching,
-            verify: paths.verify,
+            panels: &harness.paths.panels,
+            ladder_name: harness.search.ladder.name(),
+            ladder: &harness.rungs(),
+            matching: &harness.search.matching,
+            verify: harness.search.verify,
             jobs,
         },
     )?;
     write_json(
-        &paths.reports().join(format!("grid-seed-{seed}.json")),
+        &harness.reports().join(format!("grid-seed-{seed}.json")),
         &report,
     )?;
     grid::print_summary(&report);

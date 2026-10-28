@@ -13,7 +13,7 @@ mod sweep;
 
 use clap::Subcommand;
 
-use crate::Paths;
+use crate::harness::Harness;
 
 #[derive(Subcommand)]
 pub enum Command {
@@ -251,15 +251,15 @@ impl Command {
 
 /// Fails when --other-peaks-dir or --other-sample, which are global, is
 /// given to a command that does not take it.
-fn check_global_options(paths: &Paths, command: &Command) -> Result<(), String> {
+fn check_global_options(harness: &Harness, command: &Command) -> Result<(), String> {
     let name = command.name();
-    if paths.other_sample.is_some() && !OTHER_SAMPLE_COMMANDS.contains(&name) {
+    if harness.other.other_sample.is_some() && !OTHER_SAMPLE_COMMANDS.contains(&name) {
         return Err(format!(
             "this command does not take --other-sample; {} do",
             listed(&OTHER_SAMPLE_COMMANDS)
         ));
     }
-    if paths.other_peaks_dir.is_some() && !OTHER_LIBRARY_COMMANDS.contains(&name) {
+    if harness.other.other_peaks_dir.is_some() && !OTHER_LIBRARY_COMMANDS.contains(&name) {
         return Err(format!(
             "this command does not take --other-peaks-dir; {} do",
             listed(&OTHER_LIBRARY_COMMANDS)
@@ -277,40 +277,40 @@ fn listed(names: &[&str]) -> String {
     }
 }
 
-pub fn run(paths: &Paths, jobs: usize, command: Command) -> Result<(), String> {
-    check_global_options(paths, &command)?;
+pub fn run(harness: &Harness, jobs: usize, command: Command) -> Result<(), String> {
+    check_global_options(harness, &command)?;
     match command {
-        Command::Validate(args) => library::validate(paths, args),
-        Command::Survival(args) => library::survival(paths, args),
-        Command::HashCost(args) => library::hash_cost(paths, jobs, args),
-        Command::MapLibrary => library::map_library(paths, jobs),
-        Command::Clusters(args) => clusters::clusters(paths, jobs, args),
-        Command::Related => library::related(paths, jobs),
-        Command::PairReview(args) => listening::pair_review(paths, args),
-        Command::Audition(args) => listening::audition(paths, args),
-        Command::Questions(args) => listening::questions(paths, args),
-        Command::Pair(args) => pairs::pair(paths, jobs, args),
-        Command::Parts(args) => pairs::parts(paths, jobs, args),
-        Command::Shared(args) => shared::shared(paths, jobs, args),
-        Command::SharedMixes(args) => shared::shared_mixes(paths, jobs, args),
-        Command::Holders(args) => shared::holders(paths, jobs, args),
-        Command::Identifiability(args) => shared::identifiability(paths, args),
-        Command::Versions(args) => shared::versions(paths, jobs, args),
-        Command::Recall(args) => recall::recall(paths, jobs, args),
-        Command::Sweep(args) => sweep::sweep(paths, jobs, args),
-        Command::Scan(args) => evaluation::scan(paths, jobs, args),
-        Command::Calibrate(args) => evaluation::calibrate(paths, args),
-        Command::Robust(args) => evaluation::robust(paths, jobs, args),
-        Command::StereoWidth(args) => library::stereo_width(paths, jobs, args),
-        Command::Mixes(args) => mixes::mixes(paths, jobs, args),
-        Command::Grid(args) => mixes::grid(paths, jobs, args),
-        Command::Seconds(args) => saved_reports::seconds(paths, args),
-        Command::Gaps(args) => saved_reports::gaps(paths, args),
-        Command::SelfMatch(args) => saved_reports::self_match(paths, jobs, args),
-        Command::Loss(args) => evaluation::loss(paths, jobs, args),
-        Command::Baseline(args) => evaluation::baseline(paths, args),
-        Command::Memory(args) => evaluation::memory(paths, jobs, args),
-        Command::Fullest(args) => library::fullest(paths, args),
-        Command::Regress(args) => evaluation::regress(paths, jobs, args),
+        Command::Validate(args) => library::validate(harness, args),
+        Command::Survival(args) => library::survival(harness, args),
+        Command::HashCost(args) => library::hash_cost(harness, jobs, args),
+        Command::MapLibrary => library::map_library(harness, jobs),
+        Command::Clusters(args) => clusters::clusters(harness, jobs, args),
+        Command::Related => library::related(harness, jobs),
+        Command::PairReview(args) => listening::pair_review(harness, args),
+        Command::Audition(args) => listening::audition(harness, args),
+        Command::Questions(args) => listening::questions(harness, args),
+        Command::Pair(args) => pairs::pair(harness, jobs, args),
+        Command::Parts(args) => pairs::parts(harness, jobs, args),
+        Command::Shared(args) => shared::shared(harness, jobs, args),
+        Command::SharedMixes(args) => shared::shared_mixes(harness, jobs, args),
+        Command::Holders(args) => shared::holders(harness, jobs, args),
+        Command::Identifiability(args) => shared::identifiability(harness, args),
+        Command::Versions(args) => shared::versions(harness, jobs, args),
+        Command::Recall(args) => recall::recall(harness, jobs, args),
+        Command::Sweep(args) => sweep::sweep(harness, jobs, args),
+        Command::Scan(args) => evaluation::scan(harness, jobs, args),
+        Command::Calibrate(args) => evaluation::calibrate(harness, args),
+        Command::Robust(args) => evaluation::robust(harness, jobs, args),
+        Command::StereoWidth(args) => library::stereo_width(harness, jobs, args),
+        Command::Mixes(args) => mixes::mixes(harness, jobs, args),
+        Command::Grid(args) => mixes::grid(harness, jobs, args),
+        Command::Seconds(args) => saved_reports::seconds(harness, args),
+        Command::Gaps(args) => saved_reports::gaps(harness, args),
+        Command::SelfMatch(args) => saved_reports::self_match(harness, jobs, args),
+        Command::Loss(args) => evaluation::loss(harness, jobs, args),
+        Command::Baseline(args) => evaluation::baseline(harness, args),
+        Command::Memory(args) => evaluation::memory(harness, jobs, args),
+        Command::Fullest(args) => library::fullest(harness, args),
+        Command::Regress(args) => evaluation::regress(harness, jobs, args),
     }
 }

@@ -7,10 +7,11 @@ use std::path::{Path, PathBuf};
 use gunfinger_core::library::Asset;
 use gunfinger_core::store::PeakStore;
 
+use crate::available_parallelism;
 use crate::files::write_json;
+use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::library_map::LibraryMap;
 use crate::padding::{SECOND_LIBRARY_PREFIX, current_sources};
-use crate::{Paths, UNCHANGED_INDEX, available_parallelism};
 use crate::{recall, sweep};
 
 #[derive(clap::Args)]
@@ -36,7 +37,7 @@ pub struct RecallArgs {
     pub study: RecallStudy,
 }
 
-pub fn recall(paths: &Paths, jobs: usize, args: RecallArgs) -> Result<(), String> {
+pub fn recall(harness: &Harness, jobs: usize, args: RecallArgs) -> Result<(), String> {
     let RecallArgs {
         seed,
         prepare,
@@ -44,17 +45,17 @@ pub fn recall(paths: &Paths, jobs: usize, args: RecallArgs) -> Result<(), String
         queries: sets,
         study,
     } = args;
-    let Some(other) = paths.other_store()? else {
+    let Some(other) = harness.other_store()? else {
         return Err(String::from("recall needs --other-peaks-dir"));
     };
     if study.set_aside_like.is_some()
-        && (paths.matching.single_pass || paths.matching.drop_fullest > 0.0)
+        && (harness.search.matching.single_pass || harness.search.matching.drop_fullest > 0.0)
     {
         return Err(String::from(
             "--set-aside-like sets aside the default matcher's lists; it takes neither --single-pass nor --drop-fullest",
         ));
     }
-    let (panel, assets) = recall_panel(paths, &other, seed)?;
+    let (panel, assets) = recall_panel(harness, &other, seed)?;
     let root = other
         .library()
         .map_err(|error| error.to_string())?
@@ -65,7 +66,7 @@ pub fn recall(paths: &Paths, jobs: usize, args: RecallArgs) -> Result<(), String
             )
         })?;
     let root = Path::new(&root);
-    let dir = paths.work.join("recall");
+    let dir = harness.paths.work.join("recall");
     let clean = recall::render(&panel, root, &dir.join(format!("seed-{seed}")), jobs)?;
     let damaged = if sets.iter().any(|set| set.damaged()) {
         recall::render_damaged(
@@ -87,7 +88,7 @@ pub fn recall(paths: &Paths, jobs: usize, args: RecallArgs) -> Result<(), String
     if prepare {
         return Ok(());
     }
-    let clusters = paths.clusters()?;
+    let clusters = harness.clusters()?;
     let left_out = if other_rips_only {
         recall::own_records(&panel, &clusters, &other, &assets)
     } else {
@@ -107,18 +108,18 @@ pub fn recall(paths: &Paths, jobs: usize, args: RecallArgs) -> Result<(), String
         })
         .collect();
     recall::run(
-        &paths.library()?,
-        &paths.store()?,
+        &harness.library()?,
+        &harness.store()?,
         &clusters,
         &sets,
         &recall::Options {
-            same_titles: &paths.same_titles()?,
+            same_titles: &harness.same_titles()?,
             seed,
-            padding: &paths.padding(&UNCHANGED_INDEX)?,
-            ladder: &paths.rungs(),
-            matching: &paths.matching,
+            padding: &harness.padding(&UNCHANGED_INDEX)?,
+            ladder: &harness.rungs(),
+            matching: &harness.search.matching,
             left_out: &left_out,
-            verify: paths.verify,
+            verify: harness.search.verify,
             trace: if study.trace_candidates {
                 sweep::Trace::Candidates
             } else {
@@ -131,7 +132,7 @@ pub fn recall(paths: &Paths, jobs: usize, args: RecallArgs) -> Result<(), String
             let name = report
                 .query_set
                 .report_name(seed, other_rips_only, &study.suffix());
-            write_json(&paths.reports().join(name), &report)?;
+            write_json(&harness.reports().join(name), &report)?;
             recall::print_summary(&report);
             Ok(())
         },
@@ -173,15 +174,19 @@ impl RecallStudy {
 /// library's records outside the clusters in use and the copies of corpus
 /// files.
 pub fn recall_panel(
-    paths: &Paths,
+    harness: &Harness,
     other: &PeakStore,
     seed: u64,
 ) -> Result<(recall::Panel, Vec<Asset>), String> {
-    let Some(map_file) = paths.map_file() else {
+    let Some(map_file) = harness.map_file() else {
         return Err(String::from("the recall panel needs --other-peaks-dir"));
     };
-    let mut corpus_recordings: BTreeSet<String> =
-        paths.clusters()?.duplicates.into_iter().flatten().collect();
+    let mut corpus_recordings: BTreeSet<String> = harness
+        .clusters()?
+        .duplicates
+        .into_iter()
+        .flatten()
+        .collect();
     corpus_recordings.extend(
         LibraryMap::load(&map_file)?
             .copied()
@@ -189,6 +194,12 @@ pub fn recall_panel(
             .map(|path| format!("{SECOND_LIBRARY_PREFIX}{path}")),
     );
     let assets = current_sources(other, available_parallelism())?;
-    let panel = recall::Panel::for_seed(other, &assets, &corpus_recordings, seed, &paths.panels)?;
+    let panel = recall::Panel::for_seed(
+        other,
+        &assets,
+        &corpus_recordings,
+        seed,
+        &harness.paths.panels,
+    )?;
     Ok((panel, assets))
 }

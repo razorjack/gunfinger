@@ -121,7 +121,7 @@ impl SecondLibrary {
     pub fn open(root: &Path, peaks_dir: &Path) -> Result<SecondLibrary, String> {
         let library = Library::scan(root)
             .map_err(|error| error.to_string())
-            .and_then(crate::nothing_vanished)
+            .and_then(crate::harness::nothing_vanished)
             .map_err(|error| {
                 format!(
                     "cannot read the second library at {}: {error}",

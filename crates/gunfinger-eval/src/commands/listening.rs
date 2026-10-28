@@ -5,8 +5,8 @@ use std::path::{Path, PathBuf};
 
 use clap::Subcommand;
 
-use crate::Paths;
 use crate::files::{read_lines, stem_or};
+use crate::harness::Harness;
 use crate::{audition, pair_review};
 
 #[derive(clap::Args)]
@@ -39,13 +39,13 @@ pub struct QuestionsArgs {
     pub source: QuestionSource,
 }
 
-pub fn pair_review(paths: &Paths, args: PairReviewArgs) -> Result<(), String> {
+pub fn pair_review(harness: &Harness, args: PairReviewArgs) -> Result<(), String> {
     let PairReviewArgs { pack } = args;
-    let pack = pack.unwrap_or_else(|| paths.work.join("listening"));
+    let pack = pack.unwrap_or_else(|| harness.paths.work.join("listening"));
     let items = pair_review::items(&pack)?;
     let outcome = pair_review::review(
         &items,
-        &paths.verdicts,
+        &harness.paths.verdicts,
         &mut std::io::stdin().lock(),
         &mut std::io::stdout(),
         pair_review::ffplay,
@@ -60,13 +60,13 @@ pub fn pair_review(paths: &Paths, args: PairReviewArgs) -> Result<(), String> {
     if outcome.written > 0 {
         println!(
             "To apply them to the last clusters run:\n  {}",
-            pair_review::reuse_command(paths.other_peaks_dir.as_deref())
+            pair_review::reuse_command(harness.other.other_peaks_dir.as_deref())
         );
     }
     Ok(())
 }
 
-pub fn audition(paths: &Paths, args: AuditionArgs) -> Result<(), String> {
+pub fn audition(harness: &Harness, args: AuditionArgs) -> Result<(), String> {
     let AuditionArgs {
         files,
         answers,
@@ -74,25 +74,25 @@ pub fn audition(paths: &Paths, args: AuditionArgs) -> Result<(), String> {
         port,
     } = args;
     audition::server::serve(&audition::server::Options {
-        question_files: question_files(&paths.work, files)?,
-        answers: answers.unwrap_or_else(|| audition::answers::default_log(&paths.work)),
-        verdicts: paths.verdicts.clone(),
-        work: paths.work.clone(),
+        question_files: question_files(&harness.paths.work, files)?,
+        answers: answers.unwrap_or_else(|| audition::answers::default_log(&harness.paths.work)),
+        verdicts: harness.paths.verdicts.clone(),
+        work: harness.paths.work.clone(),
         open_browser: !no_open,
         port,
     })
 }
 
-pub fn questions(paths: &Paths, args: QuestionsArgs) -> Result<(), String> {
+pub fn questions(harness: &Harness, args: QuestionsArgs) -> Result<(), String> {
     let QuestionsArgs { source } = args;
-    let questions_dir = paths.work.join("audition").join("questions");
+    let questions_dir = harness.paths.work.join("audition").join("questions");
     let libraries = |roots: &SecondLibraryRoot| -> Result<audition::names::Libraries, String> {
         let absolute = |path: &Path| {
             std::path::absolute(path)
                 .map_err(|error| format!("cannot resolve {}: {error}", path.display()))
         };
         Ok(audition::names::Libraries {
-            corpus: absolute(&paths.corpus.join("library"))?,
+            corpus: absolute(&harness.paths.corpus.join("library"))?,
             second: absolute(&roots.second_library_root)?,
         })
     };
@@ -110,7 +110,7 @@ pub fn questions(paths: &Paths, args: QuestionsArgs) -> Result<(), String> {
                 .transpose()?
                 .unwrap_or_default();
             let file = audition::pack::questions(
-                &pack.unwrap_or_else(|| paths.work.join("listening")),
+                &pack.unwrap_or_else(|| harness.paths.work.join("listening")),
                 &plan,
                 &audition::pack::Reports::load(&pair_reports)?,
                 &libraries(&roots)?,
@@ -121,7 +121,7 @@ pub fn questions(paths: &Paths, args: QuestionsArgs) -> Result<(), String> {
             )
         }
         QuestionSource::Folders { plan, roots, out } => {
-            let envelopes = audition::audio::Envelopes::below(&paths.work);
+            let envelopes = audition::audio::Envelopes::below(&harness.paths.work);
             let file = audition::folders::questions(
                 &audition::folders::Plan::load(&plan)?,
                 &libraries(&roots)?,
@@ -137,7 +137,7 @@ pub fn questions(paths: &Paths, args: QuestionsArgs) -> Result<(), String> {
             )
         }
         QuestionSource::Detections { report, roots, out } => {
-            let envelopes = audition::audio::Envelopes::below(&paths.work);
+            let envelopes = audition::audio::Envelopes::below(&harness.paths.work);
             let file = audition::detections::questions(
                 &audition::detections::Report::load(&report)?,
                 &libraries(&roots)?,

@@ -10,9 +10,9 @@ use gunfinger_core::profile::Profile;
 use gunfinger_core::store::PeakStore;
 
 use super::recall::recall_panel;
-use crate::Paths;
 use crate::clusters::Clusters;
 use crate::files::write_json;
+use crate::harness::Harness;
 use crate::library_map::LibraryMap;
 use crate::manifest::Referable;
 use crate::padding::{SECOND_LIBRARY_PREFIX, current_sources};
@@ -62,7 +62,7 @@ pub struct ClustersArgs {
     pub reuse_pairs: Option<Option<PathBuf>>,
 }
 
-pub fn clusters(paths: &Paths, jobs: usize, args: ClustersArgs) -> Result<(), String> {
+pub fn clusters(harness: &Harness, jobs: usize, args: ClustersArgs) -> Result<(), String> {
     let ClustersArgs {
         from_peaks,
         sample,
@@ -85,7 +85,7 @@ pub fn clusters(paths: &Paths, jobs: usize, args: ClustersArgs) -> Result<(), St
     } else {
         clusters::Contradictions::Stop
     };
-    find_clusters(paths, from_peaks, &pairs, &extra, contradictions, jobs)
+    find_clusters(harness, from_peaks, &pairs, &extra, contradictions, jobs)
 }
 
 /// The other library's files a clusters run searches beside the corpus
@@ -112,13 +112,13 @@ impl ExtraQueries {
     /// Their names, `second-library/<path>`.
     fn files(
         &self,
-        paths: &Paths,
+        harness: &Harness,
         other: &PeakStore,
         referable: &Referable,
     ) -> Result<BTreeSet<String>, String> {
         let mut files = BTreeSet::new();
         for name in &self.manifests {
-            let set = manifest::load_set(&paths.sets(), name, referable)
+            let set = manifest::load_set(&harness.sets(), name, referable)
                 .map_err(|problems| format!("{name}: {}", problems.join("; ")))?;
             files.extend(
                 set.tracks
@@ -128,7 +128,7 @@ impl ExtraQueries {
             );
         }
         if let Some(seed) = self.recall_panel {
-            let (panel, _) = recall_panel(paths, other, seed)?;
+            let (panel, _) = recall_panel(harness, other, seed)?;
             files.extend(panel.searched_sources().map(|source| source.asset.clone()));
         }
         Ok(files)
@@ -136,15 +136,23 @@ impl ExtraQueries {
 }
 
 fn find_clusters(
-    paths: &Paths,
+    harness: &Harness,
     from_peaks: bool,
     pairs: &PairSource,
     extra: &ExtraQueries,
     contradictions: clusters::Contradictions,
     jobs: usize,
 ) -> Result<(), String> {
-    if let (Some(other), Some(map_file)) = (paths.other_store()?, paths.map_file()) {
-        return find_clusters_around(paths, &other, &map_file, pairs, extra, contradictions, jobs);
+    if let (Some(other), Some(map_file)) = (harness.other_store()?, harness.map_file()) {
+        return find_clusters_around(
+            harness,
+            &other,
+            &map_file,
+            pairs,
+            extra,
+            contradictions,
+            jobs,
+        );
     }
     if *pairs != PairSource::Search {
         return Err(String::from(
@@ -161,11 +169,11 @@ fn find_clusters(
     } else {
         clusters::Source::Audio
     };
-    let library = paths.library()?;
-    let verdicts = verdicts_on(paths, &clusters::Searched::corpus(&library))?;
+    let library = harness.library()?;
+    let verdicts = verdicts_on(harness, &clusters::Searched::corpus(&library))?;
     let clusters = clusters::find(
         &library,
-        &paths.store()?,
+        &harness.store()?,
         source,
         &verdicts,
         contradictions,
@@ -175,25 +183,29 @@ fn find_clusters(
     clusters::print_cut_links(&clusters);
     if from_peaks {
         write_json(
-            &paths
+            &harness
+                .paths
                 .work
                 .join("reports")
                 .join("duplicate-clusters-from-peaks.json"),
             &clusters,
         )?;
-        if let Ok(in_use) = paths.clusters() {
+        if let Ok(in_use) = harness.clusters() {
             clusters::print_differences("peaks", &clusters, "audio", &in_use);
         }
     } else {
-        write_json(&paths.clusters_file(), &clusters)?;
+        write_json(&harness.clusters_file(), &clusters)?;
     }
     Ok(())
 }
 
 /// The verdicts by ear on files the run searches; each other verdict is
 /// printed and adds nothing.
-fn verdicts_on(paths: &Paths, searched: &clusters::Searched) -> Result<clusters::Verdicts, String> {
-    let (verdicts, outside) = paths.verdicts()?.on(searched);
+fn verdicts_on(
+    harness: &Harness,
+    searched: &clusters::Searched,
+) -> Result<clusters::Verdicts, String> {
+    let (verdicts, outside) = harness.verdicts()?.on(searched);
     if !outside.is_empty() {
         println!(
             "{} verdicts name a file this run does not search; they add nothing:",
@@ -231,7 +243,7 @@ pub fn other_ignore_file(other: &PeakStore) -> Result<Option<clusters::IgnoreFil
 /// The corpus clusters with the other library's rips of the corpus
 /// recordings, which the evaluations against both libraries read.
 fn find_clusters_around(
-    paths: &Paths,
+    harness: &Harness,
     other: &PeakStore,
     map_file: &Path,
     source: &PairSource,
@@ -240,20 +252,20 @@ fn find_clusters_around(
     jobs: usize,
 ) -> Result<(), String> {
     let map = LibraryMap::load(map_file)?;
-    let corpus = paths.corpus_clusters()?;
+    let corpus = harness.corpus_clusters()?;
     let profile = Profile::CURRENT;
     let other_assets = current_sources(other, jobs)?;
-    let library = paths.library()?;
+    let library = harness.library()?;
     let searched =
         clusters::Searched::corpus(&library).with_other(&other_assets, other_ignore_file(other)?);
-    let verdicts = verdicts_on(paths, &searched)?;
+    let verdicts = verdicts_on(harness, &searched)?;
     let name = map
         .other_library
         .clone()
         .unwrap_or_else(|| other.dir().display().to_string());
     let copies = map.copied();
     if let PairSource::LastRun(report) = source {
-        let report = report.clone().unwrap_or_else(|| paths.clusters_file());
+        let report = report.clone().unwrap_or_else(|| harness.clusters_file());
         let last = Clusters::load(&report)?;
         let (pairs, dropped) = clusters::as_measured(last.pairs, &searched, &verdicts);
         println!(
@@ -262,7 +274,7 @@ fn find_clusters_around(
             report.display()
         );
         return write_merged(
-            paths,
+            harness,
             &corpus,
             pairs,
             &copies,
@@ -273,7 +285,7 @@ fn find_clusters_around(
     }
     if *source == PairSource::Search {
         check_verdicts_against_last_run(
-            paths,
+            harness,
             &corpus,
             &searched,
             &verdicts,
@@ -281,9 +293,9 @@ fn find_clusters_around(
             contradictions,
         )?;
     }
-    let (mut queries, _) = load_records(&library, &paths.store()?, &profile, &BTreeSet::new());
+    let (mut queries, _) = load_records(&library, &harness.store()?, &profile, &BTreeSet::new());
     let referable = Referable::corpus(&library).with_other(&other_assets, other.dir());
-    let extra_files = extra.files(paths, other, &referable)?;
+    let extra_files = extra.files(harness, other, &referable)?;
     let extra_queries = clusters::other_queries(other, &other_assets, &extra_files, &copies)?;
     println!(
         "{} queries: {} corpus files and {} of the other library's ({} named, the others copies of corpus files)",
@@ -307,7 +319,9 @@ fn find_clusters_around(
         )?;
         clusters::print_around(&corpus, &pairs, &copies);
         return write_json(
-            &paths.base_reports().join("duplicate-clusters-sample.json"),
+            &harness
+                .base_reports()
+                .join("duplicate-clusters-sample.json"),
             &pairs,
         );
     }
@@ -322,7 +336,7 @@ fn find_clusters_around(
     )?;
     let kept = pairs.clone();
     write_merged(
-        paths,
+        harness,
         &corpus,
         pairs,
         &copies,
@@ -331,7 +345,7 @@ fn find_clusters_around(
         contradictions,
     )
     .or_else(|error| {
-        let stopped = paths
+        let stopped = harness
             .library_reports()
             .join("duplicate-clusters-stopped.json");
         let unclustered = Clusters {
@@ -351,7 +365,7 @@ fn find_clusters_around(
 /// Prints what the pairs found, joins them to the corpus clusters with the
 /// verdicts applied, and writes the clusters in use.
 fn write_merged(
-    paths: &Paths,
+    harness: &Harness,
     corpus: &Clusters,
     pairs: Vec<clusters::Pair>,
     copies: &BTreeSet<String>,
@@ -362,11 +376,11 @@ fn write_merged(
     clusters::print_around(corpus, &pairs, copies);
     let merged = clusters::merged(corpus, pairs, verdicts, name, contradictions)?;
     clusters::print_cut_links(&merged);
-    write_json(&paths.clusters_file(), &merged)?;
+    write_json(&harness.clusters_file(), &merged)?;
     println!(
         "{} clusters with duplicates, written to {}",
         merged.duplicates.len(),
-        paths.clusters_file().display()
+        harness.clusters_file().display()
     );
     Ok(())
 }
@@ -375,14 +389,14 @@ fn write_merged(
 /// NAS) when the verdicts contradict the joins of the last run, which the
 /// new search would most likely find again.
 fn check_verdicts_against_last_run(
-    paths: &Paths,
+    harness: &Harness,
     corpus: &Clusters,
     searched: &clusters::Searched,
     verdicts: &clusters::Verdicts,
     name: &str,
     contradictions: clusters::Contradictions,
 ) -> Result<(), String> {
-    let Ok(last) = paths.clusters() else {
+    let Ok(last) = harness.clusters() else {
         return Ok(());
     };
     let (pairs, _) = clusters::as_measured(last.pairs, searched, verdicts);
@@ -391,7 +405,7 @@ fn check_verdicts_against_last_run(
         .map_err(|error| {
             format!(
                 "{error}\n(Checked against the pairs of the last run, {}, before searching again.)",
-                paths.clusters_file().display()
+                harness.clusters_file().display()
             )
         })
 }

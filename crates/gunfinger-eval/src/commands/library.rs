@@ -6,8 +6,8 @@ use std::path::PathBuf;
 
 use super::sweep::Copies;
 use crate::files::write_json;
+use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::padding::{Padding, current_sources};
-use crate::{Paths, UNCHANGED_INDEX};
 use crate::{fullest, hash_cost, library_map, manifest, related, stereo, survival};
 
 #[derive(clap::Args)]
@@ -49,56 +49,71 @@ pub struct FullestArgs {
     pub shared_by: Option<PathBuf>,
 }
 
-pub fn validate(paths: &Paths, args: ValidateArgs) -> Result<(), String> {
+pub fn validate(harness: &Harness, args: ValidateArgs) -> Result<(), String> {
     let ValidateArgs { set } = args;
     manifest::validate(
-        &paths.sets(),
+        &harness.sets(),
         set.as_deref(),
-        &paths.referable(&paths.library()?)?,
+        &harness.referable(&harness.library()?)?,
     )
 }
 
-pub fn survival(paths: &Paths, args: SurvivalArgs) -> Result<(), String> {
+pub fn survival(harness: &Harness, args: SurvivalArgs) -> Result<(), String> {
     let SurvivalArgs { assets } = args;
-    survival::run(&paths.library()?, &paths.store()?, &assets, &paths.work)
+    survival::run(
+        &harness.library()?,
+        &harness.store()?,
+        &assets,
+        &harness.paths.work,
+    )
 }
 
-pub fn hash_cost(paths: &Paths, jobs: usize, args: HashCostArgs) -> Result<(), String> {
+pub fn hash_cost(harness: &Harness, jobs: usize, args: HashCostArgs) -> Result<(), String> {
     let HashCostArgs { seed } = args;
     hash_cost::run(
-        &paths.library()?,
-        &paths.store()?,
-        &paths.clusters()?,
+        &harness.library()?,
+        &harness.store()?,
+        &harness.clusters()?,
         seed,
-        &paths.panels,
-        &paths.work,
+        &harness.paths.panels,
+        &harness.paths.work,
         jobs,
     )
 }
 
-pub fn map_library(paths: &Paths, jobs: usize) -> Result<(), String> {
-    let (Some(other), Some(map_file)) = (paths.other_store()?, paths.map_file()) else {
+pub fn map_library(harness: &Harness, jobs: usize) -> Result<(), String> {
+    let (Some(other), Some(map_file)) = (harness.other_store()?, harness.map_file()) else {
         return Err(String::from("map-library needs --other-peaks-dir"));
     };
     let other_assets = current_sources(&other, jobs)?;
-    let map = library_map::build(&paths.library()?, &paths.store()?, &other, &other_assets)?;
+    let map = library_map::build(
+        &harness.library()?,
+        &harness.store()?,
+        &other,
+        &other_assets,
+    )?;
     write_json(&map_file, &map)?;
     library_map::print_summary(&map);
     Ok(())
 }
 
-pub fn related(paths: &Paths, jobs: usize) -> Result<(), String> {
-    let related = related::find(&paths.library()?, &paths.store()?, &paths.clusters()?, jobs)?;
-    write_json(&paths.reports().join("related-recordings.json"), &related)?;
+pub fn related(harness: &Harness, jobs: usize) -> Result<(), String> {
+    let related = related::find(
+        &harness.library()?,
+        &harness.store()?,
+        &harness.clusters()?,
+        jobs,
+    )?;
+    write_json(&harness.reports().join("related-recordings.json"), &related)?;
     related::print_summary(&related);
     Ok(())
 }
 
-pub fn stereo_width(paths: &Paths, jobs: usize, args: StereoWidthArgs) -> Result<(), String> {
+pub fn stereo_width(harness: &Harness, jobs: usize, args: StereoWidthArgs) -> Result<(), String> {
     let StereoWidthArgs { seed, sample } = args;
-    let report = stereo::sample_widths(&paths.library()?, &paths.store()?, seed, sample, jobs)?;
+    let report = stereo::sample_widths(&harness.library()?, &harness.store()?, seed, sample, jobs)?;
     write_json(
-        &paths
+        &harness
             .reports()
             .join(format!("stereo-width-seed-{seed}.json")),
         &report,
@@ -107,7 +122,7 @@ pub fn stereo_width(paths: &Paths, jobs: usize, args: StereoWidthArgs) -> Result
     Ok(())
 }
 
-pub fn fullest(paths: &Paths, args: FullestArgs) -> Result<(), String> {
+pub fn fullest(harness: &Harness, args: FullestArgs) -> Result<(), String> {
     let FullestArgs {
         share,
         copies,
@@ -121,17 +136,17 @@ pub fn fullest(paths: &Paths, args: FullestArgs) -> Result<(), String> {
         None => Vec::new(),
     };
     let report = fullest::run(
-        &paths.library()?,
-        &paths.store()?,
+        &harness.library()?,
+        &harness.store()?,
         &Padding {
             exact: copies.exact()?,
-            ..paths.padding(&UNCHANGED_INDEX)?
+            ..harness.padding(&UNCHANGED_INDEX)?
         },
         share,
         &pairs,
     )?;
     write_json(
-        &paths
+        &harness
             .base_reports()
             .join(format!("fullest-{share}{}.json", copies.suffix())),
         &report,
