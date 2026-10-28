@@ -25,6 +25,7 @@
 //! library are `shared`'s.
 
 use std::collections::BTreeSet;
+use std::fmt;
 use std::time::Duration;
 
 use gunfinger_core::decode::{Excerpt, decode};
@@ -39,6 +40,7 @@ use serde::{Deserialize, Serialize};
 use crate::padding::SECOND_LIBRARY_PREFIX;
 use crate::pair::{Records, Sources};
 use crate::render::{Playback, render_samples_as_indexed};
+use crate::scoring::Level;
 use crate::shared::Roots;
 use crate::verifier::{CHANCE_SHIFTS_SECONDS, Verifier};
 
@@ -104,12 +106,34 @@ pub struct Measured {
     pub without_record: Vec<String>,
 }
 
+/// How a compared file relates to the shared passage's two recordings.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize)]
+pub enum Role {
+    /// The related file itself.
+    #[serde(rename = "related")]
+    Related,
+    /// Another file of the related recording.
+    #[serde(rename = "related rip")]
+    RelatedRip,
+    /// Another file of the played recording.
+    #[serde(rename = "rip")]
+    Rip,
+}
+
+impl fmt::Display for Role {
+    fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        formatter.pad(match self {
+            Role::Related => "related",
+            Role::RelatedRip => "related rip",
+            Role::Rip => "rip",
+        })
+    }
+}
+
 #[derive(Serialize)]
 pub struct Compared {
     pub file: String,
-    /// `related`, `related rip` for another file of the related
-    /// recording, or `rip` for another file of the played recording.
-    pub role: String,
+    pub role: Role,
     /// X's strongest detection in the passage, if any.
     pub found: Option<Found>,
 }
@@ -118,7 +142,7 @@ pub struct Compared {
 pub struct Found {
     pub hits: u32,
     pub windows: u32,
-    pub level: String,
+    pub level: Level,
     pub hits_per_second: f64,
     pub speed: f64,
     pub key_locked: bool,
@@ -150,18 +174,18 @@ pub fn run(panel: &Panel, half: &str, sources: &Sources, roots: &Roots) -> Resul
             };
             let played = recording_of(&direction.played)?;
             let related = recording_of(&direction.related)?;
-            let mut files = vec![(direction.related.clone(), "related")];
+            let mut files = vec![(direction.related.clone(), Role::Related)];
             files.extend(
                 related
                     .iter()
                     .filter(|file| **file != direction.related)
-                    .map(|file| (file.clone(), "related rip")),
+                    .map(|file| (file.clone(), Role::RelatedRip)),
             );
             files.extend(
                 played
                     .iter()
                     .filter(|file| **file != direction.played)
-                    .map(|file| (file.clone(), "rip")),
+                    .map(|file| (file.clone(), Role::Rip)),
             );
             // Without the other store, its files go on to `record`, which
             // says that the run needs --other-peaks-dir.
@@ -190,7 +214,7 @@ pub fn run(panel: &Panel, half: &str, sources: &Sources, roots: &Roots) -> Resul
                     Ok(Compared {
                         found: measure(&record, &file, &passage_audio.samples, roots)?,
                         file,
-                        role: role.to_owned(),
+                        role,
                     })
                 })
                 .collect::<Result<Vec<_>, String>>()?;
@@ -216,9 +240,9 @@ pub fn run(panel: &Panel, half: &str, sources: &Sources, roots: &Roots) -> Resul
 /// without one, so that a file pruned since the panel was drawn is
 /// reported instead of stopping the run.
 fn with_records(
-    files: Vec<(String, &'static str)>,
+    files: Vec<(String, Role)>,
     holds: &dyn Fn(&str) -> bool,
-) -> (Vec<(String, &'static str)>, Vec<String>) {
+) -> (Vec<(String, Role)>, Vec<String>) {
     let (kept, missing): (Vec<_>, Vec<_>) = files.into_iter().partition(|(file, _)| holds(file));
     (kept, missing.into_iter().map(|(file, _)| file).collect())
 }
@@ -261,7 +285,7 @@ fn measure(
     Ok(Some(Found {
         hits: best.evidence.hits,
         windows: best.evidence.windows,
-        level: format!("{:?}", best.evidence.confidence()).to_lowercase(),
+        level: best.evidence.confidence().into(),
         hits_per_second: f64::from(best.evidence.hits) / seconds,
         speed: best.speed.0,
         key_locked: best.playback == speed::Playback::KeyLocked,
@@ -434,11 +458,7 @@ pub fn print_summary(report: &Report) {
             direction.passage_start_seconds,
             direction.passage_end_seconds
         );
-        let roles: BTreeSet<&str> = direction
-            .files
-            .iter()
-            .map(|file| file.role.as_str())
-            .collect();
+        let roles: BTreeSet<Role> = direction.files.iter().map(|file| file.role).collect();
         for role in roles {
             for compared in direction.files.iter().filter(|file| file.role == role) {
                 match &compared.found {
@@ -468,19 +488,27 @@ mod tests {
     use super::*;
 
     #[test]
+    fn roles_are_written_as_the_reports_spell_them() {
+        assert_eq!(
+            serde_json::to_value([Role::Related, Role::RelatedRip, Role::Rip]).ok(),
+            Some(serde_json::json!(["related", "related rip", "rip"]))
+        );
+    }
+
+    #[test]
     fn a_file_without_a_record_is_listed_apart_and_the_others_kept_in_order() {
         let files = vec![
-            (String::from("second-library/pruned.m4a"), "related"),
-            (String::from("related-rip.mp3"), "related rip"),
-            (String::from("rip.mp3"), "rip"),
+            (String::from("second-library/pruned.m4a"), Role::Related),
+            (String::from("related-rip.mp3"), Role::RelatedRip),
+            (String::from("rip.mp3"), Role::Rip),
         ];
         let (kept, without_record) =
             with_records(files, &|file| file != "second-library/pruned.m4a");
         assert_eq!(
             kept,
             vec![
-                (String::from("related-rip.mp3"), "related rip"),
-                (String::from("rip.mp3"), "rip"),
+                (String::from("related-rip.mp3"), Role::RelatedRip),
+                (String::from("rip.mp3"), Role::Rip),
             ]
         );
         assert_eq!(

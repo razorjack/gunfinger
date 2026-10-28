@@ -32,7 +32,8 @@ use crate::matching::Matching;
 use crate::padding::Padding;
 
 /// The last phase to run.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, ValueEnum)]
+#[serde(rename_all = "lowercase")]
 pub enum Phase {
     /// The library's peak records in memory.
     Loaded,
@@ -41,6 +42,16 @@ pub enum Phase {
     Built,
     /// The query decoded and searched.
     Searched,
+}
+
+impl Phase {
+    pub fn name(self) -> &'static str {
+        match self {
+            Phase::Loaded => "loaded",
+            Phase::Built => "built",
+            Phase::Searched => "searched",
+        }
+    }
 }
 
 pub struct Options<'a> {
@@ -80,7 +91,7 @@ pub struct MemoryReport {
 /// alive at that moment occupy (struct sizes times counts).
 #[derive(Serialize)]
 pub struct PhaseRow {
-    pub phase: String,
+    pub phase: Phase,
     pub seconds: f64,
     pub resident_bytes: u64,
     /// Peak records: `Peak`s.
@@ -184,7 +195,7 @@ pub fn run(
 
 fn row(phase: Phase, started: Instant, records_bytes: u64, index_bytes: u64) -> PhaseRow {
     PhaseRow {
-        phase: format!("{phase:?}").to_lowercase(),
+        phase,
         seconds: started.elapsed().as_secs_f64(),
         resident_bytes: resident_bytes().unwrap_or(0),
         records_bytes,
@@ -231,7 +242,7 @@ pub fn print_summary(report: &MemoryReport) {
     for phase in &report.phases {
         println!(
             "{:<9} {:>8.1} {:>11.0} {:>10.0} {:>10.0}",
-            phase.phase,
+            phase.phase.name(),
             phase.seconds,
             megabytes(phase.resident_bytes),
             megabytes(phase.records_bytes),

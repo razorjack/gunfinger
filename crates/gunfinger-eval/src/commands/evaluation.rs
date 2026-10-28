@@ -220,23 +220,21 @@ pub fn memory(harness: &Harness, jobs: usize, args: MemoryArgs) -> Result<(), St
             jobs,
         },
     )?;
+    let library = harness
+        .other_name()
+        .map_or_else(String::new, |name| format!("-library-{name}"));
     let matcher = harness
         .search
         .matching
         .name()
         .map_or_else(String::new, |name| format!("-{name}"));
-    write_json(
-        &harness.paths.work.join("memory").join(format!(
-            "memory{}{}-jobs-{jobs}-until-{}{matcher}{}.json",
-            harness
-                .other_name()
-                .map_or_else(String::new, |name| format!("-library-{name}")),
-            variant.suffix(),
-            format!("{until:?}").to_lowercase(),
-            if count_lines { "-lines" } else { "" }
-        )),
-        &report,
-    )?;
+    let lines = if count_lines { "-lines" } else { "" };
+    let name = format!(
+        "memory{library}{}-jobs-{jobs}-until-{}{matcher}{lines}.json",
+        variant.suffix(),
+        until.name()
+    );
+    write_json(&harness.paths.work.join("memory").join(name), &report)?;
     memory::print_summary(&report);
     Ok(())
 }

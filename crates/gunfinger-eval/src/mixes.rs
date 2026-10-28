@@ -31,7 +31,7 @@ use crate::render::{
 };
 use crate::rng::Rng;
 use crate::robust::{Fault, faulted};
-use crate::scoring::evidence;
+use crate::scoring::{Level, evidence};
 use crate::shared::Roots;
 use crate::sweep::Plan;
 use crate::tempo::{Structure, beat_period, onset_envelope};
@@ -505,7 +505,7 @@ pub struct PlayScore {
     pub truth: PlannedPlay,
     /// `confident`, `possible`, `weak` or `none`: the strongest matching
     /// detection's level.
-    pub level: String,
+    pub level: Level,
     pub best: Option<MixFound>,
     /// Over the matching detections that are at least possible: how much
     /// later than the first audible sample they start, and how much earlier
@@ -612,12 +612,9 @@ fn score_play(play: &PlannedPlay, matching: &[&MixFound]) -> PlayScore {
         .iter()
         .max_by_key(|detection| detection.hits)
         .map(|detection| (*detection).clone());
-    let level = match best.as_ref().map(MixFound::confidence) {
-        Some(Confidence::Confident) => "confident",
-        Some(Confidence::Possible) => "possible",
-        Some(Confidence::Weak) => "weak",
-        None => "none",
-    };
+    let level = best
+        .as_ref()
+        .map_or(Level::None, |detection| detection.confidence().into());
     let shown: Vec<&&MixFound> = matching
         .iter()
         .filter(|detection| detection.confidence() >= Confidence::Possible)
@@ -632,7 +629,7 @@ fn score_play(play: &PlannedPlay, matching: &[&MixFound]) -> PlayScore {
         .reduce(f64::max);
     PlayScore {
         truth: play.clone(),
-        level: level.to_owned(),
+        level,
         position_error_seconds: best.as_ref().map(|detection| {
             detection.track_start_seconds - play.source_at(detection.start_seconds)
         }),
@@ -1675,7 +1672,7 @@ pub fn print_summary(report: &MixesReport, kind: MixKind) {
         .flat_map(|result| &result.score.plays)
         .collect();
     let indexed: Vec<&&PlayScore> = plays.iter().filter(|play| !play.truth.held_out).collect();
-    let count = |level: &str| indexed.iter().filter(|play| play.level == level).count();
+    let count = |level: Level| indexed.iter().filter(|play| play.level == level).count();
     println!(
         "generated mixes, seed {}, {} ladder: {} mixes, {} plays of indexed tracks, {} of held-out ones",
         report.seed,
@@ -1686,10 +1683,10 @@ pub fn print_summary(report: &MixesReport, kind: MixKind) {
     );
     println!(
         "indexed plays: {} confident, {} possible, {} weak, {} not found",
-        count("confident"),
-        count("possible"),
-        count("weak"),
-        count("none")
+        count(Level::Confident),
+        count(Level::Possible),
+        count(Level::Weak),
+        count(Level::None)
     );
     let wrong: usize = report
         .mixes
@@ -1727,7 +1724,10 @@ pub fn print_summary(report: &MixesReport, kind: MixKind) {
                 (low..high).contains(&seconds)
             })
             .collect();
-        let confident = here.iter().filter(|play| play.level == "confident").count();
+        let confident = here
+            .iter()
+            .filter(|play| play.level == Level::Confident)
+            .count();
         println!(
             "  plays of {low:.0}-{:.0} s: {confident}/{} confident",
             high.min(longest),
@@ -2347,11 +2347,11 @@ mod tests {
 
         let score = score(&mix, &found, &clusters, &SameTitles::default());
 
-        assert_eq!(score.plays[0].level, "confident");
+        assert_eq!(score.plays[0].level, Level::Confident);
         assert_eq!(score.plays[0].start_late_seconds, Some(2.0));
         assert_eq!(score.plays[0].end_early_seconds, Some(2.0));
         assert!(score.plays[0].position_error_seconds.unwrap().abs() < 1e-9);
-        assert_eq!(score.plays[1].level, "none");
+        assert_eq!(score.plays[1].level, Level::None);
         assert_eq!(score.wrong_confident, [found[2].clone()]);
         assert_eq!(score.false_candidates.len(), 2);
     }
@@ -2378,7 +2378,7 @@ mod tests {
 
         let score = score(&mix, &found, &clusters, &titles);
 
-        assert_eq!(score.plays[1].level, "confident");
+        assert_eq!(score.plays[1].level, Level::Confident);
         assert_eq!(score.same_title, 1);
         assert_eq!(score.wrong_confident, [found[1].clone()]);
     }

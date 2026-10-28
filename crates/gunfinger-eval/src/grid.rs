@@ -27,7 +27,7 @@ use crate::mixes::{
     MixFound, PlannedMix, PlannedPlay, Pools, Searcher, draw_unused, search_mix, sweep_index,
 };
 use crate::rng::Rng;
-use crate::scoring::evidence;
+use crate::scoring::{Level, evidence};
 use crate::shared::Roots;
 use crate::titles::SameTitles;
 use crate::verifier::Verifier;
@@ -75,7 +75,7 @@ pub struct GridQuery {
     pub offset_seconds: u32,
     /// The brief play's level under the frozen rule: `confident`,
     /// `possible`, `weak` or `none`.
-    pub level: String,
+    pub level: Level,
     /// Detections of the brief play's cluster, or of a file judged to
     /// carry its title, that overlap it.
     pub matching: Vec<MixFound>,
@@ -159,7 +159,7 @@ pub fn run(
                 brief: *number,
                 seconds: *seconds,
                 offset_seconds: *offset,
-                level: brief.level.clone(),
+                level: brief.level,
                 matching: matching_the_play(
                     &result.detections,
                     &brief.truth,
@@ -339,7 +339,7 @@ pub fn print_summary(report: &GridReport) {
             .collect();
         let possible = here
             .iter()
-            .filter(|query| matches!(query.level.as_str(), "possible" | "confident"))
+            .filter(|query| query.level >= Level::Possible)
             .count();
         print!("{seconds:>6.0}s {possible:>5}/{:<4}", here.len());
         for (_, rule) in &rules {

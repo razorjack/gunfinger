@@ -6,6 +6,7 @@
 //! go to the answer log only, as evaluation ground truth: the product
 //! reads no answers and reports are never edited (ADR 0017).
 
+use std::fmt;
 use std::path::{Path, PathBuf};
 
 use gunfinger_core::timecode::format_seconds;
@@ -18,6 +19,7 @@ use crate::audition::schema::{
     SCHEMA_VERSION, Span, Timeline,
 };
 use crate::files::read_json;
+use crate::scoring::Level;
 
 /// Seconds of the mix shown before and after a play.
 const MARGIN_SECONDS: f64 = 30.0;
@@ -46,14 +48,31 @@ pub struct Play {
     pub asset: String,
     pub start_seconds: f64,
     pub end_seconds: f64,
-    pub confidence: String,
+    pub confidence: Level,
     pub hits: u32,
     pub windows: u32,
-    pub playback: String,
+    pub playback: Playback,
     pub speed: f64,
     pub segments: Vec<Segment>,
     #[serde(default)]
     pub tags: Tags,
+}
+
+/// How a play was played, as the report spells it.
+#[derive(Debug, Clone, Copy, PartialEq, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum Playback {
+    Turntable,
+    KeyLocked,
+}
+
+impl fmt::Display for Playback {
+    fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        formatter.pad(match self {
+            Playback::Turntable => "turntable",
+            Playback::KeyLocked => "key-locked",
+        })
+    }
 }
 
 #[derive(Debug, Deserialize)]
@@ -62,7 +81,7 @@ pub struct Segment {
     pub end_seconds: f64,
     pub track_start_seconds: f64,
     pub speed: f64,
-    pub confidence: String,
+    pub confidence: Level,
     pub hits: u32,
     pub windows: u32,
 }
@@ -202,7 +221,7 @@ fn question(
             format_seconds(play.end_seconds)
         ),
     ];
-    if play.playback != "turntable" {
+    if play.playback == Playback::KeyLocked {
         details.push(String::from(
             "Played key-locked: speed matching here changes the track's pitch with its tempo, which the mix did not",
         ));

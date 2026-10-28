@@ -14,6 +14,7 @@
 //! possible play that matches no track is a false alarm of that tier.
 
 use std::collections::BTreeSet;
+use std::fmt;
 
 use gunfinger_core::confidence::{Confidence, Evidence, Pass};
 use serde::{Deserialize, Serialize};
@@ -22,6 +23,38 @@ use crate::clusters::Clusters;
 use crate::manifest::{Set, Track};
 use crate::titles::SameTitles;
 use crate::verifier::Verification;
+
+/// A detection's confidence as the harness's reports write it; `none`
+/// where no detection matched a play.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum Level {
+    None,
+    Weak,
+    Possible,
+    Confident,
+}
+
+impl From<Confidence> for Level {
+    fn from(confidence: Confidence) -> Level {
+        match confidence {
+            Confidence::Weak => Level::Weak,
+            Confidence::Possible => Level::Possible,
+            Confidence::Confident => Level::Confident,
+        }
+    }
+}
+
+impl fmt::Display for Level {
+    fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        formatter.pad(match self {
+            Level::None => "none",
+            Level::Weak => "weak",
+            Level::Possible => "possible",
+            Level::Confident => "confident",
+        })
+    }
+}
 
 /// Manifest start times are approximate and neighbouring tracks overlap.
 pub const TOLERANCE_SECONDS: f64 = 90.0;
@@ -395,6 +428,21 @@ mod tests {
                 ..found(asset, start, end, false)
             }],
         }
+    }
+
+    #[test]
+    fn levels_are_written_as_the_reports_spell_them() {
+        let levels = [Level::None, Level::Weak, Level::Possible, Level::Confident];
+        let written = serde_json::to_value(levels).ok();
+
+        assert_eq!(
+            written,
+            Some(serde_json::json!(["none", "weak", "possible", "confident"]))
+        );
+        assert_eq!(
+            written.and_then(|value| serde_json::from_value::<[Level; 4]>(value).ok()),
+            Some(levels)
+        );
     }
 
     #[test]

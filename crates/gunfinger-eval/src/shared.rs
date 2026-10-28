@@ -50,6 +50,7 @@ use crate::padding::{Padding, SECOND_LIBRARY_PREFIX};
 use crate::render::{
     Encoding, Playback, RENDER_RATE, encode, limited, render_excerpt, render_samples, rms,
 };
+use crate::scoring::Level;
 use crate::verifier::{Verification, Verifier};
 
 const ALONE_SECONDS: [f64; 3] = [10.0, 20.0, 30.0];
@@ -112,8 +113,7 @@ pub struct SharedReport {
 #[derive(Serialize)]
 pub struct QueryResult {
     pub scenario: String,
-    /// `alone`, `looped`, `beyond`, `before`, `weak`, `blend` or `break`.
-    pub kind: String,
+    pub kind: Kind,
     pub query: String,
     pub seconds: f64,
     /// Where the query starts in the played file.
@@ -128,12 +128,21 @@ pub struct QueryResult {
     pub detections: Vec<SharedFound>,
 }
 
+/// Whose a detection is: the played recording's files, the related
+/// recording's, the blend partner's cluster, or anything else.
+#[derive(Clone, Copy, Debug, PartialEq, Serialize)]
+#[serde(rename_all = "lowercase")]
+pub enum Role {
+    Played,
+    Related,
+    Partner,
+    Other,
+}
+
 #[derive(Serialize)]
 pub struct SharedFound {
     pub asset: String,
-    /// `played` (the played recording's files), `related` (the related
-    /// recording's), `partner` (the blend partner's cluster) or `other`.
-    pub role: String,
+    pub role: Role,
     pub start_seconds: f64,
     pub end_seconds: f64,
     /// Where the detection lies in the file, for a later lookup of the
@@ -143,15 +152,16 @@ pub struct SharedFound {
     pub speed: f64,
     pub windows: u32,
     pub hits: u32,
-    pub level: String,
+    pub level: Level,
     /// Counted by the second pass (`Pass::Fitted`).
     pub fitted: bool,
     pub verified: Option<Verification>,
 }
 
 /// How a query is cut from the played file.
-#[derive(Clone, Copy, Debug, PartialEq)]
-enum Kind {
+#[derive(Clone, Copy, Debug, PartialEq, Serialize)]
+#[serde(rename_all = "lowercase")]
+pub enum Kind {
     Alone,
     Looped,
     Beyond,
@@ -159,20 +169,6 @@ enum Kind {
     Weak,
     Blend,
     Break,
-}
-
-impl Kind {
-    fn name(self) -> &'static str {
-        match self {
-            Kind::Alone => "alone",
-            Kind::Looped => "looped",
-            Kind::Beyond => "beyond",
-            Kind::Before => "before",
-            Kind::Weak => "weak",
-            Kind::Blend => "blend",
-            Kind::Break => "break",
-        }
-    }
 }
 
 /// A query to render: where in the played file, how long, looped or not.
@@ -253,7 +249,7 @@ pub fn run(
                     let result =
                         |error: Option<String>, detections: Vec<SharedFound>| QueryResult {
                             scenario: scenario.name.clone(),
-                            kind: query.kind.name().to_owned(),
+                            kind: query.kind,
                             query: query.name.clone(),
                             seconds: query.seconds,
                             start_seconds: query.start_seconds,
@@ -282,17 +278,17 @@ pub fn run(
                             .map(|detection| {
                                 let asset = &index.asset(detection.asset).path;
                                 let role = if played.contains(asset) {
-                                    "played"
+                                    Role::Played
                                 } else if related.contains(asset) {
-                                    "related"
+                                    Role::Related
                                 } else if partner.contains(asset) {
-                                    "partner"
+                                    Role::Partner
                                 } else {
-                                    "other"
+                                    Role::Other
                                 };
                                 SharedFound {
                                     asset: asset.clone(),
-                                    role: role.to_owned(),
+                                    role,
                                     start_seconds: detection.start_seconds,
                                     end_seconds: detection.end_seconds,
                                     track_start_seconds: detection.track_start_seconds,
@@ -300,8 +296,7 @@ pub fn run(
                                     speed: detection.speed.0,
                                     windows: detection.evidence.windows,
                                     hits: detection.evidence.hits,
-                                    level: format!("{:?}", detection.evidence.confidence())
-                                        .to_lowercase(),
+                                    level: detection.evidence.confidence().into(),
                                     fitted: detection.evidence.pass == Pass::Fitted,
                                     verified: verifier.verify(
                                         &index,
@@ -571,7 +566,7 @@ fn fnv1a(bytes: &[u8]) -> u64 {
 
 pub fn print_summary(report: &SharedReport) {
     for result in &report.results {
-        let strongest = |role: &str| {
+        let strongest = |role: Role| {
             result
                 .detections
                 .iter()
@@ -595,9 +590,9 @@ pub fn print_summary(report: &SharedReport) {
             "{:<28} {:<16} played {:<40} related {:<40} other {}",
             result.query,
             result.index,
-            strongest("played"),
-            strongest("related"),
-            strongest("other")
+            strongest(Role::Played),
+            strongest(Role::Related),
+            strongest(Role::Other)
         );
     }
 }

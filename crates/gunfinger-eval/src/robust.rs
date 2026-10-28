@@ -31,6 +31,7 @@ use crate::render::{
     render_stereo_samples, rms,
 };
 use crate::rng::Rng;
+use crate::scoring::Level;
 use crate::stereo::{QueryChannels, decode_stereo, side_to_mid_db};
 use crate::sweep::{Draw, EXCERPT_SECONDS, Plan};
 use crate::tempo::{ENVELOPE_RATE, beat_period, best_lag, onset_envelope};
@@ -412,7 +413,7 @@ pub struct StereoQuery {
 #[derive(Serialize, Deserialize)]
 pub struct WrongFound {
     pub asset: String,
-    pub level: String,
+    pub level: Level,
     pub hits: u32,
     pub windows: u32,
 }
@@ -421,12 +422,10 @@ pub struct WrongFound {
 #[derive(Serialize, Deserialize)]
 pub struct RobustFound {
     pub asset: String,
-    /// `own` (the excerpt's cluster), `partner` (the blended track's) or
-    /// `other`.
-    pub role: String,
+    pub role: Role,
     pub windows: u32,
     pub hits: u32,
-    pub level: String,
+    pub level: Level,
     pub speed: f64,
     pub verified: Option<Verification>,
 }
@@ -579,10 +578,10 @@ pub fn run(
             if let Some(verifier) = &verifier {
                 result.verified.push(RobustFound {
                     asset: asset.clone(),
-                    role: role.name().to_owned(),
+                    role,
                     windows: detection.evidence.windows,
                     hits: detection.evidence.hits,
-                    level: format!("{:?}", detection.evidence.confidence()).to_lowercase(),
+                    level: detection.evidence.confidence().into(),
                     speed: detection.speed.0,
                     verified: verifier.verify(&index, detection, &samples, &profile),
                 });
@@ -618,8 +617,9 @@ pub fn run(
 /// What a detected file is to a query: the excerpt's own recording, a file
 /// judged to carry its title (ADR 0022), the recording played beneath it,
 /// or anything else.
-#[derive(Clone, Copy, Debug, PartialEq)]
-enum Role {
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum Role {
     Own,
     SameTitle,
     Partner,
@@ -641,15 +641,6 @@ impl Role {
             Role::Partner
         } else {
             Role::Other
-        }
-    }
-
-    fn name(self) -> &'static str {
-        match self {
-            Role::Own => "own",
-            Role::SameTitle => "same-title",
-            Role::Partner => "partner",
-            Role::Other => "other",
         }
     }
 }
@@ -693,7 +684,7 @@ fn count(
             }
             (level >= Confidence::Possible).then(|| WrongFound {
                 asset: asset.to_owned(),
-                level: format!("{level:?}").to_lowercase(),
+                level: level.into(),
                 hits: detection.evidence.hits,
                 windows: detection.evidence.windows,
             })
@@ -1282,7 +1273,7 @@ mod tests {
         .unwrap();
 
         assert_eq!((wrong.asset.as_str(), wrong.hits), ("unrelated.mp3", 600));
-        assert_eq!(wrong.level, "confident");
+        assert_eq!(wrong.level, Level::Confident);
         assert_eq!((result.wrong_confident, result.same_title), (1, 0));
         assert_eq!(result.strongest_wrong_hits, 600);
     }
