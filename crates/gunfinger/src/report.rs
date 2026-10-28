@@ -474,42 +474,41 @@ const SAME_RECORDING_SECONDS: f64 = 5.0;
 /// compared, and files without a title tag are left out, as their names
 /// are not read for titles.
 fn mark_other_titles(plays: &mut [FoundPlay]) {
-    let marks: Vec<Vec<OtherTitle>> = plays
-        .iter()
-        .map(|play| {
-            let Some(own) = play.compared_title() else {
-                return Vec::new();
-            };
-            plays
-                .iter()
-                .enumerate()
-                .filter(|(_, other)| {
-                    other.confidence == Level::Confident && play.same_recording(other)
-                })
-                .flat_map(|(index, other)| {
-                    other
-                        .tagged_files()
-                        .filter(|(asset, tags)| {
-                            *asset != play.asset
-                                && compared_title(tags).is_some_and(|title| title != own)
-                        })
-                        .map(|(asset, tags)| OtherTitle {
-                            play: index + 1,
-                            asset: asset.to_owned(),
-                            title: TrackName::named(
-                                tags.artist.as_deref(),
-                                tags.title.as_deref(),
-                                asset,
-                            )
-                            .full(),
-                        })
-                        .collect::<Vec<_>>()
-                })
-                .collect()
-        })
-        .collect();
+    let marks: Vec<Vec<OtherTitle>> = plays.iter().map(|play| play.other_titles(plays)).collect();
     for (play, mark) in plays.iter_mut().zip(marks) {
         play.other_titles = mark;
+    }
+}
+
+impl FoundPlay {
+    /// The files of the confident plays of `plays` that are this play's
+    /// recording and whose tags give another title than its own; none when
+    /// it has no title tag.
+    fn other_titles(&self, plays: &[FoundPlay]) -> Vec<OtherTitle> {
+        let Some(own) = self.compared_title() else {
+            return Vec::new();
+        };
+        let mut found = Vec::new();
+        for (index, other) in plays.iter().enumerate() {
+            if other.confidence != Level::Confident || !self.same_recording(other) {
+                continue;
+            }
+            for (asset, tags) in other.tagged_files() {
+                if asset != self.asset && compared_title(tags).is_some_and(|title| title != own) {
+                    found.push(OtherTitle {
+                        play: index + 1,
+                        asset: asset.to_owned(),
+                        title: TrackName::named(
+                            tags.artist.as_deref(),
+                            tags.title.as_deref(),
+                            asset,
+                        )
+                        .full(),
+                    });
+                }
+            }
+        }
+        found
     }
 }
 
