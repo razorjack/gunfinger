@@ -5,6 +5,7 @@ use std::path::{Path, PathBuf};
 
 use crate::files::{read_json, write_json};
 use crate::harness::Harness;
+use crate::mixes::{DropsOptions, KindOptions, MixKind};
 use crate::{grid, mixes, robust};
 
 #[derive(clap::Args)]
@@ -17,7 +18,7 @@ pub struct MixesArgs {
     /// with runs of 1-4 held-out tracks between indexed ones (report
     /// `mixes-long-seed-<seed>.json`).
     #[arg(long, value_enum, default_value = "short")]
-    pub kind: mixes::MixKind,
+    pub kind: MixKind,
     /// The other library's root, where the shared kind finds the
     /// shared-material panel's files under `second-library/`.
     #[arg(long)]
@@ -83,17 +84,29 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
         aligned_drops,
         stereo_fault,
     } = args;
-    if aligned_drops && kind != mixes::MixKind::Drops {
+    if aligned_drops && kind != MixKind::Drops {
         return Err(String::from("--aligned-drops applies to --kind drops only"));
     }
     let rides = ride_draw(kind, &ride_change, &ride_seconds, ride_direction)?;
     let stereo_fault = stereo_fault
         .map(|name| match kind {
-            mixes::MixKind::Short => robust::stereo_fault(&name),
+            MixKind::Short => robust::stereo_fault(&name),
             _ => Err(String::from("--stereo-fault applies to short mixes only")),
         })
         .transpose()?;
     let tagged = tagged.map(|path| tagged_assets(kind, &path)).transpose()?;
+    let kind_options = match kind {
+        MixKind::Short => KindOptions::Short { stereo_fault },
+        MixKind::Long => KindOptions::Long,
+        MixKind::Beatmatched => KindOptions::Beatmatched,
+        MixKind::Shared => KindOptions::Shared,
+        MixKind::Rides => KindOptions::Rides(rides),
+        MixKind::Drops => KindOptions::Drops(DropsOptions {
+            tagged: tagged.as_ref(),
+            other_pairs,
+            aligned_drops,
+        }),
+    };
     let report = mixes::run(
         &harness.library()?,
         &harness.store()?,
@@ -102,7 +115,7 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
         &mixes::Options {
             same_titles: &harness.same_titles()?,
             seed,
-            kind,
+            kind: kind_options,
             other_root: other_root.as_deref(),
             panels: &harness.paths.panels,
             count,
@@ -111,11 +124,6 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
             matching: &harness.search.matching,
             verify: harness.search.verify,
             jobs,
-            rides,
-            tagged: tagged.as_ref(),
-            other_pairs,
-            aligned_drops,
-            stereo_fault,
         },
     )?;
     write_json(
@@ -156,12 +164,12 @@ pub fn grid(harness: &Harness, jobs: usize, args: GridArgs) -> Result<(), String
 }
 
 /// The files `--tagged` lists, for the drops kind only.
-fn tagged_assets(kind: mixes::MixKind, path: &Path) -> Result<BTreeSet<String>, String> {
+fn tagged_assets(kind: MixKind, path: &Path) -> Result<BTreeSet<String>, String> {
     #[derive(serde::Deserialize)]
     struct Tagged {
         assets: BTreeSet<String>,
     }
-    if kind != mixes::MixKind::Drops {
+    if kind != MixKind::Drops {
         return Err(String::from("--tagged applies to --kind drops"));
     }
     let tagged: Tagged = read_json(path)?;
@@ -171,14 +179,14 @@ fn tagged_assets(kind: mixes::MixKind, path: &Path) -> Result<BTreeSet<String>, 
 /// The rides `mixes --kind rides` draws: the default, with the options
 /// given in place of its ranges.
 fn ride_draw(
-    kind: mixes::MixKind,
+    kind: MixKind,
     change: &[f64],
     seconds: &[f64],
     direction: mixes::RideDirection,
 ) -> Result<mixes::RideDraw, String> {
     let default = mixes::RideDraw::default();
     let changed = !change.is_empty() || !seconds.is_empty() || direction != default.direction;
-    if changed && kind != mixes::MixKind::Rides {
+    if changed && kind != MixKind::Rides {
         return Err(String::from(
             "--ride-change, --ride-seconds and --ride-direction apply to --kind rides",
         ));

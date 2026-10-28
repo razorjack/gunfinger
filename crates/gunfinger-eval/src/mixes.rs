@@ -97,7 +97,7 @@ pub enum MixKind {
     /// panel apart and together, a returning record, two rips of one
     /// recording, a held-out record. Every play is beatmatched where both
     /// tempos are known; the pair's files are indexed (with
-    /// `Options::other_pairs`, where the index holds them).
+    /// `DropsOptions::other_pairs`, where the index holds them).
     Drops,
 }
 
@@ -115,9 +115,9 @@ impl MixKind {
     }
 
     /// The report's and the renders' name: `seed-<seed>` for short mixes
-    /// (`<stereo fault>-seed-<seed>` with `Options::stereo_fault`),
-    /// `<kind>-seed-<seed>` for the others, `rides-<label>-seed-<seed>`
-    /// for rides drawn otherwise than by default and
+    /// (`<stereo fault>-seed-<seed>` with a stereo fault), `<kind>-seed-<seed>`
+    /// for the others, `rides-<label>-seed-<seed>` for rides drawn
+    /// otherwise than by default and
     /// `drops-other-pairs-seed-<seed>` for drops with other pairs
     /// (`drops-aligned-drops-seed-<seed>` with drops lined up).
     pub fn name(self, seed: u64, label: Option<&str>) -> String {
@@ -188,7 +188,7 @@ pub struct PlannedPlay {
     pub scenario: Option<Scenario>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub side: Option<Side>,
-    /// With `Options::aligned_drops`: the mix time at which the record's
+    /// With `DropsOptions::aligned_drops`: the mix time at which the record's
     /// drop plays, with its partner's.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub drop_seconds: Option<f64>,
@@ -770,7 +770,7 @@ fn drawn_speed(rng: &mut Rng) -> f64 {
 #[derive(Default)]
 pub struct LongExtras {
     pub periods: BTreeMap<String, f64>,
-    /// With `Options::aligned_drops`: the drops kind's long records'
+    /// With `DropsOptions::aligned_drops`: the drops kind's long records'
     /// structures, for lining up their drops.
     pub structures: BTreeMap<String, Structure>,
     pub pairs: Vec<SharedPair>,
@@ -791,7 +791,7 @@ pub struct PairRecord {
     pub duration_seconds: f64,
     pub passage: (f64, f64),
     /// Whether the mixes' index holds the file (the drops kind with
-    /// `Options::other_pairs` plays pairs it does not).
+    /// `DropsOptions::other_pairs` plays pairs it does not).
     pub indexed: bool,
 }
 
@@ -1216,13 +1216,13 @@ pub struct MixesReport {
     /// `RideDraw::label` of rides drawn otherwise than by default.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub rides: Option<String>,
-    /// The drops kind with `Options::other_pairs`.
+    /// The drops kind with `DropsOptions::other_pairs`.
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub other_pairs: bool,
-    /// The drops kind with `Options::aligned_drops`.
+    /// The drops kind with `DropsOptions::aligned_drops`.
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub aligned_drops: bool,
-    /// `Options::stereo_fault`'s name.
+    /// The name of the short kind's stereo fault.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub stereo_fault: Option<String>,
     pub ladder: String,
@@ -1242,7 +1242,7 @@ pub struct Options<'a> {
     pub seed: u64,
     /// The files credited to another recording's title (ADR 0022).
     pub same_titles: &'a SameTitles,
-    pub kind: MixKind,
+    pub kind: KindOptions<'a>,
     /// The other library's root, for the shared-material panel's files
     /// under `second-library/` (beatmatched and shared kinds).
     pub other_root: Option<&'a Path>,
@@ -1255,21 +1255,36 @@ pub struct Options<'a> {
     /// Measure every detection with the peak verifier.
     pub verify: bool,
     pub jobs: usize,
-    /// How the rides kind draws its rides.
-    pub rides: RideDraw,
-    /// The files the drops kind may play as indexed records (all indexed
-    /// files when `None`).
+}
+
+/// A kind of mix with the options only that kind takes.
+#[derive(Clone, Copy)]
+pub enum KindOptions<'a> {
+    /// Rendered in stereo, the right channel under this fault over the
+    /// mix's second half (`render`), when one is given.
+    Short {
+        stereo_fault: Option<Fault>,
+    },
+    Long,
+    Beatmatched,
+    Shared,
+    /// How the rides are drawn.
+    Rides(RideDraw),
+    Drops(DropsOptions<'a>),
+}
+
+#[derive(Clone, Copy)]
+pub struct DropsOptions<'a> {
+    /// The files the mixes may play as indexed records (all indexed files
+    /// when `None`).
     pub tagged: Option<&'a BTreeSet<String>>,
-    /// The drops kind plays every pair of the panel whose files are tagged
-    /// and not held out, also pairs whose files this index lacks (files of
-    /// the other library, for searching the renders at its scale).
+    /// Play every pair of the panel whose files are tagged and not held
+    /// out, also pairs whose files this index lacks (files of the other
+    /// library, for searching the renders at its scale).
     pub other_pairs: bool,
-    /// The drops kind lines up the drops of the two records of each
-    /// unrelated double drop, in beat phase (`drops::line_up_drops`).
+    /// Line up the drops of the two records of each unrelated double drop,
+    /// in beat phase (`drops::line_up_drops`).
     pub aligned_drops: bool,
-    /// Short mixes only: rendered in stereo, the right channel under this
-    /// fault over the mix's second half (`render`).
-    pub stereo_fault: Option<Fault>,
 }
 
 /// The label of the drops kind's mixes with other pairs.
@@ -1277,27 +1292,51 @@ const OTHER_PAIRS: &str = "other-pairs";
 /// The label of the drops kind's mixes with drops lined up.
 const ALIGNED_DROPS: &str = "aligned-drops";
 
-impl Options<'_> {
+impl KindOptions<'_> {
+    pub fn mix_kind(&self) -> MixKind {
+        match self {
+            KindOptions::Short { .. } => MixKind::Short,
+            KindOptions::Long => MixKind::Long,
+            KindOptions::Beatmatched => MixKind::Beatmatched,
+            KindOptions::Shared => MixKind::Shared,
+            KindOptions::Rides(_) => MixKind::Rides,
+            KindOptions::Drops(_) => MixKind::Drops,
+        }
+    }
+
     /// `RideDraw::label` for the rides kind; `None` for the others.
-    pub fn rides_label(&self) -> Option<String> {
-        (self.kind == MixKind::Rides)
-            .then(|| self.rides.label())
-            .flatten()
+    fn rides_label(&self) -> Option<String> {
+        match self {
+            KindOptions::Rides(draw) => draw.label(),
+            _ => None,
+        }
     }
 
     /// What tells these mixes' report and renders from the kind's default
     /// ones: `rides_label`, `OTHER_PAIRS`, `ALIGNED_DROPS`, or the stereo
     /// fault's name.
     fn label(&self) -> Option<String> {
-        self.rides_label()
-            .or_else(|| {
-                (self.kind == MixKind::Drops && self.other_pairs).then(|| OTHER_PAIRS.to_owned())
-            })
-            .or_else(|| {
-                (self.kind == MixKind::Drops && self.aligned_drops)
-                    .then(|| ALIGNED_DROPS.to_owned())
-            })
-            .or_else(|| self.stereo_fault.map(Fault::name))
+        match self {
+            KindOptions::Short { stereo_fault } => stereo_fault.map(Fault::name),
+            KindOptions::Rides(_) => self.rides_label(),
+            KindOptions::Drops(drops) if drops.other_pairs => Some(OTHER_PAIRS.to_owned()),
+            KindOptions::Drops(drops) if drops.aligned_drops => Some(ALIGNED_DROPS.to_owned()),
+            _ => None,
+        }
+    }
+
+    fn stereo_fault(&self) -> Option<Fault> {
+        match self {
+            KindOptions::Short { stereo_fault } => *stereo_fault,
+            _ => None,
+        }
+    }
+
+    fn drops(&self) -> Option<&DropsOptions<'_>> {
+        match self {
+            KindOptions::Drops(drops) => Some(drops),
+            _ => None,
+        }
     }
 }
 
@@ -1460,15 +1499,17 @@ pub fn run(
         library: &library.root,
         second: options.other_root,
     };
-    let (families, pairs) = if options.kind.beatmatches() {
-        shared_pairs(options.panels, &roots, options.kind)?
+    let kind = options.kind.mix_kind();
+    let drops = options.kind.drops();
+    let (families, pairs) = if kind.beatmatches() {
+        shared_pairs(options.panels, &roots, kind)?
     } else {
         (BTreeSet::new(), Vec::new())
     };
     // The drops kind plays the pair's files as indexed records; the other
     // kinds that read the panel keep its families out of the index.
     let none = BTreeSet::new();
-    let left_out = if options.kind == MixKind::Drops {
+    let left_out = if kind == MixKind::Drops {
         &none
     } else {
         &families
@@ -1493,28 +1534,22 @@ pub fn run(
         .cloned()
         .collect();
     let mut pools = Pools::new(&without_families, &held_out);
-    let pairs = if options.kind == MixKind::Drops {
-        if let Some(tagged) = options.tagged {
+    let pairs = if let Some(drops) = drops {
+        if let Some(tagged) = drops.tagged {
             pools
                 .indexed
                 .retain(|record| tagged.contains(&record.header.source.path));
         }
-        drops::playable(
-            pairs,
-            &records,
-            &held_out,
-            options.tagged,
-            options.other_pairs,
-        )
+        drops::playable(pairs, &records, &held_out, drops.tagged, drops.other_pairs)
     } else {
         pairs
     };
-    let periods = if options.kind.beatmatches() {
+    let periods = if kind.beatmatches() {
         beat_periods(&pools, &pairs, &roots, options.jobs)
     } else {
         BTreeMap::new()
     };
-    let structures = if options.kind == MixKind::Drops && options.aligned_drops {
+    let structures = if drops.is_some_and(|drops| drops.aligned_drops) {
         drops::structures(&pools, &periods, &roots, options.jobs)
     } else {
         BTreeMap::new()
@@ -1523,18 +1558,19 @@ pub fn run(
         periods,
         structures,
         pairs,
-        rides: options.rides,
+        rides: match options.kind {
+            KindOptions::Rides(draw) => draw,
+            _ => RideDraw::default(),
+        },
     };
-    let rides = options.rides_label();
+    let rides = options.kind.rides_label();
     let mut rng = Rng::new(options.seed);
-    let dir = options
-        .kind
-        .renders(work, options.seed, options.label().as_deref());
+    let dir = kind.renders(work, options.seed, options.kind.label().as_deref());
     let planned: Vec<(PlannedMix, PathBuf)> = (0..options.count)
         .map(|number| {
             let name = format!("mix-{number:02}");
             let path = dir.join(format!("{name}.mp3"));
-            let mix = match options.kind {
+            let mix = match kind {
                 MixKind::Short => draw_mix(&name, &pools, clusters, &mut rng),
                 MixKind::Drops => drops::draw(&name, &pools, &extras, clusters, &mut rng),
                 kind => draw_long_mix(&name, kind, &pools, &extras, clusters, &mut rng),
@@ -1547,18 +1583,18 @@ pub fn run(
         ladder: options.ladder,
         matching: options.matching,
         verifier: verifier.as_ref(),
-        fault: options.stereo_fault,
+        fault: options.kind.stereo_fault(),
     };
     let results = map_in_order(&planned, options.jobs, |(mix, path)| {
         search_mix(mix, path, &roots, clusters, options.same_titles, &searcher)
     });
     Ok(MixesReport {
         seed: options.seed,
-        kind: options.kind,
+        kind,
         rides,
-        other_pairs: options.kind == MixKind::Drops && options.other_pairs,
-        aligned_drops: options.kind == MixKind::Drops && options.aligned_drops,
-        stereo_fault: options.stereo_fault.map(Fault::name),
+        other_pairs: drops.is_some_and(|drops| drops.other_pairs),
+        aligned_drops: drops.is_some_and(|drops| drops.aligned_drops),
+        stereo_fault: options.kind.stereo_fault().map(Fault::name),
         ladder: options.ladder_name.to_owned(),
         indexed_assets: index.assets().len(),
         mixes: results.into_iter().collect::<Result<_, _>>()?,

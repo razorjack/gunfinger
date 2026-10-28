@@ -6,7 +6,7 @@
 //! and together; a record returns; two rips of one recording play at two
 //! times; a held-out record plays alone. Blocks are joined by `join`'s
 //! transitions, and every play is beatmatched (tempo, not beat phase) to
-//! the play it is mixed with. With `Options::aligned_drops`, the two
+//! the play it is mixed with. With `DropsOptions::aligned_drops`, the two
 //! records of each unrelated double drop also reach their drops at one
 //! mix time, on the beat (`line_up_drops`).
 
