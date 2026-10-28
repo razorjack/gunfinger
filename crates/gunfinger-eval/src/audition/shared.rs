@@ -57,19 +57,7 @@ fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result
     let search = strongest_audio_search(report).ok_or(
         "the report has no alignment from a search of the audio (`pair` searches the audio only when the first file of the pair is in the corpus library)",
     )?;
-    let alignments: Vec<Alignment> = search
-        .alignments
-        .iter()
-        .enumerate()
-        .map(|(index, alignment)| Alignment {
-            start: alignment.query_start_seconds,
-            end: alignment.query_end_seconds,
-            offset: alignment.offset_seconds,
-            speed: alignment.speed,
-            label: format!("alignment {}", index + 1),
-            hits: alignment.hits,
-        })
-        .collect();
+    let alignments = placed_alignments(search);
     let (a, b) = (libraries.path(&report.query), libraries.path(&report.found));
     let timeline = (0.0, report.query_seconds);
     let b_lane = placement::aligned_lane("B", &b, report.found_seconds, timeline, &alignments);
@@ -91,57 +79,7 @@ fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result
         b_lane,
     ];
 
-    let mut markers = Vec::new();
-    let mut spans = Vec::new();
-    let mut details = vec![format!(
-        "B follows every alignment of the search \"{}\" in the pair report, strongest first, also those below the {} hits of a possible play:",
-        search.name, FITTED_RULE.min_possible_hits
-    )];
-    for (position, alignment) in (1..).zip(&search.alignments) {
-        let playback = if alignment.key_locked {
-            "key-locked: B's tempo differs, not its pitch"
-        } else {
-            "turntable: pitch and tempo together"
-        };
-        let line = format!(
-            "alignment {position}: A {}-{} ~ B {}-{}, {} hits in {} windows, B played at {:+.2}% ({playback})",
-            format_seconds(alignment.query_start_seconds),
-            format_seconds(alignment.query_end_seconds),
-            format_seconds(alignment.found_start_seconds),
-            format_seconds(alignment.found_end_seconds),
-            alignment.hits,
-            alignment.windows,
-            (alignment.speed - 1.0) * 100.0,
-        );
-        markers.push(Marker {
-            at: alignment.query_start_seconds,
-            label: format!("alignment {position} starts: {} hits", alignment.hits),
-            kind: MarkerKind::Listen,
-        });
-        markers.push(Marker {
-            at: alignment.query_end_seconds,
-            label: format!("alignment {position} ends"),
-            kind: MarkerKind::Edge,
-        });
-        if alignment.query_start_seconds < alignment.query_end_seconds {
-            spans.push(Span {
-                start: alignment.query_start_seconds,
-                end: alignment.query_end_seconds,
-                lanes: vec![0, 1],
-                label: line.clone(),
-            });
-        }
-        details.push(line);
-    }
-    if search
-        .alignments
-        .iter()
-        .any(|alignment| alignment.key_locked)
-    {
-        details.push(String::from(
-            "Speed matching (M) plays B at A's tempo by changing its playback rate, so a key-locked alignment also moves B's pitch by the same ratio; turn it off to hear B at its own pitch (the blend, B, always matches speed)",
-        ));
-    }
+    let annotated = Annotated::of(search);
 
     Ok(Question {
         id: QuestionId::derive("shared", &[&report.query, &report.found]),
@@ -150,7 +88,7 @@ fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result
         text: String::from(
             "A and B are different recordings that line up where the lanes are shaded. Do they share material there, such as a drum break, a loop or a sample, or is the match chance?",
         ),
-        details,
+        details: annotated.details,
         files: vec![report.query.clone(), report.found.clone()],
         timeline: Timeline {
             start: timeline.0,
@@ -158,8 +96,8 @@ fn question(number: usize, report: &PairReport, libraries: &Libraries) -> Result
             reference: Some(0),
         },
         lanes,
-        markers: one_per_moment(markers),
-        spans,
+        markers: one_per_moment(annotated.markers),
+        spans: annotated.spans,
         choices: vec![
             Choice::new('s', "shared material (a break, loop or sample)", "shared"),
             Choice::new('c', "chance", "chance"),
@@ -186,6 +124,93 @@ fn one_per_moment(mut markers: Vec<Marker>) -> Vec<Marker> {
         }
     }
     joined
+}
+
+/// The search's alignments, numbered in the report's order, for
+/// `placement`.
+fn placed_alignments(search: &Search) -> Vec<Alignment> {
+    search
+        .alignments
+        .iter()
+        .enumerate()
+        .map(|(index, alignment)| Alignment {
+            start: alignment.query_start_seconds,
+            end: alignment.query_end_seconds,
+            offset: alignment.offset_seconds,
+            speed: alignment.speed,
+            label: format!("alignment {}", index + 1),
+            hits: alignment.hits,
+        })
+        .collect()
+}
+
+/// Where each alignment of the search starts and ends on A's timeline,
+/// with a line describing it as a span and a detail.
+struct Annotated {
+    markers: Vec<Marker>,
+    spans: Vec<Span>,
+    details: Vec<String>,
+}
+
+impl Annotated {
+    fn of(search: &Search) -> Annotated {
+        let mut markers = Vec::new();
+        let mut spans = Vec::new();
+        let mut details = vec![format!(
+            "B follows every alignment of the search \"{}\" in the pair report, strongest first, also those below the {} hits of a possible play:",
+            search.name, FITTED_RULE.min_possible_hits
+        )];
+        for (position, alignment) in (1..).zip(&search.alignments) {
+            let playback = if alignment.key_locked {
+                "key-locked: B's tempo differs, not its pitch"
+            } else {
+                "turntable: pitch and tempo together"
+            };
+            let line = format!(
+                "alignment {position}: A {}-{} ~ B {}-{}, {} hits in {} windows, B played at {:+.2}% ({playback})",
+                format_seconds(alignment.query_start_seconds),
+                format_seconds(alignment.query_end_seconds),
+                format_seconds(alignment.found_start_seconds),
+                format_seconds(alignment.found_end_seconds),
+                alignment.hits,
+                alignment.windows,
+                (alignment.speed - 1.0) * 100.0,
+            );
+            markers.push(Marker {
+                at: alignment.query_start_seconds,
+                label: format!("alignment {position} starts: {} hits", alignment.hits),
+                kind: MarkerKind::Listen,
+            });
+            markers.push(Marker {
+                at: alignment.query_end_seconds,
+                label: format!("alignment {position} ends"),
+                kind: MarkerKind::Edge,
+            });
+            if alignment.query_start_seconds < alignment.query_end_seconds {
+                spans.push(Span {
+                    start: alignment.query_start_seconds,
+                    end: alignment.query_end_seconds,
+                    lanes: vec![0, 1],
+                    label: line.clone(),
+                });
+            }
+            details.push(line);
+        }
+        if search
+            .alignments
+            .iter()
+            .any(|alignment| alignment.key_locked)
+        {
+            details.push(String::from(
+                "Speed matching (M) plays B at A's tempo by changing its playback rate, so a key-locked alignment also moves B's pitch by the same ratio; turn it off to hear B at its own pitch (the blend, B, always matches speed)",
+            ));
+        }
+        Annotated {
+            markers,
+            spans,
+            details,
+        }
+    }
 }
 
 /// The audio search whose strongest alignment has the most hits (each

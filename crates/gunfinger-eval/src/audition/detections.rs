@@ -140,92 +140,12 @@ fn question(
         (play.end_seconds + MARGIN_SECONDS)
             .min(report.query.start_seconds + report.query.duration_seconds),
     );
-    let mut segments: Vec<(usize, &Segment)> = play.segments.iter().enumerate().collect();
-    segments.sort_by_key(|(_, segment)| std::cmp::Reverse(segment.hits));
-    let alignments: Vec<Alignment> = segments
-        .iter()
-        .map(|(index, segment)| Alignment {
-            start: segment.start_seconds,
-            end: segment.end_seconds,
-            offset: segment.track_start_seconds - segment.speed * segment.start_seconds,
-            speed: segment.speed,
-            label: format!("segment {}", index + 1),
-            hits: segment.hits,
-        })
-        .collect();
-    let track_lane = placement::tile(&track, length(&track)?, timeline, &alignments);
+    let track_lane = placement::tile(&track, length(&track)?, timeline, &play.alignments());
     if track_lane.is_empty() {
         return Err(String::from("the track has no audio beside the play"));
     }
 
-    let mut markers = vec![
-        Marker {
-            at: play.start_seconds,
-            label: String::from("the play starts"),
-            kind: MarkerKind::Listen,
-        },
-        Marker {
-            at: play.end_seconds,
-            label: String::from("the play ends"),
-            kind: MarkerKind::Edge,
-        },
-    ];
-    markers.extend(
-        play.segments
-            .iter()
-            .enumerate()
-            .skip(1)
-            .map(|(index, segment)| Marker {
-                at: segment.start_seconds,
-                label: format!("segment {} starts", index + 1),
-                kind: MarkerKind::Edge,
-            }),
-    );
-    markers.sort_by(|a, b| a.at.total_cmp(&b.at));
-    let spans = play
-        .segments
-        .iter()
-        .enumerate()
-        .map(|(index, segment)| Span {
-            start: segment.start_seconds,
-            end: segment.end_seconds,
-            lanes: vec![0, 1],
-            label: format!(
-                "segment {}: {}, {} hits in {} windows, speed {:+.2}%",
-                index + 1,
-                segment.confidence,
-                segment.hits,
-                segment.windows,
-                (segment.speed - 1.0) * 100.0
-            ),
-        })
-        .collect();
-
-    let name = match (&play.tags.artist, &play.tags.title) {
-        (Some(artist), Some(title)) => format!("{artist} - {title}"),
-        (None, Some(title)) => title.clone(),
-        _ => file_name(&track),
-    };
-    let mut details = vec![
-        format!(
-            "{}, {} hits in {} windows, {} at {:+.2}%",
-            play.confidence,
-            play.hits,
-            play.windows,
-            play.playback,
-            (play.speed - 1.0) * 100.0
-        ),
-        format!(
-            "Mix {}–{}",
-            format_seconds(play.start_seconds),
-            format_seconds(play.end_seconds)
-        ),
-    ];
-    if play.playback == Playback::KeyLocked {
-        details.push(String::from(
-            "Played key-locked: speed matching here changes the track's pitch with its tempo, which the mix did not",
-        ));
-    }
+    let name = play.name().unwrap_or_else(|| file_name(&track));
     let files = vec![libraries.name(mix), libraries.name(&track)];
     let start_second = format!("{:.0}", play.start_seconds);
     Ok(Question {
@@ -237,7 +157,7 @@ fn question(
             play.confidence
         ),
         text: String::from("Is this the track playing in the mix here?"),
-        details,
+        details: play.details(),
         files,
         timeline: Timeline {
             start: timeline.0,
@@ -258,8 +178,8 @@ fn question(
             ),
             Lane::new("track", track_lane),
         ],
-        markers,
-        spans,
+        markers: play.markers(),
+        spans: play.spans(),
         choices: vec![
             Choice::new('y', "right", "confirmed"),
             Choice::new('n', "wrong", "wrong"),
@@ -267,6 +187,108 @@ fn question(
         ],
         effect: Effect::Log,
     })
+}
+
+impl Play {
+    /// The segments as alignments for `placement`, strongest first.
+    fn alignments(&self) -> Vec<Alignment> {
+        let mut segments: Vec<(usize, &Segment)> = self.segments.iter().enumerate().collect();
+        segments.sort_by_key(|(_, segment)| std::cmp::Reverse(segment.hits));
+        segments
+            .iter()
+            .map(|(index, segment)| Alignment {
+                start: segment.start_seconds,
+                end: segment.end_seconds,
+                offset: segment.track_start_seconds - segment.speed * segment.start_seconds,
+                speed: segment.speed,
+                label: format!("segment {}", index + 1),
+                hits: segment.hits,
+            })
+            .collect()
+    }
+
+    /// Where the play starts and ends, and where each segment after the
+    /// first starts, in time order.
+    fn markers(&self) -> Vec<Marker> {
+        let mut markers = vec![
+            Marker {
+                at: self.start_seconds,
+                label: String::from("the play starts"),
+                kind: MarkerKind::Listen,
+            },
+            Marker {
+                at: self.end_seconds,
+                label: String::from("the play ends"),
+                kind: MarkerKind::Edge,
+            },
+        ];
+        markers.extend(
+            self.segments
+                .iter()
+                .enumerate()
+                .skip(1)
+                .map(|(index, segment)| Marker {
+                    at: segment.start_seconds,
+                    label: format!("segment {} starts", index + 1),
+                    kind: MarkerKind::Edge,
+                }),
+        );
+        markers.sort_by(|a, b| a.at.total_cmp(&b.at));
+        markers
+    }
+
+    fn spans(&self) -> Vec<Span> {
+        self.segments
+            .iter()
+            .enumerate()
+            .map(|(index, segment)| Span {
+                start: segment.start_seconds,
+                end: segment.end_seconds,
+                lanes: vec![0, 1],
+                label: format!(
+                    "segment {}: {}, {} hits in {} windows, speed {:+.2}%",
+                    index + 1,
+                    segment.confidence,
+                    segment.hits,
+                    segment.windows,
+                    (segment.speed - 1.0) * 100.0
+                ),
+            })
+            .collect()
+    }
+
+    /// `artist - title`, or the title alone, from the tags.
+    fn name(&self) -> Option<String> {
+        match (&self.tags.artist, &self.tags.title) {
+            (Some(artist), Some(title)) => Some(format!("{artist} - {title}")),
+            (None, Some(title)) => Some(title.clone()),
+            _ => None,
+        }
+    }
+
+    fn details(&self) -> Vec<String> {
+        let mut details = vec![
+            format!(
+                "{}, {} hits in {} windows, {} at {:+.2}%",
+                self.confidence,
+                self.hits,
+                self.windows,
+                self.playback,
+                (self.speed - 1.0) * 100.0
+            ),
+            format!(
+                "Mix {}–{}",
+                format_seconds(self.start_seconds),
+                format_seconds(self.end_seconds)
+            ),
+        ];
+        if self.playback == Playback::KeyLocked {
+            details.push(String::from(
+                "Played key-locked: speed matching here changes the track's pitch with its tempo, which the mix did not",
+            ));
+        }
+        details
+    }
 }
 
 fn file_name(path: &Path) -> String {

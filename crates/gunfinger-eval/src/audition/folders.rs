@@ -95,66 +95,7 @@ fn question(
         .iter()
         .map(|track| length(track))
         .collect::<Result<Vec<f64>, String>>()?;
-    let name = |index: usize| {
-        tracks[index]
-            .file_name()
-            .map_or_else(String::new, |name| name.to_string_lossy().into_owned())
-    };
-
-    let mut pieces = Vec::new();
-    let mut markers = Vec::new();
-    let mut at = 0.0;
-    for index in 0..tracks.len() - 1 {
-        if index > 0 {
-            markers.push(Marker {
-                at,
-                label: format!(
-                    "track {}: from its first {excerpt:.0} s to its last",
-                    index + 1
-                ),
-                kind: MarkerKind::Join,
-            });
-        }
-        let tail = excerpt.min(lengths[index]);
-        pieces.push(Piece {
-            file: tracks[index].clone(),
-            start: at,
-            end: at + tail,
-            offset: lengths[index] - tail - at,
-            speed: 1.0,
-            label: Some(format!(
-                "track {} ({}), last {tail:.0} s",
-                index + 1,
-                name(index)
-            )),
-        });
-        at += tail;
-        markers.push(Marker {
-            at,
-            label: format!(
-                "track {} → track {}: {} → {}",
-                index + 1,
-                index + 2,
-                name(index),
-                name(index + 1)
-            ),
-            kind: MarkerKind::Listen,
-        });
-        let head = excerpt.min(lengths[index + 1]);
-        pieces.push(Piece {
-            file: tracks[index + 1].clone(),
-            start: at,
-            end: at + head,
-            offset: -at,
-            speed: 1.0,
-            label: Some(format!(
-                "track {} ({}), first {head:.0} s",
-                index + 2,
-                name(index + 1)
-            )),
-        });
-        at += head;
-    }
+    let boundaries = Boundaries::of(&tracks, &lengths, excerpt);
 
     let files: Vec<String> = tracks.iter().map(|track| libraries.name(track)).collect();
     let parts: Vec<&str> = files.iter().map(String::as_str).collect();
@@ -178,11 +119,11 @@ fn question(
         files,
         timeline: Timeline {
             start: 0.0,
-            end: at,
+            end: boundaries.seconds,
             reference: None,
         },
-        lanes: vec![Lane::new("CD", pieces)],
-        markers,
+        lanes: vec![Lane::new("CD", boundaries.pieces)],
+        markers: boundaries.markers,
         spans: Vec::new(),
         choices: vec![
             Choice::new('y', "mixed CD", "mixed"),
@@ -192,6 +133,85 @@ fn question(
         ],
         effect: Effect::Log,
     })
+}
+
+/// The end of each track joined to the start of the next, on one lane,
+/// with a marker at each join and where each next track's excerpt begins.
+struct Boundaries {
+    pieces: Vec<Piece>,
+    markers: Vec<Marker>,
+    /// The lane's length.
+    seconds: f64,
+}
+
+impl Boundaries {
+    fn of(tracks: &[PathBuf], lengths: &[f64], excerpt: f64) -> Boundaries {
+        let name = |index: usize| {
+            tracks[index]
+                .file_name()
+                .map_or_else(String::new, |name| name.to_string_lossy().into_owned())
+        };
+
+        let mut pieces = Vec::new();
+        let mut markers = Vec::new();
+        let mut at = 0.0;
+        for index in 0..tracks.len() - 1 {
+            if index > 0 {
+                markers.push(Marker {
+                    at,
+                    label: format!(
+                        "track {}: from its first {excerpt:.0} s to its last",
+                        index + 1
+                    ),
+                    kind: MarkerKind::Join,
+                });
+            }
+            let tail = excerpt.min(lengths[index]);
+            pieces.push(Piece {
+                file: tracks[index].clone(),
+                start: at,
+                end: at + tail,
+                offset: lengths[index] - tail - at,
+                speed: 1.0,
+                label: Some(format!(
+                    "track {} ({}), last {tail:.0} s",
+                    index + 1,
+                    name(index)
+                )),
+            });
+            at += tail;
+            markers.push(Marker {
+                at,
+                label: format!(
+                    "track {} → track {}: {} → {}",
+                    index + 1,
+                    index + 2,
+                    name(index),
+                    name(index + 1)
+                ),
+                kind: MarkerKind::Listen,
+            });
+            let head = excerpt.min(lengths[index + 1]);
+            pieces.push(Piece {
+                file: tracks[index + 1].clone(),
+                start: at,
+                end: at + head,
+                offset: -at,
+                speed: 1.0,
+                label: Some(format!(
+                    "track {} ({}), first {head:.0} s",
+                    index + 2,
+                    name(index + 1)
+                )),
+            });
+            at += head;
+        }
+        Boundaries {
+            pieces,
+            markers,
+            seconds: at,
+        }
+    }
 }
 
 /// The folder's own audio files (not its subfolders'), as the library

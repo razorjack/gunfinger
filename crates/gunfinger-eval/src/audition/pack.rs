@@ -167,46 +167,14 @@ fn question(
         b_lane(&sheet.b.0, b_seconds, timeline, &followed),
     ];
     let mut spans = spans_of(&followed, 1);
-    let mut details = vec![sheet.kind.clone()];
-    details.extend(sheet.details.iter().cloned());
-    details.push(source);
-    if !ignored.is_empty() {
-        details.push(format!(
-            "Not followed, below the {} hits of a possible play (chance, or a repeated section): {}",
-            FITTED_RULE.min_possible_hits,
-            ignored
-                .iter()
-                .map(|alignment| alignment.label.as_str())
-                .collect::<Vec<_>>()
-                .join(", ")
-        ));
-    }
-    if followed.is_empty() {
-        details.push(String::from(
-            "No alignment of B to follow at the fitted speed: lane B plays from its start, not aligned",
-        ));
-    }
-
+    let mut details = sheet_details(&sheet, source, &followed, &ignored);
     let planned = plan.item(item.number);
     for extra in planned.map_or(&[][..], |planned| &planned.extra_lanes) {
-        let (alignments, seconds, from) = extra_alignments(a_name, &extra.file, reports)?;
         let lane = lanes.len();
-        lanes.push(placement::aligned_lane(
-            &extra.name,
-            &libraries.path(&extra.file),
-            seconds,
-            timeline,
-            &alignments,
-        ));
-        spans.extend(spans_of(&alignments, lane));
-        details.push(format!(
-            "Lane {} ({}): {}, placed on A by {} alignments of {}",
-            lane + 1,
-            extra.name,
-            extra.file,
-            alignments.len(),
-            from.display()
-        ));
+        let placed = extra.placed(a_name, lane, timeline, reports, libraries)?;
+        lanes.push(placed.lane);
+        spans.extend(placed.spans);
+        details.push(placed.detail);
     }
     if let Some(lane) = lanes.iter().find(|lane| lane.pieces.is_empty()) {
         return Err(format!("lane {} has no audio on A's timeline", lane.name));
@@ -259,6 +227,77 @@ fn question(
 /// Lane B by the alignments it follows, with the main one throughout and
 /// from its start as its other placements, or from its start alone when
 /// there are none.
+/// The sheet's kind and details, where the alignments come from, and what
+/// lane B does not follow.
+fn sheet_details(
+    sheet: &Sheet,
+    source: String,
+    followed: &[Alignment],
+    ignored: &[&Alignment],
+) -> Vec<String> {
+    let mut details = vec![sheet.kind.clone()];
+    details.extend(sheet.details.iter().cloned());
+    details.push(source);
+    if !ignored.is_empty() {
+        details.push(format!(
+            "Not followed, below the {} hits of a possible play (chance, or a repeated section): {}",
+            FITTED_RULE.min_possible_hits,
+            ignored
+                .iter()
+                .map(|alignment| alignment.label.as_str())
+                .collect::<Vec<_>>()
+                .join(", ")
+        ));
+    }
+    if followed.is_empty() {
+        details.push(String::from(
+            "No alignment of B to follow at the fitted speed: lane B plays from its start, not aligned",
+        ));
+    }
+    details
+}
+
+/// An extra lane placed on A's timeline, with its spans and the detail
+/// that says where its alignments come from.
+struct PlacedLane {
+    lane: Lane,
+    spans: Vec<Span>,
+    detail: String,
+}
+
+impl ExtraLane {
+    /// The lane, number `lane` of the question, placed on A by the
+    /// alignments of a `pair` report.
+    fn placed(
+        &self,
+        a_name: &str,
+        lane: usize,
+        timeline: (f64, f64),
+        reports: &Reports,
+        libraries: &Libraries,
+    ) -> Result<PlacedLane, String> {
+        let (alignments, seconds, from) = extra_alignments(a_name, &self.file, reports)?;
+        Ok(PlacedLane {
+            lane: placement::aligned_lane(
+                &self.name,
+                &libraries.path(&self.file),
+                seconds,
+                timeline,
+                &alignments,
+            ),
+            spans: spans_of(&alignments, lane),
+            detail: format!(
+                "Lane {} ({}): {}, placed on A by {} alignments of {}",
+                lane + 1,
+                self.name,
+                self.file,
+                alignments.len(),
+                from.display()
+            ),
+        })
+    }
+}
+
 fn b_lane(file: &Path, seconds: f64, timeline: (f64, f64), alignments: &[Alignment]) -> Lane {
     if alignments.is_empty() {
         let unaligned = Piece {

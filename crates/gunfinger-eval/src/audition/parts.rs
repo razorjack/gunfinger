@@ -122,57 +122,12 @@ fn question(
     let laned = laned(candidate);
     let unlaned = candidate.parts.len() - laned.len();
     for (part, name) in laned.into_iter().zip('B'..) {
-        let name = name.to_string();
-        let file = libraries.path(&part.found);
-        let alignment = Alignment {
-            start: part.start_seconds,
-            end: part.end_seconds,
-            offset: part.found_start_seconds - part.speed * part.start_seconds,
-            speed: part.speed,
-            label: format!("{name}'s part"),
-            hits: part.hits,
-        };
-        let lane = placement::aligned_lane(
-            &name,
-            &file,
-            part.found_seconds,
-            timeline,
-            std::slice::from_ref(&alignment),
-        );
-        if lane.pieces.is_empty() {
-            return Err(format!("lane {name} has no audio on A's timeline"));
-        }
-        let line = format!(
-            "{name}: {} over A {}-{} ({}), from {} {}-{}, {} hits, played at {:+.2}%",
-            stem(&file),
-            format_seconds(part.start_seconds),
-            format_seconds(part.end_seconds),
-            role(part.role),
-            name,
-            format_seconds(part.found_start_seconds),
-            format_seconds(part.found_end_seconds),
-            part.hits,
-            (part.speed - 1.0) * 100.0,
-        );
-        markers.push(Marker {
-            at: part.start_seconds,
-            label: format!("{name} starts lining up"),
-            kind: MarkerKind::Listen,
-        });
-        markers.push(Marker {
-            at: part.end_seconds,
-            label: format!("{name} stops lining up"),
-            kind: MarkerKind::Edge,
-        });
-        spans.push(Span {
-            start: part.start_seconds,
-            end: part.end_seconds,
-            lanes: vec![0, lanes.len()],
-            label: line.clone(),
-        });
-        details.push(line);
+        let laned = LanedPart::of(part, &name.to_string(), lanes.len(), timeline, libraries)?;
+        markers.extend(laned.markers);
+        spans.push(laned.span);
+        details.push(laned.detail);
         files.push(part.found.clone());
-        lanes.push(lane);
+        lanes.push(laned.lane);
     }
     if unlaned > 0 {
         details.push(format!(
@@ -205,6 +160,80 @@ fn question(
         ],
         effect: Effect::Log,
     })
+}
+
+/// A part's own lane, number `lane` of the question, placed at its
+/// alignment with A, with where it lines up as markers, a span and a
+/// detail.
+struct LanedPart {
+    lane: Lane,
+    markers: [Marker; 2],
+    span: Span,
+    detail: String,
+}
+
+impl LanedPart {
+    fn of(
+        part: &Part,
+        name: &str,
+        lane: usize,
+        timeline: (f64, f64),
+        libraries: &Libraries,
+    ) -> Result<LanedPart, String> {
+        let file = libraries.path(&part.found);
+        let alignment = Alignment {
+            start: part.start_seconds,
+            end: part.end_seconds,
+            offset: part.found_start_seconds - part.speed * part.start_seconds,
+            speed: part.speed,
+            label: format!("{name}'s part"),
+            hits: part.hits,
+        };
+        let placed = placement::aligned_lane(
+            name,
+            &file,
+            part.found_seconds,
+            timeline,
+            std::slice::from_ref(&alignment),
+        );
+        if placed.pieces.is_empty() {
+            return Err(format!("lane {name} has no audio on A's timeline"));
+        }
+        let detail = format!(
+            "{name}: {} over A {}-{} ({}), from {} {}-{}, {} hits, played at {:+.2}%",
+            stem(&file),
+            format_seconds(part.start_seconds),
+            format_seconds(part.end_seconds),
+            role(part.role),
+            name,
+            format_seconds(part.found_start_seconds),
+            format_seconds(part.found_end_seconds),
+            part.hits,
+            (part.speed - 1.0) * 100.0,
+        );
+        Ok(LanedPart {
+            lane: placed,
+            markers: [
+                Marker {
+                    at: part.start_seconds,
+                    label: format!("{name} starts lining up"),
+                    kind: MarkerKind::Listen,
+                },
+                Marker {
+                    at: part.end_seconds,
+                    label: format!("{name} stops lining up"),
+                    kind: MarkerKind::Edge,
+                },
+            ],
+            span: Span {
+                start: part.start_seconds,
+                end: part.end_seconds,
+                lanes: vec![0, lane],
+                label: detail.clone(),
+            },
+            detail,
+        })
+    }
 }
 
 fn role(role: Role) -> &'static str {
