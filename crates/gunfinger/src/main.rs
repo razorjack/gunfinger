@@ -23,7 +23,7 @@ mod table;
 mod timeline;
 
 use std::num::NonZeroUsize;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::time::Duration;
 
 use catalog::SavedIndex;
@@ -355,15 +355,13 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             again,
         } => identify::run(&identify::Request {
             audio: &audio,
-            source: catalog::Source {
-                library: settings.library_if_any(library).as_deref(),
-                peaks_dir,
+            source: source(
+                settings,
+                settings.library_if_any(library).as_deref(),
                 store_only,
-                exclude_from: exclude_from.as_deref(),
-                track_length: settings.track_length,
+                exclude_from.as_deref(),
                 saved_index,
-                jobs,
-            },
+            ),
             excerpt: Excerpt { start, duration },
             playback: playback.unwrap_or(settings.playback),
             matcher: matcher(single_pass),
@@ -389,15 +387,13 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             saved_index,
         } => explain::run(&explain::Request {
             audio: &audio,
-            source: catalog::Source {
-                library: settings.library_if_any(library).as_deref(),
-                peaks_dir,
+            source: source(
+                settings,
+                settings.library_if_any(library).as_deref(),
                 store_only,
-                exclude_from: exclude_from.as_deref(),
-                track_length: settings.track_length,
+                exclude_from.as_deref(),
                 saved_index,
-                jobs,
-            },
+            ),
             at,
             around,
             playback: playback.unwrap_or(settings.playback),
@@ -474,23 +470,39 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             saved_index,
             format,
         } => stats::run(
-            &catalog::Source {
-                library: settings.library_if_any(library).as_deref(),
-                peaks_dir,
+            &source(
+                settings,
+                settings.library_if_any(library).as_deref(),
                 store_only,
-                exclude_from: None,
-                track_length: settings.track_length,
+                None,
                 saved_index,
-                jobs,
-            },
+            ),
             format,
             console,
         ),
     }
 }
 
-/// miette decides on colour by itself unless told. Errors in the
-/// configuration file itself are reported before this, with its choice.
+/// What a search reads: the library given or configured, or the peak
+/// store's own records, under the configured track length range.
+fn source<'a>(
+    settings: &'a Settings,
+    library: Option<&'a Path>,
+    store_only: bool,
+    exclude_from: Option<&'a Path>,
+    saved_index: SavedIndex,
+) -> catalog::Source<'a> {
+    catalog::Source {
+        library,
+        peaks_dir: &settings.peaks_dir,
+        store_only,
+        exclude_from,
+        track_length: settings.track_length,
+        saved_index,
+        jobs: settings.jobs,
+    }
+}
+
 fn matcher(single_pass: bool) -> Matcher {
     if single_pass {
         Matcher::SinglePass
@@ -499,6 +511,8 @@ fn matcher(single_pass: bool) -> Matcher {
     }
 }
 
+/// miette decides on colour by itself unless told. Errors in the
+/// configuration file itself are reported before this, with its choice.
 fn color_error_reports(color: ColorChoice) {
     let forced = match color {
         ColorChoice::Auto => return,
