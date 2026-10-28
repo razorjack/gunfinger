@@ -36,10 +36,12 @@ use std::path::{Path, PathBuf};
 
 use gunfinger_core::confidence::Pass;
 use gunfinger_core::decode::{Excerpt, decode};
+use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
+use gunfinger_core::search::Detection;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
 use serde::{Deserialize, Serialize};
@@ -238,76 +240,38 @@ pub fn run(
     for scenario in &plan.scenarios {
         let queries = queries(scenario, plan.blend_partner.is_some());
         let rendered = render_each(roots, scenario, &queries, plan.blend_partner.as_ref(), dir);
-        let played = recording(clusters, &scenario.played, &scenario.played_recording);
-        let related = recording(clusters, &scenario.related, &scenario.related_recording);
-        for (index_name, left_out) in indexes(&scenario.played, &played, &indexed) {
-            let index = options
-                .matching
-                .index(options.padding.index(&records, &profile, &left_out)?);
+        let roles = Roles {
+            played: recording(clusters, &scenario.played, &scenario.played_recording),
+            related: recording(clusters, &scenario.related, &scenario.related_recording),
+            partner: &partner,
+        };
+        for (index_name, left_out) in indexes(&scenario.played, &roles.played, &indexed) {
+            let searcher = QuerySearcher {
+                index: options
+                    .matching
+                    .index(options.padding.index(&records, &profile, &left_out)?),
+                roles: &roles,
+                verifier: &verifier,
+                dir,
+                options,
+            };
             let searched: Vec<Result<QueryResult, String>> =
-                map_in_order(&rendered, options.jobs, |(query, error)| {
-                    let result =
-                        |error: Option<String>, detections: Vec<SharedFound>| QueryResult {
-                            scenario: scenario.name.clone(),
-                            kind: query.kind,
-                            query: query.name.clone(),
-                            seconds: query.seconds,
-                            start_seconds: query.start_seconds,
-                            index: index_name.to_owned(),
-                            left_out: left_out.iter().cloned().collect(),
-                            error,
-                            detections,
-                        };
-                    if let Some(error) = error {
-                        return Ok(result(Some(error.clone()), Vec::new()));
-                    }
-                    let path = dir.join(format!("{}.mp3", query.name));
-                    let audio = decode(&path, profile.sample_rate, Excerpt::default())
-                        .map_err(|error| error.to_string())?;
-                    let detections = options.matching.search(
-                        &index,
-                        &audio.samples,
-                        &profile,
-                        options.ladder,
-                        1,
-                    );
-                    Ok(result(
-                        None,
-                        detections
-                            .iter()
-                            .map(|detection| {
-                                let asset = &index.asset(detection.asset).path;
-                                let role = if played.contains(asset) {
-                                    Role::Played
-                                } else if related.contains(asset) {
-                                    Role::Related
-                                } else if partner.contains(asset) {
-                                    Role::Partner
-                                } else {
-                                    Role::Other
-                                };
-                                SharedFound {
-                                    asset: asset.clone(),
-                                    role,
-                                    start_seconds: detection.start_seconds,
-                                    end_seconds: detection.end_seconds,
-                                    track_start_seconds: detection.track_start_seconds,
-                                    track_end_seconds: detection.track_end_seconds,
-                                    speed: detection.speed.0,
-                                    windows: detection.evidence.windows,
-                                    hits: detection.evidence.hits,
-                                    level: detection.evidence.confidence().into(),
-                                    fitted: detection.evidence.pass == Pass::Fitted,
-                                    verified: verifier.verify(
-                                        &index,
-                                        detection,
-                                        &audio.samples,
-                                        &profile,
-                                    ),
-                                }
-                            })
-                            .collect(),
-                    ))
+                map_in_order(&rendered, options.jobs, |(query, render_error)| {
+                    let (error, detections) = match render_error {
+                        Some(error) => (Some(error.clone()), Vec::new()),
+                        None => (None, searcher.search(query)?),
+                    };
+                    Ok(QueryResult {
+                        scenario: scenario.name.clone(),
+                        kind: query.kind,
+                        query: query.name.clone(),
+                        seconds: query.seconds,
+                        start_seconds: query.start_seconds,
+                        index: index_name.to_owned(),
+                        left_out: left_out.iter().cloned().collect(),
+                        error,
+                        detections,
+                    })
                 });
             for result in searched {
                 results.push(result?);
@@ -319,6 +283,79 @@ pub fn run(
         scenarios: plan.scenarios.clone(),
         results,
     })
+}
+
+/// The files of a scenario's played and related recordings and of the
+/// blend partner's cluster.
+struct Roles<'a> {
+    played: BTreeSet<String>,
+    related: BTreeSet<String>,
+    partner: &'a BTreeSet<String>,
+}
+
+impl Roles<'_> {
+    fn of(&self, asset: &str) -> Role {
+        if self.played.contains(asset) {
+            Role::Played
+        } else if self.related.contains(asset) {
+            Role::Related
+        } else if self.partner.contains(asset) {
+            Role::Partner
+        } else {
+            Role::Other
+        }
+    }
+}
+
+/// What a scenario's rendered queries are searched with under one index.
+struct QuerySearcher<'a> {
+    index: Index,
+    roles: &'a Roles<'a>,
+    verifier: &'a Verifier<'a>,
+    dir: &'a Path,
+    options: &'a Options<'a>,
+}
+
+impl QuerySearcher<'_> {
+    /// The detections of the rendered query, each measured with the peak
+    /// verifier.
+    fn search(&self, query: &Query) -> Result<Vec<SharedFound>, String> {
+        let profile = Profile::CURRENT;
+        let path = self.dir.join(format!("{}.mp3", query.name));
+        let audio = decode(&path, profile.sample_rate, Excerpt::default())
+            .map_err(|error| error.to_string())?;
+        let detections = self.options.matching.search(
+            &self.index,
+            &audio.samples,
+            &profile,
+            self.options.ladder,
+            1,
+        );
+        Ok(detections
+            .iter()
+            .map(|detection| self.found(detection, &audio.samples))
+            .collect())
+    }
+
+    fn found(&self, detection: &Detection, samples: &[f32]) -> SharedFound {
+        let asset = &self.index.asset(detection.asset).path;
+        SharedFound {
+            asset: asset.clone(),
+            role: self.roles.of(asset),
+            start_seconds: detection.start_seconds,
+            end_seconds: detection.end_seconds,
+            track_start_seconds: detection.track_start_seconds,
+            track_end_seconds: detection.track_end_seconds,
+            speed: detection.speed.0,
+            windows: detection.evidence.windows,
+            hits: detection.evidence.hits,
+            level: detection.evidence.confidence().into(),
+            fitted: detection.evidence.pass == Pass::Fitted,
+            verified: self
+                .verifier
+                .verify(&self.index, detection, samples, &Profile::CURRENT),
+        }
+    }
 }
 
 /// A recording's files: `file`'s duplicate cluster and `also`.
