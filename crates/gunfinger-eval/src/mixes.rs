@@ -1349,6 +1349,14 @@ impl MixesReport {
     }
 }
 
+/// The library's records, the sweep's held-out assets for a seed, and the
+/// index of the rest.
+pub struct SweepIndex {
+    pub records: Vec<PeakRecord>,
+    pub held_out: BTreeSet<String>,
+    pub index: Index,
+}
+
 /// The library's records, the sweep's held-out assets for `seed`, and the
 /// index of the rest less `left_out`.
 pub fn sweep_index(
@@ -1359,7 +1367,7 @@ pub fn sweep_index(
     panels: &Path,
     matching: &Matching,
     left_out: &BTreeSet<String>,
-) -> Result<(Vec<PeakRecord>, BTreeSet<String>, Index), String> {
+) -> Result<SweepIndex, String> {
     let (records, _) = load_records(library, store, &Profile::CURRENT, &BTreeSet::new());
     let held_out = Plan::for_seed(&records, clusters, seed, panels)?.held_out;
     let indexed: Vec<PeakRecord> = records
@@ -1369,7 +1377,11 @@ pub fn sweep_index(
         .cloned()
         .collect();
     let index = Index::build(&indexed).map_err(|error| error.to_string())?;
-    Ok((records, held_out, matching.index(index)))
+    Ok(SweepIndex {
+        records,
+        held_out,
+        index: matching.index(index),
+    })
 }
 
 /// The shared-material panel the shared kind draws its pairs from, in the
@@ -1511,7 +1523,11 @@ pub fn run(
     } else {
         &families
     };
-    let (records, held_out, index) = sweep_index(
+    let SweepIndex {
+        records,
+        held_out,
+        index,
+    } = sweep_index(
         library,
         store,
         clusters,

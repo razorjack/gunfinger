@@ -24,7 +24,8 @@ use serde::{Deserialize, Serialize};
 use crate::clusters::Clusters;
 use crate::matching::Matching;
 use crate::mixes::{
-    MixFound, PlannedMix, PlannedPlay, Pools, Searcher, draw_unused, search_mix, sweep_index,
+    MixFound, PlannedMix, PlannedPlay, Pools, Searcher, SweepIndex, draw_unused, search_mix,
+    sweep_index,
 };
 use crate::rng::Rng;
 use crate::scoring::{Level, evidence};
@@ -112,7 +113,11 @@ pub fn run(
     work: &Path,
     options: &Options,
 ) -> Result<GridReport, String> {
-    let (records, held_out, index) = sweep_index(
+    let SweepIndex {
+        records,
+        held_out,
+        index,
+    } = sweep_index(
         library,
         store,
         clusters,

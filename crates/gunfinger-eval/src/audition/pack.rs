@@ -276,7 +276,11 @@ impl ExtraLane {
         reports: &Reports,
         libraries: &Libraries,
     ) -> Result<PlacedLane, String> {
-        let (alignments, seconds, from) = extra_alignments(a_name, &self.file, reports)?;
+        let ExtraAlignments {
+            alignments,
+            seconds,
+            report: from,
+        } = extra_alignments(a_name, &self.file, reports)?;
         Ok(PlacedLane {
             lane: placement::aligned_lane(
                 &self.name,
@@ -348,13 +352,21 @@ fn exact(sheet: &[Alignment], report: &PairReport) -> Option<Vec<Alignment>> {
         .collect()
 }
 
+/// An extra file's alignments on A's timeline, its length, and the `pair`
+/// report they come from.
+struct ExtraAlignments<'a> {
+    alignments: Vec<Alignment>,
+    seconds: f64,
+    report: &'a Path,
+}
+
 /// An extra file placed on A's timeline by a `pair` report of the two, in
-/// either direction: its alignments, its length and the report's file.
+/// either direction.
 fn extra_alignments<'a>(
     a: &str,
     extra: &str,
     reports: &'a Reports,
-) -> Result<(Vec<Alignment>, f64, &'a Path), String> {
+) -> Result<ExtraAlignments<'a>, String> {
     let fitted = |report: &PairReport| -> Vec<Alignment> {
         report
             .searches
@@ -378,15 +390,19 @@ fn extra_alignments<'a>(
             .unwrap_or_default()
     };
     if let Some((path, report)) = reports.of(a, extra) {
-        return Ok((
-            placement::followed(&fitted(report)),
-            report.found_seconds,
-            path,
-        ));
+        return Ok(ExtraAlignments {
+            alignments: placement::followed(&fitted(report)),
+            seconds: report.found_seconds,
+            report: path,
+        });
     }
     if let Some((path, report)) = reports.of(extra, a) {
         let on_a: Vec<Alignment> = fitted(report).iter().map(Alignment::inverted).collect();
-        return Ok((placement::followed(&on_a), report.query_seconds, path));
+        return Ok(ExtraAlignments {
+            alignments: placement::followed(&on_a),
+            seconds: report.query_seconds,
+            report: path,
+        });
     }
     Err(format!(
         "no pair report holds {extra} and {a}; write the two names, tab-separated, to a file, run `gunfinger-eval --other-peaks-dir <store> pair <file>` and pass its report with --pair-report"
