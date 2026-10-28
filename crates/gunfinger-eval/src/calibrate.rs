@@ -53,22 +53,32 @@ pub fn run(reports: &Path, development_set: &str, rule: Rule) -> Result<(), Stri
 }
 
 impl Calibration {
+    /// The evidence of every sweep report and every development scan report
+    /// in `reports`, whatever its seed or leave-out.
     pub fn collect(reports: &Path, development_set: &str) -> Result<Calibration, String> {
+        Calibration::from_files(
+            &report_files(reports, "sweep-seed-")?,
+            &report_files(reports, &format!("scan-{development_set}"))?,
+        )
+    }
+
+    /// The evidence of these sweep and scan reports.
+    pub fn from_files(sweeps: &[PathBuf], scans: &[PathBuf]) -> Result<Calibration, String> {
         let mut calibration = Calibration {
             identifying: Vec::new(),
             false_candidates: Vec::new(),
             not_indexed: Vec::new(),
             same_title_credits: 0,
         };
-        for path in report_files(reports, "sweep-seed-")? {
-            calibration.add_sweep(&read_json(&path)?);
+        for path in sweeps {
+            calibration.add_sweep(&read_json(path)?);
         }
-        for path in report_files(reports, &format!("scan-{development_set}"))? {
+        for path in scans {
             let name = path
                 .file_name()
                 .map(|name| name.to_string_lossy().into_owned())
                 .unwrap_or_default();
-            calibration.add_scan(&name, &read_json(&path)?);
+            calibration.add_scan(&name, &read_json(path)?);
         }
         Ok(calibration)
     }

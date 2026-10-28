@@ -4,7 +4,7 @@
 //! never saved or compared.
 
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 use gunfinger_core::confidence::Pass;
 
@@ -66,10 +66,20 @@ pub fn compare(baseline: &Path, reports: &Path, set: &str, seed: u64) -> Result<
         );
     }
     compare_calibrations(
-        &Calibration::collect(baseline, set)?,
-        &Calibration::collect(reports, set)?,
+        &standard_calibration(baseline, set, seed)?,
+        &standard_calibration(reports, set, seed)?,
     );
     Ok(())
+}
+
+/// The calibration evidence of the standard reports in `dir`. Other sweeps
+/// and scans there (other seeds, other leave-outs) are left out, because
+/// the baseline holds only the standard reports.
+fn standard_calibration(dir: &Path, set: &str, seed: u64) -> Result<Calibration, String> {
+    let names = report_names(set, seed);
+    let (sweep_name, scan_names) = names.split_first().ok_or("no reports")?;
+    let scans: Vec<PathBuf> = scan_names.iter().map(|name| dir.join(name)).collect();
+    Calibration::from_files(&[dir.join(sweep_name)], &scans)
 }
 
 fn compare_sweeps(name: &str, before: &SweepReport, after: &SweepReport) {
@@ -233,6 +243,74 @@ fn compare_calibrations(before: &Calibration, after: &Calibration) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::files::{write_json, write_text};
+    use crate::sweep::{Outcome, Query};
+
+    /// A sweep of one indexed query whose own file is found with `hits`.
+    fn sweep(seed: u64, hits: u32) -> SweepReport {
+        SweepReport {
+            seed,
+            held_out_clusters: 0,
+            indexed_assets: 1,
+            per_speed: Vec::new(),
+            queries: vec![Query {
+                asset: "own.mp3".to_owned(),
+                held_out: false,
+                start_seconds: 0.0,
+                speed_percent: 0.0,
+                detections: vec![Outcome {
+                    asset: "own.mp3".to_owned(),
+                    correct: true,
+                    same_title: false,
+                    confident: true,
+                    windows: 10,
+                    hits,
+                    speed_percent: 0.0,
+                    fitted: true,
+                    partner: false,
+                    verified: None,
+                }],
+                candidates: None,
+            }],
+            set_aside: None,
+        }
+    }
+
+    const EMPTY_SCAN: &str = r#"{"set": "set", "audio_file": "mix.mp3",
+        "duration_seconds": 60.0, "wall_seconds": 1.0, "left_out_tracks": [],
+        "left_out_assets": [], "score": {"referenced": 0, "identified": 0,
+        "wrong": 0, "possible": 0, "tracks": [], "wrong_identifications": [],
+        "false_candidates": [], "unmatched_possible": []}, "detections": [],
+        "plays": []}"#;
+
+    #[test]
+    fn the_calibration_compared_reads_only_the_standard_reports() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-regress-{}", std::process::id()));
+        let names = report_names("set", 1);
+        write_json(&dir.join(&names[0]), &sweep(1, 300)).unwrap();
+        for name in &names[1..] {
+            write_text(&dir.join(name), EMPTY_SCAN).unwrap();
+        }
+        // Another seed's sweep, weaker, and a scan of another leave-out.
+        write_json(&dir.join("sweep-seed-2.json"), &sweep(2, 250)).unwrap();
+        let every_seed = Calibration::collect(&dir, "set").unwrap();
+        write_text(
+            &dir.join("scan-set-leave-out-5-seed-1.json"),
+            "not a report",
+        )
+        .unwrap();
+
+        let standard = standard_calibration(&dir, "set", 1).unwrap();
+        let every_scan = Calibration::collect(&dir, "set");
+        fs::remove_file(dir.join("scan-set.json")).unwrap();
+        let missing = standard_calibration(&dir, "set", 1);
+        fs::remove_dir_all(&dir).unwrap();
+
+        assert_eq!(every_seed.weakest_identifying().unwrap().evidence.hits, 250);
+        assert_eq!(standard.weakest_identifying().unwrap().evidence.hits, 300);
+        assert!(every_scan.is_err(), "collect reads the other leave-out");
+        assert!(missing.is_err());
+    }
 
     #[test]
     fn timing_speed_confidence_and_pass_changes_are_counted() {
