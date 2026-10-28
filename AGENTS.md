@@ -174,6 +174,9 @@ loaded index (ADR 0014).
 `audition` is the listening tool (below). `platform` names the
 system, for the few programs that only macOS or only Linux has (ADR
 0020).
+In the harness, `commands` holds each subcommand's arguments and entry
+function, in a module of its kind (`commands/clusters.rs`,
+`commands/listening.rs`, ...); the modules named above do the work.
 Python scripts that summarise harness reports for experiments live in
 `scripts/analysis/`.
 
@@ -267,8 +270,8 @@ Adding a kind of question:
    placed with `placement`, choices with their own keys, `Effect::Log`.
    Test it on fixtures (fixed lengths, or `audio::tests::tone` for real
    files) and run `schema::check` in the test.
-2. A `QuestionSource` variant in `main.rs` and its arm in
-   `make_questions`, writing `work/audition/questions/NN-<kind>.json` by
+2. A `QuestionSource` variant in `commands/listening.rs` and its arm
+   in `questions`, writing `work/audition/questions/NN-<kind>.json` by
    default.
 3. The kind in `docs/audition-questions.md`, with an example.
 4. Only if its answers must be written somewhere besides the log: a new
