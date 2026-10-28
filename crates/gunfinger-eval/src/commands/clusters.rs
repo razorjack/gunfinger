@@ -6,8 +6,9 @@ use std::path::{Path, PathBuf};
 
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::ignore::{self, IGNORE_FILE};
+use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::profile::Profile;
-use gunfinger_core::store::PeakStore;
+use gunfinger_core::store::{PeakRecord, PeakStore};
 
 use super::recall::recall_panel;
 use crate::clusters::Clusters;
@@ -252,160 +253,198 @@ fn find_clusters_around(
     jobs: usize,
 ) -> Result<(), String> {
     let map = LibraryMap::load(map_file)?;
-    let corpus = harness.corpus_clusters()?;
-    let profile = Profile::CURRENT;
-    let other_assets = current_sources(other, jobs)?;
     let library = harness.library()?;
+    let other_assets = current_sources(other, jobs)?;
     let searched =
         clusters::Searched::corpus(&library).with_other(&other_assets, other_ignore_file(other)?);
-    let verdicts = verdicts_on(harness, &searched)?;
-    let name = map
-        .other_library
-        .clone()
-        .unwrap_or_else(|| other.dir().display().to_string());
-    let copies = map.copied();
-    if let PairSource::LastRun(report) = source {
-        let report = report.clone().unwrap_or_else(|| harness.clusters_file());
+    let run = AroundRun {
+        harness,
+        other,
+        corpus: harness.corpus_clusters()?,
+        verdicts: verdicts_on(harness, &searched)?,
+        searched,
+        name: map
+            .other_library
+            .clone()
+            .unwrap_or_else(|| other.dir().display().to_string()),
+        copies: map.copied(),
+        other_assets,
+        contradictions,
+        jobs,
+    };
+    match source {
+        PairSource::LastRun(report) => run.cluster_again(report.as_deref()),
+        PairSource::Sample(count) => run.search_sample(&library, extra, *count),
+        PairSource::Search => run.search(&library, extra),
+    }
+}
+
+/// What a run of `clusters --from-peaks` with the other library works
+/// from: the corpus clusters, the files it searches with the verdicts on
+/// them, and the other library's records and copies of corpus files.
+struct AroundRun<'a> {
+    harness: &'a Harness,
+    other: &'a PeakStore,
+    corpus: Clusters,
+    searched: clusters::Searched,
+    verdicts: clusters::Verdicts,
+    /// The other library's name in the clusters' criterion.
+    name: String,
+    copies: BTreeSet<String>,
+    other_assets: Vec<Asset>,
+    contradictions: clusters::Contradictions,
+    jobs: usize,
+}
+
+impl AroundRun<'_> {
+    /// The pairs of an earlier report (the clusters in use by default)
+    /// clustered again with today's verdicts, without searching.
+    fn cluster_again(&self, report: Option<&Path>) -> Result<(), String> {
+        let report = report.map_or_else(|| self.harness.clusters_file(), Path::to_path_buf);
         let last = Clusters::load(&report)?;
-        let (pairs, dropped) = clusters::as_measured(last.pairs, &searched, &verdicts);
+        let (pairs, dropped) = clusters::as_measured(last.pairs, &self.searched, &self.verdicts);
         println!(
             "{} pairs of an earlier run ({}), clustered again without searching; {dropped} dropped: a file pruned or ignored since",
             pairs.len(),
             report.display()
         );
-        return write_merged(
-            harness,
-            &corpus,
-            pairs,
-            &copies,
-            &verdicts,
-            &name,
-            contradictions,
-        );
+        self.write_merged(pairs)
     }
-    if *source == PairSource::Search {
-        check_verdicts_against_last_run(
-            harness,
-            &corpus,
-            &searched,
-            &verdicts,
-            &name,
-            contradictions,
-        )?;
-    }
-    let (mut queries, _) = load_records(&library, &harness.store()?, &profile, &BTreeSet::new());
-    let referable = Referable::corpus(&library).with_other(&other_assets, other.dir());
-    let extra_files = extra.files(harness, other, &referable)?;
-    let extra_queries = clusters::other_queries(other, &other_assets, &extra_files, &copies)?;
-    println!(
-        "{} queries: {} corpus files and {} of the other library's ({} named, the others copies of corpus files)",
-        queries.len() + extra_queries.len(),
-        queries.len(),
-        extra_queries.len(),
-        extra_files.len()
-    );
-    queries.extend(extra_queries);
-    if let PairSource::Sample(count) = *source {
+
+    /// One round over `count` queries spread over the list, for timing;
+    /// the clusters in use are left as they are.
+    fn search_sample(
+        &self,
+        library: &Library,
+        extra: &ExtraQueries,
+        count: usize,
+    ) -> Result<(), String> {
+        let queries = self.queries(library, extra)?;
         let every = (queries.len() / count.max(1)).max(1);
         let sampled: Vec<_> = queries.into_iter().step_by(every).take(count).collect();
         let pairs = clusters::find_around(
             sampled,
-            other,
-            &other_assets,
-            &copies,
-            &verdicts,
+            self.other,
+            &self.other_assets,
+            &self.copies,
+            &self.verdicts,
             clusters::Rounds::First,
-            jobs,
+            self.jobs,
         )?;
-        clusters::print_around(&corpus, &pairs, &copies);
-        return write_json(
-            &harness
+        clusters::print_around(&self.corpus, &pairs, &self.copies);
+        write_json(
+            &self
+                .harness
                 .base_reports()
                 .join("duplicate-clusters-sample.json"),
             &pairs,
-        );
+        )
     }
-    let pairs = clusters::find_around(
-        queries,
-        other,
-        &other_assets,
-        &copies,
-        &verdicts,
-        clusters::Rounds::UntilNoneIsNew,
-        jobs,
-    )?;
-    let kept = pairs.clone();
-    write_merged(
-        harness,
-        &corpus,
-        pairs,
-        &copies,
-        &verdicts,
-        &name,
-        contradictions,
-    )
-    .or_else(|error| {
-        let stopped = harness
-            .library_reports()
-            .join("duplicate-clusters-stopped.json");
-        let unclustered = Clusters {
-            criterion: format!("{}; stopped before clustering: {error}", corpus.criterion),
-            duplicates: Vec::new(),
-            pairs: kept,
-            cut_links: Vec::new(),
+
+    /// Every query, round after round until no new pair is found; the
+    /// clusters in use are replaced. When the verdicts stop the
+    /// clustering, the pairs are kept for `--reuse-pairs`.
+    fn search(&self, library: &Library, extra: &ExtraQueries) -> Result<(), String> {
+        self.check_verdicts_against_last_run()?;
+        let pairs = clusters::find_around(
+            self.queries(library, extra)?,
+            self.other,
+            &self.other_assets,
+            &self.copies,
+            &self.verdicts,
+            clusters::Rounds::UntilNoneIsNew,
+            self.jobs,
+        )?;
+        let kept = pairs.clone();
+        self.write_merged(pairs).or_else(|error| {
+            let stopped = self
+                .harness
+                .library_reports()
+                .join("duplicate-clusters-stopped.json");
+            let unclustered = Clusters {
+                criterion: format!(
+                    "{}; stopped before clustering: {error}",
+                    self.corpus.criterion
+                ),
+                duplicates: Vec::new(),
+                pairs: kept,
+                cut_links: Vec::new(),
+            };
+            write_json(&stopped, &unclustered)?;
+            Err(format!(
+                "{error}\nThe search's pairs are kept in {0}; after the verdict, `clusters --from-peaks --reuse-pairs {0}` clusters them without searching.",
+                stopped.display()
+            ))
+        })
+    }
+
+    /// The corpus files' records, then the other library's files that
+    /// `extra` names and its copies of corpus files.
+    fn queries(&self, library: &Library, extra: &ExtraQueries) -> Result<Vec<PeakRecord>, String> {
+        let (mut queries, _) = load_records(
+            library,
+            &self.harness.store()?,
+            &Profile::CURRENT,
+            &BTreeSet::new(),
+        );
+        let referable = Referable::corpus(library).with_other(&self.other_assets, self.other.dir());
+        let extra_files = extra.files(self.harness, self.other, &referable)?;
+        let extra_queries =
+            clusters::other_queries(self.other, &self.other_assets, &extra_files, &self.copies)?;
+        println!(
+            "{} queries: {} corpus files and {} of the other library's ({} named, the others copies of corpus files)",
+            queries.len() + extra_queries.len(),
+            queries.len(),
+            extra_queries.len(),
+            extra_files.len()
+        );
+        queries.extend(extra_queries);
+        Ok(queries)
+    }
+
+    /// Prints what the pairs found, joins them to the corpus clusters with
+    /// the verdicts applied, and writes the clusters in use.
+    fn write_merged(&self, pairs: Vec<clusters::Pair>) -> Result<(), String> {
+        clusters::print_around(&self.corpus, &pairs, &self.copies);
+        let merged = clusters::merged(
+            &self.corpus,
+            pairs,
+            &self.verdicts,
+            &self.name,
+            self.contradictions,
+        )?;
+        clusters::print_cut_links(&merged);
+        let file = self.harness.clusters_file();
+        write_json(&file, &merged)?;
+        println!(
+            "{} clusters with duplicates, written to {}",
+            merged.duplicates.len(),
+            file.display()
+        );
+        Ok(())
+    }
+
+    /// Fails before searching the other library again (85 minutes for the
+    /// NAS) when the verdicts contradict the joins of the last run, which
+    /// the new search would most likely find again.
+    fn check_verdicts_against_last_run(&self) -> Result<(), String> {
+        let Ok(last) = self.harness.clusters() else {
+            return Ok(());
         };
-        write_json(&stopped, &unclustered)?;
-        Err(format!(
-            "{error}\nThe search's pairs are kept in {0}; after the verdict, `clusters --from-peaks --reuse-pairs {0}` clusters them without searching.",
-            stopped.display()
-        ))
-    })
-}
-
-/// Prints what the pairs found, joins them to the corpus clusters with the
-/// verdicts applied, and writes the clusters in use.
-fn write_merged(
-    harness: &Harness,
-    corpus: &Clusters,
-    pairs: Vec<clusters::Pair>,
-    copies: &BTreeSet<String>,
-    verdicts: &clusters::Verdicts,
-    name: &str,
-    contradictions: clusters::Contradictions,
-) -> Result<(), String> {
-    clusters::print_around(corpus, &pairs, copies);
-    let merged = clusters::merged(corpus, pairs, verdicts, name, contradictions)?;
-    clusters::print_cut_links(&merged);
-    write_json(&harness.clusters_file(), &merged)?;
-    println!(
-        "{} clusters with duplicates, written to {}",
-        merged.duplicates.len(),
-        harness.clusters_file().display()
-    );
-    Ok(())
-}
-
-/// Fails before searching the other library again (85 minutes for the
-/// NAS) when the verdicts contradict the joins of the last run, which the
-/// new search would most likely find again.
-fn check_verdicts_against_last_run(
-    harness: &Harness,
-    corpus: &Clusters,
-    searched: &clusters::Searched,
-    verdicts: &clusters::Verdicts,
-    name: &str,
-    contradictions: clusters::Contradictions,
-) -> Result<(), String> {
-    let Ok(last) = harness.clusters() else {
-        return Ok(());
-    };
-    let (pairs, _) = clusters::as_measured(last.pairs, searched, verdicts);
-    clusters::merged(corpus, pairs, verdicts, name, contradictions)
+        let (pairs, _) = clusters::as_measured(last.pairs, &self.searched, &self.verdicts);
+        clusters::merged(
+            &self.corpus,
+            pairs,
+            &self.verdicts,
+            &self.name,
+            self.contradictions,
+        )
         .map(|_| ())
         .map_err(|error| {
             format!(
                 "{error}\n(Checked against the pairs of the last run, {}, before searching again.)",
-                harness.clusters_file().display()
+                self.harness.clusters_file().display()
             )
         })
+    }
 }
