@@ -96,8 +96,8 @@ pub enum MixKind {
     /// drops, records inside stronger ones, a pair of the shared-material
     /// panel apart and together, a returning record, two rips of one
     /// recording, a held-out record. Every play is beatmatched where both
-    /// tempos are known; the pair's files are indexed (with
-    /// `DropsOptions::other_pairs`, where the index holds them).
+    /// tempos are known; the pair's files are indexed (with `--other-pairs`,
+    /// where the index holds them).
     Drops,
 }
 
