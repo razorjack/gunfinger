@@ -23,7 +23,7 @@ use crate::catalog::{absolute, list, store_records, vanished_entries};
 use crate::config::{self, Settings};
 use crate::console::Console;
 use crate::style::Style;
-use crate::survey::{Absence, counted, counted_kinds, survey};
+use crate::survey::{Absence, Survey, counted, counted_kinds, survey};
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Status {
@@ -329,6 +329,34 @@ fn check_library(
             return;
         }
     };
+    check_listing(checkup, &library);
+    check_ignore_file(checkup, &library);
+    checkup.section("peak store");
+    let Some((store, survey)) = check_peak_store(checkup, root, peaks_dir, &library) else {
+        return;
+    };
+    checkup.section("index limits");
+    check_index_limits(checkup, &library, &survey, length);
+    let searched = plan_index(
+        &library.assets,
+        &store,
+        &Profile::CURRENT,
+        &BTreeSet::new(),
+        length,
+        jobs,
+    );
+    check_saved_index(
+        checkup,
+        &store,
+        searched.sources,
+        Searched::Library,
+        length,
+        jobs,
+    );
+}
+
+/// How many audio files the listing found and what it passed over.
+fn check_listing(checkup: &mut Checkup, library: &Library) {
     let status = if library.assets.is_empty() {
         Status::Problem
     } else {
@@ -347,25 +375,32 @@ fn check_library(
             Status::Note,
             format!(
                 "these counts leave out what vanished while the library was listed (moved or deleted meanwhile, by a download for example): {}",
-                vanished_entries(&library)
+                vanished_entries(library)
             ),
         );
     }
-    check_ignore_file(checkup, &library);
+}
 
-    checkup.section("peak store");
-    let profile = Profile::CURRENT;
+/// Whether the peak store is this library's, and how its records compare
+/// with the library's files. Returns the store and the survey unless a
+/// problem stops the checkup.
+fn check_peak_store(
+    checkup: &mut Checkup,
+    root: &Path,
+    peaks_dir: &Path,
+    library: &Library,
+) -> Option<(PeakStore, Survey)> {
     let store = match PeakStore::open(peaks_dir) {
         Ok(store) => store,
         Err(error) => {
             checkup.line(Status::Problem, error);
-            return;
+            return None;
         }
     };
     match store.check_library(root) {
         Err(error) => {
             checkup.line(Status::Problem, error);
-            return;
+            return None;
         }
         Ok(()) if matches!(store.library(), Ok(Some(_))) => {
             checkup.line(Status::Ok, "it names this library as its own");
@@ -375,13 +410,20 @@ fn check_library(
             "it does not name its library yet; the next `gunfinger index` names this one",
         ),
     }
-    let survey = match survey(&library, &store, &profile) {
+    let survey = match survey(library, &store, &Profile::CURRENT) {
         Ok(survey) => survey,
         Err(error) => {
             checkup.line(Status::Problem, error);
-            return;
+            return None;
         }
     };
+    check_records(checkup, library, &survey);
+    Some((store, survey))
+}
+
+/// What the survey found: current, untagged, passed-over, unindexed and
+/// stale records, records of files gone or ignored, and leftovers.
+fn check_records(checkup: &mut Checkup, library: &Library, survey: &Survey) {
     checkup.line(
         Status::Ok,
         format!(
@@ -476,8 +518,16 @@ fn check_library(
             ),
         );
     }
+}
 
-    checkup.section("index limits");
+/// How close the library comes to the index's limits on assets and track
+/// length.
+fn check_index_limits(
+    checkup: &mut Checkup,
+    library: &Library,
+    survey: &Survey,
+    length: TrackLength,
+) {
     let within: Vec<Duration> = survey
         .current_lengths
         .iter()
@@ -526,23 +576,6 @@ fn check_library(
             format_seconds(longest),
             format_seconds(addressable)
         ),
-    );
-
-    let searched = plan_index(
-        &library.assets,
-        &store,
-        &Profile::CURRENT,
-        &BTreeSet::new(),
-        length,
-        jobs,
-    );
-    check_saved_index(
-        checkup,
-        &store,
-        searched.sources,
-        Searched::Library,
-        length,
-        jobs,
     );
 }
 
