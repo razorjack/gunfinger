@@ -18,7 +18,7 @@ use std::ops::{Range, RangeBounds};
 
 use super::chains::{chain_speed, without_weak_ends};
 use super::lines::{LINE_SPAN_FRAMES, Line, MIN_LINE_HITS, WINDOW_SECONDS};
-use super::{Detection, Options};
+use super::{Chained, Detection, Options, Search};
 use crate::confidence::{Evidence, Pass};
 use crate::hash::for_each_pair;
 use crate::index::Index;
@@ -58,25 +58,35 @@ const STRETCH_MARGIN_FRAMES: f64 = 100.0;
 /// the detections in the order given. With `trim_weak_ends`, boundaries
 /// leave out weak windows at either end.
 pub(super) fn refine(
-    index: &Index,
+    search: &Search,
     samples: &[f32],
-    profile: &Profile,
     lines: &[Line],
-    chained: Vec<(Detection, Vec<usize>)>,
-    jobs: usize,
-    options: Options,
-) -> Vec<(Detection, Vec<usize>)> {
-    let refined = map_in_order(&chained, jobs, |(detection, chain)| {
+    chained: Vec<Chained>,
+) -> Vec<Chained> {
+    let refined = map_in_order(&chained, search.jobs, |chained| {
+        let detection = &chained.detection;
         if detection.evidence.hits < MIN_HITS_TO_REFINE {
             return Some(detection.clone());
         }
-        let chain: Vec<&Line> = chain.iter().map(|&line| &lines[line]).collect();
-        at_fitted_speed(index, samples, profile, detection, &chain, options)
+        let chain: Vec<&Line> = chained.lines.iter().map(|&line| &lines[line]).collect();
+        at_fitted_speed(
+            search.index,
+            samples,
+            search.profile,
+            detection,
+            &chain,
+            search.options,
+        )
     });
     chained
         .into_iter()
         .zip(refined)
-        .filter_map(|((_, chain), refined)| refined.map(|detection| (detection, chain)))
+        .filter_map(|(chained, refined)| {
+            refined.map(|detection| Chained {
+                detection,
+                lines: chained.lines,
+            })
+        })
         .collect()
 }
 

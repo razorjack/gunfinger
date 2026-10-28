@@ -235,11 +235,14 @@ pub fn search_with_progress(
     options: Options,
     progress: impl Fn(usize, usize) + Sync,
 ) -> Vec<Detection> {
-    detections_and_chains(index, samples, profile, ladder, jobs, options, progress)
-        .1
-        .into_iter()
-        .map(|(detection, _)| detection)
-        .collect()
+    let search = Search {
+        index,
+        profile,
+        ladder,
+        jobs,
+        options,
+    };
+    search.samples(samples, progress).detections()
 }
 
 /// Like `search`, with a matcher's options or opt-in changes.
@@ -254,40 +257,6 @@ pub fn search_with(
     search_with_progress(index, samples, profile, ladder, jobs, options, |_, _| {})
 }
 
-/// The first pass's lines, and the detections strongest first, each with
-/// the indexes of its chain's lines. With the second pass, each detection
-/// is measured again at its fitted speed and keeps its first-pass chain.
-fn detections_and_chains(
-    index: &Index,
-    samples: &[f32],
-    profile: &Profile,
-    ladder: &[Rung],
-    jobs: usize,
-    options: Options,
-    progress: impl Fn(usize, usize) + Sync,
-) -> (Vec<lines::Line>, Vec<(Detection, Vec<usize>)>) {
-    let (lines, chained) = lines_and_detections(
-        index,
-        Query::Samples(samples),
-        profile,
-        ladder,
-        jobs,
-        options,
-        progress,
-    );
-    if !options.second_pass {
-        return (lines, chained);
-    }
-    let mut refined = refine::refine(index, samples, profile, &lines, chained, jobs, options);
-    refined.sort_by_key(|(detection, _)| Reverse(detection.evidence.hits));
-    let kept = match options.second_overlap {
-        SecondOverlap::Spans => strongest_per_moment(refined, None),
-        SecondOverlap::Chains => refined,
-        SecondOverlap::SpansAtSpeed(share) => strongest_per_moment(refined, Some(share)),
-    };
-    (lines, kept)
-}
-
 /// Searches the stored peaks of a library file instead of audio, without
 /// decoding it: for finding duplicates. The peaks are rescaled to each rung
 /// rather than analysed again, which loses about half the hashes that
@@ -299,19 +268,16 @@ pub fn search_peaks(
     ladder: &[Rung],
     jobs: usize,
 ) -> Vec<Detection> {
-    let (_, chained) = lines_and_detections(
+    let search = Search {
         index,
-        Query::Peaks(peaks),
         profile,
         ladder,
         jobs,
-        Options::default(),
-        |_, _| {},
-    );
-    chained
-        .into_iter()
-        .map(|(detection, _)| detection)
-        .collect()
+        options: Options::default(),
+    };
+    search
+        .first_pass(Query::Peaks(peaks), |_, _| {})
+        .detections()
 }
 
 /// What is searched: audio, or the stored peaks of a library file.
@@ -424,9 +390,18 @@ pub fn trace_with(
     options: Options,
     progress: impl Fn(usize, usize) + Sync,
 ) -> Trace {
-    let (lines, chained) =
-        detections_and_chains(index, samples, profile, ladder, jobs, options, progress);
-    let (detections, chains) = chained.into_iter().unzip();
+    let search = Search {
+        index,
+        profile,
+        ladder,
+        jobs,
+        options,
+    };
+    let Searched { lines, chained } = search.samples(samples, progress);
+    let (detections, chains) = chained
+        .into_iter()
+        .map(|chained| (chained.detection, chained.lines))
+        .unzip();
     Trace {
         detections,
         lines: lines
@@ -446,22 +421,80 @@ pub fn trace_with(
     }
 }
 
-/// The distinct lines of every rung, and the detections strongest first,
-/// each with the indexes of its chain's lines.
-fn lines_and_detections(
-    index: &Index,
-    query: Query,
-    profile: &Profile,
-    ladder: &[Rung],
+/// One search of `index` on each rung of `ladder`, on `jobs` threads.
+struct Search<'a> {
+    index: &'a Index,
+    profile: &'a Profile,
+    ladder: &'a [Rung],
     jobs: usize,
     options: Options,
-    progress: impl Fn(usize, usize) + Sync,
-) -> (Vec<lines::Line>, Vec<(Detection, Vec<usize>)>) {
-    let lines = lines::on_ladder(index, query, profile, ladder, jobs, progress);
-    let mut detections = chains::detections(&lines, profile, options.links, options.trim_weak_ends);
-    detections.sort_by_key(|(detection, _)| Reverse(detection.evidence.hits));
-    let detections = strongest_per_moment(detections, None);
-    (lines, detections)
+}
+
+/// A detection with the indexes, in the first pass's lines, of the lines
+/// its chain took.
+struct Chained {
+    detection: Detection,
+    lines: Vec<usize>,
+}
+
+/// The first pass's distinct lines of every rung, and the detections
+/// strongest first.
+struct Searched {
+    lines: Vec<lines::Line>,
+    chained: Vec<Chained>,
+}
+
+impl Searched {
+    fn detections(self) -> Vec<Detection> {
+        self.chained
+            .into_iter()
+            .map(|chained| chained.detection)
+            .collect()
+    }
+}
+
+impl Search<'_> {
+    /// The first pass over audio and, with the second pass, each detection
+    /// measured again at its fitted speed, keeping its first-pass chain.
+    fn samples(&self, samples: &[f32], progress: impl Fn(usize, usize) + Sync) -> Searched {
+        let first = self.first_pass(Query::Samples(samples), progress);
+        if !self.options.second_pass {
+            return first;
+        }
+        let mut refined = refine::refine(self, samples, &first.lines, first.chained);
+        refined.sort_by_key(|chained| Reverse(chained.detection.evidence.hits));
+        let chained = match self.options.second_overlap {
+            SecondOverlap::Spans => strongest_per_moment(refined, None),
+            SecondOverlap::Chains => refined,
+            SecondOverlap::SpansAtSpeed(share) => strongest_per_moment(refined, Some(share)),
+        };
+        Searched {
+            lines: first.lines,
+            chained,
+        }
+    }
+
+    fn first_pass(&self, query: Query, progress: impl Fn(usize, usize) + Sync) -> Searched {
+        let lines = lines::on_ladder(
+            self.index,
+            query,
+            self.profile,
+            self.ladder,
+            self.jobs,
+            progress,
+        );
+        let mut chained = chains::detections(
+            &lines,
+            self.profile,
+            self.options.links,
+            self.options.trim_weak_ends,
+        );
+        chained.sort_by_key(|chained| Reverse(chained.detection.evidence.hits));
+        Searched {
+            lines,
+            chained: strongest_per_moment(chained, None),
+        }
+    }
 }
 
 /// A record plays once at any moment. Repeated sections make weaker,
@@ -469,13 +502,12 @@ fn lines_and_detections(
 /// overlaps a stronger one of the same asset. With `speed_share`, only one
 /// whose speed differs from the stronger one's by at most that share of
 /// it. `detections` are sorted strongest first.
-fn strongest_per_moment(
-    detections: Vec<(Detection, Vec<usize>)>,
-    speed_share: Option<f64>,
-) -> Vec<(Detection, Vec<usize>)> {
-    let mut kept: Vec<(Detection, Vec<usize>)> = Vec::new();
-    for (detection, chain) in detections {
-        let overlaps_stronger = kept.iter().any(|(stronger, _)| {
+fn strongest_per_moment(detections: Vec<Chained>, speed_share: Option<f64>) -> Vec<Chained> {
+    let mut kept: Vec<Chained> = Vec::new();
+    for chained in detections {
+        let detection = &chained.detection;
+        let overlaps_stronger = kept.iter().any(|stronger| {
+            let stronger = &stronger.detection;
             stronger.asset == detection.asset
                 && stronger.start_seconds < detection.end_seconds
                 && detection.start_seconds < stronger.end_seconds
@@ -483,7 +515,7 @@ fn strongest_per_moment(
                     .is_none_or(|share| (detection.speed.0 / stronger.speed.0 - 1.0).abs() <= share)
         });
         if !overlaps_stronger {
-            kept.push((detection, chain));
+            kept.push(chained);
         }
     }
     kept
@@ -559,6 +591,13 @@ pub(crate) mod test_audio {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn unchained(detection: Detection) -> Chained {
+        Chained {
+            detection,
+            lines: Vec::new(),
+        }
+    }
     use crate::confidence::Confidence;
 
     fn detection(asset: u32, start_seconds: f64, end_seconds: f64, hits: u32) -> Detection {
@@ -659,17 +698,11 @@ mod tests {
             detection(1, 600.0, 700.0, 200), // played again later: kept
         ];
 
-        let kept = strongest_per_moment(
-            strongest_first
-                .into_iter()
-                .map(|found| (found, Vec::new()))
-                .collect(),
-            None,
-        );
+        let kept = strongest_per_moment(strongest_first.into_iter().map(unchained).collect(), None);
 
         let spans: Vec<(u32, f64)> = kept
             .iter()
-            .map(|(found, _)| (found.asset.0, found.start_seconds))
+            .map(|chained| (chained.detection.asset.0, chained.detection.start_seconds))
             .collect();
         assert_eq!(spans, [(1, 100.0), (2, 350.0), (1, 600.0)]);
     }
@@ -688,14 +721,14 @@ mod tests {
         ];
 
         let kept = strongest_per_moment(
-            strongest_first
-                .into_iter()
-                .map(|found| (found, Vec::new()))
-                .collect(),
+            strongest_first.into_iter().map(unchained).collect(),
             Some(0.006),
         );
 
-        let starts: Vec<f64> = kept.iter().map(|(found, _)| found.start_seconds).collect();
+        let starts: Vec<f64> = kept
+            .iter()
+            .map(|chained| chained.detection.start_seconds)
+            .collect();
         assert_eq!(starts, [100.0, 380.0]);
     }
 
@@ -713,8 +746,8 @@ mod tests {
                 ..detection(1, 100.0, 400.0, hits)
             };
             let strongest_first = vec![
-                (at_speed(900, 1.05), Vec::new()),
-                (at_speed(300, 1.05 * (1.0 + share_apart)), Vec::new()),
+                unchained(at_speed(900, 1.05)),
+                unchained(at_speed(300, 1.05 * (1.0 + share_apart))),
             ];
             strongest_per_moment(strongest_first, Some(SAME_SPEED_SHARE)).len() == 2
         };
@@ -735,8 +768,8 @@ mod tests {
             ..detection(1, 100.0, 400.0, hits)
         };
         let strongest_first = vec![
-            (at_speed(900, 1.0), Vec::new()),
-            (at_speed(300, 1.0 + 1.0 / 128.0), Vec::new()),
+            unchained(at_speed(900, 1.0)),
+            unchained(at_speed(300, 1.0 + 1.0 / 128.0)),
         ];
 
         let kept = strongest_per_moment(strongest_first, Some(1.0 / 128.0));

@@ -3,8 +3,8 @@
 
 use std::ops::Range;
 
-use super::Detection;
 use super::lines::Line;
+use super::{Chained, Detection};
 use crate::confidence::Evidence;
 use crate::profile::Profile;
 use crate::speed::{Playback, STEP, SpeedRatio};
@@ -64,7 +64,7 @@ pub(super) fn detections(
     profile: &Profile,
     rules: Links,
     trim_weak_ends: bool,
-) -> Vec<(Detection, Vec<usize>)> {
+) -> Vec<Chained> {
     let mut detections = Vec::new();
     let mut first_of_asset = 0;
     for same_asset in lines.chunk_by(|a, b| a.asset == b.asset) {
@@ -84,7 +84,10 @@ pub(super) fn detections(
                 chain.reverse();
                 let chained: Vec<&Line> = chain.iter().map(|&line| &same_asset[line]).collect();
                 let indexes = chain.iter().map(|line| first_of_asset + line).collect();
-                detections.push((detection(&chained, profile, trim_weak_ends), indexes));
+                detections.push(Chained {
+                    detection: detection(&chained, profile, trim_weak_ends),
+                    lines: indexes,
+                });
             }
         }
         first_of_asset += same_asset.len();
@@ -261,7 +264,7 @@ mod tests {
 
         let found = detections(&lines, &Profile::CURRENT, Links::default(), false);
 
-        let chains: Vec<&Vec<usize>> = found.iter().map(|(_, chain)| chain).collect();
+        let chains: Vec<&Vec<usize>> = found.iter().map(|chained| &chained.lines).collect();
         assert_eq!(chains, [&vec![0, 1], &vec![3, 4]]);
     }
 
