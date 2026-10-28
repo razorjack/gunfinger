@@ -9,7 +9,7 @@ use gunfinger_core::store::PeakStore;
 use crate::files::{read_json, stem_or, write_json};
 use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::library_map::LibraryMap;
-use crate::padding::SECOND_LIBRARY_PREFIX;
+use crate::padding::OTHER_LIBRARY_PREFIX;
 use crate::{holders, identifiability, pair, shared, shared_mixes, versions};
 
 #[derive(clap::Args)]
@@ -42,7 +42,7 @@ pub struct IdentifiabilityArgs {
     /// The panel, as `scripts/analysis/shared_panel.py` writes it.
     pub panel: PathBuf,
     #[arg(long, value_enum)]
-    pub half: Half,
+    pub half: PanelHalf,
 }
 
 #[derive(clap::Args)]
@@ -61,7 +61,7 @@ pub fn shared(harness: &Harness, jobs: usize, args: SharedArgs) -> Result<(), St
     let SharedArgs { plan: plan_file } = args;
     let plan: shared::Plan = read_json(&plan_file)?;
     let name = stem_or(&plan_file, "shared-material");
-    let second_root = second_library_root(harness.other_store()?.as_ref())?;
+    let other_root = other_library_root(harness.other_store()?.as_ref())?;
     let library = harness.library()?;
     let renders = harness
         .paths
@@ -76,7 +76,7 @@ pub fn shared(harness: &Harness, jobs: usize, args: SharedArgs) -> Result<(), St
         &harness.clusters()?,
         &shared::Roots {
             library: &library.root,
-            second: second_root.as_deref(),
+            other: other_root.as_deref(),
         },
         &renders,
         &shared::Options {
@@ -106,7 +106,7 @@ pub fn shared_mixes(harness: &Harness, jobs: usize, args: SharedMixesArgs) -> Re
     let SharedMixesArgs { plan: plan_file } = args;
     let plan: shared_mixes::Plan = read_json(&plan_file)?;
     let name = stem_or(&plan_file, "shared-mixes");
-    let second_root = second_library_root(harness.other_store()?.as_ref())?;
+    let other_root = other_library_root(harness.other_store()?.as_ref())?;
     let library = harness.library()?;
     let report = shared_mixes::run(
         &plan,
@@ -115,7 +115,7 @@ pub fn shared_mixes(harness: &Harness, jobs: usize, args: SharedMixesArgs) -> Re
         &harness.clusters()?,
         &shared::Roots {
             library: &library.root,
-            second: second_root.as_deref(),
+            other: other_root.as_deref(),
         },
         &harness.paths.work.join("shared-mixes").join(&name),
         &shared_mixes::Options {
@@ -140,7 +140,7 @@ pub fn holders(harness: &Harness, jobs: usize, args: HoldersArgs) -> Result<(), 
     let lookups: Vec<holders::Lookup> = read_json(&lookups_file)?;
     let name = stem_or(&lookups_file, "lookups");
     let stood_for = match harness.map_file() {
-        Some(map_file) => LibraryMap::load(&map_file)?.standing_corpus_files(SECOND_LIBRARY_PREFIX),
+        Some(map_file) => LibraryMap::load(&map_file)?.standing_corpus_files(OTHER_LIBRARY_PREFIX),
         None => BTreeMap::new(),
     };
     let looked = holders::run(
@@ -176,7 +176,7 @@ pub fn identifiability(harness: &Harness, args: IdentifiabilityArgs) -> Result<(
     } = args;
     let panel: identifiability::Panel = read_json(&panel_file)?;
     let other = harness.other_store()?;
-    let second_root = second_library_root(other.as_ref())?;
+    let other_root = other_library_root(other.as_ref())?;
     let library = harness.library()?;
     let report = identifiability::run(
         &panel,
@@ -188,7 +188,7 @@ pub fn identifiability(harness: &Harness, args: IdentifiabilityArgs) -> Result<(
         },
         &shared::Roots {
             library: &library.root,
-            second: second_root.as_deref(),
+            other: other_root.as_deref(),
         },
     )?;
     write_json(
@@ -205,7 +205,7 @@ pub fn versions(harness: &Harness, jobs: usize, args: VersionsArgs) -> Result<()
     let VersionsArgs { plays, out } = args;
     let list: versions::PlayList = read_json(&plays)?;
     let other = harness.other_store()?;
-    let second_root = second_library_root(other.as_ref())?;
+    let other_root = other_library_root(other.as_ref())?;
     let library = harness.library()?;
     let verified = versions::run(
         &list.plays,
@@ -216,7 +216,7 @@ pub fn versions(harness: &Harness, jobs: usize, args: VersionsArgs) -> Result<()
         },
         &shared::Roots {
             library: &library.root,
-            second: second_root.as_deref(),
+            other: other_root.as_deref(),
         },
         jobs,
     )?;
@@ -227,22 +227,22 @@ pub fn versions(harness: &Harness, jobs: usize, args: VersionsArgs) -> Result<()
 
 /// A half of a shared-material panel.
 #[derive(Clone, Copy, clap::ValueEnum)]
-pub enum Half {
+pub enum PanelHalf {
     Development,
     Validation,
 }
 
-impl Half {
+impl PanelHalf {
     fn name(self) -> &'static str {
         match self {
-            Half::Development => "development",
-            Half::Validation => "validation",
+            PanelHalf::Development => "development",
+            PanelHalf::Validation => "validation",
         }
     }
 }
 
 /// The root of the other library's files, as its store names it.
-fn second_library_root(other: Option<&PeakStore>) -> Result<Option<PathBuf>, String> {
+fn other_library_root(other: Option<&PeakStore>) -> Result<Option<PathBuf>, String> {
     let Some(other) = other else {
         return Ok(None);
     };

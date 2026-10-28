@@ -21,7 +21,7 @@ use crate::files::{read_json, write_json};
 use crate::harness::Harness;
 use crate::manifest::Referable;
 use crate::matching::Matching;
-use crate::padding::SecondLibrary;
+use crate::padding::OtherLibrary;
 use crate::{gaps, manifest, mixes, scan, seconds, shared_mixes};
 
 #[derive(clap::Args)]
@@ -573,7 +573,7 @@ fn match_gaps_against_themselves(
 /// library's, and with --other-peaks-dir the other store's.
 struct NeighbourRecords {
     corpus: BTreeMap<String, PeakRecord>,
-    other: Option<SecondLibrary>,
+    other: Option<OtherLibrary>,
 }
 
 impl NeighbourRecords {
@@ -585,7 +585,7 @@ impl NeighbourRecords {
             &BTreeSet::new(),
         );
         let other = match harness.other_store()? {
-            Some(store) => Some(SecondLibrary::from_store(store, &BTreeSet::new())?),
+            Some(store) => Some(OtherLibrary::from_store(store, &BTreeSet::new())?),
             None => None,
         };
         Ok(NeighbourRecords {

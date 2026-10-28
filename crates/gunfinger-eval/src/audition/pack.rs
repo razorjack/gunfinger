@@ -693,7 +693,7 @@ To record a verdict, a line in docs/pair-verdicts.txt (tabs between the fields):
     fn libraries() -> Libraries {
         Libraries {
             corpus: PathBuf::from("/repo/corpus/library"),
-            second: PathBuf::from("/nas"),
+            other: PathBuf::from("/nas"),
         }
     }
 

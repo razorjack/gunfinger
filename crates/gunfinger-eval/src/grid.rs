@@ -156,7 +156,7 @@ pub fn run(
         |(number, seconds, offset, mix, path)| {
             let roots = Roots {
                 library: &library.root,
-                second: None,
+                other: None,
             };
             let result = search_mix(mix, path, &roots, clusters, options.same_titles, &searcher)?;
             let brief = &result.score.plays[1];

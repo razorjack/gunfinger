@@ -109,7 +109,7 @@ pub fn run(
     let profile = Profile::CURRENT;
     let mut report = MemoryReport {
         synthetic_copies: options.padding.copies,
-        second_library_assets: options.padding.second_assets(),
+        second_library_assets: options.padding.other_assets(),
         jobs: options.jobs,
         matching: options.matching.name(),
         assets: 0,

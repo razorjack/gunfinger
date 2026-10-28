@@ -4,7 +4,7 @@
 
 use std::path::PathBuf;
 
-use super::sweep::Copies;
+use super::sweep::ExactCopyOptions;
 use crate::files::write_json;
 use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::padding::{Padding, current_sources};
@@ -42,7 +42,7 @@ pub struct FullestArgs {
     #[arg(long, default_value_t = 0.01)]
     pub share: f64,
     #[command(flatten)]
-    pub copies: Copies,
+    pub copies: ExactCopyOptions,
     /// Pairs of files, two index paths per line separated by a tab:
     /// count the hashes both hold and those set aside (session 50).
     #[arg(long)]

@@ -32,7 +32,7 @@ use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::{ANY_LENGTH, Clusters, MIN_COVERAGE, MIN_HITS_TO_MEASURE};
-use crate::padding::SECOND_LIBRARY_PREFIX;
+use crate::padding::OTHER_LIBRARY_PREFIX;
 
 /// The seconds searched at each end of a file.
 const WINDOW_SECONDS: f64 = 60.0;
@@ -297,7 +297,7 @@ impl Library<'_> {
     }
 
     fn part(&self, found: &str, found_seconds: f64, detection: &Detection) -> Part {
-        let named = format!("{SECOND_LIBRARY_PREFIX}{found}");
+        let named = format!("{OTHER_LIBRARY_PREFIX}{found}");
         Part {
             cluster: self
                 .cluster_of
@@ -322,7 +322,7 @@ impl Library<'_> {
         record: &PeakRecord,
         searched: Searched,
     ) -> Result<Option<Candidate>, String> {
-        let file = format!("{SECOND_LIBRARY_PREFIX}{}", record.header.source.path);
+        let file = format!("{OTHER_LIBRARY_PREFIX}{}", record.header.source.path);
         let seconds = record.header.duration_seconds;
         let first = self.parts(record, searched)?;
         let whole_already = searched == Searched::Whole || seconds < WHOLE_BELOW_SECONDS;

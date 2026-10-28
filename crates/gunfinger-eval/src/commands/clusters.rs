@@ -16,7 +16,7 @@ use crate::files::write_json;
 use crate::harness::Harness;
 use crate::library_map::LibraryMap;
 use crate::manifest::Referable;
-use crate::padding::{SECOND_LIBRARY_PREFIX, current_sources};
+use crate::padding::{OTHER_LIBRARY_PREFIX, current_sources};
 use crate::{clusters, manifest};
 
 #[derive(clap::Args)]
@@ -125,7 +125,7 @@ impl ExtraQueries {
                 set.tracks
                     .into_iter()
                     .flat_map(|track| track.references)
-                    .filter(|reference| reference.starts_with(SECOND_LIBRARY_PREFIX)),
+                    .filter(|reference| reference.starts_with(OTHER_LIBRARY_PREFIX)),
             );
         }
         if let Some(seed) = self.recall_panel {

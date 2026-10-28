@@ -24,7 +24,7 @@ use gunfinger_core::speed::{Playback, Rung, SpeedRatio, key_lock_ladder, ladder}
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
-use crate::padding::SECOND_LIBRARY_PREFIX;
+use crate::padding::OTHER_LIBRARY_PREFIX;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PairReport {
@@ -134,7 +134,7 @@ fn run_pair(
         query_is_shorter,
         fine_rungs,
     );
-    if !query.starts_with(SECOND_LIBRARY_PREFIX) {
+    if !query.starts_with(OTHER_LIBRARY_PREFIX) {
         let audio = decode(
             &sources.library.root.join(query),
             profile.sample_rate,
@@ -247,7 +247,7 @@ impl Records {
     /// Whether either store has a current record of `path`: a file pruned
     /// since a panel named it has none.
     pub(crate) fn holds(&self, path: &str) -> bool {
-        match path.strip_prefix(SECOND_LIBRARY_PREFIX) {
+        match path.strip_prefix(OTHER_LIBRARY_PREFIX) {
             None => self
                 .corpus
                 .iter()
@@ -259,7 +259,7 @@ impl Records {
     /// A corpus file's record, or with the prefix one of the other
     /// library's.
     pub(crate) fn record(&self, sources: &Sources, path: &str) -> Result<PeakRecord, String> {
-        let Some(other_path) = path.strip_prefix(SECOND_LIBRARY_PREFIX) else {
+        let Some(other_path) = path.strip_prefix(OTHER_LIBRARY_PREFIX) else {
             return self
                 .corpus
                 .iter()

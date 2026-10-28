@@ -286,7 +286,7 @@ mod tests {
     fn libraries() -> Libraries {
         Libraries {
             corpus: PathBuf::from("/repo/corpus/library"),
-            second: PathBuf::from("/nas/music"),
+            other: PathBuf::from("/nas/music"),
         }
     }
 

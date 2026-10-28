@@ -13,7 +13,7 @@ use crate::clusters::{self, Clusters};
 use crate::library_map::LibraryMap;
 use crate::manifest::Referable;
 use crate::matching::Matching;
-use crate::padding::{Padding, SavedIndex, SecondLibrary, current_sources};
+use crate::padding::{OtherLibrary, Padding, SavedIndex, current_sources};
 use crate::{available_parallelism, synthetic, titles};
 
 /// The harness's global options: where it reads and writes, how it
@@ -176,13 +176,13 @@ impl IndexVariant {
                 synthetic::MAX_COPIES
             ));
         }
-        let second = match (&self.second_library, &self.second_peaks_dir) {
-            (Some(root), Some(peaks_dir)) => Some(SecondLibrary::open(root, peaks_dir)?),
+        let other = match (&self.second_library, &self.second_peaks_dir) {
+            (Some(root), Some(peaks_dir)) => Some(OtherLibrary::open(root, peaks_dir)?),
             _ => None,
         };
         Ok(Padding {
             copies: self.synthetic_copies,
-            second,
+            other,
             saved: None,
             exact: None,
         })
@@ -395,14 +395,14 @@ impl Harness {
         let (Some(store), Some(map_file)) = (self.other_store()?, self.map_file()) else {
             return Ok(padding);
         };
-        if padding.second.is_some() {
+        if padding.other.is_some() {
             return Err(String::from(
                 "--second-library and --other-peaks-dir cannot be combined",
             ));
         }
         let map = LibraryMap::load(&map_file)?;
-        let second = SecondLibrary::from_store(store, &map.stood_for())?;
-        padding.second = Some(match self.other.other_sample {
+        let second = OtherLibrary::from_store(store, &map.stood_for())?;
+        padding.other = Some(match self.other.other_sample {
             Some(count) => second.sampled(count, OTHER_SAMPLE_SEED),
             None => second,
         });

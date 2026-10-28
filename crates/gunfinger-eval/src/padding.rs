@@ -35,7 +35,7 @@ use crate::synthetic;
 pub struct Padding {
     /// Reversed copies of every record of the library.
     pub copies: usize,
-    pub second: Option<SecondLibrary>,
+    pub other: Option<OtherLibrary>,
     /// Where the index of the library and the whole second library is
     /// saved. Used only with a second library and no copies.
     pub saved: Option<SavedIndex>,
@@ -108,17 +108,17 @@ const ANY_LENGTH: TrackLength = TrackLength {
 
 /// In the index, the second library's paths start with this, so reports
 /// tell its assets from the library's.
-pub const SECOND_LIBRARY_PREFIX: &str = "second-library/";
+pub const OTHER_LIBRARY_PREFIX: &str = "second-library/";
 
 /// Another library and its peak store, as `gunfinger index` wrote it.
-pub struct SecondLibrary {
+pub struct OtherLibrary {
     store: PeakStore,
     /// The assets with a current peak record, in library order.
     assets: Vec<Asset>,
 }
 
-impl SecondLibrary {
-    pub fn open(root: &Path, peaks_dir: &Path) -> Result<SecondLibrary, String> {
+impl OtherLibrary {
+    pub fn open(root: &Path, peaks_dir: &Path) -> Result<OtherLibrary, String> {
         let library = Library::scan(root)
             .map_err(|error| error.to_string())
             .and_then(crate::harness::nothing_vanished)
@@ -147,7 +147,7 @@ impl SecondLibrary {
                 peaks_dir.display()
             ));
         }
-        Ok(SecondLibrary { store, assets })
+        Ok(OtherLibrary { store, assets })
     }
 
     /// The current records of `store`, without reading its library, less
@@ -155,9 +155,9 @@ impl SecondLibrary {
     pub fn from_store(
         store: PeakStore,
         without: &BTreeSet<String>,
-    ) -> Result<SecondLibrary, String> {
+    ) -> Result<OtherLibrary, String> {
         let assets = current_sources(&store, crate::available_parallelism())?;
-        Ok(SecondLibrary {
+        Ok(OtherLibrary {
             store,
             assets: assets
                 .into_iter()
@@ -168,7 +168,7 @@ impl SecondLibrary {
 
     /// A seeded random choice of `count` of its assets, kept in library
     /// order: a smaller real library, for measuring against size.
-    pub fn sampled(mut self, count: usize, seed: u64) -> SecondLibrary {
+    pub fn sampled(mut self, count: usize, seed: u64) -> OtherLibrary {
         let mut order: Vec<usize> = (0..self.assets.len()).collect();
         Rng::new(seed).shuffle(&mut order);
         let mut chosen = vec![false; self.assets.len()];
@@ -187,14 +187,14 @@ impl SecondLibrary {
     /// Whether the asset the index names `path` (prefixed) is one of this
     /// library's: a copy a corpus file stands for is not.
     pub fn holds(&self, path: &str) -> bool {
-        path.strip_prefix(SECOND_LIBRARY_PREFIX)
+        path.strip_prefix(OTHER_LIBRARY_PREFIX)
             .is_some_and(|path| self.assets.iter().any(|asset| asset.path == path))
     }
 
     /// The record of the asset the index names `path` (prefixed); `None`
     /// when it is not one of this library's.
     pub fn record(&self, path: &str) -> Option<Result<PeakRecord, String>> {
-        let path = path.strip_prefix(SECOND_LIBRARY_PREFIX)?;
+        let path = path.strip_prefix(OTHER_LIBRARY_PREFIX)?;
         let asset = self.assets.iter().find(|asset| asset.path == path)?;
         Some(
             self.store
@@ -206,7 +206,7 @@ impl SecondLibrary {
     /// Its files as the index names them, their paths prefixed.
     fn prefixed_assets(&self) -> impl Iterator<Item = Asset> + '_ {
         self.assets.iter().map(|asset| Asset {
-            path: format!("{SECOND_LIBRARY_PREFIX}{}", asset.path),
+            path: format!("{OTHER_LIBRARY_PREFIX}{}", asset.path),
             ..asset.clone()
         })
     }
@@ -230,14 +230,14 @@ impl SecondLibrary {
     ) -> impl Iterator<Item = Result<PeakRecord, String>> + 'a {
         self.assets
             .iter()
-            .filter(move |asset| wanted(&format!("{SECOND_LIBRARY_PREFIX}{}", asset.path)))
+            .filter(move |asset| wanted(&format!("{OTHER_LIBRARY_PREFIX}{}", asset.path)))
             .map(move |asset| {
                 let mut record = self
                     .store
                     .load(asset, profile)
                     .map_err(|error| error.to_string())?;
                 record.header.source.path =
-                    format!("{SECOND_LIBRARY_PREFIX}{}", record.header.source.path);
+                    format!("{OTHER_LIBRARY_PREFIX}{}", record.header.source.path);
                 Ok(record)
             })
     }
@@ -245,8 +245,8 @@ impl SecondLibrary {
 
 impl Padding {
     /// The second library's assets.
-    pub fn second_assets(&self) -> usize {
-        self.second.as_ref().map_or(0, SecondLibrary::len)
+    pub fn other_assets(&self) -> usize {
+        self.other.as_ref().map_or(0, OtherLibrary::len)
     }
 
     /// The index of `records` followed by the padding, leaving out the
@@ -264,7 +264,7 @@ impl Padding {
         profile: &Profile,
         excluded: &BTreeSet<String>,
     ) -> Result<Index, String> {
-        match (&self.saved, &self.second) {
+        match (&self.saved, &self.other) {
             (Some(saved), Some(second)) if self.copies == 0 && self.exact.is_none() => Ok(self
                 .whole_index(saved, second, records, profile)?
                 .without_assets(excluded)),
@@ -278,7 +278,7 @@ impl Padding {
     fn whole_index(
         &self,
         saved: &SavedIndex,
-        second: &SecondLibrary,
+        second: &OtherLibrary,
         records: &[PeakRecord],
         profile: &Profile,
     ) -> Result<Index, String> {
@@ -354,7 +354,7 @@ impl Padding {
         for record in &indexed {
             counting.count(record).map_err(|error| error.to_string())?;
         }
-        if let Some(second) = &self.second {
+        if let Some(second) = &self.other {
             for record in second.records(profile, excluded) {
                 counting
                     .count(&record?)
@@ -371,7 +371,7 @@ impl Padding {
         for record in &indexed {
             filling.fill(record).map_err(|error| error.to_string())?;
         }
-        if let Some(second) = &self.second {
+        if let Some(second) = &self.other {
             for record in second.records(profile, excluded) {
                 filling.fill(&record?).map_err(|error| error.to_string())?;
             }
@@ -403,7 +403,7 @@ impl Padding {
             .iter()
             .filter(move |record| is_chosen(&record.header.source.path))
             .map(|&record| Ok(record.clone()));
-        let second = self.second.iter().flat_map(move |second| {
+        let second = self.other.iter().flat_map(move |second| {
             second.records_where(profile, move |path| {
                 is_chosen(path) && !excluded.contains(path)
             })
@@ -464,7 +464,7 @@ mod tests {
 
         let padding = Padding {
             copies: 1,
-            second: Some(SecondLibrary::open(&root, &dir.join("peaks")).unwrap()),
+            other: Some(OtherLibrary::open(&root, &dir.join("peaks")).unwrap()),
             saved: None,
             exact: None,
         };
@@ -484,12 +484,12 @@ mod tests {
             paths,
             ["a.mp3", "second-library/b.mp3", "synthetic/000/a.mp3"]
         );
-        assert_eq!(padding.second_assets(), 1);
+        assert_eq!(padding.other_assets(), 1);
     }
 
     /// A second library of `files` (name, peak bins) with their records,
     /// in a fresh folder under the system's temporary folder.
-    fn second_library(dir: &Path, files: &[(&str, &[f32])]) -> SecondLibrary {
+    fn other_library(dir: &Path, files: &[(&str, &[f32])]) -> OtherLibrary {
         let root = dir.join("second");
         fs::create_dir_all(&root).unwrap();
         for (name, _) in files {
@@ -504,7 +504,7 @@ mod tests {
             store.save(&record(asset, bins)).unwrap();
         }
         store.claim_library(&root).unwrap();
-        SecondLibrary::open(&root, &dir.join("peaks")).unwrap()
+        OtherLibrary::open(&root, &dir.join("peaks")).unwrap()
     }
 
     fn corpus() -> Vec<PeakRecord> {
@@ -541,7 +541,7 @@ mod tests {
             ("c.mp3", &[150.0, 130.0, 160.0]),
         ];
         let padding = Padding {
-            second: Some(second_library(&dir, files)),
+            other: Some(other_library(&dir, files)),
             exact: Some(ExactCopies {
                 count: 2,
                 chosen: excluded(&["a.mp3", "d.mp3", "second-library/c.mp3"]),
@@ -601,12 +601,12 @@ mod tests {
             ("c.mp3", &[150.0, 130.0, 160.0]),
         ];
         let built = Padding {
-            second: Some(second_library(&dir, files)),
+            other: Some(other_library(&dir, files)),
             ..Padding::default()
         };
         let file = dir.join("indexes").join("library-peaks.index");
         let saved = Padding {
-            second: Some(second_library(&dir, files)),
+            other: Some(other_library(&dir, files)),
             saved: Some(SavedIndex::Use(file.clone())),
             ..Padding::default()
         };
@@ -641,12 +641,12 @@ mod tests {
         let left_out = excluded(&["a.mp3"]);
         let files: &[(&str, &[f32])] = &[("b.mp3", &[100.0, 120.0, 90.0])];
         let saved = |files: &[(&str, &[f32])]| Padding {
-            second: Some(second_library(&dir, files)),
+            other: Some(other_library(&dir, files)),
             saved: Some(SavedIndex::Use(file.clone())),
             ..Padding::default()
         };
         let built = |files: &[(&str, &[f32])]| Padding {
-            second: Some(second_library(&dir, files)),
+            other: Some(other_library(&dir, files)),
             ..Padding::default()
         };
         saved(files).index(&records, &profile, &left_out).unwrap();

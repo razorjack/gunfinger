@@ -11,7 +11,7 @@ use crate::available_parallelism;
 use crate::files::write_json;
 use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::library_map::LibraryMap;
-use crate::padding::{SECOND_LIBRARY_PREFIX, current_sources};
+use crate::padding::{OTHER_LIBRARY_PREFIX, current_sources};
 use crate::{recall, sweep};
 
 #[derive(clap::Args)]
@@ -191,7 +191,7 @@ pub fn recall_panel(
         LibraryMap::load(&map_file)?
             .copied()
             .into_iter()
-            .map(|path| format!("{SECOND_LIBRARY_PREFIX}{path}")),
+            .map(|path| format!("{OTHER_LIBRARY_PREFIX}{path}")),
     );
     let assets = current_sources(other, available_parallelism())?;
     let panel = recall::Panel::for_seed(

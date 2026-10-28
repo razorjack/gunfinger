@@ -86,14 +86,14 @@ pub fn audition(harness: &Harness, args: AuditionArgs) -> Result<(), String> {
 pub fn questions(harness: &Harness, args: QuestionsArgs) -> Result<(), String> {
     let QuestionsArgs { source } = args;
     let questions_dir = harness.paths.work.join("audition").join("questions");
-    let libraries = |roots: &SecondLibraryRoot| -> Result<audition::names::Libraries, String> {
+    let libraries = |roots: &OtherLibraryRoot| -> Result<audition::names::Libraries, String> {
         let absolute = |path: &Path| {
             std::path::absolute(path)
                 .map_err(|error| format!("cannot resolve {}: {error}", path.display()))
         };
         Ok(audition::names::Libraries {
             corpus: absolute(&harness.paths.corpus.join("library"))?,
-            second: absolute(&roots.second_library_root)?,
+            other: absolute(&roots.second_library_root)?,
         })
     };
     let (mut file, out) = match source {
@@ -218,7 +218,7 @@ pub enum QuestionSource {
         #[arg(long = "pair-report")]
         pair_reports: Vec<PathBuf>,
         #[command(flatten)]
-        roots: SecondLibraryRoot,
+        roots: OtherLibraryRoot,
         #[arg(long)]
         out: Option<PathBuf>,
     },
@@ -227,7 +227,7 @@ pub enum QuestionSource {
     Folders {
         plan: PathBuf,
         #[command(flatten)]
-        roots: SecondLibraryRoot,
+        roots: OtherLibraryRoot,
         #[arg(long)]
         out: Option<PathBuf>,
     },
@@ -237,7 +237,7 @@ pub enum QuestionSource {
     Detections {
         report: PathBuf,
         #[command(flatten)]
-        roots: SecondLibraryRoot,
+        roots: OtherLibraryRoot,
         #[arg(long)]
         out: Option<PathBuf>,
     },
@@ -247,7 +247,7 @@ pub enum QuestionSource {
     Shared {
         report: PathBuf,
         #[command(flatten)]
-        roots: SecondLibraryRoot,
+        roots: OtherLibraryRoot,
         #[arg(long)]
         out: Option<PathBuf>,
     },
@@ -262,7 +262,7 @@ pub enum QuestionSource {
         #[arg(long)]
         files: Option<PathBuf>,
         #[command(flatten)]
-        roots: SecondLibraryRoot,
+        roots: OtherLibraryRoot,
         #[arg(long)]
         out: Option<PathBuf>,
     },
@@ -270,7 +270,7 @@ pub enum QuestionSource {
 
 /// Where the files named `second-library/<path>` are.
 #[derive(clap::Args)]
-pub struct SecondLibraryRoot {
+pub struct OtherLibraryRoot {
     /// The root of the other library's files (the NAS).
     #[arg(long, default_value = "/Volumes/atlas/Music/dnb")]
     second_library_root: PathBuf,

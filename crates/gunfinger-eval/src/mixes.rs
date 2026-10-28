@@ -1506,7 +1506,7 @@ pub fn run(
 ) -> Result<MixesReport, String> {
     let roots = Roots {
         library: &library.root,
-        second: options.other_root,
+        other: options.other_root,
     };
     let kind = options.kind.mix_kind();
     let drops = options.kind.drops();
@@ -1798,7 +1798,7 @@ mod tests {
         }
         let roots = Roots {
             library: &dir,
-            second: None,
+            other: None,
         };
         let mut tone = play(0.0, 8.0);
         tone.source_start_seconds = 1.0;

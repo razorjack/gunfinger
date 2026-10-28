@@ -32,7 +32,7 @@ use crate::clusters::Clusters;
 use crate::files::{read_json, write_json};
 use crate::fullest::{self, SetAsideLike};
 use crate::matching::Matching;
-use crate::padding::{Padding, SECOND_LIBRARY_PREFIX};
+use crate::padding::{OTHER_LIBRARY_PREFIX, Padding};
 use crate::render::is_complete;
 use crate::rng::Rng;
 use crate::robust::{COMBINED_ENCODING, render_combined};
@@ -138,7 +138,7 @@ impl Panel {
         let mut panel: Panel = read_json(&path)?;
         let present: BTreeSet<String> = assets
             .iter()
-            .map(|asset| format!("{SECOND_LIBRARY_PREFIX}{}", asset.path))
+            .map(|asset| format!("{OTHER_LIBRARY_PREFIX}{}", asset.path))
             .collect();
         panel.left_out = panel.without_record(&present);
         for source in &panel.left_out {
@@ -184,7 +184,7 @@ fn candidates(
     assets
         .iter()
         .filter_map(|asset| {
-            let name = format!("{SECOND_LIBRARY_PREFIX}{}", asset.path);
+            let name = format!("{OTHER_LIBRARY_PREFIX}{}", asset.path);
             if corpus_recordings.contains(&name) {
                 return None;
             }
@@ -439,7 +439,7 @@ pub fn render_damaged(
 }
 
 fn audio_file(root: &Path, asset: &str) -> PathBuf {
-    root.join(asset.strip_prefix(SECOND_LIBRARY_PREFIX).unwrap_or(asset))
+    root.join(asset.strip_prefix(OTHER_LIBRARY_PREFIX).unwrap_or(asset))
 }
 
 /// The damaged renders to make or reuse. A render holds its partner's
@@ -513,7 +513,7 @@ pub fn own_records(
         .map(|asset| (asset.path.as_str(), asset))
         .collect();
     let peaks = |name: &str| {
-        let asset = by_path.get(name.strip_prefix(SECOND_LIBRARY_PREFIX)?)?;
+        let asset = by_path.get(name.strip_prefix(OTHER_LIBRARY_PREFIX)?)?;
         match other.load(asset, &profile) {
             Ok(record) => Some(record.peaks),
             Err(error) => {
@@ -800,7 +800,7 @@ pub fn run(
     options.same_titles.warn_outside(&index, &excluded);
     let verifier = options
         .verify
-        .then(|| Verifier::new(&records, options.padding.second.as_ref()));
+        .then(|| Verifier::new(&records, options.padding.other.as_ref()));
     drop(records);
     let indexed: BTreeSet<&str> = index
         .assets()
@@ -1071,7 +1071,7 @@ mod tests {
 
     fn candidate(asset: &str, family: &str) -> Candidate {
         Candidate {
-            asset: format!("{SECOND_LIBRARY_PREFIX}{asset}"),
+            asset: format!("{OTHER_LIBRARY_PREFIX}{asset}"),
             kind: Kind::of(asset),
             family: family.to_owned(),
             duration_seconds: 300.0,
@@ -1275,7 +1275,7 @@ mod tests {
 
     fn source(asset: &str, held_out: bool) -> Source {
         Source {
-            asset: format!("{SECOND_LIBRARY_PREFIX}{asset}"),
+            asset: format!("{OTHER_LIBRARY_PREFIX}{asset}"),
             kind: Kind::of(asset),
             family: asset.to_owned(),
             held_out,
@@ -1347,7 +1347,7 @@ mod tests {
         let partners = partners(&panel);
 
         let partner = |asset: &str| {
-            partners[&format!("{SECOND_LIBRARY_PREFIX}{asset}")]
+            partners[&format!("{OTHER_LIBRARY_PREFIX}{asset}")]
                 .family
                 .clone()
         };
@@ -1370,11 +1370,11 @@ mod tests {
         let cluster = |names: &[&str]| -> BTreeSet<String> {
             names
                 .iter()
-                .map(|name| format!("{SECOND_LIBRARY_PREFIX}{name}"))
+                .map(|name| format!("{OTHER_LIBRARY_PREFIX}{name}"))
                 .collect()
         };
         let own = cluster(&["own.mp3", "other-rip.mp3"]);
-        let other_rip = format!("{SECOND_LIBRARY_PREFIX}other-rip.mp3");
+        let other_rip = format!("{OTHER_LIBRARY_PREFIX}other-rip.mp3");
         let with_other_rip = BTreeSet::from([other_rip.as_str()]);
         let without = BTreeSet::new();
 
@@ -1387,7 +1387,7 @@ mod tests {
 
         let partner_cluster = cluster(&["beneath.mp3", "own.mp3"]);
         let detection = |name: &str, correct: bool| Outcome {
-            asset: format!("{SECOND_LIBRARY_PREFIX}{name}"),
+            asset: format!("{OTHER_LIBRARY_PREFIX}{name}"),
             correct,
             same_title: false,
             confident: true,
@@ -1585,7 +1585,7 @@ mod tests {
         let own = source("own.mp3", false);
         let lonely = source("lonely.mp3", false);
         let held = source("held.mp3", true);
-        let name = |path: &str| format!("{SECOND_LIBRARY_PREFIX}{path}");
+        let name = |path: &str| format!("{OTHER_LIBRARY_PREFIX}{path}");
         let clusters = Clusters {
             duplicates: vec![vec![
                 name("own.mp3"),
@@ -1596,7 +1596,7 @@ mod tests {
             pairs: Vec::new(),
             cut_links: Vec::new(),
         };
-        let peaks = |asset: &str| match asset.strip_prefix(SECOND_LIBRARY_PREFIX)? {
+        let peaks = |asset: &str| match asset.strip_prefix(OTHER_LIBRARY_PREFIX)? {
             "own.mp3" | "copy/own.mp3" => Some(vec![1, 2, 3]),
             "vinyl/own.mp3" => Some(vec![1, 2, 4]),
             _ => Some(vec![9]),

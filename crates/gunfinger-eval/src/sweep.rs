@@ -27,7 +27,7 @@ use crate::files::{read_json, write_json};
 use crate::fullest::{self, FullestReport, Ranking};
 use crate::library_map::LibraryMap;
 use crate::matching::Matching;
-use crate::padding::{Padding, SECOND_LIBRARY_PREFIX, original_path};
+use crate::padding::{OTHER_LIBRARY_PREFIX, Padding, original_path};
 use crate::render::{Encoding, render_excerpt};
 use crate::rng::Rng;
 use crate::titles::SameTitles;
@@ -329,7 +329,7 @@ pub fn run(
     let speeds = speeds.percents();
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
-    let verifier = verify.then(|| Verifier::new(&records, padding.second.as_ref()));
+    let verifier = verify.then(|| Verifier::new(&records, padding.other.as_ref()));
     let Plan { held_out, draws } = Plan::for_seed(&records, clusters, seed, panels)?;
     let (searched_draws, excluded) = match other_rips {
         Some(map) => other_rips_only(&draws, clusters, map, &held_out),
@@ -452,7 +452,7 @@ fn identical_copies(asset: &str, map: &LibraryMap) -> BTreeSet<String> {
             identical.extend(
                 std::iter::once(&copies.stands_for)
                     .chain(&copies.also)
-                    .map(|path| format!("{SECOND_LIBRARY_PREFIX}{path}")),
+                    .map(|path| format!("{OTHER_LIBRARY_PREFIX}{path}")),
             );
         }
     }

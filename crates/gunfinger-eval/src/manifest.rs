@@ -15,7 +15,7 @@ use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::timecode::{format_timecode, parse_timecode};
 use serde::Deserialize;
 
-use crate::padding::SECOND_LIBRARY_PREFIX;
+use crate::padding::OTHER_LIBRARY_PREFIX;
 
 /// A set directory with its manifest, validated against the library.
 #[derive(Debug)]
@@ -99,7 +99,7 @@ impl Referable {
     pub fn with_other(self, assets: &[Asset], store: &Path) -> Referable {
         let files = assets
             .iter()
-            .map(|asset| format!("{SECOND_LIBRARY_PREFIX}{}", asset.path))
+            .map(|asset| format!("{OTHER_LIBRARY_PREFIX}{}", asset.path))
             .collect();
         Referable {
             other: Some((files, store.to_owned())),
@@ -108,7 +108,7 @@ impl Referable {
     }
 
     fn standing(&self, reference: &str) -> Standing {
-        match (reference.starts_with(SECOND_LIBRARY_PREFIX), &self.other) {
+        match (reference.starts_with(OTHER_LIBRARY_PREFIX), &self.other) {
             (false, _) if self.corpus.contains(reference) => Standing::Kept,
             (false, _) => Standing::Problem(format!(
                 "reference {reference} is not an audio asset of the library"

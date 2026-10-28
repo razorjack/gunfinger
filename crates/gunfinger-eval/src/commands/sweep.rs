@@ -53,12 +53,12 @@ pub struct FilterStudy {
     #[arg(long, value_enum)]
     rank_fullest_by: Option<fullest::Ranking>,
     #[command(flatten)]
-    copies: Copies,
+    copies: ExactCopyOptions,
 }
 
 /// Exact copies of chosen records added to the index (session 50).
 #[derive(clap::Args)]
-pub struct Copies {
+pub struct ExactCopyOptions {
     /// Add this many exact copies of each record the file `--copied`
     /// names to the index, in memory (`padding-copy/<i>/<path>`, counted
     /// as their original); the report's name ends in
@@ -74,13 +74,13 @@ pub struct Copies {
 pub const NO_FILTER_STUDY: FilterStudy = FilterStudy {
     trace_candidates: false,
     rank_fullest_by: None,
-    copies: Copies {
+    copies: ExactCopyOptions {
         exact_copies: None,
         copied: None,
     },
 };
 
-impl Copies {
+impl ExactCopyOptions {
     pub fn exact(&self) -> Result<Option<ExactCopies>, String> {
         let (Some(count), Some(file)) = (self.exact_copies, &self.copied) else {
             return Ok(None);

@@ -65,8 +65,8 @@ pub enum Command {
     /// and measure every detection with the peak verifier. With
     /// --other-peaks-dir every index holds that library too.
     Shared(shared::SharedArgs),
-    /// Session 21's rendered mixes: for each seed, one mix per played file
-    /// of a plan, playing it whole among drawn tracks, searched with the
+    /// Rendered mixes of shared material (session 21): for each seed, one
+    /// mix per played file of a plan, playing it whole among drawn tracks, searched with the
     /// played recording indexed, left out and (where another rip is
     /// indexed) with the played file alone left out; and the plan's other
     /// audio searched with everything indexed. Every detection carries
@@ -79,8 +79,8 @@ pub enum Command {
     /// index without the files its lookup names, listing every file found
     /// with 30 hits or more. The report is `holders-<file stem>.json`.
     Holders(shared::HoldersArgs),
-    /// Proposal 5's diagnostic: for each direction of one half of a
-    /// shared-material panel, how closely the related file and the played
+    /// How identifiable shared material is (proposal 5's diagnostic): for
+    /// each direction of one half of a shared-material panel, how closely the related file and the played
     /// recording's other rips reproduce the shared passage, in pair hashes,
     /// peaks and audio (searched against each file alone). The report is
     /// `identifiability-<half>.json`.

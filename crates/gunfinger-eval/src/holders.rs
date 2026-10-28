@@ -1,5 +1,5 @@
-//! The library's map of shared passages (session 21's candidate (c),
-//! `shared_mixes::lookup`) for a list of files and spans that no
+//! Which other indexed files hold a passage (`shared_mixes::lookup`,
+//! session 21's candidate (c)), for a list of files and spans that no
 //! `shared-mixes` run measured, such as the `shared` panel's detections
 //! or the plays of an `identify` report (session 23): each span searched
 //! against the index without the files its lookup leaves out, and every
@@ -74,12 +74,12 @@ pub fn run(
             .any(|record| record.header.source.path == name)
             || options
                 .padding
-                .second
+                .other
                 .as_ref()
                 .is_some_and(|second| second.holds(name))
     };
     refuse_unindexed(lookups, indexed, options.stood_for)?;
-    let verifier = Verifier::new(&records, options.padding.second.as_ref());
+    let verifier = Verifier::new(&records, options.padding.other.as_ref());
     let mut looked: Vec<Option<Looked>> = lookups.iter().map(|_| None).collect();
     for (left_out, positions) in by_left_out(lookups) {
         let index = options

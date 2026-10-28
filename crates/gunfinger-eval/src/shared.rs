@@ -48,7 +48,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
 use crate::matching::Matching;
-use crate::padding::{Padding, SECOND_LIBRARY_PREFIX};
+use crate::padding::{OTHER_LIBRARY_PREFIX, Padding};
 use crate::render::{
     Encoding, Playback, RENDER_RATE, encode, limited, render_excerpt, render_samples, rms,
 };
@@ -187,14 +187,14 @@ struct Query {
 /// library's for `second-library/` paths.
 pub struct Roots<'a> {
     pub library: &'a Path,
-    pub second: Option<&'a Path>,
+    pub other: Option<&'a Path>,
 }
 
 impl Roots<'_> {
     pub(crate) fn path(&self, file: &str) -> Result<PathBuf, String> {
-        match file.strip_prefix(SECOND_LIBRARY_PREFIX) {
+        match file.strip_prefix(OTHER_LIBRARY_PREFIX) {
             None => Ok(self.library.join(file)),
-            Some(path) => self.second.map(|root| root.join(path)).ok_or_else(|| {
+            Some(path) => self.other.map(|root| root.join(path)).ok_or_else(|| {
                 format!("{file} is in the other library, whose root is unknown (--other-peaks-dir)")
             }),
         }
@@ -219,7 +219,7 @@ pub fn run(
 ) -> Result<SharedReport, String> {
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
-    let verifier = Verifier::new(&records, options.padding.second.as_ref());
+    let verifier = Verifier::new(&records, options.padding.other.as_ref());
     fs::create_dir_all(dir).map_err(|error| error.to_string())?;
     let partner = plan
         .blend_partner
@@ -232,7 +232,7 @@ pub fn run(
             .any(|record| record.header.source.path == file)
             || options
                 .padding
-                .second
+                .other
                 .as_ref()
                 .is_some_and(|second| second.holds(file))
     };
@@ -760,11 +760,11 @@ mod tests {
     fn files_of_the_other_library_are_found_under_its_root() {
         let roots = Roots {
             library: Path::new("/corpus/library"),
-            second: Some(Path::new("/nas/dnb")),
+            other: Some(Path::new("/nas/dnb")),
         };
         let corpus_only = Roots {
             library: Path::new("/corpus/library"),
-            second: None,
+            other: None,
         };
 
         assert_eq!(
@@ -822,7 +822,7 @@ mod tests {
         let dir = std::env::temp_dir().join(format!("gunfinger-shared-{}", std::process::id()));
         let roots = Roots {
             library: &dir,
-            second: None,
+            other: None,
         };
         let scenario = scenario(60.0);
         let queries = queries(&scenario, false);

@@ -493,7 +493,7 @@ pub fn run(
     } = *options;
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
-    let verifier = verify.then(|| Verifier::new(&records, padding.second.as_ref()));
+    let verifier = verify.then(|| Verifier::new(&records, padding.other.as_ref()));
     let plan = Plan::for_seed(&records, clusters, seed, panels)?;
     let index = matching.index(padding.index(&records, &profile, &plan.held_out)?);
     same_titles.warn_outside(&index, &plan.held_out);
@@ -555,7 +555,7 @@ pub fn run(
         seed,
         ladder: ladder_name.to_owned(),
         synthetic_copies: padding.copies,
-        second_library_assets: padding.second_assets(),
+        second_library_assets: padding.other_assets(),
         indexed_assets: index.assets().len(),
         query_channels: (query_channels != QueryChannels::Downmix)
             .then(|| query_channels.name().to_owned()),

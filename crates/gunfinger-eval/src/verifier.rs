@@ -35,7 +35,7 @@ use gunfinger_core::speed::{Playback, Rung};
 use gunfinger_core::store::PeakRecord;
 use serde::{Deserialize, Serialize};
 
-use crate::padding::SecondLibrary;
+use crate::padding::OtherLibrary;
 use pairs::{Pair, Pairs, QUERY_FAN_OUTS};
 
 /// How far from its expected place a query peak may lie and still find a
@@ -106,11 +106,11 @@ pub struct Count {
 /// memory, and the second library's, read from its store when needed.
 pub struct Verifier<'a> {
     library: HashMap<String, Vec<Peak>>,
-    second: Option<&'a SecondLibrary>,
+    second: Option<&'a OtherLibrary>,
 }
 
 impl<'a> Verifier<'a> {
-    pub fn new(records: &[PeakRecord], second: Option<&'a SecondLibrary>) -> Verifier<'a> {
+    pub fn new(records: &[PeakRecord], second: Option<&'a OtherLibrary>) -> Verifier<'a> {
         Verifier {
             library: records
                 .iter()

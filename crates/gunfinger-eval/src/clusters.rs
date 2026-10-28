@@ -42,7 +42,7 @@ use gunfinger_core::speed::{self, Playback, Rung};
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
-use crate::padding::SECOND_LIBRARY_PREFIX;
+use crate::padding::OTHER_LIBRARY_PREFIX;
 
 /// The alignment must cover this share of the shorter file.
 pub(crate) const MIN_COVERAGE: f64 = 0.8;
@@ -280,7 +280,7 @@ pub fn find_around(
                 index.asset(asset).duration_seconds
             }) {
                 let asset = index.asset(detection.asset);
-                let found = format!("{SECOND_LIBRARY_PREFIX}{}", asset.path);
+                let found = format!("{OTHER_LIBRARY_PREFIX}{}", asset.path);
                 if found == *query {
                     continue;
                 }
@@ -314,7 +314,7 @@ pub fn find_around(
             .map(|pair| pair.found.clone())
             .filter(|found| {
                 found
-                    .strip_prefix(SECOND_LIBRARY_PREFIX)
+                    .strip_prefix(OTHER_LIBRARY_PREFIX)
                     .is_some_and(|path| !copies.contains(path))
             })
             .collect();
@@ -324,7 +324,7 @@ pub fn find_around(
             break;
         }
         for found in new {
-            let path = &found[SECOND_LIBRARY_PREFIX.len()..];
+            let path = &found[OTHER_LIBRARY_PREFIX.len()..];
             let Some(&asset) = by_path.get(path) else {
                 continue;
             };
@@ -353,7 +353,7 @@ pub fn other_queries(
     let profile = Profile::CURRENT;
     let mut records = Vec::new();
     for asset in other_assets {
-        let name = format!("{SECOND_LIBRARY_PREFIX}{}", asset.path);
+        let name = format!("{OTHER_LIBRARY_PREFIX}{}", asset.path);
         if !files.contains(&name) || copies.contains(&asset.path) {
             continue;
         }
@@ -391,7 +391,7 @@ pub fn merged(
     cut(&mut pairs, &cut_links);
     Ok(Clusters {
         criterion: format!(
-            "{}; with the rips of the corpus recordings in {other_library} (stored peaks searched, named {SECOND_LIBRARY_PREFIX}<path>){}",
+            "{}; with the rips of the corpus recordings in {other_library} (stored peaks searched, named {OTHER_LIBRARY_PREFIX}<path>){}",
             corpus.criterion,
             cut_note(&cut_links)
         ),
@@ -476,7 +476,7 @@ fn cut(pairs: &mut [Pair], cut_links: &[CutLink]) {
 /// the other library, the other library's further rips of the corpus
 /// recordings, and borderline pairs to judge by ear.
 pub fn print_around(corpus: &Clusters, pairs: &[Pair], copies: &BTreeSet<String>) {
-    let is_corpus = |path: &str| !path.starts_with(SECOND_LIBRARY_PREFIX);
+    let is_corpus = |path: &str| !path.starts_with(OTHER_LIBRARY_PREFIX);
     let found_again: Vec<Vec<String>> = merge(same_recording(pairs))
         .into_iter()
         .map(|members| {
@@ -500,7 +500,7 @@ pub fn print_around(corpus: &Clusters, pairs: &[Pair], copies: &BTreeSet<String>
             pair.same_recording
                 && pair
                     .found
-                    .strip_prefix(SECOND_LIBRARY_PREFIX)
+                    .strip_prefix(OTHER_LIBRARY_PREFIX)
                     .is_some_and(|path| !copies.contains(path))
         })
         .collect();
@@ -836,7 +836,7 @@ impl Searched {
         self.files.extend(
             assets
                 .iter()
-                .map(|asset| format!("{SECOND_LIBRARY_PREFIX}{}", asset.path)),
+                .map(|asset| format!("{OTHER_LIBRARY_PREFIX}{}", asset.path)),
         );
         self.other_ignore = ignore;
         self
@@ -844,7 +844,7 @@ impl Searched {
 
     /// `None` when the run searches `file`; otherwise the file and why not.
     fn outside<'a>(&self, file: &'a str) -> Option<(&'a str, String)> {
-        let (path, ignore) = match file.strip_prefix(SECOND_LIBRARY_PREFIX) {
+        let (path, ignore) = match file.strip_prefix(OTHER_LIBRARY_PREFIX) {
             Some(path) => (path, &self.other_ignore),
             None => (file, &self.corpus_ignore),
         };

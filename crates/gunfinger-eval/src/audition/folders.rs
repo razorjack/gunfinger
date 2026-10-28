@@ -280,7 +280,7 @@ mod tests {
         .unwrap();
         let libraries = Libraries {
             corpus: dir.join("corpus"),
-            second: dir.join("nas"),
+            other: dir.join("nas"),
         };
         let envelopes = Envelopes {
             dir: dir.join("envelopes"),

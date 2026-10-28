@@ -1,6 +1,6 @@
-//! Proposal 5's identifiability diagnostic (experiment 0112;
-//! `docs/research/2026-10-14-matching-proposals.md`): over the shared
-//! passage of each direction of a panel half, how closely the related
+//! How identifiable a shared passage is (proposal 5's diagnostic,
+//! experiment 0112; `docs/research/2026-10-14-matching-proposals.md`):
+//! over the shared passage of each direction of a panel half, how closely the related
 //! recording reproduces the played one in the audio, in the peaks and in
 //! the pair hashes, next to the played recording's own rips, the noise
 //! floor (two rips of one record are one recording, however they sound).
@@ -37,7 +37,7 @@ use gunfinger_core::speed::{self, Rung, key_lock_ladder, ladder};
 use gunfinger_core::store::PeakRecord;
 use serde::{Deserialize, Serialize};
 
-use crate::padding::SECOND_LIBRARY_PREFIX;
+use crate::padding::OTHER_LIBRARY_PREFIX;
 use crate::pair::{Records, Sources};
 use crate::render::{Playback, render_samples_as_indexed};
 use crate::scoring::Level;
@@ -191,7 +191,7 @@ pub fn run(panel: &Panel, half: &str, sources: &Sources, roots: &Roots) -> Resul
             // says that the run needs --other-peaks-dir.
             let (files, without_record) = with_records(files, &|file| {
                 records.holds(file)
-                    || (sources.other.is_none() && file.starts_with(SECOND_LIBRARY_PREFIX))
+                    || (sources.other.is_none() && file.starts_with(OTHER_LIBRARY_PREFIX))
             });
             for file in &without_record {
                 eprintln!("  {file}: no current peak record; not compared");

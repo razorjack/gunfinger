@@ -33,7 +33,7 @@ use serde::{Deserialize, Serialize};
 use crate::clusters::Clusters;
 use crate::matching::Matching;
 use crate::mixes::{MixFound, PlannedMix, Whole, draw_around, render_once};
-use crate::padding::{Padding, SecondLibrary};
+use crate::padding::{OtherLibrary, Padding};
 use crate::rng::Rng;
 use crate::shared::{Roots, indexes, recording};
 use crate::verifier::{Beyond, Verifier};
@@ -172,9 +172,9 @@ pub fn run(
 ) -> Result<Report, String> {
     let profile = Profile::CURRENT;
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
-    let second = options.padding.second.as_ref();
-    let verifier = Verifier::new(&records, second);
-    let rendered = draw(plan, &records, second, clusters)?;
+    let other = options.padding.other.as_ref();
+    let verifier = Verifier::new(&records, other);
+    let rendered = draw(plan, &records, other, clusters)?;
     fs::create_dir_all(dir).map_err(|error| error.to_string())?;
     for result in map_in_order(&rendered, options.jobs, |rendered| {
         render_once(&rendered.mix, roots, None, &mix_path(dir, &rendered.mix))
@@ -187,7 +187,7 @@ pub fn run(
         records
             .iter()
             .any(|record| record.header.source.path == file)
-            || second.is_some_and(|second| second.holds(file))
+            || other.is_some_and(|other| other.holds(file))
     };
     let own = |file: &str| own_recording(file, clusters, &plan.recordings);
 
@@ -269,7 +269,7 @@ fn targets<'a>(
 fn draw(
     plan: &Plan,
     records: &[PeakRecord],
-    second: Option<&SecondLibrary>,
+    other: Option<&OtherLibrary>,
     clusters: &Clusters,
 ) -> Result<Vec<Rendered>, String> {
     let pool = drawn_pool(records, &plan.exclude, clusters);
@@ -279,7 +279,7 @@ fn draw(
         for played in &plan.played {
             let whole = Whole {
                 asset: &played.file,
-                duration_seconds: duration(records, second, &played.file)?,
+                duration_seconds: duration(records, other, &played.file)?,
             };
             let name = format!("seed-{seed}-{}", played.name);
             rendered.push(Rendered {
@@ -314,7 +314,7 @@ fn drawn_pool<'a>(
 
 fn duration(
     records: &[PeakRecord],
-    second: Option<&SecondLibrary>,
+    other: Option<&OtherLibrary>,
     path: &str,
 ) -> Result<f64, String> {
     if let Some(record) = records
@@ -323,7 +323,7 @@ fn duration(
     {
         return Ok(record.header.duration_seconds);
     }
-    match second.and_then(|second| second.record(path)) {
+    match other.and_then(|other| other.record(path)) {
         Some(record) => record.map(|record| record.header.duration_seconds),
         None => Err(format!("no current peak record of {path}")),
     }

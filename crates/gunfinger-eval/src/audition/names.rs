@@ -6,20 +6,20 @@
 
 use std::path::{Path, PathBuf};
 
-use crate::padding::SECOND_LIBRARY_PREFIX;
+use crate::padding::OTHER_LIBRARY_PREFIX;
 
 /// The two library roots names are relative to, both absolute.
 #[derive(Debug, Clone)]
 pub struct Libraries {
     pub corpus: PathBuf,
-    pub second: PathBuf,
+    pub other: PathBuf,
 }
 
 impl Libraries {
     /// The harness name of an absolute path.
     pub fn name(&self, path: &Path) -> String {
-        if let Ok(relative) = path.strip_prefix(&self.second) {
-            return format!("{SECOND_LIBRARY_PREFIX}{}", relative.display());
+        if let Ok(relative) = path.strip_prefix(&self.other) {
+            return format!("{OTHER_LIBRARY_PREFIX}{}", relative.display());
         }
         match path.strip_prefix(&self.corpus) {
             Ok(relative) => relative.display().to_string(),
@@ -29,8 +29,8 @@ impl Libraries {
 
     /// The absolute path of a harness name.
     pub fn path(&self, name: &str) -> PathBuf {
-        match name.strip_prefix(SECOND_LIBRARY_PREFIX) {
-            Some(relative) => self.second.join(relative),
+        match name.strip_prefix(OTHER_LIBRARY_PREFIX) {
+            Some(relative) => self.other.join(relative),
             None if Path::new(name).is_absolute() => PathBuf::from(name),
             None => self.corpus.join(name),
         }
@@ -45,7 +45,7 @@ mod tests {
     fn names_and_paths_are_each_others_inverse() {
         let libraries = Libraries {
             corpus: PathBuf::from("/repo/corpus/library"),
-            second: PathBuf::from("/Volumes/nas/music"),
+            other: PathBuf::from("/Volumes/nas/music"),
         };
 
         for (name, path) in [
