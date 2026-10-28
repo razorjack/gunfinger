@@ -498,42 +498,11 @@ pub fn run(
     let index = matching.index(padding.index(&records, &profile, &plan.held_out)?);
     same_titles.warn_outside(&index, &plan.held_out);
     drop(records);
-    let draws: Vec<&Draw> = plan
-        .draws
-        .iter()
-        .filter(|draw| !draw.held_out)
-        .take(INDEXED)
-        .chain(
-            plan.draws
-                .iter()
-                .filter(|draw| draw.held_out)
-                .take(HELD_OUT),
-        )
-        .collect();
-
+    let draws = searched_draws(&plan);
     let dir = work.join("robust").join(format!("seed-{seed}"));
     let speech = speech_samples(&dir)?;
     let conditions = chosen(only);
-    let mut work_items = Vec::new();
-    for &condition in &conditions {
-        for speed in condition.speeds() {
-            for (number, draw) in draws.iter().enumerate() {
-                let path = dir.join(condition.name()).join(format!(
-                    "{number:03}-{speed:.3}.{}",
-                    condition.encoding().extension()
-                ));
-                work_items.push(Job {
-                    condition,
-                    speed,
-                    number,
-                    draw,
-                    partner: draws[(number + 1) % INDEXED],
-                    path,
-                });
-            }
-        }
-    }
-
+    let work_items = queries_to_search(&conditions, &draws, &dir);
     let results: Vec<Result<QueryResult, String>> = map_in_order(&work_items, jobs, |job| {
         if !crate::render::is_complete(&job.path) {
             render_query(job, library, &speech, seed)?;
@@ -551,26 +520,7 @@ pub fn run(
         } else {
             BTreeSet::new()
         };
-        let mut result = QueryResult {
-            condition: job.condition.name(),
-            speed: job.speed,
-            number: job.number,
-            asset: job.draw.asset.clone(),
-            held_out: job.draw.held_out,
-            best_hits: 0,
-            best_windows: 0,
-            best_speed: 0.0,
-            confident: false,
-            possible: false,
-            partner_confident: false,
-            wrong_confident: 0,
-            wrong_possible: 0,
-            strongest_wrong_hits: 0,
-            same_title: 0,
-            search_seconds,
-            verified: Vec::new(),
-            stereo: None,
-        };
+        let mut result = QueryResult::before_counting(job, search_seconds);
         let mut wrong = Vec::new();
         for detection in &detections {
             let asset = &index.asset(detection.asset).path;
@@ -694,6 +644,69 @@ fn count(
 
 /// The conditions `--only` names (all of `CONDITIONS` when it names none),
 /// always with the control; the opt-in ones only when named.
+/// The first `INDEXED` indexed draws of the panel, then the first
+/// `HELD_OUT` held-out ones.
+fn searched_draws(plan: &Plan) -> Vec<&Draw> {
+    let indexed = plan.draws.iter().filter(|draw| !draw.held_out);
+    let held_out = plan.draws.iter().filter(|draw| draw.held_out);
+    indexed
+        .take(INDEXED)
+        .chain(held_out.take(HELD_OUT))
+        .collect()
+}
+
+/// Every draw under every condition at each of its speeds, rendered under
+/// `dir/<condition>/`; the partner blended into a draw is the next indexed
+/// one.
+fn queries_to_search<'a>(conditions: &[Condition], draws: &[&'a Draw], dir: &Path) -> Vec<Job<'a>> {
+    let mut queries = Vec::new();
+    for &condition in conditions {
+        for speed in condition.speeds() {
+            for (number, &draw) in draws.iter().enumerate() {
+                let path = dir.join(condition.name()).join(format!(
+                    "{number:03}-{speed:.3}.{}",
+                    condition.encoding().extension()
+                ));
+                queries.push(Job {
+                    condition,
+                    speed,
+                    number,
+                    draw,
+                    partner: draws[(number + 1) % INDEXED],
+                    path,
+                });
+            }
+        }
+    }
+    queries
+}
+
+impl QueryResult {
+    /// The query's result with nothing counted yet.
+    fn before_counting(job: &Job, search_seconds: f64) -> QueryResult {
+        QueryResult {
+            condition: job.condition.name(),
+            speed: job.speed,
+            number: job.number,
+            asset: job.draw.asset.clone(),
+            held_out: job.draw.held_out,
+            best_hits: 0,
+            best_windows: 0,
+            best_speed: 0.0,
+            confident: false,
+            possible: false,
+            partner_confident: false,
+            wrong_confident: 0,
+            wrong_possible: 0,
+            strongest_wrong_hits: 0,
+            same_title: 0,
+            search_seconds,
+            verified: Vec::new(),
+            stereo: None,
+        }
+    }
+}
+
 fn chosen(only: &[String]) -> Vec<Condition> {
     CONDITIONS
         .into_iter()
