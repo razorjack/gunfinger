@@ -6,6 +6,16 @@ that motivates it where one exists. Items marked *(larger library)* need
 more real tracks; the rest can be done with the current library. Figures
 marked as inferences were derived, not measured.
 
+**Research proposals, 2026-10-29.** The
+[matching and archive note](research/2026-10-29-matching-and-archive-proposals.md)
+records six unmeasured ideas: stereo power fingerprints, filtering before
+hit grouping, correcting the second pass's initial alignment, recovering
+quiet tracks using an identified foreground track, a harmonic/percussive
+verification view, and recurring unidentified passages across mixes. It
+also proposes automated counterexample search. Each item relates the idea
+to earlier results, describes a first experiment and names its failure
+cases. None is an adopted decision or an experiment result.
+
 ## Library and storage
 
 - **Search memory at scale.** The search now runs a block of 12 windows

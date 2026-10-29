@@ -5399,3 +5399,19 @@ notes "Session 59"; experiment 0242. Gunfinger's behaviour is unchanged
   file and the answer log at their start digests. A read-only review
   confirmed the numbers and found six wording points, all fixed.
 
+## 2026-10-29: matching and archive research proposals
+
+- Saved the roadmap review's six ideas and supporting observations in
+  [a research note](research/2026-10-29-matching-and-archive-proposals.md):
+  stereo power fingerprints, filtering before grouping hits, correcting
+  the second pass's initial alignment, recovery of quiet tracks using
+  an identified foreground track, harmonic/percussive verification, and
+  recurring unidentified passages across mixes.
+- The note distinguishes measured evidence through 0242 from hypotheses,
+  gives each idea a first experiment and failure cases, and proposes
+  automated counterexample search with validation by recording family.
+  The roadmap links it; the references add the three source papers on
+  separation and DJ mix analysis.
+- Documentation only. No experiment or corpus search ran; no decision,
+  rule, code, baseline, manifest or listening judgment changed.
+

@@ -131,6 +131,50 @@ Representation," Proc. International Computer Music Conference, 1987.
 Quadratic interpolation of spectral peaks, used for the fractional bin
 of each peak (`peaks.rs`). Cited since session 1; not read again here.
 
+## Audio separation and DJ mix analysis
+
+**FitzGerald 2010.** D. FitzGerald, "Harmonic/Percussive Separation
+Using Median Filtering," Proc. 13th International Conference on Digital
+Audio Effects (DAFx-10), Graz, Austria, 2010.
+<https://dafx10.iem.at/papers/DerryFitzGerald_DAFx10_P15.pdf>
+
+- §2: median filters across time and frequency emphasize harmonic and
+  percussive structure, respectively; the resulting masks separate the
+  components of the original spectrogram without training a model.
+- Gunfinger: proposal 5 of
+  [the matching and archive note](research/2026-10-29-matching-and-archive-proposals.md).
+  A possible secondary view for candidate verification, not evidence
+  that separation improves fingerprint precision on shared breaks.
+
+**Kim, Yang & Nam 2021.** T. Kim, Y.-H. Yang and J. Nam,
+"Reverse-Engineering The Transition Regions of Real-World DJ Mixes
+using Sub-band Analysis with Convex Optimization," NIME 2021,
+doi:10.21428/92fbeb44.4b2fc7b9.
+<https://nime.pubpub.org/pub/g7avj1a7/release/1>
+
+- "Transition Analysis Methods": estimates gains of aligned known
+  tracks from power spectrograms, with separate gains for three bands
+  and constrained convex optimization. The proposed sub-band model
+  constrains the outgoing gains to decrease and incoming gains to
+  increase; those assumptions need not hold in a double drop.
+- Gunfinger: proposal 4 of the matching and archive note. Precedent for
+  estimating a known track's contribution, not a demonstration that
+  removing it improves retrieval of an unknown partner.
+
+**André et al. 2024.** É. P. André, D. Fourer and D. Schwarz,
+"DJ Mix Transcription with Multi-Pass Non-Negative Matrix
+Factorization," arXiv:2410.04198v1, 2024.
+<https://arxiv.org/html/2410.04198v1>
+
+- §§III-IV: a dictionary of known source spectrograms and a multi-pass
+  NMF estimate of their activations model time warps and gains, with
+  filtering for temporal continuity and sparseness. The signal model
+  simplifies away pitch shifting and EQ; its scope is alignment and
+  unmixing after source identification.
+- Gunfinger: proposal 4 of the matching and archive note. Supports
+  investigating known-source fitting, not a claim of reliable residual
+  fingerprints through vinyl transfers, EQ or different rips.
+
 ## Sample identification
 
 **Bhattacharjee et al. 2025.** A. Bhattacharjee, I. Meresman Higgs, M.
