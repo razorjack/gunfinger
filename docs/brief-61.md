@@ -255,3 +255,7 @@ records could be searched by the variant's queries before a rebuild.
   in the inverted halves). The clean controls do not: 6 of 38 default
   `robust` conditions (mono renders) fall by 2-4 of 80, against a bar
   of 1. The registered bar for an ADR proposal is therefore not met.
+- **(02:52) Cost** (tmux `s61cost`, 02:48-02:50; 0247): the Stakka scan
+  at NAS scale 27.6-27.7 s with power-sum queries against 24.6-24.8 s,
+  12% more wall time and 13% more CPU; peaks and postings 0.1% fewer;
+  a 262-track build as fast, with 3 times the peak memory.

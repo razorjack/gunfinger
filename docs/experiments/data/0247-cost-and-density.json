@@ -1,0 +1,56 @@
+{
+ "stakka_nas_32_jobs": {
+  "r1-downmix": {
+   "wall_seconds": 24.603329111,
+   "elapsed": "0:27.88",
+   "user": 680.2,
+   "max_rss_kb": 5172744
+  },
+  "r1-power-sum": {
+   "wall_seconds": 27.595167118,
+   "elapsed": "0:30.91",
+   "user": 768.48,
+   "max_rss_kb": 5265064
+  },
+  "r2-power-sum": {
+   "wall_seconds": 27.744728423,
+   "elapsed": "0:31.04",
+   "user": 770.24,
+   "max_rss_kb": 5296580
+  },
+  "r2-downmix": {
+   "wall_seconds": 24.826253776,
+   "elapsed": "0:28.15",
+   "user": 685.81,
+   "max_rss_kb": 5173576
+  }
+ },
+ "stores_262": {
+  "downmix": {
+   "front_end": "downmix",
+   "profile": "peaks-v2 rate=8000 fft=1024 hop=128 bins=5..500 nbhd=12x12 floor=-10",
+   "records": 265,
+   "replaced": 0,
+   "seconds_of_audio": 106496.03812499998,
+   "peaks": 3972772,
+   "postings": 7927686,
+   "wall_seconds": 15.736361625,
+   "elapsed": "0:15.80",
+   "user": 295.54,
+   "max_rss_kb": 757092
+  },
+  "power-sum": {
+   "front_end": "power-sum",
+   "profile": "peaks-v2 rate=8000 fft=1024 hop=128 bins=5..500 nbhd=12x12 floor=-10 channels=power-sum",
+   "records": 265,
+   "replaced": 0,
+   "seconds_of_audio": 106496.03812499998,
+   "peaks": 3968260,
+   "postings": 7918939,
+   "wall_seconds": 15.567078904,
+   "elapsed": "0:15.72",
+   "user": 298.68,
+   "max_rss_kb": 2305800
+  }
+ }
+}
