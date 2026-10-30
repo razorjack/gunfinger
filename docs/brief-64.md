@@ -117,3 +117,53 @@ Rules for this session:
   only read the library and the store, and the regressions only read
   the store, so running them together changes no result (no timing is
   compared).
+- **(21:02) Both start regressions identical** (`work/bin/s64-start`):
+  `regress session-54-linux` (0:52) and `regress session-54-linux-nas`
+  (3:53, 5.4 GiB peak), every report identical to its baseline's apart
+  from `wall_seconds`.
+- **(21:03) Step 1, the listings.** `doctor` (6:17, beside the NAS
+  regression): 48 patterns leave out 627 audio files, lines 73-76 leave
+  out one file each; 40,674 current records; one warning, 4 peak records
+  and 4 tag notes of 4 files that the ignore file leaves out; no record
+  of a gone file, no temporary file. `prune` without `--yes` lists
+  exactly those 8 files: the peak record and tag note of each of the
+  four uploads, nothing else. So the prune goes ahead. Outputs
+  `work/s64/logs/doctor-before.log` and `prune-list.log`; the store
+  before it: 40,678 records, revision `1fc6fe50293ad330`
+  (`work/s64/store-revision-before.txt`).
+
+  Where the four files appear (`work/s64/where.py`, output
+  `work/s64/where-before.tsv`):
+  - the NAS clusters file: one pair entry, the corpus Item.Code -
+    Magnetics against the Break - Wine upload (9 hits, 20% coverage,
+    `same_recording` false); no cluster holds any of the four;
+  - session 33's panels, `docs/panels/` and the library map: none;
+  - the baseline `session-54-linux-nas`: six sub-threshold candidates in
+    `sweep-seed-2026.json` (query 244, Bulletproof - Scarred at -5%: the
+    Spider upload, 7 hits; query 391, Bad Company - Pulse at 0%: Bad
+    Vibes, 8 hits; queries 605, 606, 608 and 611, Item.Code - Magnetics
+    at -3%, -1%, +1% and +8%: Break - Wine, 6-7 hits), 2 windows each;
+    and one sub-threshold detection of the 500 Mills upload in each of
+    the three Stakka scans (335.5-346.3 s, 7 hits, 2 windows);
+  - the corpus store (`work/peaks`, 265 records, read only): none.
+- **(21:04) Step 2 and step 3 queued together** (`work/s64/step2.sh`
+  then `step3.sh`, tmux `s64prune`, `work/bin/s64-start`), after the NAS
+  regression had finished reading the store.
+- **(21:04) Step 2, the prune** (`work/s64/step2.sh`, tmux `s64prune`,
+  `work/bin/s64-start`). `prune --yes` deleted the 8 files (0.2 MB).
+  `doctor` after it: 40,674 current records, no warning of ignored
+  records. The store went from 40,678 records, revision
+  `1fc6fe50293ad330`, to 40,674, revision `7210fc479da58376`
+  (`scripts/analysis/store_revision.py`); 40,674 tag notes and 1,926
+  skip notes. Both saved NAS indexes (the CLI's in `~/.cache`, the
+  harness's in `work/indexes/`) are out of date and are built again by
+  the next search.
+- **(21:04) `clusters --from-peaks --reuse-pairs`** (with `--panels
+  work/s33/panels`, 0.2 s): 2,875 pairs of 2,876 clustered again, 1
+  dropped (Item.Code - Magnetics against the Break - Wine upload, 9
+  hits); the same 284 clusters (`duplicates` and the criterion
+  unchanged, the other pair entries in the same order). The clusters
+  file is now `c4d3da2e7e37...` (was `ce293fe6165e...`; both in
+  `work/s64/`). The same four verdict lines as in session 52 name an
+  ignored file and add nothing (lines 26, 45, 67 and 93); no verdict
+  line names any of the four uploads.
