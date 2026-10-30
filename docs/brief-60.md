@@ -242,3 +242,21 @@ the replays' pass rates (0243).
   started before 0243 was written; it was stopped after about a minute,
   its partial output moved to `work/s60/aborted/`, 0243 written and
   committed, and the run started again.
+- **(01:35) Full searches** (0244; tmux `s60ab2`, `work/s60/ab.sh r1
+  1024`, 01:29-01:35): F1024 is 30.7% and 32.4% slower at NAS scale with
+  32 jobs, 12.3-12.9% with 16, and 0.3% faster to 3.2% slower at 262
+  tracks; every report identical. The bar fails.
+- **(01:36) Stage timers** (exploratory, registered "if time allows";
+  `work/s60/timers.sh`, builds `s60-tbase` and `s60-tsketch`, the
+  sketch's own pass timed apart): the sketch 300 s of CPU, the filter
+  136 s down to 33 s, grouping 262-265 s down to 195-196 s, taking 85-87
+  s up to 135 s.
+- **(01:40) Not adopted.** Master's search is unchanged. The prototype
+  is not kept in the tree (AGENTS.md: no dead code); its diff with the
+  tests and the replay harness is `work/s60/sketch.diff`, the capture
+  build's `work/s60/capture.diff`, the timers' `work/s60/tsketch.diff`.
+  No further layout is tried: the registration allowed three, and 0243
+  shows the trade-off (a table small enough for the cache passes most
+  hits) that a fourth size would not escape. The roadmap's "Where
+  search time goes", the low-bandwidth note and the proposals note get
+  the negative result.
