@@ -295,3 +295,41 @@ the binding positive control of any later rule, 0116, 0118, 0125).
   baseline's apart from `wall_seconds`.
 - **(00:14) Pre-registration committed** (above), before any harmonic
   view runs.
+- **(00:16) The harness** (`shared --harmonic`; `harmonic.rs`; report
+  `<plan>-harmonic.json`; the views' queries change the render key only
+  with the option). The query's views are computed once per query, the
+  reference's per detection. Unit tests on synthetic signals: a tone over
+  clicks (the harmonic part keeps over 80% of the tone's power and under
+  10% of the clicks', the percussive part the reverse), the parts adding
+  up to the audio, identical audio found at the alignment and not at the
+  shifts, and a shared drum track under other notes found in the
+  percussive part only. A one-sample click has a flat spectrum, whose
+  local maxima are set by whatever else plays, so that test's drums are
+  a fixed 6 ms burst with a spectral shape of its own; its percussive
+  bound is an excess share over 0.3 (0.46 measured; the notes' changes
+  are transients that differ).
+- **(00:20) Smoke run** (one development scenario, `wikki-wikki-1`, 262
+  tracks, 0:38): the views measure every case. It showed that
+  Defjammer is indexed under its corpus copy
+  (`extra/APH029-.../01-aphrodite-defjammer-bpm.mp3`), so a plan naming
+  the NAS path gives its detections the role `other`. **The plan names
+  the corpus copy** (the panels' convention; the library map lists no
+  other plan file with a corpus copy). The smoke report was deleted.
+- **(00:20) A beside line, decided after the smoke run and before any
+  development run:** in looped queries a detection's line through its
+  ends can cross the loop's repetitions (the played file found 0.03 of
+  its peaks over a 120 s loop, against 0.81 over 60 s), so every view
+  misplaces there alike. The registered scores keep every kind; the
+  AUC without the `looped` and `break` kinds is printed beside and
+  decides nothing.
+- **(00:23) Harness committed** (`7604a41`); the CLI binary is
+  byte-identical to `s65-final`'s. Development runs (`work/s66/dev.sh`,
+  tmux `s66dev`, `work/bin/s66-run`: NAS scale in `work/s66/wn`, then
+  262 tracks in `work/s66/wc`) and the regressions with the harness
+  build and `check.sh` (`work/s66/regress.sh`, tmux `s66reg`) started.
+  The analysis: `scripts/analysis/harmonic_views.py`.
+- **(00:34) Step 2 verified:** with `work/bin/s66-run` (the harness
+  build, `--harmonic` off) `regress session-54-linux` (1:00) and
+  `regress session-64-linux-nas` (4:15) identical, every report equal
+  to its baseline's apart from `wall_seconds`; `scripts/check.sh` green
+  (5:47, beside the development run).

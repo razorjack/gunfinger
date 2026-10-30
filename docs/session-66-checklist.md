@@ -17,9 +17,9 @@ for scope and rules.
 
 - [x] 1. Pre-registration in `docs/brief-66.md`, committed before any
   harmonic-view run
-- [ ] 2. The diagnostic, harness only and opt-in, unit tests on
+- [x] 2. The diagnostic, harness only and opt-in, unit tests on
   synthetic signals; `regress` identical with it off
-- [ ] 3. The runs at 262 tracks and at NAS scale, development families
+- [~] 3. The runs at 262 tracks and at NAS scale, development families
   first, the frozen families once
 - [ ] 4. Experiments (0259 and up): development families against both
   arms; frozen families; cost
