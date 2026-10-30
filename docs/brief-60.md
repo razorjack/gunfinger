@@ -226,3 +226,19 @@ allows, exploratory.
 higher; every equality check above holds. Otherwise master's search is
 unchanged and the negative result is recorded (experiment 0244), with
 the replays' pass rates (0243).
+- **(01:24) The stamp of the pre-registration** reads 01:30 above; it was
+  committed at 01:23:31 (`4d9687a`), before any timing either way.
+- **(01:24) Start checks.** `regress session-54-linux` (0:51) and
+  `regress session-54-linux-nas` (4:30, beside the capture scan)
+  identical: 8 of 8 reports equal to their baselines' apart from
+  `wall_seconds`. The restructuring of 2026-10-28 changed nothing.
+- **(01:27) Replays** (0243): lines identical in every window under all
+  three layouts; at NAS scale F64, F256 and F1024 flag 91.3%, 54.2% and
+  12.4% of the assets with 3 hits (97.1%, 70.2%, 21.3% of their hits),
+  against the filter's 2.05%; single-thread `lines` 13-35% slower than
+  today's. F1024 wins the replays (registered rule) and goes to full
+  searches.
+- **(01:28) A slip, corrected.** The A B B A run (tmux `s60ab1`) was
+  started before 0243 was written; it was stopped after about a minute,
+  its partial output moved to `work/s60/aborted/`, 0243 written and
+  committed, and the run started again.
