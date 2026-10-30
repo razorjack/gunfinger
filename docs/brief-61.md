@@ -243,10 +243,15 @@ records could be searched by the variant's queries before a rebuild.
   `regress session-54-linux` (0:51) and `regress session-54-linux-nas`
   (6:39, beside phase A) identical, 8 of 8 reports. `cargo test
   --release` green (all suites).
-- **(02:38) Phase A done** (02:08-02:34; 0245). Every wrong confident
+- **(02:35) Phase A done** (02:08-02:34; 0245). Every wrong confident
   answer at NAS scale is the held-out Cool Rock Stuff excerpt (draw 41)
   as the Mobb Deep / Urban Takover upload, which the downmix also gives
   on the clean controls; the variant gives it in more fault rows only
   because it keeps that excerpt there. Read against the bar as "no new
   pair of query and file", which is how it was meant; recorded so the
   reading is visible.
+- **(02:49) Phase B done** (02:35-02:47; 0246). Recovery meets the bar
+  (80 of 80 inverted; 20 of 20 against an inverted rip; 94 of 100 plays
+  in the inverted halves). The clean controls do not: 6 of 38 default
+  `robust` conditions (mono renders) fall by 2-4 of 80, against a bar
+  of 1. The registered bar for an ADR proposal is therefore not met.
