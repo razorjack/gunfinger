@@ -5,7 +5,9 @@ use std::path::{Path, PathBuf};
 
 use crate::files::{read_json, write_json};
 use crate::harness::{Harness, UNCHANGED_INDEX};
+use crate::mixes::residual::{Pilot, Timing};
 use crate::mixes::{DropsOptions, KindOptions, MixKind};
+use crate::residual::Rule;
 use crate::{grid, mixes, robust};
 
 #[derive(clap::Args)]
@@ -62,6 +64,21 @@ pub struct MixesArgs {
     /// mixes in stereo without a fault.
     #[arg(long)]
     pub stereo_fault: Option<String>,
+    /// With `--kind drops`: proposal 4's pilot (brief 65). The span of
+    /// every play found confidently is searched again as the mix holds
+    /// it, with denser query peaks, and with what the play explains taken
+    /// out (a spectral mask from a render of the play); the report gains
+    /// `residual` and goes to
+    /// `mixes-drops-seed-<seed>-residual-<timing>-over-<over>.json`.
+    #[arg(long)]
+    pub residual: bool,
+    /// With `--residual`: how many times the play's estimated power each
+    /// bin loses.
+    #[arg(long, requires = "residual", default_value_t = 2.0)]
+    pub residual_over: f64,
+    /// With `--residual`: where the play's time map comes from.
+    #[arg(long, requires = "residual", value_enum, default_value_t = Timing::Truth)]
+    pub residual_timing: Timing,
 }
 
 #[derive(Clone, Copy, clap::Args)]
@@ -83,7 +100,24 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
         other_pairs,
         aligned_drops,
         stereo_fault,
+        residual,
+        residual_over,
+        residual_timing,
     } = args;
+    if residual && (kind != MixKind::Drops || other_pairs || aligned_drops) {
+        return Err(String::from(
+            "--residual applies to --kind drops without --other-pairs or --aligned-drops",
+        ));
+    }
+    if residual_over <= 0.0 {
+        return Err(String::from("--residual-over is a positive factor"));
+    }
+    let pilot = residual.then_some(Pilot {
+        rule: Rule {
+            over: residual_over,
+        },
+        timing: residual_timing,
+    });
     if aligned_drops && kind != MixKind::Drops {
         return Err(String::from("--aligned-drops applies to --kind drops only"));
     }
@@ -124,14 +158,21 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
             matching: &harness.search.matching,
             padding: &harness.padding(&UNCHANGED_INDEX)?,
             verify: harness.search.verify,
+            residual: pilot,
             jobs,
         },
     )?;
+    let name = kind.name(seed, report.label().as_deref());
+    let name = match pilot {
+        None => name,
+        Some(pilot) => format!(
+            "{name}-residual-{}-over-{}",
+            pilot.timing.name(),
+            pilot.rule.over
+        ),
+    };
     write_json(
-        &harness.reports().join(format!(
-            "mixes-{}.json",
-            kind.name(seed, report.label().as_deref())
-        )),
+        &harness.reports().join(format!("mixes-{name}.json")),
         &report,
     )?;
     mixes::print_summary(&report, kind);

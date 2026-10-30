@@ -212,3 +212,41 @@ with it off).
   `realfft` (the core's FFT crate, the same version) for it.
 - **(22:05) The ladder is the turntable ladder** (as 0184 and 0216; the
   drops kind plays every record on a turntable).
+- **(22:00) The pre-registered floor is dropped before any masked
+  search.** The synthetic test (a known A over a known B) showed that a
+  bin keeping at least -30 dB of its power keeps A's pattern of peaks
+  wherever nothing else plays within the picker's neighbourhood: A's
+  bursts, 30 dB down, were still local maxima above the floor. A bin
+  that A explains entirely now falls to silence, below the peak picker's
+  floor (`max(1 - over * g * P_A / P_mix, 0)`). A guard was added with
+  it: a band and block whose reference power is under 1e-6 of the
+  band's mean over the excerpt gets no gain (A silent there, so the
+  ratio would measure what else plays).
+- **(22:07) The harness** (`mixes --kind drops --residual
+  [--residual-over F] [--residual-timing truth|detected]`;
+  `crates/gunfinger-eval/src/residual.rs` for the mask,
+  `mixes/residual.rs` for the cases). The report gains `residual`
+  (left out of the JSON when absent, so default reports do not change)
+  and goes to `mixes-drops-seed-<seed>-residual-<timing>-over-<over>.json`.
+  The mixture's excerpt and A's reference are both decoded at 8 kHz by
+  the same FFmpeg path (A's render written as a WAV for a moment). The
+  denser arm picks the query's peaks in an 8 x 8 neighbourhood. The
+  held-out-B arm runs for A of a quiet or brief block only. Smoke test
+  on one mix of seed 2026 (1:33): 15 cases, 5 with another rip as
+  reference.
+- **(22:10) Test seeds 2036 and 2039.** Panels of seeds 2036-2041 drawn
+  with `--count 0` into `work/s65/panels` (a copy of session 48's):
+  2036, 2039, 2040 and 2041 keep both Clockwork records indexed, 2037
+  and 2038 hold one out. Nothing is run on 2036 or 2039 until the rule
+  is frozen.
+- **(22:20) The development seeds** (`work/s65/dev.sh`, tmux `s65dev`,
+  `work/bin/s65-run`, scratch `work/s65/wd` with session 39's renders
+  hard-linked; 2:38-2:44 per run): experiment 0255. `over` 2 confirms 62
+  of the 64 quiet and brief Bs (P 41, D 39) with no wrong confident
+  answer in M or MH; `over` 1 confirms 55. **Rule frozen for the test
+  seeds: `over` 2.** Only 6 of the 21 Bs newly confirmed have a plain
+  detection, under the registered half, so **estimated timing is not
+  tried in this session** (the registered reading; it stays the next
+  step to measure). Only 2 of the 64 quiet and brief As had another
+  rip, so those rows rest on identical audio; another rip as reference
+  left A confident in 20 of 132 cases.

@@ -30,6 +30,7 @@ mod recall;
 mod regress;
 mod related;
 mod render;
+mod residual;
 mod rng;
 mod robust;
 mod scan;

@@ -38,6 +38,7 @@ use crate::titles::SameTitles;
 use crate::verifier::{Verification, Verifier};
 
 mod drops;
+pub mod residual;
 
 /// Plays per generated mix, and the length of each, fades included.
 const PLAYS_PER_MIX: usize = 12;
@@ -1224,6 +1225,9 @@ pub struct MixesReport {
     pub ladder: String,
     pub indexed_assets: usize,
     pub mixes: Vec<MixResult>,
+    /// With `Options::residual`: the cases of proposal 4's pilot.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub residual: Option<residual::Report>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -1252,6 +1256,9 @@ pub struct Options<'a> {
     pub padding: &'a Padding,
     /// Measure every detection with the peak verifier.
     pub verify: bool,
+    /// Search each confident play's span again with what it explains
+    /// taken out (the drops kind; `residual`).
+    pub residual: Option<residual::Pilot>,
     pub jobs: usize,
 }
 
@@ -1603,9 +1610,45 @@ pub fn run(
         verifier: verifier.as_ref(),
         fault: options.kind.stereo_fault(),
     };
-    let results = map_in_order(&planned, options.jobs, |(mix, path)| {
+    let results: Vec<MixResult> = map_in_order(&planned, options.jobs, |(mix, path)| {
         search_mix(mix, path, &roots, clusters, options.same_titles, &searcher)
-    });
+    })
+    .into_iter()
+    .collect::<Result<_, _>>()?;
+    let residual = match options.residual {
+        None => None,
+        Some(pilot) => {
+            let partners: BTreeSet<String> = planned
+                .iter()
+                .flat_map(|(mix, _)| &mix.plays)
+                .filter(|play| residual::is_partner(play))
+                .flat_map(|play| clusters.cluster_of(&play.asset))
+                .collect();
+            let excluded: BTreeSet<String> = held_out
+                .iter()
+                .chain(left_out)
+                .chain(&partners)
+                .cloned()
+                .collect();
+            let without_partners = options.matching.index(options.padding.index(
+                &records,
+                &options.matching.profile(),
+                &excluded,
+            )?);
+            let context = residual::Context {
+                searcher: &searcher,
+                without_partners: &without_partners,
+                records: &records,
+                roots: &roots,
+                clusters,
+                titles: options.same_titles,
+                scratch: &work.join("residual-scratch"),
+                pilot,
+                jobs: options.jobs,
+            };
+            Some(residual::run(&planned, &results, &context)?)
+        }
+    };
     Ok(MixesReport {
         seed: options.seed,
         kind,
@@ -1615,7 +1658,8 @@ pub fn run(
         stereo_fault: options.kind.stereo_fault().map(Fault::name),
         ladder: options.ladder_name.to_owned(),
         indexed_assets: index.assets().len(),
-        mixes: results.into_iter().collect::<Result<_, _>>()?,
+        mixes: results,
+        residual,
     })
 }
 
