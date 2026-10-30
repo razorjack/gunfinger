@@ -27,16 +27,14 @@ and in order, and counts each asset with 3 hits or more alone. Data
 | `lines`, F64 / F256 / F1024 | +26.0% / +24.2% / +9.7% | +33.7% / +35.2% / +13.1% |
 
 Lines identical, bit for bit and in order, in every window under every
-layout, and in a dense synthetic window where every asset passes (there
-the sketch adds 4.5-5.8% to `lines`). No captured window had inexact
-phases.
+layout and in a dense synthetic window where every asset passes (there
+the sketch adds 4.5-5.8% to `lines`). No window had inexact phases.
 
-**Conclusion.** The sketch is conservative as proved (property tests
-and replays agree), but its rejection depends on the table holding
-about as many slots per asset as the filter: an asset averages 44 hits,
-so at 64 or 256 folded slots most assets find 3 in a pair. F1024 still
-scatters 21% of the hits and fills 1 MiB and counts every hit in it per
-part; on one thread every layout is slower than today's grouping (by
-inference, the counts and the fill cost more than the scatters saved).
-F1024 has the lowest replay CPU and goes to the full searches (0244),
-where 32 workers share the cache and the scatter costs more (0199).
+**Conclusion.** The sketch is conservative (tests and replays agree),
+but it rejects only with about as many slots per asset as the filter: at
+44 hits an asset, most find 3 in a pair of 64 or 256 folded slots. F1024
+still scatters 21% of the hits, and fills and counts in 1 MiB per part;
+on one thread every layout is slower than today's (by inference, the
+counts and the fill cost more than the scatters saved). F1024 has the
+lowest replay CPU and goes to the full searches (0244), where 32 workers
+share the cache and the scatter costs more (0199).
