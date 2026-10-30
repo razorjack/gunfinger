@@ -1242,6 +1242,10 @@ pub struct Options<'a> {
     pub seed: u64,
     /// The files credited to another recording's title (ADR 0022).
     pub same_titles: &'a SameTitles,
+    /// The corpus clusters, which the drops kind draws its records with,
+    /// so that its mixes are the same at every scale (the other library's
+    /// clusters hold files no corpus record stands for).
+    pub corpus_clusters: &'a Clusters,
     pub kind: KindOptions<'a>,
     /// The other library's root, for the shared-material panel's files
     /// under `second-library/` (beatmatched and shared kinds).
@@ -1597,7 +1601,9 @@ pub fn run(
             let path = dir.join(format!("{name}.mp3"));
             let mix = match kind {
                 MixKind::Short => draw_mix(&name, &pools, clusters, &mut rng),
-                MixKind::Drops => drops::draw(&name, &pools, &extras, clusters, &mut rng),
+                MixKind::Drops => {
+                    drops::draw(&name, &pools, &extras, options.corpus_clusters, &mut rng)
+                }
                 kind => draw_long_mix(&name, kind, &pools, &extras, clusters, &mut rng),
             };
             mix.map(|mix| (mix, path))
@@ -1639,6 +1645,7 @@ pub fn run(
                 searcher: &searcher,
                 without_partners: &without_partners,
                 records: &records,
+                other: options.padding.other.as_ref(),
                 roots: &roots,
                 clusters,
                 titles: options.same_titles,

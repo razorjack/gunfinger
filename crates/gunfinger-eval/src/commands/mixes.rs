@@ -148,6 +148,7 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
         &harness.paths.work,
         &mixes::Options {
             same_titles: &harness.same_titles()?,
+            corpus_clusters: &harness.corpus_clusters()?,
             seed,
             kind: kind_options,
             other_root: other_root.as_deref(),

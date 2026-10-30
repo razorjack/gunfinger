@@ -250,3 +250,26 @@ with it off).
   step to measure). Only 2 of the 64 quiet and brief As had another
   rip, so those rows rest on identical audio; another rip as reference
   left A confident in 20 of 132 cases.
+- **(22:31) The test seeds** (`work/s65/test.sh 2`, tmux `s65test`,
+  scratch `work/s65/wt`, rendered there; 3:29 and 3:03): experiment
+  0256. M confirms all 64 quiet and brief Bs (P 36, D 40), 48
+  confidently (P 12), with no wrong confident answer in any arm or in
+  MH; M's wrong possibles 0 (P 196). Estimated timing stays untried
+  (the rule was read on the development seeds).
+- **(22:32) A slip, without effect:** the NAS-scale queue (tmux
+  `s65nas`) was started a minute before 0256 was written; both runs
+  failed at once while drawing the mixes (below) and produced nothing,
+  and the queue ran again only after 0256 was written.
+- **(22:33) NAS scale for the oracle, on the development seeds.** At
+  NAS scale the drops kind could not draw its mixes: `draw_rips` needs
+  every file of a cluster among the corpus records, and the NAS clusters
+  hold NAS files ("too few tracks"). The drops kind now draws with the
+  corpus clusters at every scale (`Options::corpus_clusters`; at 262
+  tracks they are the clusters the run loads, so nothing changes there,
+  and no other kind or regression report is affected); scoring keeps the
+  run's clusters. The residual's other rip may now be a NAS file, its
+  peaks read from the NAS store (`OtherLibrary::record`), so far more As
+  get a reference that is not the played audio. The renders are copied,
+  not hard-linked, into `work/s65/wn`, so that a plan that differed could
+  not write over session 39's files. `work/s65/nas.sh 2026 2028`, tmux
+  `s65nas2`, `work/bin/s65-run2`.

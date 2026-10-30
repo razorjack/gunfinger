@@ -26,6 +26,7 @@ use super::{
     play_audio, score,
 };
 use crate::clusters::Clusters;
+use crate::padding::OtherLibrary;
 use crate::render::{Encoding, encode};
 use crate::residual::{Rule, residual};
 use crate::scoring::Level;
@@ -135,8 +136,10 @@ pub struct Context<'a> {
     pub searcher: &'a Searcher<'a>,
     /// The index less the quiet and brief records' recordings.
     pub without_partners: &'a Index,
-    /// Every record loaded, for other rips and their peaks.
+    /// Every record loaded, for other rips and their peaks...
     pub records: &'a [PeakRecord],
+    /// ...and the other library's, at its scale.
+    pub other: Option<&'a OtherLibrary>,
     pub roots: &'a Roots<'a>,
     pub clusters: &'a Clusters,
     pub titles: &'a SameTitles,
@@ -267,6 +270,8 @@ fn truth_reference(
             .records
             .iter()
             .find(|record| record.header.source.path == path)
+            .cloned()
+            .or_else(|| context.other?.record(path)?.ok())
     };
     let rip = context
         .clusters
@@ -276,7 +281,7 @@ fn truth_reference(
         .find_map(|path| record_of(&path));
     let line = rip
         .zip(record_of(&a.asset))
-        .and_then(|(rip, played)| rip_line(played, rip, context).map(|line| (rip, line)));
+        .and_then(|(rip, played)| rip_line(&played, &rip, context).map(|line| (rip, line)));
     let Some((rip, line)) = line else {
         return Ok((a.clone(), ReferenceKind::Played));
     };
