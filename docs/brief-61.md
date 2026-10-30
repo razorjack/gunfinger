@@ -259,3 +259,7 @@ records could be searched by the variant's queries before a rebuild.
   at NAS scale 27.6-27.7 s with power-sum queries against 24.6-24.8 s,
   12% more wall time and 13% more CPU; peaks and postings 0.1% fewer;
   a 262-track build as fast, with 3 times the peak memory.
+- **(02:56) Decision note** `docs/research/2026-10-30-stereo-power-decision.md`:
+  not adopted; the recommendation (ours) is a pre-registered test of
+  the query side alone. The roadmap's "Stereo faults before the
+  downmix" and the proposals note's §1 point to it.

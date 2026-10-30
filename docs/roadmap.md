@@ -1384,6 +1384,18 @@ cases. None is an adopted decision or an experiment result.
   won back 77-78 of 80 in an exploratory union) is worth its own
   experiment and an ADR, and whether a per-file check of the channels
   at indexing time is worth its cost.
+  *(Session 61, experiments 0245-0247, opt-in `--front-end`)* Peaks
+  picked from the sum of the two channels' STFT powers (today's power
+  plus the side's) win back every inverted channel and every delay up to
+  5 ms: as queries against today's records (80 of 80, and 93 of 100
+  plays over the inverted half of generated mixes), and with a store
+  built the same way also in the rip (20 of 20 each). Noise in one
+  channel costs more (0 dB: 18-23 of 80 against 29), mono queries
+  against such records lose 2-4 of 80 in 6 of 38 `robust` conditions
+  (the registered bar for an ADR proposal fails), and a search costs 12%
+  more at NAS scale. Not adopted; the decision note
+  (`docs/research/2026-10-30-stereo-power-decision.md`) recommends a
+  pre-registered test of the query side alone, which needs no rebuild.
 - **More development mixes.** Mixes of existing library tracks, especially
   with brief plays and long blends, would test what the single development
   mix cannot. Agree each mix's role before looking at its results. The
