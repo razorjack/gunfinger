@@ -5661,3 +5661,37 @@ unchanged (the `gunfinger` binary is byte-identical to `s63-final`'s).
   identical; `docs/pair-verdicts.txt` unchanged. The NAS store is at
   40,674 records, revision `7210fc479da58376`; the clusters file
   `c4d3da2e7e3720cbf4e79e4f7cf86d71493fc6349af639b323d814656a8b9e4f`.
+
+## 2026-10-30: session 65, proposal 4's oracle: a quiet track under an identified one
+
+Brief `docs/brief-65.md` (with the pre-registration), checklist
+`docs/session-65-checklist.md`; notes "Session 65"; experiments
+0255-0258. Gunfinger's behaviour is unchanged (the `gunfinger` binary
+is byte-identical to `s64-final`'s).
+
+- 21:52 start at `10ed89b`, clean. Start build `work/bin/s65-start/`;
+  both regressions identical (0:50; 3:45).
+- Harness, opt-in: `mixes --kind drops --residual [--residual-over F]
+  [--residual-timing truth|detected]`. Every play found confidently is
+  an A; its span is searched plain, with denser query peaks (8 x 8
+  neighbourhood), masked (A's render placed by a time map, per-band
+  gains fitted from the mixture, `over` times A's power removed per
+  bin, resynthesised for the unchanged search), and masked without the
+  quiet and brief partners' recordings. Unit tests on synthetic signals.
+  The drops kind draws with the corpus clusters at every scale.
+- With the generator's time map, `over` 2 (frozen on seeds 2026 and
+  2028): quiet and brief partners confirmed 62 of 64 (plain 41, denser
+  39) and on test seeds 2036 and 2039 64 of 64 (plain 36, denser 40),
+  confident 47 and 48 (plain 8 and 12), no wrong confident answer
+  (0255, 0256); the reference was the played audio in almost every
+  case. At NAS scale, where another rip is the reference for most As,
+  50 and 55 of 64 (plain 40 and 35), confident 32 and 34 (plain 8 and
+  12); the mask left A confident in about a quarter of the cases, and on
+  a test seed the residual made one confident wrong answer, the known
+  Cool Rock upload, a related version of the record playing under the
+  masked one (0257, 0258).
+- Estimated timing was not tried (the registered condition failed on
+  the development seeds: 6 of 21 newly confirmed partners with a plain
+  detection). Next step if taken: why another rip leaves A behind.
+- Final checks with `work/bin/s65-final/`: see the notes' "Final
+  checks".

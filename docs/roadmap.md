@@ -266,6 +266,16 @@ cases. None is an adopted decision or an experiment result.
   fresh seeds at both scales and in the development mixes' reports.
   Whether the tracklist prints such plays is ours to decide, with an
   ADR.
+  Session 65 (experiments 0255-0258) measured the upper bound of
+  finding such a record by taking out the one over it (proposal 4 of
+  `docs/research/2026-10-29-matching-and-archive-proposals.md`): with
+  the generator's time map and the played audio as the reference, a
+  masked residual confirmed nearly every quiet and brief partner with no
+  wrong confident answer at 262 tracks; with another rip as the
+  reference, the case of a real mix, fewer, and at NAS scale it once made
+  a known related version of the record under the masked one confident
+  (see the proposals note). A partner found only in a residual would
+  still be a marked play here.
 - **Report edits.** *(out of scope for the product, ADR 0017, 2026-10-13;
   kept as the history of the listening tools, which stay development
   tools for evaluation ground truth)* Confirming, rejecting or renaming

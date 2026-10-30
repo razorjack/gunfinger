@@ -256,6 +256,41 @@ a later question, with its own size measurement and ADR. Power
 additivity is approximate, and alignment errors can leave A in the
 residual or remove B. These are central failure cases for the experiment.
 
+**Measured, the oracle only (session 65, experiments 0255-0258).** A
+harness option (`mixes --kind drops --residual`) takes every play found
+confidently in generated double drops as A, masks its span with a render
+of A placed by the generator's time map (per-band gains fitted from the
+mixture over blocks of about 1 s, each bin losing twice A's estimated
+power), turns the masked spectrum back into audio and searches it with
+the unchanged search. With the played file itself as A's reference (62
+and 60 of the 64 cases at 262 tracks), the residual confirmed (possible or confident) 62 of 64 quiet and brief
+partners on the development seeds (plain excerpt 41, denser query peaks
+39; confident 47 against 8) and all 64 on two test seeds (plain 36;
+confident 48 against 12). At 262 tracks no masked search gave a
+confident answer that was not playing, also with the partners'
+recordings left out of the index. With another rip of A as the
+reference, the case a real mix presents, the gain shrinks: at NAS scale,
+where the NAS holds another rip for most As, the mask left A confident
+in about a quarter of the cases (a third with NAS uploads), and the
+quiet and brief partners confirmed were 50 of 64 (plain 40), confident
+32 (plain 8), on the development seeds and 55 (plain 35), confident 34
+(plain 12), on the test seeds. On a test seed the residual also made one
+confident answer that was not playing: with a record masked, a known
+related version (the Cool Rock pair) of the record playing under it
+reached 265 hits. Taking A out strengthens every record under A, a
+relative of B as much as B. About half of the partners newly confirmed
+had a detection in the plain excerpt (41 of 81 over the four runs), so
+a rule that needs a detection in the original mixture would keep about
+half of them. The idea is worth a next step, in this order: why another
+rip leaves A behind (a different master or lossy upload, the render's
+seek against the stored peaks' timeline, the rip's alignment), then
+estimated timing, then an evidence rule tested against real
+shared-material relations. Not measured: broadcast processing,
+shared-break panels, printed-tracklist recall (a partner under a
+confident play stays marked by ADR 0019 whatever its level), and the
+cost in a product (here every confident play's span is searched three
+or four more times).
+
 ## 5. Measure evidence outside the dominant drum texture
 
 **Evidence.** Related versions gain alongside true plays under tolerant

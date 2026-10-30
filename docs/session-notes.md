@@ -13245,3 +13245,164 @@ now on.
   and the answer log at their start digests, the clusters file
   `c4d3da2e7e37...` (`work/s64/listening-digests-end.txt`). The baseline
   `session-64-linux-nas` was saved again with this build (identical).
+
+## Session 65
+
+### What changed
+
+The product did not change: the `gunfinger` binary is byte-identical to
+`s64-final`'s. The harness gained proposal 4's pilot, opt-in:
+`mixes --kind drops --residual [--residual-over F] [--residual-timing
+truth|detected]`. Every play of an indexed record that the search of the
+whole mix finds confidently is an A; A's audible span is cut from the
+decoded mix and searched four ways: plain (P), with query peaks picked
+in an 8 x 8 neighbourhood (D, denser, no masking), masked (M), and, for
+A of a quiet or brief block, masked with the seed's quiet and brief
+partners' recordings left out of the index (MH). The mask
+(`crates/gunfinger-eval/src/residual.rs`) renders A as the generator
+mixed it (`play_audio`) from a time map, decodes it at 8 kHz through the
+same FFmpeg path as the mix, fits A's gain per third-octave band and
+block of 63 frames (the 30th percentile of mixture over reference power
+at A's stronger points), removes `over` times A's estimated power from
+each bin (to silence where A explains it all), and resynthesises the
+excerpt by overlap-add, because the core analyses the query again on
+every rung. A's reference is another indexed file of A's cluster when
+its stored peaks align with the played file's (a corpus rip, or at NAS
+scale a NAS file read from the store), else the played file. The drops
+kind now draws its records with the corpus clusters at every scale (it
+could not draw at NAS scale before; nothing changes at 262 tracks).
+Default reports do not change; both regressions are identical.
+
+In short: with the generator's time map and A's own audio, removing A
+recovers nearly every quiet and brief partner, mostly confidently, with
+no confident answer that is not playing (262 tracks, development and
+test seeds). Denser query peaks without a mask do not help. With
+another rip of A as the reference (the case of a real mix), at NAS
+scale, the mask leaves A confident in about a quarter of the cases;
+the partners confirmed rise less (50 and 55 of 64 against plain 40 and
+35), the confident ones still clearly (32 and 34 against 8 and 12). On
+a test seed the residual made one confident answer that is not playing:
+a known related version of the record under the masked one. About half
+of the partners newly confirmed have a detection in the plain excerpt
+(41 of 81 over the four runs).
+
+### Experiments 0255-0258
+
+Quiet and brief partners (64 per pair of seeds), confirmed (possible or
+confident) / confident:
+
+| Run | Reference: played, other rip | P | D | M |
+|---|---|--:|--:|--:|
+| 0255, 262 tracks, development (2026, 2028), `over` 2 | 62, 2 | 41 / 8 | 39 / 6 | 62 / 47 |
+| 0255, the same, `over` 1 | 62, 2 | 41 / 8 | 39 / 6 | 55 / 28 |
+| 0256, 262 tracks, test (2036, 2039) | 60, 4 | 36 / 12 | 40 / 8 | 64 / 48 |
+| 0257, NAS scale, development | 11, 53 | 40 / 8 | 37 / 6 | 50 / 32 |
+| 0258, NAS scale, test | 6, 58 | 35 / 12 | 42 / 8 | 55 / 34 |
+
+- Wrong confident: 0 in every M and MH search at 262 tracks and in
+  0257. In 0258, M 2 (MH 1), both the Mobb Deep Vs Urban Takover - Cool
+  Rock upload (the Cool Rock pair, by ear a different title): once it
+  survives the mask of Cool Rock Stuff (also confident in P), once the
+  residual makes it, Cool Rock Stuff playing under a masked Stakka &
+  Skynet track (265 hits, below confident in P). P and D at NAS scale:
+  2 each on both pairs of seeds (0257: the Kemal - Animation remix
+  upload over the original, 0182's known related version, gone in M;
+  0258: the Cool Rock upload, and Paragliders - Share Of Bitterness
+  over Konflict - Pendulum, 414 hits, also in the whole-mix search).
+  M's wrong possibles: 0-10 against P's 181-342 (the shared-material
+  lines under A go with A).
+- What the mask leaves of A (confident after masking): from the played
+  file 0 in every run (309, 317, 37, 32 cases); from a corpus rip
+  15-19% (20 of 132 in 0255 and 0257, 24 of 128 in 0256 and 0258), from
+  a NAS file a third (95 of 271 in 0257, 95 of 285 in 0258).
+- Bs newly confirmed with a detection in the plain excerpt: 6 of 21
+  (0255), 16 of 28 (0256), 5 of 12 (0257), 14 of 20 (0258).
+- The pre-registration's reading: `over` 2 was frozen on the
+  development seeds; estimated timing needed half of the newly
+  confirmed Bs to have a plain detection there (6 of 21), so it was not
+  tried.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux`; `regress session-64-linux-nas` (start) | 0:50; 3:45 | 0.4; 5.6 GB |
+| `mixes --kind drops --residual`, 16 mixes, 262 tracks, cached renders (0255; about 220 cases of 3-4 searches each) | 2:38-2:44 | 4.3 GB |
+| The same with the renders (0256) | 3:03-3:29 | 7.1 GB |
+| The same at NAS scale (0257, 0258) | 11:05-12:19 | 14.4 GB |
+| Panels of six seeds (`--count 0`) | 0:08-0:13 each | 0.5 GB |
+| `scripts/check.sh` (after the harness) | 5:08 | |
+
+Session 39 searched the same 16 mixes in about 1:00 at 262 tracks with
+the harness (0184) and 3:33-3:38 at NAS scale with the CLI (0182).
+
+### Decided this session, open to change
+
+- The residual is resynthesised audio searched by the unchanged search,
+  not peaks handed to it: the core analyses each turntable rung again
+  from audio. The harness takes `realfft` (the core's FFT crate) for it.
+- Before any masked search the pre-registered floor of -30 dB was
+  dropped: the synthetic test showed that a share kept keeps A's pattern
+  of peaks wherever nothing else plays near it. A bin A explains entirely
+  falls to silence.
+- The rule frozen on the development seeds: `over` 2 (against 1).
+- Estimated timing was not tried: the registered condition (half of the
+  newly confirmed Bs with a plain detection, development seeds) was not
+  met (6 of 21). It is implemented (`--residual-timing detected`, A's
+  strongest confident detection's line, no fades or bass cuts) but has
+  never run.
+- NAS scale was added on both pairs of seeds (0257, 0258), since time
+  allowed; for it the drops kind draws with the corpus clusters at every
+  scale, and the residual's rip may be a NAS file.
+- Test seeds 2036 and 2039: the first two from 2036 up whose panel keeps
+  both Clockwork records indexed (session 48 used 2032 and 2034).
+- Shared breaks and broadcast processing were not built (the drops kind
+  has neither); printed-tracklist recall was not measured.
+
+### Questions this leaves for us
+
+- Why another rip leaves A in the residual (confident after masking in
+  15-19% of the corpus rips' cases and a third of the NAS files'): a
+  different master or a lossy upload, the render's seek by timestamps
+  against the stored peaks' timeline (0127), or the rip's alignment.
+  The reports hold each case's reference; the alignment's hits and
+  speed are not stored.
+- Whether confirmation should need evidence in the original mixture
+  (about half of the newly confirmed partners have a plain detection),
+  and how a rule keeps a related version of B out (0258's Cool Rock
+  case) when A's removal strengthens both.
+
+### Questions for listening (none answered by agents)
+
+- Paragliders - Share Of Bitterness (`1998 - WAQT004 - Paragliders -
+  Share Of Bitterness - 192/2. ...`, NAS) confident at 414 hits over
+  Konflict - Pendulum (`extra/2. Konflict - Pendulum.mp3`) in the
+  generated mix 2036/mix-03 at 29:41-31:29, in the plain search at NAS
+  scale: does the Paragliders file share material with Pendulum?
+- Pending from before: the pitch rides (Star Trails, Into Music) and the
+  Planet Dust (DC Breaks Remix) cut (questions 5, 6 and 8 of
+  `work/listening-2026-10-30/questions/07-pack-2026-10-30.json`); the 65
+  candidates in `work/s58/different-name-files.txt`.
+
+### Handoff for the next session
+
+1. Baselines unchanged: `session-54-linux` (262 tracks) and
+   `session-64-linux-nas` (NAS scale). The NAS store: 40,674 records,
+   revision `7210fc479da58376`; the NAS clusters file
+   `c4d3da2e7e3720cbf4e79e4f7cf86d71493fc6349af639b323d814656a8b9e4f`,
+   unchanged.
+2. Builds: `work/bin/s65-start/` (= `s64-final`), `s65-run/` (0255,
+   0256), `s65-run2/` (0257), `s65-run3/` (0258), `s65-final/` (master;
+   the final checks). The `gunfinger` binary is the same in all.
+3. Data: `work/s65/` (logs in `logs/`; scripts `run.sh`, `start.sh`,
+   `smoke.sh`, `dev.sh`, `panels.sh`, `test.sh`, `nas.sh`,
+   `nas-test.sh`, `final.sh`, `same.py`); the reports in
+   `work/s65/wd/reports/ladder-turntable/` (development, 262 tracks),
+   `work/s65/wt/...` (test seeds and their renders in `wt/mixes/`) and
+   `work/s65/wn/reports/library-nas-dnb-peaks/ladder-turntable/` (NAS
+   scale); panels of seeds 2030-2041 in `work/s65/panels`. Summaries:
+   `python3 -I scripts/analysis/residual_pilot.py REPORT...`.
+4. The next step for proposal 4, if taken: the other-rip residue first
+   (above), then `--residual-timing detected`, then an evidence rule;
+   each with its own pre-registration. Test seeds 2036 and 2039 are used
+   now; 2040 and 2041 also keep both Clockwork records indexed.

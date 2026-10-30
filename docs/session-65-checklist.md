@@ -19,12 +19,12 @@ for scope and rules.
   masked search
 - [x] 2. The harness: the masked residual as an opt-in query transform,
   unit tests on synthetic signals; `regress` identical with it off
-- [~] 3. The runs at 262 tracks (done: development and test seeds); NAS
-  scale for the oracle on the development seeds (running)
-- [~] 4. Experiments (0255, 0256 done; estimated timing not earned): the oracle against both arms on the development
+- [x] 3. The runs at 262 tracks (development and test seeds) and at NAS
+  scale (both pairs of seeds)
+- [x] 4. Experiments 0255-0258 (estimated timing not earned): the oracle against both arms on the development
   seeds; the frozen rule on the test seeds; estimated timing only if
   earned
-- [ ] 5. A note in the proposals note's §4 and the roadmap's "Possible
+- [x] 5. A note in the proposals note's §4 and the roadmap's "Possible
   plays inside a confident play of another recording"
 - [ ] 6. Read-only review by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 65", status, checklist; final checks

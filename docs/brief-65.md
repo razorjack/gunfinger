@@ -288,3 +288,13 @@ with it off).
   confident in 115 and the quiet and brief Bs confirmed fall to 50 of
   64 (P 40), confident 32 (P 8). Not run: the test seeds at NAS scale
   and estimated timing.
+- **(23:35) NAS scale on the test seeds** (`work/s65/nas-test.sh 2036
+  2039`, tmux `s65nastest`, `work/bin/s65-run3`, 11:05 and 11:25):
+  experiment 0258. Recall as in 0257 (55 of 64 confirmed, P 35); M
+  gives 2 wrong confident answers, both the Cool Rock upload (a known
+  different title): one survives the mask (also in P), one is made by
+  the residual (Cool Rock Stuff under a masked record, 265 hits); MH 1
+  (the first). By the pre-registration that counts as wrong.
+- **(23:37) Step 5:** a "Measured, the oracle only" paragraph in §4 of
+  the proposals note, and two sentences at the end of the roadmap's
+  "Possible plays inside a confident play of another recording".
