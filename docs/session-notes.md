@@ -13087,15 +13087,19 @@ more than one recording (session 58's pack): the i-witness-dnb uploads
 3zb-gangstep-dnb upload `OMR - Bad Vibes.opus`. Store-only runs and the
 harness's `--other-peaks-dir` no longer search them. One harness
 addition: `sweep --set-aside-like FILE`, as `recall`'s (session 59),
-opt-in and tested, to trace changes to the lists set aside.
+opt-in and tested, to trace the changes that lists crossing the
+set-aside cut cause.
 
 In short: the prune changed nothing that is scored. Nine weak
 candidates of the pruned files (6-8 hits) and one clusters pair entry
-are gone. Ten other sweep and scan entries moved by a weak candidate or
-the 8th digit of a speed, because lists crossed the set-aside cut
-(0242's mechanism); under the old index's lists the sweep equals the old
-baseline less the pruned files' candidates. `session-64-linux-nas` is
-the NAS-scale baseline from now on.
+are gone. Seven other sweep queries changed in weak candidates or, by about 1e-6
+percentage points, in a speed, because lists crossed the set-aside cut (0242's
+mechanism): under the old index's lists all 720 sweep queries equal the
+old baseline less the pruned files' candidates. The Stakka scan's three
+Clockwork detections moved in speed by less than 1e-5 percentage
+points, by inference for the same reason (the scan was not run under
+the old lists). `session-64-linux-nas` is the NAS-scale baseline from
+now on.
 
 ### Experiment 0254
 
@@ -13112,14 +13116,16 @@ the NAS-scale baseline from now on.
   speeds (Break - Wine) each lose one candidate; each Stakka scan loses
   the 500 Mills upload at 5:36-5:46 (7 hits). The pair entry is Item.Code
   - Magnetics against Break - Wine (9 hits, 20% coverage).
-- Through the lists set aside: one weak candidate each in Decoy at -1%,
-  Kemal - Animation at +8% and Konflict - RoadBlock at +1%; Recharger's
-  fitted speed at four speeds (hits unchanged); the Stakka scan's three
-  Clockwork detections' speed (hits unchanged). In the sweep's index a
-  list of 9,919 postings lost 48 of the four files and left the set
-  aside, and one of 9,911 entered; in the whole index two lists left
-  (9,939 and 9,940 to 9,938), one of them holding 11-14 postings of each
-  Clockwork file.
+- Through the lists set aside (traced for the sweep): in Decoy at -1%
+  and Konflict - RoadBlock at +1% one weak candidate gains or loses a
+  hit; in Kemal - Animation at +8% one weak candidate moves from +4.8% to
+  +4.0% and two new ones appear (6 and 8 hits); Recharger's fitted speed
+  moves at four speeds (hits unchanged). In the sweep's index a list of
+  9,919 postings lost 48 of the four files and left the set aside, and
+  one of 9,911 entered. By inference, the Stakka scan's three Clockwork
+  detections (hits unchanged) moved in speed the same way: in the whole
+  index two lists left the set aside (9,939 and 9,940 to 9,938
+  postings), and the first holds 11-14 postings of each Clockwork file.
 
 ### The evening's answers, carried
 
@@ -13139,23 +13145,28 @@ the NAS-scale baseline from now on.
 
 | Run | Time | Peak memory |
 |---|--:|--:|
-| `regress session-54-linux` (start; final) | 0:52; 0:51 | 0.4 GiB |
+| `regress session-54-linux` (start; step 4) | 0:52; 0:51 | 0.4 GiB |
 | `regress session-54-linux-nas` (start) | 3:53 | 5.4 GiB |
 | `doctor` with the NAS configuration (before, beside the NAS regression; after) | 6:17; 0:04 | |
 | `prune`; `prune --yes` | 0:04; 0:04 | |
 | `clusters --from-peaks --reuse-pairs` | 0.2 s | |
 | `regress session-54-linux-nas` on the pruned store (the saved index built again) | 5:41 | 5.4 GiB |
 | `sweep --set-aside-like` (both indexes in memory) | 2:38 | 8.6 GiB |
-| `scripts/check.sh` | 4:55 | |
-| `regress session-54-linux-nas`, final build, the saved index loaded | 3:46 | 5.2 GiB |
+| `scripts/check.sh` (step 4; final) | 4:55; 4:50 | |
+| `regress session-54-linux-nas`, step 4's build, the saved index loaded | 3:46 | 5.2 GiB |
+| `sweep --set-aside-like`, final build | 2:27 | 8.6 GiB |
+| `regress session-54-linux`; `regress session-64-linux-nas` (final) | 0:52; 3:47 | 0.4; 5.3 GiB |
 
 ### Decided this session, open to change
 
 - `doctor` and `prune` without `--yes` ran beside the start regressions
   (all only read; no timing compared), as in session 52.
-- `--set-aside-like` was added to `sweep` only: the whole index's moved
-  lists account for the Stakka scan, and the leave-out scans change only
-  by the pruned detection.
+- `--set-aside-like` was added to `sweep` only. The Stakka scan's
+  Clockwork speeds are explained by inference from the whole index's
+  moved lists, and the leave-out scans change only by the pruned
+  detection. `sweep --set-aside-like` refuses any matching option other
+  than the default, as `--rank-fullest-by` does, which is stricter than
+  `recall`'s refusal (`--single-pass`, `--drop-fullest`).
 - `baseline session-64-linux-nas` copies the reports of the final
   build's `regress session-54-linux-nas`, identical to step 3's.
 
@@ -13188,13 +13199,17 @@ the NAS-scale baseline from now on.
    SHA-256 `c4d3da2e7e3720cbf4e79e4f7cf86d71493fc6349af639b323d814656a8b9e4f`,
    284 clusters, 2,875 pair entries.
 4. Builds: `work/bin/s64-start/` (= `s63-final`; the prune and step 3),
-   `s64-run/` (the `--set-aside-like` sweep), `s64-final/` (master).
+   `s64-run/` (the first `--set-aside-like` sweep), `s64-step4/` (step
+   4's regressions and the baseline), `s64-final/` (master; the final
+   checks and the second `--set-aside-like` sweep). The `gunfinger`
+   binary is the same in all four.
 5. Data: `work/s64/` (listings and logs in `logs/`, `where-before.tsv`,
    `diff-pruned.txt`, `pruned-reports/`, the clusters file before and
    after, the store's revisions, the sweep under the old lists in
    `wlike/`); scripts `run.sh`, `start.sh`, `step1-list.sh`, `step2.sh`,
-   `step3.sh`, `like.sh`, `step4.sh`, `where.py`, `diff.py`, `same.py`,
-   `cut_moved.py`, `list_holders.py`, `data.py`.
+   `step3.sh`, `like.sh`, `step4.sh`, `final.sh`, `where.py`, `diff.py`,
+   `same.py`, `cut_moved.py`, `list_holders.py`, `like_check.py`,
+   `data.py`; the second sweep under the old lists in `wlike2/`.
 6. Reports outside the baseline predate this prune and name some of the
    four files: in `work/reports/library-nas-dnb-peaks/`, the two
    damaged-brief `recall` reports of seed 2026 (one weak candidate each,
@@ -13217,3 +13232,16 @@ the NAS-scale baseline from now on.
   manifest, committed panel or `docs/same-titles.txt` changed. No verdict
   line names any of the four files. The clusters file changed only by
   the dropped pair entry.
+- A read-only review by a separate agent (21:31-21:38) confirmed every
+  number and the rules; it found the experiment two lines too long, the
+  scan's cause stated as fact where it is inferred, three sweep changes
+  described too loosely, an unsaved check and errors in the brief's
+  account of the first step 4 queue. All were fixed (brief 64, 21:38).
+- Final checks with `work/bin/s64-final/` (21:39-21:51, at the review's
+  fixes): `scripts/check.sh` green (4:50); `regress session-54-linux`
+  (0:52) and `regress session-64-linux-nas` (3:47) identical, every
+  report equal to its baseline's apart from `wall_seconds`; the sweep
+  under the old lists the same with this build; `docs/pair-verdicts.txt`
+  and the answer log at their start digests, the clusters file
+  `c4d3da2e7e37...` (`work/s64/listening-digests-end.txt`). The baseline
+  `session-64-linux-nas` was saved again with this build (identical).

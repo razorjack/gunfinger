@@ -5637,11 +5637,12 @@ unchanged (the `gunfinger` binary is byte-identical to `s63-final`'s).
   (704, 282, 7 false accepted, 95 at 30 hits or more) and the sweep's
   confident answers are as before. Six sweep queries and the three
   Stakka scans each lose a weak candidate of a pruned file (6-8 hits).
-  Seven sweep queries and the Stakka scan's Clockwork detections change
-  in a weak candidate or the 8th digit of a speed because lists crossed
-  the set-aside cut (0242's mechanism); a sweep of the pruned store
-  under the old index's lists equals the old baseline less the pruned
-  files' candidates.
+  Seven sweep queries change in weak candidates or, by about 1e-6
+  percentage points, in a speed because lists crossed the set-aside cut (0242's mechanism): a sweep of
+  the pruned store under the old index's lists equals the old baseline
+  less the pruned files' candidates in all 720 queries. The Stakka
+  scan's Clockwork speeds move by less than 1e-5 percentage points, by
+  inference for the same reason.
 - Harness: `sweep --set-aside-like FILE`, as `recall`'s (opt-in,
   tested); default reports unchanged.
 - Baselines: `session-54-linux` (262 tracks, unchanged) and
@@ -5655,3 +5656,8 @@ unchanged (the `gunfinger` binary is byte-identical to `s63-final`'s).
   `parts` (session 58's notes); three inverted rips confirmed by ear
   (the roadmap's "Stereo faults before the downmix", the stereo decision
   note). No verdict, manifest, panel or `docs/same-titles.txt` changed.
+- Final checks with `work/bin/s64-final/`: `scripts/check.sh` green;
+  `regress session-54-linux` and `regress session-64-linux-nas`
+  identical; `docs/pair-verdicts.txt` unchanged. The NAS store is at
+  40,674 records, revision `7210fc479da58376`; the clusters file
+  `c4d3da2e7e3720cbf4e79e4f7cf86d71493fc6349af639b323d814656a8b9e4f`.

@@ -26,5 +26,5 @@ for scope and rules.
 - [x] 5. The evening's answers: session 54's and 58's pointers, the
   roadmap, `docs/calibration.md`, the stereo decision note; the places
   that name the NAS baseline, the record count and the clusters digest
-- [ ] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 64", status, checklist; final checks
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 64", status, checklist; final checks

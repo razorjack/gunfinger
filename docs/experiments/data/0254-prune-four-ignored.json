@@ -350,6 +350,7 @@
   ],
   "under_old_lists": {
    "per_speed_equal_to_baseline": true,
+   "queries_equal_to_baseline_less_pruned": 720,
    "set_aside_like": {
     "only_there": [
      "second-library/__youtube_archivists/3zb-gangstep-dnb/OMR - Bad Vibes.opus",

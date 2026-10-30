@@ -154,8 +154,8 @@ cases. None is an adopted decision or an experiment result.
   `work/s9/mixed-cd-candidates.tsv`), a listening list. Session 52
   pruned the five files added to the ignore file on 2026-10-25 and
   2026-10-27 (a track-fix release of a mixed CD, two uploads that hold
-  part of another record): the NAS store holds 40,678 records, and the
-  NAS-scale baseline is `session-52-linux-nas` (experiment 0231: no
+  part of another record): the NAS store then held 40,678 records, and
+  the NAS-scale baseline was `session-52-linux-nas` (experiment 0231: no
   scored result changed). Session 64 pruned the four uploads added on
   2026-10-30 (each heard to hold more than one recording): the NAS store
   holds 40,674 records, and the NAS-scale baseline is

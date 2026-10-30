@@ -177,13 +177,17 @@ Rules for this session:
   copied to `work/s64/pruned-reports/`):
   - the pruned files: the six sweep candidates and the three scan
     detections of step 1 are gone, nothing takes their place;
-  - not of a pruned file: in the sweep, one sub-threshold candidate each
-    in queries 201 (Decoy at -1%), 296 (Kemal - Animation at +8%) and
-    698 (Konflict - RoadBlock at +1%), 6 to 8 hits, and Recharger's
+  - not of a pruned file: in the sweep, one weak candidate gains or
+    loses a hit in queries 201 (Decoy at -1%, 6 to 7) and 698 (Konflict -
+    RoadBlock at +1%, 7 to 6); in query 296 (Kemal - Animation at +8%)
+    one weak candidate moves from +4.8% to +4.0% and two new ones appear
+    (Falcon and Predator - Shadow Depth, 8 hits; S.P.Y - Need You, 6);
+    and Recharger's
     fitted speed at four speeds (queries 495, 496, 499, 503; about 1e-6
     percentage points, hits unchanged; `per_speed`'s mean speed errors
     with it); in the Stakka scan, the three confident Clockwork
-    detections' speed in the 8th digit (hits unchanged).
+    detections' speed, by less than 1e-5 percentage points (hits
+    unchanged).
 - **(21:12) Tracing the second group to the lists set aside.** The
   pre-prune saved index (40,678 records) survives as session 63's hard
   links (`work/s63/wd/indexes/`, only read). Whole index
@@ -204,28 +208,34 @@ Rules for this session:
   another matcher. The line both commands print moves to
   `fullest::print_like`. One test (the option, its report name and the
   refused combination); `setting_aside_like` has its own. Not added to
-  `scan`: the whole index's moved lists account for the scan, and the
-  leave-out scans change only by the pruned detection.
+  `scan`: the whole index's moved lists explain the scan by inference,
+  and the leave-out scans change only by the pruned detection.
 - **(21:17) The sweep under the old lists** (`work/s64/like.sh`, tmux
   `s64like`, `work/bin/s64-run`, scratch `work/s64/wlike`; 2:38): equal
   to the baseline less the pruned files' candidates, every query and
   `per_speed`. In the sweep's index one list left the set aside (hash
   851777, 9,919 to 9,871 postings, 48 of the four files) and one entered
-  (1254102, 9,911 in both, as the cut fell). So every difference traces
-  to the four files or to the lists set aside; nothing to stop on.
+  (1254102, 9,911 in both, as the shortest list set aside fell from
+  9,912 to 9,911 postings). So every sweep difference traces to the four
+  files or to the lists set aside, and the scan's Clockwork speeds to
+  the lists by inference; nothing to stop on.
   Experiment 0254, data `docs/experiments/data/0254-prune-four-ignored.json`
   (`work/s64/data.py`).
 - **(21:20) Step 4** (`work/s64/step4.sh`): `scripts/check.sh`, the
   final build `work/bin/s64-final`, `regress session-54-linux` and
   `regress session-54-linux-nas` (compared with step 3's reports), then
-  `baseline session-64-linux-nas`. The first queue (tmux `s64base`)
-  stopped at `cargo fmt --check` (the new test's layout); after `cargo
-  fmt` it runs again (tmux `s64base2`).
+  `baseline session-64-linux-nas`. In the first queue (tmux `s64base`)
+  `scripts/check.sh` failed at `cargo fmt --check` (the new test's
+  layout), and the queue went on, since `step4.sh` does not stop on a
+  failed step; it was stopped by hand during its NAS regression. After
+  `cargo fmt` the queue ran again (tmux `s64base2`).
 - **(21:28) Step 4** (`work/s64/step4.sh`, tmux `s64base2`, every run
   exit 0): `scripts/check.sh` green (4:55); `work/bin/s64-final` built
   (`gunfinger` byte-identical to the start build's; `gunfinger-eval`
   with `sweep --set-aside-like`, not byte-identical to `s64-run`'s,
-  which was built before `cargo fmt` moved the new test's lines); `regress
+  which was built before `cargo fmt` and the two fixtures' new field,
+  both in test code only; why the binaries differ is not established);
+  `regress
   session-54-linux` identical (0:51); `regress session-54-linux-nas`
   (3:46, the saved index loaded) gives step 3's reports, every one
   identical; `baseline session-64-linux-nas` copies them (identical to
@@ -242,8 +252,58 @@ Rules for this session:
   name the baseline, the record count or the digest for the next
   sessions: `docs/status.md` (a session 64 entry) and the handoff; older
   experiments, briefs and status entries stay as written.
-- **(21:40) The scripts' needle for Bad Vibes** also matched the
+- **(21:29) The scripts' needle for Bad Vibes** also matched the
   unignored copy in `__youtube_archivists/unxplored-dnb/`; narrowed to
   the 3zb-gangstep-dnb folder in `where.py`, `diff.py` and `data.py`.
-  Run again, the outputs are the same (no report compared held the other
-  copy), and 0254's data file is byte-identical.
+  Run again with outputs to `/tmp`, `where.py` and `diff.py` give the
+  same lines as `where-before.tsv` (less the clusters pair now pruned)
+  and `diff-pruned.txt` (no report compared held the other copy), and
+  0254's data file is rewritten byte-identical.
+- **(21:38) The review's findings** (a separate agent, read-only,
+  21:31-21:38). Every number checked matches the evidence; no verdict,
+  same-title judgment, panel or manifest changed; the rules were
+  followed. Taken:
+  1. 0254 had 42 lines: shortened to 40.
+  2. The Stakka scan's cause is inferred (the scan was not run under the
+     old lists), but several places stated it as fact: 0254, the notes,
+     status and this brief now say so.
+  3. The three sweep queries changed through the lists set aside were
+     described as "one weak candidate each": each change is now stated
+     (above, 21:10).
+  4. The full check of the sweep under the old lists was not saved
+     (`work/s64/diff-like.txt` was a traceback of `diff.py`, which looks
+     for the default report names): `work/s64/like_check.py` compares
+     every query (720 of 720 equal to the baseline less the pruned
+     files' candidates; only `indexed_assets` and `set_aside_like`
+     differ), and the data file records the count; `diff-like.txt` is
+     deleted.
+  5. Corrections here: the first step 4 queue, the binary difference,
+     the needle entry's time and outputs.
+  6. The roadmap's session 52 sentence is now in the past tense.
+  7. The new test's name says what it checks
+     (`set_aside_like_names_its_report_and_takes_no_ranking`); the
+     sweep's refusal of every non-default matcher, stricter than
+     `recall`'s, is recorded in the notes. Not taken: a test of that
+     refusal, which needs a harness (`run_sweep`), as `--rank-fullest-by`'s
+     has none either.
+  8. "The 8th digit" replaced by the size of the move.
+  9. Prose fixes in 0254 and the notes.
+- **(21:39) Final checks** (`work/s64/final.sh`, tmux `s64final`, which
+  stops at the first failed step): `scripts/check.sh`; the final build
+  `work/bin/s64-final` (step 4's build kept as `work/bin/s64-step4`);
+  `sweep --set-aside-like` again with the final build in
+  `work/s64/wlike2`, compared with the `s64-run` report and checked by
+  `like_check.py`; `regress session-54-linux` and `regress
+  session-64-linux-nas`; the digests.
+- **(21:51) Final checks** (every run exit 0): `scripts/check.sh` green
+  (4:50, 664 tests); `work/bin/s64-final` (`gunfinger` byte-identical
+  to the start build's); `sweep --set-aside-like` with it (2:27) gives
+  the `s64-run` report, identical, and `like_check.py` finds 720 of 720
+  queries equal; `regress session-54-linux` (0:52) and `regress
+  session-64-linux-nas` (3:47) identical, every report equal to its
+  baseline's apart from `wall_seconds`; the verdicts file and the answer
+  log at their start digests, the clusters file `c4d3da2e7e37...`
+  (`work/s64/listening-digests-end.txt`). Then `baseline
+  session-64-linux-nas` saved again with the final build, from those
+  reports (byte-identical to the first copy, kept in
+  `work/s64/baseline-first/`).
