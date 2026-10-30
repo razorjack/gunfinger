@@ -307,3 +307,10 @@ of the store, with a 95% interval.
   every change above): `regress session-54-linux` (0:59) and `regress
   session-54-linux-nas` (6:15, beside the census) identical, 8 of 8
   reports; `cargo test --release -p gunfinger-eval` green (353 tests).
+- **(03:42) Census done** (03:35-03:41; 0248). The run queues (tmux
+  `s62panels`, `s62recall`, `s62mixA` for seeds 2026-2027, `s62mixB` for
+  2028) started at 03:41:36, three seconds after the census ended and
+  before 0248 was written: a slip against the rule that an experiment's
+  file comes before the next one's runs; the census's numbers were
+  final before those runs began. 0248 was first committed at 42 lines,
+  then cut to 40.

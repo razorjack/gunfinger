@@ -4,11 +4,10 @@
 rips are mono, inverted in one channel, delayed, or one channel only?
 
 **Change.** Harness only (`fcf385d`): `stereo-width` measures each file's
-balance, its channels' correlation at lag 0 and the strongest within
-±80 samples (±10 ms at 8 kHz), and classes it: one channel (balance
-beyond ±20 dB), inverted (strongest correlation -0.5 or less), delayed
-(strongest at a lag of 4 or more, at least 0.5 and 0.05 above lag 0),
-else its width (0196).
+balance and channel correlation at lag 0 and strongest within ±80
+samples (10 ms at 8 kHz), and classes it: one channel (beyond ±20 dB),
+inverted (strongest -0.5 or less), delayed (strongest at 4 samples or
+more, at least 0.5 and 0.05 above lag 0), else its width (0196).
 
 **Command.** Classes checked first on session 42's faults: inverted 96
 of 100, silent 100, 1 and 5 ms 96 each, no clean, noise or 0.2 ms render
@@ -37,6 +36,5 @@ bass line, counted as registered. The delay: a `sety/` track whose left
 channel is the right's, 40 samples (5 ms) late (correlation 1.00).
 
 **Conclusion.** Channel faults are rare in the NAS rips: about 1 in 250
-inverted (3-4 of the 5 by inspection), delays and missing channels about
-1 in 2,000 or fewer. By 0197, a rip with an inverted channel is missed
-under today's records whatever the query; the query side cannot help it.
+inverted (3-4 of the 5 by inspection), delays and missing channels 1 in
+2,000 or fewer. By 0197 such a rip is missed whatever the query.
