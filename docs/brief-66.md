@@ -112,8 +112,186 @@ Rules for this session:
 | 5 | decision note; roadmap; proposals note §5 | 02:30-02:45 |
 | 6-7 | review, notes, status, checklist, final checks | 02:45-03:20 |
 
+## Pre-registration (step 1; written at 00:09-00:14, before any harmonic-view run)
+
+**Question.** For a candidate the unchanged search finds, at the
+alignment and speed it finds, does the candidate's sustained material
+(its harmonic part) match the query's better for a true play than for a
+related version that shares the played recording's drums, at similar
+hit counts, and better than denser peaks of the whole spectrum do?
+
+**Where the cases come from.** `gunfinger-eval shared` (the
+shared-material scenarios: a passage two judged-different recordings
+share, queries cut from the played file, searched with everything
+indexed, with the played recording left out and, as a positive control,
+with the played file alone left out while another rip stays), with a new
+opt-in option `--harmonic`. Every detection of at least 20 hits is a
+case, placed by the line through its ends as the search reports it
+(file time = `track_start + slope x (t - start)`, the verifier's
+`Line`). The view never searches: no offset, speed or line is fitted.
+With `--harmonic` the scenarios also get three damaged queries, the
+positives at lower hit counts: `killed-alone-30s` and
+`killed-beyond-20s` (the 30 s alone and 20 s beyond queries through a
+DJ bass kill, FFmpeg `highpass=f=250,highpass=f=250`, 24 dB an octave
+below 250 Hz), and `damaged` (robust's combined damage from the
+passage's start: wow, the plan's blend partner beatmatched at -6 dB,
+broadcast processing, AAC 64 kbit/s, at turntable speed 1.03, so the
+view's render at the detection's speed is exercised). The default
+queries are as today.
+
+**Plans** (written into `work/s66/plans/`, not committed panels; the
+first and second panels' development halves, their scenarios copied
+unchanged, and the judged pairs, each direction a scenario, the passage
+the strongest alignment of `pair` at the fitted speed, the panels'
+rule; the blend partner Decoy at 60 s as in both panels):
+
+| Part | Family | Scenarios | Passage source |
+|---|---|---|---|
+| development | dozer, fire, pyro, sonar | first panel, development half | the panel |
+| development | phantom-force, we-r-the-ones | second panel, development half | the panel |
+| development | tower-bass | Millennium Mix ~ `a - aphrodite - tower bass.mp3` and ~ the JumpUpThrowDown version, both directions (4) | `work/listening-2026-10-30/pair.log` |
+| development | wikki-wikki | Wikki Wikki Plate ~ Defjammer, both directions | `work/s66/logs/pair-judged.log` |
+| frozen | playground-shades, watermelon | first panel, development half | the panel |
+| frozen | star-trails | second panel, development half | the panel |
+| frozen | cool-rock | Cool Rock Stuff ~ the Mobb Deep / Urban Takover upload, both directions | the pack's `pair.log` |
+| frozen | stalker | APH029 ~ the album version, both directions | the pack's `pair.log` |
+| frozen | konflict | Konflict - Pendulum ~ the Paragliders remix, both directions | `pair-judged.log` |
+| frozen | clockwork | Clockwork ~ its Stakka remix (calibrate's strongest false at 262 tracks, 99-100 hits), both directions | `pair-judged.log` |
+
+The split was chosen before any run: each part mixes panel families and
+judged pairs; Fire, the largest family, develops; the Cool Rock pair
+(calibrate's strongest false at NAS scale, 282) is frozen so that its
+line is a clean test. Clockwork's family is in the first panel's
+validation half: none of that half's scenarios is used; its scenario
+here comes from `pair`, and it is used once, frozen, because the prompt
+names calibrate's strongest false at both scales. A family's scenarios
+(both directions, every query and index) are one unit: fresh queries of
+one family are not independent.
+
+**Scales.** NAS scale (`--other-peaks-dir`, the panels' files are NAS
+files) is the primary run. At 262 tracks the same plans run beside
+(scenarios whose played file is a NAS file are reported unrendered;
+the only related pair indexed at 262 tracks is Clockwork's).
+
+**The separation** (FitzGerald 2010, §2; fixed now, before any data).
+The query and the candidate's reference are analysed with the
+profile's STFT (8 kHz, 1,024-sample Hann window, hop 128: 16 ms frames,
+7.8 Hz bins). For each bin the magnitude is median-filtered across time
+over 25 frames (400 ms) and, for each frame, across frequency over 17
+bins (133 Hz). At 160-180 BPM a beat lasts 333-375 ms (21-23 frames) and
+a sixteenth 83-94 ms; a drum hit's energy, smeared by the 128 ms
+window, covers about 4-8 frames, so a single hit occupies well under
+the 13 of 25 frames a time median needs to pass it, while a held note,
+pad or bass lasting a beat or more passes. A partial's main lobe covers
+about 4 of 17 bins, so the frequency median rejects it, while a
+broadband hit (snare, hats) covers the whole 17. Mask: FitzGerald's
+soft mask with power 2, `W_h = H^2 / (H^2 + P^2)` from the
+time-filtered `H` and frequency-filtered `P`; the harmonic part is the
+complex STFT times `W_h`, the percussive part times `1 - W_h`, each
+turned back into audio by overlap-add (session 65's resynthesis), so
+that the core's unchanged peak picker reads it. Known limit: bass notes
+whose partials lie closer than about 2 bins apart (below about 60 Hz)
+are partly classed percussive.
+
+**The candidate's reference.** The detection's file decoded as indexed
+(the sample-counted timeline of its peak record; 0127) and played at
+the line's slope as a turntable (a key-locked detection: key-locked at
+that tempo), from 8 reference seconds before the span to 8 after, and
+decoded at 8 kHz by the same FFmpeg path as the query (a WAV in the
+render directory, deleted once decoded). Reference audio is read from
+the corpus library or the NAS, read only.
+
+**The feature and its arms**, each counted at the candidate's own
+alignment only, query frame `f` against reference frame `f` of the
+render (bins already scaled by the render's speed):
+
+- **H, the harmonic view**: peaks of the harmonic part of the reference
+  and of the query, the core's picker with an 8 x 8 neighbourhood
+  (`neighbourhood_frames` = `neighbourhood_bins` = 8, the rest of the
+  profile unchanged).
+- **D, the comparison arm**: peaks of the whole (unseparated) reference
+  and query with the same 8 x 8 picker: denser than today's 12 x 12 (as
+  session 65's denser arm), the only difference from H being the
+  separation.
+- **P, the percussive part** (beside, deciding nothing): the same on
+  the percussive part.
+- **Neither**: the detection's hits (today's evidence), with the peak
+  verifier's excess share (12 x 12, the stored peaks; `shared` measures
+  it already) beside.
+
+For each view: the reference's peaks inside the span, the share found
+among the query's peaks of the same view within +-1 bin and +-1 frame
+(the verifier's tolerance, 0054), and the same share with the reference
+shifted -6.2, -5, +5 and +6.2 reference seconds (the verifier's chance
+shifts). The score is the **excess share**: the share minus the mean of
+the four shifted shares. A view with fewer than 50 reference peaks in
+the span abstains (unobservable: little sustained content, a kill); an
+abstaining case is counted apart and kept, never rejected.
+
+**Positives and negatives.** Positive: a case of the played recording
+(role `played`: the played file, or its other rip in the positive
+control) or of the blend partner (role `partner`) in a query where it
+plays. Negative: a case of the scenario's related recording (role
+`related`): judged a different recording, sharing material with the
+played one. Cases of any other file (role `other`) are reported apart
+(not judged by ear; unnamed versions and chance among them). **At
+similar hit counts**: the scores are taken over the positives whose hits
+lie within the range of that part's negatives' hits (and at least 20),
+pooled and per hit band (20-59, 60-239, 240 and more).
+
+**Identical audible passages.** Where the related file's audio is as
+close to the query as another rip of the played recording is, no view
+can tell them apart by construction. A negative whose D excess share
+reaches the 5th percentile of the same part's other-rip positives'
+(index `source left out`, role `played`) is marked *near-identical*. It
+stays a negative in the primary score; a secondary score leaves the
+near-identical negatives out. The marking uses D, not H, and decides
+nothing.
+
+**The score.** For each measure (H, D, hits; P and the verifier
+beside), on the development part: the threshold at a wrong-answer rate
+of 0 (just above the strongest development negative) and of 10% (the
+90th percentile of the development negatives); a case is retained when
+its score is above the threshold or its view abstains. Reported: the
+hit-matched positives retained at each threshold, pooled and by family;
+the area under the ROC curve (positives against negatives, hit-matched),
+pooled and per hit band; the killed positives retained apart. The
+thresholds are frozen when experiment 0259 is written. On the frozen
+part, with the development thresholds unchanged: negatives above the
+threshold (the wrong-answer rate reached), hit-matched positives
+retained, by family; the Cool Rock pair on its own line. The 262-track
+run is reported beside.
+
+**What would justify a later evidence rule and an ADR** (reading
+rules, not adoption thresholds). All of: (1) on the development part,
+at the rate-0 threshold, H retains at least 10 percentage points more of
+the hit-matched positives than D, and H's pooled AUC exceeds D's by at
+least 0.05; (2) on the frozen part, with the development thresholds, H's
+wrong-answer rate is at most D's and at most 10%, and H retains more
+hit-matched positives than D; (3) under the bass kill, H retains no
+fewer than 10 percentage points below D's share of the killed positives.
+Then the next step would be a registered evidence-rule experiment on
+fresh families and real mixes; a product use would need reference audio
+at identification time or a new stored field, each with its own ADR.
+Otherwise the view is not proposed.
+
+**Not done.** No index, search, rule or product change; the view is a
+harness option (`regress` identical with it off). Real mixes are not
+searched in this pilot (the three development mixes' true plays are
+the binding positive control of any later rule, 0116, 0118, 0125).
+
 ## Decisions
 
 - **(00:06) Start build and regressions** (`work/s66/start.sh`, tmux
   `s66start`, logs in `work/s66/logs/`; `run.sh` and `same.py` are
   session 65's with the paths changed).
+- **(00:11) Pair alignments for three judged pairs** (`work/s66/pair.sh`,
+  `pair` at NAS scale in the scratch work directory `work/s66/wn`):
+  Wikki Wikki Plate ~ Defjammer 110.6-185.7 s (58 hits at the fitted
+  speed), Konflict - Pendulum ~ the Paragliders remix 22.7-154.0 s (371
+  hits, speed 0.9735), Clockwork ~ its remix 205.4-218.5 s (98 hits).
+- **(00:13) The start build is byte-identical to `s65-final`; both
+  regressions identical** (0:51; 3:48), every report equal to its
+  baseline's apart from `wall_seconds`.
+- **(00:14) Pre-registration committed** (above), before any harmonic
+  view runs.
