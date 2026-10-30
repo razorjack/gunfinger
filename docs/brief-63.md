@@ -286,3 +286,14 @@ otherwise it records what failed.
   (`wpg2`, `wpc2`; tmux `s63ptwogrid`, `s63ptwocross`), and a watcher
   (`work/s63/stop-p1-*.sh`) stops the first queues as soon as panel 1
   logs its exit, before they would repeat panel 2.
+- **(07:37) 0251 written and committed (`9bb890b`); 0252's runs
+  started**: tmux `s63iq` (the standard protocol at NAS scale, other
+  rips with and without one extra rung pair, the two other scans, then
+  `regress session-54-linux`), `s63ir` (`recall` clean and brief),
+  `s63irtwo` (`recall`'s other rips, directory `wir2`; `s63ir` is
+  stopped by `work/s63/stop-ir.sh` after its first run), `s63ipone` and
+  `s63iptwo` (the two panels).
+- **(07:45) 0251's conclusion corrected** after a count of how the
+  brief plays' answers changed: most cross 240 hits in 3 windows (grid
+  25 of 28 changes, split 15 of 18 gains and 2 of 3 losses); 2 gain and
+  1 loses a third window. The file said the 3-window rule decided them.

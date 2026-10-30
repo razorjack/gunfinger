@@ -36,5 +36,5 @@ today's rule, against the default's reports (baselines, session 62's);
 played +7 -2); (b) fails (medians 0.99-1.02). The bounded fit runs (0252).
 **Conclusion.** The chain's speed costs hits where the chain is short (15 s
 plays: the mean of rungs), not on 30 s excerpts. The split keeps most of that
-gain, so it is not selection; but answers change through the 3-window rule,
-and related versions near 240 gain as true plays do.
+gain, so it is not selection. Most changed answers cross 240 hits (2 gain and
+1 loses a third window); related versions near 240 gain as true plays do.
