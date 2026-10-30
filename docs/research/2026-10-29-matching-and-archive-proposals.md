@@ -102,6 +102,13 @@ mono queries lose 2-4 of 80 in 6 of 38 conditions, so the registered bar
 fails. Not adopted; see
 [the decision note](2026-10-30-stereo-power-decision.md).
 
+**Measured (session 62, experiments 0248-0250).** The query side alone
+at NAS scale under one frozen rule: fault gains, the panels, the mixes
+and the scans hold with no new wrong file, but `recall` loses 9 of 522
+clean excerpts and 58 of 721 brief plays on wide sources, so its bar
+fails; no ADR. About 0.4% of the NAS rips have an inverted channel
+(0248). See the decision note's "Session 62".
+
 ## 2. Reject impossible alignments before scattering hits
 
 **Evidence.** `WindowHits::lines` in `search/lines.rs` takes a part's

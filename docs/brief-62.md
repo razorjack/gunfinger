@@ -364,3 +364,26 @@ of the store, with a 95% interval.
   queue (`s62panels`) is stopped as soon as panel 1's variant run logs
   its exit, before it would repeat panel 2. Panel 1's downmix run took
   50:31 beside `recall`, the mixes and `robust`.
+- **(05:13) Panels done.** Panel 1 (04:32-04:58 for the variant) and
+  panel 2 (`w2`, 04:38-05:13): played files 269 and 208 confident under
+  both, none lost; confident `other` pairs 422 and 3 under both, none
+  new; related versions named 326 to 309 (17 fewer, all on stereo
+  queries) and 9 to 9. The first queue was stopped at 04:58:02, one
+  second after panel 1's variant run logged its exit; the panel-2 run it
+  had just begun in `w` was killed before searching, and its three
+  partial renders deleted.
+- **(05:16) Cost** (tmux `s62cost`, 05:13-05:16, nothing else running):
+  search 24.29 and 24.64 s against 27.34 and 27.43 s (12% more), user
+  CPU 673-682 s against 761-763 s, peak memory 4.91-4.93 against
+  4.99-5.03 GiB; each pair's reports identical, the downmix's equal to
+  the baseline's.
+- **(05:16) Against the bar** (0249, 0250): items 1 and 3-6 pass; item 2
+  fails on `recall` (all four sets). No ADR proposal. Decision note,
+  roadmap and proposals note updated.
+- **(05:20) A clippy failure in the final checks, fixed.** The `mixes`
+  change gave `sweep_index` eight arguments (clippy's limit is seven;
+  the earlier clippy run predated that change). It now takes the loaded
+  records instead of the library and the store; the callers load them
+  under the matcher's profile, as before. With the fixed build, `mixes
+  --seed 2026 --count 8 --stereo-fault stereo-inverted` (262 tracks) and
+  `--seed 2028` (NAS scale) give reports identical to the run build's.

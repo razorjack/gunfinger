@@ -1358,12 +1358,12 @@ pub struct SweepIndex {
     pub index: Index,
 }
 
-/// The library's records, the sweep's held-out assets for `seed`, and the
-/// index of the rest less `left_out`, with the other library's records
-/// when `padding` holds them (less the held-out clusters' files there).
+/// The library's records (`records`, loaded under the matcher's
+/// profile), the sweep's held-out assets for `seed`, and the index of the
+/// rest less `left_out`, with the other library's records when `padding`
+/// holds them (less the held-out clusters' files there).
 pub fn sweep_index(
-    library: &Library,
-    store: &PeakStore,
+    records: Vec<PeakRecord>,
     clusters: &Clusters,
     seed: u64,
     panels: &Path,
@@ -1371,11 +1371,9 @@ pub fn sweep_index(
     padding: &Padding,
     left_out: &BTreeSet<String>,
 ) -> Result<SweepIndex, String> {
-    let profile = matching.profile();
-    let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let held_out = Plan::for_seed(&records, clusters, seed, panels)?.held_out;
     let excluded: BTreeSet<String> = held_out.union(left_out).cloned().collect();
-    let index = padding.index(&records, &profile, &excluded)?;
+    let index = padding.index(&records, &matching.profile(), &excluded)?;
     Ok(SweepIndex {
         records,
         held_out,
@@ -1527,8 +1525,13 @@ pub fn run(
         held_out,
         index,
     } = sweep_index(
-        library,
-        store,
+        load_records(
+            library,
+            store,
+            &options.matching.profile(),
+            &BTreeSet::new(),
+        )
+        .0,
         clusters,
         options.seed,
         options.panels,

@@ -1396,6 +1396,19 @@ cases. None is an adopted decision or an experiment result.
   more at NAS scale. Not adopted; the decision note
   (`docs/research/2026-10-30-stereo-power-decision.md`) recommends a
   pre-registered test of the query side alone, which needs no rebuild.
+  *(Session 62, experiments 0248-0250)* That test, at NAS scale under
+  one frozen rule, fails its registered bar: the fault gains hold (80 of
+  80 inverted and delayed excerpts, 93 of 100 plays in inverted halves
+  of mixes), nothing new is wrong, the shared panels lose nothing (17
+  fewer related versions), but `recall` loses 9 of 522 clean excerpts
+  and 58 of 721 brief plays, all on wide sources: queries picked from
+  mid plus side carry peaks the downmix records lack (median hits 0.39-0.49
+  of the downmix's where the side is within 10 dB of the mid). A census
+  of 2,000 NAS rips (0248) finds about 0.4% inverted in one channel,
+  delays and missing channels rarer. No ADR; `identify` keeps the
+  downmix. Open (ours): whether a combination equal to today's power
+  where the mid dominates (the larger of the mid's and the side's power
+  per bin, unmeasured) is worth its own test.
 - **More development mixes.** Mixes of existing library tracks, especially
   with brief plays and long blends, would test what the single development
   mix cannot. Agree each mix's role before looking at its results. The

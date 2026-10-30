@@ -1,6 +1,7 @@
 # Stereo power: what it recovers, what it costs (2026-10-30)
 
-**Status: measured (session 61, experiments 0245-0247); not adopted.**
+**Status: measured (session 61, experiments 0245-0247; session 62, the
+query side alone at NAS scale, 0248-0250); not adopted.**
 The product, its front end and every default are unchanged. The variant
 is an opt-in harness front end (`--front-end`, `variant-store`); this
 note gives our recommendation for whether to take it further.
@@ -97,3 +98,49 @@ search time at NAS scale. It should get its own pre-registration
 generated mixes, the noise conditions and the frozen acceptance rule
 of the proposals note) and, if it passes, an ADR for the CLI's
 decoding. Faults in the rip stay unrecovered without a rebuild.
+
+## Session 62: the query side alone, against its bar
+
+Session 62 pre-registered one frozen rule (today's confidence rule,
+matcher and scoring, applied to power-sum queries against today's
+records) and a bar for an ADR proposal (`docs/brief-62.md`), then ran
+both front ends on the same rendered queries at NAS scale.
+
+| Bar item | Result | |
+|---|---|---|
+| 1. No new wrong confident file | none in any run; the known Cool Rock pair only for its own held-out excerpt (7 to 16 queries) | passes |
+| 2. No confident identification lost on clean or mono queries (tolerance max(1, 1%)) | panels, mixes, `robust`'s controls and the scans lose none; `recall` loses 9 of 522 clean excerpts, 58 of 721 brief plays, 2 of 174 and net 3 of 171 with other rips only | **fails** |
+| 3. Fault gains at NAS scale | inverted, 1 and 5 ms 80 of 80; 93 of 100 plays in the inverted halves of 24 mixes | passes |
+| 4. Related versions named | panel 1 326 to 309, panel 2 9 to 9 | passes |
+| 5. Noise in one channel | 0 dB 29 to 19 (bar: 15); 10 and -10 dB unchanged | passes |
+| 6. Cost | 12% more search time, 12.5% more CPU, 2% more memory (Stakka scan, A B B A) | passes |
+
+**Why it fails: wide sources.** The losses follow the source's width.
+Over `recall`'s clean excerpts the variant keeps 0.98 of the downmix's
+hits (median) where the side is 20 dB or more below the mid, 0.77 at -15
+to -10 dB and 0.39-0.49 above -10 dB; the nine clean losses are one
+source at -7.3 dB (Organikismness - Echos), and 51 of the 58 brief plays
+lost lie above -15 dB. By inference, a record picked from the downmix
+holds the mid's peaks; a query picked from mid plus side adds the side's
+peaks where the side is loud, and those are not in the record. Session
+61 missed it because `robust`'s excerpts are mostly narrow (0196: 5 of
+50 wide); 7.6% of the NAS rips are wide (0248).
+
+**How often the faults occur (0248).** In 2,000 NAS rips, 5 are
+inverted in one channel by the registered rule (about 0.4% of the
+store, 0.14-1.25%; 3-4 of them plainly so), 1 delayed and none with one
+channel missing. Faults in the mixes searched are still not measured.
+An inverted rip is missed whatever the query (0197): only new records
+would recover it.
+
+**Recommendation (ours to take).** No ADR proposal: the query side's
+registered bar fails, the records' bar failed in session 61, and the
+faults it recovers are rare in the rips (about 1 in 250) and not
+measured in real mixes. `identify` and `explain` keep FFmpeg's
+downmix. If the question returns, a combination that equals today's
+power where the mid dominates and recovers an inverted channel where
+the side does (for example the larger of the mid's and the side's power
+in each bin) would be the next candidate, measured first on wide
+sources (`recall`'s panel) and on mono queries; that is an idea, not
+measured. The harness keeps `--front-end` and the census
+(`stereo-width --other`) for it.

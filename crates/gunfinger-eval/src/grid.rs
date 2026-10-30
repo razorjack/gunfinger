@@ -15,6 +15,7 @@ use std::collections::BTreeSet;
 use std::path::{Path, PathBuf};
 
 use gunfinger_core::confidence::Confidence;
+use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::speed::Rung;
@@ -122,8 +123,13 @@ pub fn run(
         held_out,
         index,
     } = sweep_index(
-        library,
-        store,
+        load_records(
+            library,
+            store,
+            &options.matching.profile(),
+            &BTreeSet::new(),
+        )
+        .0,
         clusters,
         options.seed,
         options.panels,
