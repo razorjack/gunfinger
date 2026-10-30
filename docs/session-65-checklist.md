@@ -26,5 +26,5 @@ for scope and rules.
   earned
 - [x] 5. A note in the proposals note's §4 and the roadmap's "Possible
   plays inside a confident play of another recording"
-- [ ] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 65", status, checklist; final checks
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 65", status, checklist; final checks

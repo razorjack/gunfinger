@@ -13271,20 +13271,22 @@ its stored peaks align with the played file's (a corpus rip, or at NAS
 scale a NAS file read from the store), else the played file. The drops
 kind now draws its records with the corpus clusters at every scale (it
 could not draw at NAS scale before; nothing changes at 262 tracks).
-Default reports do not change; both regressions are identical.
+Default reports do not change (the regressions: "Final checks").
 
 In short: with the generator's time map and A's own audio, removing A
 recovers nearly every quiet and brief partner, mostly confidently, with
 no confident answer that is not playing (262 tracks, development and
-test seeds). Denser query peaks without a mask do not help. With
+test seeds). Denser query peaks without a mask change little (39 and
+40 confirmed against plain 41 and 36 at 262 tracks). With
 another rip of A as the reference (the case of a real mix), at NAS
 scale, the mask leaves A confident in about a quarter of the cases;
 the partners confirmed rise less (50 and 55 of 64 against plain 40 and
 35), the confident ones still clearly (32 and 34 against 8 and 12). On
 a test seed the residual made one confident answer that is not playing:
-a known related version of the record under the masked one. About half
-of the partners newly confirmed have a detection in the plain excerpt
-(41 of 81 over the four runs).
+a known related version of the record under the masked one. Of the
+partners newly confirmed, a third to two thirds have a detection in the
+plain excerpt (6 of 21, 16 of 28, 5 of 12, 14 of 20; the NAS runs search
+the same mixes as the 262-track ones).
 
 ### Experiments 0255-0258
 
@@ -13308,7 +13310,8 @@ confident) / confident:
   2 each on both pairs of seeds (0257: the Kemal - Animation remix
   upload over the original, 0182's known related version, gone in M;
   0258: the Cool Rock upload, and Paragliders - Share Of Bitterness
-  over Konflict - Pendulum, 414 hits, also in the whole-mix search).
+  (Konflict Remix) over Konflict - Pendulum, 424 hits in P and 414 in
+  the whole-mix search).
   M's wrong possibles: 0-10 against P's 181-342 (the shared-material
   lines under A go with A).
 - What the mask leaves of A (confident after masking): from the played
@@ -13327,7 +13330,7 @@ confident) / confident:
 | Run | Time | Peak memory |
 |---|--:|--:|
 | `regress session-54-linux`; `regress session-64-linux-nas` (start) | 0:50; 3:45 | 0.4; 5.6 GB |
-| `mixes --kind drops --residual`, 16 mixes, 262 tracks, cached renders (0255; about 220 cases of 3-4 searches each) | 2:38-2:44 | 4.3 GB |
+| `mixes --kind drops --residual`, 16 mixes, 262 tracks, cached renders (0255; about 220 cases of 3-4 searches each) | 2:38-2:44 | 4.2-4.4 GB |
 | The same with the renders (0256) | 3:03-3:29 | 7.1 GB |
 | The same at NAS scale (0257, 0258) | 11:05-12:19 | 14.4 GB |
 | Panels of six seeds (`--count 0`) | 0:08-0:13 each | 0.5 GB |
@@ -13335,6 +13338,18 @@ confident) / confident:
 
 Session 39 searched the same 16 mixes in about 1:00 at 262 tracks with
 the harness (0184) and 3:33-3:38 at NAS scale with the CLI (0182).
+
+### Final checks
+
+`work/s65/final.sh` with `work/bin/s65-final/` (master after the
+review's fixes): `scripts/check.sh` green (4:48, 671 tests); `gunfinger`
+byte-identical to `s64-final`'s; `regress session-54-linux` (0:52) and
+`regress session-64-linux-nas` (3:48) identical, every report equal to
+its baseline's apart from `wall_seconds`; `docs/pair-verdicts.txt`, the
+NAS clusters file (`c4d3da2e7e37...`) and the answer log at their start
+digests (`work/s65/listening-digests-end.txt`). A first run of the
+checks after the review failed only in the load-sensitive
+`decode::watch` test ("Text file busy") and passed on the idle machine.
 
 ### Decided this session, open to change
 
@@ -13374,8 +13389,8 @@ the harness (0184) and 3:33-3:38 at NAS scale with the CLI (0182).
 
 ### Questions for listening (none answered by agents)
 
-- Paragliders - Share Of Bitterness (`1998 - WAQT004 - Paragliders -
-  Share Of Bitterness - 192/2. ...`, NAS) confident at 414 hits over
+- Paragliders - Share Of Bitterness (Konflict Remix) (`1998 - WAQT004 -
+  Paragliders - Share Of Bitterness - 192/2. ...`, NAS) confident at 414 hits over
   Konflict - Pendulum (`extra/2. Konflict - Pendulum.mp3`) in the
   generated mix 2036/mix-03 at 29:41-31:29, in the plain search at NAS
   scale: does the Paragliders file share material with Pendulum?

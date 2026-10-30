@@ -37,6 +37,7 @@ def summarise(paths):
     wrong = {arm: Counter() for arm in ARMS}
     wrong_seen = {arm: set() for arm in ARMS}
     residue = Counter()
+    residue_by_reference = Counter()
     cases_by_kind = Counter()
     for path in paths:
         report = json.load(open(path))
@@ -58,6 +59,7 @@ def summarise(paths):
                         wrong[name][level] += 1
             masked_a = next(p for p in arms["masked"]["plays"] if p["play"] == case["play"])
             residue[masked_a["level"]] += 1
+            residue_by_reference[f"{source(case)} {masked_a['level']}"] += 1
             for a, b, scenario in inside_blocks(plays):
                 if a != case["play"]:
                     continue
@@ -70,6 +72,7 @@ def summarise(paths):
                     "b": plays[b]["asset"],
                     "b_seconds": round(plays[b]["end_seconds"] - plays[b]["start_seconds"], 1),
                     "reference_kind": case["reference_kind"],
+                    "reference": case["reference"],
                     "whole_mix": whole["level"],
                 }
                 for name, arm in arms.items():
@@ -77,7 +80,14 @@ def summarise(paths):
                     row[name] = found["level"] if found else "none"
                     row[name + "_hits"] = (found or {}).get("best") and found["best"]["hits"]
                 rows.append(row)
-    return rows, wrong, residue, cases_by_kind
+    return rows, wrong, residue, residue_by_reference, cases_by_kind
+
+
+def source(case):
+    """The played file, a rip in the corpus, or a file of the other library."""
+    if case["reference_kind"] != "other-rip":
+        return case["reference_kind"]
+    return "nas-file" if case["reference"].startswith("second-library/") else "corpus-rip"
 
 
 def table(rows, scenarios):
@@ -107,7 +117,7 @@ def main():
         at = args.index("--json")
         out = args[at + 1]
         args = args[:at] + args[at + 2 :]
-    rows, wrong, residue, kinds = summarise(args)
+    rows, wrong, residue, by_reference, kinds = summarise(args)
     scenarios = ["quiet", "brief", "unrelated-drop", "pair-drop"]
     print("cases by reference:", dict(kinds))
     table(rows, scenarios)
@@ -119,6 +129,7 @@ def main():
     for arm in ARMS:
         print(f"  {arm:<24} confident {wrong[arm]['confident']:>3}  possible {wrong[arm]['possible']:>3}")
     print("what the mask leaves of A (A's level in the masked arm):", dict(residue))
+    print("  by reference:", dict(sorted(by_reference.items())))
     newly = [
         row
         for row in rows
@@ -133,7 +144,13 @@ def main():
     )
     if out:
         json.dump(
-            {"rows": rows, "wrong": {arm: dict(wrong[arm]) for arm in ARMS}, "residue": dict(residue), "cases": dict(kinds)},
+            {
+                "rows": rows,
+                "wrong": {arm: dict(wrong[arm]) for arm in ARMS},
+                "residue": dict(residue),
+                "residue_by_reference": dict(sorted(by_reference.items())),
+                "cases": dict(kinds),
+            },
             open(out, "w"),
             indent=1,
         )

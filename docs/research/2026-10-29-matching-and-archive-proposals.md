@@ -277,11 +277,12 @@ quiet and brief partners confirmed were 50 of 64 (plain 40), confident
 (plain 12), on the test seeds. On a test seed the residual also made one
 confident answer that was not playing: with a record masked, a known
 related version (the Cool Rock pair) of the record playing under it
-reached 265 hits. Taking A out strengthens every record under A, a
-relative of B as much as B. About half of the partners newly confirmed
-had a detection in the plain excerpt (41 of 81 over the four runs), so
-a rule that needs a detection in the original mixture would keep about
-half of them. The idea is worth a next step, in this order: why another
+reached 265 hits: taking A out can lift a relative of the record under
+A as well as that record. Of the partners the residual newly confirmed,
+6 of 21 had a detection in the plain excerpt on the development seeds,
+16 of 28 on the test seeds, and 5 of 12 and 14 of 20 at NAS scale (the
+same mixes, so the counts overlap): a rule that needs a detection in
+the original mixture would keep a third to two thirds of them. The idea is worth a next step, in this order: why another
 rip leaves A behind (a different master or lossy upload, the render's
 seek against the stored peaks' timeline, the rip's alignment), then
 estimated timing, then an evidence rule tested against real

@@ -275,7 +275,13 @@ fn truth_reference(
             .iter()
             .find(|record| record.header.source.path == path)
             .cloned()
-            .or_else(|| context.other?.record(path)?.ok())
+            .or_else(|| match context.other?.record(path)? {
+                Ok(record) => Some(record),
+                Err(error) => {
+                    eprintln!("residual: {error}; the played file is the reference");
+                    None
+                }
+            })
     };
     let rip = context
         .clusters
@@ -293,17 +299,35 @@ fn truth_reference(
     let Some((rip, line)) = line else {
         return Ok((a.clone(), ReferenceKind::Played));
     };
-    // The played file's time `f` is the rip's `line.start_seconds + (f -
-    // line.track_start_seconds) / speed`.
-    let speed = line.speed.0;
-    let placed = PlannedPlay {
-        asset: rip,
-        source_start_seconds: line.start_seconds
-            + (a.source_start_seconds - line.track_start_seconds) / speed,
-        speed: a.speed / speed,
-        ..a.clone()
+    let alignment = Alignment {
+        rip_seconds: line.start_seconds,
+        played_seconds: line.track_start_seconds,
+        speed: line.speed.0,
     };
-    Ok((placed, ReferenceKind::OtherRip))
+    Ok((on_rip(a, rip, alignment), ReferenceKind::OtherRip))
+}
+
+/// Where a rip lines up with the played file: the rip's time
+/// `rip_seconds` is the played file's `played_seconds`, and the played
+/// file runs `speed` times as fast as the rip.
+#[derive(Debug, Clone, Copy)]
+struct Alignment {
+    rip_seconds: f64,
+    played_seconds: f64,
+    speed: f64,
+}
+
+/// `a` played from `rip` instead: the played file's time `f` is the rip's
+/// `rip_seconds + (f - played_seconds) / speed`, so the rip starts there
+/// and runs `speed` times slower than the played file did.
+fn on_rip(a: &PlannedPlay, rip: String, alignment: Alignment) -> PlannedPlay {
+    PlannedPlay {
+        asset: rip,
+        source_start_seconds: alignment.rip_seconds
+            + (a.source_start_seconds - alignment.played_seconds) / alignment.speed,
+        speed: a.speed / alignment.speed,
+        ..a.clone()
+    }
 }
 
 /// The strongest line of `rip`'s stored peaks in `played`'s: the rip's
@@ -428,5 +452,98 @@ fn scored(
         plays,
         wrong_confident: score.wrong_confident,
         wrong_possible: score.wrong_possible,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn play(scenario: Scenario, side: Option<Side>) -> PlannedPlay {
+        PlannedPlay {
+            asset: String::from("a.mp3"),
+            held_out: false,
+            source_start_seconds: 100.0,
+            speed: 1.02,
+            start_seconds: 600.0,
+            end_seconds: 750.0,
+            fade_in_seconds: 8.0,
+            fade_out_seconds: 6.0,
+            bass_cut_until: Some(610.0),
+            bass_cut_from: None,
+            ride: None,
+            gain_db: 0.0,
+            scenario: Some(scenario),
+            side,
+            drop_seconds: None,
+        }
+    }
+
+    #[test]
+    fn a_play_moved_to_a_rip_reaches_the_same_audio_at_every_mix_time() {
+        let a = play(Scenario::Quiet, Some(Side::First));
+        // The rip starts 2.5 s later in its file and runs 0.1% slower.
+        let alignment = Alignment {
+            rip_seconds: 42.5,
+            played_seconds: 40.0,
+            speed: 1.001,
+        };
+        let placed = on_rip(&a, String::from("rip.mp3"), alignment);
+        for t in [600.0, 650.0, 749.0] {
+            let played = a.source_start_seconds + a.speed * (t - a.start_seconds);
+            let rip = alignment.rip_seconds + (played - alignment.played_seconds) / alignment.speed;
+            let rendered = placed.source_start_seconds + placed.speed * (t - placed.start_seconds);
+            assert!(
+                (rendered - rip).abs() < 1e-9,
+                "at {t} s: {rendered} against {rip}"
+            );
+        }
+        assert_eq!(placed.asset, "rip.mp3");
+        assert_eq!(placed.fade_in_seconds, a.fade_in_seconds);
+        assert_eq!(placed.bass_cut_until, a.bass_cut_until);
+    }
+
+    #[test]
+    fn a_detected_play_follows_its_detections_line_without_fades() {
+        let a = play(Scenario::Quiet, Some(Side::First));
+        let best = MixFound {
+            asset: String::from("other.mp3"),
+            start_seconds: 620.0,
+            end_seconds: 740.0,
+            track_start_seconds: 130.0,
+            speed: 1.03,
+            windows: 20,
+            hits: 900,
+            fitted: true,
+            verified: None,
+        };
+        let score = PlayScore {
+            truth: a.clone(),
+            level: Level::Confident,
+            best: Some(best),
+            start_late_seconds: None,
+            end_early_seconds: None,
+            position_error_seconds: None,
+        };
+        let (placed, kind) = detected_reference(&a, &score).unwrap();
+        assert_eq!(kind, ReferenceKind::Detected);
+        assert_eq!(placed.asset, "other.mp3");
+        // 20 s before the detection's start, at its speed.
+        assert!((placed.source_start_seconds - (130.0 - 1.03 * 20.0)).abs() < 1e-9);
+        assert_eq!(placed.speed, 1.03);
+        assert_eq!(placed.fade_in_seconds, 0.0);
+        assert_eq!(placed.bass_cut_until, None);
+    }
+
+    #[test]
+    fn only_the_second_record_of_a_quiet_or_brief_block_is_a_partner() {
+        assert!(is_partner(&play(Scenario::Quiet, Some(Side::Second))));
+        assert!(is_partner(&play(Scenario::Brief, Some(Side::Second))));
+        assert!(!is_partner(&play(Scenario::Quiet, Some(Side::First))));
+        assert!(!is_partner(&play(
+            Scenario::UnrelatedDrop,
+            Some(Side::Second)
+        )));
+        assert!(!is_partner(&play(Scenario::Returning, None)));
     }
 }

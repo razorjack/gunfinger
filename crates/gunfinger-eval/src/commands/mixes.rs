@@ -141,6 +141,12 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
             aligned_drops,
         }),
     };
+    // Only the drops kind draws with the corpus clusters.
+    let corpus_clusters = if kind == MixKind::Drops {
+        harness.corpus_clusters()?
+    } else {
+        harness.clusters()?
+    };
     let report = mixes::run(
         &harness.library()?,
         &harness.store()?,
@@ -148,7 +154,7 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
         &harness.paths.work,
         &mixes::Options {
             same_titles: &harness.same_titles()?,
-            corpus_clusters: &harness.corpus_clusters()?,
+            corpus_clusters: &corpus_clusters,
             seed,
             kind: kind_options,
             other_root: other_root.as_deref(),

@@ -5693,5 +5693,7 @@ is byte-identical to `s64-final`'s).
 - Estimated timing was not tried (the registered condition failed on
   the development seeds: 6 of 21 newly confirmed partners with a plain
   detection). Next step if taken: why another rip leaves A behind.
-- Final checks with `work/bin/s65-final/`: see the notes' "Final
-  checks".
+- Final checks with `work/bin/s65-final/`: `scripts/check.sh` green;
+  `regress session-54-linux` and `regress session-64-linux-nas`
+  identical; `docs/pair-verdicts.txt` and the NAS clusters file
+  (`c4d3da2e7e37...`) unchanged.

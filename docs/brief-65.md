@@ -204,14 +204,6 @@ with it off).
   `s65start`, logs in `work/s65/logs/`; `run.sh` and `same.py` are
   session 64's with the paths changed). Cargo had nothing to rebuild:
   the start build is byte-identical to `work/bin/s64-final/`.
-- **(22:05) The residual is turned back into audio.** The core analyses
-  the query again for each turntable rung (`Rung::points_in` resamples
-  the audio), so a masked spectrogram cannot be handed to the search as
-  peaks; the harness resynthesises the masked STFT by overlap-add and
-  searches the audio with the unchanged search. The harness takes
-  `realfft` (the core's FFT crate, the same version) for it.
-- **(22:05) The ladder is the turntable ladder** (as 0184 and 0216; the
-  drops kind plays every record on a turntable).
 - **(22:00) The pre-registered floor is dropped before any masked
   search.** The synthetic test (a known A over a known B) showed that a
   bin keeping at least -30 dB of its power keeps A's pattern of peaks
@@ -222,6 +214,14 @@ with it off).
   it: a band and block whose reference power is under 1e-6 of the
   band's mean over the excerpt gets no gain (A silent there, so the
   ratio would measure what else plays).
+- **(22:05) The residual is turned back into audio.** The core analyses
+  the query again for each turntable rung (`Rung::points_in` resamples
+  the audio), so a masked spectrogram cannot be handed to the search as
+  peaks; the harness resynthesises the masked STFT by overlap-add and
+  searches the audio with the unchanged search. The harness takes
+  `realfft` (the core's FFT crate, the same version) for it.
+- **(22:05) The ladder is the turntable ladder** (as 0184 and 0216; the
+  drops kind plays every record on a turntable).
 - **(22:07) The harness** (`mixes --kind drops --residual
   [--residual-over F] [--residual-timing truth|detected]`;
   `crates/gunfinger-eval/src/residual.rs` for the mask,
@@ -290,7 +290,8 @@ with it off).
   and estimated timing.
 - **(23:35) NAS scale on the test seeds** (`work/s65/nas-test.sh 2036
   2039`, tmux `s65nastest`, `work/bin/s65-run3`, 11:05 and 11:25):
-  experiment 0258. Recall as in 0257 (55 of 64 confirmed, P 35); M
+  experiment 0258. Recall close to 0257's (55 of 64 confirmed, P 35;
+  0257 50, P 40); M
   gives 2 wrong confident answers, both the Cool Rock upload (a known
   different title): one survives the mask (also in P), one is made by
   the residual (Cool Rock Stuff under a masked record, 265 hits); MH 1
@@ -298,3 +299,26 @@ with it off).
 - **(23:37) Step 5:** a "Measured, the oracle only" paragraph in §4 of
   the proposals note, and two sentences at the end of the roadmap's
   "Possible plays inside a confident play of another recording".
+- **(23:40) Two deviations from the pre-registration's wording, found
+  by the review.** The gains are fitted in bands covering every bin
+  (below bin 5, then third octaves to bin 512), not only bins 5-500: the
+  search's rungs read the residual's bins beyond 500 at the faster
+  speeds. And only the first indexed file of A's cluster with a record
+  is tried as the other rip; when its stored peaks give no alignment,
+  the played file is the reference (no minimum of hits is asked of that
+  alignment).
+- **(23:45) The review's findings** (a separate agent, read-only,
+  23:38-23:46). No number in the experiments, notes, status, roadmap or
+  proposals note disagreed with the reports. Taken: tests for the
+  runner (`mixes/residual.rs`: the rip's time map, the detected
+  placement, `is_partner`), a warning where the NAS store cannot give a
+  rip's record, the corpus clusters loaded only for the drops kind; the
+  pooled share of newly confirmed partners with a plain detection given
+  per run instead; "denser peaks do not help" and "strengthens every
+  record" moderated; the notes no longer claim regressions before the
+  final checks; CLAUDE.md's "brief 65"; the data files hold each case's
+  reference and the residue per kind of reference; the peak memory, the
+  Paragliders file's name and hits, the 23:35 entry and this list's
+  order corrected. Not taken: `--residual-timing detected` stays (tested
+  now, never run; the next step's arm). The final checks were stopped
+  during the NAS regression and run again after these changes.
