@@ -1,0 +1,119 @@
+{
+ "like-brief-chain-speed": {
+  "queries": 1404,
+  "right_moved": 2,
+  "confident_changed": [],
+  "detections_moved": 3,
+  "named": {
+   "910": {
+    "today": {
+     "hits": 386,
+     "speed_percent": 1.056,
+     "confident": true
+    },
+    "like": {
+     "hits": 386,
+     "speed_percent": 1.0565,
+     "confident": true
+    }
+   },
+   "911": {
+    "today": {
+     "hits": 503,
+     "speed_percent": 0.9333,
+     "confident": true
+    },
+    "like": {
+     "hits": 455,
+     "speed_percent": 1.147,
+     "confident": true
+    }
+   }
+  }
+ },
+ "like-brief-grid": {
+  "queries": 1404,
+  "right_moved": 2,
+  "confident_changed": [],
+  "detections_moved": 3,
+  "named": {
+   "910": {
+    "today": {
+     "hits": 457,
+     "speed_percent": 0.9954,
+     "confident": true
+    },
+    "like": {
+     "hits": 457,
+     "speed_percent": 0.9959,
+     "confident": true
+    }
+   },
+   "911": {
+    "today": {
+     "hits": 603,
+     "speed_percent": 0.9939,
+     "confident": true
+    },
+    "like": {
+     "hits": 602,
+     "speed_percent": 1.0054,
+     "confident": true
+    }
+   }
+  }
+ },
+ "like-brief-iterated": {
+  "queries": 1404,
+  "right_moved": 1,
+  "confident_changed": [],
+  "detections_moved": 3,
+  "named": {
+   "910": {
+    "today": {
+     "hits": 455,
+     "speed_percent": 1.0094,
+     "confident": true
+    },
+    "like": {
+     "hits": 455,
+     "speed_percent": 1.0094,
+     "confident": true
+    }
+   },
+   "911": {
+    "today": {
+     "hits": 602,
+     "speed_percent": 0.9979,
+     "confident": true
+    },
+    "like": {
+     "hits": 602,
+     "speed_percent": 0.9982,
+     "confident": true
+    }
+   }
+  }
+ },
+ "like-chain-speed": {
+  "queries": 702,
+  "right_moved": 0,
+  "confident_changed": [],
+  "detections_moved": 3,
+  "named": {}
+ },
+ "like-grid": {
+  "queries": 702,
+  "right_moved": 0,
+  "confident_changed": [],
+  "detections_moved": 3,
+  "named": {}
+ },
+ "like-iterated": {
+  "queries": 702,
+  "right_moved": 0,
+  "confident_changed": [],
+  "detections_moved": 2,
+  "named": {}
+ }
+}
