@@ -256,3 +256,54 @@ of the store, with a 95% interval.
 
 - **(03:21) Start checks.** `work/bin/s62-start/` from master
   (`cmp`-equal to `s61-final`).
+  `regress session-54-linux` (0:51) and `regress session-54-linux-nas`
+  (3:46) identical: 8 of 8 reports equal to their baselines' apart from
+  `wall_seconds`.
+- **(03:30) The harness** (`work/bin/s62-run/`): `shared` and `recall`
+  take `--front-end` (added to `FRONT_END_COMMANDS`): each query is
+  decoded and searched through `Matching::decode_query` and
+  `search_audio`, as `scan` and `mixes` are; a brief play is cut alike
+  from each channel (`recall::brief_audio`). The peak verifier, which
+  analyses one channel, measures `shared`'s detections only for
+  one-channel queries (`verified` absent under the variant), and
+  `recall --trace-candidates` is refused with another front end.
+  Records load under `Matching::profile()` in both.
+- **(03:32) `mixes` at NAS scale, a harness change not foreseen in the
+  pre-registration.** `mixes` built its index from the corpus records
+  alone and took no `--other-peaks-dir`, so the registered NAS-scale
+  mixes could not run. `mixes::sweep_index` now builds through
+  `Padding::index` (the corpus records less the held-out clusters and
+  left-out files, plus the other library's records when given, less the
+  held-out clusters' files there, as `sweep` does); `mixes` takes
+  `--other-peaks-dir`; `grid` passes a padding without another library.
+  The draws, the scoring and the renders are unchanged: at 262 tracks
+  `mixes --seed 2026 --count 8 --stereo-fault stereo-inverted` gives a
+  report identical to `s62-start`'s and to session 61's (apart from
+  `wall_seconds`). At NAS scale the clusters are the NAS clusters (the
+  harness's `clusters()`), which also credit the NAS rips of a played
+  recording.
+- **(03:33) The census's classes checked** on session 42's renders
+  (`stereo-width --files`, 16 s): `stereo-inverted` 96 inverted of 100,
+  `stereo-silent` 100 one channel, 1 ms and 5 ms 96 delayed each; the
+  mono control, `stereo-control`, the three noise rows and 0.2 ms flag
+  none (they fall in the width classes). The four misses per row are
+  draws 14 and 49, whose sources are wide (side -0.3 to -2.3 dB below
+  the mid): inverted, their channels correlate at -0.26 and 0.07. 0197's
+  copies: 10 of 10 in each fault class, the unchanged copies unflagged.
+  Every class meets the registered 95 of 100, so no threshold changes.
+- **(03:35) Census started** (tmux `s62census`, 16 jobs), beside the
+  NAS regression with the run build; the exclusion list
+  `work/s62/census-exclude.txt` holds the NAS root's Ed Rush & Optical
+  file, 0065's 1,423 too-long files and its 33 folders with 0.75 or more
+  joined boundaries.
+- **(03:35) Scratch work directory** `work/s62/w` (`work/s62/setup.sh`):
+  reflink copies of the renders (`work/s61/w/robust/`, `work/shared/`,
+  `work/recall/`, `work/mixes/stereo-{control,inverted}-seed-*`), so
+  that no original is written through a link; copies of both clusters
+  files and the library map; the saved NAS index hard-linked (only
+  read). Every run passes `--panels work/s33/panels` (its sweep panels
+  equal `docs/panels/`'s).
+- **(03:41) Regressions with the run build** (`work/bin/s62-run/`,
+  every change above): `regress session-54-linux` (0:59) and `regress
+  session-54-linux-nas` (6:15, beside the census) identical, 8 of 8
+  reports; `cargo test --release -p gunfinger-eval` green (353 tests).

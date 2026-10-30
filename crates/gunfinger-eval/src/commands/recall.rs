@@ -12,6 +12,7 @@ use crate::files::write_json;
 use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::library_map::LibraryMap;
 use crate::padding::{OTHER_LIBRARY_PREFIX, current_sources};
+use crate::stereo::FrontEnd;
 use crate::{recall, sweep};
 
 #[derive(clap::Args)]
@@ -53,6 +54,11 @@ pub fn recall(harness: &Harness, jobs: usize, args: RecallArgs) -> Result<(), St
     {
         return Err(String::from(
             "--set-aside-like sets aside the default matcher's lists; it takes neither --single-pass nor --drop-fullest",
+        ));
+    }
+    if study.trace_candidates && harness.search.matching.front_end != FrontEnd::Downmix {
+        return Err(String::from(
+            "the first pass is traced on one channel: --trace-candidates takes the downmix front end only",
         ));
     }
     let (panel, assets) = recall_panel(harness, &other, seed)?;

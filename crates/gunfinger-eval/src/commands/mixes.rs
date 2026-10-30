@@ -4,7 +4,7 @@ use std::collections::BTreeSet;
 use std::path::{Path, PathBuf};
 
 use crate::files::{read_json, write_json};
-use crate::harness::Harness;
+use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::mixes::{DropsOptions, KindOptions, MixKind};
 use crate::{grid, mixes, robust};
 
@@ -122,6 +122,7 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
             ladder_name: harness.search.ladder.name(),
             ladder: &harness.rungs(),
             matching: &harness.search.matching,
+            padding: &harness.padding(&UNCHANGED_INDEX)?,
             verify: harness.search.verify,
             jobs,
         },
@@ -151,6 +152,7 @@ pub fn grid(harness: &Harness, jobs: usize, args: GridArgs) -> Result<(), String
             ladder_name: harness.search.ladder.name(),
             ladder: &harness.rungs(),
             matching: &harness.search.matching,
+            padding: &harness.padding(&UNCHANGED_INDEX)?,
             verify: harness.search.verify,
             jobs,
         },

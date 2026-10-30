@@ -24,6 +24,7 @@ use serde::{Deserialize, Serialize};
 use crate::clusters::Clusters;
 use crate::files::read_json;
 use crate::matching::Matching;
+use crate::padding::Padding;
 use crate::render::{
     Encoding, Playback, RENDER_RATE, Stereo, encode, encode_stereo, limited, render_samples, rms,
 };
@@ -1247,6 +1248,8 @@ pub struct Options<'a> {
     pub ladder_name: &'a str,
     pub ladder: &'a [Rung],
     pub matching: &'a Matching,
+    /// The other library's records beside the corpus's (`--other-peaks-dir`).
+    pub padding: &'a Padding,
     /// Measure every detection with the peak verifier.
     pub verify: bool,
     pub jobs: usize,
@@ -1356,7 +1359,8 @@ pub struct SweepIndex {
 }
 
 /// The library's records, the sweep's held-out assets for `seed`, and the
-/// index of the rest less `left_out`.
+/// index of the rest less `left_out`, with the other library's records
+/// when `padding` holds them (less the held-out clusters' files there).
 pub fn sweep_index(
     library: &Library,
     store: &PeakStore,
@@ -1364,17 +1368,14 @@ pub fn sweep_index(
     seed: u64,
     panels: &Path,
     matching: &Matching,
+    padding: &Padding,
     left_out: &BTreeSet<String>,
 ) -> Result<SweepIndex, String> {
-    let (records, _) = load_records(library, store, &matching.profile(), &BTreeSet::new());
+    let profile = matching.profile();
+    let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let held_out = Plan::for_seed(&records, clusters, seed, panels)?.held_out;
-    let indexed: Vec<PeakRecord> = records
-        .iter()
-        .filter(|record| !held_out.contains(&record.header.source.path))
-        .filter(|record| !left_out.contains(&record.header.source.path))
-        .cloned()
-        .collect();
-    let index = Index::build(&indexed).map_err(|error| error.to_string())?;
+    let excluded: BTreeSet<String> = held_out.union(left_out).cloned().collect();
+    let index = padding.index(&records, &profile, &excluded)?;
     Ok(SweepIndex {
         records,
         held_out,
@@ -1532,13 +1533,16 @@ pub fn run(
         options.seed,
         options.panels,
         options.matching,
+        options.padding,
         left_out,
     )?;
     options
         .same_titles
         .warn_outside(&index, &held_out.union(left_out).cloned().collect());
     let index = &index;
-    let verifier = options.verify.then(|| Verifier::new(&records, None));
+    let verifier = options
+        .verify
+        .then(|| Verifier::new(&records, options.padding.other.as_ref()));
     let without_families: Vec<PeakRecord> = records
         .iter()
         .filter(|record| !families.contains(&record.header.source.path))

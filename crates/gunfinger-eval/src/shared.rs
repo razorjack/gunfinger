@@ -35,7 +35,6 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use gunfinger_core::confidence::Pass;
-use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
@@ -157,6 +156,9 @@ pub struct SharedFound {
     pub level: Level,
     /// Counted by the second pass (`Pass::Fitted`).
     pub fitted: bool,
+    /// Absent where the verifier finds no alignment, and for a query
+    /// analysed by both channels (`--front-end power-sum-queries`): the
+    /// verifier analyses one.
     pub verified: Option<Verification>,
 }
 
@@ -217,7 +219,7 @@ pub fn run(
     dir: &Path,
     options: &Options,
 ) -> Result<SharedReport, String> {
-    let profile = Profile::CURRENT;
+    let profile = options.matching.profile();
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let verifier = Verifier::new(&records, options.padding.other.as_ref());
     fs::create_dir_all(dir).map_err(|error| error.to_string())?;
@@ -317,27 +319,22 @@ struct QuerySearcher<'a> {
 }
 
 impl QuerySearcher<'_> {
-    /// The detections of the rendered query, each measured with the peak
-    /// verifier.
+    /// The detections of the rendered query as the front end analyses it,
+    /// each measured with the peak verifier when the query has one channel.
     fn search(&self, query: &Query) -> Result<Vec<SharedFound>, String> {
-        let profile = Profile::CURRENT;
         let path = self.dir.join(format!("{}.mp3", query.name));
-        let audio = decode(&path, profile.sample_rate, Excerpt::default())
-            .map_err(|error| error.to_string())?;
-        let detections = self.options.matching.search(
-            &self.index,
-            &audio.samples,
-            &profile,
-            self.options.ladder,
-            1,
-        );
+        let audio = self.options.matching.decode_query(&path)?;
+        let detections =
+            self.options
+                .matching
+                .search_audio(&self.index, &audio, self.options.ladder, 1);
         Ok(detections
             .iter()
-            .map(|detection| self.found(detection, &audio.samples))
+            .map(|detection| self.found(detection, audio.mono()))
             .collect())
     }
 
-    fn found(&self, detection: &Detection, samples: &[f32]) -> SharedFound {
+    fn found(&self, detection: &Detection, samples: Option<&[f32]>) -> SharedFound {
         let asset = &self.index.asset(detection.asset).path;
         SharedFound {
             asset: asset.clone(),
@@ -351,9 +348,10 @@ impl QuerySearcher<'_> {
             hits: detection.evidence.hits,
             level: detection.evidence.confidence().into(),
             fitted: detection.evidence.pass == Pass::Fitted,
-            verified: self
-                .verifier
-                .verify(&self.index, detection, samples, &Profile::CURRENT),
+            verified: samples.and_then(|samples| {
+                self.verifier
+                    .verify(&self.index, detection, samples, &Profile::CURRENT)
+            }),
         }
     }
 }

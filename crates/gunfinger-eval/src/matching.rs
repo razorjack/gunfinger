@@ -52,7 +52,7 @@ pub struct Matching {
     /// How audio is analysed (`stereo::FrontEnd`): the downmix, or both
     /// channels' powers added, for queries alone or for queries and
     /// records (a store built by `variant-store`). `robust`, `scan`,
-    /// `mixes` and `variant-store` take it.
+    /// `mixes`, `recall`, `shared` and `variant-store` take it.
     #[arg(long, global = true, value_enum, default_value_t = FrontEnd::Downmix)]
     pub front_end: FrontEnd,
 }

@@ -27,6 +27,7 @@ use crate::mixes::{
     MixFound, PlannedMix, PlannedPlay, Pools, Searcher, SweepIndex, draw_unused, search_mix,
     sweep_index,
 };
+use crate::padding::Padding;
 use crate::rng::Rng;
 use crate::scoring::{Level, evidence};
 use crate::shared::Roots;
@@ -101,6 +102,9 @@ pub struct Options<'a> {
     pub ladder_name: &'a str,
     pub ladder: &'a [Rung],
     pub matching: &'a Matching,
+    /// The index's records: the corpus's alone, as `grid` takes no other
+    /// library.
+    pub padding: &'a Padding,
     /// Measure every detection with the peak verifier.
     pub verify: bool,
     pub jobs: usize,
@@ -124,6 +128,7 @@ pub fn run(
         options.seed,
         options.panels,
         options.matching,
+        options.padding,
         &BTreeSet::new(),
     )?;
     options.same_titles.warn_outside(&index, &held_out);

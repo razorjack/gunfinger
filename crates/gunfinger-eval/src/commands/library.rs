@@ -5,6 +5,7 @@
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 
+use gunfinger_core::library::ignore;
 use gunfinger_core::store::PeakStore;
 
 use super::sweep::ExactCopyOptions;
@@ -31,12 +32,25 @@ pub struct HashCostArgs {
     pub seed: u64,
 }
 
-#[derive(Clone, Copy, clap::Args)]
+#[derive(clap::Args)]
 pub struct StereoWidthArgs {
     #[arg(long, default_value_t = 2026)]
     pub seed: u64,
     #[arg(long, default_value_t = 100)]
     pub sample: usize,
+    /// Sample the other library (--other-peaks-dir) instead: its files
+    /// with a current record, an equal share of each kind of source,
+    /// leaving out what its ignore file and --exclude leave out. Its
+    /// audio is only read.
+    #[arg(long)]
+    pub other: bool,
+    /// Files of the other library left out of its sample, one path per
+    /// line; a folder's path ends in `/`.
+    #[arg(long, requires = "other")]
+    pub exclude: Option<PathBuf>,
+    /// Measure every MP3 under this folder instead (faulted renders).
+    #[arg(long, conflicts_with = "other")]
+    pub files: Option<PathBuf>,
 }
 
 #[derive(clap::Args)]
@@ -124,16 +138,66 @@ pub fn related(harness: &Harness, jobs: usize) -> Result<(), String> {
 }
 
 pub fn stereo_width(harness: &Harness, jobs: usize, args: StereoWidthArgs) -> Result<(), String> {
-    let StereoWidthArgs { seed, sample } = args;
-    let report = stereo::sample_widths(&harness.library()?, &harness.store()?, seed, sample, jobs)?;
-    write_json(
-        &harness
-            .reports()
-            .join(format!("stereo-width-seed-{seed}.json")),
-        &report,
-    )?;
+    let StereoWidthArgs {
+        seed,
+        sample,
+        other,
+        exclude,
+        files,
+    } = args;
+    let (report, name) = if let Some(dir) = files {
+        let name = dir.file_name().map_or_else(
+            || String::from("files"),
+            |name| name.to_string_lossy().into_owned(),
+        );
+        (
+            stereo::file_widths(&dir, jobs)?,
+            format!("stereo-width-files-{name}.json"),
+        )
+    } else if other {
+        (
+            other_widths(harness, exclude.as_deref(), seed, sample, jobs)?,
+            format!("stereo-width-other-seed-{seed}.json"),
+        )
+    } else {
+        (
+            stereo::sample_widths(&harness.library()?, &harness.store()?, seed, sample, jobs)?,
+            format!("stereo-width-seed-{seed}.json"),
+        )
+    };
+    write_json(&harness.reports().join(name), &report)?;
     stereo::print_widths(&report);
     Ok(())
+}
+
+/// The census of the other library's files (experiment 0248).
+fn other_widths(
+    harness: &Harness,
+    exclude: Option<&Path>,
+    seed: u64,
+    sample: usize,
+    jobs: usize,
+) -> Result<stereo::WidthReport, String> {
+    let Some(other) = harness.other_store()? else {
+        return Err(String::from("stereo-width --other needs --other-peaks-dir"));
+    };
+    let root = other
+        .library()
+        .map_err(|error| error.to_string())?
+        .ok_or_else(|| format!("{} names no library", other.dir().display()))?;
+    let root = Path::new(&root);
+    let ignore = ignore::read(root)
+        .map_err(|error| error.to_string())?
+        .unwrap_or_default();
+    let left_out = match exclude {
+        Some(list) => stereo::LeftOut::parse(
+            &std::fs::read_to_string(list)
+                .map_err(|error| format!("cannot read {}: {error}", list.display()))?,
+        ),
+        None => stereo::LeftOut::parse(""),
+    };
+    let assets = current_sources(&other, jobs)?;
+    stereo::sample_other_widths(&assets, root, &ignore, &left_out, seed, sample, jobs)
 }
 
 /// A store of the library's files under `--front-end`'s profile, for the

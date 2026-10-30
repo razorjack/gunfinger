@@ -13,7 +13,8 @@ use std::process::{Command, Stdio};
 use gunfinger_core::decode::{Container, Excerpt, decode};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
-use gunfinger_core::library::Library;
+use gunfinger_core::library::ignore::{Pattern, leaving_out};
+use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::peaks::extract_signal_peaks;
 use gunfinger_core::profile::Profile;
@@ -21,6 +22,7 @@ use gunfinger_core::spectrogram::Signal;
 use gunfinger_core::store::{PeakRecord, PeakStore, RecordHeader};
 use serde::Serialize;
 
+use crate::recall::{KINDS, Kind};
 use crate::render::Stereo;
 use crate::rng::Rng;
 
@@ -338,20 +340,164 @@ impl Width {
     }
 }
 
+/// How the two channels of a file relate (experiment 0248): the left
+/// channel's power against the right's, their correlation at lag 0, and the
+/// lag within `MAX_LAG` samples where the correlation is strongest (a
+/// positive lag: the right channel late).
+#[derive(Debug, Clone, Copy, PartialEq, Serialize)]
+pub struct Channels {
+    pub balance_db: f64,
+    pub correlation: f64,
+    pub strongest_lag: i32,
+    pub strongest_correlation: f64,
+}
+
+/// 10 ms at 8 kHz: twice session 42's longest delay (5 ms).
+pub const MAX_LAG: usize = 80;
+
+/// The census's classes (brief 62's pre-registration), from session 42's
+/// synthetic faults: one channel 20 dB below the other; an inverted channel
+/// (a correlation of about -0.8 to -1 on narrow sources); a delay of 0.5 ms
+/// or more (1 and 5 ms are 8 and 40 samples at 8 kHz; 0.2 ms cost nothing
+/// in experiment 0194).
+const ONE_CHANNEL_DB: f64 = 20.0;
+const INVERTED_CORRELATION: f64 = -0.5;
+const DELAYED_MIN_LAG: u32 = 4;
+const DELAYED_CORRELATION: f64 = 0.5;
+const DELAYED_GAIN: f64 = 0.05;
+
+pub fn channels(stereo: &Stereo) -> Channels {
+    let (left, right) = (&stereo.left, &stereo.right);
+    let frames = left.len().min(right.len());
+    let (left, right) = (&left[..frames], &right[..frames]);
+    let (left_power, right_power) = (mean_square(left), mean_square(right));
+    let scale = (left_power.max(SILENCE) * right_power.max(SILENCE)).sqrt() * frames.max(1) as f64;
+    let at = |lag: isize| {
+        let shift = lag.unsigned_abs().min(frames);
+        let product = if lag >= 0 {
+            dot(&left[..frames - shift], &right[shift..])
+        } else {
+            dot(&left[shift..], &right[..frames - shift])
+        };
+        product / scale
+    };
+    let correlation = at(0);
+    let (mut strongest_lag, mut strongest_correlation) = (0, correlation);
+    let reach = MAX_LAG as isize;
+    for lag in -reach..=reach {
+        let value = at(lag);
+        if value.abs() > strongest_correlation.abs() {
+            (strongest_lag, strongest_correlation) = (lag, value);
+        }
+    }
+    Channels {
+        balance_db: 10.0 * (left_power.max(SILENCE) / right_power.max(SILENCE)).log10(),
+        correlation,
+        strongest_lag: strongest_lag as i32,
+        strongest_correlation,
+    }
+}
+
+fn dot(a: &[f32], b: &[f32]) -> f64 {
+    a.iter()
+        .zip(b)
+        .map(|(&x, &y)| f64::from(x) * f64::from(y))
+        .sum()
+}
+
+/// A file's class in the census, the first that applies.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Class {
+    OneChannel,
+    Inverted,
+    Delayed,
+    Width(Width),
+}
+
+impl Class {
+    pub fn of(channels: &Channels, side_to_mid_db: f64) -> Class {
+        if channels.balance_db.abs() >= ONE_CHANNEL_DB {
+            Class::OneChannel
+        } else if channels.strongest_correlation <= INVERTED_CORRELATION {
+            Class::Inverted
+        } else if channels.strongest_lag.unsigned_abs() >= DELAYED_MIN_LAG
+            && channels.strongest_correlation >= DELAYED_CORRELATION
+            && channels.strongest_correlation - channels.correlation >= DELAYED_GAIN
+        {
+            Class::Delayed
+        } else {
+            Class::Width(Width::of(side_to_mid_db))
+        }
+    }
+
+    pub fn name(self) -> &'static str {
+        match self {
+            Class::OneChannel => "one-channel",
+            Class::Inverted => "inverted",
+            Class::Delayed => "delayed",
+            Class::Width(width) => width.name(),
+        }
+    }
+}
+
+const CLASSES: [Class; 7] = [
+    Class::OneChannel,
+    Class::Inverted,
+    Class::Delayed,
+    Class::Width(Width::Mono),
+    Class::Width(Width::NearlyMono),
+    Class::Width(Width::Narrow),
+    Class::Width(Width::Wide),
+];
+
 #[derive(Serialize)]
 pub struct WidthReport {
-    pub seed: u64,
-    /// Library files with a current peak record, the population sampled.
+    /// Absent for `--files`, which measures every file.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub seed: Option<u64>,
+    /// The files sampled from: the library's with a current peak record,
+    /// or the other library's left after `--exclude` and its ignore file.
     pub population: usize,
+    /// The other library's population by kind of source.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub population_by_kind: Vec<KindCount>,
     pub files: Vec<FileWidth>,
+}
+
+#[derive(Serialize)]
+pub struct KindCount {
+    pub kind: Kind,
+    pub files: usize,
 }
 
 #[derive(Serialize)]
 pub struct FileWidth {
     pub asset: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub kind: Option<Kind>,
     pub seconds: f64,
     pub side_to_mid_db: f64,
     pub width: &'static str,
+    pub channels: Channels,
+    pub class: &'static str,
+}
+
+/// The file at `path` decoded whole as two channels at the profile's rate,
+/// and measured.
+fn measure(path: &Path, asset: &str, kind: Option<Kind>) -> Result<FileWidth, String> {
+    let sample_rate = Profile::CURRENT.sample_rate;
+    let stereo = decode_stereo(path, sample_rate)?;
+    let ratio = side_to_mid_db(&stereo);
+    let channels = channels(&stereo);
+    Ok(FileWidth {
+        asset: asset.to_owned(),
+        kind,
+        seconds: stereo.left.len() as f64 / f64::from(sample_rate),
+        side_to_mid_db: ratio,
+        width: Width::of(ratio).name(),
+        channels,
+        class: Class::of(&channels, ratio).name(),
+    })
 }
 
 /// The width of `sample` library files with a current peak record, drawn
@@ -363,8 +509,7 @@ pub fn sample_widths(
     sample: usize,
     jobs: usize,
 ) -> Result<WidthReport, String> {
-    let profile = Profile::CURRENT;
-    let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
+    let (records, _) = load_records(library, store, &Profile::CURRENT, &BTreeSet::new());
     let mut assets: Vec<String> = records
         .into_iter()
         .map(|record| record.header.source.path)
@@ -375,38 +520,165 @@ pub fn sample_widths(
     assets.truncate(sample);
     assets.sort();
     let files = map_in_order(&assets, jobs, |asset| {
-        let stereo = decode_stereo(&library.root.join(asset), profile.sample_rate)?;
-        let ratio = side_to_mid_db(&stereo);
-        Ok(FileWidth {
-            asset: asset.clone(),
-            seconds: stereo.left.len() as f64 / f64::from(profile.sample_rate),
-            side_to_mid_db: ratio,
-            width: Width::of(ratio).name(),
-        })
+        measure(&library.root.join(asset), asset, None)
     })
     .into_iter()
     .collect::<Result<Vec<FileWidth>, String>>()?;
     Ok(WidthReport {
-        seed,
+        seed: Some(seed),
         population,
+        population_by_kind: Vec::new(),
         files,
     })
 }
 
-pub fn print_widths(report: &WidthReport) {
-    println!(
-        "stereo width, seed {}: {} of {} files",
-        report.seed,
-        report.files.len(),
-        report.population
-    );
-    for width in [Width::Mono, Width::NearlyMono, Width::Narrow, Width::Wide] {
-        let count = report
-            .files
+/// Files and folders of the other library left out of its sample: a file
+/// by its path, a folder by its path and a trailing `/`, one per line
+/// (`#` starts a comment).
+pub struct LeftOut {
+    files: BTreeSet<String>,
+    folders: Vec<String>,
+}
+
+impl LeftOut {
+    pub fn parse(text: &str) -> LeftOut {
+        let lines = text
+            .lines()
+            .map(str::trim)
+            .filter(|line| !line.is_empty() && !line.starts_with('#'));
+        let (folders, files): (Vec<&str>, Vec<&str>) = lines.partition(|line| line.ends_with('/'));
+        LeftOut {
+            files: files.into_iter().map(str::to_owned).collect(),
+            folders: folders.into_iter().map(str::to_owned).collect(),
+        }
+    }
+
+    pub fn contains(&self, path: &str) -> bool {
+        self.files.contains(path) || self.folders.iter().any(|folder| path.starts_with(folder))
+    }
+}
+
+/// The census of the other library (experiment 0248): `sample` of the
+/// files with a current record there, an equal share from each kind of
+/// source (the first kinds take what does not divide), drawn with `seed`
+/// from those that neither `ignore` (its ignore file's patterns) nor
+/// `left_out` leaves out, each decoded whole from `root` and measured.
+pub fn sample_other_widths(
+    assets: &[Asset],
+    root: &Path,
+    ignore: &[Pattern],
+    left_out: &LeftOut,
+    seed: u64,
+    sample: usize,
+    jobs: usize,
+) -> Result<WidthReport, String> {
+    let paths: Vec<&str> = assets
+        .iter()
+        .map(|asset| asset.path.as_str())
+        .filter(|path| leaving_out(ignore, path).is_none() && !left_out.contains(path))
+        .collect();
+    let population_by_kind = KINDS
+        .iter()
+        .map(|&kind| KindCount {
+            kind,
+            files: paths.iter().filter(|path| Kind::of(path) == kind).count(),
+        })
+        .collect();
+    let drawn = draw_by_kind(&paths, seed, sample);
+    let files = map_in_order(&drawn, jobs, |(kind, path)| {
+        measure(&root.join(path), path, Some(*kind))
+    })
+    .into_iter()
+    .collect::<Result<Vec<FileWidth>, String>>()?;
+    Ok(WidthReport {
+        seed: Some(seed),
+        population: paths.len(),
+        population_by_kind,
+        files,
+    })
+}
+
+/// `sample` of `paths`, an equal share of each kind, each kind's shuffled
+/// in turn by one generator; sorted by kind, then path.
+fn draw_by_kind(paths: &[&str], seed: u64, sample: usize) -> Vec<(Kind, String)> {
+    let mut rng = Rng::new(seed);
+    let mut drawn = Vec::new();
+    for (position, &kind) in KINDS.iter().enumerate() {
+        let share = sample / KINDS.len() + usize::from(position < sample % KINDS.len());
+        let mut of_kind: Vec<&str> = paths
             .iter()
-            .filter(|file| file.width == width.name())
-            .count();
-        println!("{:<12} {count:>4}", width.name());
+            .copied()
+            .filter(|path| Kind::of(path) == kind)
+            .collect();
+        of_kind.sort_unstable();
+        rng.shuffle(&mut of_kind);
+        of_kind.truncate(share);
+        of_kind.sort_unstable();
+        drawn.extend(of_kind.into_iter().map(|path| (kind, path.to_owned())));
+    }
+    drawn
+}
+
+/// Every MP3 under `dir`, measured alike: session 42's faulted renders,
+/// against which the census's classes were checked.
+pub fn file_widths(dir: &Path, jobs: usize) -> Result<WidthReport, String> {
+    let mut paths = Vec::new();
+    mp3s_under(dir, &mut paths)?;
+    paths.sort();
+    let files = map_in_order(&paths, jobs, |path| {
+        let name = path.strip_prefix(dir).unwrap_or(path).to_string_lossy();
+        measure(path, &name, None)
+    })
+    .into_iter()
+    .collect::<Result<Vec<FileWidth>, String>>()?;
+    Ok(WidthReport {
+        seed: None,
+        population: files.len(),
+        population_by_kind: Vec::new(),
+        files,
+    })
+}
+
+fn mp3s_under(dir: &Path, paths: &mut Vec<PathBuf>) -> Result<(), String> {
+    let entries = std::fs::read_dir(dir)
+        .map_err(|error| format!("cannot list {}: {error}", dir.display()))?;
+    for entry in entries {
+        let path = entry.map_err(|error| error.to_string())?.path();
+        if path.is_dir() {
+            mp3s_under(&path, paths)?;
+        } else if path.extension().is_some_and(|extension| extension == "mp3") {
+            paths.push(path);
+        }
+    }
+    Ok(())
+}
+
+pub fn print_widths(report: &WidthReport) {
+    match report.seed {
+        Some(seed) => println!(
+            "stereo width, seed {seed}: {} of {} files",
+            report.files.len(),
+            report.population
+        ),
+        None => println!("stereo width: {} files", report.files.len()),
+    }
+    let kinds: Vec<Option<Kind>> = if report.population_by_kind.is_empty() {
+        vec![None]
+    } else {
+        KINDS.iter().copied().map(Some).collect()
+    };
+    for kind in kinds {
+        if let Some(kind) = kind {
+            println!("{kind:?}");
+        }
+        for class in CLASSES {
+            let count = report
+                .files
+                .iter()
+                .filter(|file| file.class == class.name() && (kind.is_none() || file.kind == kind))
+                .count();
+            println!("  {:<12} {count:>4}", class.name());
+        }
     }
     let louder_side = report
         .files
@@ -480,6 +752,108 @@ mod tests {
     /// A one-channel file: FFmpeg's two channels are each the sample at
     /// 1/sqrt(2), so their powers add up to the downmix's (the sample
     /// itself), apart from rounding.
+    /// Seeded white noise, as a stand-in for broadband music.
+    fn noise(frames: usize, seed: u64) -> Vec<f32> {
+        let mut state = seed;
+        (0..frames)
+            .map(|_| {
+                state = state
+                    .wrapping_mul(6_364_136_223_846_793_005)
+                    .wrapping_add(1_442_695_040_888_963_407);
+                ((state >> 40) as f32 / (1u64 << 24) as f32) - 0.5
+            })
+            .collect()
+    }
+
+    fn class_of(left: &[f32], right: &[f32]) -> (Channels, Class) {
+        let pair = stereo(left, right);
+        let channels = channels(&pair);
+        (channels, Class::of(&channels, side_to_mid_db(&pair)))
+    }
+
+    #[test]
+    fn the_census_tells_each_of_session_42s_faults_apart() {
+        let mid = noise(16_000, 1);
+        let other = noise(16_000, 2);
+        // A narrow source: the right channel the mid plus a little of its own.
+        let right: Vec<f32> = mid.iter().zip(&other).map(|(m, o)| m + 0.5 * o).collect();
+
+        let (clean, class) = class_of(&mid, &right);
+        assert_eq!(class, Class::Width(Width::Narrow), "{clean:?}");
+        assert_eq!(clean.strongest_lag, 0);
+
+        let inverted: Vec<f32> = right.iter().map(|x| -x).collect();
+        let (channels, class) = class_of(&mid, &inverted);
+        assert_eq!(class, Class::Inverted, "{channels:?}");
+        assert!((channels.correlation + clean.correlation).abs() < 1e-9);
+
+        let silent = vec![0.0; right.len()];
+        assert_eq!(class_of(&mid, &silent).1, Class::OneChannel);
+
+        // 5 ms at 8 kHz: the right channel 40 samples late.
+        let late: Vec<f32> = [vec![0.0; 40], right[..right.len() - 40].to_vec()].concat();
+        let (channels, class) = class_of(&mid, &late);
+        assert_eq!(class, Class::Delayed, "{channels:?}");
+        assert_eq!(channels.strongest_lag, 40);
+
+        let early: Vec<f32> = [right[8..].to_vec(), vec![0.0; 8]].concat();
+        assert_eq!(class_of(&mid, &early).0.strongest_lag, -8);
+
+        // 0.2 ms is below the resolution: one sample late is not a delay.
+        let one: Vec<f32> = [vec![0.0; 1], mid[..mid.len() - 1].to_vec()].concat();
+        let (channels, class) = class_of(&mid, &one);
+        assert_eq!(channels.strongest_lag, 1);
+        assert_eq!(
+            class,
+            Class::Width(Width::Wide),
+            "white noise is wide one sample apart"
+        );
+
+        assert_eq!(class_of(&mid, &mid).1, Class::Width(Width::Mono));
+    }
+
+    #[test]
+    fn the_census_draws_an_equal_share_of_each_kind() {
+        let paths: Vec<String> = (0..30)
+            .map(|index| format!("__full_scene/release-{index}/track.mp3"))
+            .chain((0..5).map(|index| format!("__youtube_archivists/channel/{index}.m4a")))
+            .chain((0..30).map(|index| format!("vinyl/{index}.mp3")))
+            .collect();
+        let paths: Vec<&str> = paths.iter().map(String::as_str).collect();
+
+        let drawn = draw_by_kind(&paths, 2026, 10);
+
+        let of = |kind: Kind| drawn.iter().filter(|(k, _)| *k == kind).count();
+        assert_eq!(of(Kind::SceneRelease), 4);
+        assert_eq!(of(Kind::YoutubeChannel), 3);
+        assert_eq!(of(Kind::Elsewhere), 3);
+        assert!(drawn.iter().all(|(kind, path)| Kind::of(path) == *kind));
+        assert_eq!(drawn, draw_by_kind(&paths, 2026, 10));
+        assert_ne!(drawn, draw_by_kind(&paths, 2027, 10));
+        // A kind with fewer files than its share gives them all.
+        assert_eq!(
+            draw_by_kind(&paths, 2026, 30)
+                .iter()
+                .filter(|(kind, _)| *kind == Kind::YoutubeChannel)
+                .count(),
+            5
+        );
+    }
+
+    #[test]
+    fn the_census_leaves_out_listed_files_and_folders() {
+        let left_out = LeftOut::parse(
+            "# 0065's lists\nEM_1999.mp3\nva-mixed_cd-2000/\n\n__full_scene/a/cd2/\n",
+        );
+
+        assert!(left_out.contains("EM_1999.mp3"));
+        assert!(left_out.contains("va-mixed_cd-2000/01-track.mp3"));
+        assert!(left_out.contains("__full_scene/a/cd2/03.mp3"));
+        assert!(!left_out.contains("__full_scene/a/cd1/03.mp3"));
+        assert!(!left_out.contains("sety/EM_1999.mp3"));
+        assert!(!left_out.contains("# 0065's lists"));
+    }
+
     #[test]
     fn a_one_channel_file_gives_the_downmix_peaks_under_the_power_sum() {
         let dir = std::env::temp_dir().join(format!("gunfinger-power-sum-{}", std::process::id()));

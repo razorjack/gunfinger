@@ -63,7 +63,8 @@ pub enum Command {
     /// (alone, looped, with the played file's own material before or
     /// after it, through a weak rip, under a blend, a short break
     /// repeated), with the played recording in the index and left out,
-    /// and measure every detection with the peak verifier. With
+    /// and measure every detection with the peak verifier (queries of one
+    /// channel only: not with --front-end power-sum-queries). With
     /// --other-peaks-dir every index holds that library too.
     Shared(shared::SharedArgs),
     /// Rendered mixes of shared material (session 21): for each seed, one
@@ -109,8 +110,11 @@ pub enum Command {
     /// speeds outside the ladder and key lock.
     Robust(evaluation::RobustArgs),
     /// How wide a seeded sample of library files is: each decoded whole as
-    /// two channels, the side's energy against the mid's (report
-    /// `stereo-width-seed-<seed>.json`). Corpus only.
+    /// two channels, the side's energy against the mid's, how the channels
+    /// correlate and the census's class (report
+    /// `stereo-width-seed-<seed>.json`). With --other, a sample of the
+    /// other library by kind of source (`stereo-width-other-seed-<seed>.json`);
+    /// with --files, every MP3 under a folder.
     StereoWidth(library::StereoWidthArgs),
     /// Build a store of the library's files under `--front-end`'s profile
     /// (downmix or power-sum), some decoded from replacement files, for
@@ -119,6 +123,8 @@ pub enum Command {
     /// Render seeded mixes of library tracks with exact truth (speeds,
     /// bass swaps, crossfades, cuts, plays of 20-60 s, a returning track,
     /// held-out tracks), search them and score them against the truth.
+    /// With --other-peaks-dir the index also holds the other library, less
+    /// the held-out clusters' files there.
     Mixes(mixes::MixesArgs),
     /// Slide brief plays of indexed tracks across the 10 s window grid in
     /// 1 s steps, at several lengths and source positions, and compare
@@ -176,7 +182,7 @@ pub enum Command {
 }
 
 /// The commands that take --other-peaks-dir, by `Command::name`.
-const OTHER_LIBRARY_COMMANDS: [&str; 23] = [
+const OTHER_LIBRARY_COMMANDS: [&str; 25] = [
     "validate",
     "map-library",
     "clusters --from-peaks",
@@ -184,6 +190,8 @@ const OTHER_LIBRARY_COMMANDS: [&str; 23] = [
     "scan",
     "calibrate",
     "robust",
+    "mixes",
+    "stereo-width",
     "baseline",
     "regress",
     "memory",
@@ -203,7 +211,14 @@ const OTHER_LIBRARY_COMMANDS: [&str; 23] = [
 ];
 
 /// The commands that analyse audio by `--front-end` (`stereo::FrontEnd`).
-const FRONT_END_COMMANDS: [&str; 4] = ["robust", "scan", "mixes", "variant-store"];
+const FRONT_END_COMMANDS: [&str; 6] = [
+    "robust",
+    "scan",
+    "mixes",
+    "recall",
+    "shared",
+    "variant-store",
+];
 
 /// The commands that take --other-sample.
 const OTHER_SAMPLE_COMMANDS: [&str; 6] = [
@@ -367,6 +382,14 @@ mod tests {
         assert_eq!(checked(&["--front-end", "power-sum", "robust"]), Ok(()));
         assert_eq!(
             checked(&["--front-end", "power-sum-queries", "scan", "stakka"]),
+            Ok(())
+        );
+        assert_eq!(
+            checked(&["--front-end", "power-sum-queries", "recall"]),
+            Ok(())
+        );
+        assert_eq!(
+            checked(&["--front-end", "power-sum-queries", "shared", "plan.json"]),
             Ok(())
         );
         assert_eq!(checked(&["robust", "--verify"]), Ok(()));

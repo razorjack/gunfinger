@@ -17,7 +17,6 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use gunfinger_core::confidence::{Pass, Rule};
-use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::{Asset, Library};
@@ -33,9 +32,10 @@ use crate::files::{read_json, write_json};
 use crate::fullest::{self, SetAsideLike};
 use crate::matching::Matching;
 use crate::padding::{OTHER_LIBRARY_PREFIX, Padding};
-use crate::render::is_complete;
+use crate::render::{Stereo, is_complete};
 use crate::rng::Rng;
 use crate::robust::{COMBINED_ENCODING, render_combined};
+use crate::stereo::QueryAudio;
 use crate::sweep::{
     Draw, EXCERPT_SECONDS, Outcome, Query, SPEEDS_PERCENT, SpeedRow, Trace, outcome, render_all,
     speed_row,
@@ -62,10 +62,10 @@ pub enum Kind {
     Elsewhere,
 }
 
-const KINDS: [Kind; 3] = [Kind::SceneRelease, Kind::YoutubeChannel, Kind::Elsewhere];
+pub const KINDS: [Kind; 3] = [Kind::SceneRelease, Kind::YoutubeChannel, Kind::Elsewhere];
 
 impl Kind {
-    fn of(path: &str) -> Kind {
+    pub fn of(path: &str) -> Kind {
         if path.starts_with("__full_scene/") {
             Kind::SceneRelease
         } else if path.starts_with("__youtube_archivists/") {
@@ -613,22 +613,52 @@ fn context<'s>(
         .find(|source| source.asset != own && Some(source.asset.as_str()) != taken)
 }
 
-/// The samples of a brief play: the three parts cut together.
-fn brief_samples(play: &BriefPlay, sample_rate: u32) -> Result<Vec<f32>, String> {
-    let decoded = |path: &Path| {
-        decode(path, sample_rate, Excerpt::default())
-            .map(|audio| audio.samples)
-            .map_err(|error| error.to_string())
-    };
+/// The audio of a brief play as the front end analyses it: the three parts
+/// cut together, each channel alike.
+fn brief_audio(play: &BriefPlay, matching: &Matching) -> Result<QueryAudio, String> {
+    let sample_rate = matching.profile().sample_rate;
     let samples_in = |seconds: f64| (seconds * f64::from(sample_rate)).round() as usize;
-    let before = decoded(&play.before.path)?;
-    let own = decoded(&play.excerpt.path)?;
-    let after = decoded(&play.after.path)?;
-    let lead_in = samples_in(play.lead_in_seconds).min(before.len());
-    let mut samples = before[before.len() - lead_in..].to_vec();
-    samples.extend_from_slice(&own[..samples_in(play.seconds).min(own.len())]);
-    samples.extend_from_slice(&after[..samples_in(BRIEF_TAIL_SECONDS).min(after.len())]);
-    Ok(samples)
+    let lengths = BriefLengths {
+        lead_in: samples_in(play.lead_in_seconds),
+        own: samples_in(play.seconds),
+        tail: samples_in(BRIEF_TAIL_SECONDS),
+    };
+    let before = matching.decode_query(&play.before.path)?;
+    let own = matching.decode_query(&play.excerpt.path)?;
+    let after = matching.decode_query(&play.after.path)?;
+    match (before, own, after) {
+        (QueryAudio::Mono(before), QueryAudio::Mono(own), QueryAudio::Mono(after)) => {
+            Ok(QueryAudio::Mono(lengths.cut(&before, &own, &after)))
+        }
+        (QueryAudio::PowerSum(before), QueryAudio::PowerSum(own), QueryAudio::PowerSum(after)) => {
+            Ok(QueryAudio::PowerSum(Stereo {
+                left: lengths.cut(&before.left, &own.left, &after.left),
+                right: lengths.cut(&before.right, &own.right, &after.right),
+            }))
+        }
+        _ => Err(String::from(
+            "the parts of a brief play were decoded with different channels",
+        )),
+    }
+}
+
+/// A brief play's parts, in samples: the end of the held-out audio
+/// before it, the start of its own excerpt and of the held-out audio
+/// after.
+struct BriefLengths {
+    lead_in: usize,
+    own: usize,
+    tail: usize,
+}
+
+impl BriefLengths {
+    fn cut(&self, before: &[f32], own: &[f32], after: &[f32]) -> Vec<f32> {
+        let lead_in = self.lead_in.min(before.len());
+        let mut samples = before[before.len() - lead_in..].to_vec();
+        samples.extend_from_slice(&own[..self.own.min(own.len())]);
+        samples.extend_from_slice(&after[..self.tail.min(after.len())]);
+        samples
+    }
 }
 
 /// Why an indexed excerpt was not recalled: its own cluster never became a
@@ -769,7 +799,7 @@ pub fn run(
     options: &Options,
     mut report: impl FnMut(RecallReport) -> Result<(), String>,
 ) -> Result<(), String> {
-    let profile = Profile::CURRENT;
+    let profile = options.matching.profile();
     let held_out: BTreeSet<String> = sets
         .iter()
         .flat_map(|(_, excerpts)| excerpts.iter())
@@ -818,10 +848,10 @@ pub fn run(
         let searched: Vec<Result<RecallQuery, String>> = if set.brief() {
             let plays = brief_plays(excerpts, options.seed)?;
             map_in_order(&plays, options.jobs, |play| {
-                let samples = brief_samples(play, profile.sample_rate)?;
+                let audio = brief_audio(play, options.matching)?;
                 Ok(searcher.query(
                     play.excerpt,
-                    &samples,
+                    &audio,
                     Some(Brief {
                         seconds: play.seconds,
                         starts_at_seconds: play.lead_in_seconds,
@@ -832,9 +862,8 @@ pub fn run(
             })
         } else {
             map_in_order(excerpts, options.jobs, |excerpt| {
-                let audio = decode(&excerpt.path, profile.sample_rate, Excerpt::default())
-                    .map_err(|error| error.to_string())?;
-                Ok(searcher.query(excerpt, &audio.samples, None))
+                let audio = options.matching.decode_query(&excerpt.path)?;
+                Ok(searcher.query(excerpt, &audio, None))
             })
         };
         let queries = searched
@@ -877,7 +906,10 @@ struct Searcher<'a> {
 }
 
 impl Searcher<'_> {
-    fn query(&self, excerpt: &Rendered, samples: &[f32], brief: Option<Brief>) -> RecallQuery {
+    /// The query's detections, measured with the peak verifier and traced
+    /// only where the query has one channel (the commands refuse both
+    /// with another front end).
+    fn query(&self, excerpt: &Rendered, audio: &QueryAudio, brief: Option<Brief>) -> RecallQuery {
         let Options {
             ladder, matching, ..
         } = *self.options;
@@ -890,7 +922,8 @@ impl Searcher<'_> {
             .as_ref()
             .map(|partner| partner_files(self.clusters, titles, &partner.asset))
             .unwrap_or_default();
-        let detections = matching.search(self.index, samples, &Profile::CURRENT, ladder, 1);
+        let detections = matching.search_audio(self.index, audio, ladder, 1);
+        let samples = audio.mono();
         let query = Query {
             asset: source.asset.clone(),
             held_out: source.held_out,
@@ -902,7 +935,8 @@ impl Searcher<'_> {
                     let verified = self
                         .verifier
                         .filter(|_| detection.evidence.pass == Pass::Fitted)
-                        .and_then(|verifier| {
+                        .zip(samples)
+                        .and_then(|(verifier, samples)| {
                             verifier.verify(self.index, detection, samples, &Profile::CURRENT)
                         });
                     let mut outcome =
@@ -911,10 +945,13 @@ impl Searcher<'_> {
                     outcome
                 })
                 .collect(),
-            candidates: (self.options.trace == Trace::Candidates).then(|| {
-                let first = matching.first_pass(self.index, samples, &Profile::CURRENT, ladder, 1);
-                crate::sweep::candidates(self.index, &first, &own_cluster)
-            }),
+            candidates: samples
+                .filter(|_| self.options.trace == Trace::Candidates)
+                .map(|samples| {
+                    let first =
+                        matching.first_pass(self.index, samples, &Profile::CURRENT, ladder, 1);
+                    crate::sweep::candidates(self.index, &first, &own_cluster)
+                }),
         };
         let unobservable = is_unobservable(source, &own_cluster, self.indexed);
         RecallQuery {
@@ -1068,6 +1105,7 @@ pub fn print_summary(report: &RecallReport) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::stereo::FrontEnd;
 
     fn candidate(asset: &str, family: &str) -> Candidate {
         Candidate {
@@ -1564,9 +1602,33 @@ mod tests {
             after: &after,
         };
 
-        let samples = brief_samples(&play, 8000).unwrap();
+        let matching = |front_end| Matching {
+            single_pass: false,
+            drop_fullest: 0.0,
+            speed_per_stretch: false,
+            trim_ends: false,
+            overlap_by_spans: false,
+            overlap_by_chains: false,
+            apart_in_speed: None,
+            front_end,
+        };
+
+        let QueryAudio::Mono(samples) = brief_audio(&play, &matching(FrontEnd::Downmix)).unwrap()
+        else {
+            panic!("the downmix gives one channel");
+        };
+        let QueryAudio::PowerSum(stereo) =
+            brief_audio(&play, &matching(FrontEnd::PowerSumQueries)).unwrap()
+        else {
+            panic!("the power sum gives two channels");
+        };
 
         assert_eq!(samples.len(), ((4.5 + 15.0 + 3.0) * 8000.0) as usize);
+        assert_eq!(stereo.left.len(), samples.len());
+        assert_eq!(
+            stereo.left, stereo.right,
+            "a one-channel file gives two alike"
+        );
         let loudness = |from: f64, to: f64| {
             let part = &samples[(from * 8000.0) as usize..(to * 8000.0) as usize];
             part.iter().map(|x| x.abs()).sum::<f32>() / part.len() as f32
@@ -1578,6 +1640,22 @@ mod tests {
         assert!(loudness(4.6, 19.4) > 0.1, "then the play");
         assert!(loudness(19.6, 22.5) < 1e-3, "then the silent tail");
         fs::remove_dir_all(&dir).unwrap();
+    }
+
+    #[test]
+    fn a_brief_play_is_cut_alike_from_each_channel() {
+        let lengths = BriefLengths {
+            lead_in: 2,
+            own: 3,
+            tail: 1,
+        };
+
+        assert_eq!(
+            lengths.cut(&[1.0, 2.0, 3.0], &[4.0, 5.0, 6.0, 7.0], &[8.0, 9.0]),
+            [2.0, 3.0, 4.0, 5.0, 6.0, 8.0]
+        );
+        // Parts shorter than their lengths give what they have.
+        assert_eq!(lengths.cut(&[1.0], &[4.0], &[]), [1.0, 4.0]);
     }
 
     #[test]
