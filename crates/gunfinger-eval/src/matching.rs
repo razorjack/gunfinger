@@ -9,8 +9,8 @@ use gunfinger_core::confidence::{Pass, Rule};
 use gunfinger_core::index::Index;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{
-    Detection, Matcher, Options, SAME_SPEED_SHARE, SecondOverlap, Trace, search_signal_with,
-    search_with, trace_with,
+    Detection, Matcher, Options, SAME_SPEED_SHARE, SecondOverlap, SecondPassFit, Trace,
+    search_signal_with, search_with, trace_with,
 };
 use gunfinger_core::speed::Rung;
 
@@ -55,6 +55,43 @@ pub struct Matching {
     /// `mixes`, `recall`, `shared` and `variant-store` take it.
     #[arg(long, global = true, value_enum, default_value_t = FrontEnd::Downmix)]
     pub front_end: FrontEnd,
+    /// The alignment the second pass measures each candidate of 80 hits or
+    /// more at (`SecondPassFit`): the chain's speed (the default), the best
+    /// of a grid within 0.4% (`grid`), the grid chosen on alternate windows
+    /// and counted on the others (`cross`), or a fit iterated on the hits
+    /// (`iterated`). Experiments 0251-0253.
+    #[arg(long, global = true, value_enum, default_value_t = Fit::ChainSpeed, conflicts_with_all = ["single_pass", "speed_per_stretch"])]
+    pub second_pass_fit: Fit,
+}
+
+/// `--second-pass-fit`'s values, one per `SecondPassFit`.
+#[derive(clap::ValueEnum, Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Fit {
+    ChainSpeed,
+    Grid,
+    Cross,
+    Iterated,
+}
+
+impl Fit {
+    fn second_pass_fit(self) -> SecondPassFit {
+        match self {
+            Fit::ChainSpeed => SecondPassFit::ChainSpeed,
+            Fit::Grid => SecondPassFit::BestOfGrid,
+            Fit::Cross => SecondPassFit::CrossFitted,
+            Fit::Iterated => SecondPassFit::Iterated,
+        }
+    }
+
+    /// The reports directory's part; `None` for the default.
+    fn name(self) -> Option<&'static str> {
+        match self {
+            Fit::ChainSpeed => None,
+            Fit::Grid => Some("fit-grid"),
+            Fit::Cross => Some("fit-cross"),
+            Fit::Iterated => Some("fit-iterated"),
+        }
+    }
 }
 
 impl Matching {
@@ -111,6 +148,9 @@ impl Matching {
         if self.front_end != FrontEnd::Downmix {
             parts.push(self.front_end.name().to_owned());
         }
+        if let Some(fit) = self.second_pass_fit.name() {
+            parts.push(fit.to_owned());
+        }
         (!parts.is_empty()).then(|| parts.join("-"))
     }
 
@@ -120,6 +160,7 @@ impl Matching {
             speed_per_stretch: self.speed_per_stretch,
             trim_weak_ends: self.trim_ends,
             second_overlap: self.second_overlap().unwrap_or(matcher.second_overlap),
+            second_pass_fit: self.second_pass_fit.second_pass_fit(),
             ..matcher
         }
     }
@@ -224,6 +265,7 @@ mod tests {
         overlap_by_chains: false,
         apart_in_speed: None,
         front_end: FrontEnd::Downmix,
+        second_pass_fit: Fit::ChainSpeed,
     };
 
     #[test]
@@ -291,6 +333,32 @@ mod tests {
         assert_eq!(both.name().as_deref(), Some("power-sum"));
         assert_eq!(both.profile(), Profile::POWER_SUM);
         assert_eq!(both.options(), DEFAULT.options());
+    }
+
+    #[test]
+    fn each_second_pass_fit_writes_its_own_reports_and_the_default_measures_at_the_chains_speed() {
+        assert_eq!(DEFAULT.options().second_pass_fit, SecondPassFit::ChainSpeed);
+        let fits = [
+            (Fit::Grid, SecondPassFit::BestOfGrid, "fit-grid"),
+            (Fit::Cross, SecondPassFit::CrossFitted, "fit-cross"),
+            (Fit::Iterated, SecondPassFit::Iterated, "fit-iterated"),
+        ];
+        for (fit, second_pass_fit, name) in fits {
+            let variant = Matching {
+                second_pass_fit: fit,
+                ..DEFAULT
+            };
+            assert_eq!(variant.check(), Ok(()));
+            assert_eq!(variant.options().second_pass_fit, second_pass_fit);
+            assert_eq!(variant.name().as_deref(), Some(name));
+            assert_eq!(
+                Options {
+                    second_pass_fit: SecondPassFit::ChainSpeed,
+                    ..variant.options()
+                },
+                DEFAULT.options()
+            );
+        }
     }
 
     #[test]

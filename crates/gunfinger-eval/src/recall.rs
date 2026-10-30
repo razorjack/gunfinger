@@ -1105,6 +1105,7 @@ pub fn print_summary(report: &RecallReport) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::matching::Fit;
     use crate::stereo::FrontEnd;
 
     fn candidate(asset: &str, family: &str) -> Candidate {
@@ -1611,6 +1612,7 @@ mod tests {
             overlap_by_chains: false,
             apart_in_speed: None,
             front_end,
+            second_pass_fit: Fit::ChainSpeed,
         };
 
         let QueryAudio::Mono(samples) = brief_audio(&play, &matching(FrontEnd::Downmix)).unwrap()

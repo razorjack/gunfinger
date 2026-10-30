@@ -89,7 +89,7 @@ pub struct Trace {
 pub const WINDOW_SECONDS: f64 = lines::WINDOW_SECONDS;
 
 pub use chains::{Links, STRONG_LINE_HITS};
-pub use refine::MIN_HITS_TO_REFINE;
+pub use refine::{MIN_HITS_TO_FIT, MIN_HITS_TO_REFINE};
 
 /// The two matchers (ADR 0008). Both look for candidates on the speed
 /// ladder; they differ in which posting lists that search scans, which
@@ -176,6 +176,30 @@ pub struct Options {
     pub trim_weak_ends: bool,
     /// Which detections of one asset overlap after the second pass.
     pub second_overlap: SecondOverlap,
+    /// Which alignment the second pass measures a candidate at.
+    pub second_pass_fit: SecondPassFit,
+}
+
+/// The alignment the second pass measures a candidate at. Only the default
+/// is the matcher's; the others are the harness's measurements of what the
+/// chain's speed costs (experiments 0251-0253). Each leaves a candidate
+/// with fewer than `MIN_HITS_TO_FIT` hits at the chain's speed as it is.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum SecondPassFit {
+    /// The chain's speed through its strongest line.
+    #[default]
+    ChainSpeed,
+    /// The most hits of the chain's speed and 41 speeds within 0.4% of it,
+    /// the offset fitted again at each: a reference, which maximises over
+    /// alignments.
+    BestOfGrid,
+    /// The grid's alignment with the most hits on alternate windows, its
+    /// hits counted on the others, for each half: the reference without
+    /// choosing on the hits it counts.
+    CrossFitted,
+    /// Fitted again to the drift of its own hits, at most two rounds within
+    /// 0.4% of the chain's speed, keeping the last.
+    Iterated,
 }
 
 /// After the second pass, which detection of an asset overlaps a stronger

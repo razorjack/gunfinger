@@ -14,7 +14,11 @@
 //! the densest cluster of offsets near the alignment, when it has enough
 //! hits.
 
+mod fit;
+
 use std::ops::{Range, RangeBounds};
+
+pub use fit::MIN_HITS_TO_FIT;
 
 use super::chains::{chain_speed, without_weak_ends};
 use super::lines::{LINE_SPAN_FRAMES, Line, MIN_LINE_HITS, WINDOW_SECONDS};
@@ -93,6 +97,7 @@ pub(super) fn refine(
 
 /// One hit near the alignment: its window, its distance from the alignment
 /// in reference frames, and its query frame.
+#[derive(Clone, Copy)]
 struct Hit {
     window: u32,
     deviation: f64,
@@ -176,11 +181,18 @@ fn at_fitted_speed(
     if first_sample >= last_sample {
         return None;
     }
-    let span = first_sample..last_sample;
-    let mut hits = hits_near(index, samples, profile, detection, fitted, span.clone(), ..);
-    let mut measured = measure(&mut hits, fitted);
+    let candidate = Candidate {
+        index,
+        samples,
+        profile,
+        detection,
+        span: first_sample..last_sample,
+    };
+    let mut hits = candidate.hits_near(fitted, candidate.span.clone(), .., SEARCH_FRAMES);
+    let measured = measure(&mut hits, fitted);
+    let (fitted, mut measured) = fit::refit(options.second_pass_fit, &candidate, fitted, measured);
     if options.speed_per_stretch {
-        measured = per_stretch(index, samples, profile, detection, fitted, span, measured);
+        measured = per_stretch(&candidate, fitted, measured);
     }
     if measured.is_empty() {
         return None;
@@ -207,49 +219,67 @@ fn at_fitted_speed(
     })
 }
 
-/// The hits of `detection`'s asset within `SEARCH_FRAMES` of `alignment`,
-/// analysing `samples[span]` at its speed; only anchors in `windows` count.
-fn hits_near(
-    index: &Index,
-    samples: Signal,
-    profile: &Profile,
-    detection: &Detection,
-    alignment: Alignment,
+/// A candidate being measured again: its detection, the audio and the
+/// span of samples analysed.
+struct Candidate<'a> {
+    index: &'a Index,
+    samples: Signal<'a>,
+    profile: &'a Profile,
+    detection: &'a Detection,
     span: Range<usize>,
-    windows: impl RangeBounds<u32>,
-) -> Vec<Hit> {
-    let rate = f64::from(profile.sample_rate);
-    let points = alignment
-        .rung()
-        .signal_points(samples.slice(span.clone()), profile);
-    let start_frame = profile.frames(span.start as f64 / rate);
-    let window_frames = profile.frames(WINDOW_SECONDS);
-    let mut hits = Vec::new();
-    for_each_pair(&points, |hash, anchor_point| {
-        let query_frame = start_frame + points[anchor_point].frame / alignment.speed;
-        let window = (query_frame / window_frames) as u32;
-        if !windows.contains(&window) {
-            return;
-        }
-        let expected = alignment.at(query_frame);
-        let all = index.postings(hash);
-        let postings = if all.len() <= 64 {
-            all
-        } else {
-            index.postings_for_asset(hash, detection.asset)
-        };
-        for posting in postings {
-            let deviation = f64::from(posting.frame()) - expected;
-            if posting.asset() == detection.asset && deviation.abs() <= SEARCH_FRAMES {
-                hits.push(Hit {
-                    window,
-                    deviation,
-                    query_frame,
-                });
+}
+
+impl Candidate<'_> {
+    /// The hits of the detection's asset within `reach` frames of
+    /// `alignment`, analysing `samples[span]` at its speed; only anchors in
+    /// `windows` count.
+    fn hits_near(
+        &self,
+        alignment: Alignment,
+        span: Range<usize>,
+        windows: impl RangeBounds<u32>,
+        reach: f64,
+    ) -> Vec<Hit> {
+        let Candidate {
+            index,
+            samples,
+            profile,
+            detection,
+            ..
+        } = *self;
+        let rate = f64::from(profile.sample_rate);
+        let points = alignment
+            .rung()
+            .signal_points(samples.slice(span.clone()), profile);
+        let start_frame = profile.frames(span.start as f64 / rate);
+        let window_frames = profile.frames(WINDOW_SECONDS);
+        let mut hits = Vec::new();
+        for_each_pair(&points, |hash, anchor_point| {
+            let query_frame = start_frame + points[anchor_point].frame / alignment.speed;
+            let window = (query_frame / window_frames) as u32;
+            if !windows.contains(&window) {
+                return;
             }
-        }
-    });
-    hits
+            let expected = alignment.at(query_frame);
+            let all = index.postings(hash);
+            let postings = if all.len() <= 64 {
+                all
+            } else {
+                index.postings_for_asset(hash, detection.asset)
+            };
+            for posting in postings {
+                let deviation = f64::from(posting.frame()) - expected;
+                if posting.asset() == detection.asset && deviation.abs() <= reach {
+                    hits.push(Hit {
+                        window,
+                        deviation,
+                        query_frame,
+                    });
+                }
+            }
+        });
+        hits
+    }
 }
 
 /// Each window's densest run of hits, when it has enough hits, in window
@@ -293,15 +323,8 @@ fn measure(hits: &mut [Hit], alignment: Alignment) -> Vec<Measured> {
 /// the window either side, when that speed is `MIN_SPEED_CORRECTION` or
 /// more from the fitted one. The new measurement replaces the first, more
 /// hits or fewer. `measured` is in window order.
-fn per_stretch(
-    index: &Index,
-    samples: Signal,
-    profile: &Profile,
-    detection: &Detection,
-    fitted: Alignment,
-    span: Range<usize>,
-    measured: Vec<Measured>,
-) -> Vec<Measured> {
+fn per_stretch(candidate: &Candidate, fitted: Alignment, measured: Vec<Measured>) -> Vec<Measured> {
+    let (profile, span) = (candidate.profile, &candidate.span);
     let Some(first_window) = measured.first().map(|line| line.window) else {
         return measured;
     };
@@ -336,15 +359,7 @@ fn per_stretch(
             result.extend(kept.map(Measured::clone));
             continue;
         }
-        let mut hits = hits_near(
-            index,
-            samples,
-            profile,
-            detection,
-            local,
-            samples_span,
-            stretch,
-        );
+        let mut hits = candidate.hits_near(local, samples_span, stretch, SEARCH_FRAMES);
         result.extend(measure(&mut hits, local));
     }
     result
