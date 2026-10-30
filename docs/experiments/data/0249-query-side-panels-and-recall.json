@@ -1,0 +1,354 @@
+{
+ "panel_1": {
+  "right": [
+   269,
+   269
+  ],
+  "lost": [],
+  "won": 0,
+  "wrong": [
+   422,
+   422
+  ],
+  "new_wrong": [],
+  "known_pair_new": [],
+  "known_pair": [
+   0,
+   0
+  ],
+  "related_pairs": [
+   326,
+   309
+  ],
+  "related_new": 0,
+  "related_gone": 17,
+  "roles": {
+   "everything|other|mono": [
+    122,
+    122
+   ],
+   "everything|other|stereo": [
+    77,
+    77
+   ],
+   "everything|partner|mono": [
+    4,
+    4
+   ],
+   "everything|played|mono": [
+    236,
+    236
+   ],
+   "everything|played|stereo": [
+    142,
+    142
+   ],
+   "everything|related|mono": [
+    125,
+    125
+   ],
+   "everything|related|stereo": [
+    60,
+    53
+   ],
+   "played left out|other|mono": [
+    122,
+    122
+   ],
+   "played left out|other|stereo": [
+    77,
+    77
+   ],
+   "played left out|partner|mono": [
+    4,
+    4
+   ],
+   "played left out|related|mono": [
+    125,
+    125
+   ],
+   "played left out|related|stereo": [
+    60,
+    53
+   ],
+   "source left out|other|mono": [
+    50,
+    50
+   ],
+   "source left out|other|stereo": [
+    27,
+    27
+   ],
+   "source left out|played|mono": [
+    85,
+    85
+   ],
+   "source left out|played|stereo": [
+    53,
+    53
+   ],
+   "source left out|related|mono": [
+    38,
+    38
+   ],
+   "source left out|related|stereo": [
+    22,
+    19
+   ]
+  }
+ },
+ "panel_2": {
+  "right": [
+   208,
+   208
+  ],
+  "lost": [],
+  "won": 0,
+  "wrong": [
+   3,
+   3
+  ],
+  "new_wrong": [],
+  "known_pair_new": [],
+  "known_pair": [
+   0,
+   0
+  ],
+  "related_pairs": [
+   9,
+   9
+  ],
+  "related_new": 0,
+  "related_gone": 0,
+  "roles": {
+   "everything|other|stereo": [
+    1,
+    1
+   ],
+   "everything|played|mono": [
+    236,
+    236
+   ],
+   "everything|played|stereo": [
+    138,
+    138
+   ],
+   "everything|related|mono": [
+    3,
+    3
+   ],
+   "everything|related|stereo": [
+    1,
+    1
+   ],
+   "played left out|other|stereo": [
+    1,
+    1
+   ],
+   "played left out|related|mono": [
+    3,
+    3
+   ],
+   "played left out|related|stereo": [
+    1,
+    1
+   ],
+   "source left out|other|stereo": [
+    1,
+    1
+   ],
+   "source left out|played|mono": [
+    101,
+    101
+   ],
+   "source left out|played|stereo": [
+    70,
+    70
+   ],
+   "source left out|related|mono": [
+    3,
+    3
+   ],
+   "source left out|related|stereo": [
+    1,
+    1
+   ]
+  }
+ },
+ "recall": {
+  "recall-seed-2026-brief.json": {
+   "right": [
+    721,
+    663
+   ],
+   "lost": [
+    "('brief', 101, 'second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/higher_education-pieter_k-0_44899-2000-sour/a-pieter_k-pendulum-sour.mp3', 1.0)",
+    "('brief', 110, 'second-library/__full_scene/Ammunition Recordings/ARDIG029 - Imprintz & Kloe - Till The End EP - 2009/02. Last_Breath_Original_Mix.mp3', -5.0)",
+    "('brief', 120, 'second-library/__full_scene/Ammunition Recordings/ARDIG029 - Imprintz & Kloe - Till The End EP - 2009/02. Last_Breath_Original_Mix.mp3', 3.0)",
+    "('brief', 125, 'second-library/__full_scene/Ammunition Recordings/ARDIG029 - Imprintz & Kloe - Till The End EP - 2009/02. Last_Breath_Original_Mix.mp3', 8.0)",
+    "('brief', 126, 'second-library/__full_scene/Ammunition Recordings/ARDIG007 - Kinetix - Fatal Error EP - 2008/01. Kinetix - Lost In Reverie.mp3', -8.0)",
+    "('brief', 128, 'second-library/__full_scene/Ammunition Recordings/ARDIG007 - Kinetix - Fatal Error EP - 2008/01. Kinetix - Lost In Reverie.mp3', -5.0)",
+    "('brief', 131, 'second-library/__full_scene/Ammunition Recordings/ARDIG007 - Kinetix - Fatal Error EP - 2008/01. Kinetix - Lost In Reverie.mp3', -3.0)",
+    "('brief', 133, 'second-library/__full_scene/Ammunition Recordings/ARDIG007 - Kinetix - Fatal Error EP - 2008/01. Kinetix - Lost In Reverie.mp3', -1.0)",
+    "('brief', 136, 'second-library/__full_scene/Ammunition Recordings/ARDIG007 - Kinetix - Fatal Error EP - 2008/01. Kinetix - Lost In Reverie.mp3', 1.0)",
+    "('brief', 138, 'second-library/__full_scene/Ammunition Recordings/ARDIG007 - Kinetix - Fatal Error EP - 2008/01. Kinetix - Lost In Reverie.mp3', 3.0)",
+    "('brief', 139, 'second-library/__full_scene/Ammunition Recordings/ARDIG007 - Kinetix - Fatal Error EP - 2008/01. Kinetix - Lost In Reverie.mp3', 3.0)",
+    "('brief', 140, 'second-library/__full_scene/Ammunition Recordings/ARDIG007 - Kinetix - Fatal Error EP - 2008/01. Kinetix - Lost In Reverie.mp3', 5.0)",
+    "('brief', 164, 'second-library/__full_scene/1999/1999-10/1999-10-29/hardleaders_-_genetically_unmodified_(1999)_-_sour/07_-_dj_surreal_-_no_where_-_sour.mp3', -5.0)",
+    "('brief', 168, 'second-library/__full_scene/1999/1999-10/1999-10-29/hardleaders_-_genetically_unmodified_(1999)_-_sour/07_-_dj_surreal_-_no_where_-_sour.mp3', -1.0)",
+    "('brief', 22, 'second-library/__full_scene/1999/1999-08/1999-08-03/ganja_kru-fuck_the_millenium_ep-1999-sour/f-1-ganja_kru-species-sour.mp3', -3.0)",
+    "('brief', 246, 'second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-02/moving_shadow-flytronix-archive-1998-sour/b-flytronix-offshore_drift-sour.mp3', 3.0)",
+    "('brief', 273, 'second-library/__full_scene/Ammunition Recordings/ARDIG052 - Para - Fade To Grey EP - 2010/02-Para-Immuno.mp3', -5.0)",
+    "('brief', 362, 'second-library/__youtube_archivists/rootzdnb/L-Side & Collette Warren - Glass House.opus', -5.0)",
+    "('brief', 504, 'second-library/__youtube_archivists/alien5ive/CELSIUS RECORDINGS [ CLS037V \uff1a INTELLIGENT MANNERS - dreaming - ] drum and bass.m4a', -8.0)",
+    "('brief', 507, 'second-library/__youtube_archivists/alien5ive/CELSIUS RECORDINGS [ CLS037V \uff1a INTELLIGENT MANNERS - dreaming - ] drum and bass.m4a', -5.0)",
+    "('brief', 510, 'second-library/__youtube_archivists/alien5ive/CELSIUS RECORDINGS [ CLS037V \uff1a INTELLIGENT MANNERS - dreaming - ] drum and bass.m4a', -1.0)",
+    "('brief', 594, 'second-library/__youtube_archivists/alien5ive/FOKUZ LIMITED RECORDINGS [ FKZLTD 029 \uff1a KRONE -   the source - ] drum and bass.m4a', -8.0)",
+    "('brief', 596, 'second-library/__youtube_archivists/alien5ive/FOKUZ LIMITED RECORDINGS [ FKZLTD 029 \uff1a KRONE -   the source - ] drum and bass.m4a', -5.0)",
+    "('brief', 604, 'second-library/__youtube_archivists/alien5ive/FOKUZ LIMITED RECORDINGS [ FKZLTD 029 \uff1a KRONE -   the source - ] drum and bass.m4a', 1.0)",
+    "('brief', 608, 'second-library/__youtube_archivists/alien5ive/FOKUZ LIMITED RECORDINGS [ FKZLTD 029 \uff1a KRONE -   the source - ] drum and bass.m4a', 5.0)",
+    "('brief', 610, 'second-library/__youtube_archivists/alien5ive/FOKUZ LIMITED RECORDINGS [ FKZLTD 029 \uff1a KRONE -   the source - ] drum and bass.m4a', 8.0)",
+    "('brief', 720, 'second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/07-Black Sun Empire-All Is Lost (Feat. Thomas Oliver & Youthstar).m4a', -8.0)",
+    "('brief', 723, 'second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/07-Black Sun Empire-All Is Lost (Feat. Thomas Oliver & Youthstar).m4a', -5.0)",
+    "('brief', 724, 'second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/07-Black Sun Empire-All Is Lost (Feat. Thomas Oliver & Youthstar).m4a', -3.0)",
+    "('brief', 725, 'second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/07-Black Sun Empire-All Is Lost (Feat. Thomas Oliver & Youthstar).m4a', -3.0)",
+    "('brief', 726, 'second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/07-Black Sun Empire-All Is Lost (Feat. Thomas Oliver & Youthstar).m4a', -1.0)",
+    "('brief', 727, 'second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/07-Black Sun Empire-All Is Lost (Feat. Thomas Oliver & Youthstar).m4a', -1.0)",
+    "('brief', 728, 'second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/07-Black Sun Empire-All Is Lost (Feat. Thomas Oliver & Youthstar).m4a', 0.0)",
+    "('brief', 729, 'second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/07-Black Sun Empire-All Is Lost (Feat. Thomas Oliver & Youthstar).m4a', 0.0)",
+    "('brief', 731, 'second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/07-Black Sun Empire-All Is Lost (Feat. Thomas Oliver & Youthstar).m4a', 1.0)",
+    "('brief', 734, 'second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/07-Black Sun Empire-All Is Lost (Feat. Thomas Oliver & Youthstar).m4a', 5.0)",
+    "('brief', 735, 'second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/07-Black Sun Empire-All Is Lost (Feat. Thomas Oliver & Youthstar).m4a', 5.0)",
+    "('brief', 737, 'second-library/Black Sun Empire - From The Shadows [BSELP006] [2012] [FLAC]/07-Black Sun Empire-All Is Lost (Feat. Thomas Oliver & Youthstar).m4a', 8.0)",
+    "('brief', 876, 'second-library/teebee & k - black science/07-Teebee & K-Wallace & Gromit.m4a', 3.0)",
+    "('brief', 878, 'second-library/teebee & k - black science/07-Teebee & K-Wallace & Gromit.m4a', 5.0)",
+    "('brief', 884, 'second-library/011_Thermal_Recordings-K-THE011-2000-sour/b-k-trackspill-sour.mp3', -5.0)",
+    "('brief', 892, 'second-library/011_Thermal_Recordings-K-THE011-2000-sour/b-k-trackspill-sour.mp3', 1.0)",
+    "('brief', 894, 'second-library/011_Thermal_Recordings-K-THE011-2000-sour/b-k-trackspill-sour.mp3', 3.0)",
+    "('brief', 896, 'second-library/011_Thermal_Recordings-K-THE011-2000-sour/b-k-trackspill-sour.mp3', 5.0)",
+    "('brief', 901, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', -8.0)",
+    "('brief', 902, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', -5.0)",
+    "('brief', 903, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', -5.0)",
+    "('brief', 909, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 0.0)",
+    "('brief', 910, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 1.0)",
+    "('brief', 911, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 1.0)",
+    "('brief', 914, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 5.0)",
+    "('brief', 915, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 5.0)",
+    "('brief', 916, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 8.0)",
+    "('brief', 917, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 8.0)",
+    "('brief', 918, 'second-library/Agressor Bunx - Bioshok EP-(NOBUSS034)-WEB-2012/01.Agressor Bunx - Deception.mp3', -8.0)",
+    "('brief', 924, 'second-library/Agressor Bunx - Bioshok EP-(NOBUSS034)-WEB-2012/01.Agressor Bunx - Deception.mp3', -1.0)",
+    "('brief', 929, 'second-library/Agressor Bunx - Bioshok EP-(NOBUSS034)-WEB-2012/01.Agressor Bunx - Deception.mp3', 1.0)",
+    "('brief', 934, 'second-library/Agressor Bunx - Bioshok EP-(NOBUSS034)-WEB-2012/01.Agressor Bunx - Deception.mp3', 8.0)"
+   ],
+   "won": 0,
+   "wrong": [
+    0,
+    0
+   ],
+   "new_wrong": [],
+   "known_pair_new": [],
+   "known_pair": [
+    0,
+    0
+   ]
+  },
+  "recall-seed-2026-other-rips-brief.json": {
+   "right": [
+    171,
+    168
+   ],
+   "lost": [
+    "('brief-other-rips', 187, 'second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3', -1.0)",
+    "('brief-other-rips', 301, 'second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/audio_couture-known_unknown-ac020-1999-sour/c-known_unknown-rollers_edit-sour.mp3', 3.0)",
+    "('brief-other-rips', 586, 'second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ HWARE 24 \uff1a BTK - be yourself - ] drum and bass.m4a', 1.0)",
+    "('brief-other-rips', 588, 'second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ HWARE 24 \uff1a BTK - be yourself - ] drum and bass.m4a', 3.0)",
+    "('brief-other-rips', 590, 'second-library/__youtube_archivists/alien5ive/RENEGADE HARDWARE [ HWARE 24 \uff1a BTK - be yourself - ] drum and bass.m4a', 5.0)",
+    "('brief-other-rips', 939, 'second-library/2. Noisia, Phace & Stu C4C - Dead Air.mp3', -5.0)"
+   ],
+   "won": 3,
+   "wrong": [
+    0,
+    0
+   ],
+   "new_wrong": [],
+   "known_pair_new": [],
+   "known_pair": [
+    0,
+    0
+   ]
+  },
+  "recall-seed-2026-other-rips.json": {
+   "right": [
+    174,
+    172
+   ],
+   "lost": [
+    "('clean-other-rips', 497, 'second-library/The_Sect-Beyond_Fear_EP-HBT001EP-Vinyl-2007-XTC/04-the_sect_feat_axis_and_trank-victim-xtc.mp3', -3.0)",
+    "('clean-other-rips', 498, 'second-library/The_Sect-Beyond_Fear_EP-HBT001EP-Vinyl-2007-XTC/04-the_sect_feat_axis_and_trank-victim-xtc.mp3', -1.0)"
+   ],
+   "won": 0,
+   "wrong": [
+    0,
+    0
+   ],
+   "new_wrong": [],
+   "known_pair_new": [],
+   "known_pair": [
+    0,
+    0
+   ]
+  },
+  "recall-seed-2026.json": {
+   "right": [
+    522,
+    513
+   ],
+   "lost": [
+    "('clean', 450, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', -8.0)",
+    "('clean', 451, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', -5.0)",
+    "('clean', 452, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', -3.0)",
+    "('clean', 453, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', -1.0)",
+    "('clean', 454, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 0.0)",
+    "('clean', 455, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 1.0)",
+    "('clean', 456, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 3.0)",
+    "('clean', 457, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 5.0)",
+    "('clean', 458, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 8.0)"
+   ],
+   "won": 0,
+   "wrong": [
+    0,
+    0
+   ],
+   "new_wrong": [],
+   "known_pair_new": [],
+   "known_pair": [
+    0,
+    0
+   ]
+  }
+ },
+ "recall_clean_hit_ratio_by_width": {
+  "side at or below -20 dB": [
+   180,
+   0.98
+  ],
+  "-20 to -15 dB": [
+   199,
+   0.94
+  ],
+  "-15 to -10 dB": [
+   92,
+   0.77
+  ],
+  "-10 to -6 dB": [
+   33,
+   0.49
+  ],
+  "above -6 dB": [
+   18,
+   0.39
+  ]
+ },
+ "note": "Per run: right confident answers [downmix, power-sum queries], the queries lost and the number won, wrong confident (query, file) pairs; recall_clean_hit_ratio_by_width: [indexed excerpts, median of the variant's best right hits over the downmix's] by the excerpt's side-to-mid ratio."
+}
