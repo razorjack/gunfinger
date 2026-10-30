@@ -5562,3 +5562,28 @@ behaviour, the second pass's default and every rule are unchanged.
   -6.7%); 1.6% more search time. Under 0242's perturbation (0253) it
   holds Echos at 602 hits where the default moves from 503 to 455. It
   fails B2 and B4: no ADR proposal.
+
+## 2026-10-30: four uploads ignored on the NAS, and a listening pack
+
+- At the user's request, the four files answered `several` in session
+  58's pack are added to the NAS `.gunfingerignore` (lines 70-76, with a
+  comment; the file before in
+  `work/listening-2026-10-30/gunfingerignore.before`): the i-witness-dnb
+  uploads `Bad Company - Spider (Optiv & BTK Remix) [CUT].m4a`, `Break -
+  Wine [CUT].m4a` and `500 Mills (Counterstrike) - Vaccine.m4a`, and the
+  3zb-gangstep-dnb upload `OMR - Bad Vibes.opus`. The NAS store is not
+  pruned: their records stay until a session prunes them with the
+  user's approval and records new NAS-scale baselines.
+- A pack for the user, `work/listening-2026-10-30/questions/07-pack-2026-10-30.json`
+  (12 questions, answers to the log only), built by
+  `work/listening-2026-10-30/make_pack.py`: whether four judged
+  `different` pairs carry one title under ADR 0022 (Cool Rock Stuff ~
+  Cool Rock Shook Ones, Tower Bass's Millennium Mix against two other
+  versions, the two Stalker versions; alignments from a new `pair`
+  report); whether Star Trails in the Stakka mix and Into Music in the
+  2003 mix are pitch rides (from read-only `identify --store-only`
+  reports, a lane per segment's speed held throughout); whether disc 1
+  of Vintage Dread 2000 is a mixed CD (its release notes call it
+  unmixed); the Planet Dust (DC Breaks Remix) cut again; and,
+  optionally, the four rips session 62's census found inverted, each
+  against its mono downmix.
