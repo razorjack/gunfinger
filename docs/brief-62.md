@@ -351,3 +351,16 @@ of the store, with a 95% interval.
   box, the runs of 0249 (panels, `recall`) and 0250 (mixes, `robust`,
   scans) ran at the same time on the machine, so 0249's file cannot come
   before 0250's runs. The timing runs alone afterwards, as registered.
+- **(04:37) `recall` done** (03:41-04:37). No wrong confident answer in
+  any of the four sets under either front end. Recalled, downmix to
+  variant: clean 522 to 513 (above), brief plays 721 to 663 (58 lost,
+  none won; 51 of them from sources whose side is within 15 dB of the
+  mid; median hit ratio 0.99 below -20 dB, 0.47 above -10 dB), other
+  rips only 174 to 172 (2 lost) and brief 171 to 168 (6 lost, 3 won).
+- **(04:38) The second panel beside the first** (a time-box decision):
+  a `shared` run used about 8 of 32 threads, so panel 2 runs now in its
+  own scratch work directory `work/s62/w2` (`work/s62/panel2.sh`, tmux
+  `s62panel2`; the same copies and saved index as `w`), and the first
+  queue (`s62panels`) is stopped as soon as panel 1's variant run logs
+  its exit, before it would repeat panel 2. Panel 1's downmix run took
+  50:31 beside `recall`, the mixes and `robust`.
