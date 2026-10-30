@@ -243,3 +243,10 @@ records could be searched by the variant's queries before a rebuild.
   `regress session-54-linux` (0:51) and `regress session-54-linux-nas`
   (6:39, beside phase A) identical, 8 of 8 reports. `cargo test
   --release` green (all suites).
+- **(02:38) Phase A done** (02:08-02:34; 0245). Every wrong confident
+  answer at NAS scale is the held-out Cool Rock Stuff excerpt (draw 41)
+  as the Mobb Deep / Urban Takover upload, which the downmix also gives
+  on the clean controls; the variant gives it in more fault rows only
+  because it keeps that excerpt there. Read against the bar as "no new
+  pair of query and file", which is how it was meant; recorded so the
+  reading is visible.
