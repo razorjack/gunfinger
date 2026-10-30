@@ -10,17 +10,18 @@ for scope and rules.
 - [x] Brief, checklist and `CLAUDE.md` committed
 - [x] Digests of `docs/pair-verdicts.txt` and the NAS clusters file in
   `work/s65/listening-digests-start.txt`
-- [~] Start build `work/bin/s65-start/`; `regress session-54-linux` and
+- [x] Start build `work/bin/s65-start/`; `regress session-54-linux` and
   `regress session-64-linux-nas` identical
 
 ## Steps
 
 - [x] 1. Pre-registration in `docs/brief-65.md`, committed before any
   masked search
-- [ ] 2. The harness: the masked residual as an opt-in query transform,
+- [x] 2. The harness: the masked residual as an opt-in query transform,
   unit tests on synthetic signals; `regress` identical with it off
-- [ ] 3. The runs at 262 tracks (NAS scale for the oracle if time allows)
-- [ ] 4. Experiments: the oracle against both arms on the development
+- [~] 3. The runs at 262 tracks (done: development and test seeds); NAS
+  scale for the oracle on the development seeds (running)
+- [~] 4. Experiments (0255, 0256 done; estimated timing not earned): the oracle against both arms on the development
   seeds; the frozen rule on the test seeds; estimated timing only if
   earned
 - [ ] 5. A note in the proposals note's §4 and the roadmap's "Possible

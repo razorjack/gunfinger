@@ -273,3 +273,18 @@ with it off).
   not hard-linked, into `work/s65/wn`, so that a plan that differed could
   not write over session 39's files. `work/s65/nas.sh 2026 2028`, tmux
   `s65nas2`, `work/bin/s65-run2`.
+- **(22:37) Two fixes during the NAS runs.** The other library's
+  records name their files without the `second-library/` prefix, so the
+  first NAS run rendered a rip from the corpus root and failed; the rip
+  now keeps its cluster's name. One restart (tmux `s65nas3`) ran for a
+  few seconds with the old binary before it was stopped. The temporary
+  WAVs' render receipts are removed with the scratch directory after
+  the cases (no result changes).
+- **(23:12) NAS scale** (`work/s65/nas.sh 2026 2028`, tmux `s65nas4`,
+  11:29 and 12:19, 14.2 GB peak): experiment 0257. All 32 plans equal
+  session 39's. Precision holds (M and MH 0 wrong confident; P and D 2,
+  the Kemal - Animation remix upload over the original, as in 0182).
+  With another rip as reference (403 of 440 cases) the mask leaves A
+  confident in 115 and the quiet and brief Bs confirmed fall to 50 of
+  64 (P 40), confident 32 (P 8). Not run: the test seeds at NAS scale
+  and estimated timing.

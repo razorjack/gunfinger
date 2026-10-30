@@ -167,6 +167,10 @@ pub fn run(
     let cases = map_in_order(&mixes, context.jobs, |((mix, path), result)| {
         mix_cases(mix, path, result, context)
     });
+    // Each WAV is deleted once decoded; their render receipts go with the
+    // directory.
+    fs::remove_dir_all(context.scratch)
+        .map_err(|error| format!("{}: {error}", context.scratch.display()))?;
     Ok(Report {
         rule: context.pilot.rule,
         timing: context.pilot.timing,
@@ -278,10 +282,14 @@ fn truth_reference(
         .cluster_of(&a.asset)
         .into_iter()
         .filter(|path| *path != a.asset && indexed.contains(path.as_str()))
-        .find_map(|path| record_of(&path));
+        .find_map(|path| record_of(&path).map(|record| (path, record)));
+    // The other library's records name their files without the prefix the
+    // index and the roots use, so the rip keeps the cluster's name.
     let line = rip
         .zip(record_of(&a.asset))
-        .and_then(|(rip, played)| rip_line(&played, &rip, context).map(|line| (rip, line)));
+        .and_then(|((path, rip), played)| {
+            rip_line(&played, &rip, context).map(|line| (path, line))
+        });
     let Some((rip, line)) = line else {
         return Ok((a.clone(), ReferenceKind::Played));
     };
@@ -289,7 +297,7 @@ fn truth_reference(
     // line.track_start_seconds) / speed`.
     let speed = line.speed.0;
     let placed = PlannedPlay {
-        asset: rip.header.source.path.clone(),
+        asset: rip,
         source_start_seconds: line.start_seconds
             + (a.source_start_seconds - line.track_start_seconds) / speed,
         speed: a.speed / speed,
