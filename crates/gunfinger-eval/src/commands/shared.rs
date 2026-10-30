@@ -22,6 +22,11 @@ pub struct SharedArgs {
     /// `start_seconds`). The report is `<plan file stem>.json`, with
     /// `shared-` put first when the stem does not start with it.
     pub plan: PathBuf,
+    /// Also measure each detection of 20 hits or more in the harmonic
+    /// view (brief 66; `harmonic.rs`), with bass-killed and damaged
+    /// queries added; the report is `<name>-harmonic.json`.
+    #[arg(long)]
+    pub harmonic: bool,
 }
 
 #[derive(clap::Args)]
@@ -58,7 +63,15 @@ pub struct VersionsArgs {
 /// key>/` (`shared::render_key`); the report is `<plan name>.json`, with
 /// `shared-` put first when the name does not start with it.
 pub fn shared(harness: &Harness, jobs: usize, args: SharedArgs) -> Result<(), String> {
-    let SharedArgs { plan: plan_file } = args;
+    let SharedArgs {
+        plan: plan_file,
+        harmonic,
+    } = args;
+    let views = if harmonic {
+        shared::Views::Harmonic
+    } else {
+        shared::Views::Off
+    };
     let plan: shared::Plan = read_json(&plan_file)?;
     let name = stem_or(&plan_file, "shared-material");
     let other_root = other_library_root(harness.other_store()?.as_ref())?;
@@ -67,7 +80,7 @@ pub fn shared(harness: &Harness, jobs: usize, args: SharedArgs) -> Result<(), St
         .paths
         .work
         .join("shared")
-        .join(format!("{name}-{}", shared::render_key(&plan)));
+        .join(format!("{name}-{}", shared::render_key(&plan, views)));
     eprintln!("queries rendered in {}", renders.display());
     let report = shared::run(
         &plan,
@@ -84,12 +97,17 @@ pub fn shared(harness: &Harness, jobs: usize, args: SharedArgs) -> Result<(), St
             matching: &harness.search.matching,
             padding: &harness.padding(&UNCHANGED_INDEX)?,
             jobs,
+            views,
         },
     )?;
     let report_name = if name.starts_with("shared") {
         name
     } else {
         format!("shared-{name}")
+    };
+    let report_name = match views {
+        shared::Views::Off => report_name,
+        shared::Views::Harmonic => format!("{report_name}-harmonic"),
     };
     write_json(
         &harness.reports().join(format!("{report_name}.json")),

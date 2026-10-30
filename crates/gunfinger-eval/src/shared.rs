@@ -20,7 +20,11 @@
 //! - `blend`: the 20 s `beyond` query with the plan's partner mixed in at
 //!   equal level over its last 20 s, masking the distinctive material
 //!   (only when the plan names a partner);
-//! - `break`: the passage's first 5 s repeated to 60 and 240 s.
+//! - `break`: the passage's first 5 s repeated to 60 and 240 s;
+//! - with `--harmonic` only (brief 66), true plays at fewer hits:
+//!   `killed`, the 30 s `alone` and 20 s `beyond` queries through a DJ's
+//!   bass kill, and `damaged`, robust's combined damage from the
+//!   passage's start at 3% fast (only when the plan names a partner).
 //!
 //! Each runs against three indexes: everything; the played recording left
 //! out (its duplicate cluster and the plan's other files of it), the
@@ -28,7 +32,9 @@
 //! left out while another indexed rip of it stays. With a larger library
 //! (`--other-peaks-dir`) every index also holds its records (`padding`),
 //! and its files are rendered from its root. A query that cannot be
-//! rendered is reported with its error and not searched.
+//! rendered is reported with its error and not searched. With
+//! `--harmonic` each detection of `harmonic::MIN_HITS` or more is also
+//! measured in the harmonic view (`harmonic.rs`).
 
 use std::collections::BTreeSet;
 use std::fs;
@@ -46,12 +52,15 @@ use gunfinger_core::store::PeakStore;
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
+use crate::harmonic::{self, Analysed, Measured, Placement};
 use crate::matching::Matching;
 use crate::padding::{OTHER_LIBRARY_PREFIX, Padding};
 use crate::render::{
     Encoding, Playback, RENDER_RATE, encode, limited, render_excerpt, render_samples, rms,
 };
+use crate::robust::{COMBINED_ENCODING, render_combined};
 use crate::scoring::Level;
+use crate::sweep::EXCERPT_SECONDS;
 use crate::verifier::{Verification, Verifier};
 
 const ALONE_SECONDS: [f64; 3] = [10.0, 20.0, 30.0];
@@ -70,6 +79,19 @@ const WEAK_RIP_FILTER: &str = "highpass=f=40,lowpass=f=3000,lowpass=f=3000,bass=
 const WEAK_RIP_ENCODING: Encoding = Encoding::Mp3(64);
 const BREAK_SECONDS: f64 = 5.0;
 const BREAK_LOOPED_SECONDS: [f64; 2] = [60.0, 240.0];
+/// A DJ mixer's bass kill: 24 dB an octave below 250 Hz.
+const BASS_KILL_FILTER: &str = "highpass=f=250,highpass=f=250";
+/// The speed of the `damaged` query, so that the harmonic view's render
+/// at a detection's speed is exercised.
+const DAMAGED_SPEED: f64 = 1.03;
+
+/// Whether detections are also measured in the harmonic view, with the
+/// queries that only it needs.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Views {
+    Off,
+    Harmonic,
+}
 
 /// The scenarios to run, as written by hand or by
 /// `scripts/analysis/shared_panel.py`.
@@ -160,6 +182,12 @@ pub struct SharedFound {
     /// analysed by both channels (`--front-end power-sum-queries`): the
     /// verifier analyses one.
     pub verified: Option<Verification>,
+    /// The harmonic view (`--harmonic`, detections of `harmonic::MIN_HITS`
+    /// or more), or why it could not be measured.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub views: Option<Measured>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub views_error: Option<String>,
 }
 
 /// How a query is cut from the played file.
@@ -173,6 +201,18 @@ pub enum Kind {
     Weak,
     Blend,
     Break,
+    Killed,
+    Damaged,
+}
+
+impl Kind {
+    /// The extension of the query's rendered file.
+    fn extension(self) -> &'static str {
+        match self {
+            Kind::Damaged => COMBINED_ENCODING.extension(),
+            _ => "mp3",
+        }
+    }
 }
 
 /// A query to render: where in the played file, how long, looped or not.
@@ -208,6 +248,7 @@ pub struct Options<'a> {
     pub matching: &'a Matching,
     pub padding: &'a Padding,
     pub jobs: usize,
+    pub views: Views,
 }
 
 pub fn run(
@@ -240,7 +281,7 @@ pub fn run(
     };
     let mut results = Vec::new();
     for scenario in &plan.scenarios {
-        let queries = queries(scenario, plan.blend_partner.is_some());
+        let queries = queries(scenario, plan.blend_partner.is_some(), options.views);
         let rendered = render_each(roots, scenario, &queries, plan.blend_partner.as_ref(), dir);
         let roles = Roles {
             played: recording(clusters, &scenario.played, &scenario.played_recording),
@@ -254,6 +295,7 @@ pub fn run(
                     .index(options.padding.index(&records, &profile, &left_out)?),
                 roles: &roles,
                 verifier: &verifier,
+                roots,
                 dir,
                 options,
             };
@@ -314,6 +356,7 @@ struct QuerySearcher<'a> {
     index: Index,
     roles: &'a Roles<'a>,
     verifier: &'a Verifier<'a>,
+    roots: &'a Roots<'a>,
     dir: &'a Path,
     options: &'a Options<'a>,
 }
@@ -323,16 +366,59 @@ impl QuerySearcher<'_> {
     /// each measured with the peak verifier under the downmix front end
     /// only (another front end decodes every query as two channels).
     fn search(&self, query: &Query) -> Result<Vec<SharedFound>, String> {
-        let path = self.dir.join(format!("{}.mp3", query.name));
+        let path = query_path(self.dir, query);
         let audio = self.options.matching.decode_query(&path)?;
         let detections =
             self.options
                 .matching
                 .search_audio(&self.index, &audio, self.options.ladder, 1);
+        let measured = detections
+            .iter()
+            .any(|detection| self.measured(detection))
+            .then(|| audio.mono())
+            .flatten()
+            .map(|samples| Analysed::of(samples, &Profile::CURRENT));
         Ok(detections
             .iter()
-            .map(|detection| self.found(detection, audio.mono()))
+            .map(|detection| {
+                let mut found = self.found(detection, audio.mono());
+                if let Some(query) = measured.as_ref().filter(|_| self.measured(detection)) {
+                    match self.views(detection, query) {
+                        Ok(views) => found.views = views,
+                        Err(error) => found.views_error = Some(error),
+                    }
+                }
+                found
+            })
             .collect())
+    }
+
+    /// Whether `detection` is measured in the harmonic view.
+    fn measured(&self, detection: &Detection) -> bool {
+        self.options.views == Views::Harmonic && detection.evidence.hits >= harmonic::MIN_HITS
+    }
+
+    /// `detection` in the harmonic view, its file's reference rendered
+    /// along its line; `None` for a span with no line.
+    fn views(&self, detection: &Detection, query: &Analysed) -> Result<Option<Measured>, String> {
+        let Some(placement) = Placement::of(detection) else {
+            return Ok(None);
+        };
+        let asset = &self.index.asset(detection.asset).path;
+        let reference = harmonic::reference(
+            &self.roots.path(asset)?,
+            &placement,
+            detection.playback,
+            self.options.matching,
+            &self.dir.join("references"),
+        )?;
+        let profile = Profile::CURRENT;
+        Ok(Some(harmonic::measure(
+            query,
+            &Analysed::of(&reference, &profile),
+            &placement,
+            &profile,
+        )))
     }
 
     fn found(&self, detection: &Detection, samples: Option<&[f32]>) -> SharedFound {
@@ -353,8 +439,15 @@ impl QuerySearcher<'_> {
                 self.verifier
                     .verify(&self.index, detection, samples, &Profile::CURRENT)
             }),
+            views: None,
+            views_error: None,
         }
     }
+}
+
+/// Where `query` is rendered.
+fn query_path(dir: &Path, query: &Query) -> PathBuf {
+    dir.join(format!("{}.{}", query.name, query.kind.extension()))
 }
 
 /// A recording's files: `file`'s duplicate cluster and `also`.
@@ -364,7 +457,7 @@ pub(crate) fn recording(clusters: &Clusters, file: &str, also: &[String]) -> BTr
     files
 }
 
-fn queries(scenario: &Scenario, with_partner: bool) -> Vec<Query> {
+fn queries(scenario: &Scenario, with_partner: bool, views: Views) -> Vec<Query> {
     let start = scenario.passage_start_seconds;
     let passage = scenario.passage_end_seconds - start;
     let mut queries = Vec::new();
@@ -445,6 +538,31 @@ fn queries(scenario: &Scenario, with_partner: bool) -> Vec<Query> {
             seconds,
         });
     }
+    if views == Views::Harmonic {
+        queries.push(Query {
+            kind: Kind::Killed,
+            name: format!("{}-killed-alone-{weak_alone:.0}s", scenario.name),
+            start_seconds: start,
+            source_seconds: weak_alone,
+            seconds: weak_alone,
+        });
+        queries.push(Query {
+            kind: Kind::Killed,
+            name: format!("{}-killed-beyond-{CONTEXT_SECONDS:.0}s", scenario.name),
+            start_seconds: start,
+            source_seconds: with_context,
+            seconds: with_context,
+        });
+        if with_partner {
+            queries.push(Query {
+                kind: Kind::Damaged,
+                name: format!("{}-damaged", scenario.name),
+                start_seconds: start,
+                source_seconds: DAMAGED_SPEED * EXCERPT_SECONDS,
+                seconds: EXCERPT_SECONDS,
+            });
+        }
+    }
     queries
 }
 
@@ -456,7 +574,7 @@ fn render(
     partner: Option<&Partner>,
     dir: &Path,
 ) -> Result<(), String> {
-    let path = dir.join(format!("{}.mp3", query.name));
+    let path = query_path(dir, query);
     if crate::render::is_complete(&path) {
         return Ok(());
     }
@@ -495,6 +613,27 @@ fn render(
                 Some(WEAK_RIP_FILTER),
             )?;
             encode(&samples, None, WEAK_RIP_ENCODING, &path)
+        }
+        Kind::Killed => {
+            let samples = render_samples(
+                &source,
+                query.start_seconds,
+                query.seconds,
+                native,
+                Some(BASS_KILL_FILTER),
+            )?;
+            encode(&samples, None, Encoding::Mp3(128), &path)
+        }
+        Kind::Damaged => {
+            let partner = partner.ok_or("a damaged query needs the plan's blend_partner")?;
+            render_combined(
+                &source,
+                query.start_seconds,
+                DAMAGED_SPEED,
+                (&roots.path(&partner.file)?, partner.start_seconds),
+                &query.name,
+                &path,
+            )
         }
         Kind::Blend => {
             let partner = partner.ok_or("a blend query needs the plan's blend_partner")?;
@@ -583,12 +722,17 @@ fn render_each<'q>(
 /// A digest of what the plan's queries sound like besides the source files:
 /// the plan and the settings above. Rendered queries are kept in a
 /// directory named with it, so a changed plan or setting renders afresh.
-pub fn render_key(plan: &Plan) -> String {
-    let settings = format!(
+pub fn render_key(plan: &Plan, views: Views) -> String {
+    let mut settings = format!(
         "{ALONE_SECONDS:?} {LOOPED_SECONDS:?} {BEYOND_SECONDS:?} {BEFORE_SECONDS:?} \
          {BEFORE_PASSAGE_SECONDS} {WEAK_ALONE_SECONDS} {CONTEXT_SECONDS} {WEAK_RIP_FILTER} \
          {WEAK_RIP_ENCODING:?} {BREAK_SECONDS} {BREAK_LOOPED_SECONDS:?} {RENDER_RATE}"
     );
+    if views == Views::Harmonic {
+        settings.push_str(&format!(
+            " {BASS_KILL_FILTER} {DAMAGED_SPEED} {EXCERPT_SECONDS} {COMBINED_ENCODING:?}"
+        ));
+    }
     let plan = serde_json::to_vec(&(&plan.blend_partner, &plan.scenarios)).unwrap_or_default();
     format!("{:016x}", fnv1a(&[settings.as_bytes(), &plan].concat()))
 }
@@ -659,7 +803,7 @@ mod tests {
 
     #[test]
     fn queries_alone_are_no_longer_than_the_passage() {
-        let queries = queries(&scenario(18.0), false);
+        let queries = queries(&scenario(18.0), false, Views::Off);
 
         let alone: Vec<f64> = queries
             .iter()
@@ -677,7 +821,7 @@ mod tests {
 
     #[test]
     fn context_before_the_passage_is_the_played_files_own_material() {
-        let queries = queries(&scenario(45.0), false);
+        let queries = queries(&scenario(45.0), false, Views::Off);
 
         assert_eq!(
             of_kind(&queries, Kind::Before),
@@ -691,15 +835,15 @@ mod tests {
         early.passage_start_seconds = 8.0;
         early.passage_end_seconds = 26.0;
 
-        let queries = queries(&early, false);
+        let queries = queries(&early, false, Views::Off);
 
         assert_eq!(of_kind(&queries, Kind::Before), [(3.0, 23.0, 23.0)]);
     }
 
     #[test]
     fn a_weak_rip_repeats_the_longest_alone_and_the_20_s_beyond_queries() {
-        let long = queries(&scenario(45.0), false);
-        let short = queries(&scenario(18.0), false);
+        let long = queries(&scenario(45.0), false, Views::Off);
+        let short = queries(&scenario(18.0), false, Views::Off);
 
         assert_eq!(
             of_kind(&long, Kind::Weak),
@@ -713,16 +857,16 @@ mod tests {
 
     #[test]
     fn a_blend_is_made_only_with_a_partner() {
-        assert!(of_kind(&queries(&scenario(18.0), false), Kind::Blend).is_empty());
+        assert!(of_kind(&queries(&scenario(18.0), false, Views::Off), Kind::Blend).is_empty());
         assert_eq!(
-            of_kind(&queries(&scenario(18.0), true), Kind::Blend),
+            of_kind(&queries(&scenario(18.0), true, Views::Off), Kind::Blend),
             [(100.0, 38.0, 38.0)]
         );
     }
 
     #[test]
     fn a_break_repeats_the_passages_first_seconds() {
-        let queries = queries(&scenario(18.0), false);
+        let queries = queries(&scenario(18.0), false, Views::Off);
 
         assert_eq!(
             of_kind(&queries, Kind::Break),
@@ -732,7 +876,7 @@ mod tests {
 
     #[test]
     fn query_names_are_distinct() {
-        let queries = queries(&scenario(45.0), true);
+        let queries = queries(&scenario(45.0), true, Views::Off);
         let names: BTreeSet<&str> = queries.iter().map(|query| query.name.as_str()).collect();
 
         assert_eq!(names.len(), queries.len());
@@ -824,7 +968,7 @@ mod tests {
             other: None,
         };
         let scenario = scenario(60.0);
-        let queries = queries(&scenario, false);
+        let queries = queries(&scenario, false, Views::Off);
 
         let rendered = render_each(&roots, &scenario, &queries, None, &dir);
 
@@ -843,7 +987,56 @@ mod tests {
             }],
         };
 
-        assert_eq!(render_key(&plan(160.0)), render_key(&plan(160.0)));
-        assert_ne!(render_key(&plan(160.0)), render_key(&plan(161.0)));
+        assert_eq!(
+            render_key(&plan(160.0), Views::Off),
+            render_key(&plan(160.0), Views::Off)
+        );
+        assert_ne!(
+            render_key(&plan(160.0), Views::Off),
+            render_key(&plan(161.0), Views::Off)
+        );
+        assert_ne!(
+            render_key(&plan(160.0), Views::Off),
+            render_key(&plan(160.0), Views::Harmonic)
+        );
+    }
+
+    #[test]
+    fn only_the_harmonic_view_adds_killed_and_damaged_queries() {
+        let off = queries(&scenario(45.0), true, Views::Off);
+        let on = queries(&scenario(45.0), true, Views::Harmonic);
+
+        assert!(of_kind(&off, Kind::Killed).is_empty());
+        assert!(of_kind(&off, Kind::Damaged).is_empty());
+        let names = |queries: &[Query]| -> Vec<String> {
+            queries.iter().map(|query| query.name.clone()).collect()
+        };
+        assert_eq!(names(&on[..off.len()]), names(&off));
+        // The 30 s alone and the 20 s beyond queries, killed.
+        assert_eq!(
+            of_kind(&on, Kind::Killed),
+            vec![(100.0, 30.0, 30.0), (100.0, 65.0, 65.0)]
+        );
+        assert_eq!(
+            of_kind(&on, Kind::Damaged),
+            vec![(100.0, DAMAGED_SPEED * EXCERPT_SECONDS, EXCERPT_SECONDS)]
+        );
+        let without_partner = queries(&scenario(45.0), false, Views::Harmonic);
+        assert!(of_kind(&without_partner, Kind::Damaged).is_empty());
+    }
+
+    #[test]
+    fn a_damaged_query_is_rendered_as_robusts_combined_damage_is_encoded() {
+        let queries = queries(&scenario(45.0), true, Views::Harmonic);
+        let dir = Path::new("renders");
+        let paths: Vec<PathBuf> = queries.iter().map(|query| query_path(dir, query)).collect();
+
+        assert!(paths.iter().any(|path| path.ends_with("x-damaged.m4a")));
+        assert!(
+            paths
+                .iter()
+                .filter(|path| !path.ends_with("x-damaged.m4a"))
+                .all(|path| path.extension().is_some_and(|extension| extension == "mp3"))
+        );
     }
 }

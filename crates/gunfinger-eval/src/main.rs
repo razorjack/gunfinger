@@ -11,6 +11,7 @@ mod files;
 mod fullest;
 mod gaps;
 mod grid;
+mod harmonic;
 mod harness;
 mod hash_cost;
 mod holders;

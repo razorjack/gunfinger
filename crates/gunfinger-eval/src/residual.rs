@@ -176,7 +176,7 @@ fn bands(bins: usize) -> Vec<Range<usize>> {
 /// The STFT of `samples` at the profile's window and hop: frame `i`
 /// covers samples `i * hop .. i * hop + fft_size`, as the core's
 /// spectrogram does.
-fn spectra(samples: &[f32], profile: &Profile) -> Vec<Vec<Complex<f32>>> {
+pub(crate) fn spectra(samples: &[f32], profile: &Profile) -> Vec<Vec<Complex<f32>>> {
     let size = profile.fft_size;
     let window = hann(size);
     let fft = RealFftPlanner::<f32>::new().plan_fft_forward(size);
@@ -211,7 +211,11 @@ fn powers(spectrum: &[Complex<f32>]) -> Vec<f32> {
 /// Weighted overlap-add: each frame's inverse transform, windowed again,
 /// summed and divided by the sum of the squared windows, which gives back
 /// the original samples when no frame was changed.
-fn overlap_add(spectra: &[Vec<Complex<f32>>], mixture: &[f32], profile: &Profile) -> Vec<f32> {
+pub(crate) fn overlap_add(
+    spectra: &[Vec<Complex<f32>>],
+    mixture: &[f32],
+    profile: &Profile,
+) -> Vec<f32> {
     let size = profile.fft_size;
     let window = hann(size);
     let ifft = RealFftPlanner::<f32>::new().plan_fft_inverse(size);
