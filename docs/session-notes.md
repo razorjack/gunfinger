@@ -12487,3 +12487,129 @@ store.
   `docs/pair-verdicts.txt`, the answer log and the NAS clusters file at
   their start digests (`work/s59/listening-digests-end.txt`); no answer
   log written, no manifest or panel changed.
+
+## Session 60
+
+### What changed
+
+The product did not change: master's search is the one the session
+started with, and no code was committed. Proposal 2 of the 2026-10-29
+note (reject impossible alignments before scattering hits) was
+pre-registered, prototyped, replayed and timed, and rejected by the
+registered bar. Experiments 0243 and 0244; the roadmap's "Where search
+time goes", the low-bandwidth note ("Session 60") and the proposals
+note (§2) record the result.
+
+In short: a sketch counted from every hit of a part (a row of folded
+pairs per asset) never rejects an asset the pre-filter would pass, and
+the lines and reports stay identical, but at sizes that fit the cache it
+passes most hits, and at 1,024 slots (1 MiB a worker) it passes 21% of
+them and makes the NAS-scale search 31-32% slower at 32 workers.
+
+### The sketch
+
+Before a part is grouped, `PartSketch::flag` counts each hit in its
+asset's row of `M + 1` pair bytes, its slot folded mod `M` (`M` divides
+4,096), with `OffsetSlots`' word add, wrap bytes and test; an asset is
+flagged when one of its pair bytes reaches 3. `group_flagged` counts and
+scatters only flagged assets' hits, in today's order; unflagged assets
+have no grouped hits. It is conservative: folding only adds counts,
+rows are per asset, bytes are exact until their asset is flagged and the
+flag is sticky, and with inexact phases the search takes today's path
+(the brief's proof obligation; property tests; a read-only review found
+no input that breaks it).
+
+### Experiments 0243 and 0244
+
+| Stakka scan, the Linux machine | Today | F64 | F256 | F1024 |
+|---|--:|--:|--:|--:|
+| Assets with 3 hits flagged, NAS scale (replays) | 2.05% pass the filter | 91.3% | 54.2% | 12.4% |
+| Their hits flagged, NAS scale | 4.3% | 97.1% | 70.2% | 21.3% |
+| `lines` on one thread, NAS replays | 0.822 s | +33.7% | +35.2% | +13.1% |
+| Search at NAS scale, 32 jobs | 23.60, 24.16 s | | | 30.85, 31.97 s |
+| The same, 16 jobs | 29.20, 29.33 s | | | 32.97, 32.93 s |
+| 262 tracks, 32 jobs | 6.53, 6.50 s | | | 6.74, 6.53 s |
+
+Lines were identical, bit for bit and in order, in all 787 replayed
+windows under every layout, and every Stakka report of the timed runs
+equalled its baseline's. The stage timers (NAS scale, 32 jobs): the
+sketch's own pass 300 s of CPU; the pre-filter 136-137 s down to 33 s;
+grouping 262-265 s down to 195-196 s (it still reads every hit twice to
+test its flag); taking 85-87 s up to 135 s (by inference, the 1 MiB
+table evicts the lists and parts).
+
+### Decided this session, open to change
+
+- Three layouts were registered and replayed; only the replay winner
+  (F1024, lowest replay CPU) was timed in full searches, as registered.
+  No fourth size or hashed layout was tried: by inference from 0243 (the
+  fewer slots, the more hits pass) and by a uniform estimate for a shared
+  table, neither would both fit the cache and reject most assets.
+- The equality checks registered for adoption beyond the Stakka scans
+  (the prototype's `regress`, the other two development scans, the CLI's
+  JSON) were not run once the speed bar failed.
+- The prototype is not kept in the tree (no dead code); its diff, with
+  the tests and the replay harness, is `work/s60/sketch.diff`.
+- The Mac was not available: no macOS timings (the proposal asks for
+  them).
+
+### Questions this leaves for us
+
+- Grouping's scatter remains the largest stage (40% of the first pass at
+  32 workers, 0214; 40.1% again in this session's timers). Proposals that
+  avoid it must avoid reading every hit a second time, which this sketch
+  did not.
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: Star Trails, Into Music.
+
+### Handoff for the next session
+
+1. No change to master's search. Baselines stay `session-54-linux` and
+   `session-54-linux-nas`; the start regressions with today's master
+   were identical, so the restructuring of 2026-10-28 changed no report.
+2. Replay data: `work/s60/replay/nas/` (80 windows, 544 MB) and
+   `replay/corpus/` (707 windows, 87 MB), real windows of the Stakka scan
+   in the capture format of `work/s60/capture.diff`; the replay harness
+   (`replay_captured_windows`, `replay_dense_windows`, ignored tests) is
+   in `work/s60/sketch.diff` and can replay any other change to `lines`.
+3. Test gaps the review found in the prototype (left, since it is not
+   merged): the random test's phases do not change the offsets it
+   builds; the wrap test's "assets 0-6 unflagged" holds trivially; no
+   test compares a flagged asset's grouped slice with `group_part`'s.
+
+### What else to know
+
+- Scripts (`sh`, from the repository root): `work/s60/start.sh`,
+  `capture.sh`, `ab.sh TAG SKETCH`, `timers.sh`, `final.sh`; `run.sh`,
+  `same.py`. Builds: `work/bin/s60-start/` (master), `s60-capture/`,
+  `s60-sketch/` (`GUNFINGER_S60_SKETCH` = 0, 64, 256 or 1024 picks the
+  layout; 0 is off), `s60-tbase/`, `s60-tsketch/` (timers),
+  `s60-final/` (= `s60-start`). Worktrees `work/s60/wt`, `proto`,
+  `tbase`, `tsketch` (detached; scratch). Scratch work directory
+  `work/s60/w` (the saved NAS index hard-linked).
+- Protocol slips, recorded in the brief: the pre-registration's stamp
+  read 01:30 (committed 01:23:31, before any timing); the A B B A run
+  was first started before 0243 was written, stopped after 13 s before
+  any scan finished, and started again after 0243 was committed.
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. Only the Stakka development mix
+  was searched (and `regress`'s scans). Nothing ran on the candidate
+  mixes of 0065 or on the NAS root's broadcast file. Nothing was written
+  to the NAS, to `work/peaks` or to the NAS store.
+- A read-only review by a separate agent (01:41-01:48) confirmed the
+  proof and every number, and found wording and precision points, all
+  fixed (brief 60, 01:50): the slip's description, the claim that a
+  table with fewer slots than the filter cannot reject (F1024 rejects
+  87.6% of the assets), the bar's four failed counts, the unrun equality checks, the
+  machine and scale beside each time, "every report" where only F1024
+  ran reports, two ranges (100-101 s, 67-69 s), the stage timers' runs.
+- Final checks (01:40-01:50) with `work/bin/s60-final/` (built from
+  master, `cmp`-equal to `s60-start`): `scripts/check.sh` green (4:51);
+  `regress session-54-linux` (0:50) and `regress session-54-linux-nas`
+  (3:47) identical, 8 of 8 reports equal to their baselines' apart from
+  `wall_seconds`; `docs/pair-verdicts.txt`, the answer log and the NAS
+  clusters file at their start digests
+  (`work/s60/listening-digests-end.txt`); no answer log written, no
+  manifest or panel changed.

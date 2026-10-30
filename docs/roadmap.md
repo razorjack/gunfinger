@@ -719,13 +719,14 @@ cases. None is an adopted decision or an experiment result.
   counted from every hit before grouping, flags each asset the
   pre-filter would pass (proved and tested), and only flagged assets
   are grouped; lines identical in every replayed window and report.
-  The table must hold about as many slots per asset as the filter to
-  reject: with 64, 256 or 1,024 folded slots it flags 91%, 54% and 12%
+  The fewer folded slots, the more it passes: with 64, 256 or 1,024
+  folded slots it flags 91%, 54% and 12%
   of the NAS-scale assets with 3 hits (97%, 70%, 21% of their hits;
   the filter passes 2%; 0243). The 1,024-slot table (1 MiB a worker)
-  made the search 31-32% slower at 32 workers and 12-13% at 16: the
-  sketch's own pass cost 300 s of CPU, more than the filter and
-  grouping it spared (170 s), and by inference its table evicts the
+  made the search at NAS scale 31-32% slower at 32 workers and 12-13%
+  at 16 (on the Linux machine; the Mac not measured): the sketch's own
+  pass cost 300 s of CPU, more than the filter and grouping it spared
+  (170-173 s), and by inference its table evicts the
   lists and parts, so taking cost 50 s more (0244). Not adopted.
 - **Behaviour at scale.** *(larger library; session 50: copies of
   records do not move candidates or answers, 0222-0224; session 57:

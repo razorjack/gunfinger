@@ -133,10 +133,11 @@ unchanged; report scratch bytes per worker and peak memory. Any persisted
 alternative would need a separate bytes-per-posting justification.
 
 *(Session 60, measured and rejected.)* Dense tables of folded pairs per
-asset, at 64, 256 and 1,024 slots, kept every line and report, but
-passed 97%, 70% and 21% of the NAS-scale hits; the largest made the
-search 31-32% slower at 32 workers and 12-13% at 16 (experiments 0243
-and 0244). Hashed layouts were not tried: by a uniform estimate (not
+asset, at 64, 256 and 1,024 slots, kept every line in the replays (and,
+at 1,024 slots, every report compared), but passed 97%, 70% and 21% of
+the NAS-scale hits; the largest made the search at NAS scale 31-32%
+slower at 32 workers and 12-13% at 16, on the Linux machine (the Mac
+was not measured; experiments 0243 and 0244). Hashed layouts were not tried: by a uniform estimate (not
 measured), a table shared by a part's assets needs many more cells than
 the part's 45,000 hits to reject an asset of 44 hits.
 

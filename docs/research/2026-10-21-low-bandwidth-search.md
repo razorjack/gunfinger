@@ -269,15 +269,17 @@ start build's apart from `wall_seconds`.
   54% and 12% of the NAS-scale assets with 3 hits (97%, 70%, 21% of
   their hits), against the filter's 2%; on one thread every size made
   `lines` slower (0243).
-- The 1,024-slot table (1 MiB a worker): the search 30.9-32.0 s instead
+- The 1,024-slot table (1 MiB a worker): the search at NAS scale 30.9-32.0 s instead
   of 23.6-24.2 s at 32 workers and 32.9-33.0 s instead of 29.2-29.3 s
   at 16. The sketch's pass took 300 s of CPU; the filter fell from 136 s
   to 33 s and grouping from 262-265 s to 195-196 s, and taking rose
   from 85-87 s to 135 s, by inference because the table evicts the
   lists and parts (0244).
-- Left: a sketch small enough for a worker's share of the cache cannot
-  reject the typical asset of 44 hits; the scatter is still grouping's
-  cost.
+- Left: the fewer folded slots, the more assets the sketch passes (at
+  1,024 slots six times the filter's share, at 256 slots, about a
+  worker's share of L2, 54%); by inference no size both fits the cache
+  and rejects most of the typical assets of 44 hits. The scatter is
+  still grouping's cost.
 
 `regress` prints what changed and returns success either way
 (`regress.rs`, `compare`): read its output, do not rely on its exit

@@ -5439,3 +5439,31 @@ notes "Session 59"; experiment 0242. Gunfinger's behaviour is unchanged
   tells a version starting partway into the original from a change of
   record before a second pack. Nothing was ignored or pruned: adding the
   four files to the NAS `.gunfingerignore` is the user's call.
+
+## 2026-10-30: session 60, a sketch before grouping, measured and rejected
+
+Brief `docs/brief-60.md`, checklist `docs/session-60-checklist.md`;
+notes "Session 60"; experiments 0243 and 0244. Gunfinger's behaviour and
+code are unchanged.
+
+- 01:18 start at `55dcee7`, clean. Start build `work/bin/s60-start/`
+  from master; both regressions identical (0:51; 4:30): the
+  restructuring of 2026-10-28 changed no report.
+- Proposal 2 of the 2026-10-29 note, pre-registered (`4d9687a`): a row
+  of folded pair counts per asset of a part, counted from every hit
+  before grouping, so that only assets the pre-filter could pass are
+  grouped. Conservative by proof and tests; lines identical in all 787
+  replayed windows and every timed report.
+- Replays (0243): at NAS scale 64, 256 and 1,024 folded slots flag 91%,
+  54% and 12% of the assets with 3 hits (97%, 70%, 21% of their hits),
+  against the filter's 2%; on one thread every size is slower.
+- Full searches (0244, F1024, the Linux machine): the Stakka scan at NAS
+  scale 30.9-32.0 s instead of 23.6-24.2 s at 32 workers, 32.9-33.0 s
+  instead of 29.2-29.3 s at 16; the sketch's pass costs 300 s of CPU,
+  more than the 170-173 s of filtering and grouping it spares. Not
+  adopted; the Mac was not measured.
+- Final checks with `work/bin/s60-final/` (= `s60-start`):
+  `scripts/check.sh` green (4:51); both regressions identical (0:50;
+  3:47); the verdicts file, the NAS clusters file and the answer log at
+  their start digests. A read-only review confirmed the proof and the
+  numbers; its wording and precision points are fixed.

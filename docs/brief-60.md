@@ -231,7 +231,8 @@ the replays' pass rates (0243).
 - **(01:24) Start checks.** `regress session-54-linux` (0:51) and
   `regress session-54-linux-nas` (4:30, beside the capture scan)
   identical: 8 of 8 reports equal to their baselines' apart from
-  `wall_seconds`. The restructuring of 2026-10-28 changed nothing.
+  `wall_seconds`. The restructuring of 2026-10-28 changed no report of
+  either regression.
 - **(01:27) Replays** (0243): lines identical in every window under all
   three layouts; at NAS scale F64, F256 and F1024 flag 91.3%, 54.2% and
   12.4% of the assets with 3 hits (97.1%, 70.2%, 21.3% of their hits),
@@ -239,14 +240,21 @@ the replays' pass rates (0243).
   today's. F1024 wins the replays (registered rule) and goes to full
   searches.
 - **(01:28) A slip, corrected.** The A B B A run (tmux `s60ab1`) was
-  started before 0243 was written; it was stopped after about a minute,
-  its partial output moved to `work/s60/aborted/`, 0243 written and
-  committed, and the run started again.
+  started at 01:28:18, before 0243 was written; it was stopped after
+  about 13 s, before its first scan finished (its empty output directory
+  moved to `work/s60/aborted/`), 0243 written and committed, and the run
+  started again at 01:29:26. 0243's first commit (`ae17e52`) had 42
+  lines; it was trimmed to 40 (`aa39682`) just before the restart.
 - **(01:35) Full searches** (0244; tmux `s60ab2`, `work/s60/ab.sh r1
   1024`, 01:29-01:35): F1024 is 30.7% and 32.4% slower at NAS scale with
   32 jobs, 12.3-12.9% with 16, and 0.3% faster to 3.2% slower at 262
-  tracks; every report identical. The bar fails.
-- **(01:36) Stage timers** (exploratory, registered "if time allows";
+  tracks, with 5-7% more peak memory there; every Stakka report
+  identical. The bar fails on four counts (NAS scale at 32 and at 16
+  jobs, 262 tracks' time and memory). The other registered equality
+  checks (the prototype's `regress`, the other two development scans,
+  the CLI's JSON) were not run once the speed bar failed.
+- **(01:36) Stage timers** (exploratory, registered "if time allows" as
+  one run each; run A B B A, two each;
   `work/s60/timers.sh`, builds `s60-tbase` and `s60-tsketch`, the
   sketch's own pass timed apart): the sketch 300 s of CPU, the filter
   136 s down to 33 s, grouping 262-265 s down to 195-196 s, taking 85-87
@@ -255,8 +263,21 @@ the replays' pass rates (0243).
   is not kept in the tree (AGENTS.md: no dead code); its diff with the
   tests and the replay harness is `work/s60/sketch.diff`, the capture
   build's `work/s60/capture.diff`, the timers' `work/s60/tsketch.diff`.
-  No further layout is tried: the registration allowed three, and 0243
-  shows the trade-off (a table small enough for the cache passes most
-  hits) that a fourth size would not escape. The roadmap's "Where
+  No further layout is tried: the registration allowed three, and by
+  inference from 0243 (the fewer folded slots, the more hits pass) a
+  fourth size would not escape the trade-off. The roadmap's "Where
   search time goes", the low-bandwidth note and the proposals note get
   the negative result.
+- **(01:48) The review** (a read-only agent, 01:41-01:48): the proof and
+  every number confirmed; fixed (01:50): this brief's account of the
+  slip, the stage timers' runs and two claims; 0243's and the notes'
+  claim that a smaller table cannot reject (F1024 rejects 87.6% of the
+  assets), now "the fewer slots, the more it passes"; 0244's bar (four
+  failed counts), its unrun equality checks, the machine, the scale and
+  two ranges; the roadmap's and the proposals note's scale, machine and
+  "every report". The prototype's test gaps it found are listed in the
+  handoff (the prototype is not merged).
+- **(01:50) Final checks** (`work/s60/final.sh`, tmux `s60final`):
+  `scripts/check.sh` green (4:51); `work/bin/s60-final/` `cmp`-equal to
+  `s60-start`; both regressions identical (0:50; 3:47), 8 of 8 reports;
+  the three digests unchanged.

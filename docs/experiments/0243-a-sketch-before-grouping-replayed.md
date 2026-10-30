@@ -4,7 +4,7 @@
 a part are first counted in a small table of folded pairs per asset, and
 only the assets it flags are grouped, how many assets and hits does it
 flag, are the lines unchanged, and what does `lines` cost?
-**Method.** Pre-registered (brief 60, `4d9687a`). A diagnostic build, never
+**Method.** Pre-registered (brief 60, `4d9687a`); the Linux machine. A diagnostic build, never
 committed, captured the lists, points and rung of sampled windows of the
 Stakka scan (one window and rung in 400 at NAS scale, one in 40 at 262
 tracks; both scans' reports identical to the baselines'). A prototype
@@ -30,10 +30,10 @@ Lines identical, bit for bit and in order, in every window under every
 layout and in a dense synthetic window where every asset passes (there
 the sketch adds 4.5-5.8% to `lines`). No window had inexact phases.
 
-**Conclusion.** The sketch is conservative (tests and replays agree),
-but it rejects only with about as many slots per asset as the filter: at
-44 hits an asset, most find 3 in a pair of 64 or 256 folded slots. F1024
-still scatters 21% of the hits, and fills and counts in 1 MiB per part;
+**Conclusion.** The sketch is conservative (tests and replays agree);
+the fewer folded slots, the more it passes: at 44 hits an asset, most
+find 3 in a pair of 64 or 256 slots. At NAS scale F1024 still scatters
+21% of the hits, and fills and counts in 1 MiB per part;
 on one thread every layout is slower than today's (by inference, the
 counts and the fill cost more than the scatters saved). F1024 has the
 lowest replay CPU and goes to the full searches (0244), where 32 workers
