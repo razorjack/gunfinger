@@ -12923,3 +12923,128 @@ clean excerpts the variant keeps a median 0.98 of the downmix's hits at
   `wall_seconds`; `docs/pair-verdicts.txt`, the answer log and the NAS
   clusters file at their start digests; no answer log written, no
   manifest or panel changed.
+
+## Session 63
+
+### What changed
+
+The product, the second pass's default and every rule are unchanged;
+both regressions stay identical. Proposal 3 of the 2026-10-29 note was
+pre-registered (`0326d32`) and measured: how much the second pass loses
+by measuring each candidate at the chain's speed. Experiments 0251-0253;
+the decision note `docs/research/2026-10-30-second-pass-fit-decision.md`.
+Added, opt-in and tested (`383d91a`):
+
+- `Options::second_pass_fit` in the core (`SecondPassFit`, default
+  `ChainSpeed`; `search/refine/fit.rs`), set only by the harness's
+  `--second-pass-fit grid|cross|iterated`: the best of 41 speeds within
+  ±0.4% with the offset refitted (the grid, a reference), the same
+  chosen on alternate windows and counted on the others (the split), and
+  two rounds of the hits' drift within ±0.4% (the bounded fit), each for
+  candidates of 80 hits or more. `refine.rs` gained a `Candidate` holding
+  the inputs its measurements share.
+- `scripts/analysis/second_pass_fit.py`: a fit's reports against the
+  default's, query by query (`queries`, `shared`, `scans`, `moved`).
+
+In short: the chain's speed costs hits only on short chains, where it is
+the mean of the rungs (15 s plays, 0.049% off); there each fit gains
+18-29 confident answers in `recall` and loses 1-3, and the split shows
+that the gain is not selection. The grid also lifts wrong versions; even
+the split lets a related version that shares the played passage cross
+240. The bounded fit fails its registered bar (4 confident answers lost;
+the margin at 262 tracks 6.7% lower). No ADR proposal.
+
+### Experiments 0251-0253 (NAS scale unless noted)
+
+| Run | Default | Grid | Split | Bounded fit |
+|---|--:|--:|--:|--:|
+| `recall` brief plays: confident right (0251, 0252) | 721 | +5 -1 | +5 -1 | +5 -1 |
+| `recall` brief plays, other rips only | 171 | +22 | +13 -2 | +13 -1 |
+| Sweeps and `recall` clean: confident right changed (no scan track moves) | | +3 | -2 | +1 |
+| Brief plays' speed error, median | 0.049% | 0.014% | 0.012% | 0.004% |
+| Calibrate's strongest false, 262; NAS | 100; 282 | 110; 288 | 100; 279 | 107; 282 |
+| Panels: related or other newly confident | | 27 | 16 | 0 |
+| Echos (911) under today's lists; the old ones (0253) | 503; 455 | 603; 602 | | 602; 602 |
+| Stakka scan's search time (alone) | 24.2 s | 37.3 s | 37.3 s | 24.6 s |
+
+The bounded fit against the ADR bar: B1 (no new wrong or related
+confident), B3 (19 gained against the split's 18), B5 (+1.6%) and B6
+(fewer moved queries under the perturbation) pass; B2 (4 confident right
+answers lost) and B4 at 262 tracks (the Clockwork remix's shared passage
+100 to 107 hits, margin 6.90× to 6.44×) fail.
+
+### Decided this session, open to change
+
+- The fits live in the core's options, as `--speed-per-stretch` does,
+  because the second pass's measurements are private to `refine.rs`;
+  only the harness sets them.
+- The floor of 80 hits (a third of the rule) for every fit; the largest
+  grid-to-default ratio seen was 2.13.
+- The default's reports at NAS scale are session 62's downmix runs and
+  the baselines; the default's `sweep --other-rips` (with and without one
+  extra rung pair) ran this session.
+- The experiments were renumbered so that each file preceded the next
+  one's runs: 0252 the bounded fit, 0253 the perturbation (with the
+  bounded fit in it, for B6). Panel 2 ran beside panel 1 for the time
+  box. The cost runs followed 0253 and are recorded in the decision note.
+- One run beyond the registration: `sweep --other-rips --extra-rungs 1`
+  under each fit, for 0226's Siren Bass case (today's ladder does not
+  lose it).
+
+### Questions this leaves for us
+
+- Whether to measure the bounded fit only where `chain_speed` falls back
+  to the mean of rungs (short chains), beside the minimum-span question;
+  the decision note's recommendation.
+- Whether a related version that shares the played passage and crosses
+  240 only once its alignment is right (Phantom 2018 in panel 2, Sonar's
+  in panel 1) should count against such a fit as a new wrong answer, as
+  the registration did.
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: Star Trails, Into Music; optionally session 62's
+  three inverted NAS rips.
+
+### Handoff for the next session
+
+1. Builds: `work/bin/s63-start/` (= `s62-final`), `s63-run/` (every
+   run), `s63-final/` (master at the end).
+2. Reports (scratch, NAS scale under `reports/library-nas-dnb-peaks/`):
+   the grid in `work/s63/wg` (standard protocol, other rips, scans,
+   `recall`) and `wpg`, `wpg2` (panels 1 and 2); the split in `wc`,
+   `wpc`, `wpc2`; the bounded fit in `wi`, `wir`, `wir2`, `wpi1`,
+   `wpi2`; the default's other rips in `wd`; 262 tracks in `w262`; the
+   perturbation in `wlike` (default), `wlike2` (grid), `wlike3` (bounded
+   fit); the cost runs in `work/s63/cost-*`. Summaries
+   `work/s63/summary/` (copied to `docs/experiments/data/0251-*` to
+   `0253-*`).
+3. Scripts (`sh`, from the repository root): `work/s63/setup.sh`
+   (scratch directories; `DIRS=...` for others), `start.sh`,
+   `run-build.sh`, `q-grid.sh`, `q-cross.sh`, `p-*.sh`, `p2-*.sh`,
+   `q-262.sh`, `q-siren.sh`, `q-iterated.sh`, `r-iterated.sh`,
+   `r2-iterated.sh`, `p-iterated.sh`, `like.sh`, `cost.sh`,
+   `summary-0251.sh`, `sum-iterated.sh`, `sum-like.sh`, `table.py`,
+   `final.sh`. For example:
+
+   ```sh
+   E=work/bin/s63-final/gunfinger-eval; N=~/.local/share/gunfinger/nas-dnb-peaks
+   $E --work work/s63/wi --other-peaks-dir $N --panels work/s33/panels --second-pass-fit iterated recall --queries clean,brief
+   $E --work work/s63/wg --other-peaks-dir $N --panels work/s33/panels --second-pass-fit grid regress session-54-linux-nas
+   python3 -I scripts/analysis/second_pass_fit.py queries DEFAULT.json VARIANT.json
+   python3 -I scripts/analysis/second_pass_fit.py moved TODAY.json LIKE.json 910 911
+   ```
+
+4. Renders: the scratch directories hold reflink copies of the sweep,
+   `recall` and panel renders (shared blocks); safe to delete.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. Only the three development mixes
+  (named explicitly) were scanned; nothing ran on 0065's candidate mixes
+  or the NAS root's broadcast file. The NAS was only read; `work/peaks`
+  only read; the pre-prune saved index (`work/s36/w/indexes/`) only read.
+- Under heavy load (five queues at once) the grid and the split made a
+  `regress session-54-linux-nas` take 17 minutes and panel 1 85 minutes;
+  the bounded fit costs about what the default does.

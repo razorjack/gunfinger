@@ -5532,3 +5532,33 @@ notes "Session 62"; experiments 0248-0250; the decision note's "Session
   3:46); the verdicts file, the NAS clusters file and the answer log at
   their start digests. A read-only review confirmed the code and the
   bar's reading; its number and wording points are fixed.
+
+## 2026-10-30: session 63, the second pass's speed estimate, measured and not proposed
+
+Brief `docs/brief-63.md`, checklist `docs/session-63-checklist.md`;
+notes "Session 63"; experiments 0251-0253; the decision note
+`docs/research/2026-10-30-second-pass-fit-decision.md`. Gunfinger's
+behaviour, the second pass's default and every rule are unchanged.
+
+- 05:40 start at `6379a40`, clean. Start build `work/bin/s63-start/`;
+  both regressions identical (0:50; 3:47).
+- Pre-registered (`0326d32`): a local speed search as the reference (41
+  speeds within ±0.4%, offset refitted), a split diagnostic (chosen on
+  alternate windows, counted on the others), a bounded iterated fit,
+  the candidates, the scores, a bar for the gain and a six-item bar for
+  an ADR proposal.
+- Core and harness (`383d91a`; both regressions identical with the fits
+  off): `Options::second_pass_fit`, set only by the harness's
+  `--second-pass-fit grid|cross|iterated`.
+- The gain (0251): nothing changes on 30 s excerpts (the chain's speed
+  within 0.003%); on 15 s plays (0.049% off) the grid gains 29 confident
+  answers in `recall` and loses 1, the split 18 and 3. The grid lifts
+  wrong versions (calibrate's strongest false 100 to 110 at 262 tracks,
+  282 to 288 at NAS scale; 27 panel detections newly confident); the
+  split does not choose on what it counts, but a related version sharing
+  the played passage still crosses 240.
+- The bounded fit (0252): 19 gained and 4 lost; no wrong or related file
+  newly confident; at 262 tracks the strongest false 100 to 107 (margin
+  -6.7%); 1.6% more search time. Under 0242's perturbation (0253) it
+  holds Echos at 602 hits where the default moves from 503 to 455. It
+  fails B2 and B4: no ADR proposal.
