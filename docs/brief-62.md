@@ -223,7 +223,7 @@ too-long list and every file in a folder 0065 lists with 0.75 or more
 joined boundaries (its mixed-CD candidates). Each file is decoded whole
 as two channels at 8 kHz (as 0196), over Ethernet, with 16 jobs, while
 no timing run is running. Measured per file: the side-to-mid ratio
-(0196), the channels' balance (`10 log10(P_L / P_R)`), the Pearson
+(0196), the channels' balance (`10 log10(P_L / P_R)`), the (uncentred)
 correlation of the channels at lag 0, and the lag within ±80 samples
 (±10 ms) where the absolute correlation is largest, with its value.
 
@@ -264,8 +264,8 @@ of the store, with a 95% interval.
   decoded and searched through `Matching::decode_query` and
   `search_audio`, as `scan` and `mixes` are; a brief play is cut alike
   from each channel (`recall::brief_audio`). The peak verifier, which
-  analyses one channel, measures `shared`'s detections only for
-  one-channel queries (`verified` absent under the variant), and
+  analyses one channel, measures `shared`'s detections only under the
+  downmix front end (`verified` absent under the variant), and
   `recall --trace-candidates` is refused with another front end.
   Records load under `Matching::profile()` in both.
 - **(03:32) `mixes` at NAS scale, a harness change not foreseen in the
@@ -287,8 +287,8 @@ of the store, with a 95% interval.
   `stereo-silent` 100 one channel, 1 ms and 5 ms 96 delayed each; the
   mono control, `stereo-control`, the three noise rows and 0.2 ms flag
   none (they fall in the width classes). The four misses per row are
-  draws 14 and 49, whose sources are wide (side -0.3 to -2.3 dB below
-  the mid): inverted, their channels correlate at -0.26 and 0.07. 0197's
+  draws 14 and 49, whose sources are wide (side to mid -2.3 to
+  -0.3 dB): inverted, their channels correlate at -0.26 and 0.07. 0197's
   copies: 10 of 10 in each fault class, the unchanged copies unflagged.
   Every class meets the registered 95 of 100, so no threshold changes.
 - **(03:35) Census started** (tmux `s62census`, 16 jobs), beside the
@@ -329,14 +329,16 @@ of the store, with a 95% interval.
   inverted 0 to 80; 1 and 5 ms 70 and 37 to 80; silent 78; noise 10, 0,
   -10 dB 80, 29 to 19, 0). Every wrong confident answer is draw 41's
   held-out Cool Rock Stuff excerpt as the Mobb Deep / Urban Takover
-  upload (7 queries to 16; exempt by the bar). Scans: 11, 12 and 17
+  upload (5 stereo queries to 14; exempt by the bar), plus that
+  excerpt's 2 mono `control` queries under both, whose wrong file the
+  report does not name (by inference the same). Scans: 11, 12 and 17
   tracks under both, no wrong one.
 - **(04:26) The bar fails on `recall`'s clean excerpts.** Recalled 522
   of 522 under the downmix, 513 under the variant: 9 lost (the
   tolerance is max(1, 1% of 522) = 5), none won. All nine are the nine
-  speeds of one source, Organikismness - Echos (911-1,105 hits to
-  176-226, each in 3 windows), whose excerpts are wide (side -7.3 to
-  -7.6 dB below the mid). Width explains the loss across the panel
+  speeds of one source, Organikismness - Echos (854-1,105 hits to
+  176-226, each in 3 windows), whose excerpts are wide (side to mid
+  -7.6 to -7.3 dB). Width explains the loss across the panel
   (`stereo-width --files` on the 702 renders, `work/s62/wwidth/`): the
   median ratio of the variant's best right hits to the downmix's is
   0.98 with the side 20 dB or more below the mid (180 excerpts), 0.94 at
@@ -387,3 +389,22 @@ of the store, with a 95% interval.
   under the matcher's profile, as before. With the fixed build, `mixes
   --seed 2026 --count 8 --stereo-fault stereo-inverted` (262 tracks) and
   `--seed 2028` (NAS scale) give reports identical to the run build's.
+- **(05:30) Not run: `recall`'s damaged sets**, registered as "last,
+  only if time allows": the time box was spent, and the bar had already
+  failed on item 2.
+- **(05:30) The review** (a read-only agent, 05:22-05:29): the downmix
+  paths, the census code, the bar's reading and the recorded departures
+  confirmed. Fixed: Echos's downmix hits (854-1,105, not 911-1,105); the
+  census's narrow and wide shares (61.2% and 7.5%); "all on wide
+  sources" in the roadmap and the proposals note (the 9 clean losses are
+  one wide source, 51 of the 58 brief plays lie within 15 dB); the known
+  pair's count (5 stereo queries to 14, plus the excerpt's 2 mono
+  `control` queries whose wrong file `robust` does not name); the
+  damaged sets recorded as not run; `query_side_bar.py` exempts the
+  known file only for the Cool Rock excerpt (the outcome is unchanged);
+  0248's bounds for delays and missing channels; double negatives; an
+  inference marked as one in the decision note; the verifier's wording
+  (it runs only under the downmix front end); a doc comment displaced by
+  the new tests; `stereo-width` refuses `--other-peaks-dir` without
+  `--other`, and the option checks gain cases for `mixes` and
+  `stereo-width`; the correlation described as uncentred.

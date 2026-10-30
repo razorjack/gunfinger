@@ -1401,7 +1401,8 @@ cases. None is an adopted decision or an experiment result.
   80 inverted and delayed excerpts, 93 of 100 plays in inverted halves
   of mixes), nothing new is wrong, the shared panels lose nothing (17
   fewer related versions), but `recall` loses 9 of 522 clean excerpts
-  and 58 of 721 brief plays, all on wide sources: queries picked from
+  (one wide source) and 58 of 721 brief plays (51 with the side within
+  15 dB of the mid): queries picked from
   mid plus side carry peaks the downmix records lack (median hits 0.39-0.49
   of the downmix's where the side is within 10 dB of the mid). A census
   of 2,000 NAS rips (0248) finds about 0.4% inverted in one channel,

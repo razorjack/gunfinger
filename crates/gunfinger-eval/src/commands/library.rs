@@ -145,6 +145,11 @@ pub fn stereo_width(harness: &Harness, jobs: usize, args: StereoWidthArgs) -> Re
         exclude,
         files,
     } = args;
+    if harness.other.other_peaks_dir.is_some() && !other {
+        return Err(String::from(
+            "stereo-width reads --other-peaks-dir only with --other",
+        ));
+    }
     let (report, name) = if let Some(dir) = files {
         let name = dir.file_name().map_or_else(
             || String::from("files"),

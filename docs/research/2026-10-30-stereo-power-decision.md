@@ -108,7 +108,7 @@ both front ends on the same rendered queries at NAS scale.
 
 | Bar item | Result | |
 |---|---|---|
-| 1. No new wrong confident file | none in any run; the known Cool Rock pair only for its own held-out excerpt (7 to 16 queries) | passes |
+| 1. No new wrong confident file | none in any run; the known Cool Rock pair only for its own held-out excerpt (5 stereo queries to 14, and its 2 mono `control` queries under both, whose file is not named) | passes |
 | 2. No confident identification lost on clean or mono queries (tolerance max(1, 1%)) | panels, mixes, `robust`'s controls and the scans lose none; `recall` loses 9 of 522 clean excerpts, 58 of 721 brief plays, 2 of 174 and net 3 of 171 with other rips only | **fails** |
 | 3. Fault gains at NAS scale | inverted, 1 and 5 ms 80 of 80; 93 of 100 plays in the inverted halves of 24 mixes | passes |
 | 4. Related versions named | panel 1 326 to 309, panel 2 9 to 9 | passes |
@@ -122,9 +122,10 @@ to -10 dB and 0.39-0.49 above -10 dB; the nine clean losses are one
 source at -7.3 dB (Organikismness - Echos), and 51 of the 58 brief plays
 lost lie above -15 dB. By inference, a record picked from the downmix
 holds the mid's peaks; a query picked from mid plus side adds the side's
-peaks where the side is loud, and those are not in the record. Session
-61 missed it because `robust`'s excerpts are mostly narrow (0196: 5 of
-50 wide); 7.6% of the NAS rips are wide (0248).
+peaks where the side is loud, and those are not in the record. By
+inference, session 61 did not see it because it ran no `recall` and
+`robust`'s excerpts are mostly narrow (0196: 5 of 50 wide); 7.5% of the
+NAS rips are wide (0248).
 
 **How often the faults occur (0248).** In 2,000 NAS rips, 5 are
 inverted in one channel by the registered rule (about 0.4% of the

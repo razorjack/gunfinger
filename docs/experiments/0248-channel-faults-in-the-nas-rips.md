@@ -23,10 +23,10 @@ file, 0065's too-long files and mixed-CD folders, the ignore file);
 | Inverted | 2 | 3 | 0 | 0.41% (0.14-1.25%), about 170 files |
 | Delayed | 0 | 0 | 1 | 0.01% (to 0.59%) |
 | Mono; nearly mono | 25; 207 | 31; 176 | 7; 139 | 4.3%; 26.4% |
-| Narrow; wide | 395; 38 | 405; 52 | 474; 45 | 61.3%; 7.6% |
+| Narrow; wide | 395; 38 | 405; 52 | 474; 45 | 61.2%; 7.5% |
 
-Median side to mid -17.3 dB (0196's corpus: -17.7). Intervals: each
-kind's Wilson bounds added by weight.
+Sample median side to mid -17.3 dB (0196's corpus: -17.7). Intervals:
+each kind's Wilson bounds added by weight (conservative).
 
 **Flagged.** Plainly inverted (correlation -0.92 to -0.95, side 13-16 dB
 above the mid): Usual Suspects - Advent (scene), Keltech - Axis, Plasmic
@@ -36,5 +36,5 @@ bass line, counted as registered. The delay: a `sety/` track whose left
 channel is the right's, 40 samples (5 ms) late (correlation 1.00).
 
 **Conclusion.** Channel faults are rare in the NAS rips: about 1 in 250
-inverted (3-4 of the 5 by inspection), delays and missing channels 1 in
-2,000 or fewer. By 0197 such a rip is missed whatever the query.
+inverted (3-4 of the 5 by inspection), 1 delay and no missing channel in
+2,000 (upper bounds about 0.6%). By 0197 such rips are missed anyway.

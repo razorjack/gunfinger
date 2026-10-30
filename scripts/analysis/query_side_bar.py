@@ -8,11 +8,14 @@ answers under each front end and those lost and won, by query; confident
 (query, file) pairs of wrong files new under the variant; for `shared`,
 confident detections by role and the related versions named. Session 40's
 known pair (the Mobb Deep / Urban Takover upload) is counted on its own
-line. File names only."""
+line, exempt only for the held-out Cool Rock Stuff excerpt it was found
+for (session 40); that file named for any other query counts as new.
+File names only."""
 import glob, json, os, sys
 from collections import Counter
 
 KNOWN = "Mobb Deep Vs Urban Takover - Cool Rock Shook Ones"
+KNOWN_QUERY = "02-aphrodite-b1-cool_rock_suff-utb.mp3"
 STEREO_KINDS = {"alone", "beyond", "before"}
 
 
@@ -24,13 +27,14 @@ def load(directory, name):
 def compare(right_d, right_v, wrong_d, wrong_v):
     """Sets of right query keys and of (query key, file) wrong pairs."""
     new_wrong = sorted(wrong_v - wrong_d)
+    exempt = lambda k, f: KNOWN in f and KNOWN_QUERY in str(k)
     return {
         "right": [len(right_d), len(right_v)],
         "lost": sorted(map(str, right_d - right_v)),
         "won": len(right_v - right_d),
         "wrong": [len(wrong_d), len(wrong_v)],
-        "new_wrong": [[str(k), f] for k, f in new_wrong if KNOWN not in f],
-        "known_pair_new": [[str(k), f] for k, f in new_wrong if KNOWN in f],
+        "new_wrong": [[str(k), f] for k, f in new_wrong if not exempt(k, f)],
+        "known_pair_new": [[str(k), f] for k, f in new_wrong if exempt(k, f)],
         "known_pair": [sum(KNOWN in f for _, f in wrong_d), sum(KNOWN in f for _, f in wrong_v)],
     }
 
@@ -91,7 +95,7 @@ def robust(report):
         if q["wrong_confident"]:
             names = [w["asset"] for w in (q.get("stereo") or {}).get("wrong", []) if w.get("level") == "confident"]
             for name in names or ["(mono query: no name kept)"]:
-                wrong.add((key + (q["held_out"],), name))
+                wrong.add((key + (q["held_out"], q["asset"]), name))
     return right, wrong
 
 

@@ -907,8 +907,8 @@ struct Searcher<'a> {
 
 impl Searcher<'_> {
     /// The query's detections, measured with the peak verifier and traced
-    /// only where the query has one channel (the commands refuse both
-    /// with another front end).
+    /// only under the downmix front end, whose queries have one channel
+    /// (the commands refuse both with another front end).
     fn query(&self, excerpt: &Rendered, audio: &QueryAudio, brief: Option<Brief>) -> RecallQuery {
         let Options {
             ladder, matching, ..

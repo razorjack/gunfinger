@@ -1,7 +1,6 @@
 # 0250: power-sum queries at NAS scale: mixes, faults, noise and cost
 
-**Question.** Brief 62's runs 3-6: do 0245's fault gains hold at NAS
-scale with no new wrong file, and what do noise and a search cost?
+**Question.** Brief 62's runs 3-6: do 0245's fault gains hold at NAS scale, with no new wrong file? What do noise and a search cost?
 
 **Change.** Harness only (`fcf385d`): `mixes` takes `--other-peaks-dir`.
 
@@ -20,15 +19,16 @@ Data: `data/0250-query-side-mixes-faults-cost.json`.
 | Delay 0.2, 1, 5 ms | 80, 70, 37 | 80, 80, 80 |
 | Noise 10, 0, -10 dB: confident (possible or better) | 80, 29 (80), 0 | 80, 19 (75), 0 |
 | Scans: Stakka, 2003 mix, Nocny (tracks identified) | 11, 12, 17 | 11, 12, 17 |
-| Stakka scan, A B B A, idle (5:13-5:16): search `wall_seconds` | 24.29, 24.64 s | 27.34, 27.43 s |
+| Stakka scan, A B B A, idle (05:13-05:16): search `wall_seconds` | 24.29, 24.64 s | 27.34, 27.43 s |
 | The same: user CPU; peak memory | 673, 682 s; 4.91-4.93 GiB | 761, 763 s; 4.99-5.03 GiB |
 
 Wrong confident: in the mixes only the i-witness upload of Bad Company -
 The Nine (Evol Intent VIP) over plays of The Nine, in two mixes of seed
 2026, under both front ends; in `robust` only draw 41's held-out Cool
-Rock Stuff excerpt as the Mobb Deep / Urban Takover upload (7 queries
-to 16, exempt by the bar: the variant keeps that excerpt in the fault
-rows); in the scans none. No (query, file) pair is new under the variant.
+Rock Stuff excerpt: as the Mobb Deep / Urban Takover upload in 5 stereo
+queries to 14 (exempt; the variant keeps it in the fault rows), and in
+its 2 mono `control` queries, whose file the report does not name (by
+inference the same); in the scans none. No (query, file) pair is new under the variant.
 
 **Conclusion.** At NAS scale the fault gains of 0245 hold in full
 (inverted, 1 and 5 ms: 80 of 80; 93 of 100 plays in the inverted halves),

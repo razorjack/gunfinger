@@ -393,6 +393,15 @@ mod tests {
             Ok(())
         );
         assert_eq!(checked(&["robust", "--verify"]), Ok(()));
+        let other = ["--other-peaks-dir", "/nonexistent"];
+        assert_eq!(
+            checked(&[&other[..], &["mixes", "--seed", "2026"]].concat()),
+            Ok(())
+        );
+        assert_eq!(
+            checked(&[&other[..], &["stereo-width", "--other"]].concat()),
+            Ok(())
+        );
         let refused = |arguments: &[&str], words: &str| {
             checked(arguments).is_err_and(|message| message.contains(words))
         };

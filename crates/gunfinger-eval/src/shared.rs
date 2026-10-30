@@ -320,7 +320,8 @@ struct QuerySearcher<'a> {
 
 impl QuerySearcher<'_> {
     /// The detections of the rendered query as the front end analyses it,
-    /// each measured with the peak verifier when the query has one channel.
+    /// each measured with the peak verifier under the downmix front end
+    /// only (another front end decodes every query as two channels).
     fn search(&self, query: &Query) -> Result<Vec<SharedFound>, String> {
         let path = self.dir.join(format!("{}.mp3", query.name));
         let audio = self.options.matching.decode_query(&path)?;

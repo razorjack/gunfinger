@@ -343,7 +343,10 @@ impl Width {
 /// How the two channels of a file relate (experiment 0248): the left
 /// channel's power against the right's, their correlation at lag 0, and the
 /// lag within `MAX_LAG` samples where the correlation is strongest (a
-/// positive lag: the right channel late).
+/// positive lag: the right channel late). The correlation is not centred
+/// (audio has next to no DC) and is normalised by the whole channels'
+/// energies, which over a file differs from the overlap's by at most
+/// `MAX_LAG` samples.
 #[derive(Debug, Clone, Copy, PartialEq, Serialize)]
 pub struct Channels {
     pub balance_db: f64,
@@ -749,9 +752,6 @@ mod tests {
         assert_eq!(Width::of(-3.0), Width::Wide);
     }
 
-    /// A one-channel file: FFmpeg's two channels are each the sample at
-    /// 1/sqrt(2), so their powers add up to the downmix's (the sample
-    /// itself), apart from rounding.
     /// Seeded white noise, as a stand-in for broadband music.
     fn noise(frames: usize, seed: u64) -> Vec<f32> {
         let mut state = seed;
@@ -854,6 +854,9 @@ mod tests {
         assert!(!left_out.contains("# 0065's lists"));
     }
 
+    /// A one-channel file: FFmpeg's two channels are each the sample at
+    /// 1/sqrt(2), so their powers add up to the downmix's (the sample
+    /// itself), apart from rounding.
     #[test]
     fn a_one_channel_file_gives_the_downmix_peaks_under_the_power_sum() {
         let dir = std::env::temp_dir().join(format!("gunfinger-power-sum-{}", std::process::id()));
