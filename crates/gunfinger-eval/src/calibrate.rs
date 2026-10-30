@@ -329,6 +329,7 @@ mod tests {
                 candidates: None,
             }],
             set_aside: None,
+            set_aside_like: None,
         };
         let mut calibration = Calibration {
             identifying: Vec::new(),

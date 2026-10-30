@@ -813,16 +813,7 @@ pub fn run(
         Some(saved) => {
             let (index, like) =
                 fullest::setting_aside_like(built, saved, &excluded, SKIPPED_SHARE)?;
-            eprintln!(
-                "set aside like {}: {} lists there, {} here; {} only there, {} only here; {} files only there; same postings without them: {}",
-                like.file,
-                like.lists_there,
-                like.lists_here,
-                like.set_aside_there_only.len(),
-                like.set_aside_here_only.len(),
-                like.only_there.len(),
-                like.same_postings_without_them
-            );
+            fullest::print_like(&like);
             (index, Some(like))
         }
         None => (options.matching.index(built), None),

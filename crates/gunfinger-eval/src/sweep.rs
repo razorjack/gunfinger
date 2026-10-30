@@ -24,7 +24,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
 use crate::files::{read_json, write_json};
-use crate::fullest::{self, FullestReport, Ranking};
+use crate::fullest::{self, FullestReport, Ranking, SetAsideLike};
 use crate::library_map::LibraryMap;
 use crate::matching::Matching;
 use crate::padding::{OTHER_LIBRARY_PREFIX, Padding, original_path};
@@ -56,6 +56,10 @@ pub struct SweepReport {
     /// With the candidate trace: the lists the searched index set aside.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub set_aside: Option<SetAside>,
+    /// With `--set-aside-like`: how the lists set aside differ from the
+    /// saved index's.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub set_aside_like: Option<SetAsideLike>,
 }
 
 /// The lists an index leaves out of the search for candidates.
@@ -276,6 +280,9 @@ pub struct Options<'a> {
     /// Set the fullest lists aside ranked by distinct holders instead of
     /// postings; `None` for the matcher's own index.
     pub ranking: Option<Ranking>,
+    /// Set aside the lists that the index saved in this file sets aside
+    /// with the same files left out (`fullest::setting_aside_like`).
+    pub set_aside_like: Option<&'a Path>,
     pub speeds: Speeds,
     pub jobs: usize,
 }
@@ -323,6 +330,7 @@ pub fn run(
         other_rips,
         trace,
         ranking,
+        set_aside_like,
         speeds,
         jobs,
     } = *options;
@@ -336,9 +344,15 @@ pub fn run(
         None => ((0..draws.len()).collect(), held_out.clone()),
     };
     let built = padding.index(&records, &profile, &excluded)?;
-    let index = match ranking {
-        Some(ranking) => ranking.index(built, clusters),
-        None => matching.index(built),
+    let (index, set_aside_like) = match (ranking, set_aside_like) {
+        (Some(ranking), _) => (ranking.index(built, clusters), None),
+        (None, Some(saved)) => {
+            let (index, like) =
+                fullest::setting_aside_like(built, saved, &excluded, SKIPPED_SHARE)?;
+            fullest::print_like(&like);
+            (index, Some(like))
+        }
+        (None, None) => (matching.index(built), None),
     };
     same_titles.warn_outside(&index, &excluded);
     let dir = work.join("sweep").join(format!("seed-{seed}"));
@@ -398,6 +412,7 @@ pub fn run(
             census: fullest::census(&index, SKIPPED_SHARE),
             hashes: fullest::set_aside_hashes(&index),
         }),
+        set_aside_like,
     })
 }
 

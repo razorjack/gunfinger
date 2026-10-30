@@ -206,6 +206,21 @@ pub fn setting_aside_like(
     Ok((here.skipping_hashes(&hashes), like))
 }
 
+/// One line on stderr: how the lists set aside differ from the saved
+/// index's.
+pub fn print_like(like: &SetAsideLike) {
+    eprintln!(
+        "set aside like {}: {} lists there, {} here; {} only there, {} only here; {} files only there; same postings without them: {}",
+        like.file,
+        like.lists_there,
+        like.lists_here,
+        like.set_aside_there_only.len(),
+        like.set_aside_here_only.len(),
+        like.only_there.len(),
+        like.same_postings_without_them
+    );
+}
+
 /// The hashes whose lists `index` leaves out of the search for
 /// candidates, in hash order.
 pub fn set_aside_hashes(index: &Index) -> Vec<u32> {

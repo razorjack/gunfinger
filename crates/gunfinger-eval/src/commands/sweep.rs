@@ -52,6 +52,13 @@ pub struct FilterStudy {
     /// report's name ends in `-rank-<ranking>`.
     #[arg(long, value_enum)]
     rank_fullest_by: Option<fullest::Ranking>,
+    /// Search the index with the lists set aside that the harness's index
+    /// saved in this file sets aside with the same files left out, and
+    /// record how the two differ: for comparing with an index of an
+    /// earlier store (session 64). The file is only read. Default matcher
+    /// only; the report's name ends in `-set-aside-like`.
+    #[arg(long, value_name = "FILE", conflicts_with = "rank_fullest_by")]
+    set_aside_like: Option<PathBuf>,
     #[command(flatten)]
     copies: ExactCopyOptions,
 }
@@ -74,6 +81,7 @@ pub struct ExactCopyOptions {
 pub const NO_FILTER_STUDY: FilterStudy = FilterStudy {
     trace_candidates: false,
     rank_fullest_by: None,
+    set_aside_like: None,
     copies: ExactCopyOptions {
         exact_copies: None,
         copied: None,
@@ -108,6 +116,9 @@ impl FilterStudy {
         if let Some(ranking) = self.rank_fullest_by {
             suffix.push_str(&format!("-rank-{}", ranking.name()));
         }
+        if self.set_aside_like.is_some() {
+            suffix.push_str("-set-aside-like");
+        }
         if self.trace_candidates {
             suffix.push_str("-trace");
         }
@@ -127,6 +138,11 @@ pub fn run_sweep(
     if filter.rank_fullest_by.is_some() && harness.search.matching.name().is_some() {
         return Err(String::from(
             "--rank-fullest-by ranks the default matcher's lists; it takes no other matching option",
+        ));
+    }
+    if filter.set_aside_like.is_some() && harness.search.matching.name().is_some() {
+        return Err(String::from(
+            "--set-aside-like sets aside the default matcher's lists; it takes no other matching option",
         ));
     }
     let padding = Padding {
@@ -158,6 +174,7 @@ pub fn run_sweep(
                 sweep::Trace::Off
             },
             ranking: filter.rank_fullest_by,
+            set_aside_like: filter.set_aside_like.as_deref(),
             speeds,
             jobs,
         },
@@ -174,4 +191,40 @@ pub fn run_sweep(
     write_json(&harness.reports().join(name), &report)?;
     sweep::print_summary(&report);
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use clap::Parser;
+
+    use super::*;
+
+    #[derive(Parser)]
+    struct Cli {
+        #[command(flatten)]
+        filter: FilterStudy,
+    }
+
+    fn filter(arguments: &[&str]) -> Result<FilterStudy, String> {
+        Cli::try_parse_from([&["sweep"], arguments].concat())
+            .map(|cli| cli.filter)
+            .map_err(|error| error.to_string())
+    }
+
+    #[test]
+    fn a_sweep_set_aside_like_a_saved_index_writes_a_report_of_its_own() {
+        let like = filter(&["--set-aside-like", "old.index", "--trace-candidates"]).unwrap();
+
+        assert_eq!(like.suffix(), "-set-aside-like-trace");
+        assert_eq!(filter(&[]).unwrap().suffix(), "");
+        assert!(
+            filter(&[
+                "--set-aside-like",
+                "old.index",
+                "--rank-fullest-by",
+                "files"
+            ])
+            .is_err_and(|message| message.contains("cannot be used with"))
+        );
+    }
 }
