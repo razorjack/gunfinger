@@ -242,3 +242,8 @@ Rules for this session:
   name the baseline, the record count or the digest for the next
   sessions: `docs/status.md` (a session 64 entry) and the handoff; older
   experiments, briefs and status entries stay as written.
+- **(21:40) The scripts' needle for Bad Vibes** also matched the
+  unignored copy in `__youtube_archivists/unxplored-dnb/`; narrowed to
+  the 3zb-gangstep-dnb folder in `where.py`, `diff.py` and `data.py`.
+  Run again, the outputs are the same (no report compared held the other
+  copy), and 0254's data file is byte-identical.

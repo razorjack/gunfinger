@@ -13072,3 +13072,148 @@ answers lost) and B4 at 262 tracks (the Clockwork remix's shared passage
   CLI's JSON report of the Stakka mix identical from `s63-start` and
   `s63-final`. The review's fixes after them touch only documents and a
   Python script.
+
+## Session 64
+
+### What changed
+
+The product did not change: the `gunfinger` binary is byte-identical to
+`s63-final`'s. With the user's approval of 2026-10-30, the NAS store
+lost the peak records and tag notes of the four uploads that the NAS
+`.gunfingerignore` has left out since that evening, each heard to hold
+more than one recording (session 58's pack): the i-witness-dnb uploads
+`Bad Company - Spider (Optiv & BTK Remix) [CUT].m4a`, `Break - Wine
+[CUT].m4a` and `500 Mills (Counterstrike) - Vaccine.m4a`, and the
+3zb-gangstep-dnb upload `OMR - Bad Vibes.opus`. Store-only runs and the
+harness's `--other-peaks-dir` no longer search them. One harness
+addition: `sweep --set-aside-like FILE`, as `recall`'s (session 59),
+opt-in and tested, to trace changes to the lists set aside.
+
+In short: the prune changed nothing that is scored. Nine weak
+candidates of the pruned files (6-8 hits) and one clusters pair entry
+are gone. Ten other sweep and scan entries moved by a weak candidate or
+the 8th digit of a speed, because lists crossed the set-aside cut
+(0242's mechanism); under the old index's lists the sweep equals the old
+baseline less the pruned files' candidates. `session-64-linux-nas` is
+the NAS-scale baseline from now on.
+
+### Experiment 0254
+
+| | Before (session 54's baseline) | After |
+|---|--:|--:|
+| NAS store records, revision | 40,678, `1fc6fe50293ad330` | 40,674, `7210fc479da58376` |
+| Sweep 2026: indexed assets; queries with identical detections | 40,575 | 40,571; 707 of 720 |
+| Stakka scan; leave-outs 3, 11 | 11/11; 8/11; 0/11, 0 wrong | the same; 1 weak detection fewer each |
+| Calibrate: weakest identifying, strongest false, false accepted; at 30+ hits | 704, 282, 7; 95 | the same |
+| Clusters; pair entries; file | 284; 2,876; `ce293fe6165e...` | 284; 2,875; `c4d3da2e7e37...` |
+
+- Of the pruned files: Bulletproof - Scarred at -5% (Spider), Bad
+  Company - Pulse at 0% (Bad Vibes) and Item.Code - Magnetics at four
+  speeds (Break - Wine) each lose one candidate; each Stakka scan loses
+  the 500 Mills upload at 5:36-5:46 (7 hits). The pair entry is Item.Code
+  - Magnetics against Break - Wine (9 hits, 20% coverage).
+- Through the lists set aside: one weak candidate each in Decoy at -1%,
+  Kemal - Animation at +8% and Konflict - RoadBlock at +1%; Recharger's
+  fitted speed at four speeds (hits unchanged); the Stakka scan's three
+  Clockwork detections' speed (hits unchanged). In the sweep's index a
+  list of 9,919 postings lost 48 of the four files and left the set
+  aside, and one of 9,911 entered; in the whole index two lists left
+  (9,939 and 9,940 to 9,938), one of them holding 11-14 postings of each
+  Clockwork file.
+
+### The evening's answers, carried
+
+- The four same-title candidates are different titles: closed in
+  session 54's notes and the roadmap; `docs/calibration.md` says that
+  the strongest false (282, Cool Rock) is a confirmed different version.
+  `docs/same-titles.txt` does not change.
+- Vintage Dread 2000's disc 1 is separate tracks: session 58's notes
+  record its five edge parts as false transitions of `parts` (shared
+  material between separate tracks), a negative for any later rule.
+- Three inverted rips confirmed by ear (Advent, Keltech - Axis,
+  Plasmic - The Weapon; We - Hello World unsure): one sentence each in
+  the roadmap's "Stereo faults before the downmix" and the stereo
+  decision note.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux` (start; final) | 0:52; 0:51 | 0.4 GiB |
+| `regress session-54-linux-nas` (start) | 3:53 | 5.4 GiB |
+| `doctor` with the NAS configuration (before, beside the NAS regression; after) | 6:17; 0:04 | |
+| `prune`; `prune --yes` | 0:04; 0:04 | |
+| `clusters --from-peaks --reuse-pairs` | 0.2 s | |
+| `regress session-54-linux-nas` on the pruned store (the saved index built again) | 5:41 | 5.4 GiB |
+| `sweep --set-aside-like` (both indexes in memory) | 2:38 | 8.6 GiB |
+| `scripts/check.sh` | 4:55 | |
+| `regress session-54-linux-nas`, final build, the saved index loaded | 3:46 | 5.2 GiB |
+
+### Decided this session, open to change
+
+- `doctor` and `prune` without `--yes` ran beside the start regressions
+  (all only read; no timing compared), as in session 52.
+- `--set-aside-like` was added to `sweep` only: the whole index's moved
+  lists account for the Stakka scan, and the leave-out scans change only
+  by the pruned detection.
+- `baseline session-64-linux-nas` copies the reports of the final
+  build's `regress session-54-linux-nas`, identical to step 3's.
+
+### Questions this leaves for us
+
+- None new from the prune. From session 58: whether `parts` needs a
+  rule against versions of one tune, now with Vintage Dread 2000's five
+  edge parts as known false transitions.
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: the pitch rides (Star Trails in the Stakka mix,
+  Into Music in the 2003 mix) and the Planet Dust (DC Breaks Remix) cut
+  (questions 5, 6 and 8 of `work/listening-2026-10-30/questions/07-pack-2026-10-30.json`,
+  unanswered); the 65 candidates in `work/s58/different-name-files.txt`.
+
+### Handoff for the next session
+
+1. Baselines: `session-54-linux` (262 tracks, unchanged) and
+   `session-64-linux-nas` (NAS scale, the pruned store); compare
+   NAS-scale runs with `session-64-linux-nas`, not `session-54-linux-nas`.
+2. The NAS store: 40,674 records, revision `7210fc479da58376`; no
+   records of ignored files. The harness's saved index
+   `work/indexes/library-nas-dnb-peaks.index` is current for it; the
+   CLI's in `~/.cache/gunfinger/indexes/` is built again by the next
+   `identify` with the NAS configuration. The pre-prune index (40,678
+   records) survives as session 63's hard links (`work/s63/*/indexes/`)
+   for `--set-aside-like`.
+3. The NAS clusters file `work/reports/library-nas-dnb-peaks/duplicate-clusters.json`:
+   SHA-256 `c4d3da2e7e3720cbf4e79e4f7cf86d71493fc6349af639b323d814656a8b9e4f`,
+   284 clusters, 2,875 pair entries.
+4. Builds: `work/bin/s64-start/` (= `s63-final`; the prune and step 3),
+   `s64-run/` (the `--set-aside-like` sweep), `s64-final/` (master).
+5. Data: `work/s64/` (listings and logs in `logs/`, `where-before.tsv`,
+   `diff-pruned.txt`, `pruned-reports/`, the clusters file before and
+   after, the store's revisions, the sweep under the old lists in
+   `wlike/`); scripts `run.sh`, `start.sh`, `step1-list.sh`, `step2.sh`,
+   `step3.sh`, `like.sh`, `step4.sh`, `where.py`, `diff.py`, `same.py`,
+   `cut_moved.py`, `list_holders.py`, `data.py`.
+6. Reports outside the baseline predate this prune and name some of the
+   four files: in `work/reports/library-nas-dnb-peaks/`, the `recall`
+   reports of seed 2026 and the 2003 mix's scans (weak candidates, 6-7
+   hits) and `pairs-s40-pack.json` (a pair with Break - Wine, so `pair`
+   on that list stops at a pruned file); session 58's `parts` reports in
+   `work/s58/out/`. They change when run again. The scripts match the
+   Bad Vibes upload by its folder, since `unxplored-dnb/` holds another
+   copy, which is not ignored.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The only mix searched was the
+  Stakka development mix. Nothing ran on the candidate mixes of 0065 or
+  on the NAS root's broadcast file. The NAS was only read; `prune --yes`
+  ran once with the NAS configuration, after the listing of exactly the
+  four files; `work/peaks` was only read.
+- `docs/pair-verdicts.txt` and the answer log are at their start digests
+  (`work/s64/listening-digests-start.txt`); no answer log was written; no
+  manifest, committed panel or `docs/same-titles.txt` changed. No verdict
+  line names any of the four files. The clusters file changed only by
+  the dropped pair entry.
