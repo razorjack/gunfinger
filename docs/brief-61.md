@@ -290,3 +290,7 @@ records could be searched by the variant's queries before a rebuild.
   after clippy had run, which left one closure without its semicolon
   (`semicolon_if_nothing_returned`, `peaks.rs`); fixed with the review's
   changes. The final checks run `scripts/check.sh` on the result.
+- **(03:17) Final checks** (`work/s61/final.sh`, tmux `s61final`,
+  03:06-03:16): `scripts/check.sh` green (4:45); both regressions
+  identical with `work/bin/s61-final/` (0:51; 3:46), 8 of 8 reports;
+  the three digests unchanged. Notes, status and checklist written.

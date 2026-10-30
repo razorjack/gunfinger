@@ -29,7 +29,7 @@ for scope and rules.
   the roadmap's "Stereo faults before the downmix" and the proposals
   note's §1
 - [x] 6. Read-only review by a separate agent; findings fixed
-- [~] 7. Notes ("Session 61"), status, checklist; final checks
+- [x] 7. Notes ("Session 61"), status, checklist; final checks
   (`scripts/check.sh`, both regressions with the final build, the
   verdicts file and the clusters file's digest unchanged, `git status`
   clean)

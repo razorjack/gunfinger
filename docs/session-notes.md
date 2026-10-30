@@ -12613,3 +12613,170 @@ table evicts the lists and parts).
   clusters file at their start digests
   (`work/s60/listening-digests-end.txt`); no answer log written, no
   manifest or panel changed.
+
+## Session 61
+
+### What changed
+
+The product, its front end and every default are unchanged; both
+regressions stay identical. Proposal 1 of the 2026-10-29 note (combine
+stereo channels after measuring spectral power) was pre-registered
+(`3220fff`), built as an opt-in harness front end and measured in two
+phases; experiments 0245-0247 and the decision note
+`docs/research/2026-10-30-stereo-power-decision.md`. Added, tested
+(`db502a3`):
+
+- Core: `spectrogram::Signal` (`Mono`, today's; `PowerSum { left,
+  right }`), analysed by `for_each_power_frame`, with
+  `peaks::extract_signal_peaks(_in)`, `Rung::signal_points` and
+  `search::search_signal_with`; every existing entry point taking
+  `&[f32]` wraps it in `Signal::Mono`. `Profile::POWER_SUM` (field
+  `channels`) names the variant's records (`... channels=power-sum`);
+  today's identifier is unchanged.
+- Harness: `--front-end downmix|power-sum-queries|power-sum` (a
+  `Matching` option, so its reports go to `reports/variant-<name>/`),
+  taken by `robust`, `scan`, `mixes` and `variant-store`, refused with
+  `--verify`, and `power-sum` refused with `--other-peaks-dir` (the
+  other library's records are the downmix's); `variant-store --out DIR
+  [--replace TSV]` builds a store of the library's files under the front
+  end's profile, never into the library's store.
+  `scripts/analysis/front_end_summary.py`.
+- Tests: inverting either channel leaves the power-sum peaks unchanged
+  to the bit; equal channels give their downmix's peaks; a one-channel
+  file decoded by FFmpeg gives at least 99% of the downmix's peaks; the
+  default path gives the peaks of fixed noise that `af32482` gave (a
+  pinned digest); the option checks.
+
+In short: power-sum queries against today's records win back every
+inverted channel and every delay up to 5 ms, keep mono queries' counts
+and cost 12% more search time at NAS scale; a store built
+the same way also wins back faults in the rip, but mono queries against
+it lose 2-4 of 80 in 6 of 38 `robust` conditions, which fails the
+registered bar. Noise in one channel costs more under the variant. Not
+adopted.
+
+### The variant
+
+`P = |X_L|^2 + |X_R|^2` with no further scaling. With FFmpeg's downmix
+`M = (L + R) / sqrt(2)` and `S = (L - R) / sqrt(2)`, `P = |X_M|^2 +
+|X_S|^2`: today's power plus the side's, so a mono source gives today's
+power (FFmpeg's `-ac 2` gives each channel of a one-channel file the
+sample at 1/sqrt(2), measured), and inverting a channel changes nothing
+(to the bit, tested).
+
+### Experiments 0245-0247 (262 tracks unless named)
+
+| Confident | Downmix | Power-sum queries, today's records | Power sum both sides |
+|---|--:|--:|--:|
+| `stereo-control`, inverted, silent (of 80) | 80, 0, 78 | 80, 80, 78 | 80, 80, 80 |
+| Noise 10, 0, -10 dB | 80, 29, 0 | 80, 18, 0 | 80, 23, 0 |
+| Delay 0.2, 1, 5 ms | 80, 70, 37 | 80, 80, 80 | 80, 80, 80 |
+| NAS scale, the same rows | as at 262 | as at 262 but noise 0 dB 19 | not run |
+| Inverted half of 24 mixes (of 100 plays) | 1 | 93 | 94 |
+| Rip inverted, silent, 1 ms, 5 ms (of 20) | 0, 19, 18, 4 | not measured | 20, 20, 20, 20 |
+| 38 default conditions (mono renders) | | every row the same | 6 rows 2-4 lower |
+| Development scans (both scales; 262 for the last column) | all tracks | all tracks, same files | all tracks, same files |
+
+Wrong confident answers: none at 262 tracks or in any mix; at NAS scale
+only session 40's known pair (the held-out Cool Rock Stuff excerpt as
+the Mobb Deep / Urban Takover upload), under both front ends, in more
+fault rows under the variant only because it keeps that excerpt there.
+Cost (0247): the Stakka scan at NAS scale 27.6-27.7 s against 24.6-24.8
+s (A B B A, 32 jobs), 13% more CPU, 2% more memory; peaks and postings
+0.1% fewer; a 262-track build as fast, with 3 times the peak memory.
+
+### Decided this session, open to change
+
+- No normalisation: the power sum equals today's power for mono sources.
+- `robust` ran its 38 default conditions only at 262 tracks; at NAS
+  scale only the stereo set (time box). Shared-material panels,
+  `recall`'s other-rip panels and NAS-scale mixes were not run.
+- The bar's "no wrong confident answer that the downmix does not have"
+  was read as "no new wrong file for any draw" (brief 61, 02:35): at NAS
+  scale the known pair appears in 16 held-out queries against 7.
+- Hits are reported as the variant's against the downmix's for the same
+  query, not against each front end's control (a departure, recorded).
+- The faulted rips are session 42's re-encoded copies, put in place of
+  their files in a full 262-track store per copy and front end.
+
+### Questions this leaves for us
+
+- Whether to pre-register the query side alone (no rebuild; the decision
+  note's recommendation), with the noise conditions, the shared
+  panels, `recall`'s other rips and NAS-scale mixes, and the proposals
+  note's frozen acceptance rule.
+- Why mono queries lose marginal excerpts against power-sum records
+  (by inference, the side's power in the records), and whether a
+  different combination for records (the downmix's power where the
+  channels agree) would keep both.
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: Star Trails, Into Music.
+
+### Handoff for the next session
+
+1. Builds: `work/bin/s61-start/` (= `s60-final`), `s61-run/` (the
+   variant, used for every run; its code before `cargo fmt`),
+   `s61-final/` (master at the end).
+2. Reports (scratch work directories, never `work/reports`):
+   `work/s61/w/reports/` (downmix), `.../variant-power-sum-queries/`,
+   `.../variant-power-sum/`, and the same below
+   `library-nas-dnb-peaks/` for NAS scale (`robust-default.json`,
+   `robust-stereo.json`, `mixes-stereo-*-seed-*.json`, `scan-*.json`);
+   the faulted rips' runs in `work/s61/ref/w-<copy>/`; the cost runs'
+   reports in `work/s61/cost/`; summaries `work/s61/phase-a-262.json`,
+   `phase-a-nas.json`, `phase-b-262.json`, `phase-b-ref.json`.
+3. Stores (scratch, under `work/s61/` only): `peaks-power-sum/` and
+   `peaks-downmix/` (265 records each; the second equals `work/peaks`
+   byte for byte), `ref/peaks-<copy>-<front end>/` with session 42's
+   faulted copies in place of 10 files (lists `ref/<copy>.tsv`).
+4. Renders: `work/s61/w/robust/seed-2026/` holds the 38 default
+   conditions rendered afresh (1.3 GB) beside hard links to
+   session 42's stereo renders; kept for the query-side test the
+   decision note recommends.
+5. Scripts (`sh`, from the repository root): `work/s61/start.sh`,
+   `variant.sh`, `phase-a.sh`, `phase-b.sh`, `cost.sh`, `final.sh`;
+   `run.sh`, `same.py`. Commands:
+
+   ```sh
+   E=work/bin/s61-final/gunfinger-eval; W=work/s61/w; N=~/.local/share/gunfinger/nas-dnb-peaks
+   $E --work $W --front-end power-sum-queries robust --seed 2026 --only stereo-control,stereo-inverted
+   $E --work $W --other-peaks-dir $N --front-end power-sum-queries scan stakka-skynet-knowledge
+   $E --front-end power-sum variant-store --out work/s61/peaks-power-sum
+   $E --work $W --peaks-dir work/s61/peaks-power-sum --front-end power-sum mixes --seed 2026 --count 8 --stereo-fault stereo-inverted
+   python3 -I scripts/analysis/front_end_summary.py OUT.json downmix=$W/reports psq=$W/reports/variant-power-sum-queries
+   ```
+
+6. Next, if we continue: the decision note's recommendation, a
+   pre-registered test of power-sum queries alone at NAS scale (shared
+   panels, `recall`'s other rips, NAS-scale mixes, noise conditions, the
+   known pair's rise), then an ADR for the CLI's decoding if it passes.
+   A two-channel decoder in the core would need the stall watch (ADR
+   0018) that the harness's `decode_stereo` lacks.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. Only the three development mixes
+  (named explicitly) and generated mixes were searched. Nothing ran on
+  the candidate mixes of 0065 or on the NAS root's broadcast file. No NAS
+  audio file was decoded; the NAS store was only searched; `work/peaks`
+  only read.
+- The pre-registration was committed (`3220fff`, 01:58) before any code
+  or run; phase A ran from the run build at 02:08, its code committed at
+  02:15 after the regressions; each experiment was committed before the
+  next phase started.
+- A read-only review by a separate agent (02:53-03:02) confirmed the
+  default path's arithmetic, the code and the tables; its points on
+  wording, risks, the rebuild estimate, the build memory, a test that
+  compared the code with itself, stale doc comments and one unrefused
+  option combination are fixed (brief 61, 03:05).
+- Final checks (03:06-03:16) with `work/bin/s61-final/` (master at
+  `81981c8`): `scripts/check.sh` green (4:45); `regress
+  session-54-linux` (0:51) and `regress session-54-linux-nas` (3:46)
+  identical, 8 of 8 reports equal to their baselines' apart from
+  `wall_seconds`; `docs/pair-verdicts.txt`, the answer log and the NAS
+  clusters file at their start digests
+  (`work/s61/listening-digests-end.txt`); no answer log written, no
+  manifest or panel changed.

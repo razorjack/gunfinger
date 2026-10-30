@@ -5467,3 +5467,35 @@ code are unchanged.
   3:47); the verdicts file, the NAS clusters file and the answer log at
   their start digests. A read-only review confirmed the proof and the
   numbers; its wording and precision points are fixed.
+
+## 2026-10-30: session 61, stereo channels combined by power, measured and not adopted
+
+Brief `docs/brief-61.md`, checklist `docs/session-61-checklist.md`;
+notes "Session 61"; experiments 0245-0247; decision note
+`docs/research/2026-10-30-stereo-power-decision.md`. Gunfinger's
+behaviour, front end and defaults are unchanged.
+
+- 01:52 start at `af32482`, clean. Start build `work/bin/s61-start/`;
+  both regressions identical (0:51; 3:47).
+- Proposal 1 of the 2026-10-29 note, pre-registered (`3220fff`): peaks
+  from `|X_L|^2 + |X_R|^2` (today's power plus the side's; unchanged by
+  an inverted channel), no normalisation, its own profile identifier.
+  Opt-in in the harness (`--front-end`, `variant-store`; `db502a3`),
+  both regressions identical with it off.
+- Phase A (0245), power-sum queries against today's records: inverted
+  channels 0 to 80 of 80 and delays of 1 and 5 ms 70 and 37 to 80, at
+  262 tracks and NAS scale; 1 to 93 of 100 plays over inverted halves
+  of mixes; mono queries' counts unchanged; noise at 0 dB in one channel
+  29 to 18-19; no new wrong file.
+- Phase B (0246), a 262-track store built by the variant: faulted rips
+  0, 19, 18, 4 to 20 of 20 each; but 6 of 38 mono-rendered `robust`
+  conditions fall by 2-4 of 80, failing the registered bar.
+- Cost (0247): 12% more search time and 13% more CPU at NAS scale
+  (Stakka, A B B A, 32 jobs); density unchanged; a rebuild of the NAS
+  store estimated at 30-37 minutes on the Linux machine. Not adopted;
+  the note recommends a pre-registered test of the query side alone.
+- Final checks with `work/bin/s61-final/`: `scripts/check.sh` green
+  (4:45); both regressions identical (0:51; 3:46); the verdicts file,
+  the NAS clusters file and the answer log at their start digests. A
+  read-only review confirmed the code and the numbers; its points are
+  fixed.
