@@ -212,7 +212,7 @@ mod tests {
     }
 
     #[test]
-    fn a_sweep_set_aside_like_a_saved_index_writes_a_report_of_its_own() {
+    fn set_aside_like_names_its_report_and_takes_no_ranking() {
         let like = filter(&["--set-aside-like", "old.index", "--trace-candidates"]).unwrap();
 
         assert_eq!(like.suffix(), "-set-aside-like-trace");
