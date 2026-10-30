@@ -6,10 +6,12 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-59.md` (the current session's brief) and
-   `docs/session-59-checklist.md` (its progress), with ADR 0014, the
-   roadmap's "The filter and famous breaks", experiments 0231, 0238 and
-   0222-0225, and this session's experiments (0242 and up);
+2. `docs/brief-60.md` (the current session's brief) and
+   `docs/session-60-checklist.md` (its progress), with the proposals note
+   `docs/research/2026-10-29-matching-and-archive-proposals.md` (§2 and
+   its "Evaluation and adoption boundaries"), the roadmap's "Where search
+   time goes", experiments 0199-0205 and 0212-0214, and this session's
+   experiments (0243 and up);
    `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
@@ -28,8 +30,8 @@ anything else:
    `docs/brief-44.md`, `docs/brief-45.md`, `docs/brief-46.md`,
    `docs/brief-47.md`, `docs/brief-48.md`, `docs/brief-49.md`,
    `docs/brief-50.md`, `docs/brief-51.md`, `docs/brief-52.md`,
-   `docs/brief-53.md`, `docs/brief-54.md`, `docs/brief-55.md`, `docs/brief-56.md`, `docs/brief-57.md` and `docs/brief-58.md` hold
-   rules that still apply unless brief 59 changes them
+   `docs/brief-53.md`, `docs/brief-54.md`, `docs/brief-55.md`, `docs/brief-56.md`, `docs/brief-57.md`, `docs/brief-58.md` and `docs/brief-59.md` hold
+   rules that still apply unless brief 60 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
