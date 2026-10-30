@@ -127,3 +127,102 @@ Rules for this session:
 
 ## Decisions
 
+- **(01:18) Start build and regressions** (`work/s60/start.sh`, tmux
+  `s60start`, logs in `work/s60/logs/`; `run.sh` and `same.py` are
+  session 59's with the paths changed). Built from master `9266a8c`.
+- **(01:21) Capture** (tmux `s60capture`, `work/s60/capture.sh`): a
+  diagnostic build, never committed (`work/bin/s60-capture/`, scratch
+  worktree `work/s60/wt`), writes the posting lists, points and rung of
+  sampled windows from the Stakka scan to `work/s60/replay/nas/` (one
+  window and rung in 400, chosen by a hash of window, speed and
+  playback) and `work/s60/replay/corpus/` (one in 40, 262 tracks). The
+  scans run in the scratch work directory `work/s60/w` (the saved NAS
+  index hard-linked, the clusters files copied); their reports are
+  compared with the baselines'.
+
+### Pre-registration (01:30, committed before any timing)
+
+**The sketch.** Before a part's hits are grouped, one pass over `part`
+counts each hit in a table of pair counters for the part's assets: a
+row of `M + 1` bytes per asset, the hit's slot folded to `slot mod M`
+(`M` divides 4,096), and the same 16-bit word add, wrap bytes and
+`REACHED` test as `OffsetSlots`. An asset is flagged the first time one
+of its pair bytes reaches `MIN_LINE_HITS`. Grouping then counts and
+scatters only the hits of flagged assets; unflagged assets have no
+grouped hits and are skipped by the existing test of fewer than 3
+hits. Flagged assets go through today's `may_form_line`, alignment,
+sort and lines unchanged. The table is cleared for each part by
+filling the part's rows with zeros (counted in the cost).
+
+**Layouts (three, no more).** F64, F256 and F1024: `M` = 64, 256 and
+1,024 slots, so 65, 257 and 1,025 bytes per asset; scratch per worker
+66.6 KB, 263 KB and 1.05 MB for the table, plus 1,024 bytes of flags.
+(By a uniform model, hits of an asset with 44 hits spread over 4,096
+slots, the smaller tables pass most assets; the replays measure it.)
+
+**The proof obligation**, to be written in the code's documentation and
+tested:
+
+1. Folding: for slots `s` and `s + 1 mod 4096`, `s mod M` and
+   `s + 1 mod M` are neighbours mod `M`, since `M` divides 4,096; slot
+   4,095 and slot 0 fold to `M - 1` and 0, which the duplicate byte `M`
+   (and byte 0) count as one pair, as `OffsetSlots` does at 4,096.
+   So every pair count of `may_form_line` is at most the count of its
+   folded pair: folding only adds hits.
+2. Rows: each asset has its own row, so no other asset adds to its
+   counts.
+3. Saturation: before an asset is flagged, each of its bytes is its
+   folded pair's exact count (at most 2 before the hit that flags it,
+   so no carry crosses bytes and the `REACHED` test is exact). The flag
+   is never cleared within a part; once flagged, later wraps, carries
+   and the `u16` wrapping add cannot unflag it.
+4. Hence an asset that `may_form_line` passes is flagged; an asset with
+   a line passes `may_form_line` (its existing proof); so no asset with
+   a line loses a hit, and a flagged asset's grouped hits are today's,
+   in today's order. Assets with fewer than 3 hits are skipped as today.
+5. The fallback: when `Phases::exact` is false, slots mean nothing, so
+   every asset is flagged and the search is today's.
+
+**Tests** (in the prototype): property tests that no asset `may_form_line`
+passes is left unflagged, on random buffers, offsets near the wrap at
+phase 0 and 65,535, one asset holding every hit (thousands of hits in
+one pair, so bytes wrap), and dense buffers where every asset passes;
+the existing test that grouping finds the lines of a comparison sort,
+run with each layout; the fallback.
+
+**Replays.** The captured windows (above) are read by an ignored test in
+the scratch worktree (`replay`), which runs today's `lines` and each
+layout's on the same lists and points, and reports per layout: lines
+equal bit for bit and in order (every `f64` compared by its bits),
+assets with 3 hits or more, assets flagged, the share of hits
+scattered, assets `may_form_line` passes, and single-thread CPU of
+`lines` (best of 3). Synthetic dense buffers (every asset's hits in a
+few slots) measure the cost when the sketch passes nearly every asset.
+
+**The replay winner** is the layout with identical lines on every replay
+and the lowest replay CPU at NAS scale. Full searches run for it alone
+(even if its replay CPU exceeds today's: the full search at 32 workers
+is the measure).
+
+**Equality checks for adoption.** Replay lines identical; both
+regressions identical, every report apart from `wall_seconds`; the
+three development scans (Stakka, razorjack 2003, Nocny Trans) at NAS
+scale and at 262 tracks byte-identical to the start build's apart from
+`wall_seconds`; the CLI's JSON report (`identify --format json`, corpus
+configuration) of the three development mixes identical from both
+builds.
+
+**Timing protocol.** The machine otherwise idle; base `work/bin/s60-start`,
+candidate the prototype build. The Stakka scan (`scan
+stakka-skynet-knowledge`) at NAS scale (saved index) and at 262 tracks,
+A B B A at 32 jobs, then at 16: the report's `wall_seconds`, elapsed,
+user CPU and maximum resident set from `/usr/bin/time -v`. Stage timers
+(session 41's diff on both builds, 32 jobs, one run each) only if time
+allows, exploratory.
+
+**Bar for adoption.** The candidate's NAS-scale search (`wall_seconds`) at
+32 jobs at least 5% less than the base's in both pairs; at 16 jobs and at
+262 tracks no pair more than 1% slower; peak memory no more than 2%
+higher; every equality check above holds. Otherwise master's search is
+unchanged and the negative result is recorded (experiment 0244), with
+the replays' pass rates (0243).
