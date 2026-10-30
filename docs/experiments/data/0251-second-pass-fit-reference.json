@@ -1,0 +1,1511 @@
+{
+ "panel1-cross": {
+  "results": 622,
+  "confident": {
+   "played": {
+    "default": 516,
+    "variant": 521
+   },
+   "related": {
+    "default": 430,
+    "variant": 414
+   },
+   "other": {
+    "default": 475,
+    "variant": 464
+   },
+   "partner": {
+    "default": 8,
+    "variant": 8
+   }
+  },
+  "newly_confident": [
+   "playground-shades-1-looped-60s [everything] played Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus 238->241",
+   "playground-shades-1-looped-120s [everything] played Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus 238->247",
+   "playground-shades-1-looped-60s [source left out] played Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus 238->241",
+   "playground-shades-1-looped-120s [source left out] played Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus 238->247",
+   "sonar-2-looped-240s [everything] related a-trace-sonar-pro012-sour.mp3 220->242",
+   "sonar-2-beyond-30s [everything] related DJ Trace - Sonar.m4a 232->251",
+   "sonar-2-looped-240s [played left out] related a-trace-sonar-pro012-sour.mp3 220->242",
+   "sonar-2-beyond-30s [played left out] related DJ Trace - Sonar.m4a 232->251"
+  ],
+  "no_longer_confident": [
+   "fire-6-beyond-10s [everything] other 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3 245->236",
+   "fire-6-beyond-20s [everything] other 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3 245->236",
+   "fire-6-beyond-30s [everything] other 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3 245->236",
+   "fire-6-blend-beyond-20s [everything] other 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3 266->231",
+   "fire-6-beyond-10s [played left out] other 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3 245->236",
+   "fire-6-beyond-20s [played left out] other 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3 245->236",
+   "fire-6-beyond-30s [played left out] other 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3 245->236",
+   "fire-6-blend-beyond-20s [played left out] other 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3 266->231",
+   "pyro-1-weak-alone-30s [everything] related Pyro - Ignorance.m4a 240->239",
+   "pyro-1-weak-alone-30s [played left out] related Pyro - Ignorance.m4a 240->239",
+   "pyro-1-weak-alone-30s [source left out] related Pyro - Ignorance.m4a 240->239",
+   "pyro-2-weak-beyond-20s [everything] related Pyro - Time Is Broken.m4a 254->219",
+   "pyro-2-weak-beyond-20s [played left out] related Pyro - Time Is Broken.m4a 254->219",
+   "sonar-2-looped-60s [everything] related Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a 245->225",
+   "sonar-2-looped-60s [played left out] related Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a 245->225"
+  ],
+  "ratio": {
+   "played": {
+    "n": 470,
+    "median": 0.998,
+    "p10": 0.98,
+    "p90": 1.005,
+    "largest": 1.156,
+    "smallest": 0.879
+   },
+   "related": {
+    "n": 582,
+    "median": 0.998,
+    "p10": 0.955,
+    "p90": 1.183,
+    "largest": 1.595,
+    "smallest": 0.853
+   },
+   "other": {
+    "n": 1493,
+    "median": 1.0,
+    "p10": 0.939,
+    "p90": 1.125,
+    "largest": 1.595,
+    "smallest": 0.777
+   },
+   "partner": {
+    "n": 76,
+    "median": 0.991,
+    "p10": 0.904,
+    "p90": 1.118,
+    "largest": 1.198,
+    "smallest": 0.883
+   }
+  },
+  "strongest_related": {
+   "default": 600,
+   "variant": 597
+  }
+ },
+ "panel1-grid": {
+  "results": 622,
+  "confident": {
+   "played": {
+    "default": 516,
+    "variant": 528
+   },
+   "related": {
+    "default": 430,
+    "variant": 444
+   },
+   "other": {
+    "default": 475,
+    "variant": 487
+   },
+   "partner": {
+    "default": 8,
+    "variant": 10
+   }
+  },
+  "newly_confident": [
+   "fire-2-looped-60s [everything] other 05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3 238->243",
+   "fire-2-blend-beyond-20s [everything] partner Stakka & Skynet - Decoy.opus 237->259",
+   "fire-2-looped-60s [played left out] other 05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3 238->243",
+   "fire-2-blend-beyond-20s [played left out] partner Stakka & Skynet - Decoy.opus 237->259",
+   "fire-3-looped-60s [everything] other 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3 237->243",
+   "fire-3-looped-60s [played left out] other 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3 237->243",
+   "fire-3-looped-60s [source left out] other 02-demolition_man-fire_(rogue_unit_vip_remix)-sour.mp3 237->243",
+   "fire-6-weak-beyond-20s [everything] other 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3 227->246",
+   "fire-6-weak-beyond-20s [everything] other 205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3 220->243",
+   "fire-6-weak-beyond-20s [played left out] other 03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3 227->246",
+   "fire-6-weak-beyond-20s [played left out] other 205-prizna_ft_demolition_man-fire(urban_shakedown_mix)-sour.mp3 220->243",
+   "playground-shades-1-looped-60s [everything] played Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus 238->252",
+   "playground-shades-1-looped-120s [everything] played Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus 238->252",
+   "playground-shades-1-looped-60s [source left out] played Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus 238->252",
+   "playground-shades-1-looped-120s [source left out] played Aphrodite - Playground Shades (Aphrodite Recordings APH039 A) 2001.opus 238->252",
+   "sonar-2-looped-240s [everything] related a-trace-sonar-pro012-sour.mp3 220->242",
+   "sonar-2-beyond-10s [everything] related a-trace-sonar-pro012-sour.mp3 238->258",
+   "sonar-2-beyond-30s [everything] related DJ Trace - Sonar.m4a 232->254",
+   "sonar-2-looped-240s [played left out] related a-trace-sonar-pro012-sour.mp3 220->242",
+   "sonar-2-beyond-10s [played left out] related a-trace-sonar-pro012-sour.mp3 238->258",
+   "sonar-2-beyond-30s [played left out] related DJ Trace - Sonar.m4a 232->254"
+  ],
+  "no_longer_confident": [],
+  "ratio": {
+   "played": {
+    "n": 470,
+    "median": 1.0,
+    "p10": 1.0,
+    "p90": 1.017,
+    "largest": 1.266,
+    "smallest": 1.0
+   },
+   "related": {
+    "n": 582,
+    "median": 1.017,
+    "p10": 1.0,
+    "p90": 1.224,
+    "largest": 1.628,
+    "smallest": 1.0
+   },
+   "other": {
+    "n": 1493,
+    "median": 1.02,
+    "p10": 1.0,
+    "p90": 1.153,
+    "largest": 1.628,
+    "smallest": 1.0
+   },
+   "partner": {
+    "n": 76,
+    "median": 1.034,
+    "p10": 1.0,
+    "p90": 1.126,
+    "largest": 1.337,
+    "smallest": 1.0
+   }
+  },
+  "strongest_related": {
+   "default": 600,
+   "variant": 603
+  }
+ },
+ "panel2-cross": {
+  "results": 440,
+  "confident": {
+   "played": {
+    "default": 545,
+    "variant": 541
+   },
+   "related": {
+    "default": 12,
+    "variant": 21
+   },
+   "other": {
+    "default": 3,
+    "variant": 6
+   },
+   "partner": {
+    "default": 0,
+    "variant": 0
+   }
+  },
+  "newly_confident": [
+   "phantom-force-1-beyond-10s [everything] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-20s [everything] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-30s [everything] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-10s [played left out] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-20s [played left out] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-30s [played left out] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-10s [source left out] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-20s [source left out] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-30s [source left out] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-2-looped-60s [everything] played Digital & Spirit - Phantom 2018.m4a 688->744",
+   "phantom-force-2-looped-120s [everything] played Digital & Spirit - Phantom 2018.m4a 688->744",
+   "phantom-force-2-looped-240s [everything] played Digital & Spirit - Phantom 2018.m4a 688->744",
+   "phantom-force-5-blend-beyond-20s [everything] other Digital & Spirit - Phantom 2018.m4a 229->242",
+   "phantom-force-5-blend-beyond-20s [played left out] other Digital & Spirit - Phantom 2018.m4a 229->242",
+   "phantom-force-5-blend-beyond-20s [source left out] other Digital & Spirit - Phantom 2018.m4a 229->242"
+  ],
+  "no_longer_confident": [
+   "phantom-force-5-break-5s-looped-240s [everything] played Digital & Spirit - Phantom Force.m4a 252->197",
+   "phantom-force-5-break-5s-looped-240s [source left out] played Digital & Spirit - Phantom Force.m4a 252->197"
+  ],
+  "ratio": {
+   "played": {
+    "n": 439,
+    "median": 0.999,
+    "p10": 0.964,
+    "p90": 1.058,
+    "largest": 1.467,
+    "smallest": 0.682
+   },
+   "related": {
+    "n": 473,
+    "median": 1.0,
+    "p10": 0.885,
+    "p90": 1.157,
+    "largest": 1.69,
+    "smallest": 0.718
+   },
+   "other": {
+    "n": 84,
+    "median": 0.996,
+    "p10": 0.912,
+    "p90": 1.065,
+    "largest": 1.148,
+    "smallest": 0.828
+   },
+   "partner": {
+    "n": 36,
+    "median": 0.97,
+    "p10": 0.912,
+    "p90": 1.069,
+    "largest": 1.111,
+    "smallest": 0.835
+   }
+  },
+  "strongest_related": {
+   "default": 288,
+   "variant": 293
+  }
+ },
+ "panel2-grid": {
+  "results": 440,
+  "confident": {
+   "played": {
+    "default": 545,
+    "variant": 549
+   },
+   "related": {
+    "default": 12,
+    "variant": 21
+   },
+   "other": {
+    "default": 3,
+    "variant": 6
+   },
+   "partner": {
+    "default": 0,
+    "variant": 0
+   }
+  },
+  "newly_confident": [
+   "phantom-force-1-beyond-10s [everything] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-20s [everything] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-30s [everything] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-10s [played left out] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-20s [played left out] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-30s [played left out] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-10s [source left out] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-20s [source left out] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-1-beyond-30s [source left out] related Digital & Spirit - Phantom 2018.m4a 223->244",
+   "phantom-force-2-looped-60s [everything] played Digital & Spirit - Phantom 2018.m4a 688->752",
+   "phantom-force-2-looped-120s [everything] played Digital & Spirit - Phantom 2018.m4a 688->752",
+   "phantom-force-2-looped-240s [everything] played Digital & Spirit - Phantom 2018.m4a 688->752",
+   "phantom-force-5-blend-beyond-20s [everything] other Digital & Spirit - Phantom 2018.m4a 229->243",
+   "phantom-force-5-blend-beyond-20s [played left out] other Digital & Spirit - Phantom 2018.m4a 229->243",
+   "phantom-force-5-blend-beyond-20s [source left out] other Digital & Spirit - Phantom 2018.m4a 229->243"
+  ],
+  "no_longer_confident": [],
+  "ratio": {
+   "played": {
+    "n": 439,
+    "median": 1.011,
+    "p10": 1.0,
+    "p90": 1.112,
+    "largest": 1.533,
+    "smallest": 1.0
+   },
+   "related": {
+    "n": 473,
+    "median": 1.075,
+    "p10": 1.0,
+    "p90": 1.173,
+    "largest": 1.988,
+    "smallest": 1.0
+   },
+   "other": {
+    "n": 84,
+    "median": 1.033,
+    "p10": 1.0,
+    "p90": 1.121,
+    "largest": 1.148,
+    "smallest": 1.0
+   },
+   "partner": {
+    "n": 36,
+    "median": 1.022,
+    "p10": 1.0,
+    "p90": 1.167,
+    "largest": 1.171,
+    "smallest": 1.0
+   }
+  },
+  "strongest_related": {
+   "default": 288,
+   "variant": 295
+  }
+ },
+ "recall-seed-2026-brief-cross": {
+  "queries": 1404,
+  "gained": [
+   "82 a-klute-silent_weapons_(photek_rmx)-sour.mp3 +1.0% brief 304->421",
+   "182 02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 -5.0% brief 427->619",
+   "866 07-Teebee & K-Wallace & Gromit.m4a -5.0% brief 239->298",
+   "874 07-Teebee & K-Wallace & Gromit.m4a +1.0% brief 235->311",
+   "921 01.Agressor Bunx - Deception.mp3 -5.0% brief 387->593"
+  ],
+  "lost": [
+   "246 b-flytronix-offshore_drift-sour.mp3 +3.0% brief 267->447"
+  ],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 721,
+   "variant": 725
+  },
+  "weak_true_ratio": {
+   "n": 1545,
+   "median": 1.017,
+   "p10": 0.97,
+   "p90": 1.415,
+   "largest": 2.13,
+   "smallest": 0.619
+  },
+  "negative_ratio": {
+   "n": 50,
+   "median": 1.0,
+   "p10": 0.922,
+   "p90": 1.1,
+   "largest": 1.253,
+   "smallest": 0.855
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 146,
+   "variant": 136
+  },
+  "margin_change": {
+   "n": 775,
+   "median": 1.039,
+   "p10": 0.991,
+   "p90": 1.425,
+   "largest": 1.816,
+   "smallest": 0.869
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 1044,
+    "median": 0.0494,
+    "p90": 0.2
+   },
+   "variant": {
+    "n": 1044,
+    "median": 0.0121,
+    "p90": 0.0319
+   }
+  }
+ },
+ "recall-seed-2026-brief-grid": {
+  "queries": 1404,
+  "gained": [
+   "82 a-klute-silent_weapons_(photek_rmx)-sour.mp3 +1.0% brief 304->429",
+   "182 02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 -5.0% brief 427->619",
+   "866 07-Teebee & K-Wallace & Gromit.m4a -5.0% brief 239->301",
+   "874 07-Teebee & K-Wallace & Gromit.m4a +1.0% brief 235->318",
+   "921 01.Agressor Bunx - Deception.mp3 -5.0% brief 387->596"
+  ],
+  "lost": [
+   "246 b-flytronix-offshore_drift-sour.mp3 +3.0% brief 267->451"
+  ],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 721,
+   "variant": 725
+  },
+  "weak_true_ratio": {
+   "n": 1545,
+   "median": 1.051,
+   "p10": 1.0,
+   "p90": 1.423,
+   "largest": 2.13,
+   "smallest": 1.0
+  },
+  "negative_ratio": {
+   "n": 50,
+   "median": 1.03,
+   "p10": 1.0,
+   "p90": 1.149,
+   "largest": 1.253,
+   "smallest": 1.0
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 146,
+   "variant": 147
+  },
+  "margin_change": {
+   "n": 775,
+   "median": 1.044,
+   "p10": 1.0,
+   "p90": 1.441,
+   "largest": 1.816,
+   "smallest": 0.909
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 1044,
+    "median": 0.0494,
+    "p90": 0.2
+   },
+   "variant": {
+    "n": 1044,
+    "median": 0.0137,
+    "p90": 0.0367
+   }
+  }
+ },
+ "recall-seed-2026-cross": {
+  "queries": 702,
+  "gained": [],
+  "lost": [],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 522,
+   "variant": 522
+  },
+  "weak_true_ratio": {
+   "n": 194,
+   "median": 0.995,
+   "p10": 0.949,
+   "p90": 1.037,
+   "largest": 1.19,
+   "smallest": 0.854
+  },
+  "negative_ratio": {
+   "n": 57,
+   "median": 0.991,
+   "p10": 0.913,
+   "p90": 1.16,
+   "largest": 1.305,
+   "smallest": 0.554
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 184,
+   "variant": 184
+  },
+  "margin_change": {
+   "n": 456,
+   "median": 0.998,
+   "p10": 0.988,
+   "p90": 1.006,
+   "largest": 1.067,
+   "smallest": 0.85
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 522,
+    "median": 0.0031,
+    "p90": 0.0085
+   },
+   "variant": {
+    "n": 522,
+    "median": 0.0104,
+    "p90": 0.027
+   }
+  }
+ },
+ "recall-seed-2026-grid": {
+  "queries": 702,
+  "gained": [],
+  "lost": [],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 522,
+   "variant": 522
+  },
+  "weak_true_ratio": {
+   "n": 194,
+   "median": 1.01,
+   "p10": 1.0,
+   "p90": 1.067,
+   "largest": 1.229,
+   "smallest": 1.0
+  },
+  "negative_ratio": {
+   "n": 57,
+   "median": 1.02,
+   "p10": 1.0,
+   "p90": 1.17,
+   "largest": 1.305,
+   "smallest": 1.0
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 184,
+   "variant": 184
+  },
+  "margin_change": {
+   "n": 456,
+   "median": 1.001,
+   "p10": 1.0,
+   "p90": 1.008,
+   "largest": 1.042,
+   "smallest": 0.845
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 522,
+    "median": 0.0031,
+    "p90": 0.0085
+   },
+   "variant": {
+    "n": 522,
+    "median": 0.0117,
+    "p90": 0.0258
+   }
+  }
+ },
+ "recall-seed-2026-other-rips-brief-cross": {
+  "queries": 1404,
+  "gained": [
+   "60 b-kazmir_f_carol_c-fallen_angels_remix-2000-sour.mp3 -1.0% brief 194->267",
+   "64 b-kazmir_f_carol_c-fallen_angels_remix-2000-sour.mp3 +1.0% brief 233->319",
+   "75 a-klute-silent_weapons_(photek_rmx)-sour.mp3 -5.0% brief 218->250",
+   "183 02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 -5.0% brief 222->283",
+   "191 02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 +1.0% brief 235->302",
+   "326 Elementz Of Noize - Astral.opus -5.0% brief 235->265",
+   "565 DYkast \u2022 Punishment.m4a -1.0% brief 222->257",
+   "569 DYkast \u2022 Punishment.m4a +1.0% brief 237->261",
+   "573 DYkast \u2022 Punishment.m4a +5.0% brief 225->288",
+   "811 b-makai-polaris-trt.mp3 -8.0% brief 137->259",
+   "859 b-lomax-trago_trash-sour.mp3 +3.0% brief 228->253",
+   "949 2. Noisia, Phace & Stu C4C - Dead Air.mp3 +3.0% brief 238->291",
+   "951 2. Noisia, Phace & Stu C4C - Dead Air.mp3 +5.0% brief 213->303"
+  ],
+  "lost": [
+   "293 c-known_unknown-rollers_edit-sour.mp3 -3.0% brief 252->232",
+   "303 c-known_unknown-rollers_edit-sour.mp3 +5.0% brief 247->228"
+  ],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 171,
+   "variant": 182
+  },
+  "weak_true_ratio": {
+   "n": 501,
+   "median": 1.0,
+   "p10": 0.923,
+   "p90": 1.245,
+   "largest": 2.13,
+   "smallest": 0.619
+  },
+  "negative_ratio": {
+   "n": 50,
+   "median": 0.995,
+   "p10": 0.918,
+   "p90": 1.092,
+   "largest": 1.185,
+   "smallest": 0.855
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 146,
+   "variant": 136
+  },
+  "margin_change": {
+   "n": 294,
+   "median": 1.0,
+   "p10": 0.932,
+   "p90": 1.235,
+   "largest": 2.13,
+   "smallest": 0.619
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   },
+   "variant": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   }
+  }
+ },
+ "recall-seed-2026-other-rips-brief-grid": {
+  "queries": 1404,
+  "gained": [
+   "60 b-kazmir_f_carol_c-fallen_angels_remix-2000-sour.mp3 -1.0% brief 194->281",
+   "64 b-kazmir_f_carol_c-fallen_angels_remix-2000-sour.mp3 +1.0% brief 233->320",
+   "75 a-klute-silent_weapons_(photek_rmx)-sour.mp3 -5.0% brief 218->262",
+   "183 02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 -5.0% brief 222->285",
+   "191 02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3 +1.0% brief 235->304",
+   "254 105-ram_trilogy-snake_bite-sour.mp3 -5.0% brief 238->252",
+   "260 105-ram_trilogy-snake_bite-sour.mp3 +0.0% brief 239->251",
+   "326 Elementz Of Noize - Astral.opus -5.0% brief 235->275",
+   "565 DYkast \u2022 Punishment.m4a -1.0% brief 222->263",
+   "569 DYkast \u2022 Punishment.m4a +1.0% brief 237->265",
+   "573 DYkast \u2022 Punishment.m4a +5.0% brief 225->293",
+   "811 b-makai-polaris-trt.mp3 -8.0% brief 137->259",
+   "847 b-lomax-trago_trash-sour.mp3 -8.0% brief 235->240",
+   "853 b-lomax-trago_trash-sour.mp3 -1.0% brief 239->246",
+   "857 b-lomax-trago_trash-sour.mp3 +1.0% brief 238->244",
+   "859 b-lomax-trago_trash-sour.mp3 +3.0% brief 228->256",
+   "861 b-lomax-trago_trash-sour.mp3 +5.0% brief 231->252",
+   "863 b-lomax-trago_trash-sour.mp3 +8.0% brief 231->243",
+   "949 2. Noisia, Phace & Stu C4C - Dead Air.mp3 +3.0% brief 238->291",
+   "951 2. Noisia, Phace & Stu C4C - Dead Air.mp3 +5.0% brief 213->303",
+   "1010 d-droogs-betalp01-1999-sour.mp3 -5.0% brief 216->243",
+   "1014 d-droogs-betalp01-1999-sour.mp3 -1.0% brief 220->240"
+  ],
+  "lost": [],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 171,
+   "variant": 193
+  },
+  "weak_true_ratio": {
+   "n": 501,
+   "median": 1.04,
+   "p10": 1.0,
+   "p90": 1.263,
+   "largest": 2.13,
+   "smallest": 1.0
+  },
+  "negative_ratio": {
+   "n": 50,
+   "median": 1.031,
+   "p10": 1.0,
+   "p90": 1.169,
+   "largest": 1.232,
+   "smallest": 1.0
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 146,
+   "variant": 147
+  },
+  "margin_change": {
+   "n": 294,
+   "median": 1.035,
+   "p10": 1.0,
+   "p90": 1.258,
+   "largest": 2.13,
+   "smallest": 0.915
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   },
+   "variant": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   }
+  }
+ },
+ "recall-seed-2026-other-rips-cross": {
+  "queries": 702,
+  "gained": [],
+  "lost": [],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 174,
+   "variant": 174
+  },
+  "weak_true_ratio": {
+   "n": 193,
+   "median": 0.995,
+   "p10": 0.949,
+   "p90": 1.037,
+   "largest": 1.19,
+   "smallest": 0.854
+  },
+  "negative_ratio": {
+   "n": 58,
+   "median": 0.996,
+   "p10": 0.913,
+   "p90": 1.167,
+   "largest": 1.305,
+   "smallest": 0.554
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 184,
+   "variant": 184
+  },
+  "margin_change": {
+   "n": 173,
+   "median": 0.998,
+   "p10": 0.953,
+   "p90": 1.034,
+   "largest": 1.169,
+   "smallest": 0.85
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   },
+   "variant": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   }
+  }
+ },
+ "recall-seed-2026-other-rips-grid": {
+  "queries": 702,
+  "gained": [
+   "496 04-the_sect_feat_axis_and_trank-victim-xtc.mp3 -5.0% 230->256",
+   "499 04-the_sect_feat_axis_and_trank-victim-xtc.mp3 +0.0% 201->247"
+  ],
+  "lost": [],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 174,
+   "variant": 176
+  },
+  "weak_true_ratio": {
+   "n": 193,
+   "median": 1.01,
+   "p10": 1.0,
+   "p90": 1.067,
+   "largest": 1.229,
+   "smallest": 1.0
+  },
+  "negative_ratio": {
+   "n": 58,
+   "median": 1.02,
+   "p10": 1.0,
+   "p90": 1.202,
+   "largest": 1.305,
+   "smallest": 1.0
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 184,
+   "variant": 184
+  },
+  "margin_change": {
+   "n": 173,
+   "median": 1.005,
+   "p10": 1.0,
+   "p90": 1.059,
+   "largest": 1.229,
+   "smallest": 0.847
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   },
+   "variant": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   }
+  }
+ },
+ "scan-nocny-cross": {
+  "default": {
+   "referenced": 17,
+   "identified": 17,
+   "wrong": 0,
+   "possible": 0
+  },
+  "variant": {
+   "referenced": 17,
+   "identified": 17,
+   "wrong": 0,
+   "possible": 0
+  },
+  "tracks_changed": [
+   "1. Drumsound & Simon Bassline Smith - Phoenix True->True 4218->4213",
+   "2. Trace & Fresh - Mutated (Version X) True->True 1702->1711",
+   "3. Friction & Nu Balance - Final Judgement True->True 2229->2234",
+   "4. Dieselboy - The Descent (Phunckateck VIP) True->True 1679->1750",
+   "5. Bulletproof - Scarred True->True 1041->1019",
+   "6. Dieselboy - Invid (E-Sassin VIP) True->True 2934->2922",
+   "7. Kon.Rad - Mistaken Identity True->True 1919->1901",
+   "8. Bulletproof - Nephelim (Konflict remix) True->True 3126->3091",
+   "9. Bulletproof - Anthrax True->True 386->375",
+   "10. Cause 4 Concern - Blindside True->True 1188->1144",
+   "11. Decoder - Dead Fall True->True 2218->2285",
+   "12. The Kraft - Stab 2 Def True->True 1112->1195",
+   "13. Future Cut - Horns 2000 True->True 1505->1449",
+   "14. Klute - We R The Ones (VIP) True->True 2598->2632",
+   "15. Sonic - Cannibal True->True 860->832",
+   "16. Aquasky - Lords of Motion (Tech Itch Remix) True->True 1653->1644"
+  ],
+  "confident_detections": {
+   "default": 42,
+   "variant": 42
+  }
+ },
+ "scan-nocny-grid": {
+  "default": {
+   "referenced": 17,
+   "identified": 17,
+   "wrong": 0,
+   "possible": 0
+  },
+  "variant": {
+   "referenced": 17,
+   "identified": 17,
+   "wrong": 0,
+   "possible": 0
+  },
+  "tracks_changed": [
+   "1. Drumsound & Simon Bassline Smith - Phoenix True->True 4218->4224",
+   "2. Trace & Fresh - Mutated (Version X) True->True 1702->1727",
+   "3. Friction & Nu Balance - Final Judgement True->True 2229->2234",
+   "4. Dieselboy - The Descent (Phunckateck VIP) True->True 1679->1760",
+   "5. Bulletproof - Scarred True->True 1041->1047",
+   "6. Dieselboy - Invid (E-Sassin VIP) True->True 2934->2969",
+   "7. Kon.Rad - Mistaken Identity True->True 1919->1938",
+   "8. Bulletproof - Nephelim (Konflict remix) True->True 3126->3136",
+   "9. Bulletproof - Anthrax True->True 386->398",
+   "10. Cause 4 Concern - Blindside True->True 1188->1194",
+   "11. Decoder - Dead Fall True->True 2218->2292",
+   "12. The Kraft - Stab 2 Def True->True 1112->1212",
+   "13. Future Cut - Horns 2000 True->True 1505->1510",
+   "14. Klute - We R The Ones (VIP) True->True 2598->2648",
+   "18. Mo-Funk - Slipstream True->True 603->619"
+  ],
+  "confident_detections": {
+   "default": 42,
+   "variant": 42
+  }
+ },
+ "scan-razorjack-cross": {
+  "default": {
+   "referenced": 12,
+   "identified": 12,
+   "wrong": 0,
+   "possible": 0
+  },
+  "variant": {
+   "referenced": 12,
+   "identified": 12,
+   "wrong": 0,
+   "possible": 0
+  },
+  "tracks_changed": [
+   "1. Kemal & Rob Data - Konspiracy True->True 4333->4314",
+   "2. Future Cut - The Specialist True->True 6677->6659",
+   "3. Narcosis - Escape Route True->True 8589->8554",
+   "5. Tee Bee - Two Faced True->True 3346->3345",
+   "6. Omni Trio - Kinetic True->True 8434->8433",
+   "7. Carlito & Addiction - Into Music True->True 3164->3504",
+   "8. Omni Trio - Artificial Life (Harp Tune) True->True 3189->3180",
+   "9. Total Science - Yvon Is On True->True 5437->5430",
+   "11. Spirit - Out Of Control True->True 3276->3222"
+  ],
+  "confident_detections": {
+   "default": 41,
+   "variant": 40
+  }
+ },
+ "scan-razorjack-grid": {
+  "default": {
+   "referenced": 12,
+   "identified": 12,
+   "wrong": 0,
+   "possible": 0
+  },
+  "variant": {
+   "referenced": 12,
+   "identified": 12,
+   "wrong": 0,
+   "possible": 0
+  },
+  "tracks_changed": [
+   "4. Digital & Spirit - Phantom Force True->True 5690->5895",
+   "5. Tee Bee - Two Faced True->True 3346->3531",
+   "6. Omni Trio - Kinetic True->True 8434->8445",
+   "7. Carlito & Addiction - Into Music True->True 3164->3504",
+   "11. Spirit - Out Of Control True->True 3276->3291"
+  ],
+  "confident_detections": {
+   "default": 41,
+   "variant": 37
+  }
+ },
+ "scan-stakka-262-cross": {
+  "default": {
+   "referenced": 11,
+   "identified": 11,
+   "wrong": 0,
+   "possible": 0
+  },
+  "variant": {
+   "referenced": 11,
+   "identified": 11,
+   "wrong": 0,
+   "possible": 0
+  },
+  "tracks_changed": [
+   "1. Skynet & Stakka - Night Lore True->True 3832->3825",
+   "3. Kemal & Rob Data - Star Trails True->True 1540->1548",
+   "4. Skynet & Stakka - Pathogen True->True 2078->2026",
+   "6. Kraken - Side Effects (TeeBee Remix) True->True 2272->2190",
+   "7. Kraken - Dominion True->True 3531->3627",
+   "8. Kemal & Paul Reset - Kontempt True->True 4452->4457",
+   "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear True->True 4865->4893",
+   "10. Skynet & Stakka - Logistics True->True 6425->6424",
+   "11. Stakka & K.Tee - Auto Ignition True->True 4742->4810"
+  ],
+  "confident_detections": {
+   "default": 19,
+   "variant": 19
+  }
+ },
+ "scan-stakka-262-grid": {
+  "default": {
+   "referenced": 11,
+   "identified": 11,
+   "wrong": 0,
+   "possible": 0
+  },
+  "variant": {
+   "referenced": 11,
+   "identified": 11,
+   "wrong": 0,
+   "possible": 0
+  },
+  "tracks_changed": [
+   "1. Skynet & Stakka - Night Lore True->True 3832->3833",
+   "3. Kemal & Rob Data - Star Trails True->True 1540->1560",
+   "6. Kraken - Side Effects (TeeBee Remix) True->True 2272->2278",
+   "7. Kraken - Dominion True->True 3531->3627",
+   "8. Kemal & Paul Reset - Kontempt True->True 4452->4472",
+   "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear True->True 4865->4893",
+   "10. Skynet & Stakka - Logistics True->True 6425->6435",
+   "11. Stakka & K.Tee - Auto Ignition True->True 4742->4843"
+  ],
+  "confident_detections": {
+   "default": 19,
+   "variant": 19
+  }
+ },
+ "scan-stakka-nas-cross": {
+  "default": {
+   "referenced": 11,
+   "identified": 11,
+   "wrong": 0,
+   "possible": 0
+  },
+  "variant": {
+   "referenced": 11,
+   "identified": 11,
+   "wrong": 0,
+   "possible": 0
+  },
+  "tracks_changed": [
+   "1. Skynet & Stakka - Night Lore True->True 3832->3826",
+   "3. Kemal & Rob Data - Star Trails True->True 1764->1782",
+   "4. Skynet & Stakka - Pathogen True->True 2078->2026",
+   "6. Kraken - Side Effects (TeeBee Remix) True->True 2272->2190",
+   "7. Kraken - Dominion True->True 3531->3626",
+   "8. Kemal & Paul Reset - Kontempt True->True 4452->4456",
+   "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear True->True 4865->4893",
+   "11. Stakka & K.Tee - Auto Ignition True->True 4742->4810"
+  ],
+  "confident_detections": {
+   "default": 40,
+   "variant": 40
+  }
+ },
+ "scan-stakka-nas-grid": {
+  "default": {
+   "referenced": 11,
+   "identified": 11,
+   "wrong": 0,
+   "possible": 0
+  },
+  "variant": {
+   "referenced": 11,
+   "identified": 11,
+   "wrong": 0,
+   "possible": 0
+  },
+  "tracks_changed": [
+   "1. Skynet & Stakka - Night Lore True->True 3832->3833",
+   "3. Kemal & Rob Data - Star Trails True->True 1764->1794",
+   "6. Kraken - Side Effects (TeeBee Remix) True->True 2272->2278",
+   "7. Kraken - Dominion True->True 3531->3626",
+   "8. Kemal & Paul Reset - Kontempt True->True 4452->4472",
+   "9. Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear True->True 4865->4893",
+   "10. Skynet & Stakka - Logistics True->True 6425->6436",
+   "11. Stakka & K.Tee - Auto Ignition True->True 4742->4843"
+  ],
+  "confident_detections": {
+   "default": 40,
+   "variant": 40
+  }
+ },
+ "sweep-262-cross": {
+  "queries": 720,
+  "gained": [],
+  "lost": [],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 540,
+   "variant": 540
+  },
+  "weak_true_ratio": {
+   "n": 40,
+   "median": 0.992,
+   "p10": 0.921,
+   "p90": 1.028,
+   "largest": 1.084,
+   "smallest": 0.852
+  },
+  "negative_ratio": {
+   "n": 7,
+   "median": 0.939,
+   "p10": 0.871,
+   "p90": 1.024,
+   "largest": 1.024,
+   "smallest": 0.871
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 100,
+   "variant": 93
+  },
+  "margin_change": {
+   "n": 142,
+   "median": 1.0,
+   "p10": 0.99,
+   "p90": 1.006,
+   "largest": 1.147,
+   "smallest": 0.958
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 540,
+    "median": 0.0031,
+    "p90": 0.0085
+   },
+   "variant": {
+    "n": 540,
+    "median": 0.0095,
+    "p90": 0.0256
+   }
+  }
+ },
+ "sweep-262-grid": {
+  "queries": 720,
+  "gained": [],
+  "lost": [],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 540,
+   "variant": 540
+  },
+  "weak_true_ratio": {
+   "n": 40,
+   "median": 1.01,
+   "p10": 1.0,
+   "p90": 1.072,
+   "largest": 1.109,
+   "smallest": 1.0
+  },
+  "negative_ratio": {
+   "n": 7,
+   "median": 1.022,
+   "p10": 1.0,
+   "p90": 1.298,
+   "largest": 1.298,
+   "smallest": 1.0
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 100,
+   "variant": 109
+  },
+  "margin_change": {
+   "n": 142,
+   "median": 1.0,
+   "p10": 1.0,
+   "p90": 1.007,
+   "largest": 1.034,
+   "smallest": 0.771
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 540,
+    "median": 0.0031,
+    "p90": 0.0085
+   },
+   "variant": {
+    "n": 540,
+    "median": 0.0101,
+    "p90": 0.0254
+   }
+  }
+ },
+ "sweep-nas-cross": {
+  "queries": 720,
+  "gained": [],
+  "lost": [],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 540,
+   "variant": 540
+  },
+  "weak_true_ratio": {
+   "n": 542,
+   "median": 0.993,
+   "p10": 0.942,
+   "p90": 1.035,
+   "largest": 1.223,
+   "smallest": 0.852
+  },
+  "negative_ratio": {
+   "n": 23,
+   "median": 0.996,
+   "p10": 0.901,
+   "p90": 1.037,
+   "largest": 1.238,
+   "smallest": 0.871
+  },
+  "negatives_over_rule": {
+   "default": 7,
+   "variant": 7
+  },
+  "strongest_wrong": {
+   "default": 282,
+   "variant": 279
+  },
+  "margin_change": {
+   "n": 496,
+   "median": 1.0,
+   "p10": 0.99,
+   "p90": 1.005,
+   "largest": 1.147,
+   "smallest": 0.807
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 540,
+    "median": 0.003,
+    "p90": 0.0086
+   },
+   "variant": {
+    "n": 540,
+    "median": 0.0092,
+    "p90": 0.0257
+   }
+  }
+ },
+ "sweep-nas-grid": {
+  "queries": 720,
+  "gained": [],
+  "lost": [],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 540,
+   "variant": 540
+  },
+  "weak_true_ratio": {
+   "n": 542,
+   "median": 1.011,
+   "p10": 1.0,
+   "p90": 1.07,
+   "largest": 1.245,
+   "smallest": 1.0
+  },
+  "negative_ratio": {
+   "n": 23,
+   "median": 1.022,
+   "p10": 1.0,
+   "p90": 1.238,
+   "largest": 1.298,
+   "smallest": 1.0
+  },
+  "negatives_over_rule": {
+   "default": 7,
+   "variant": 7
+  },
+  "strongest_wrong": {
+   "default": 282,
+   "variant": 288
+  },
+  "margin_change": {
+   "n": 496,
+   "median": 1.0,
+   "p10": 1.0,
+   "p90": 1.008,
+   "largest": 1.039,
+   "smallest": 0.771
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 540,
+    "median": 0.003,
+    "p90": 0.0086
+   },
+   "variant": {
+    "n": 540,
+    "median": 0.0104,
+    "p90": 0.025
+   }
+  }
+ },
+ "sweep-other-cross": {
+  "queries": 423,
+  "gained": [],
+  "lost": [
+   "281 b-aphrodite-siren_bass-sour.mp3 -3.0% 248->238"
+  ],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 408,
+   "variant": 407
+  },
+  "weak_true_ratio": {
+   "n": 538,
+   "median": 0.993,
+   "p10": 0.942,
+   "p90": 1.035,
+   "largest": 1.223,
+   "smallest": 0.852
+  },
+  "negative_ratio": {
+   "n": 16,
+   "median": 0.969,
+   "p10": 0.871,
+   "p90": 1.238,
+   "largest": 1.238,
+   "smallest": 0.871
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 100,
+   "variant": 99
+  },
+  "margin_change": {
+   "n": 386,
+   "median": 0.996,
+   "p10": 0.962,
+   "p90": 1.027,
+   "largest": 1.223,
+   "smallest": 0.808
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   },
+   "variant": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   }
+  }
+ },
+ "sweep-other-grid": {
+  "queries": 423,
+  "gained": [],
+  "lost": [],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 408,
+   "variant": 408
+  },
+  "weak_true_ratio": {
+   "n": 538,
+   "median": 1.011,
+   "p10": 1.0,
+   "p90": 1.07,
+   "largest": 1.245,
+   "smallest": 1.0
+  },
+  "negative_ratio": {
+   "n": 16,
+   "median": 1.082,
+   "p10": 1.0,
+   "p90": 1.298,
+   "largest": 1.298,
+   "smallest": 1.0
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 100,
+   "variant": 109
+  },
+  "margin_change": {
+   "n": 386,
+   "median": 1.006,
+   "p10": 1.0,
+   "p90": 1.046,
+   "largest": 1.245,
+   "smallest": 0.771
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   },
+   "variant": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   }
+  }
+ },
+ "sweep-other-l1-cross": {
+  "queries": 423,
+  "gained": [],
+  "lost": [
+   "281 b-aphrodite-siren_bass-sour.mp3 -3.0% 248->238"
+  ],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 407,
+   "variant": 406
+  },
+  "weak_true_ratio": {
+   "n": 539,
+   "median": 0.993,
+   "p10": 0.942,
+   "p90": 1.037,
+   "largest": 1.223,
+   "smallest": 0.852
+  },
+  "negative_ratio": {
+   "n": 16,
+   "median": 0.969,
+   "p10": 0.871,
+   "p90": 1.238,
+   "largest": 1.238,
+   "smallest": 0.871
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 100,
+   "variant": 99
+  },
+  "margin_change": {
+   "n": 387,
+   "median": 0.996,
+   "p10": 0.962,
+   "p90": 1.028,
+   "largest": 1.223,
+   "smallest": 0.808
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   },
+   "variant": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   }
+  }
+ },
+ "sweep-other-l1-grid": {
+  "queries": 423,
+  "gained": [
+   "279 b-aphrodite-siren_bass-sour.mp3 -8.0% 214->241"
+  ],
+  "lost": [],
+  "wrong_added": [],
+  "wrong_removed": 0,
+  "confident_right": {
+   "default": 407,
+   "variant": 408
+  },
+  "weak_true_ratio": {
+   "n": 539,
+   "median": 1.011,
+   "p10": 1.0,
+   "p90": 1.071,
+   "largest": 1.245,
+   "smallest": 1.0
+  },
+  "negative_ratio": {
+   "n": 16,
+   "median": 1.082,
+   "p10": 1.0,
+   "p90": 1.298,
+   "largest": 1.298,
+   "smallest": 1.0
+  },
+  "negatives_over_rule": {
+   "default": 0,
+   "variant": 0
+  },
+  "strongest_wrong": {
+   "default": 100,
+   "variant": 109
+  },
+  "margin_change": {
+   "n": 387,
+   "median": 1.006,
+   "p10": 1.0,
+   "p90": 1.046,
+   "largest": 1.245,
+   "smallest": 0.771
+  },
+  "own_speed_error_percent": {
+   "default": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   },
+   "variant": {
+    "n": 0,
+    "median": null,
+    "p90": null
+   }
+  }
+ }
+}

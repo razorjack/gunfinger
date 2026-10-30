@@ -228,3 +228,61 @@ otherwise it records what failed.
 
 - **(05:43) Start checks.** `work/bin/s63-start/` from master
   (`cmp`-equal to `s62-final`).
+  `regress session-54-linux` (0:50) and `regress session-54-linux-nas`
+  (3:47) identical, every report equal to its baseline's apart from
+  `wall_seconds`.
+- **(05:52) The variants live in the core's options, set only by the
+  harness.** The second pass and its measurements are private to
+  `search/refine.rs`, so the reference cannot be built in the harness
+  alone. As `--speed-per-stretch` does, the core gained an opt-in
+  field, `Options::second_pass_fit` (`SecondPassFit`: `ChainSpeed`, the
+  default, `BestOfGrid`, `CrossFitted`, `Iterated`; `search/refine/fit.rs`),
+  which only the harness's `--second-pass-fit` sets; the matcher, the
+  CLI and every default are unchanged (`383d91a`). The bounded fit was
+  written with the others, since it is a few lines; it runs only if the
+  bar for the gain passes. `refine.rs` gained a `Candidate` (the inputs
+  the measurements share) instead of an eight-argument function.
+- **(05:57) Regressions with the run build** (`work/bin/s63-run/`,
+  fits off): `regress session-54-linux` (0:51) and `regress
+  session-54-linux-nas` (3:47) identical, 8 of 8 reports;
+  `cargo test --release` for `fit::` (4 tests) and the harness's
+  matching tests green.
+- **(05:57) Runs started** (scratch directories from
+  `work/s63/setup.sh`: reflink copies of the sweep, `recall` and both
+  panels' renders, copies of the clusters files, the library map and
+  the baselines, the saved NAS index hard-linked). Five tmux queues:
+  `s63qgrid` and `s63qcross` (NAS scale: `regress
+  session-54-linux-nas`, `sweep --other-rips`, the two other development
+  scans, `recall` clean and brief, its other rips), `s63pgrid` and
+  `s63pcross` (both panels' development halves), `s63q262` (`regress
+  session-54-linux` under each fit, then the default's `sweep
+  --other-rips` at NAS scale). The default's other reports are session
+  62's downmix runs (`work/s62/w`, `work/s62/w2`), made by today's
+  default matcher; the default's sweep and Stakka scans are the
+  baselines'.
+- **(05:57) The experiments run in order.** The perturbation (0252)
+  starts after 0251 is written; the bounded fit (0253) after 0252.
+- **(06:26) A run added to 0251: 0226's Siren Bass case.** Under
+  today's ladder Siren Bass's upload at -8% is confident by the default
+  (305 hits at -8.093%); 0226's loss came with extra rungs. So `sweep
+  --other-rips --extra-rungs 1` runs under the default and each fit
+  (tmux `s63siren`; reports in each directory's `extra-rungs-1/`), the
+  one case the prompt names that today's ladder does not reproduce.
+- **(06:56) The bar for the gain passes on (a); the bounded fit runs,
+  and the experiments are renumbered.** On `recall`'s brief plays the
+  split gains 5 confident right answers and loses 1 (the grid the same
+  5 and 1); nothing else measured so far gains one. (b) fails (the
+  split's median ratio 1.017 on the brief plays, 0.99-1.0 elsewhere).
+  So the bounded fit runs, as registered. For the order of experiments
+  (each file before the next one's runs), the bounded fit becomes 0252
+  and the perturbation 0253, so that the perturbation's runs can
+  include the bounded fit for B6 (the default, the grid and the
+  iterated fit under the old lists). Queues `work/s63/q-iterated.sh`,
+  `r-iterated.sh`, `p-iterated.sh` (directories `wi`, `wir`, `wpi1`,
+  `wpi2`) start once 0251 is written.
+- **(06:57) Panel 2 beside panel 1** (a time-box decision, as in
+  session 62): panel 1 under each fit had made 27 of its 40 searches
+  in an hour, so panel 2 runs now under each fit in its own directory
+  (`wpg2`, `wpc2`; tmux `s63ptwogrid`, `s63ptwocross`), and a watcher
+  (`work/s63/stop-p1-*.sh`) stops the first queues as soon as panel 1
+  logs its exit, before they would repeat panel 2.
