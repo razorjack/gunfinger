@@ -57,16 +57,80 @@ speed sits at the rule, not clearly above it.
 
 ## The selection effect on negatives
 
-TODO
+Maximising over 42 alignments raises wrong versions as it raises true
+plays; the split and the bounded fit, which do not choose on the hits
+they count, mostly do not:
+
+| Negatives (NAS scale unless 262) | Grid | Split | Bounded fit |
+|---|--:|--:|--:|
+| Wrong candidates of 80 hits or more, median hit ratio | 1.02-1.08 | 0.94-1.00 | 0.97-1.00 |
+| The same, 90th percentile | 1.15-1.30 | 1.02-1.24 | 1.01-1.26 |
+| Calibrate's strongest false, 262 tracks (default 100) | 110 | 100 | 107 |
+| Calibrate's strongest false, NAS scale (default 282) | 288 | 279 | 282 |
+| Panel 1, `related` and `other` newly confident; no longer | 15; 0 | 4; 15 | 0; 3 |
+| Panel 2, the same | 12; 0 | 12; 0 | 0; 0 |
+| Wrong confident answers added (sweeps, `recall`, scans) | 0 | 0 | 0 |
+
+The split's additions are not selection: in panel 2 a related version
+(Phantom 2018, which shares the played passage) goes from 223 to 244
+hits under the grid and the split alike, at 9 query and index pairs, as
+a true play does when its alignment improves. No fit can tell such a
+passage from the record it was taken from; it can only move it across
+the rule. The bounded fit leaves it below. At 262 tracks the Clockwork
+remix's passage that the original shares (calibrate's strongest false)
+goes from 100 to 107 hits under the bounded fit, and the margin from
+6.90× to 6.44×.
 
 ## Discovery's perturbation
 
-TODO
+Searched with the lists the pre-prune index set aside (0242's
+perturbation, `recall --set-aside-like`), the default moves Echos's
+query 911 from 503 hits at +0.933% to 455 at +1.147%; the grid gives
+603 and 602, the bounded fit 602 and 602 (+0.998% both). No confident
+answer changes under any fit, and the bounded fit moves 5 queries'
+detections against the default's 6 (0253). For a short chain, a better
+fit removes the dependence on which rung's line a window kept; the
+lists set aside still move weaker candidates, as ADR 0014 expects.
 
 ## Cost
 
-TODO
+The Stakka scan at NAS scale, alone on the Linux machine (32 workers):
+search 24.17 s for the default (twice), 24.55-24.56 s for the bounded
+fit (+1.6%; user CPU 677-678 s against 667-668 s), and 37.33 s for the
+grid and for the split (+54%; 1,014 s), which analyse each candidate of
+80 hits or more 41 more times. The bounded fit passes the registered
+cost bound (B5, at most 3%).
 
 ## Recommendation
 
-TODO
+Keep the chain's speed. None of the three fits is worth an ADR proposal
+as registered (0252: the bounded fit fails B2 and B4; the grid and the
+split were never candidates, being a reference and a diagnostic).
+
+What the measurements say, for a later decision that is ours:
+
+- The loss is confined to short chains, where `chain_speed` falls back
+  to the hit-weighted mean of the rungs. There the fits come 3.5 (grid)
+  to 11 (bounded fit) times closer to the played speed and gain
+  confident answers, mostly against other rips; on chains long enough
+  for the fit through line centres, nothing is gained, and the grid and
+  the split only add noise to the speed (the bounded fit halves its
+  error there).
+- The gain is real, not selection (the split keeps it), so it raises
+  shared material as well: a related version that shares the played
+  passage crosses 240 under the split as a true play does. Only a fit
+  that does not move such passages much (the bounded fit, in these
+  panels) leaves the threshold's measured meaning roughly intact, and
+  even it lifts the Clockwork remix's shared passage by 7%.
+- The answers that move are near the rule in both directions: the
+  bounded fit gains 19 and loses 4 (2 of them one played file at two
+  indexes). A change here is a change to which
+  weak plays are confident, not a recovery without cost.
+
+If this is taken further, the candidate is the bounded fit applied only
+where `chain_speed` falls back to the mean of rungs (chains under 3
+lines or under the minimum fit span), measured with the same panels and
+calibrate at both scales; it belongs beside the minimum-span question
+(the roadmap's "A minimum span instead of 3 windows"), since 15-20 s
+plays are where both act.
+

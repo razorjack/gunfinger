@@ -460,6 +460,27 @@ cases. None is an adopted decision or an experiment result.
   (the listening's "they diverge over time"; trailing silence moves no
   fit). `pair --fine-rungs` searches rungs 0.1% apart within 1% of the
   fitted speed and follows such a copy.
+  *(session 63, experiments 0251-0253; the decision note
+  `docs/research/2026-10-30-second-pass-fit-decision.md`)* The second
+  pass's speed estimate (`chain_speed`), measured against three opt-in
+  fits (`--second-pass-fit`): the best of 41 speeds within ±0.4%, the
+  offset refitted (the grid); the same chosen on alternate windows and
+  counted on the others (the split); two rounds of the hits' drift (the
+  bounded fit). On 30 s excerpts the chain's fit lies within 0.003% of
+  the played speed and no answer changes. On 15 s plays, whose chains
+  give the mean of their rungs (0.049% off), each fit gains 18-29
+  confident answers in `recall` (most against other rips) and loses 1-3.
+  The grid lifts wrong versions too (calibrate's strongest false +2% at
+  NAS scale and +10% at 262 tracks; 27 related or other detections newly
+  confident in the panels); the split and the bounded fit do not choose
+  on what they count, but under the split a related version that shares
+  the played passage crosses the rule as a true play does, and the
+  bounded fit loses 4 confident answers and lifts the Clockwork remix's
+  shared passage by 7% at 262 tracks. Under 0242's perturbation the fits
+  hold Echos's short chain at 602-603 hits where the default moves from
+  503 to 455. Not adopted; a
+  bounded fit for short chains only would be the candidate to measure,
+  beside the minimum-span question.
 - **The edge of the ladder.** Recall stays 100% to ±8.4% and is gone at
   ±9% (experiment 0033). Three extra rungs at each end (`--extra-rungs
   3`) recover every speed to ±9% for 14% more search CPU and change
@@ -520,6 +541,11 @@ cases. None is an adopted decision or an experiment result.
   search (extra rungs only where nothing is confident; 2% of the Stakka
   mix) is estimated at under 1% more CPU; with one extra rung pair it
   passes the registration, as a variant to build and measure.
+  *(session 63, experiments 0251 and 0252)* Siren Bass's upload at -8%,
+  lost under one extra rung pair (214 hits at -8.18%), reaches 241 hits
+  at -8.25% under a local speed search (the grid), 237 when the speed is
+  chosen on other windows (the split) and 230 under a bounded fit: a
+  better speed puts it at the rule, not clearly above it.
 - **Peaks across frequency bands.** Anchors at 2-4 kHz are 64% of the
   postings the development mix's plays look up and 21% of their true
   hits. A profile whose peak neighbourhoods widen with frequency (variant

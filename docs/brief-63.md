@@ -303,3 +303,11 @@ otherwise it records what failed.
   perturbation under the default, the grid and the bounded fit (tmux
   `s63likedefault`, `s63likegrid`, `s63likeiterated`; directories
   `wlike`, `wlike2`, `wlike3`), then the cost runs alone (`cost.sh`).
+- **(08:51) 0253 written; cost runs done** (tmux `s63cost`, 08:47-08:51,
+  nothing else running): the Stakka scan at NAS scale searched in 24.17 s
+  (default, twice), 24.55-24.56 s (bounded fit) and 37.33 s (grid,
+  split). B5 and B6 pass for the bounded fit; B2 and B4 (262 tracks)
+  fail, so no ADR proposal. Decision note, roadmap ("Speed that wanders
+  within a play", "The edge of the ladder") and the proposals note's §3
+  written. The cost is recorded in the decision note, not in an
+  experiment file (0252 was written before the cost runs).
