@@ -13196,9 +13196,9 @@ the NAS-scale baseline from now on.
    `step3.sh`, `like.sh`, `step4.sh`, `where.py`, `diff.py`, `same.py`,
    `cut_moved.py`, `list_holders.py`, `data.py`.
 6. Reports outside the baseline predate this prune and name some of the
-   four files: in `work/reports/library-nas-dnb-peaks/`, the `recall`
-   reports of seed 2026 and the 2003 mix's scans (weak candidates, 6-7
-   hits) and `pairs-s40-pack.json` (a pair with Break - Wine, so `pair`
+   four files: in `work/reports/library-nas-dnb-peaks/`, the two
+   damaged-brief `recall` reports of seed 2026 (one weak candidate each,
+   6 hits) and `pairs-s40-pack.json` (a pair with Break - Wine, so `pair`
    on that list stops at a pruned file); session 58's `parts` reports in
    `work/s58/out/`. They change when run again. The scripts match the
    Bad Vibes upload by its folder, since `unxplored-dnb/` holds another
