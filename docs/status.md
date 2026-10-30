@@ -5587,3 +5587,27 @@ behaviour, the second pass's default and every rule are unchanged.
   unmixed); the Planet Dust (DC Breaks Remix) cut again; and,
   optionally, the four rips session 62's census found inverted, each
   against its mono downmix.
+
+## 2026-10-30: the listening of the 2026-10-30 pack
+
+The user answered 8 of the pack's 12 questions on the listening page
+(answer log records 48-57; no comments). Questions 5, 6 and 8 have no
+answer.
+
+- Same title (ADR 0022): all four pairs `different`. Cool Rock Stuff ~
+  Cool Rock Shook Ones, Tower Bass (Millennium Mix) against both other
+  versions, and the two Stalker versions stay different titles, so
+  `docs/same-titles.txt` does not change. The Cool Rock detections stay
+  the wrong confident answers at NAS scale (seed 2026), and calibrate's
+  strongest false (282) stays a real wrong version.
+- Vintage Dread 2000, disc 1: `separate` (the release notes agree). Its
+  five tracks whose edge parts line up with other records (session 58)
+  are therefore false transitions of `parts`: shared material between
+  separate tracks.
+- Inverted channel: `inverted` for Usual Suspects - Advent, Keltech -
+  Axis (Low Level Mix) and Plasmic - The Weapon; `unsure` for We - Hello
+  World (first answered `fine`, then changed). Session 62's census
+  flagged all four.
+- Not answered: the pitch rides (Star Trails in the Stakka mix, Into
+  Music in the 2003 mix) and the Planet Dust (DC Breaks Remix) cut, whose
+  answer stays `unsure`.
