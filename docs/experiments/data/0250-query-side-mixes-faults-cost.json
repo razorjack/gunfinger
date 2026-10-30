@@ -1,0 +1,406 @@
+{
+ "recall-seed-2026.json": {
+  "right": [
+   522,
+   513
+  ],
+  "lost": [
+   "('clean', 450, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', -8.0)",
+   "('clean', 451, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', -5.0)",
+   "('clean', 452, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', -3.0)",
+   "('clean', 453, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', -1.0)",
+   "('clean', 454, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 0.0)",
+   "('clean', 455, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 1.0)",
+   "('clean', 456, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 3.0)",
+   "('clean', 457, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 5.0)",
+   "('clean', 458, 'second-library/Organikismness - The Skyscraper Delusion LP (Organik Audio [ORGAUDLP01]) WEB - 2012/04 Organikismness - Echos.mp3', 8.0)"
+  ],
+  "won": 0,
+  "wrong": [
+   0,
+   0
+  ],
+  "new_wrong": [],
+  "known_pair_new": [],
+  "known_pair": [
+   0,
+   0
+  ]
+ },
+ "mixes-stereo-control-seed-2026.json": {
+  "right": [
+   72,
+   72
+  ],
+  "lost": [],
+  "won": 0,
+  "wrong": [
+   2,
+   2
+  ],
+  "new_wrong": [],
+  "known_pair_new": [],
+  "known_pair": [
+   0,
+   0
+  ],
+  "by_part": {
+   "first": [
+    30,
+    30
+   ],
+   "across": [
+    11,
+    11
+   ],
+   "second": [
+    31,
+    31
+   ]
+  }
+ },
+ "mixes-stereo-control-seed-2027.json": {
+  "right": [
+   69,
+   69
+  ],
+  "lost": [],
+  "won": 0,
+  "wrong": [
+   0,
+   0
+  ],
+  "new_wrong": [],
+  "known_pair_new": [],
+  "known_pair": [
+   0,
+   0
+  ],
+  "by_part": {
+   "first": [
+    29,
+    29
+   ],
+   "across": [
+    6,
+    6
+   ],
+   "second": [
+    34,
+    34
+   ]
+  }
+ },
+ "mixes-stereo-control-seed-2028.json": {
+  "right": [
+   68,
+   68
+  ],
+  "lost": [],
+  "won": 0,
+  "wrong": [
+   0,
+   0
+  ],
+  "new_wrong": [],
+  "known_pair_new": [],
+  "known_pair": [
+   0,
+   0
+  ],
+  "by_part": {
+   "first": [
+    32,
+    32
+   ],
+   "across": [
+    6,
+    6
+   ],
+   "second": [
+    30,
+    30
+   ]
+  }
+ },
+ "mixes-stereo-inverted-seed-2026.json": {
+  "right": [
+   35,
+   72
+  ],
+  "lost": [],
+  "won": 37,
+  "wrong": [
+   2,
+   2
+  ],
+  "new_wrong": [],
+  "known_pair_new": [],
+  "known_pair": [
+   0,
+   0
+  ],
+  "by_part": {
+   "first": [
+    30,
+    30
+   ],
+   "across": [
+    5,
+    11
+   ],
+   "second": [
+    0,
+    31
+   ]
+  }
+ },
+ "mixes-stereo-inverted-seed-2027.json": {
+  "right": [
+   34,
+   68
+  ],
+  "lost": [],
+  "won": 34,
+  "wrong": [
+   0,
+   0
+  ],
+  "new_wrong": [],
+  "known_pair_new": [],
+  "known_pair": [
+   0,
+   0
+  ],
+  "by_part": {
+   "first": [
+    29,
+    29
+   ],
+   "across": [
+    5,
+    6
+   ],
+   "second": [
+    0,
+    33
+   ]
+  }
+ },
+ "mixes-stereo-inverted-seed-2028.json": {
+  "right": [
+   39,
+   67
+  ],
+  "lost": [],
+  "won": 28,
+  "wrong": [
+   0,
+   0
+  ],
+  "new_wrong": [],
+  "known_pair_new": [],
+  "known_pair": [
+   0,
+   0
+  ],
+  "by_part": {
+   "first": [
+    32,
+    32
+   ],
+   "across": [
+    6,
+    6
+   ],
+   "second": [
+    1,
+    29
+   ]
+  }
+ },
+ "robust-stereo.json": {
+  "right": [
+   534,
+   657
+  ],
+  "lost": [
+   "('stereo-noise-snr-0db', 0.95, 0)",
+   "('stereo-noise-snr-0db', 0.95, 11)",
+   "('stereo-noise-snr-0db', 0.95, 27)",
+   "('stereo-noise-snr-0db', 0.95, 34)",
+   "('stereo-noise-snr-0db', 0.95, 35)",
+   "('stereo-noise-snr-0db', 0.95, 37)",
+   "('stereo-noise-snr-0db', 1.03, 27)",
+   "('stereo-noise-snr-0db', 1.03, 35)",
+   "('stereo-noise-snr-0db', 1.03, 37)",
+   "('stereo-noise-snr-0db', 1.03, 39)"
+  ],
+  "won": 133,
+  "wrong": [
+   7,
+   16
+  ],
+  "new_wrong": [],
+  "known_pair_new": [
+   [
+    "('stereo-delay-0.2ms', 0.95, 41, True)",
+    "second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a"
+   ],
+   [
+    "('stereo-delay-0.2ms', 1.03, 41, True)",
+    "second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a"
+   ],
+   [
+    "('stereo-delay-1ms', 0.95, 41, True)",
+    "second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a"
+   ],
+   [
+    "('stereo-delay-1ms', 1.03, 41, True)",
+    "second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a"
+   ],
+   [
+    "('stereo-delay-5ms', 0.95, 41, True)",
+    "second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a"
+   ],
+   [
+    "('stereo-delay-5ms', 1.03, 41, True)",
+    "second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a"
+   ],
+   [
+    "('stereo-inverted', 0.95, 41, True)",
+    "second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a"
+   ],
+   [
+    "('stereo-inverted', 1.03, 41, True)",
+    "second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a"
+   ],
+   [
+    "('stereo-noise-snr-10db', 0.95, 41, True)",
+    "second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a"
+   ]
+  ],
+  "known_pair": [
+   5,
+   14
+  ],
+  "by_condition": {
+   "control": [
+    80,
+    80
+   ],
+   "stereo-control": [
+    80,
+    80
+   ],
+   "stereo-delay-0.2ms": [
+    80,
+    80
+   ],
+   "stereo-delay-1ms": [
+    70,
+    80
+   ],
+   "stereo-delay-5ms": [
+    37,
+    80
+   ],
+   "stereo-inverted": [
+    0,
+    80
+   ],
+   "stereo-noise-snr-0db": [
+    29,
+    19
+   ],
+   "stereo-noise-snr-10db": [
+    80,
+    80
+   ],
+   "stereo-silent": [
+    78,
+    78
+   ]
+  }
+ },
+ "scan-nocny-trans-vertical-2002-08-23.json": {
+  "right": [
+   17,
+   17
+  ],
+  "lost": [],
+  "won": 0,
+  "wrong": [
+   0,
+   0
+  ],
+  "new_wrong": [],
+  "known_pair_new": [],
+  "known_pair": [
+   0,
+   0
+  ]
+ },
+ "scan-razorjack-2003-03-29.json": {
+  "right": [
+   12,
+   12
+  ],
+  "lost": [],
+  "won": 0,
+  "wrong": [
+   0,
+   0
+  ],
+  "new_wrong": [],
+  "known_pair_new": [],
+  "known_pair": [
+   0,
+   0
+  ]
+ },
+ "scan-stakka-skynet-knowledge.json": {
+  "right": [
+   11,
+   11
+  ],
+  "lost": [],
+  "won": 0,
+  "wrong": [
+   0,
+   0
+  ],
+  "new_wrong": [],
+  "known_pair_new": [],
+  "known_pair": [
+   0,
+   0
+  ]
+ },
+ "cost_stakka_scan_nas": {
+  "r1-downmix": {
+   "wall_seconds": 24.293403639,
+   "elapsed": "0:27.60",
+   "user_seconds": 672.88,
+   "max_rss_kb": 5149196
+  },
+  "r1-power-sum": {
+   "wall_seconds": 27.342117614,
+   "elapsed": "0:30.70",
+   "user_seconds": 761.11,
+   "max_rss_kb": 5270088
+  },
+  "r2-power-sum": {
+   "wall_seconds": 27.42825578,
+   "elapsed": "0:30.77",
+   "user_seconds": 763.47,
+   "max_rss_kb": 5232052
+  },
+  "r2-downmix": {
+   "wall_seconds": 24.642688061,
+   "elapsed": "0:27.99",
+   "user_seconds": 682.17,
+   "max_rss_kb": 5172504
+  }
+ }
+}
