@@ -9,7 +9,7 @@ use std::cmp::Ordering;
 use std::ops::Range;
 
 use crate::profile::Profile;
-use crate::spectrogram::{decibels, for_each_power_frame};
+use crate::spectrogram::{Signal, decibels, for_each_power_frame};
 
 /// Positions are refined between frames and bins and kept to 1/64: finer
 /// than the interpolation is accurate, coarse enough for small fixed-point
@@ -43,9 +43,23 @@ pub fn extract_peaks(samples: &[f32], profile: &Profile) -> Vec<Peak> {
 /// the bit. Only the frames their neighbourhoods reach are transformed, so
 /// a long query can be analysed a stretch at a time.
 pub fn extract_peaks_in(samples: &[f32], profile: &Profile, frames: Range<usize>) -> Vec<Peak> {
+    extract_signal_peaks_in(Signal::Mono(samples), profile, frames)
+}
+
+/// Like `extract_peaks`, for one channel or two (`Signal`).
+pub fn extract_signal_peaks(signal: Signal, profile: &Profile) -> Vec<Peak> {
+    extract_signal_peaks_in(signal, profile, 0..usize::MAX)
+}
+
+/// Like `extract_peaks_in`, for one channel or two (`Signal`).
+pub fn extract_signal_peaks_in(
+    signal: Signal,
+    profile: &Profile,
+    frames: Range<usize>,
+) -> Vec<Peak> {
     let first = frames.start.saturating_sub(profile.neighbourhood_frames);
     let start = first.saturating_mul(profile.hop);
-    if start >= samples.len() {
+    if start >= signal.len() {
         return Vec::new();
     }
     // Frame `n` ends at sample `n * hop + fft_size`.
@@ -55,9 +69,11 @@ pub fn extract_peaks_in(samples: &[f32], profile: &Profile, frames: Range<usize>
         .saturating_sub(1)
         .saturating_mul(profile.hop)
         .saturating_add(profile.fft_size)
-        .min(samples.len());
+        .min(signal.len());
     let mut picker = PeakPicker::new(profile, first, frames);
-    for_each_power_frame(&samples[start..end], profile, |frame| picker.push(frame));
+    for_each_power_frame(signal.slice(start..end), profile, |frame| {
+        picker.push(frame)
+    });
     picker.finish()
 }
 
@@ -395,6 +411,94 @@ mod tests {
                 "{stretch:?}"
             );
         }
+    }
+
+    fn noise(seconds: u32, seed: u32, profile: &Profile) -> Vec<f32> {
+        let mut state = seed;
+        (0..seconds * profile.sample_rate)
+            .map(|_| {
+                state = state.wrapping_mul(1_664_525).wrapping_add(1_013_904_223);
+                (state >> 8) as f32 / (1 << 24) as f32 - 0.5
+            })
+            .collect()
+    }
+
+    #[test]
+    fn inverting_either_channel_leaves_the_power_sum_peaks_unchanged() {
+        let profile = Profile::CURRENT;
+        let left = noise(10, 7, &profile);
+        let right: Vec<f32> = left
+            .iter()
+            .zip(noise(10, 11, &profile))
+            .map(|(l, r)| 0.8 * l + 0.2 * r)
+            .collect();
+        let inverted = |samples: &[f32]| -> Vec<f32> { samples.iter().map(|x| -x).collect() };
+        let peaks = |left: &[f32], right: &[f32]| {
+            extract_signal_peaks(Signal::PowerSum { left, right }, &profile)
+        };
+
+        let clean = peaks(&left, &right);
+
+        assert!(clean.len() > 300, "{}", clean.len());
+        // Negation is exact, and so is every sum and product of the window
+        // and the FFT with its signs reversed: each bin is negated, its power
+        // the same to the bit.
+        assert_eq!(peaks(&left, &inverted(&right)), clean);
+        assert_eq!(peaks(&inverted(&left), &right), clean);
+        assert_eq!(peaks(&inverted(&left), &inverted(&right)), clean);
+        // The downmix of an inverted channel keeps only the side.
+        let downmix = |left: &[f32], right: &[f32]| -> Vec<f32> {
+            left.iter()
+                .zip(right)
+                .map(|(l, r)| (l + r) / std::f32::consts::SQRT_2)
+                .collect()
+        };
+        assert_ne!(
+            extract_peaks(&downmix(&left, &inverted(&right)), &profile),
+            extract_peaks(&downmix(&left, &right), &profile)
+        );
+    }
+
+    /// Equal channels `x` give each bin `2 |X|^2`: the power of the downmix
+    /// `(x + x) / sqrt(2)`, which rounding keeps from being `x`'s to the
+    /// bit. The peaks are at the downmix's points, 3 dB above `x`'s.
+    #[test]
+    fn equal_channels_give_the_peaks_of_their_downmix() {
+        let profile = Profile::CURRENT;
+        let samples = noise(10, 7, &profile);
+        let downmix: Vec<f32> = samples
+            .iter()
+            .map(|x| (x + x) / std::f32::consts::SQRT_2)
+            .collect();
+
+        let summed = extract_signal_peaks(
+            Signal::PowerSum {
+                left: &samples,
+                right: &samples,
+            },
+            &profile,
+        );
+        let mono = extract_peaks(&downmix, &profile);
+
+        assert_eq!(summed.len(), mono.len());
+        for (a, b) in summed.iter().zip(&mono) {
+            assert_eq!(a.frame.round(), b.frame.round());
+            assert_eq!(a.bin.round(), b.bin.round());
+            assert!((a.frame - b.frame).abs() <= 1.0 / 64.0, "{a:?} {b:?}");
+            assert!((a.bin - b.bin).abs() <= 1.0 / 64.0, "{a:?} {b:?}");
+            assert!((a.magnitude - b.magnitude).abs() <= 0.5, "{a:?} {b:?}");
+        }
+    }
+
+    #[test]
+    fn the_mono_signal_is_todays_analysis() {
+        let profile = Profile::CURRENT;
+        let samples = noise(5, 3, &profile);
+
+        assert_eq!(
+            extract_signal_peaks(Signal::Mono(&samples), &profile),
+            extract_peaks(&samples, &profile)
+        );
     }
 
     /// The peaks' STFT frames, bins and levels by the definition on levels in

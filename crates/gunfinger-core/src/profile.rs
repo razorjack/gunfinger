@@ -27,6 +27,20 @@ pub struct Profile {
     /// frequency instead of `neighbourhood_bins` (a variant under
     /// evaluation, spreading peaks more evenly across octaves).
     pub spread: Option<Spread>,
+    /// How the peaks' power is made from the file's channels.
+    pub channels: Channels,
+}
+
+/// How the power the peaks are picked from is made from the channels.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Channels {
+    /// FFmpeg's downmix to one channel, analysed (`Signal::Mono`).
+    Downmix,
+    /// Both channels analysed apart and their powers added
+    /// (`Signal::PowerSum`): a variant under evaluation, whose records
+    /// carry their own identifier so they never mix with the downmix's
+    /// (experiment 0245 and after).
+    PowerSum,
 }
 
 /// A neighbourhood half-size in bins of `share` times the bin, within
@@ -52,6 +66,13 @@ impl Profile {
         neighbourhood_bins: 12,
         floor_db: -10.0,
         spread: None,
+        channels: Channels::Downmix,
+    };
+
+    /// `CURRENT` with each channel's power added (`Channels::PowerSum`).
+    pub const POWER_SUM: Profile = Profile {
+        channels: Channels::PowerSum,
+        ..Profile::CURRENT
     };
 
     /// A stable textual identifier, stored in every peak record.
@@ -62,8 +83,12 @@ impl Profile {
                 spread.share, spread.min_bins, spread.max_bins
             )
         });
+        let channels = match self.channels {
+            Channels::Downmix => "",
+            Channels::PowerSum => " channels=power-sum",
+        };
         format!(
-            "peaks-v2 rate={} fft={} hop={} bins={}..{} nbhd={}x{} floor={}{spread}",
+            "peaks-v2 rate={} fft={} hop={} bins={}..{} nbhd={}x{} floor={}{spread}{channels}",
             self.sample_rate,
             self.fft_size,
             self.hop,
@@ -111,6 +136,15 @@ mod tests {
             Profile::CURRENT.id(),
             "peaks-v2 rate=8000 fft=1024 hop=128 bins=5..500 nbhd=12x12 floor=-10"
         );
+    }
+
+    #[test]
+    fn power_sum_records_carry_their_own_identifier() {
+        assert_eq!(
+            Profile::POWER_SUM.id(),
+            "peaks-v2 rate=8000 fft=1024 hop=128 bins=5..500 nbhd=12x12 floor=-10 channels=power-sum"
+        );
+        assert_ne!(Profile::POWER_SUM, Profile::CURRENT);
     }
 
     #[test]

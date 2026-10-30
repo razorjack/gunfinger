@@ -2,7 +2,10 @@
 //! the other library, related recordings, stereo width and the fullest
 //! posting lists.
 
-use std::path::PathBuf;
+use std::collections::BTreeMap;
+use std::path::{Path, PathBuf};
+
+use gunfinger_core::store::PeakStore;
 
 use super::sweep::ExactCopyOptions;
 use crate::files::write_json;
@@ -34,6 +37,17 @@ pub struct StereoWidthArgs {
     pub seed: u64,
     #[arg(long, default_value_t = 100)]
     pub sample: usize,
+}
+
+#[derive(clap::Args)]
+pub struct VariantStoreArgs {
+    /// The store to write, never the library's own.
+    #[arg(long)]
+    pub out: PathBuf,
+    /// Files decoded in place of library files: a library path, a tab and
+    /// the file, one per line (a faulted copy of a rip).
+    #[arg(long)]
+    pub replace: Option<PathBuf>,
 }
 
 #[derive(clap::Args)]
@@ -120,6 +134,44 @@ pub fn stereo_width(harness: &Harness, jobs: usize, args: StereoWidthArgs) -> Re
     )?;
     stereo::print_widths(&report);
     Ok(())
+}
+
+/// A store of the library's files under `--front-end`'s profile, for the
+/// front-end variant's experiments (0245 and after).
+pub fn variant_store(harness: &Harness, jobs: usize, args: VariantStoreArgs) -> Result<(), String> {
+    let VariantStoreArgs { out, replace } = args;
+    let replacements = match replace {
+        Some(list) => read_replacements(&list)?,
+        None => BTreeMap::new(),
+    };
+    let out = PeakStore::open(&out).map_err(|error| error.to_string())?;
+    let built = stereo::build_store(
+        &harness.library()?,
+        &harness.store()?,
+        &out,
+        harness.search.matching.front_end,
+        &replacements,
+        jobs,
+    )?;
+    println!(
+        "{}",
+        serde_json::to_string(&built).map_err(|error| error.to_string())?
+    );
+    Ok(())
+}
+
+/// `library path<TAB>file` lines.
+fn read_replacements(list: &Path) -> Result<BTreeMap<String, PathBuf>, String> {
+    let text = std::fs::read_to_string(list)
+        .map_err(|error| format!("cannot read {}: {error}", list.display()))?;
+    text.lines()
+        .filter(|line| !line.trim().is_empty())
+        .map(|line| {
+            line.split_once('\t')
+                .map(|(asset, file)| (asset.to_owned(), PathBuf::from(file)))
+                .ok_or_else(|| format!("{}: not `library path<TAB>file`: {line}", list.display()))
+        })
+        .collect()
 }
 
 pub fn fullest(harness: &Harness, args: FullestArgs) -> Result<(), String> {

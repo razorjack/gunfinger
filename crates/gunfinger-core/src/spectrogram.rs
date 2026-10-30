@@ -1,8 +1,10 @@
 //! Short-time Fourier transform producing log-power frames.
 
 use std::f32::consts::PI;
+use std::ops::Range;
 
 use realfft::RealFftPlanner;
+use realfft::num_complex::Complex;
 
 use crate::profile::Profile;
 
@@ -14,16 +16,56 @@ use crate::profile::Profile;
 /// whole spectrogram in memory.
 pub fn for_each_frame(samples: &[f32], profile: &Profile, mut visit: impl FnMut(&[f32])) {
     let mut power_db = Vec::new();
-    for_each_power_frame(samples, profile, |power| {
+    for_each_power_frame(Signal::Mono(samples), profile, |power| {
         power_db.clear();
         power_db.extend(power.iter().map(|&power| decibels(power)));
         visit(&power_db);
     });
 }
 
+/// What the STFT analyses: one channel, or two whose powers are added.
+#[derive(Debug, Clone, Copy)]
+pub enum Signal<'a> {
+    /// One channel: FFmpeg's downmix, today's front end.
+    Mono(&'a [f32]),
+    /// Two channels of the same length, analysed apart; each bin's power is
+    /// `|X_L|^2 + |X_R|^2` (a variant under evaluation, experiment 0245 and
+    /// after). With the downmix `M = (L + R) / sqrt(2)` and the side
+    /// `S = (L - R) / sqrt(2)`, an orthogonal change of channels, that is
+    /// `|X_M|^2 + |X_S|^2`: the downmix's power plus the side's, so equal
+    /// channels give the downmix's power, and inverting either channel
+    /// (swapping `M` and `S`) changes nothing.
+    PowerSum { left: &'a [f32], right: &'a [f32] },
+}
+
+impl<'a> Signal<'a> {
+    /// Samples per channel.
+    pub fn len(self) -> usize {
+        match self {
+            Signal::Mono(samples) => samples.len(),
+            Signal::PowerSum { left, right } => left.len().min(right.len()),
+        }
+    }
+
+    pub fn is_empty(self) -> bool {
+        self.len() == 0
+    }
+
+    /// The samples `range` of each channel.
+    pub fn slice(self, range: Range<usize>) -> Signal<'a> {
+        match self {
+            Signal::Mono(samples) => Signal::Mono(&samples[range]),
+            Signal::PowerSum { left, right } => Signal::PowerSum {
+                left: &left[range.clone()],
+                right: &right[range],
+            },
+        }
+    }
+}
+
 /// Like `for_each_frame`, with each bin's power before it is turned into
 /// decibels: `decibels` of each value is what `for_each_frame` gives.
-pub fn for_each_power_frame(samples: &[f32], profile: &Profile, mut visit: impl FnMut(&[f32])) {
+pub fn for_each_power_frame(signal: Signal, profile: &Profile, mut visit: impl FnMut(&[f32])) {
     let size = profile.fft_size;
     let window = hann(size);
     let fft = RealFftPlanner::<f32>::new().plan_fft_forward(size);
@@ -31,17 +73,35 @@ pub fn for_each_power_frame(samples: &[f32], profile: &Profile, mut visit: impl 
     let mut spectrum = fft.make_output_vec();
     let mut scratch = fft.make_scratch_vec();
     let mut powers = vec![0.0; spectrum.len()];
+    let mut transform = |samples: &[f32], spectrum: &mut [Complex<f32>]| {
+        for (n, value) in frame.iter_mut().enumerate() {
+            *value = samples[n] * window[n];
+        }
+        let transformed = fft.process_with_scratch(&mut frame, spectrum, &mut scratch);
+        debug_assert!(transformed.is_ok(), "buffers come from the plan");
+    };
 
     let mut start = 0;
-    while start + size <= samples.len() {
-        for (n, value) in frame.iter_mut().enumerate() {
-            *value = samples[start + n] * window[n];
-        }
-        let transformed = fft.process_with_scratch(&mut frame, &mut spectrum, &mut scratch);
-        debug_assert!(transformed.is_ok(), "buffers come from the plan");
-        for (power, bin) in powers.iter_mut().zip(&spectrum) {
-            // The tiny offset keeps digital silence finite (-200 dB).
-            *power = bin.norm_sqr() + 1e-20;
+    while start + size <= signal.len() {
+        let frames = start..start + size;
+        match signal {
+            Signal::Mono(samples) => {
+                transform(&samples[frames], &mut spectrum);
+                for (power, bin) in powers.iter_mut().zip(&spectrum) {
+                    // The tiny offset keeps digital silence finite (-200 dB).
+                    *power = bin.norm_sqr() + 1e-20;
+                }
+            }
+            Signal::PowerSum { left, right } => {
+                transform(&left[frames.clone()], &mut spectrum);
+                for (power, bin) in powers.iter_mut().zip(&spectrum) {
+                    *power = bin.norm_sqr();
+                }
+                transform(&right[frames], &mut spectrum);
+                for (power, bin) in powers.iter_mut().zip(&spectrum) {
+                    *power = *power + bin.norm_sqr() + 1e-20;
+                }
+            }
         }
         visit(&powers);
         start += profile.hop;

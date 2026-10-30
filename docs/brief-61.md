@@ -208,3 +208,38 @@ scan's correct confident plays within 1 of today's; and no wrong
 confident answer that `downmix` does not have, in any run of either
 phase. Phase A decides nothing by itself; it measures whether today's
 records could be searched by the variant's queries before a rebuild.
+
+## Decisions
+
+- **(01:55) Start checks.** Both regressions identical with
+  `work/bin/s61-start/` (above).
+- **(02:05) The variant in code** (harness option, core analysis):
+  `spectrogram::Signal` (`Mono`, today's; `PowerSum { left, right }`)
+  is what the STFT analyses; `peaks::extract_signal_peaks(_in)`,
+  `Rung::signal_points` and `search::search_signal_with` take it, and
+  every existing entry point that takes `&[f32]` wraps it in
+  `Signal::Mono`, so the default path runs the same arithmetic.
+  `Profile::POWER_SUM` (field `channels`) names the variant's records.
+  In the harness, `--front-end` is a `Matching` option, so its reports
+  go to `reports/variant-power-sum-queries/` and
+  `reports/variant-power-sum/`; only `robust`, `scan`, `mixes` and the
+  new `variant-store` take it, and `--verify` refuses it (the peak
+  verifier analyses one channel). `variant-store --out DIR [--replace
+  TSV]` writes records under the front end's profile for the library
+  files with a current record in `work/peaks`, decoding a replacement
+  file where the list names one; it refuses the library's own store.
+- **(02:08) Scaled down for the time box.** `robust` runs all 38 default
+  conditions and the 9 stereo ones at 262 tracks (two runs a front end:
+  no `--only`, then `--only` the stereo set, each with `control`), but
+  only the stereo set (with `control`) at NAS scale. Phase A runs in
+  the scratch work directory `work/s61/w` (renders hard-linked from
+  `work/s42/w/robust/`, `work/robust/` and `work/mixes/stereo-*`; the
+  saved NAS index hard-linked; both clusters files and the library map
+  copied); tmux `s61a`, `work/s61/phase-a.sh`. Phase A was started
+  while the NAS regression with the run build was still running (it
+  only slows both).
+- **(02:15) Regressions with the variant off.** `work/bin/s61-run/`
+  (the variant's code before `cargo fmt`, which changed layout only):
+  `regress session-54-linux` (0:51) and `regress session-54-linux-nas`
+  (6:39, beside phase A) identical, 8 of 8 reports. `cargo test
+  --release` green (all suites).

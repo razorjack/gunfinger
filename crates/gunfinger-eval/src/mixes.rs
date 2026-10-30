@@ -12,12 +12,10 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use gunfinger_core::confidence::{Confidence, Pass};
-use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
-use gunfinger_core::profile::Profile;
 use gunfinger_core::search::Detection;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::{PeakRecord, PeakStore};
@@ -1368,7 +1366,7 @@ pub fn sweep_index(
     matching: &Matching,
     left_out: &BTreeSet<String>,
 ) -> Result<SweepIndex, String> {
-    let (records, _) = load_records(library, store, &Profile::CURRENT, &BTreeSet::new());
+    let (records, _) = load_records(library, store, &matching.profile(), &BTreeSet::new());
     let held_out = Plan::for_seed(&records, clusters, seed, panels)?.held_out;
     let indexed: Vec<PeakRecord> = records
         .iter()
@@ -1662,15 +1660,15 @@ pub fn search_mix(
         fault,
     } = *searcher;
     render_once(mix, roots, fault, path)?;
-    let profile = Profile::CURRENT;
-    let audio =
-        decode(path, profile.sample_rate, Excerpt::default()).map_err(|error| error.to_string())?;
+    let profile = matching.profile();
+    let audio = matching.decode_query(path)?;
     let detections: Vec<MixFound> = matching
-        .search(index, &audio.samples, &profile, ladder, 1)
+        .search_audio(index, &audio, ladder, 1)
         .iter()
         .map(|detection| {
-            let verified = verifier
-                .and_then(|verifier| verifier.verify(index, detection, &audio.samples, &profile));
+            let verified = verifier.zip(audio.mono()).and_then(|(verifier, samples)| {
+                verifier.verify(index, detection, samples, &profile)
+            });
             MixFound::new(index, detection, verified)
         })
         .collect();
@@ -1780,6 +1778,8 @@ pub fn print_summary(report: &MixesReport, kind: MixKind) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use gunfinger_core::decode::{Excerpt, decode};
+    use gunfinger_core::profile::Profile;
 
     #[test]
     fn a_stereo_fault_takes_the_second_half_of_the_mix_and_its_own_name() {

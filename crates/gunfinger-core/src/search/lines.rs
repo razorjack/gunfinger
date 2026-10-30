@@ -666,6 +666,7 @@ fn distinct(mut lines: Vec<Line>) -> Vec<Line> {
 pub(super) mod tests {
     use super::*;
     use crate::search::test_audio;
+    use crate::spectrogram::Signal;
     use crate::speed::SpeedRatio;
 
     /// A posting a query hash hit, as found in its list.
@@ -1295,7 +1296,7 @@ pub(super) mod tests {
             Rung::KeyLocked(SpeedRatio(1.004)),
             Rung::KeyLocked(SpeedRatio(1.008)),
         ]);
-        for query in [Query::Samples(&played), Query::Peaks(&peaks)] {
+        for query in [Query::Samples(Signal::Mono(&played)), Query::Peaks(&peaks)] {
             let whole = distinct(
                 ladder
                     .iter()

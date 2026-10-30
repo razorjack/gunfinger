@@ -22,6 +22,7 @@ use crate::hash::Point;
 use crate::index::{AssetId, Index};
 use crate::peaks::Peak;
 use crate::profile::Profile;
+use crate::spectrogram::Signal;
 use crate::speed::{self, Playback, Rung, SpeedRatio};
 
 /// A library asset found playing in the query.
@@ -242,7 +243,7 @@ pub fn search_with_progress(
         jobs,
         options,
     };
-    search.samples(samples, progress).detections()
+    search.samples(Signal::Mono(samples), progress).detections()
 }
 
 /// Like `search`, with a matcher's options or opt-in changes.
@@ -254,7 +255,27 @@ pub fn search_with(
     jobs: usize,
     options: Options,
 ) -> Vec<Detection> {
-    search_with_progress(index, samples, profile, ladder, jobs, options, |_, _| {})
+    search_signal_with(index, Signal::Mono(samples), profile, ladder, jobs, options)
+}
+
+/// Like `search_with`, for one channel or two (`Signal`): the harness's
+/// front-end variants.
+pub fn search_signal_with(
+    index: &Index,
+    signal: Signal,
+    profile: &Profile,
+    ladder: &[Rung],
+    jobs: usize,
+    options: Options,
+) -> Vec<Detection> {
+    let search = Search {
+        index,
+        profile,
+        ladder,
+        jobs,
+        options,
+    };
+    search.samples(signal, |_, _| {}).detections()
 }
 
 /// Searches the stored peaks of a library file instead of audio, without
@@ -283,7 +304,7 @@ pub fn search_peaks(
 /// What is searched: audio, or the stored peaks of a library file.
 #[derive(Clone, Copy)]
 enum Query<'a> {
-    Samples(&'a [f32]),
+    Samples(Signal<'a>),
     Peaks(&'a [Peak]),
 }
 
@@ -319,7 +340,7 @@ impl Query<'_> {
                     {
                         cached.hop = hop;
                         cached.frames = frames.clone();
-                        cached.peaks = crate::peaks::extract_peaks_in(
+                        cached.peaks = crate::peaks::extract_signal_peaks_in(
                             samples,
                             &Profile { hop, ..*profile },
                             frames.clone(),
@@ -397,7 +418,7 @@ pub fn trace_with(
         jobs,
         options,
     };
-    let Searched { lines, chained } = search.samples(samples, progress);
+    let Searched { lines, chained } = search.samples(Signal::Mono(samples), progress);
     let (detections, chains) = chained
         .into_iter()
         .map(|chained| (chained.detection, chained.lines))
@@ -456,7 +477,7 @@ impl Searched {
 impl Search<'_> {
     /// The first pass over audio and, with the second pass, each detection
     /// measured again at its fitted speed, keeping its first-pass chain.
-    fn samples(&self, samples: &[f32], progress: impl Fn(usize, usize) + Sync) -> Searched {
+    fn samples(&self, samples: Signal, progress: impl Fn(usize, usize) + Sync) -> Searched {
         let first = self.first_pass(Query::Samples(samples), progress);
         if !self.options.second_pass {
             return first;

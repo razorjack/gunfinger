@@ -16,7 +16,6 @@ use gunfinger_core::confidence::Confidence;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
-use gunfinger_core::profile::Profile;
 use gunfinger_core::search::Detection;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
@@ -32,7 +31,7 @@ use crate::render::{
 };
 use crate::rng::Rng;
 use crate::scoring::Level;
-use crate::stereo::{QueryChannels, decode_stereo, side_to_mid_db};
+use crate::stereo::{FrontEnd, QueryAudio, QueryChannels, decode_stereo, side_to_mid_db};
 use crate::sweep::{Draw, EXCERPT_SECONDS, Plan};
 use crate::tempo::{ENVELOPE_RATE, beat_period, best_lag, onset_envelope};
 use crate::titles::SameTitles;
@@ -491,7 +490,12 @@ pub fn run(
         same_titles,
         jobs,
     } = *options;
-    let profile = Profile::CURRENT;
+    if matching.front_end != FrontEnd::Downmix && query_channels != QueryChannels::Downmix {
+        return Err(String::from(
+            "--query-channels picks from today's downmix front end; leave out --front-end",
+        ));
+    }
+    let profile = matching.profile();
     let (records, _) = load_records(library, store, &profile, &BTreeSet::new());
     let verifier = verify.then(|| Verifier::new(&records, padding.other.as_ref()));
     let plan = Plan::for_seed(&records, clusters, seed, panels)?;
@@ -507,9 +511,12 @@ pub fn run(
         if !crate::render::is_complete(&job.path) {
             render_query(job, library, &speech, seed)?;
         }
-        let samples = query_channels.decode(&job.path, profile.sample_rate)?;
+        let audio = match query_channels {
+            QueryChannels::Downmix => matching.decode_query(&job.path)?,
+            choice => QueryAudio::Mono(choice.decode(&job.path, profile.sample_rate)?),
+        };
         let started = Instant::now();
-        let detections = matching.search(&index, &samples, &profile, ladder, 1);
+        let detections = matching.search_audio(&index, &audio, ladder, 1);
         let search_seconds = started.elapsed().as_secs_f64();
         let own = clusters.cluster_of(&job.draw.asset);
         let own_title = same_titles.credited(clusters, &own);
@@ -533,7 +540,9 @@ pub fn run(
                     hits: detection.evidence.hits,
                     level: detection.evidence.confidence().into(),
                     speed: detection.speed.0,
-                    verified: verifier.verify(&index, detection, &samples, &profile),
+                    verified: audio
+                        .mono()
+                        .and_then(|samples| verifier.verify(&index, detection, samples, &profile)),
                 });
             }
             wrong.extend(count(&mut result, role, asset, detection));

@@ -14,6 +14,7 @@ mod sweep;
 use clap::Subcommand;
 
 use crate::harness::Harness;
+use crate::stereo::FrontEnd;
 
 #[derive(Subcommand)]
 pub enum Command {
@@ -111,6 +112,10 @@ pub enum Command {
     /// two channels, the side's energy against the mid's (report
     /// `stereo-width-seed-<seed>.json`). Corpus only.
     StereoWidth(library::StereoWidthArgs),
+    /// Build a store of the library's files under `--front-end`'s profile
+    /// (downmix or power-sum), some decoded from replacement files, for
+    /// the front-end variant's experiments; never the library's store.
+    VariantStore(library::VariantStoreArgs),
     /// Render seeded mixes of library tracks with exact truth (speeds,
     /// bass swaps, crossfades, cuts, plays of 20-60 s, a returning track,
     /// held-out tracks), search them and score them against the truth.
@@ -198,6 +203,9 @@ const OTHER_LIBRARY_COMMANDS: [&str; 23] = [
 ];
 
 /// The commands that take --other-sample.
+/// The commands that analyse audio by `--front-end` (`stereo::FrontEnd`).
+const FRONT_END_COMMANDS: [&str; 4] = ["robust", "scan", "mixes", "variant-store"];
+
 const OTHER_SAMPLE_COMMANDS: [&str; 6] = [
     "sweep",
     "scan",
@@ -235,6 +243,7 @@ impl Command {
             Command::Calibrate(_) => "calibrate",
             Command::Robust(_) => "robust",
             Command::StereoWidth(_) => "stereo-width",
+            Command::VariantStore(_) => "variant-store",
             Command::Mixes(_) => "mixes",
             Command::Grid(_) => "grid",
             Command::Seconds(_) => "seconds",
@@ -257,6 +266,18 @@ fn check_global_options(harness: &Harness, command: &Command) -> Result<(), Stri
         return Err(format!(
             "this command does not take --other-sample; {} do",
             listed(&OTHER_SAMPLE_COMMANDS)
+        ));
+    }
+    let front_end = harness.search.matching.front_end;
+    if front_end != FrontEnd::Downmix && !FRONT_END_COMMANDS.contains(&name) {
+        return Err(format!(
+            "this command does not take --front-end; {} do",
+            listed(&FRONT_END_COMMANDS)
+        ));
+    }
+    if front_end != FrontEnd::Downmix && harness.search.verify {
+        return Err(String::from(
+            "the peak verifier analyses one channel: --verify takes the downmix front end only",
         ));
     }
     if harness.other.other_peaks_dir.is_some() && !OTHER_LIBRARY_COMMANDS.contains(&name) {
@@ -302,6 +323,7 @@ pub fn run(harness: &Harness, jobs: usize, command: Command) -> Result<(), Strin
         Command::Calibrate(args) => evaluation::calibrate(harness, args),
         Command::Robust(args) => evaluation::robust(harness, jobs, args),
         Command::StereoWidth(args) => library::stereo_width(harness, jobs, args),
+        Command::VariantStore(args) => library::variant_store(harness, jobs, args),
         Command::Mixes(args) => mixes::mixes(harness, jobs, args),
         Command::Grid(args) => mixes::grid(harness, jobs, args),
         Command::Seconds(args) => saved_reports::seconds(harness, args),

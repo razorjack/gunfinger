@@ -15,8 +15,9 @@
 use std::ops::Range;
 
 use crate::hash::Point;
-use crate::peaks::extract_peaks_in;
+use crate::peaks::extract_signal_peaks_in;
 use crate::profile::Profile;
+use crate::spectrogram::Signal;
 
 /// Playback speed relative to the recording's native speed: a record pitched
 /// up 3% plays at 1.03.
@@ -64,15 +65,20 @@ impl Rung {
 
     /// The query's peaks in reference coordinates under this assumption.
     pub fn points(self, samples: &[f32], profile: &Profile) -> Vec<Point> {
-        self.points_in(samples, profile, 0..usize::MAX)
+        self.signal_points(Signal::Mono(samples), profile)
+    }
+
+    /// Like `points`, for one channel or two (`Signal`).
+    pub fn signal_points(self, signal: Signal, profile: &Profile) -> Vec<Point> {
+        self.points_in(signal, profile, 0..usize::MAX)
     }
 
     /// Like `points`, for the peaks in the STFT frames `frames` of this
     /// rung's analysis only.
-    pub fn points_in(self, samples: &[f32], profile: &Profile, frames: Range<usize>) -> Vec<Point> {
+    pub fn points_in(self, signal: Signal, profile: &Profile, frames: Range<usize>) -> Vec<Point> {
         match self {
-            Rung::Turntable(speed) => points_at_speed_in(samples, profile, speed, frames),
-            Rung::KeyLocked(tempo) => points_at_tempo_in(samples, profile, tempo, frames),
+            Rung::Turntable(speed) => points_at_speed_in(signal, profile, speed, frames),
+            Rung::KeyLocked(tempo) => points_at_tempo_in(signal, profile, tempo, frames),
         }
     }
 
@@ -125,11 +131,11 @@ fn speeds(extra: u32) -> impl Iterator<Item = SpeedRatio> {
 /// reference's. Transforming the coordinates of peaks picked on the query's
 /// own grid instead loses about half the surviving hashes (experiment 0001).
 pub fn points_at_speed(samples: &[f32], profile: &Profile, speed: SpeedRatio) -> Vec<Point> {
-    points_at_speed_in(samples, profile, speed, 0..usize::MAX)
+    points_at_speed_in(Signal::Mono(samples), profile, speed, 0..usize::MAX)
 }
 
 fn points_at_speed_in(
-    samples: &[f32],
+    signal: Signal,
     profile: &Profile,
     speed: SpeedRatio,
     frames: Range<usize>,
@@ -146,7 +152,7 @@ fn points_at_speed_in(
     // Rounding the window and hop to whole samples is corrected here.
     let bin_scale = profile.fft_size as f64 / (fft_size as f64 * speed.0);
     let frame_scale = hop as f64 * speed.0 / profile.hop as f64;
-    extract_peaks_in(samples, &scaled, frames)
+    extract_signal_peaks_in(signal, &scaled, frames)
         .iter()
         .map(|peak| Point {
             frame: peak.frame * frame_scale,
@@ -159,11 +165,11 @@ fn points_at_speed_in(
 /// playback at `tempo`: only the hop shrinks, so frames follow the music
 /// while the window and the bins keep their native frequencies.
 pub fn points_at_tempo(samples: &[f32], profile: &Profile, tempo: SpeedRatio) -> Vec<Point> {
-    points_at_tempo_in(samples, profile, tempo, 0..usize::MAX)
+    points_at_tempo_in(Signal::Mono(samples), profile, tempo, 0..usize::MAX)
 }
 
 fn points_at_tempo_in(
-    samples: &[f32],
+    signal: Signal,
     profile: &Profile,
     tempo: SpeedRatio,
     frames: Range<usize>,
@@ -171,7 +177,7 @@ fn points_at_tempo_in(
     let hop = Rung::KeyLocked(tempo).hop(profile);
     let scaled = Profile { hop, ..*profile };
     let frame_scale = hop as f64 * tempo.0 / profile.hop as f64;
-    extract_peaks_in(samples, &scaled, frames)
+    extract_signal_peaks_in(signal, &scaled, frames)
         .iter()
         .map(|peak| Point {
             frame: peak.frame * frame_scale,

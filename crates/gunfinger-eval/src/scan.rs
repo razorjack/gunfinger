@@ -6,12 +6,10 @@ use std::path::Path;
 use std::time::Instant;
 
 use gunfinger_core::confidence::Pass;
-use gunfinger_core::decode::{Excerpt, decode};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::plays;
-use gunfinger_core::profile::Profile;
 use gunfinger_core::search::Detection;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
@@ -129,7 +127,7 @@ pub fn run(
         jobs,
     } = *options;
     let set = load_set(sets_dir, set_name, referable).map_err(|problems| problems.join("; "))?;
-    let profile = Profile::CURRENT;
+    let profile = matching.profile();
     let (left_out_tracks, left_out_assets) = match leave_out {
         Some(leave_out) => left_out(&set, clusters, leave_out)?,
         None => (Vec::new(), BTreeSet::new()),
@@ -141,9 +139,8 @@ pub fn run(
     drop(records);
 
     let started = Instant::now();
-    let audio = decode(&set.audio, profile.sample_rate, Excerpt::default())
-        .map_err(|error| error.to_string())?;
-    let detections = matching.search(&index, &audio.samples, &profile, ladder, jobs);
+    let audio = matching.decode_query(&set.audio)?;
+    let detections = matching.search_audio(&index, &audio, ladder, jobs);
     let wall_seconds = started.elapsed().as_secs_f64();
     let plays: Vec<FoundPlay> = plays::group(&detections)
         .iter()
@@ -163,11 +160,14 @@ pub fn run(
         .map(|detection| {
             let verified = verifier
                 .as_ref()
-                .and_then(|verifier| verifier.verify(&index, detection, &audio.samples, &profile));
+                .zip(audio.mono())
+                .and_then(|(verifier, samples)| {
+                    verifier.verify(&index, detection, samples, &profile)
+                });
             found(&index, detection, verified)
         })
         .collect();
-    let duration_seconds = audio.duration().as_secs_f64();
+    let duration_seconds = audio.signal().len() as f64 / f64::from(profile.sample_rate);
 
     Ok(ScanReport {
         set: set_name.to_owned(),

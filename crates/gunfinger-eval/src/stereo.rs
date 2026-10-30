@@ -2,18 +2,23 @@
 //! 0194 and after): which channel or mix of the two is searched, and how
 //! wide a source is. The core always searches FFmpeg's downmix (`-ac 1`
 //! in `decode.rs`); the other choices here are a diagnostic, and nothing
-//! outside the harness uses them.
+//! outside the harness uses them. `FrontEnd` is the variant that adds the
+//! two channels' powers instead (experiment 0245 and after), for queries
+//! alone or for queries and records.
 
-use std::collections::BTreeSet;
-use std::path::Path;
+use std::collections::{BTreeMap, BTreeSet};
+use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
 use gunfinger_core::decode::{Container, Excerpt, decode};
+use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::Library;
 use gunfinger_core::parallel::map_in_order;
+use gunfinger_core::peaks::extract_signal_peaks;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::store::PeakStore;
+use gunfinger_core::spectrogram::Signal;
+use gunfinger_core::store::{PeakRecord, PeakStore, RecordHeader};
 use serde::Serialize;
 
 use crate::render::Stereo;
@@ -59,6 +64,166 @@ impl QueryChannels {
             QueryChannels::Side => side(&stereo()?),
         })
     }
+}
+
+/// How the harness analyses audio: today's downmix, or both channels with
+/// their powers added (`Signal::PowerSum`).
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, clap::ValueEnum)]
+pub enum FrontEnd {
+    /// Today's: queries and records from FFmpeg's downmix.
+    #[default]
+    Downmix,
+    /// Queries by their channels' powers, against today's records.
+    PowerSumQueries,
+    /// Queries by their channels' powers, against records made the same
+    /// way (`Profile::POWER_SUM`; a store `power-store` builds, named with
+    /// `--peaks-dir`).
+    PowerSum,
+}
+
+impl FrontEnd {
+    pub fn name(self) -> &'static str {
+        match self {
+            FrontEnd::Downmix => "downmix",
+            FrontEnd::PowerSumQueries => "power-sum-queries",
+            FrontEnd::PowerSum => "power-sum",
+        }
+    }
+
+    /// The profile of the records searched, and of the search's analysis.
+    pub fn profile(self) -> Profile {
+        match self {
+            FrontEnd::Downmix | FrontEnd::PowerSumQueries => Profile::CURRENT,
+            FrontEnd::PowerSum => Profile::POWER_SUM,
+        }
+    }
+
+    /// The file at `path` as this front end searches it, at `sample_rate`.
+    pub fn decode_query(self, path: &Path, sample_rate: u32) -> Result<QueryAudio, String> {
+        match self {
+            FrontEnd::Downmix => Ok(QueryAudio::Mono(
+                decode(path, sample_rate, Excerpt::default())
+                    .map_err(|error| error.to_string())?
+                    .samples,
+            )),
+            FrontEnd::PowerSumQueries | FrontEnd::PowerSum => {
+                Ok(QueryAudio::PowerSum(decode_stereo(path, sample_rate)?))
+            }
+        }
+    }
+}
+
+/// A query's decoded audio: one channel, or two whose powers are added.
+pub enum QueryAudio {
+    Mono(Vec<f32>),
+    PowerSum(Stereo),
+}
+
+impl QueryAudio {
+    pub fn signal(&self) -> Signal<'_> {
+        match self {
+            QueryAudio::Mono(samples) => Signal::Mono(samples),
+            QueryAudio::PowerSum(stereo) => Signal::PowerSum {
+                left: &stereo.left,
+                right: &stereo.right,
+            },
+        }
+    }
+
+    /// The samples of one channel, which the peak verifier needs.
+    pub fn mono(&self) -> Option<&[f32]> {
+        match self {
+            QueryAudio::Mono(samples) => Some(samples),
+            QueryAudio::PowerSum(_) => None,
+        }
+    }
+}
+
+/// What `build_store` wrote.
+#[derive(Serialize)]
+pub struct StoreBuilt {
+    pub front_end: &'static str,
+    pub profile: String,
+    pub records: usize,
+    /// Files decoded from a replacement instead of their library file.
+    pub replaced: usize,
+    pub seconds_of_audio: f64,
+    pub peaks: usize,
+    pub postings: usize,
+    pub wall_seconds: f64,
+}
+
+/// Writes to `out` a record under `front_end`'s profile for each library
+/// file with a current record in `store` (today's profile), decoding it, or
+/// its replacement in `replacements` (by library path), whole at the
+/// profile's rate. `out` must not be `store`: the records of a variant or of
+/// a replaced file never go to the library's own store.
+pub fn build_store(
+    library: &Library,
+    store: &PeakStore,
+    out: &PeakStore,
+    front_end: FrontEnd,
+    replacements: &BTreeMap<String, PathBuf>,
+    jobs: usize,
+) -> Result<StoreBuilt, String> {
+    if front_end == FrontEnd::PowerSumQueries {
+        return Err(String::from(
+            "a store is built for --front-end downmix or power-sum",
+        ));
+    }
+    let same_dir = |a: &Path, b: &Path| a.canonicalize().ok() == b.canonicalize().ok();
+    if same_dir(out.dir(), store.dir()) {
+        return Err(format!(
+            "{} is the library's store; build into another directory",
+            out.dir().display()
+        ));
+    }
+    out.claim_library(&library.root)
+        .map_err(|error| error.to_string())?;
+    let started = std::time::Instant::now();
+    let profile = front_end.profile();
+    let (current, _) = load_records(library, store, &Profile::CURRENT, &BTreeSet::new());
+    let sources: Vec<_> = current
+        .into_iter()
+        .map(|record| record.header.source)
+        .collect();
+    let records = map_in_order(&sources, jobs, |source| {
+        let file = replacements
+            .get(&source.path)
+            .cloned()
+            .unwrap_or_else(|| library.root.join(&source.path));
+        let audio = front_end.decode_query(&file, profile.sample_rate)?;
+        let signal = audio.signal();
+        let record = PeakRecord {
+            header: RecordHeader {
+                profile: profile.id(),
+                source: source.clone(),
+                duration_seconds: signal.len() as f64 / f64::from(profile.sample_rate),
+            },
+            peaks: extract_signal_peaks(signal, &profile),
+        };
+        out.save(&record).map_err(|error| error.to_string())?;
+        Ok(record)
+    })
+    .into_iter()
+    .collect::<Result<Vec<PeakRecord>, String>>()?;
+    let index = Index::build(&records).map_err(|error| error.to_string())?;
+    Ok(StoreBuilt {
+        front_end: front_end.name(),
+        profile: profile.id(),
+        records: records.len(),
+        replaced: sources
+            .iter()
+            .filter(|source| replacements.contains_key(&source.path))
+            .count(),
+        seconds_of_audio: records
+            .iter()
+            .map(|record| record.header.duration_seconds)
+            .sum(),
+        peaks: records.iter().map(|record| record.peaks.len()).sum(),
+        postings: index.posting_count(),
+        wall_seconds: started.elapsed().as_secs_f64(),
+    })
 }
 
 /// The channel with the higher RMS.
@@ -310,6 +475,45 @@ mod tests {
         assert_eq!(Width::of(-20.0), Width::NearlyMono);
         assert_eq!(Width::of(-15.0), Width::Narrow);
         assert_eq!(Width::of(-3.0), Width::Wide);
+    }
+
+    /// A one-channel file: FFmpeg's two channels are each the sample at
+    /// 1/sqrt(2), so their powers add up to the downmix's (the sample
+    /// itself), apart from rounding.
+    #[test]
+    fn a_one_channel_file_gives_the_downmix_peaks_under_the_power_sum() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-power-sum-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let file = dir.join("mono.wav");
+        let generated = Command::new("ffmpeg")
+            .args(["-nostdin", "-v", "error", "-y", "-f", "lavfi", "-i"])
+            .arg("anoisesrc=d=8:c=pink:r=44100:a=0.3:seed=7")
+            .args(["-ac", "1"])
+            .arg(&file)
+            .status()
+            .is_ok_and(|status| status.success());
+        if !generated {
+            eprintln!("skipped: ffmpeg cannot generate audio here");
+            return;
+        }
+        let profile = Profile::CURRENT;
+        let peaks = |front_end: FrontEnd| {
+            let audio = front_end.decode_query(&file, profile.sample_rate).unwrap();
+            extract_signal_peaks(audio.signal(), &profile)
+        };
+
+        let downmix = peaks(FrontEnd::Downmix);
+        let summed = peaks(FrontEnd::PowerSum);
+
+        assert!(downmix.len() > 200, "{}", downmix.len());
+        let same = summed.iter().filter(|peak| downmix.contains(peak)).count();
+        assert!(
+            same as f64 >= 0.99 * downmix.len() as f64,
+            "{same} of {} the same",
+            downmix.len()
+        );
+        assert!(summed.len().abs_diff(downmix.len()) <= downmix.len() / 100);
+        std::fs::remove_dir_all(&dir).ok();
     }
 
     #[test]

@@ -3,13 +3,18 @@
 //! reports of anything but the default go to `reports/variant-<name>/`, so
 //! that calibrate and regress read one matcher at a time.
 
+use std::path::Path;
+
 use gunfinger_core::confidence::{Pass, Rule};
 use gunfinger_core::index::Index;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{
-    Detection, Matcher, Options, SAME_SPEED_SHARE, SecondOverlap, Trace, search_with, trace_with,
+    Detection, Matcher, Options, SAME_SPEED_SHARE, SecondOverlap, Trace, search_signal_with,
+    search_with, trace_with,
 };
 use gunfinger_core::speed::Rung;
+
+use crate::stereo::{FrontEnd, QueryAudio};
 
 #[derive(clap::Args, Clone, Copy, Debug, PartialEq)]
 pub struct Matching {
@@ -44,6 +49,12 @@ pub struct Matching {
     /// (0.6%, ADR 0021); this measures another.
     #[arg(long, global = true, value_name = "SHARE", conflicts_with_all = ["single_pass", "overlap_by_spans", "overlap_by_chains"])]
     pub apart_in_speed: Option<f64>,
+    /// How audio is analysed (`stereo::FrontEnd`): the downmix, or both
+    /// channels' powers added, for queries alone or for queries and
+    /// records (a store built by `power-store`). `robust`, `scan` and
+    /// `mixes` take it.
+    #[arg(long, global = true, value_enum, default_value_t = FrontEnd::Downmix)]
+    pub front_end: FrontEnd,
 }
 
 impl Matching {
@@ -97,6 +108,9 @@ impl Matching {
         if let Some(share) = self.apart_in_speed {
             parts.push(format!("apart-{share}"));
         }
+        if self.front_end != FrontEnd::Downmix {
+            parts.push(self.front_end.name().to_owned());
+        }
         (!parts.is_empty()).then(|| parts.join("-"))
     }
 
@@ -140,6 +154,36 @@ impl Matching {
         search_with(index, samples, profile, ladder, jobs, self.options())
     }
 
+    /// The profile of the records searched and of the search's analysis.
+    pub fn profile(&self) -> Profile {
+        self.front_end.profile()
+    }
+
+    /// The file at `path` as the front end searches it.
+    pub fn decode_query(&self, path: &Path) -> Result<QueryAudio, String> {
+        self.front_end
+            .decode_query(path, self.profile().sample_rate)
+    }
+
+    /// Like `search`, for audio of the front end's.
+    pub fn search_audio(
+        &self,
+        index: &Index,
+        audio: &QueryAudio,
+        ladder: &[Rung],
+        jobs: usize,
+    ) -> Vec<Detection> {
+        let profile = self.profile();
+        search_signal_with(
+            index,
+            audio.signal(),
+            &profile,
+            ladder,
+            jobs,
+            self.options(),
+        )
+    }
+
     /// The first pass alone: the detections the second pass would measure
     /// again, with their first-pass evidence and each one's chain of lines.
     pub fn first_pass(
@@ -179,6 +223,7 @@ mod tests {
         overlap_by_spans: false,
         overlap_by_chains: false,
         apart_in_speed: None,
+        front_end: FrontEnd::Downmix,
     };
 
     #[test]
@@ -227,6 +272,25 @@ mod tests {
             };
             assert!(apart.check().is_err(), "{share}");
         }
+    }
+
+    #[test]
+    fn the_power_sum_front_ends_write_their_own_reports_and_records() {
+        let queries = Matching {
+            front_end: FrontEnd::PowerSumQueries,
+            ..DEFAULT
+        };
+        let both = Matching {
+            front_end: FrontEnd::PowerSum,
+            ..DEFAULT
+        };
+
+        assert_eq!(DEFAULT.profile(), Profile::CURRENT);
+        assert_eq!(queries.name().as_deref(), Some("power-sum-queries"));
+        assert_eq!(queries.profile(), Profile::CURRENT);
+        assert_eq!(both.name().as_deref(), Some("power-sum"));
+        assert_eq!(both.profile(), Profile::POWER_SUM);
+        assert_eq!(both.options(), DEFAULT.options());
     }
 
     #[test]

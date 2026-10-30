@@ -24,6 +24,7 @@ use crate::hash::for_each_pair;
 use crate::index::Index;
 use crate::parallel::map_in_order;
 use crate::profile::Profile;
+use crate::spectrogram::Signal;
 use crate::speed::{self, Playback, Rung, SpeedRatio};
 
 /// Candidates with fewer first-pass hits are left as they are: weak either
@@ -59,7 +60,7 @@ const STRETCH_MARGIN_FRAMES: f64 = 100.0;
 /// leave out weak windows at either end.
 pub(super) fn refine(
     search: &Search,
-    samples: &[f32],
+    samples: Signal,
     lines: &[Line],
     chained: Vec<Chained>,
 ) -> Vec<Chained> {
@@ -141,7 +142,7 @@ impl Alignment {
 
 fn at_fitted_speed(
     index: &Index,
-    samples: &[f32],
+    samples: Signal,
     profile: &Profile,
     detection: &Detection,
     chain: &[&Line],
@@ -210,7 +211,7 @@ fn at_fitted_speed(
 /// analysing `samples[span]` at its speed; only anchors in `windows` count.
 fn hits_near(
     index: &Index,
-    samples: &[f32],
+    samples: Signal,
     profile: &Profile,
     detection: &Detection,
     alignment: Alignment,
@@ -218,7 +219,9 @@ fn hits_near(
     windows: impl RangeBounds<u32>,
 ) -> Vec<Hit> {
     let rate = f64::from(profile.sample_rate);
-    let points = alignment.rung().points(&samples[span.clone()], profile);
+    let points = alignment
+        .rung()
+        .signal_points(samples.slice(span.clone()), profile);
     let start_frame = profile.frames(span.start as f64 / rate);
     let window_frames = profile.frames(WINDOW_SECONDS);
     let mut hits = Vec::new();
@@ -292,7 +295,7 @@ fn measure(hits: &mut [Hit], alignment: Alignment) -> Vec<Measured> {
 /// hits or fewer. `measured` is in window order.
 fn per_stretch(
     index: &Index,
-    samples: &[f32],
+    samples: Signal,
     profile: &Profile,
     detection: &Detection,
     fitted: Alignment,
