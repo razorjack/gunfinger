@@ -28,8 +28,8 @@ for scope and rules.
   perturbation (0253; renumbered, brief 06:56)
 - [x] 5. Decision note `docs/research/2026-10-30-second-pass-fit-decision.md`;
   the roadmap's matching bullets; the proposals note's §3
-- [~] 6. Read-only review by a separate agent; findings fixed
-- [~] 7. Notes ("Session 63"), status, checklist; final checks
+- [x] 6. Read-only review by a separate agent; findings fixed
+- [x] 7. Notes ("Session 63"), status, checklist; final checks
   (`scripts/check.sh`, both regressions with the final build, the
   verdicts file and the clusters file's digest unchanged, `git status`
   clean)

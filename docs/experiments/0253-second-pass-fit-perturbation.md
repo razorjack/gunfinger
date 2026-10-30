@@ -28,8 +28,8 @@ lists (`second_pass_fit.py moved`); `data/0253-second-pass-fit-perturbation.json
 queries than the default (5 against 6), and fewer right answers moved
 (1 against 2).
 
-**Conclusion.** The chain's speed is what makes a short chain's count
-depend on which rung kept a window: both fits remove that dependence for
-Echos (48 hits apart under the default, 0-1 under the fits). The lists set
+**Conclusion.** By inference from Echos, the one query whose count moves,
+the chain's speed is what makes a short chain's count depend on which rung
+kept a window: both fits remove that dependence for Echos (48 hits apart under the default, 0-1 under the fits). The lists set
 aside still move weak candidates, as ADR 0014 expects. This does not
 outweigh 0252's failures (B2, B4 at 262 tracks).

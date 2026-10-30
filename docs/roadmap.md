@@ -467,9 +467,10 @@ cases. None is an adopted decision or an experiment result.
   offset refitted (the grid); the same chosen on alternate windows and
   counted on the others (the split); two rounds of the hits' drift (the
   bounded fit). On 30 s excerpts the chain's fit lies within 0.003% of
-  the played speed and no answer changes. On 15 s plays, whose chains
-  give the mean of their rungs (0.049% off), each fit gains 18-29
-  confident answers in `recall` (most against other rips) and loses 1-3.
+  the played speed and few answers change (1-3 per fit, all against
+  other rips). On 15 s plays, whose chains give the mean of their rungs
+  (0.049% off), each fit gains 18-27 confident answers in `recall` (most
+  against other rips) and loses 1-3.
   The grid lifts wrong versions too (calibrate's strongest false +2% at
   NAS scale and +10% at 262 tracks; 27 related or other detections newly
   confident in the panels); the split and the bounded fit do not choose

@@ -1,4 +1,43 @@
 {
+ "like-brief-iterated": {
+  "queries": 1404,
+  "right_moved": 1,
+  "confident_changed": [],
+  "detections_moved": 3,
+  "named": {
+   "910": {
+    "today": {
+     "hits": 455,
+     "speed_percent": 1.0094,
+     "confident": true
+    },
+    "like": {
+     "hits": 455,
+     "speed_percent": 1.0094,
+     "confident": true
+    }
+   },
+   "911": {
+    "today": {
+     "hits": 602,
+     "speed_percent": 0.9979,
+     "confident": true
+    },
+    "like": {
+     "hits": 602,
+     "speed_percent": 0.9982,
+     "confident": true
+    }
+   }
+  }
+ },
+ "like-iterated": {
+  "queries": 702,
+  "right_moved": 0,
+  "confident_changed": [],
+  "detections_moved": 2,
+  "named": {}
+ },
  "panel1-iterated": {
   "results": 622,
   "confident": {

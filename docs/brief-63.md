@@ -311,3 +311,56 @@ otherwise it records what failed.
   within a play", "The edge of the ladder") and the proposals note's §3
   written. The cost is recorded in the decision note, not in an
   experiment file (0252 was written before the cost runs).
+- **(08:52) A slip in the final script, caught before it acted.** The
+  first `work/s63/final.sh`, copied from session 62's, still named
+  `work/bin/s62-final/` as its build directory; it was stopped during
+  `scripts/check.sh`, before the copy, and `s62-final` is unchanged
+  (`cmp`-equal to `s63-start`). It ran again with `s63-final`.
+- **(09:03) Final checks** (`work/s63/final.sh`, tmux `s63finaltwo`,
+  08:52-09:02) at `f4532c9` with `work/bin/s63-final/`:
+  `scripts/check.sh` green (5:00); `regress session-54-linux` (0:53) and
+  `regress session-54-linux-nas` (3:49) identical, 8 of 8 reports; the
+  verdicts file, the NAS clusters file and the answer log at their start
+  digests (`work/s63/listening-digests-end.txt`). The CLI binary differs
+  from `s63-start`'s (the core's options gained a field); its JSON report
+  of the Stakka mix (`--saved-index off`) is identical from both
+  (`work/s63/cli.sh`).
+- **(09:10) The review** (a read-only agent, 08:51-09:07) confirmed the
+  default path bit for bit, the fits against the pre-registration and
+  the numbers it spot-checked. Fixed: `second_pass_fit.py shared` took
+  an asset's strongest detection for its level, so an asset already
+  confident through a weaker detection counted as newly confident
+  (panel 2's "3 played" under the grid and the split is 0; the split's
+  panels' played +7 -2 is +4 -2; bar (a) still passes; the panel data
+  regenerated); "no answer changes on 30 s excerpts" (1-3 per fit
+  change, all against other rips); "the same answers" on brief plays
+  (only the own-file ones); 18-29 on 15 s plays (18-27); small figures
+  (0.009%, 666 s, 3.6); inferences marked (not selection; Echos as the
+  one moving query; the floor).
+- **(09:10) Departures the review found unrecorded.** The weak-true set
+  in `second_pass_fit.py` is every right detection of 80-719 hits, not
+  the registered "confident under 720, or 80-239 hits": it adds
+  non-confident detections of 240-719 hits (415 of 1,545 on the brief
+  plays). Under the registered set the brief plays' medians are 1.020
+  (split) and 1.056 (grid) against the reported 1.017 and 1.051; bar (b)
+  fails either way. S4's per-query margin (best right over best wrong)
+  is in the data files but not in the experiments: on the brief plays
+  its median rises by 4.4% (grid), 3.9% (split), 2.9% (bounded fit). The
+  correction to 0251 (`f01b196`, 07:38) came a minute after 0252's runs
+  began (07:36:58). The cost runs (08:47:24) began before 0253 was
+  committed (08:48:03; its file was written). The Siren Bass queue
+  started at 06:23:53, before the (06:26) entry. The 2.5-hour aim (about
+  08:15) passed while 0252's runs went on; the work stayed inside the
+  10:00 soft deadline, and no new run started after 08:51.
+- **(09:10) The fits stay in the tree** (AGENTS.md: an experiment that
+  loses is deleted): the prompt asked for the reference as an opt-in
+  diagnostic, and the grid and the split are what a short-chain fit
+  would be measured against; to be deleted when that is decided or not
+  taken up (the decision note). Left for later, from the review: the
+  split refits its offset on the choosing half only (stricter than the
+  registration's wording); the split's speed is a weighted mean even
+  when both halves keep the default; `--second-pass-fit` and
+  `--speed-per-stretch` conflict only in the harness's options; tests
+  for the tie order, the stop at the reach and keeping a weaker last
+  round are missing, and the split's test does not tell the halves
+  apart.

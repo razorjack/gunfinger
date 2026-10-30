@@ -35,6 +35,6 @@ confident); B2 fails (4 confident right answers lost: 2 brief plays, one
 played file at two indexes); B3 passes (19 gained against the split's 18);
 B4 passes at NAS scale, fails at 262 tracks (strongest false +7%, margin -6.7%).
 **Conclusion.** The bounded fit keeps the split's gain on short chains with
-none of the grid's lift of related versions and halves the speed error;
+none of the grid's lift of related versions and a smaller speed error;
 but it loses answers near the rule, and at 262 tracks the Clockwork remix's
 passage gains 7%. Not worth an ADR proposal as registered.

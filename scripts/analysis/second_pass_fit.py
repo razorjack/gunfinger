@@ -50,6 +50,10 @@ def by_asset(detections):
     return out
 
 
+def confident_by_asset(detections):
+    return by_asset([d for d in detections if d["level"] == "confident"])
+
+
 def ratios(values):
     if not values:
         return {"n": 0}
@@ -148,16 +152,17 @@ def shared(default_path, variant_path):
         assert (ra["query"], ra["index"]) == (rb["query"], rb["index"])
         va, vb = by_asset(ra["detections"]), by_asset(rb["detections"])
         label = f"{ra['query']} [{ra['index']}]"
-        for asset, d in vb.items():
-            before = va.get(asset)
-            if d["level"] == "confident" and (before is None or before["level"] != "confident"):
-                out["newly_confident"].append(
-                    f"{label} {d['role']} {asset.split('/')[-1]} {before['hits'] if before else 0}->{d['hits']}")
+        # An asset is confident when any of its detections is, not only its strongest.
+        ca, cb = confident_by_asset(ra["detections"]), confident_by_asset(rb["detections"])
+        for asset in sorted(set(cb) - set(ca)):
+            d, before = cb[asset], va.get(asset)
+            out["newly_confident"].append(
+                f"{label} {d['role']} {asset.split('/')[-1]} {before['hits'] if before else 0}->{d['hits']}")
+        for asset in sorted(set(ca) - set(cb)):
+            d, after = ca[asset], vb.get(asset)
+            out["no_longer_confident"].append(
+                f"{label} {d['role']} {asset.split('/')[-1]} {d['hits']}->{after['hits'] if after else 0}")
         for asset, d in va.items():
-            after = vb.get(asset)
-            if d["level"] == "confident" and (after is None or after["level"] != "confident"):
-                out["no_longer_confident"].append(
-                    f"{label} {d['role']} {asset.split('/')[-1]} {d['hits']}->{after['hits'] if after else 0}")
             if d["hits"] >= FLOOR:
                 ratio[d["role"]].append(vb[asset]["hits"] / d["hits"] if asset in vb else 0.0)
     out["ratio"] = {role: ratios(v) for role, v in ratio.items()}

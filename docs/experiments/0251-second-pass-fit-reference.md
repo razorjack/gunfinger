@@ -25,16 +25,16 @@ today's rule, against the default's reports (baselines, session 62's);
 - Panels (development halves), newly confident detections: panel 1 grid 21
   (9 other, 6 related, 4 played, 2 partner), none lost; split 8 (4 played, 4
   related: Sonar's), 15 lost (8 other, 7 related). Panel 2, both fits: 9
-  related (Phantom 2018, 223 to 244), 3 other, 3 played; split loses 2 played.
-- Speed error on the own file, median: 30 s excerpts 0.003% (chain), 0.010-
+  related (Phantom 2018, 223 to 244), 3 other; the split loses 2 played.
+- Speed error on the own file, median: 30 s excerpts 0.003% (chain), 0.009-
   0.012% (fits); brief plays 0.049%, 0.014% (grid), 0.012% (split). Largest
-  grid-to-default ratio 2.13, below 3: the floor of 80 holds.
+  grid-to-default ratio 2.13: by inference the floor of 80 loses nothing.
 - Echos (911; 910): 503 at +0.933% (386 at +1.056%) to 603 (457) at +0.99%
   (grid), 597 (455) split. Siren Bass at -8%: 305 to 339 at -8.26% (grid), 306
   split; with one extra rung pair 214 to 241 (grid, confident), 237 (split).
 **Against the bar.** (a) passes (split: `recall` and sweeps +18 -4, panels'
-played +7 -2); (b) fails (medians 0.99-1.02). The bounded fit runs (0252).
+played +4 -2); (b) fails (medians 0.99-1.02). The bounded fit runs (0252).
 **Conclusion.** The chain's speed costs hits where the chain is short (15 s
-plays: the mean of rungs), not on 30 s excerpts. The split keeps most of that
-gain, so it is not selection. Most changed answers cross 240 hits (2 gain and
+plays: the mean of rungs), not on 30 s excerpts. The split keeps 18 of the
+grid's 27 gained answers; by inference most of that gain is not selection. Most changed answers cross 240 hits (2 gain and
 1 loses a third window); related versions near 240 gain as true plays do.

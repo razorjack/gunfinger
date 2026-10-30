@@ -28,15 +28,18 @@ speed, on the same span and pivot, under today's rule:
 
 ## The gain
 
-The chain's speed costs hits only where the chain is short. On 30 s
+The chain's speed costs hits mostly where the chain is short. On 30 s
 excerpts (the sweeps, `recall`'s clean excerpts, their other rips) the
-chain's fit is already within 0.003% of the played speed (median), no
-confident answer changes under any fit at either scale, and the median
-hit ratio of weak true plays is 0.99-1.01. On `recall`'s 15 s brief
+chain's fit is already within 0.003% of the played speed (median), few
+confident answers change, all against other rips (grid +3, split -2,
+bounded fit +1, over the sets below), and the median hit ratio of weak
+true plays is 0.99-1.01. On `recall`'s 15 s brief
 plays, whose chains are too short for a fit, the speed is the mean of
 the lines' rungs: 0.049% off (median), 0.012-0.014% under the grid or
-the split and 0.004% under the bounded fit. There the three fits find
-the same answers:
+the split and 0.004% under the bounded fit. There the three fits gain
+the same 5 own-file answers and lose the same one; against other rips
+the grid gains 22, the split and the bounded fit 13 each (11 of them the
+same queries):
 
 | Positives, confident right (NAS scale) | Default | Grid | Split | Bounded fit |
 |---|--:|--:|--:|--:|
@@ -71,7 +74,7 @@ they count, mostly do not:
 | Panel 2, the same | 12; 0 | 12; 0 | 0; 0 |
 | Wrong confident answers added (sweeps, `recall`, scans) | 0 | 0 | 0 |
 
-The split's additions are not selection: in panel 2 a related version
+By inference, the split's additions are not selection: in panel 2 a related version
 (Phantom 2018, which shares the played passage) goes from 223 to 244
 hits under the grid and the split alike, at 9 query and index pairs, as
 a true play does when its alignment improves. No fit can tell such a
@@ -88,15 +91,16 @@ perturbation, `recall --set-aside-like`), the default moves Echos's
 query 911 from 503 hits at +0.933% to 455 at +1.147%; the grid gives
 603 and 602, the bounded fit 602 and 602 (+0.998% both). No confident
 answer changes under any fit, and the bounded fit moves 5 queries'
-detections against the default's 6 (0253). For a short chain, a better
-fit removes the dependence on which rung's line a window kept; the
+detections against the default's 6 (0253). By inference from Echos, the
+one query whose count moves, a better fit removes a short chain's
+dependence on which rung's line a window kept; the
 lists set aside still move weaker candidates, as ADR 0014 expects.
 
 ## Cost
 
 The Stakka scan at NAS scale, alone on the Linux machine (32 workers):
 search 24.17 s for the default (twice), 24.55-24.56 s for the bounded
-fit (+1.6%; user CPU 677-678 s against 667-668 s), and 37.33 s for the
+fit (+1.6%; user CPU 677-678 s against 666-668 s), and 37.33 s for the
 grid and for the split (+54%; 1,014 s), which analyse each candidate of
 80 hits or more 41 more times. The bounded fit passes the registered
 cost bound (B5, at most 3%).
@@ -109,23 +113,30 @@ split were never candidates, being a reference and a diagnostic).
 
 What the measurements say, for a later decision that is ours:
 
-- The loss is confined to short chains, where `chain_speed` falls back
-  to the hit-weighted mean of the rungs. There the fits come 3.5 (grid)
-  to 11 (bounded fit) times closer to the played speed and gain
-  confident answers, mostly against other rips; on chains long enough
-  for the fit through line centres, nothing is gained, and the grid and
-  the split only add noise to the speed (the bounded fit halves its
-  error there).
-- The gain is real, not selection (the split keeps it), so it raises
-  shared material as well: a related version that shares the played
-  passage crosses 240 under the split as a true play does. Only a fit
-  that does not move such passages much (the bounded fit, in these
-  panels) leaves the threshold's measured meaning roughly intact, and
-  even it lifts the Clockwork remix's shared passage by 7%.
+- The loss is mostly on short chains, where `chain_speed` falls back to
+  the hit-weighted mean of the rungs. There the fits come 3.6 (grid) to
+  11 (bounded fit) times closer to the played speed and gain confident
+  answers, mostly against other rips. On chains long enough for the fit
+  through line centres, little is gained (1-3 answers per fit, against
+  other rips); the grid and the split add noise to the speed there, and
+  the bounded fit halves its error.
+- By inference the gain is mostly real, not selection: the split keeps
+  18 of the grid's 27 gained answers, though about a third of its median
+  hit gain. So it raises shared material as well: a related version that
+  shares the played passage crosses 240 under the split as a true play
+  does. Only a fit that does not move such passages much (the bounded
+  fit, in these panels) leaves the threshold's measured meaning roughly
+  intact, and even it lifts the Clockwork remix's shared passage by 7%.
 - The answers that move are near the rule in both directions: the
   bounded fit gains 19 and loses 4 (2 of them one played file at two
-  indexes). A change here is a change to which
-  weak plays are confident, not a recovery without cost.
+  indexes). A change here is a change to which weak plays are
+  confident, not a recovery without cost.
+
+The fits stay in the tree as the opt-in harness diagnostic the session
+was asked to build (`--second-pass-fit`, `search/refine/fit.rs`), because
+the grid and the split are the reference against which a short-chain fit
+would be measured. They are to be deleted when that measurement is
+decided, or if it is not taken up.
 
 If this is taken further, the candidate is the bounded fit applied only
 where `chain_speed` falls back to the mean of rungs (chains under 3

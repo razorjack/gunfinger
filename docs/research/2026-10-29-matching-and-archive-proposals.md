@@ -197,11 +197,12 @@ short segments across a pitch ride.
 **Measured (session 63, experiments 0251-0253).** The local search (41
 speeds within ±0.4%, offset refitted), a split that chooses on alternate
 windows and counts on the others, and a bounded fit (two rounds of the
-hits' drift), each opt-in (`--second-pass-fit`). Nothing changes on 30 s
-excerpts, where the chain's fit is within 0.003%; on 15 s plays (the mean
-of the rungs, 0.049% off) each fit gains 18-29 confident answers in
-`recall` and loses 1-3. The grid lifts wrong versions as well; the split
-shows that the gain on short chains is not selection, but a related
+hits' drift), each opt-in (`--second-pass-fit`). Few answers change on
+30 s excerpts (1-3 per fit, against other rips), where the chain's fit is
+within 0.003%; on 15 s plays (the mean of the rungs, 0.049% off) each fit
+gains 18-27 confident answers in `recall` and loses 1-3. The grid lifts
+wrong versions as well; the split suggests that most of the gain on short
+chains is not selection, but a related
 version sharing the played passage gains with it. The bounded fit fails
 its registered bar on lost answers (4) and on the margin at 262 tracks;
 it costs 1.6% more search time, and under 0242's perturbation it holds

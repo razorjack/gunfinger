@@ -12948,8 +12948,8 @@ Added, opt-in and tested (`383d91a`):
 
 In short: the chain's speed costs hits only on short chains, where it is
 the mean of the rungs (15 s plays, 0.049% off); there each fit gains
-18-29 confident answers in `recall` and loses 1-3, and the split shows
-that the gain is not selection. The grid also lifts wrong versions; even
+18-27 confident answers in `recall` and loses 1-3, and the split
+suggests that most of the gain is not selection. The grid also lifts wrong versions; even
 the split lets a related version that shares the played passage cross
 240. The bounded fit fails its registered bar (4 confident answers lost;
 the margin at 262 tracks 6.7% lower). No ADR proposal.
@@ -12987,6 +12987,11 @@ answers lost) and B4 at 262 tracks (the Clockwork remix's shared passage
   one's runs: 0252 the bounded fit, 0253 the perturbation (with the
   bounded fit in it, for B6). Panel 2 ran beside panel 1 for the time
   box. The cost runs followed 0253 and are recorded in the decision note.
+- The fits stay in the tree as the requested diagnostic, the reference
+  for a short-chain fit; delete them when that is decided or dropped.
+- The weak-true set in the script is every right detection of 80-719
+  hits, wider than registered (brief 63, 09:10); bar (b) fails either
+  way.
 - One run beyond the registration: `sweep --other-rips --extra-rungs 1`
   under each fit, for 0226's Siren Bass case (today's ladder does not
   lose it).
@@ -13048,3 +13053,15 @@ answers lost) and B4 at 262 tracks (the Clockwork remix's shared passage
 - Under heavy load (five queues at once) the grid and the split made a
   `regress session-54-linux-nas` take 17 minutes and panel 1 85 minutes;
   the bounded fit costs about what the default does.
+- A read-only review by a separate agent (08:51-09:07) confirmed the
+  default path and the fits against the pre-registration; it found a
+  counting error in `second_pass_fit.py shared` (panel 2's played
+  detections) and several overstatements, fixed (brief 63, 09:10), and
+  code points left for later (the same entry).
+- Final checks with `work/bin/s63-final/` (08:52-09:02, at `f4532c9`;
+  the Rust code last changed in `383d91a`): `scripts/check.sh` green
+  (5:00); both regressions identical (0:53; 3:49); the verdicts file,
+  the NAS clusters file and the answer log at their start digests; the
+  CLI's JSON report of the Stakka mix identical from `s63-start` and
+  `s63-final`. The review's fixes after them touch only documents and a
+  Python script.

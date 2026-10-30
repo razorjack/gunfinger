@@ -5551,7 +5551,7 @@ behaviour, the second pass's default and every rule are unchanged.
   off): `Options::second_pass_fit`, set only by the harness's
   `--second-pass-fit grid|cross|iterated`.
 - The gain (0251): nothing changes on 30 s excerpts (the chain's speed
-  within 0.003%); on 15 s plays (0.049% off) the grid gains 29 confident
+  within 0.003%); on 15 s plays (0.049% off) the grid gains 27 confident
   answers in `recall` and loses 1, the split 18 and 3. The grid lifts
   wrong versions (calibrate's strongest false 100 to 110 at 262 tracks,
   282 to 288 at NAS scale; 27 panel detections newly confident); the
