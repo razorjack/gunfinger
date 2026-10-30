@@ -167,3 +167,78 @@ Rules for this session:
   `work/s64/`). The same four verdict lines as in session 52 name an
   ignored file and add nothing (lines 26, 45, 67 and 93); no verdict
   line names any of the four uploads.
+- **(21:10) Step 3, the standard evaluation on the pruned store**
+  (`work/s64/step3.sh`, tmux `s64prune`, `work/bin/s64-start`): `regress
+  session-54-linux-nas` (5:41 with the saved index built again; 5.4 GiB
+  peak). Scores and calibrate unchanged (11/11, 8/11, 0/11, 0 wrong;
+  weakest identifying 704, strongest false 282, 7 false accepted, 95
+  false candidates at 30 hits or more). Differences
+  (`work/s64/diff.py`, output `work/s64/diff-pruned.txt`; the reports
+  copied to `work/s64/pruned-reports/`):
+  - the pruned files: the six sweep candidates and the three scan
+    detections of step 1 are gone, nothing takes their place;
+  - not of a pruned file: in the sweep, one sub-threshold candidate each
+    in queries 201 (Decoy at -1%), 296 (Kemal - Animation at +8%) and
+    698 (Konflict - RoadBlock at +1%), 6 to 8 hits, and Recharger's
+    fitted speed at four speeds (queries 495, 496, 499, 503; about 1e-6
+    percentage points, hits unchanged; `per_speed`'s mean speed errors
+    with it); in the Stakka scan, the three confident Clockwork
+    detections' speed in the 8th digit (hits unchanged).
+- **(21:12) Tracing the second group to the lists set aside.** The
+  pre-prune saved index (40,678 records) survives as session 63's hard
+  links (`work/s63/wd/indexes/`, only read). Whole index
+  (`work/s64/cut_moved.py`): 1,086,463 lists, cut 9,938 in both; two
+  lists left the set aside (hash 1141698, 9,939 to 9,938 postings, and
+  1212162, 9,940 to 9,938), each losing postings of a pruned file;
+  `work/s64/list_holders.py` shows hash 1141698 holds 11 postings of
+  each corpus Clockwork file and 14 of the Remastered upload, so the
+  scan's first pass now reads them (by inference, the chain's fit moves
+  with them). The sweep leaves its held-out files out and has a cut of
+  its own; only `recall` had `--set-aside-like` (session 59).
+- **(21:13) Decision: `sweep --set-aside-like FILE`** (harness only,
+  opt-in, the conservative way to trace the sweep's changes instead of
+  inferring them): as `recall`'s, `fullest::setting_aside_like` with the
+  sweep's left-out files; the report's name ends in `-set-aside-like`
+  and holds `set_aside_like` (left out of the JSON when absent, so
+  default reports do not change); refused with `--rank-fullest-by` or
+  another matcher. The line both commands print moves to
+  `fullest::print_like`. One test (the option, its report name and the
+  refused combination); `setting_aside_like` has its own. Not added to
+  `scan`: the whole index's moved lists account for the scan, and the
+  leave-out scans change only by the pruned detection.
+- **(21:17) The sweep under the old lists** (`work/s64/like.sh`, tmux
+  `s64like`, `work/bin/s64-run`, scratch `work/s64/wlike`; 2:38): equal
+  to the baseline less the pruned files' candidates, every query and
+  `per_speed`. In the sweep's index one list left the set aside (hash
+  851777, 9,919 to 9,871 postings, 48 of the four files) and one entered
+  (1254102, 9,911 in both, as the cut fell). So every difference traces
+  to the four files or to the lists set aside; nothing to stop on.
+  Experiment 0254, data `docs/experiments/data/0254-prune-four-ignored.json`
+  (`work/s64/data.py`).
+- **(21:20) Step 4** (`work/s64/step4.sh`): `scripts/check.sh`, the
+  final build `work/bin/s64-final`, `regress session-54-linux` and
+  `regress session-54-linux-nas` (compared with step 3's reports), then
+  `baseline session-64-linux-nas`. The first queue (tmux `s64base`)
+  stopped at `cargo fmt --check` (the new test's layout); after `cargo
+  fmt` it runs again (tmux `s64base2`).
+- **(21:28) Step 4** (`work/s64/step4.sh`, tmux `s64base2`, every run
+  exit 0): `scripts/check.sh` green (4:55); `work/bin/s64-final` built
+  (`gunfinger` byte-identical to the start build's; `gunfinger-eval`
+  with `sweep --set-aside-like`, not byte-identical to `s64-run`'s,
+  which was built before `cargo fmt` moved the new test's lines); `regress
+  session-54-linux` identical (0:51); `regress session-54-linux-nas`
+  (3:46, the saved index loaded) gives step 3's reports, every one
+  identical; `baseline session-64-linux-nas` copies them (identical to
+  `work/s64/pruned-reports/`).
+- **(21:30) Step 5.** The evening's answers: session 54's notes (the
+  same-title candidates closed), session 58's notes (Vintage Dread 2000's
+  disc 1, separate tracks), the roadmap (the same-title bullet, "Stereo
+  faults before the downmix", and one sentence in "Library ignore
+  file"), `docs/calibration.md` (the strongest false is a confirmed
+  different version) and the stereo decision note (one sentence). No
+  roadmap bullet covers `parts`, so the Vintage Dread answer goes to
+  session 58's pointer only. `docs/calibration.md` has no NAS record
+  count or baseline name, and no calibrate number moved. The places that
+  name the baseline, the record count or the digest for the next
+  sessions: `docs/status.md` (a session 64 entry) and the handoff; older
+  experiments, briefs and status entries stay as written.

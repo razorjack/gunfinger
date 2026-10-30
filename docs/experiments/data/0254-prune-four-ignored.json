@@ -1,0 +1,546 @@
+{
+ "baselines": [
+  "session-54-linux-nas",
+  "session-64-linux-nas"
+ ],
+ "store": {
+  "records": [
+   40678,
+   40674
+  ],
+  "revision": [
+   "1fc6fe50293ad330",
+   "7210fc479da58376"
+  ]
+ },
+ "sweep": {
+  "queries": 720,
+  "indexed_assets": [
+   40575,
+   40571
+  ],
+  "per_speed_equal": false,
+  "changed": [
+   {
+    "query": 201,
+    "asset": "Skynet & Stakka - Decoy.mp3",
+    "speed_percent": -1.0,
+    "held_out": false,
+    "cause": "lists set aside",
+    "under_old_lists_equal_to_baseline_less_pruned": true,
+    "gone": [
+     {
+      "asset": "second-library/__youtube_archivists/unxplored-dnb/Decem - Ephedra.opus",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 6,
+      "speed_percent": -3.599999999999992
+     }
+    ],
+    "new": [
+     {
+      "asset": "second-library/__youtube_archivists/unxplored-dnb/Decem - Ephedra.opus",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 7,
+      "speed_percent": -4.628571428571426
+     }
+    ]
+   },
+   {
+    "query": 244,
+    "asset": "extra/b-bulletproof-scarred-sour.mp3",
+    "speed_percent": -5.0,
+    "held_out": false,
+    "cause": "pruned file",
+    "under_old_lists_equal_to_baseline_less_pruned": true,
+    "gone": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spider (Optiv & BTK Remix) [CUT].m4a",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 7,
+      "speed_percent": -7.599999999999996
+     }
+    ],
+    "new": []
+   },
+   {
+    "query": 296,
+    "asset": "extra/a-kemal-animation-sour.mp3",
+    "speed_percent": 8.0,
+    "held_out": false,
+    "cause": "lists set aside",
+    "under_old_lists_equal_to_baseline_less_pruned": true,
+    "gone": [
+     {
+      "asset": "second-library/__youtube_archivists/dfect-dnb/Makai - Invincible Armour.opus",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 6,
+      "speed_percent": 4.800000000000004
+     }
+    ],
+    "new": [
+     {
+      "asset": "second-library/__youtube_archivists/butch-french/Falcon and Predator - Shadow Depth.m4a",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 8,
+      "speed_percent": 5.85
+     },
+     {
+      "asset": "second-library/__youtube_archivists/dfect-dnb/Makai - Invincible Armour.opus",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 6,
+      "speed_percent": 4.0000000000000036
+     },
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/S\u200b.\u200bP\u200b.\u200bY - Need You.opus",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 6,
+      "speed_percent": 5.600000000000005
+     }
+    ]
+   },
+   {
+    "query": 391,
+    "asset": "extra/a-bad_company-pulse.mp3",
+    "speed_percent": 0.0,
+    "held_out": false,
+    "cause": "pruned file",
+    "under_old_lists_equal_to_baseline_less_pruned": true,
+    "gone": [
+     {
+      "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/OMR - Bad Vibes.opus",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 8,
+      "speed_percent": 3.400000000000003
+     }
+    ],
+    "new": []
+   },
+   {
+    "query": 495,
+    "asset": "extra/AA. SKC -- Recharger 2007.mp3",
+    "speed_percent": -8.0,
+    "held_out": false,
+    "cause": "lists set aside",
+    "under_old_lists_equal_to_baseline_less_pruned": true,
+    "gone": [
+     {
+      "asset": "extra/AA. SKC -- Recharger 2007.mp3",
+      "correct": true,
+      "confident": true,
+      "windows": 3,
+      "hits": 1577,
+      "speed_percent": -8.003927645518017
+     }
+    ],
+    "new": [
+     {
+      "asset": "extra/AA. SKC -- Recharger 2007.mp3",
+      "correct": true,
+      "confident": true,
+      "windows": 3,
+      "hits": 1577,
+      "speed_percent": -8.003928773357282
+     }
+    ]
+   },
+   {
+    "query": 496,
+    "asset": "extra/AA. SKC -- Recharger 2007.mp3",
+    "speed_percent": -5.0,
+    "held_out": false,
+    "cause": "lists set aside",
+    "under_old_lists_equal_to_baseline_less_pruned": true,
+    "gone": [
+     {
+      "asset": "extra/AA. SKC -- Recharger 2007.mp3",
+      "correct": true,
+      "confident": true,
+      "windows": 3,
+      "hits": 1653,
+      "speed_percent": -5.00645710392299
+     }
+    ],
+    "new": [
+     {
+      "asset": "extra/AA. SKC -- Recharger 2007.mp3",
+      "correct": true,
+      "confident": true,
+      "windows": 3,
+      "hits": 1653,
+      "speed_percent": -5.006458465412367
+     }
+    ]
+   },
+   {
+    "query": 499,
+    "asset": "extra/AA. SKC -- Recharger 2007.mp3",
+    "speed_percent": 0.0,
+    "held_out": false,
+    "cause": "lists set aside",
+    "under_old_lists_equal_to_baseline_less_pruned": true,
+    "gone": [
+     {
+      "asset": "extra/AA. SKC -- Recharger 2007.mp3",
+      "correct": true,
+      "confident": true,
+      "windows": 3,
+      "hits": 1591,
+      "speed_percent": -0.0023213739003602463
+     }
+    ],
+    "new": [
+     {
+      "asset": "extra/AA. SKC -- Recharger 2007.mp3",
+      "correct": true,
+      "confident": true,
+      "windows": 3,
+      "hits": 1591,
+      "speed_percent": -0.002322732270432226
+     }
+    ]
+   },
+   {
+    "query": 503,
+    "asset": "extra/AA. SKC -- Recharger 2007.mp3",
+    "speed_percent": 8.0,
+    "held_out": false,
+    "cause": "lists set aside",
+    "under_old_lists_equal_to_baseline_less_pruned": true,
+    "gone": [
+     {
+      "asset": "extra/AA. SKC -- Recharger 2007.mp3",
+      "correct": true,
+      "confident": true,
+      "windows": 3,
+      "hits": 1581,
+      "speed_percent": 8.0006220362683
+     }
+    ],
+    "new": [
+     {
+      "asset": "extra/AA. SKC -- Recharger 2007.mp3",
+      "correct": true,
+      "confident": true,
+      "windows": 3,
+      "hits": 1581,
+      "speed_percent": 8.000619523595297
+     }
+    ]
+   },
+   {
+    "query": 605,
+    "asset": "extra/07-item.code-magnetics-whoa.mp3",
+    "speed_percent": -3.0,
+    "held_out": true,
+    "cause": "pruned file",
+    "under_old_lists_equal_to_baseline_less_pruned": true,
+    "gone": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Break - Wine [CUT].m4a",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 7,
+      "speed_percent": -3.599999999999981
+     }
+    ],
+    "new": []
+   },
+   {
+    "query": 606,
+    "asset": "extra/07-item.code-magnetics-whoa.mp3",
+    "speed_percent": -1.0,
+    "held_out": true,
+    "cause": "pruned file",
+    "under_old_lists_equal_to_baseline_less_pruned": true,
+    "gone": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Break - Wine [CUT].m4a",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 7,
+      "speed_percent": -0.9714285714285675
+     }
+    ],
+    "new": []
+   },
+   {
+    "query": 608,
+    "asset": "extra/07-item.code-magnetics-whoa.mp3",
+    "speed_percent": 1.0,
+    "held_out": true,
+    "cause": "pruned file",
+    "under_old_lists_equal_to_baseline_less_pruned": true,
+    "gone": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Break - Wine [CUT].m4a",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 6,
+      "speed_percent": 0.20000000000000018
+     }
+    ],
+    "new": []
+   },
+   {
+    "query": 611,
+    "asset": "extra/07-item.code-magnetics-whoa.mp3",
+    "speed_percent": 8.0,
+    "held_out": true,
+    "cause": "pruned file",
+    "under_old_lists_equal_to_baseline_less_pruned": true,
+    "gone": [
+     {
+      "asset": "second-library/__youtube_archivists/i-witness-dnb/Break - Wine [CUT].m4a",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 6,
+      "speed_percent": 7.400000000000007
+     }
+    ],
+    "new": []
+   },
+   {
+    "query": 698,
+    "asset": "extra/A-Konflict-RoadBlock-sour.mp3",
+    "speed_percent": 1.0,
+    "held_out": true,
+    "cause": "lists set aside",
+    "under_old_lists_equal_to_baseline_less_pruned": true,
+    "gone": [
+     {
+      "asset": "second-library/__youtube_archivists/unxplored-dnb/Unknown Artist - Strawberry Amnesia.opus",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 7,
+      "speed_percent": -2.571428571428569
+     }
+    ],
+    "new": [
+     {
+      "asset": "second-library/__youtube_archivists/unxplored-dnb/Unknown Artist - Strawberry Amnesia.opus",
+      "correct": false,
+      "confident": false,
+      "windows": 2,
+      "hits": 6,
+      "speed_percent": -2.59999999999998
+     }
+    ]
+   }
+  ],
+  "under_old_lists": {
+   "per_speed_equal_to_baseline": true,
+   "set_aside_like": {
+    "only_there": [
+     "second-library/__youtube_archivists/3zb-gangstep-dnb/OMR - Bad Vibes.opus",
+     "second-library/__youtube_archivists/i-witness-dnb/500 Mills (Counterstrike) - Vaccine.m4a",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Spider (Optiv & BTK Remix) [CUT].m4a",
+     "second-library/__youtube_archivists/i-witness-dnb/Break - Wine [CUT].m4a"
+    ],
+    "same_postings_without_them": true,
+    "lists_here": 10863,
+    "lists_there": 10863,
+    "shortest_here": 9911,
+    "shortest_there": 9912,
+    "set_aside_here_only": [
+     {
+      "hash": 1254102,
+      "here": 9911,
+      "there": 9911,
+      "there_of_files_only_there": 0
+     }
+    ],
+    "set_aside_there_only": [
+     {
+      "hash": 851777,
+      "here": 9871,
+      "there": 9919,
+      "there_of_files_only_there": 48
+     }
+    ]
+   }
+  }
+ },
+ "scans": {
+  "scan-stakka-skynet-knowledge.json": {
+   "detections": [
+    4256,
+    4255
+   ],
+   "score_counts_equal": true,
+   "gone": [
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "confident": true,
+     "windows": 27,
+     "hits": 3096,
+     "speed": 1.0140502625485261,
+     "start_seconds": 1052.0795703125,
+     "end_seconds": 1316.71722265625
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "confident": true,
+     "windows": 27,
+     "hits": 3096,
+     "speed": 1.0140502625485261,
+     "start_seconds": 1052.0795703125,
+     "end_seconds": 1316.71722265625
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+     "confident": true,
+     "windows": 26,
+     "hits": 2480,
+     "speed": 1.0140451244822535,
+     "start_seconds": 1060.6465859375,
+     "end_seconds": 1317.1446875
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/500 Mills (Counterstrike) - Vaccine.m4a",
+     "confident": false,
+     "windows": 2,
+     "hits": 7,
+     "speed": 0.9857142857142858,
+     "start_seconds": 335.52796875,
+     "end_seconds": 346.33802734375
+    }
+   ],
+   "new": [
+    {
+     "asset": "Skynet & Stakka - Clockwork.mp3",
+     "confident": true,
+     "windows": 27,
+     "hits": 3096,
+     "speed": 1.0140503276228723,
+     "start_seconds": 1052.0795703125,
+     "end_seconds": 1316.71722265625
+    },
+    {
+     "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+     "confident": true,
+     "windows": 27,
+     "hits": 3096,
+     "speed": 1.0140503276228723,
+     "start_seconds": 1052.0795703125,
+     "end_seconds": 1316.71722265625
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+     "confident": true,
+     "windows": 26,
+     "hits": 2480,
+     "speed": 1.0140451615870465,
+     "start_seconds": 1060.6465859375,
+     "end_seconds": 1317.1446875
+    }
+   ]
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "detections": [
+    4247,
+    4246
+   ],
+   "score_counts_equal": true,
+   "gone": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/500 Mills (Counterstrike) - Vaccine.m4a",
+     "confident": false,
+     "windows": 2,
+     "hits": 7,
+     "speed": 0.9857142857142858,
+     "start_seconds": 335.52796875,
+     "end_seconds": 346.33802734375
+    }
+   ],
+   "new": []
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "detections": [
+    4214,
+    4213
+   ],
+   "score_counts_equal": true,
+   "gone": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/500 Mills (Counterstrike) - Vaccine.m4a",
+     "confident": false,
+     "windows": 2,
+     "hits": 7,
+     "speed": 0.9857142857142858,
+     "start_seconds": 335.52796875,
+     "end_seconds": 346.33802734375
+    }
+   ],
+   "new": []
+  }
+ },
+ "whole_index_lists_moved": [
+  {
+   "hash": 1141698,
+   "postings": [
+    9939,
+    9938
+   ]
+  },
+  {
+   "hash": 1212162,
+   "postings": [
+    9940,
+    9938
+   ]
+  }
+ ],
+ "calibrate": {
+  "weakest_identifying": [
+   704,
+   704
+  ],
+  "strongest_false": [
+   282,
+   282
+  ],
+  "false_accepted": [
+   7,
+   7
+  ],
+  "false_candidates_30_hits": [
+   95,
+   95
+  ]
+ },
+ "clusters": {
+  "clusters": [
+   284,
+   284
+  ],
+  "pair_entries": [
+   2876,
+   2875
+  ],
+  "sha256": [
+   "ce293fe6165e",
+   "c4d3da2e7e37"
+  ]
+ }
+}
