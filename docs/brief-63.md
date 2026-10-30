@@ -293,7 +293,7 @@ otherwise it records what failed.
   `s63irtwo` (`recall`'s other rips, directory `wir2`; `s63ir` is
   stopped by `work/s63/stop-ir.sh` after its first run), `s63ipone` and
   `s63iptwo` (the two panels).
-- **(07:45) 0251's conclusion corrected** after a count of how the
+- **(07:38) 0251's conclusion corrected** after a count of how the
   brief plays' answers changed: most cross 240 hits in 3 windows (grid
   25 of 28 changes, split 16 of 18 gains and 2 of 3 losses); 2 gain and
   1 loses a third window. The file said the 3-window rule decided them.
