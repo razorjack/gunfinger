@@ -1,0 +1,160 @@
+{
+ "population": 40663,
+ "population_by_kind": {
+  "scene-release": 3527,
+  "youtube-channel": 34575,
+  "elsewhere": 2561
+ },
+ "sampled_by_kind": {
+  "scene-release": 667,
+  "youtube-channel": 667,
+  "elsewhere": 666
+ },
+ "classes": {
+  "one-channel": {
+   "by_kind": {
+    "scene-release": 0,
+    "youtube-channel": 0,
+    "elsewhere": 0
+   },
+   "share": 0.0,
+   "low": 0.0,
+   "high": 0.00572707655881144,
+   "files_estimated": 0
+  },
+  "inverted": {
+   "by_kind": {
+    "scene-release": 2,
+    "youtube-channel": 3,
+    "elsewhere": 0
+   },
+   "share": 0.004084436890326939,
+   "low": 0.0013729393099592563,
+   "high": 0.012476231662341353,
+   "files_estimated": 166
+  },
+  "delayed": {
+   "by_kind": {
+    "scene-release": 0,
+    "youtube-channel": 0,
+    "elsewhere": 1
+   },
+   "share": 9.456619888708028e-05,
+   "low": 1.669592467634203e-05,
+   "high": 0.005898428341111778,
+   "files_estimated": 4
+  },
+  "mono": {
+   "by_kind": {
+    "scene-release": 25,
+    "youtube-channel": 31,
+    "elsewhere": 7
+   },
+   "share": 0.04343132214052151,
+   "low": 0.030536662649293805,
+   "high": 0.06155562462784535,
+   "files_estimated": 1766
+  },
+  "nearly-mono": {
+   "by_kind": {
+    "scene-release": 207,
+    "youtube-channel": 176,
+    "elsewhere": 139
+   },
+   "share": 0.2644253397611871,
+   "low": 0.23241370804179143,
+   "high": 0.2991353397087331,
+   "files_estimated": 10752
+  },
+  "narrow": {
+   "by_kind": {
+    "scene-release": 395,
+    "youtube-channel": 405,
+    "elsewhere": 474
+   },
+   "share": 0.6124784800512354,
+   "low": 0.5750182138030253,
+   "high": 0.6486502937059686,
+   "files_estimated": 24905
+  },
+  "wide": {
+   "by_kind": {
+    "scene-release": 38,
+    "youtube-channel": 52,
+    "elsewhere": 45
+   },
+   "share": 0.07548585495784216,
+   "low": 0.05779924970515507,
+   "high": 0.09803491875534454,
+   "files_estimated": 3069
+  }
+ },
+ "flagged": [
+  {
+   "asset": "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3",
+   "kind": "scene-release",
+   "class": "inverted",
+   "seconds": 357,
+   "side_to_mid_db": 15.9,
+   "balance_db": -0.515,
+   "correlation": -0.951,
+   "strongest_lag": 0,
+   "strongest_correlation": -0.951
+  },
+  {
+   "asset": "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3",
+   "kind": "scene-release",
+   "class": "inverted",
+   "seconds": 137,
+   "side_to_mid_db": 8.6,
+   "balance_db": -0.257,
+   "correlation": -0.758,
+   "strongest_lag": 0,
+   "strongest_correlation": -0.758
+  },
+  {
+   "asset": "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a",
+   "kind": "youtube-channel",
+   "class": "inverted",
+   "seconds": 471,
+   "side_to_mid_db": 13.0,
+   "balance_db": -1.555,
+   "correlation": -0.918,
+   "strongest_lag": 0,
+   "strongest_correlation": -0.918
+  },
+  {
+   "asset": "__youtube_archivists/rootzdnb/DJ Sense - Let You Go.opus",
+   "kind": "youtube-channel",
+   "class": "inverted",
+   "seconds": 385,
+   "side_to_mid_db": -5.4,
+   "balance_db": -4.277,
+   "correlation": 0.618,
+   "strongest_lag": 69,
+   "strongest_correlation": -0.636
+  },
+  {
+   "asset": "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus",
+   "kind": "youtube-channel",
+   "class": "inverted",
+   "seconds": 439,
+   "side_to_mid_db": 14.9,
+   "balance_db": -0.363,
+   "correlation": -0.938,
+   "strongest_lag": 0,
+   "strongest_correlation": -0.938
+  },
+  {
+   "asset": "sety/base_club_-__all_4_one.mp3",
+   "kind": "elsewhere",
+   "class": "delayed",
+   "seconds": 484,
+   "side_to_mid_db": 2.9,
+   "balance_db": 0.0,
+   "correlation": -0.321,
+   "strongest_lag": -40,
+   "strongest_correlation": 0.996
+  }
+ ]
+}
