@@ -72,7 +72,7 @@ pub fn extract_signal_peaks_in(
         .min(signal.len());
     let mut picker = PeakPicker::new(profile, first, frames);
     for_each_power_frame(signal.slice(start..end), profile, |frame| {
-        picker.push(frame)
+        picker.push(frame);
     });
     picker.finish()
 }
@@ -490,14 +490,32 @@ mod tests {
         }
     }
 
+    /// The default path's peaks of fixed noise, to the bit, as the code
+    /// before `Signal` gave them (`af32482`): 487 peaks, digest
+    /// `0x3c33c86fa5c5e28f` (FNV-1a over each peak's frame, bin and
+    /// magnitude bits).
     #[test]
-    fn the_mono_signal_is_todays_analysis() {
+    fn the_downmix_path_gives_the_peaks_it_gave_before_signals() {
         let profile = Profile::CURRENT;
-        let samples = noise(5, 3, &profile);
+        let samples = noise(10, 5, &profile);
 
+        let peaks = extract_peaks(&samples, &profile);
+
+        let mut digest: u64 = 0xcbf2_9ce4_8422_2325;
+        for peak in &peaks {
+            for word in [
+                peak.frame.to_bits(),
+                u64::from(peak.bin.to_bits()),
+                u64::from(peak.magnitude.to_bits()),
+            ] {
+                digest ^= word;
+                digest = digest.wrapping_mul(0x0000_0100_0000_01b3);
+            }
+        }
+        assert_eq!((peaks.len(), digest), (487, 0x3c33_c86f_a5c5_e28f));
         assert_eq!(
             extract_signal_peaks(Signal::Mono(&samples), &profile),
-            extract_peaks(&samples, &profile)
+            peaks
         );
     }
 

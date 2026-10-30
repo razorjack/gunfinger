@@ -96,8 +96,8 @@ false-answer rate measured, not just each view's rate alone.
 
 **Measured (session 61, experiments 0245-0247).** Query-only, against
 today's records: every inverted channel and delay up to 5 ms recovered,
-mono queries unchanged, noise in one channel worse, 12% more search time
-at NAS scale. With a variant store: faults in the rip recovered too, but
+mono queries' counts unchanged, noise in one channel worse, 12% more
+search time at NAS scale. With a variant store: faults in the rip recovered too, but
 mono queries lose 2-4 of 80 in 6 of 38 conditions, so the registered bar
 fails. Not adopted; see
 [the decision note](2026-10-30-stereo-power-decision.md).

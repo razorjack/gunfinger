@@ -18,16 +18,18 @@ for scope and rules.
 - [x] 1. Pre-registration committed before any variant run: the variant
   and its normalisation, its identity, the conditions, phases A and B,
   the scores, the bar for an ADR proposal
-- [ ] 2. The variant, tested (one inverted channel leaves its peaks
+- [x] 2. The variant, tested (one inverted channel leaves its peaks
   unchanged; a mono file gives the expected peaks; the default path
   untouched); `regress` identical with it off
-- [ ] 3. Runs: phase A at 262 tracks and NAS scale; phase B at 262 tracks
-- [ ] 4. Experiments: phase A; phase B; cost and density
-- [ ] 5. Decision note `docs/research/2026-10-30-stereo-power-decision.md`;
+- [x] 3. Runs: phase A at 262 tracks and NAS scale; phase B at 262 tracks
+  (scaled down: the 38 default `robust` conditions at 262 tracks only;
+  no shared-material panels)
+- [x] 4. Experiments: phase A; phase B; cost and density
+- [x] 5. Decision note `docs/research/2026-10-30-stereo-power-decision.md`;
   the roadmap's "Stereo faults before the downmix" and the proposals
   note's §1
-- [ ] 6. Read-only review by a separate agent; findings fixed
-- [ ] 7. Notes ("Session 61"), status, checklist; final checks
+- [x] 6. Read-only review by a separate agent; findings fixed
+- [~] 7. Notes ("Session 61"), status, checklist; final checks
   (`scripts/check.sh`, both regressions with the final build, the
   verdicts file and the clusters file's digest unchanged, `git status`
   clean)

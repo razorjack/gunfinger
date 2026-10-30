@@ -59,7 +59,6 @@ def scans(directory):
         if r["left_out_tracks"]:
             continue
         s = r["score"]
-        confident = [d for d in r["detections"] if d.get("confident", d.get("level") == "confident")]
         out[r["set"]] = {k: s[k] for k in ("referenced", "identified", "wrong", "possible")} | {
             "wall_seconds": r["wall_seconds"],
             "detections": len(r["detections"]),

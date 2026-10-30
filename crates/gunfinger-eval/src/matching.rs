@@ -51,8 +51,8 @@ pub struct Matching {
     pub apart_in_speed: Option<f64>,
     /// How audio is analysed (`stereo::FrontEnd`): the downmix, or both
     /// channels' powers added, for queries alone or for queries and
-    /// records (a store built by `power-store`). `robust`, `scan` and
-    /// `mixes` take it.
+    /// records (a store built by `variant-store`). `robust`, `scan`,
+    /// `mixes` and `variant-store` take it.
     #[arg(long, global = true, value_enum, default_value_t = FrontEnd::Downmix)]
     pub front_end: FrontEnd,
 }

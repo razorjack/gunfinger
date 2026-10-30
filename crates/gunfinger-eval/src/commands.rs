@@ -202,10 +202,10 @@ const OTHER_LIBRARY_COMMANDS: [&str; 23] = [
     "self-match",
 ];
 
-/// The commands that take --other-sample.
 /// The commands that analyse audio by `--front-end` (`stereo::FrontEnd`).
 const FRONT_END_COMMANDS: [&str; 4] = ["robust", "scan", "mixes", "variant-store"];
 
+/// The commands that take --other-sample.
 const OTHER_SAMPLE_COMMANDS: [&str; 6] = [
     "sweep",
     "scan",
@@ -275,6 +275,11 @@ fn check_global_options(harness: &Harness, command: &Command) -> Result<(), Stri
             listed(&FRONT_END_COMMANDS)
         ));
     }
+    if front_end == FrontEnd::PowerSum && harness.other.other_peaks_dir.is_some() {
+        return Err(String::from(
+            "the other library's records are the downmix's: --front-end power-sum takes no --other-peaks-dir (power-sum-queries does)",
+        ));
+    }
     if front_end != FrontEnd::Downmix && harness.search.verify {
         return Err(String::from(
             "the peak verifier analyses one channel: --verify takes the downmix front end only",
@@ -334,5 +339,67 @@ pub fn run(harness: &Harness, jobs: usize, command: Command) -> Result<(), Strin
         Command::Memory(args) => evaluation::memory(harness, jobs, args),
         Command::Fullest(args) => library::fullest(harness, args),
         Command::Regress(args) => evaluation::regress(harness, jobs, args),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use clap::Parser;
+
+    use super::*;
+
+    #[derive(Parser)]
+    struct Cli {
+        #[command(flatten)]
+        harness: Harness,
+        #[command(subcommand)]
+        command: Command,
+    }
+
+    fn checked(arguments: &[&str]) -> Result<(), String> {
+        let cli = Cli::try_parse_from([&["gunfinger-eval"], arguments].concat())
+            .map_err(|error| error.to_string())?;
+        check_global_options(&cli.harness, &cli.command)
+    }
+
+    #[test]
+    fn the_front_end_goes_only_to_the_commands_that_analyse_by_it() {
+        assert_eq!(checked(&["--front-end", "power-sum", "robust"]), Ok(()));
+        assert_eq!(
+            checked(&["--front-end", "power-sum-queries", "scan", "stakka"]),
+            Ok(())
+        );
+        assert_eq!(checked(&["robust", "--verify"]), Ok(()));
+        let refused = |arguments: &[&str], words: &str| {
+            checked(arguments).is_err_and(|message| message.contains(words))
+        };
+        assert!(refused(
+            &["--front-end", "power-sum", "sweep"],
+            "does not take --front-end"
+        ));
+        assert!(refused(
+            &["--front-end", "power-sum", "robust", "--verify"],
+            "--verify"
+        ));
+    }
+
+    #[test]
+    fn power_sum_records_are_not_searched_beside_the_other_librarys() {
+        let other = ["--other-peaks-dir", "/nonexistent"];
+
+        assert!(
+            checked(&[&other[..], &["--front-end", "power-sum", "scan", "stakka"]].concat())
+                .is_err_and(|message| message.contains("takes no --other-peaks-dir"))
+        );
+        assert_eq!(
+            checked(
+                &[
+                    &other[..],
+                    &["--front-end", "power-sum-queries", "scan", "stakka"]
+                ]
+                .concat()
+            ),
+            Ok(())
+        );
     }
 }

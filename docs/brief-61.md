@@ -246,11 +246,11 @@ records could be searched by the variant's queries before a rebuild.
 - **(02:35) Phase A done** (02:08-02:34; 0245). Every wrong confident
   answer at NAS scale is the held-out Cool Rock Stuff excerpt (draw 41)
   as the Mobb Deep / Urban Takover upload, which the downmix also gives
-  on the clean controls; the variant gives it in more fault rows only
-  because it keeps that excerpt there. Read against the bar as "no new
-  pair of query and file", which is how it was meant; recorded so the
+  on the clean controls; the variant gives it in more fault rows (16
+  held-out queries against 7) because it keeps that excerpt there. Read
+  against the bar as "no new wrong file for any draw"; recorded so the
   reading is visible.
-- **(02:49) Phase B done** (02:35-02:47; 0246). Recovery meets the bar
+- **(02:48) Phase B done** (02:35-02:47; 0246). Recovery meets the bar
   (80 of 80 inverted; 20 of 20 against an inverted rip; 94 of 100 plays
   in the inverted halves). The clean controls do not: 6 of 38 default
   `robust` conditions (mono renders) fall by 2-4 of 80, against a bar
@@ -259,7 +259,34 @@ records could be searched by the variant's queries before a rebuild.
   at NAS scale 27.6-27.7 s with power-sum queries against 24.6-24.8 s,
   12% more wall time and 13% more CPU; peaks and postings 0.1% fewer;
   a 262-track build as fast, with 3 times the peak memory.
-- **(02:56) Decision note** `docs/research/2026-10-30-stereo-power-decision.md`:
+- **(02:52) Decision note** `docs/research/2026-10-30-stereo-power-decision.md`:
   not adopted; the recommendation (ours) is a pre-registered test of
   the query side alone. The roadmap's "Stereo faults before the
   downmix" and the proposals note's §1 point to it.
+- **(02:58) Hits reported as a ratio** of the variant's to the
+  downmix's for the same query, rather than against each front end's
+  control as registered (a departure; the ratio answers the
+  compatibility question directly).
+- **(03:05) The review** (a read-only agent, 02:53-03:02): the
+  default-path arithmetic, the code and every table number confirmed.
+  Fixed: the decision note's account of the known NAS pair (16 held-out
+  queries against 7) and of wrong possible answers, its "exactly as
+  before" for mono queries (a few best-hit counts move by 1-2), its
+  query-only claims (mixes at 262 tracks only; a silent channel stays at
+  78), the rebuild estimate's basis (3,433 h of audio, about 30-37
+  minutes), the build memory as an upper bound from the harness's
+  decoder, the 262-track cost (45-73%); 0246's drops of 1 and the net;
+  0247's inferences; the bar's reading above; stale doc comments
+  (`power-store`, a misplaced `--other-sample` line); `--front-end
+  power-sum` with `--other-peaks-dir` now refused (the other library's
+  records are the downmix's), with tests of the option checks; the test
+  of the default path, which compared the code with itself, now pinned
+  to the peaks of fixed noise from `af32482` (487 peaks, an FNV digest
+  computed in a scratch worktree of that commit); an unused variable in
+  the summary script; `CLAUDE.md` and the checklist. Not changed: the
+  summary script names wrong files only for stereo queries (`robust`
+  keeps names only there); 0245 says so.
+- **(03:07) A slip, corrected.** `db502a3` was formatted by `cargo fmt`
+  after clippy had run, which left one closure without its semicolon
+  (`semicolon_if_nothing_returned`, `peaks.rs`); fixed with the review's
+  changes. The final checks run `scripts/check.sh` on the result.

@@ -3,8 +3,7 @@
 **Question.** Brief 61's phase A: do query peaks picked from `|X_L|^2 +
 |X_R|^2` match today's records, and what do they win back of 0194's?
 
-**Change.** Harness only (`db502a3`; regressions identical with it off):
-`--front-end power-sum-queries` (`spectrogram::Signal::PowerSum`).
+**Change.** Harness only (`db502a3`): `--front-end power-sum-queries`.
 
 **Command.** `work/s61/phase-a.sh` (02:08-02:34), downmix and the variant
 by the same build: `robust --seed 2026` (38 default conditions; 9 stereo,
@@ -25,12 +24,13 @@ scans at both scales; `front_end_summary.py`. Data:
 
 Development scans, both scales: all referenced tracks identified under
 both (Stakka 11, razorjack 7 and 12, Nocny Trans 9 and 17), no wrong or
-possible one, the same confident files; hits 0.97, 0.91, 1.00 as many. Wrong confident: none at 262 tracks or in any
-mix. At NAS scale only session 40's known pair, the held-out Cool Rock
-Stuff excerpt (draw 41) as the Mobb Deep / Urban Takover upload: in
-`control` and `stereo-control` under both, and under the variant also in
-every fault row it now keeps the excerpt whole (16 queries against 7);
-no other file.
+possible one, the same files; hits 0.97, 0.91, 1.00 as many. Wrong
+confident: none at 262 tracks or in a mix; at NAS scale only the
+held-out draw 41 (Cool Rock Stuff), named in the stereo rows as session
+40's Mobb Deep / Urban Takover upload: under both in `control` and
+`stereo-control`, under the variant in every row that keeps the excerpt
+(16 queries against 7). Wrong possible (indexed): 0 to 1-3 in the won
+rows, as `stereo-control`'s 2.
 
 **Conclusion.** Query-side compatibility holds: mono renders keep every
 row's counts, clean stereo 95% of the hits and every detection, and

@@ -76,7 +76,7 @@ pub enum FrontEnd {
     /// Queries by their channels' powers, against today's records.
     PowerSumQueries,
     /// Queries by their channels' powers, against records made the same
-    /// way (`Profile::POWER_SUM`; a store `power-store` builds, named with
+    /// way (`Profile::POWER_SUM`; a store `variant-store` builds, named with
     /// `--peaks-dir`).
     PowerSum,
 }

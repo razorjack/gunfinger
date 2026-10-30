@@ -25,12 +25,12 @@ per copy and front end, `robust --only stereo-control`. Data:
 | Default conditions (mono renders) lower by 2 or more | | 6 of 38 |
 
 The six: low-pass 800 Hz 80 to 76, needle skip 31 to 27, clipping 64 to
-61, pink noise at 10 dB 75 to 72, blend at 0 dB 31 to 28, at -6 dB 72 to
-70; others move by 1 (aac 80 to 79; opus, pitch ride, broadcast up 1).
-Mono queries keep 0.93-0.99 of the hits (median per condition), stereo
-ones 1.00. Development scans: every referenced track identified (11, 7,
-9), the same confident files, hits 1.00, 1.01, 0.99. Wrong confident:
-none anywhere.
+61, pink noise 10 dB 75 to 72, blend 0 dB 31 to 28, -6 dB 72 to 70; down
+1: aac, beatmatched -6 and 0 dB, combined; up 1: opus, pitch ride,
+broadcast (net 1,938 to 1,918 of 2,600: 23 lost, 3 won). Mono queries keep
+0.93-0.99 of the hits, stereo ones 1.00 (medians against the downmix's).
+Scans: all referenced tracks (11, 7, 9), the same files, hits 1.00,
+1.01, 0.99. Wrong confident: none; wrong possible as in 0245.
 
 **Conclusion.** Faults on either side recover in full: inverted, silent
 and delayed channels in the query, in the rip, and over half a mix. The

@@ -26,10 +26,12 @@ carry their own profile identifier (`... channels=power-sum`).
 - **Faults in the rip** (0246; only with a store built by the variant):
   the 10 copies of 0197 inverted, silent, 1 ms and 5 ms late, 0, 19, 18
   and 4 of 20 confident to 20 each.
-- **Query-only** (0245, today's records): every query-side recovery
-  above holds against today's downmix records, at 262 tracks and at NAS
-  scale, with mono queries searching exactly as before and clean stereo
-  queries keeping 95% of the hits and every detection.
+- **Query-only** (0245, today's records): the inverted channel and the
+  delays are won back against today's downmix records, at 262 tracks
+  and at NAS scale (the generated mixes ran at 262 tracks only); a
+  silent channel stays at 78. Mono queries keep every confident and
+  possible count (a few best-hit counts move by 1-2), and clean stereo
+  queries keep 95% of the hits and every detection.
 
 ## What it costs
 
@@ -45,26 +47,37 @@ carry their own profile identifier (`... channels=power-sum`).
   mix (a tape transfer, a mono broadcast) is the case it stands for.
 - **Search time.** Power-sum queries cost 12% more wall time and 13%
   more CPU on the Stakka scan at NAS scale (27.6-27.7 s against
-  24.6-24.8 s, 32 jobs, the Linux machine), about 45% more at 262
-  tracks, and 2% more peak memory (0247).
+  24.6-24.8 s, 32 jobs, the Linux machine), 45-73% more at 262 tracks
+  (one scan; `robust`'s median excerpt), and 2% more peak memory (0247).
 - **Records.** Density is unchanged (0.1% fewer peaks and postings).
-  Building a record takes the same time (decoding dominates) and 3 times
-  the peak memory at 32 jobs.
+  Building the corpus store takes the same time (by inference because
+  FFmpeg's decoding dominates, 86% of a first index's CPU in 0099). Its
+  peak memory at 32 jobs was 3 times today's, an upper bound: the
+  harness's two-channel decoder (`stereo::decode_stereo`) holds FFmpeg's
+  whole output and copies it twice, where the core's decoder streams into
+  one buffer.
 - **Adoption for records means a new profile and every reference
   rebuilt** (ADR 0003's invalidation rule): the NAS store's 40,678
-  records decoded again from the NAS. By scaling the corpus build (265
-  files, 29.6 h of audio, 15.7 s at 32 jobs) by record count, about 40
-  minutes on the Linux machine if reading over Ethernet keeps up, an
-  inference; the Mac's estimate for a first index of 33,596 records was
-  1.78 h (session 17). The saved NAS index is rebuilt too. Old records
+  records decoded again from the NAS. Scaling the corpus build (29.6 h
+  of audio in 15.7 s at 32 jobs) by audio, the 3,433 h measured in 0064
+  take about 30 minutes on the Linux machine, and by the growth in
+  records since (40,678 against 33,596) about 37; an inference that
+  assumes reading over Ethernet keeps up. The Mac's estimate for the
+  same 3,433 h was 1.78 h (0099). The saved NAS index is rebuilt too. Old records
   cannot be searched under the new profile, so the corpus store, the
   NAS store and every baseline move together.
 
 ## Risks
 
-- No wrong confident answer appeared in any run of either phase; at NAS
-  scale the only one is session 40's known pair, which the downmix also
-  gives. The variant was not run on the shared-material panels, on
+- No new wrong file appeared for any draw in either phase. At NAS scale
+  the only wrong confident answer is session 40's known pair (the
+  held-out Cool Rock Stuff excerpt as the Mobb Deep / Urban Takover
+  upload), which the downmix also gives on the clean controls; with
+  power-sum queries it appears in 16 held-out queries against 7, because
+  the variant keeps that excerpt in the fault rows. Wrong possible
+  answers among indexed excerpts go from 0 to 1-3 in the recovered rows,
+  as many as `stereo-control`'s 2. Query-side adoption would carry that pair into more
+  faulted queries. The variant was not run on the shared-material panels, on
   `recall`'s other-rip panels or on generated mixes at NAS scale.
 - How often an inverted or delayed channel occurs in the NAS rips or in
   real mixes is still unknown (0196): the gain is certain per fault, its
@@ -77,8 +90,8 @@ carry their own profile identifier (`... channels=power-sum`).
 Do not change the record profile: the registered bar for an ADR
 proposal is not met, and the rebuild moves every store and baseline for
 a fault of unknown frequency. The query side alone is the better
-candidate: it recovers every query-side fault against today's records,
-needs no rebuild, leaves mono queries as they are and costs 12% of
+candidate: it wins back inverted channels and delays against today's
+records, needs no rebuild, keeps mono queries' counts and costs 12% more
 search time at NAS scale. It should get its own pre-registration
 (at NAS scale: the shared-material panels, `recall`'s other rips, the
 generated mixes, the noise conditions and the frozen acceptance rule
