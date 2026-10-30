@@ -5499,3 +5499,36 @@ behaviour, front end and defaults are unchanged.
   the NAS clusters file and the answer log at their start digests. A
   read-only review confirmed the code and the numbers; its points are
   fixed.
+
+## 2026-10-30: session 62, power-sum queries alone at NAS scale, measured and not proposed
+
+Brief `docs/brief-62.md`, checklist `docs/session-62-checklist.md`;
+notes "Session 62"; experiments 0248-0250; the decision note's "Session
+62". Gunfinger's behaviour, front end and defaults are unchanged.
+
+- 03:18 start at `a269f71`, clean. Start build `work/bin/s62-start/`;
+  both regressions identical (0:51; 3:46).
+- Pre-registered (`de3be59`): one frozen rule for power-sum queries
+  against today's records, the runs, the scores, a six-item bar for an
+  ADR proposal, and the census's classes.
+- Harness (`fcf385d`, `911df16`, `a40e5e1`; both regressions identical):
+  `shared` and `recall` take `--front-end`; `mixes` takes
+  `--other-peaks-dir`; `stereo-width` measures channel balance,
+  correlation and lag and samples the NAS by kind (`--other`) or a
+  folder (`--files`).
+- Census (0248): of 2,000 NAS rips, 5 inverted in one channel (about
+  0.4%, 3-4 of them plainly), 1 delayed, none with one channel; 4.3%
+  mono, 26.4% nearly mono, 7.5% wide.
+- Query side at NAS scale (0249, 0250): fault gains hold (inverted, 1
+  and 5 ms 80 of 80; 93 of 100 plays in inverted halves of mixes), the
+  shared panels, mixes, `robust`'s controls and the scans lose nothing,
+  no wrong file is new, 17 fewer related versions; noise at 0 dB 29 to
+  19; 12% more search time. The bar fails on `recall`: 9 of 522 clean
+  excerpts and 58 of 721 brief plays lost, on wide sources (hits 0.39-0.49
+  of the downmix's where the side is within 10 dB of the mid). No ADR
+  proposal.
+- Final checks with `work/bin/s62-final/` (at `a40e5e1`):
+  `scripts/check.sh` green (4:37); both regressions identical (0:51;
+  3:46); the verdicts file, the NAS clusters file and the answer log at
+  their start digests. A read-only review confirmed the code and the
+  bar's reading; its number and wording points are fixed.

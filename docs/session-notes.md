@@ -12780,3 +12780,146 @@ s (A B B A, 32 jobs), 13% more CPU, 2% more memory; peaks and postings
   clusters file at their start digests
   (`work/s61/listening-digests-end.txt`); no answer log written, no
   manifest or panel changed.
+
+## Session 62
+
+### What changed
+
+The product, its front end and every default are unchanged; both
+regressions stay identical. Session 61's recommendation, power-sum
+queries against today's records, was pre-registered with one frozen rule
+and a six-item bar (`de3be59`) and run at NAS scale beside the downmix
+on the same rendered queries; a census measured channel faults in the
+NAS rips for the first time. Experiments 0248-0250; the decision note's
+"Session 62". Added, harness only and tested (`fcf385d`, `911df16`,
+`a40e5e1`):
+
+- `shared` and `recall` take `--front-end` (decoding and searching
+  through `Matching::decode_query`/`search_audio`; a brief play is cut
+  alike from each channel, `recall::brief_audio`); the peak verifier
+  runs only under the downmix front end, and `recall --trace-candidates`
+  refuses another.
+- `mixes` takes `--other-peaks-dir`: `mixes::sweep_index` builds through
+  `Padding::index` (the held-out clusters' NAS files left out, as
+  `sweep` does) and takes the loaded records; at 262 tracks its reports
+  are unchanged.
+- `stereo-width` measures each file's balance, uncentred channel
+  correlation and strongest lag within ±80 samples, with a class (one
+  channel, inverted, delayed, else its width); `--other` samples the
+  other library by kind (`--exclude` a list), `--files DIR` every MP3
+  under a folder.
+- `scripts/analysis/stereo_census.py`, `query_side_bar.py` (the bar,
+  query by query).
+
+In short: the query side keeps every fault gain at NAS scale and adds no
+wrong file, but it fails its registered bar: `recall` loses confident
+identifications on wide sources, because a query picked from mid plus
+side carries peaks a downmix record lacks. Channel faults are rare in
+the NAS rips (about 0.4% inverted). No ADR proposal.
+
+### Experiments 0248-0250 (NAS scale)
+
+| Run | Downmix | Power-sum queries |
+|---|--:|--:|
+| Census of 2,000 rips: inverted, delayed, one channel (0248) | 5, 1, 0 | |
+| Shared panels, played confident; related versions named (0249) | 269 and 208; 326 and 9 | the same; 309 and 9 |
+| `recall` clean; brief (0249) | 522; 721 | 513; 663 |
+| `recall` other rips: clean; brief | 174; 171 | 172; 168 |
+| Mixes, inverted halves; control halves (0250) | 1/100; 95/100 | 93/100; 95/100 |
+| `robust` inverted; 1, 5 ms; noise 0 dB (of 80) | 0; 70, 37; 29 | 80; 80, 80; 19 |
+| Scans (tracks) | 11, 12, 17 | the same |
+| Stakka scan, search (A B B A) | 24.3, 24.6 s | 27.3, 27.4 s |
+
+The bar: 1 (no new wrong file), 3 (fault gains), 4 (related versions),
+5 (noise 0 dB at least 15) and 6 (cost at most 25%) pass; 2 (no
+confident identification lost on clean or mono queries, tolerance
+max(1, 1%)) fails on all four `recall` sets. The nine clean losses are
+one source (Organikismness - Echos, side to mid -7.3 dB); over recall's
+clean excerpts the variant keeps a median 0.98 of the downmix's hits at
+-20 dB or less and 0.39-0.49 above -10 dB.
+
+### Decided this session, open to change
+
+- The bar's tolerance for item 2 is max(1, 1% of a run's positive
+  queries); the known Cool Rock pair is exempt only for its own
+  held-out excerpt.
+- The census's classes come from session 42's synthetic faults and were
+  checked on them before the NAS sample (95 of 100 per class or more).
+- `mixes` at NAS scale (a harness change not foreseen in the
+  pre-registration); panels, `recall`, mixes and `robust` ran at the
+  same time for the time box, and panel 2 in its own work directory;
+  `recall`'s damaged sets were not run.
+
+### Questions this leaves for us
+
+- Whether to try a combination that equals today's power where the mid
+  dominates and recovers an inverted channel where the side does (for
+  example the larger of the mid's and the side's power per bin); not
+  measured. It would need `recall`'s wide sources and mono queries
+  first.
+- How often channel faults occur in the mixes searched (not measured);
+  in the rips they are about 1 in 250 inverted.
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: Star Trails, Into Music. Optionally: whether the
+  three plainly inverted NAS rips of 0248 (Usual Suspects - Advent,
+  Keltech - Axis, Plasmic - The Weapon) sound hollow in mono.
+
+### Handoff for the next session
+
+1. Builds: `work/bin/s62-start/` (= `s61-final`), `s62-run/` (every run;
+   before the `sweep_index` refactor and the review's fixes, which leave
+   reports unchanged), `s62-final/` (master at the end).
+2. Reports (scratch): `work/s62/w/reports/library-nas-dnb-peaks/` (the
+   downmix) and its `variant-power-sum-queries/`: panel 1
+   (`shared-material-seed-2026-development.json`), `recall-seed-2026*.json`,
+   `mixes-stereo-*-seed-*.json`, `robust-stereo.json`, `scan-*.json`,
+   the census `stereo-width-other-seed-2026.json`; panel 2 in
+   `work/s62/w2/reports/library-nas-dnb-peaks/`; the cost runs in
+   `work/s62/cost/`; comparisons `work/s62/bar-*.json`; recall's widths
+   `work/s62/wwidth/`; session 42's faults measured in
+   `work/s62/w/reports/stereo-width-files-*.json`.
+3. Scripts (`sh`, from the repository root): `work/s62/start.sh`,
+   `variant.sh`, `setup.sh`, `census.sh`, `panels.sh`, `panel2.sh`,
+   `recall.sh`, `mixes.sh`, `rest.sh`, `cost.sh`, `final.sh`; the
+   census's exclusions `work/s62/census-exclude.txt`. Commands:
+
+   ```sh
+   E=work/bin/s62-final/gunfinger-eval; N=~/.local/share/gunfinger/nas-dnb-peaks
+   $E --work work/s62/w --other-peaks-dir $N --jobs 16 stereo-width --other --seed 2026 --sample 2000 --exclude work/s62/census-exclude.txt
+   $E --work work/s62/w --other-peaks-dir $N --panels work/s33/panels --front-end power-sum-queries recall --queries clean,brief
+   $E --work work/s62/w --other-peaks-dir $N --panels work/s33/panels --front-end power-sum-queries shared docs/panels/shared-material-seed-2026-development.json
+   $E --work work/s62/w --other-peaks-dir $N --panels work/s33/panels mixes --seed 2026 --count 8 --stereo-fault stereo-inverted
+   python3 -I scripts/analysis/query_side_bar.py OUT.json DOWNMIX_DIR VARIANT_DIR
+   ```
+
+4. Renders: `work/s62/w/` holds reflink copies (7.3 GB apparent, shared
+   blocks) of the robust, shared, recall and stereo-mix renders, and
+   panel 2's renders (`work/s62/w2/shared/`); safe to delete.
+5. Next, if we continue: the question above; otherwise the stereo line
+   of work rests here (decision note, "Session 62").
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. Only the three development mixes
+  (named explicitly) and generated mixes were searched. The census left
+  out the NAS root's Ed Rush & Optical file, 0065's too-long files and
+  mixed-CD folders and the ignore file's files. The NAS was only read;
+  `work/peaks` only read.
+- The pre-registration was committed (`de3be59`) before any run. Slips
+  and departures are in the brief: 0248 was written three seconds after
+  0249's runs began; 0249's and 0250's runs overlapped; the clippy
+  limit broken by the `mixes` change was caught by the final checks and
+  fixed without changing any report.
+- A read-only review by a separate agent (05:22-05:29) confirmed the
+  default paths, the census code and the bar's reading; its numbers and
+  wording points are fixed (brief 62, 05:30).
+- Final checks (05:29-05:39) with `work/bin/s62-final/` (master at
+  `a40e5e1`): `scripts/check.sh` green (4:37); `regress
+  session-54-linux` (0:51) and `regress session-54-linux-nas` (3:46)
+  identical, 8 of 8 reports equal to their baselines' apart from
+  `wall_seconds`; `docs/pair-verdicts.txt`, the answer log and the NAS
+  clusters file at their start digests; no answer log written, no
+  manifest or panel changed.

@@ -408,3 +408,11 @@ of the store, with a 95% interval.
   the new tests; `stereo-width` refuses `--other-peaks-dir` without
   `--other`, and the option checks gain cases for `mixes` and
   `stereo-width`; the correlation described as uncentred.
+- **(05:39) Final checks** (`work/s62/final.sh`, tmux `s62final2`,
+  05:29-05:39) at `a40e5e1` with `work/bin/s62-final/`:
+  `scripts/check.sh` green (4:37); `regress session-54-linux` (0:51) and
+  `regress session-54-linux-nas` (3:46) identical, 8 of 8 reports; the
+  verdicts file, the NAS clusters file and the answer log at their start
+  digests (`work/s62/listening-digests-end.txt`); the CLI binary equal
+  to `s62-start`'s. An earlier run at `911df16` (05:17-05:29) also
+  passed; the review's code fixes followed it.
