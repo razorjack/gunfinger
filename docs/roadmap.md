@@ -156,7 +156,10 @@ cases. None is an adopted decision or an experiment result.
   2026-10-27 (a track-fix release of a mixed CD, two uploads that hold
   part of another record): the NAS store holds 40,678 records, and the
   NAS-scale baseline is `session-52-linux-nas` (experiment 0231: no
-  scored result changed).
+  scored result changed). Session 64 pruned the four uploads added on
+  2026-10-30 (each heard to hold more than one recording): the NAS store
+  holds 40,674 records, and the NAS-scale baseline is
+  `session-64-linux-nas` (experiment 0254: no scored result changed).
 - **Database.** Not needed so far: the peak store is one file per asset and
   the index is rebuilt from it in 0.5 s. Revisit if detections need to be
   stored; report edits and the Track/AudioAsset model, the other reasons
@@ -1235,7 +1238,10 @@ cases. None is an adopted decision or an experiment result.
   Cool Rock Stuff ~ the Mobb Deep / Urban Takover upload; calibrate's
   false accepted 25 -> 7, no threshold moves (experiment 0233). Whether
   other pairs judged different carry one title, among them Cool Rock,
-  Tower Bass's two mixes and the Stalker versions, is for us to judge.)* `listening_pack.py select --min-hits` (default 30) leaves out
+  Tower Bass's two mixes and the Stalker versions, is for us to judge.)*
+  *(2026-10-30, by ear: all four pairs carry different titles, so
+  `docs/same-titles.txt` does not change and the 7 Cool Rock detections
+  stay wrong confident answers.)* `listening_pack.py select --min-hits` (default 30) leaves out
   borderline pairs on few hits, and `--disagreements` picks the joins
   and apart pairs nearest `near_10`'s threshold: 12 wait in
   `work/s40/pack/`, though none crosses it.
@@ -1437,6 +1443,10 @@ cases. None is an adopted decision or an experiment result.
   downmix. Open (ours): whether a combination equal to today's power
   where the mid dominates (the larger of the mid's and the side's power
   per bin, unmeasured) is worth its own test.
+  *(2026-10-30, by ear)* Of the four rips flagged by the census and
+  played against their downmix, Usual Suspects - Advent, Keltech - Axis
+  (Low Level Mix) and Plasmic - The Weapon are inverted in one channel;
+  We - Hello World is unsure.
 - **More development mixes.** Mixes of existing library tracks, especially
   with brief plays and long blends, would test what the single development
   mix cannot. Agree each mix's role before looking at its results. The

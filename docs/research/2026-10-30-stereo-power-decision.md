@@ -132,7 +132,9 @@ inverted in one channel by the registered rule (about 0.4% of the
 store, 0.14-1.25%; 3-4 of them plainly so), 1 delayed and none with one
 channel missing. Faults in the mixes searched are still not measured.
 An inverted rip is missed whatever the query (0197): only new records
-would recover it.
+would recover it. By ear (2026-10-30), three of the census's flagged
+rips are inverted in one channel (Usual Suspects - Advent, Keltech -
+Axis (Low Level Mix), Plasmic - The Weapon); We - Hello World is unsure.
 
 **Recommendation (ours to take).** No ADR proposal: the query side's
 registered bar fails, the records' bar failed in session 61, and the

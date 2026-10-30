@@ -5611,3 +5611,47 @@ answer.
 - Not answered: the pitch rides (Star Trails in the Stakka mix, Into
   Music in the 2003 mix) and the Planet Dust (DC Breaks Remix) cut, whose
   answer stays `unsure`.
+
+## 2026-10-30: session 64, the four ignored NAS uploads pruned, and the evening's answers carried
+
+Brief `docs/brief-64.md`, checklist `docs/session-64-checklist.md`;
+notes "Session 64"; experiment 0254. Gunfinger's behaviour is
+unchanged (the `gunfinger` binary is byte-identical to `s63-final`'s).
+
+- 20:56 start at `c757ea0`, clean. Start build `work/bin/s64-start/`;
+  both regressions identical (0:52; 3:53).
+- With the user's approval (2026-10-30), `prune --yes` with the NAS
+  configuration deleted the peak records and tag notes of the four
+  uploads the ignore file has left out since the evening: `Bad Company -
+  Spider (Optiv & BTK Remix) [CUT].m4a`, `Break - Wine [CUT].m4a` and
+  `500 Mills (Counterstrike) - Vaccine.m4a` (i-witness-dnb), `OMR - Bad
+  Vibes.opus` (3zb-gangstep-dnb). `doctor` and `prune` had listed
+  exactly those 8 files. The NAS store: 40,678 to 40,674 records,
+  revision `1fc6fe50293ad330` to `7210fc479da58376`, no records of
+  ignored files.
+- `clusters --from-peaks --reuse-pairs`: the same 284 clusters, 2,875
+  pair entries (one dropped, Item.Code - Magnetics against Break - Wine,
+  9 hits). The NAS clusters file is now `c4d3da2e7e37...` (was
+  `ce293fe6165e...`).
+- At NAS scale (0254) no scored result changes: the scans, calibrate
+  (704, 282, 7 false accepted, 95 at 30 hits or more) and the sweep's
+  confident answers are as before. Six sweep queries and the three
+  Stakka scans each lose a weak candidate of a pruned file (6-8 hits).
+  Seven sweep queries and the Stakka scan's Clockwork detections change
+  in a weak candidate or the 8th digit of a speed because lists crossed
+  the set-aside cut (0242's mechanism); a sweep of the pruned store
+  under the old index's lists equals the old baseline less the pruned
+  files' candidates.
+- Harness: `sweep --set-aside-like FILE`, as `recall`'s (opt-in,
+  tested); default reports unchanged.
+- Baselines: `session-54-linux` (262 tracks, unchanged) and
+  `session-64-linux-nas` (NAS scale, the pruned store), which replaces
+  `session-54-linux-nas`.
+- The evening's answers in the documents: the four same-title
+  candidates closed as different titles (session 54's notes, the
+  roadmap, `docs/calibration.md`: the strongest false, 282, is a
+  confirmed different version); Vintage Dread 2000's disc 1 heard as
+  separate tracks, so its five edge parts are false transitions of
+  `parts` (session 58's notes); three inverted rips confirmed by ear
+  (the roadmap's "Stereo faults before the downmix", the stereo decision
+  note). No verdict, manifest, panel or `docs/same-titles.txt` changed.

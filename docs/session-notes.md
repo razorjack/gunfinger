@@ -11661,6 +11661,10 @@ hits or more), strongest false 282 (Cool Rock) and weakest identifying
   Remixes and VIPs among the judged pairs (Sonar's Mark System
   Revision, the Hide U remix, We R The Ones VIP, Fire's Rogue Unit VIP)
   are hard negatives by the brief and are not proposed.
+  Closed on 2026-10-30: by ear, all four pairs carry different titles
+  (status, "the listening of the 2026-10-30 pack"), so
+  `docs/same-titles.txt` does not change and the Cool Rock detections
+  stay wrong answers.
 - Whether `seconds` and `loss` should follow the judgments as well.
 - Whether a hold-out or leave-out should also leave out the files judged
   to carry the recording's title, so that the null keeps meaning "this
@@ -12296,7 +12300,10 @@ questions is ready; only the user's ear can tell the two apart.
   edge part of another record (Sing opens with Londons Most Wanted -
   Girls Dem Want It, Chopper with LTJ Bukem - Horizons, Chasing Shadows
   with Volcov - Oblique Strategies). The ignore file leaves out its second disc only;
-  whether the first is mixed too is for the user.
+  whether the first is mixed too is for the user. Answered on
+  2026-10-30: separate tracks, as the release notes say. Its five edge
+  parts are therefore false transitions of `parts` (shared material
+  between separate tracks), a negative for any later rule.
 - The 65 candidates worth the ear whose strongest edge part has another
   name (`work/s58/different-name-files.txt`), for a later pack.
 - Pending from before: Star Trails, Into Music.
