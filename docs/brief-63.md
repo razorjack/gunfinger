@@ -297,3 +297,9 @@ otherwise it records what failed.
   brief plays' answers changed: most cross 240 hits in 3 windows (grid
   25 of 28 changes, split 16 of 18 gains and 2 of 3 losses); 2 gain and
   1 loses a third window. The file said the 3-window rule decided them.
+- **(08:22) 0252 written**: the bounded fit fails B2 (4 confident
+  right answers lost) and B4 at 262 tracks (the Clockwork remix's
+  passage 100 to 107 hits); B1 and B3 pass. 0253's runs start: the
+  perturbation under the default, the grid and the bounded fit (tmux
+  `s63likedefault`, `s63likegrid`, `s63likeiterated`; directories
+  `wlike`, `wlike2`, `wlike3`), then the cost runs alone (`cost.sh`).
