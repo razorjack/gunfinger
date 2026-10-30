@@ -314,3 +314,40 @@ of the store, with a 95% interval.
   file comes before the next one's runs; the census's numbers were
   final before those runs began. 0248 was first committed at 42 lines,
   then cut to 40.
+- **(03:58) Mixes at NAS scale done** (03:41-03:58, two queues, 1:33-2:26
+  a run). The plans equal the 262-track ones (every right count the
+  same as 0245's). The only wrong confident plays, under both front ends
+  and in control and inverted mixes alike, are the i-witness upload of
+  Bad Company - The Nine (Evol Intent VIP) over plays of Bad Company -
+  The Nine in two mixes of seed 2026 (269-410 hits); no new one under the
+  variant. `scripts/analysis/query_side_bar.py` compares the reports
+  query by query (checked on session 61's reports: it gives 0245's
+  numbers). `robust` and the scans started at 03:58 (tmux `s62rest`)
+  beside the panels and `recall`.
+- **(04:25) `robust` and the scans done** (03:58-04:24). `robust`'s rows
+  equal 0245's at NAS scale (control and `stereo-control` 80 and 80;
+  inverted 0 to 80; 1 and 5 ms 70 and 37 to 80; silent 78; noise 10, 0,
+  -10 dB 80, 29 to 19, 0). Every wrong confident answer is draw 41's
+  held-out Cool Rock Stuff excerpt as the Mobb Deep / Urban Takover
+  upload (7 queries to 16; exempt by the bar). Scans: 11, 12 and 17
+  tracks under both, no wrong one.
+- **(04:26) The bar fails on `recall`'s clean excerpts.** Recalled 522
+  of 522 under the downmix, 513 under the variant: 9 lost (the
+  tolerance is max(1, 1% of 522) = 5), none won. All nine are the nine
+  speeds of one source, Organikismness - Echos (911-1,105 hits to
+  176-226, each in 3 windows), whose excerpts are wide (side -7.3 to
+  -7.6 dB below the mid). Width explains the loss across the panel
+  (`stereo-width --files` on the 702 renders, `work/s62/wwidth/`): the
+  median ratio of the variant's best right hits to the downmix's is
+  0.98 with the side 20 dB or more below the mid (180 excerpts), 0.94 at
+  -20 to -15 dB (199), 0.77 at -15 to -10 (92), 0.49 at -10 to -6 (33)
+  and 0.39 above -6 dB (18). By inference: today's records hold the
+  mid's peaks; a query picked from mid plus side gains peaks of the side
+  where the side is loud, and those are not in the record. `robust`'s
+  excerpts hold few wide sources (0196: 5 of 50), which is why 0245 saw
+  0.95. The registered rule stands: the proposal is stopped. The
+  remaining runs continue so that the result is complete.
+- **(04:26) A departure from the experiment order.** To fit the time
+  box, the runs of 0249 (panels, `recall`) and 0250 (mixes, `robust`,
+  scans) ran at the same time on the machine, so 0249's file cannot come
+  before 0250's runs. The timing runs alone afterwards, as registered.
