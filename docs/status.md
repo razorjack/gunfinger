@@ -5415,3 +5415,27 @@ notes "Session 59"; experiment 0242. Gunfinger's behaviour is unchanged
 - Documentation only. No experiment or corpus search ran; no decision,
   rule, code, baseline, manifest or listening judgment changed.
 
+
+## 2026-10-30: the listening of session 58's pack
+
+- Session 58's 20 questions (`work/s58/questions/06-parts-s58.json`,
+  "is this file one recording throughout, or does it change record?")
+  were answered on the listening page (answer log records 28-47, the
+  night of 2026-10-29). No line was added to `docs/pair-verdicts.txt`.
+  - `several` (4): the i-witness-dnb uploads `Bad Company - Spider
+    (Optiv & BTK Remix) [CUT].m4a`, `Break - Wine [CUT].m4a` and `500
+    Mills (Counterstrike) - Vaccine.m4a`, and the 3zb-gangstep-dnb
+    upload `OMR - Bad Vibes.opus`.
+  - `unsure` (1): `Bad Company - Planet Dust (DC Breaks Remix)
+    [CUT].m4a`, which session 58 had read as shared material with the
+    original rather than a change of record.
+  - `one` (15): the other questions, among them the edits, VIPs and
+    remixes that start partway into the original (Blind (Tinted Edit),
+    Planet Dust (Latte Remix), Shine (Deleted Mix), Warhead 2000).
+- What it implies: 4 of the pack's 20 hold more than one recording; 2
+  of them are `[CUT]` uploads, 2 are uploads not marked as cuts. The
+  versions of one tune that the rules admit (session 58's caveat) were
+  heard as one recording each, so the `parts` rules need a test that
+  tells a version starting partway into the original from a change of
+  record before a second pack. Nothing was ignored or pruned: adding the
+  four files to the NAS `.gunfingerignore` is the user's call.
