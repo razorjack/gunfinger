@@ -7,6 +7,7 @@ mod audition;
 mod calibrate;
 mod clusters;
 mod commands;
+mod counterexamples;
 mod files;
 mod fullest;
 mod gaps;

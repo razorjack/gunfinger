@@ -123,9 +123,117 @@ the pre-registration names the driver's exact axes and rules; no
 budgeted search runs before the commit. Smoke runs of a few samples test
 the driver and are not reported as results.
 
+## Pre-registration (step 1; written at 03:40-03:50, before the budgeted search)
+
+**Question.** Within realistic bounds of the transformations the mix
+generator can render, which small transformations lose a true play,
+leave a long stretch of a found play without a confident detection, or
+make a confident wrong answer, and are those failure classes already in
+the roadmap?
+
+**What a sample plays** (`counterexamples::draw`, `Recipe::planned`).
+A held-out lead-in of 30 s, cut into the target play (indexed, or held
+out with probability 0.25, the generated mixes' share), then a partner
+for 30 s after the target ends (indexed, or held out with probability
+0.25). The three come from distinct clusters. Placement: the target
+lasts 40-120 s in the mix (uniform; at most 85% of its track at the
+fastest speed), and each play starts in its track uniformly between
+10% of its length and the point that leaves it room before 95%, the
+generator's rule (`mixes::drawn_play`). The lead-in and the partner
+play at native speed.
+
+**The transformation axes and their bounds.** Each joins a sample with
+probability 0.5, independently; every axis's values are drawn whether
+or not it joins.
+
+| Axis | Bounds | Justified by |
+|---|---|---|
+| Speed (the target, turntable) | 0.94-1.06 | the generated mixes' `SPEED_RANGE` (±6%), inside the brief's ±8% |
+| Pitch ride (the target) | a change of 1-3% either way over 5-15 s, starting 30-70% into the play; turned back if it would end more than 6% from native | the rides kind's default draw (`RideDraw`, experiments 0175-0176) |
+| Bass kill (the target) | the generator's bass cut (two 200 Hz two-pole high-passes) from the target's entry for 10-60 s, at most the target's length | the long mixes' crossfades (10-60 s), in which the bass swap cuts the incoming record |
+| Blend (the partner) | the partner comes in 10-60 s before the target ends (at most the target's length), at -6 to 0 dB against it | the long crossfades' lengths; `robust`'s blends at -6 and 0 dB |
+| Channel fault (the render) | one of brief 42's eight faults (inverted, silent, noise at 10, 0 and -10 dB, delays of 0.2, 1 and 5 ms) on the right channel over the mix's second half | `mixes::render`'s stereo fault (experiment 0198); inverted and delayed rips exist in the NAS store (0248, 0262) |
+
+EQ is the bass kill only: the generator renders no other EQ, and the
+product does not change this session. Key-locked playback, codecs and
+noise are `robust`'s conditions and stay out. The draws' rates are not
+prevalence estimates: a channel fault joins half the samples, while
+0262 found inverted rips in about 0.08% of the store.
+
+**Failure definitions.** A sample is rendered as `mixes` renders (a
+128 kbit/s MP3), searched on one thread by the harness's search with
+today's defaults and scored by `mixes::score` (a detection matches a
+play when its file shares the play's cluster or is judged to carry its
+title, ADR 0022, and overlaps the play).
+
+1. *Lost*: the target is indexed and has no confident matching
+   detection. Its play lasts at least 40 s.
+2. *Gap*: the target is indexed and confident, but a stretch of 30 s
+   or more of its play is covered by no confident detection of its
+   cluster or title (0176's measure of a side lost, 30 s).
+3. *Wrong*: a confident detection of a file that matches no play there
+   (a held-out play included). Same-title credits are right (ADR 0022)
+   and not counted; each wrong file is named with the play it overlaps
+   most, so that related versions show.
+
+**The search.** `gunfinger-eval counterexamples --seed 2026 --samples
+2000` at 262 tracks (the sweep index of seed 2026: its held-out
+clusters out of the index), one render per sample, 32 workers. Each
+failure is minimized greedily (`counterexamples::minimized`): if the
+base alone fails, the minimal recipe is the base; otherwise drop one
+transformation at a time while the same failure persists (the target
+still lost, still with a gap, or the same file still found wrongly),
+repeating until no drop keeps it; then halve each remaining
+transformation (the speed's deviation, the ride's change, the kill's
+and the blend's length; a channel fault has no size) up to 3 times
+while it persists. Then, if time allows, `--samples 500` at NAS scale
+(`--other-peaks-dir`, the saved index; the NAS clusters, so the draws
+can differ from the 262 run's). Renders are deleted once searched.
+
+**The recipe saved per failure** (`<out>/recipes/NNNN.json`): the seed,
+the build's path, the ladder and the indexed count, the sample, the
+failure, the base (sources and placements), the sampled and the minimal
+transformations, the expected plays (asset, held out or not, mix span),
+the minimal recipe's outcome and the evaluations spent. Out dirs:
+`work/s68/c262/` and `work/s68/cnas/`; builds `work/bin/s68-run/`.
+
+**Classes.** A failure's class is its kind and the kinds of its minimal
+transformations (such as `lost: blend+channel-fault`; `none` when the
+base alone fails). Within a class failures are grouped by recording
+family: the first file of the target's cluster, and for a wrong answer
+the wrong file's family over the overlapped play's.
+
+**Comparison with the roadmap.** Known classes: a channel fault over
+the play (0198; the roadmap's "Stereo faults before the downmix"), a
+side of a pitch ride lost (0175-0176, "Speed that wanders within a
+play"), a record inside a stronger one (0184, the printed tracklist's
+quiet and brief records), shared material and related versions found
+wrongly ("A confidence statistic for shared material"), a play lost
+without a transformation (brief plays, intros). Each minimal recipe's
+class is assigned to one of these or to "new".
+
+**What the pilot must show to be worth keeping** (either): (a) a
+failure class not already in the roadmap, reproduced from its minimal
+recipe in at least two recording families, or in one family with a
+replay of the saved recipe; or (b) a known class reproduced from a
+minimal recipe of one or two transformations. With neither, the pilot
+is reported as not worth running beside later sessions in this form.
+The cost is reported per failure and per class (renders searched,
+elapsed time and CPU).
+
 ## Decisions
 
 - **(03:27) Start build and regressions** (`work/s68/start.sh`, tmux
   `s68start`, logs in `work/s68/logs/`; `run.sh` and `same.py` are
   session 67's with the paths changed). The start build is
   byte-identical to `s67-final`.
+- **(03:32) Both regressions with the start build identical** (0:51;
+  3:47), every report equal to its baseline's apart from `wall_seconds`.
+- **(03:33-03:40) The driver** (`counterexamples.rs`, the subcommand in
+  `commands/mixes.rs`). Smoke runs of 16 and 64 samples (`work/s68/smoke/`,
+  not results) took 24 s and 60 s; renders search in 3-8 s on one
+  thread. The gap failure was added after the first smoke run, before
+  the pre-registration, so that a ride's lost side (0176), which leaves
+  the target confident, can be found.
+- **(03:41) Budget: 2,000 samples at 262 tracks, 500 at NAS scale**, by
+  the smoke runs' cost (about 15 and 15 minutes expected).

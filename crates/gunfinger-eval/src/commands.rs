@@ -126,6 +126,13 @@ pub enum Command {
     /// With --other-peaks-dir the index also holds the other library, less
     /// the held-out clusters' files there.
     Mixes(mixes::MixesArgs),
+    /// Search small generated mixes under transformations sampled within
+    /// fixed realistic bounds (speed, a pitch ride, a bass kill, a blend,
+    /// a channel fault), and minimize each true play lost or wrong answer
+    /// made to the fewest and smallest transformations that keep it
+    /// (brief 68). Writes the report and one recipe per failure under
+    /// --out; each render is deleted once searched.
+    Counterexamples(mixes::CounterexamplesArgs),
     /// Slide brief plays of indexed tracks across the 10 s window grid in
     /// 1 s steps, at several lengths and source positions, and compare
     /// the frozen rule with minimum aligned spans.
@@ -260,6 +267,7 @@ impl Command {
             Command::StereoWidth(_) => "stereo-width",
             Command::VariantStore(_) => "variant-store",
             Command::Mixes(_) => "mixes",
+            Command::Counterexamples(_) => "counterexamples",
             Command::Grid(_) => "grid",
             Command::Seconds(_) => "seconds",
             Command::Gaps(_) => "gaps",
@@ -345,6 +353,7 @@ pub fn run(harness: &Harness, jobs: usize, command: Command) -> Result<(), Strin
         Command::StereoWidth(args) => library::stereo_width(harness, jobs, args),
         Command::VariantStore(args) => library::variant_store(harness, jobs, args),
         Command::Mixes(args) => mixes::mixes(harness, jobs, args),
+        Command::Counterexamples(args) => mixes::counterexamples(harness, jobs, args),
         Command::Grid(args) => mixes::grid(harness, jobs, args),
         Command::Seconds(args) => saved_reports::seconds(harness, args),
         Command::Gaps(args) => saved_reports::gaps(harness, args),

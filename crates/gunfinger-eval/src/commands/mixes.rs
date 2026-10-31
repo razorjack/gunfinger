@@ -1,4 +1,5 @@
-//! The `mixes` and `grid` commands: generated mixes with exact truth.
+//! The `mixes`, `counterexamples` and `grid` commands: generated mixes
+//! with exact truth.
 
 use std::collections::BTreeSet;
 use std::path::{Path, PathBuf};
@@ -8,7 +9,7 @@ use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::mixes::residual::{Pilot, Timing};
 use crate::mixes::{DropsOptions, KindOptions, MixKind};
 use crate::residual::Rule;
-use crate::{grid, mixes, robust};
+use crate::{counterexamples, grid, mixes, robust};
 
 #[derive(clap::Args)]
 pub struct MixesArgs {
@@ -79,6 +80,84 @@ pub struct MixesArgs {
     /// With `--residual`: where the play's time map comes from.
     #[arg(long, requires = "residual", value_enum, default_value_t = Timing::Truth)]
     pub residual_timing: Timing,
+}
+
+#[derive(clap::Args)]
+pub struct CounterexamplesArgs {
+    /// The sweep's seed, whose held-out clusters the index leaves out,
+    /// and the samples' seed.
+    #[arg(long, default_value_t = 2026)]
+    pub seed: u64,
+    #[arg(long, default_value_t = 100)]
+    pub samples: usize,
+    /// Where the report (`counterexamples-seed-<seed>.json`), the recipes
+    /// (`recipes/NNNN.json`) and the renders while they are searched go.
+    #[arg(long)]
+    pub out: PathBuf,
+    /// Render and search a saved recipe's minimal mix again (a
+    /// `recipes/NNNN.json`), print whether its failure holds, and write
+    /// `replays/NNNN.json` under --out; no samples are drawn.
+    #[arg(long)]
+    pub replay: Option<PathBuf>,
+}
+
+pub fn counterexamples(
+    harness: &Harness,
+    jobs: usize,
+    args: CounterexamplesArgs,
+) -> Result<(), String> {
+    let CounterexamplesArgs {
+        seed,
+        samples,
+        out,
+        replay,
+    } = args;
+    let library = harness.library()?;
+    let store = harness.store()?;
+    let clusters = harness.clusters()?;
+    let same_titles = harness.same_titles()?;
+    let ladder = harness.rungs();
+    let padding = harness.padding(&UNCHANGED_INDEX)?;
+    let options = counterexamples::Options {
+        seed,
+        samples,
+        same_titles: &same_titles,
+        panels: &harness.paths.panels,
+        ladder_name: harness.search.ladder.name(),
+        ladder: &ladder,
+        matching: &harness.search.matching,
+        padding: &padding,
+        out: &out,
+        jobs,
+    };
+    if let Some(path) = replay {
+        let saved: counterexamples::SavedRecipe = read_json(&path)?;
+        let replayed = counterexamples::replay(&library, &store, &clusters, &options, &saved)?;
+        println!(
+            "{}: {}, the failure {}, the outcome {} the saved one's",
+            path.display(),
+            replayed.class,
+            if replayed.holds {
+                "holds"
+            } else {
+                "does not hold"
+            },
+            if replayed.same_outcome {
+                "equal to"
+            } else {
+                "differs from"
+            }
+        );
+        let name = path.file_name().ok_or("--replay names a file")?;
+        return write_json(&out.join("replays").join(name), &replayed);
+    }
+    let report = counterexamples::run(&library, &store, &clusters, &options)?;
+    write_json(
+        &out.join(format!("counterexamples-seed-{seed}.json")),
+        &report,
+    )?;
+    counterexamples::print_summary(&report);
+    Ok(())
 }
 
 #[derive(Clone, Copy, clap::Args)]
