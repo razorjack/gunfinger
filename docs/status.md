@@ -5878,3 +5878,20 @@ byte-identical to `s69-final`'s).
   `regress session-54-linux` and `regress session-64-linux-nas`
   identical; `docs/pair-verdicts.txt` and the NAS clusters file
   (`c4d3da2e7e37...`) unchanged.
+
+## 2026-10-31: a listening pack of what is still open
+
+- `work/listening-2026-10-31/questions/08-pack-2026-10-31.json` (5
+  questions, answers to the log only, built by
+  `work/listening-2026-10-31/make_pack.py`): the two pitch rides and
+  the Planet Dust (DC Breaks Remix) cut, as asked on 2026-10-30; Paradox
+  - Filmscape, which session 67's census found inverted; optionally We -
+  Polynesian Inventor (a wide track or a fault in places, session 67).
+- `work/listening-2026-10-31/questions/09-parts-different-names.json`
+  (optional, 59 questions): session 58's candidates whose strongest edge
+  part has another name, less the six already asked; made by `questions
+  parts --files work/listening-2026-10-31/parts-files.txt`.
+- Not asked again: whether the Paragliders remix shares material with
+  Konflict - Pendulum (session 65's question). The user's earlier
+  answer already covers it: different recordings that share a lot of
+  material.
