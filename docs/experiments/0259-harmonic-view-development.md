@@ -29,12 +29,12 @@ positives (870 within the negatives' 20-600 hits: 301 blend, 152 looped,
   2, 0; Tower Bass 1, 1. H's AUC is below D's in every family.
 - Near-identical: the other rips' 5th percentile of D (0.029) marks
   2,332 of 2,389 negatives, so it separates nothing. Without looped and
-  break queries (beside): AUC H 0.570, D 0.733.
+  break queries (beside): AUC H 0.570, D 0.733. Hits' T0 is the
+  hit-matching limit, so hits keep 0 at T0 by construction.
 
 **Reading rule (1)** (H at least 10 points above D at T0, AUC 0.05
 above): not met, +3.6 points, -0.105; rule (3), the bass kill, met (32
 against 26). **Thresholds frozen** for 0260 (in the data).
-**Conclusion.** Under 240 hits the harmonic view scores true plays below
-related versions: a partner's sustained material is masked by the record
-over it, while its drums survive. At 240+ hits it separates (AUC 0.913),
-as the verifier does (0.914).
+**Conclusion.** Under 240 hits H scores true plays below related
+versions; the partners score lowest (masking by the record they play
+with, an inference). At 240+ hits H separates (0.913), as the verifier.

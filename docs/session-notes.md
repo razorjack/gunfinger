@@ -13448,9 +13448,11 @@ In short: the harmonic view does not tell true plays from related
 versions better than denser peaks without separation. At equal hits its
 AUC is lower than the denser arm's on the development families (0.579
 against 0.684) and on the frozen ones (0.667 against 0.724); above 240
-hits every view separates (0.88-0.95), below it the harmonic view reads
-the wrong way because a blend partner's sustained material is masked by
-the record over it. The bass kill did not read as a contradiction. Not
+hits every view separates (0.86-0.95). Below 240 hits the gap comes from
+the blend partner's cases: split by role (post hoc), the played file's
+cases score at least as well under H as under D in every band, the
+partner's far worse (masking by the record it plays with, an
+inference). The bass kill did not read as a contradiction. Not
 proposed (`docs/research/2026-10-31-harmonic-view-decision.md`).
 
 ### Experiments 0259-0261
@@ -13471,18 +13473,21 @@ threshold (T0), negatives kept, AUC, NAS scale:
   wrong rate at most D's: not met (0.5% against 0.3%); (3) the bass
   kill: met (H kept 32 of 46 and 43 of 49 killed plays, D 26 and 37).
 - The Cool Rock pair (frozen): 105 negative cases, 80 confident, up to
-  1,288 hits; kept at T0 by H 6 (two detections under three indexes), D
-  4, P 0, the verifier 9, hits 68; its 75 hit-matched true plays, H 12,
-  D 6.
+  1,288 hits; kept at T0 by H 6 (two detections, of the 20 s and 30 s
+  alone queries, each under three indexes), D 4 (two under two), P 0,
+  the verifier 9, hits 68; its 75 hit-matched true plays, H 12, D 6.
+  Rule (2) fails by case, as registered; by detection H and D tie.
 - At 262 tracks (beside): the only indexed related pairs are Wikki
   Wikki ~ Defjammer (development) and Clockwork (frozen); the
-  hit-matched true plays are blend partners, and every measure scores
-  them below the related files (frozen AUC H 0.114, D 0.120).
+  hit-matched true plays are mostly partner cases (development 14 of 15,
+  frozen 14 of 25, the rest played-file break and damaged cases), and
+  every measure scores them below the related files (frozen AUC H 0.114,
+  D 0.120).
 - The near-identical marker (D at least the other rips' 5th percentile)
   marked nearly every negative (2,332 of 2,389), so it separated
   nothing.
-- Cost (0261): about 3.2 s of CPU per case (0.4 s of it the reference's
-  decode); peak memory 4.6 GiB at 262 tracks (0.62 without), 8.6-9.8
+- Cost (0261): at most about 3.2 s of CPU per case, measured beside
+  other runs (0.4 s of it the reference's decode, timed once by hand); peak memory 4.6 GiB at 262 tracks (0.62 without), 8.6-9.8
   GiB per NAS process.
 
 ### Times on the Linux machine (32 workers)
@@ -13519,7 +13524,7 @@ threshold (T0), negatives kept, AUC, NAS scale:
 - Whether the related files' sustained material in the shared passages
   is the played recording's (the scores suggest so where H stays high
   for a related file); listening to a few of the strongest negatives
-  (Cool Rock's 30 s alone query among them) would say.
+  (Cool Rock's 20 s and 30 s alone queries among them) would say.
 - Whether a view that removes the louder record first (session 65's
   residual) would give a blend partner's harmonic part back; not tried.
 
@@ -13547,6 +13552,8 @@ threshold (T0), negatives kept, AUC, NAS scale:
    `shared-dev-[abcd]-harmonic.json` and `shared-frozen-[abcd]-harmonic.json`)
    and `work/s66/wc/reports/` (262 tracks); summaries with
    `python3 -I scripts/analysis/harmonic_views.py develop|frozen ...`.
-4. If shared material is taken up again: the percussive part and the
-   existing verifier separate as well as the harmonic view above 240
-   hits; real mixes' true plays remain the binding control (0116, 0118).
+4. If shared material is taken up again: above 240 hits the existing
+   verifier separates as well as the new views without reference audio;
+   below 240 none helps. The percussive part (beside) kept the fewest
+   killed true plays. Real mixes' true plays remain the binding control
+   (0116, 0118).

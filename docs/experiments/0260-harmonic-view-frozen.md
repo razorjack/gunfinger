@@ -22,19 +22,18 @@ found under. `data/0260-harmonic-view-frozen.json`.
 
 - **The Cool Rock pair** (105 negative cases, 80 confident, 31-1,288
   hits; median excess H 0.341, D 0.408): kept at T0 by H 6 (two
-  detections, 141 and 256 hits, of the 30 s alone query, under three
-  indexes), by D 4 (310 and 770 hits, under two), P 0, the verifier 9,
+  detections, 141 and 256 hits, of the 20 s and 30 s alone queries,
+  under three indexes), by D 4 (310 and 770 hits, under two), P 0, the verifier 9,
   hits 68. Its 75 hit-matched true plays (50 of them the blend partner):
   H keeps 12, D 6. AUC H 0.242, D 0.436, hits 0.170.
 - By family, H's AUC above D's only for Watermelon (0.720, 0.653); Clockwork
   0.915, 0.940; Konflict 0.633, 0.739; Stalker 0.594, 0.647; Star Trails
   0.672, 0.771 (Playground Shades has no negative).
 - 262 tracks (beside): 217 negatives (the Clockwork remix, 33-134 hits)
-  and 25 hit-matched positives, all rejected at T0 by every measure; AUC
-  H 0.114, D 0.120: the hit-matched positives are blend partners.
+  and 25 hit-matched positives (14 partner cases, 11 of the played file in
+  break and damaged queries), all rejected at T0; AUC H 0.114, D 0.120.
 
-**Reading rule (2):** not met: H's wrong-answer rate (0.5%) is above D's
-(0.3%), though both are under 10% and H keeps 9 more true plays.
-**Conclusion.** On fresh families the harmonic view does no better than
-denser peaks; the percussive part alone has the highest AUC (0.752)
-and no negative above its threshold.
+**Reading rule (2):** not met as registered (cases): H's wrong rate 0.5%
+against D's 0.3%; by detection the two tie (two each). **Conclusion.** On
+fresh families H does no better than D; P (beside) has the highest AUC
+and no negative above T0, but keeps the fewest killed plays (31).

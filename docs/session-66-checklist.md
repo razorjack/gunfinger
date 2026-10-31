@@ -25,5 +25,5 @@ for scope and rules.
   arms; frozen families; cost
 - [x] 5. Decision note `docs/research/2026-10-31-harmonic-view-decision.md`;
   the roadmap's matching bullets and the proposals note's §5
-- [ ] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 66", status, checklist; final checks
+- [x] 6. Read-only review by a subagent; findings fixed
+- [~] 7. Wrap-up: notes "Session 66", status, checklist; final checks

@@ -44,6 +44,8 @@ pub const NEIGHBOURHOOD: usize = 8;
 /// Detections with fewer hits are not measured: below this they are
 /// chance lines.
 pub const MIN_HITS: u32 = 20;
+/// Why a detection is not measured under another front end.
+pub const DOWNMIX_ONLY: &str = "--harmonic analyses the downmix; leave --front-end at its default";
 /// The reference is rendered from this many of its seconds before the
 /// detection's span to as many after: room for the chance shifts, the
 /// medians' and the picker's context.
@@ -255,9 +257,10 @@ pub fn reference(
     for file in [path.clone(), path.with_extension("wav.complete")] {
         fs::remove_file(&file).map_err(|error| format!("{}: {error}", file.display()))?;
     }
-    decoded?.mono().map(<[f32]>::to_vec).ok_or_else(|| {
-        String::from("--harmonic analyses the downmix; leave --front-end at its default")
-    })
+    decoded?
+        .mono()
+        .map(<[f32]>::to_vec)
+        .ok_or_else(|| String::from(DOWNMIX_ONLY))
 }
 
 /// A name no other reference of this process takes.

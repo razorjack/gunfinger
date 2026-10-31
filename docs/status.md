@@ -5718,12 +5718,14 @@ byte-identical to `s65-final`'s).
   identical with the option off.
 - At NAS scale, at equal hits, the harmonic view's AUC was below the
   denser arm's on eight development families (0.579 against 0.684) and
-  on seven frozen ones (0.667 against 0.724); both pre-registered reading
-  rules failed. Above 240 hits every view separates (0.88-0.95); below,
-  a blend partner's sustained material is masked by the record over it.
-  The bass kill was not read as a contradiction. The Cool Rock pair's 105
+  on seven frozen ones (0.667 against 0.724); reading rules (1) and (2)
+  failed (rule (2) by case as registered; by detection H and D tie),
+  rule (3), the bass kill, held. Above 240 hits every view separates
+  (0.86-0.95); below, the gap comes from the blend partner's cases (by
+  role, post hoc: the played file's score at least as well under H). The Cool Rock pair's 105
   negative cases: 6 kept by the harmonic view at the frozen threshold, 4
   by the denser arm, 68 by hits (0259, 0260).
-- Cost: about 3.2 s of CPU per candidate, reference decode 0.4 s of it;
+- Cost: at most about 3.2 s of CPU per candidate, reference decode 0.4 s
+  of it;
   a product use would need reference audio at identification time or a
   new stored field, each with its own ADR (0261). Not proposed.

@@ -372,19 +372,26 @@ impl QuerySearcher<'_> {
             self.options
                 .matching
                 .search_audio(&self.index, &audio, self.options.ladder, 1);
-        let measured = detections
+        let query = detections
             .iter()
             .any(|detection| self.measured(detection))
-            .then(|| audio.mono())
-            .flatten()
-            .map(|samples| Analysed::of(samples, &Profile::CURRENT));
+            .then(|| {
+                audio
+                    .mono()
+                    .map(|samples| Analysed::of(samples, &Profile::CURRENT))
+                    .ok_or_else(|| String::from(harmonic::DOWNMIX_ONLY))
+            });
         Ok(detections
             .iter()
             .map(|detection| {
                 let mut found = self.found(detection, audio.mono());
-                if let Some(query) = measured.as_ref().filter(|_| self.measured(detection)) {
-                    match self.views(detection, query) {
-                        Ok(views) => found.views = views,
+                if let Some(query) = query.as_ref().filter(|_| self.measured(detection)) {
+                    let views = query
+                        .as_ref()
+                        .map_err(String::clone)
+                        .and_then(|query| self.views(detection, query));
+                    match views {
+                        Ok(views) => found.views = Some(views),
                         Err(error) => found.views_error = Some(error),
                     }
                 }
@@ -399,11 +406,10 @@ impl QuerySearcher<'_> {
     }
 
     /// `detection` in the harmonic view, its file's reference rendered
-    /// along its line; `None` for a span with no line.
-    fn views(&self, detection: &Detection, query: &Analysed) -> Result<Option<Measured>, String> {
-        let Some(placement) = Placement::of(detection) else {
-            return Ok(None);
-        };
+    /// along its line.
+    fn views(&self, detection: &Detection, query: &Analysed) -> Result<Measured, String> {
+        let placement = Placement::of(detection)
+            .ok_or("no line through the detection's ends (an empty or reversed span)")?;
         let asset = &self.index.asset(detection.asset).path;
         let reference = harmonic::reference(
             &self.roots.path(asset)?,
@@ -413,12 +419,12 @@ impl QuerySearcher<'_> {
             &self.dir.join("references"),
         )?;
         let profile = Profile::CURRENT;
-        Ok(Some(harmonic::measure(
+        Ok(harmonic::measure(
             query,
             &Analysed::of(&reference, &profile),
             &placement,
             &profile,
-        )))
+        ))
     }
 
     fn found(&self, detection: &Detection, samples: Option<&[f32]>) -> SharedFound {

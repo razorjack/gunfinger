@@ -6,8 +6,9 @@ a product use would need.
 
 **Runs.** The Linux machine (Ryzen 9 5950X, 32 workers), `/usr/bin/time
 -v`. 262 tracks: the development plan with `--harmonic` (`dev-262`,
-beside 0259's NAS runs) and without it (`cost-262-off`, beside two of
-them; renders not cached in either). NAS scale: 0259's four processes.
+beside all four of 0259's NAS processes) and without it (`cost-262-off`,
+beside two; renders not cached in either; busier cores inflate CPU time,
+so the differences below are upper bounds). NAS: 0259's four processes.
 
 | Run | Searches | Cases measured | CPU (user + system) | Wall | Peak memory |
 |---|--:|--:|--:|--:|--:|
@@ -17,14 +18,14 @@ them; renders not cached in either). NAS scale: 0259's four processes.
 
 - At 262 tracks the view adds 741 s of CPU; the 30 added (killed and
   damaged) searches take about 100 s at 3.4 s a search, so the view costs
-  about 3.2 s of CPU per case, the query's separation included. Decoding
-  one reference as indexed (a 6-minute MP3 from its start to 30 s past
-  200 s) takes 0.4 s; the rest is the STFTs, the medians (25 values per
-  point across time, 17 across frequency), overlap-adds and pickings.
-- Memory: a 240 s query's 15,000 frames of 513 complex bins (62 MB) are
-  held several times during the separation; with 32 workers this lifts
-  the 262-track run from 0.62 to 4.6 GiB and a NAS process to 8.6-9.8 GiB
-  (session 52's both panels' development halves, no view: 5.9-6.6 GiB).
+  at most about 3.2 s of CPU per case, the query's separation included.
+  One reference decoded as indexed (a 6-minute MP3 to 30 s past 200 s,
+  timed once by hand, not logged) took 0.4 s; the rest is the STFTs,
+  medians (25 values across time, 17 across frequency) and pickings.
+- Memory: the view lifts the 262-track run from 0.62 to 4.6 GiB and a NAS
+  process to 8.6-9.8 GiB (session 57's run of both panels, no view:
+  5.9-6.6 GiB); by inference from the code, a 240 s query's 15,000 frames
+  of 513 complex bins (62 MB) are held several times per worker.
 - One NAS process ran at about 4.2 cores (a long looped query and its
   many candidates are measured in one worker), so 0259 split the plan.
 - A product use needs the reference audio at identification time (a
@@ -34,6 +35,6 @@ them; renders not cached in either). NAS scale: 0259's four processes.
   262-track cases), about three times today's store with both. Each is a
   decision with its own ADR (ADR 0003, ADR 0017).
 
-**Conclusion.** At about 3 s of CPU per candidate the view is cheap for a
+**Conclusion.** At up to about 3 s of CPU per candidate the view is cheap for a
 diagnostic and costly for every candidate of a mix; nothing measured in
 0259-0260 earns either product path.

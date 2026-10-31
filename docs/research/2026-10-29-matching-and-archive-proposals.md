@@ -335,8 +335,9 @@ proposed here.
 **Measured (session 66, experiments 0259-0261).** As a candidate-only
 diagnostic on the shared-material panels' development halves and seven
 judged pairs at NAS scale, the harmonic view separated no better than
-denser peaks without separation at equal hits, and read the wrong way
-below 240 hits, where a blend partner's sustained material is masked.
+denser peaks without separation at equal hits; below 240 hits the blend
+partner's cases scored lowest (masking by the other record, an
+inference), while the played file's scored as well as under denser peaks.
 The bass kill was not read as a contradiction. Not proposed; the
 decision note is
 [2026-10-31-harmonic-view-decision.md](2026-10-31-harmonic-view-decision.md).

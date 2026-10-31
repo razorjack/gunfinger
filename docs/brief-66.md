@@ -107,7 +107,7 @@ Rules for this session:
 |---|---|---|
 | First | reading; digests; brief; start build and both regressions (tmux `s66start`) | 00:03-00:25 |
 | 1 | pre-registration (below), committed before any harmonic-view run | 00:25-00:45 |
-| 2 | the harness: `shared --views`, unit tests on synthetic signals; `check.sh`; `regress` identical with it off | 00:45-01:40 |
+| 2 | the harness: `shared --harmonic`, unit tests on synthetic signals; `check.sh`; `regress` identical with it off | 00:45-01:40 |
 | 3-4 | development families (0259); frozen families (0260); cost (0261) | 01:40-02:30 |
 | 5 | decision note; roadmap; proposals note §5 | 02:30-02:45 |
 | 6-7 | review, notes, status, checklist, final checks | 02:45-03:20 |
@@ -357,3 +357,33 @@ the binding positive control of any later rule, 0116, 0118, 0125).
   Reading rule (2) not met (H's wrong rate 0.5% against D's 0.3% at the
   frozen T0); the Cool Rock pair's negatives are rejected by H at T0
   but for 6 cases (D 4, hits 68). **The view is not proposed.**
+- **(01:12) A cost baseline, not recorded at the time:** `cost-262-off`
+  (`work/s66/cost.sh`, tmux `s66cost`, 01:12-01:15), the development
+  plan at 262 tracks without the view, ran before 0259 was written; it
+  measures cost only (0261) and was read only after 0260.
+- **(01:43-01:54) The review** (a separate agent, read-only). It found
+  no error in the code and no number that disagrees with the reports;
+  `harmonic_views.py` reproduces both data files. Taken: the cause below
+  240 hits hedged and the post-hoc split by role added (the played
+  file's cases score at least as well under H as under D in every band;
+  the partner's cases far worse, which we checked); the percussive part
+  dropped from the recommendation (it kept the fewest killed plays);
+  262-track positives described correctly (partner and played-file
+  cases); Cool Rock's 20 s and 30 s alone queries named; "rules (1) and
+  (2) failed, (3) held"; rule (2) failing by case and tying by
+  detection stated; 0261's CPU as upper bounds (uneven load), the
+  decode timing marked as timed once by hand, the memory explanation an
+  inference, session 57 (not 52) cited; "about as well as" above 240
+  hits and the range 0.86-0.95; the hits arm's 0 at T0 marked as by
+  construction; a missing query view (another front end) and a
+  detection without a line now give `views_error` instead of nothing
+  (no case of either in the runs, so no result changes); CLAUDE.md's
+  "brief 66"; this brief's plan table. Noted, not changed: the script
+  leaves abstaining cases out of the AUC (unregistered; no case
+  abstained), the verifier's chance mean keeps shifts without reference
+  peaks (beside only), killed plays are counted among the hit-matched
+  positives (rule (3) also holds over all killed plays: 102 of 136
+  against 94, 64 of 72 against 58), and key-locked renders round
+  `atempo` to four decimals (about a frame over 300 s; no key-locked
+  case was checked). The notes' handoff names the final build only
+  after the final checks below.
