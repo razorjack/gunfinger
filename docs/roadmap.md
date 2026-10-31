@@ -242,8 +242,9 @@ cases. None is an adopted decision or an experiment result.
   that follows, whether a gap's passage recurs in another mix
   (proposal 6 of `docs/research/2026-10-29-matching-and-archive-proposals.md`;
   `gunfinger-eval passages`, experiments 0267-0268): over ten batches
-  of generated mixes, gaps searched against each other at ±18% relative
-  speed linked no unrelated records, and links between records sharing
+  of generated mixes, the spans of 30 s or more without a confident
+  detection, searched against each other at ±18% relative speed, linked
+  no unrelated records, and links between records sharing
   a passage stayed within it, but found only 192 of 312 recurring
   passages (whole mixes: 266), because a missed record's time in a gap
   is short; the product's ladder reaches none beyond 12% relative

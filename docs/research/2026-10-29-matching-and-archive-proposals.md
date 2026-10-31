@@ -408,23 +408,27 @@ mix, are indexed in memory as pieces of at most 600 s and searched
 against each other; a link is a confident detection under the frozen
 rule, reported pairwise with its spans, and only the two directions of
 one match are joined. Over ten batches nothing linked unrelated
-records, the insert never made a link, and the links between records
-sharing a passage (Fire's remix and Pyro's two tunes, nearly every
-batch) stay within that passage. Recall is the weak side: from the
+records, and the links between records sharing a passage (Fire's remix
+and Pyro's two tunes, nearly every batch) reach at most 0.2 s past that
+passage from the unidentified spans and 12.3 s from whole mixes. The
+insert, at 12 s, is shorter than the rule's windows and never made a
+link, so it could not test whether an insert bridges two records. Recall is the weak side: from the
 unidentified spans, 192 of 312 recurring passages are found at ±18%
 (50% on the two registered batches; 80% was registered), because a
-held-out record's time in a gap is short (13% of the plays have none,
-under their partners' crossfades); whole mixes give 266 of 312 (85%).
+held-out record's time in a gap is short (13% of the plays have none:
+28 lie inside their neighbours' crossfades, and 49 leave at most 21 s
+between them, under the 30 s minimum); whole mixes give 266 of 312 (85%).
 The product's ladder finds none of the 112 beyond 12% relative speed;
 ±18% (91 rungs) costs 2.33 times its thread seconds and finds 62 and 98
-of them. Links within one recording but at another of its repeated
-passages (10-178 s apart in the track) are the wrong links that remain:
+of them. Links within one recording but at another place in it (10-178
+s apart in the track; by inference its own repeated material) are the
+wrong links that remain:
 15 and 37 at ±18%, 9 and 11 of them between excerpts with no source
-time in common. A batch takes 75-82 s and 2.4-2.7 GB on the Linux
+time in common. A batch takes 75-82 s and 2.3-2.6 GiB on the Linux
 machine; how the pairwise search grows with an archive's size is not
 measured. By the registered bar the pilot is not worth a design note
-yet. A next step would search whole mixes (or unidentified spans
-widened by the plays' crossfades), report a correspondence only with
+yet. A next step would search whole mixes (or unidentified spans with
+a shorter minimum, widened over the crossfades around them), report a correspondence only with
 its passage's spans, and measure the cost at archive scale and on real
 mixes, where shared material is more common than in these batches.
 

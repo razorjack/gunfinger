@@ -284,7 +284,7 @@ such links in the product's output.
   `commands/mixes.rs`; `mixes::crossfade` made visible to the harness,
   unchanged). The NAS root option is `--other-root`, the name `mixes`
   already uses, not `--other-library`. A smoke run on seed 6900 (not a
-  result) took 1:17 and 2.5 GiB at 32 workers and showed the code
+  result) took 1:17 and 2.4 GiB at 32 workers and showed the code
   classifying as designed; it also showed that some subject plays lie
   wholly inside their partners' crossfades, so gaps mode cannot reach
   them (a property of the registered construction; nothing changed).
@@ -310,3 +310,43 @@ such links in the product's output.
 - **(06:16) The proposals note's §6 and the roadmap's "Time without a
   confident match"** gained the pilot's result and the next step it
   suggests (whole mixes, archive-scale cost); no design note and no ADR.
+- **(06:17-06:24) The review** (a read-only subagent) found no product
+  change and no error in the batch draw or the scoring, and confirmed
+  most numbers. Its findings and what was done:
+  (1) the 77 plays without unidentified time are not all under
+  crossfades: 28 lie inside their neighbours' crossfades, 49 leave at
+  most 21 s between them, under the 30 s minimum (corrected in 0267 and
+  the proposals note; the next step now names a shorter minimum too);
+  (2) the 12 s insert cannot pass the rule's windows or be a positive
+  (30 s), so as built it could not test bridging: a limit of the
+  registered design, now stated in 0267 and the proposals note;
+  (3) the record's own repeats are an inference (marked);
+  (4) deviations not recorded until now: partners' positives were
+  registered as reported apart (row added to 0267); rendering,
+  decoding and the 262-track searches are timed as one figure, and each
+  mix is decoded twice (stated in 0268); the shared-material records'
+  clusters are left out of the index too (as "controls" in the
+  registration's left-out sentence); subjects are drawn from files of
+  at least 330 s, and their occurrences fit the shortest file of the
+  cluster, not the cluster's first file; the unidentified spans come
+  from confident detections and 30 s, not the product's gaps (plays'
+  segments, 45 s), now worded so in the roadmap;
+  (5) the shared links' reach past their passage is 0.2 s (gaps) and
+  12.3 s (whole), not "within" (corrected);
+  (6) `CLAUDE.md` named brief 68 for the rules (fixed);
+  (7) the speed fields' conventions were ambiguous (documented; numbers
+  unaffected);
+  (8) the pooled median share is 58%, the render figure 28.0 s, memory
+  in GiB, the batches' length 2.6-2.85 h (corrected);
+  (9) the cost inference about query length was unsupported (replaced
+  by what was measured);
+  (10) house style: the control flag is an enum (`Excerpts`),
+  `pairwise` returns a named struct, `draw_batch` is split into
+  `subjects`, `shared_items`, `partner`, `joined` and `laid_insert`,
+  the pieces' lookup returns an error instead of panicking, and a
+  failed deletion of the renders is an error;
+  (11) `correspondences` depends on the links' order within one pair of
+  mixes (documented; no fixed point, as registered);
+  (12) the speed test's fixture is 60 s instead of 90 s.
+  The refactor changes no draw or score: the final build's report of
+  seed 6901 is compared with the run build's below.

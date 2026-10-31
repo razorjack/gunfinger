@@ -122,16 +122,24 @@ pub enum Relation {
     DifferentTunes,
 }
 
+/// Whether a subject's third occurrence overlaps the other two in the
+/// track or shares no source time with them (a control subject).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum Excerpts {
+    Overlapping,
+    Apart,
+}
+
 /// What a play is in the batch.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(tag = "role", rename_all = "kebab-case")]
 pub enum Role {
-    /// A recording left out of the index, in 3 mixes; a control subject's
-    /// third occurrence shares no source time with the other two.
+    /// A recording left out of the index, in 3 mixes.
     Subject {
         subject: usize,
         occurrence: usize,
-        control: bool,
+        excerpts: Excerpts,
     },
     /// An indexed record.
     Partner,
@@ -215,7 +223,8 @@ impl Span {
 }
 
 /// One confident detection between pieces of two mixes: the query's span,
-/// the reference's, and the reference's time over the query's.
+/// the reference's, and the reference's time per the query's (the query's
+/// turntable speed over the reference's).
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub struct Link {
     pub query: Span,
@@ -246,7 +255,8 @@ impl Link {
 pub struct Correspondence {
     pub a: Span,
     pub b: Span,
-    /// The strongest link's speed of `b` over `a`, and its hits.
+    /// The strongest link's speed, as `b`'s mix time per `a`'s (`a`'s
+    /// turntable speed over `b`'s), and its hits.
     pub speed: f64,
     pub hits: u32,
     pub links: usize,
@@ -268,7 +278,9 @@ impl Correspondence {
 
 /// The correspondences `links` make: each link, its mixes ordered, joins
 /// the first correspondence between the same two mixes whose spans it
-/// overlaps in both mixes, or starts one. Nothing else is merged.
+/// overlaps in both mixes, or starts one. Nothing else is merged, so
+/// within one pair of mixes the result can depend on the links' order
+/// (two correspondences that come to overlap stay two).
 pub fn correspondences(links: &[Link]) -> Vec<Correspondence> {
     let mut found: Vec<Correspondence> = Vec::new();
     for link in links.iter().map(|link| link.ordered()) {
@@ -351,9 +363,10 @@ fn play(asset: &str, source_start: f64, speed: f64, start: f64, seconds: f64) ->
 /// length), or `None` when a control's third does not fit.
 fn occurrences(
     files: &[&PeakRecord],
-    control: bool,
+    excerpts: Excerpts,
     rng: &mut Rng,
 ) -> Option<[(String, f64, f64, f64); 3]> {
+    let control = excerpts == Excerpts::Apart;
     let duration = files
         .iter()
         .map(|record| record.header.duration_seconds)
@@ -492,76 +505,34 @@ pub fn draw_batch(
             .iter()
             .any(|file| panel_files.contains(file))
     };
-    let mut used: BTreeSet<BTreeSet<String>> = BTreeSet::new();
-    let long: Vec<&PeakRecord> = records
-        .iter()
-        .filter(|record| record.header.duration_seconds >= SUBJECT_MIN_SECONDS)
-        .filter(|record| !in_panel(record))
-        .collect();
-    let files_of = |cluster: &BTreeSet<String>| -> Vec<&PeakRecord> {
+    let outside_panel = |min_seconds: f64| -> Vec<&PeakRecord> {
         records
             .iter()
-            .filter(|record| cluster.contains(&record.header.source.path))
+            .filter(|record| record.header.duration_seconds >= min_seconds)
+            .filter(|record| !in_panel(record))
             .collect()
     };
-
+    let mut used: BTreeSet<BTreeSet<String>> = BTreeSet::new();
     let mut items: Vec<Vec<Item>> = (0..MIXES).map(|_| Vec::new()).collect();
-    for subject in 0..SUBJECTS {
-        let control = subject % 2 == 1;
-        let drawn = loop {
-            let record = draw_unused(&long, &mut used, clusters, &mut rng)
-                .ok_or("the library has too few long recordings for the subjects")?;
-            let files = files_of(&clusters.cluster_of(&record.header.source.path));
-            if let Some(drawn) = occurrences(&files, control, &mut rng) {
-                break drawn;
-            }
-        };
-        for (occurrence, (asset, source_start, speed, seconds)) in drawn.into_iter().enumerate() {
-            items[(subject + OCCURRENCE_OFFSETS[occurrence]) % MIXES].push(Item {
-                role: Role::Subject {
-                    subject,
-                    occurrence,
-                    control,
-                },
-                play: play(&asset, source_start, speed, 0.0, seconds),
-            });
-        }
+    for (mix, item) in subjects(
+        records,
+        &outside_panel(SUBJECT_MIN_SECONDS),
+        &mut used,
+        clusters,
+        &mut rng,
+    )? {
+        items[mix].push(item);
     }
-    for (pair, shared_pair) in shared.iter().enumerate() {
-        for side in 0..2 {
-            let asset = &shared_pair.files[side];
-            let (from, to) = shared_pair.passages[side];
-            let duration = file_length(roots, asset)?;
-            let speed = between(OTHER_SPEEDS, &mut rng);
-            let source_start = (from - SHARED_LEAD_SECONDS).max(0.0);
-            let source_end = (to + SHARED_LEAD_SECONDS)
-                .max(source_start + PLAY_SECONDS.0 * speed)
-                .min(duration - 0.5);
-            let mix = (2 * pair + side * SHARED_SECOND_MIX) % MIXES;
-            items[mix].push(Item {
-                role: Role::Shared { pair, side },
-                play: play(
-                    asset,
-                    source_start,
-                    speed,
-                    0.0,
-                    (source_end - source_start) / speed,
-                ),
-            });
-        }
+    for (mix, item) in shared_items(&shared, roots, &mut rng)? {
+        items[mix].push(item);
     }
     let insert = draw_unused(
-        &records
-            .iter()
-            .filter(|record| record.header.duration_seconds >= INSERT_MIN_TRACK_SECONDS)
-            .filter(|record| !in_panel(record))
-            .collect::<Vec<_>>(),
+        &outside_panel(INSERT_MIN_TRACK_SECONDS),
         &mut used,
         clusters,
         &mut rng,
     )
     .ok_or("the library has no record left for the insert")?;
-    let insert_start = insert.header.duration_seconds / 2.0 - INSERT_SECONDS / 2.0;
 
     let mut left_out: BTreeSet<String> = used.iter().flatten().cloned().collect();
     for shared_pair in &shared {
@@ -569,85 +540,196 @@ pub fn draw_batch(
             left_out.extend(clusters.cluster_of(file));
         }
     }
-    let partners: Vec<&PeakRecord> = records
-        .iter()
+    let partners: Vec<&PeakRecord> = outside_panel(PARTNER_MIN_SECONDS)
+        .into_iter()
         .filter(|record| indexed.contains(&record.header.source.path))
-        .filter(|record| record.header.duration_seconds >= PARTNER_MIN_SECONDS)
-        .filter(|record| !in_panel(record) && !left_out.contains(&record.header.source.path))
+        .filter(|record| !left_out.contains(&record.header.source.path))
         .collect();
-
-    let mut mixes = Vec::with_capacity(MIXES);
-    for (number, mut held_out) in items.into_iter().enumerate() {
-        rng.shuffle(&mut held_out);
-        let mut used_here: BTreeSet<BTreeSet<String>> = BTreeSet::new();
-        let mut partner = |rng: &mut Rng| -> Result<Item, String> {
-            let record = draw_unused(&partners, &mut used_here, clusters, rng)
-                .ok_or("the library has too few indexed records for the partners")?;
-            let seconds = between(PLAY_SECONDS, rng);
-            let speed = between(OTHER_SPEEDS, rng);
-            let duration = record.header.duration_seconds;
-            let earliest = 0.1 * duration;
-            let latest = 0.95 * duration - seconds * speed;
-            let mut placed = play(
-                &record.header.source.path,
-                earliest + rng.unit() * (latest - earliest),
-                speed,
-                0.0,
-                seconds,
-            );
-            placed.held_out = false;
-            Ok(Item {
-                role: Role::Partner,
-                play: placed,
-            })
-        };
-        let mut sequence: Vec<Item> = vec![partner(&mut rng)?];
-        for item in held_out {
-            sequence.push(item);
-            sequence.push(partner(&mut rng)?);
-        }
-        let mut plays: Vec<BatchPlay> = Vec::new();
-        let mut start = 0.0;
-        for Item { role, mut play } in sequence {
-            let seconds = play.end_seconds - play.start_seconds;
-            play.start_seconds = start;
-            play.end_seconds = start + seconds;
-            if let Some(previous) = plays.last_mut() {
-                crossfade(&mut previous.play, &mut play, &mut rng);
+    let mixes = items
+        .into_iter()
+        .enumerate()
+        .map(|(number, mut held_out)| {
+            rng.shuffle(&mut held_out);
+            let mut plays = joined(held_out, &partners, clusters, &mut rng)?;
+            if INSERT_MIXES.contains(&number) {
+                plays.push(laid_insert(&plays, insert)?);
             }
-            start = play.end_seconds;
-            plays.push(BatchPlay { role, play });
-        }
-        if INSERT_MIXES.contains(&number) {
-            let over = plays
-                .iter()
-                .find(|play| matches!(play.role, Role::Subject { .. }))
-                .ok_or("a mix of the insert has no subject")?;
-            let middle = (over.play.start_seconds + over.play.end_seconds) / 2.0;
-            let mut laid = play(
-                &insert.header.source.path,
-                insert_start,
-                1.0,
-                middle - INSERT_SECONDS / 2.0,
-                INSERT_SECONDS,
-            );
-            laid.fade_in_seconds = INSERT_FADE_SECONDS;
-            laid.fade_out_seconds = INSERT_FADE_SECONDS;
-            plays.push(BatchPlay {
-                role: Role::Insert,
-                play: laid,
-            });
-        }
-        mixes.push(BatchMix {
-            name: format!("passages-{seed}-mix-{number:02}"),
-            seconds: start,
-            plays,
-        });
-    }
+            Ok(BatchMix {
+                name: format!("passages-{seed}-mix-{number:02}"),
+                seconds: plays
+                    .iter()
+                    .map(|play| play.play.end_seconds)
+                    .fold(0.0, f64::max),
+                plays,
+            })
+        })
+        .collect::<Result<_, String>>()?;
     Ok(Batch {
         mixes,
         shared,
         left_out,
+    })
+}
+
+/// The subjects' occurrences, each with the mix it plays in: subject i in
+/// mixes i + `OCCURRENCE_OFFSETS`, the odd ones with a third occurrence
+/// apart from the others.
+fn subjects(
+    records: &[PeakRecord],
+    long: &[&PeakRecord],
+    used: &mut BTreeSet<BTreeSet<String>>,
+    clusters: &Clusters,
+    rng: &mut Rng,
+) -> Result<Vec<(usize, Item)>, String> {
+    let mut items = Vec::new();
+    for subject in 0..SUBJECTS {
+        let excerpts = if subject % 2 == 1 {
+            Excerpts::Apart
+        } else {
+            Excerpts::Overlapping
+        };
+        let drawn = loop {
+            let record = draw_unused(long, used, clusters, rng)
+                .ok_or("the library has too few long recordings for the subjects")?;
+            let cluster = clusters.cluster_of(&record.header.source.path);
+            let files: Vec<&PeakRecord> = records
+                .iter()
+                .filter(|record| cluster.contains(&record.header.source.path))
+                .collect();
+            if let Some(drawn) = occurrences(&files, excerpts, rng) {
+                break drawn;
+            }
+        };
+        for (occurrence, (asset, source_start, speed, seconds)) in drawn.into_iter().enumerate() {
+            items.push((
+                (subject + OCCURRENCE_OFFSETS[occurrence]) % MIXES,
+                Item {
+                    role: Role::Subject {
+                        subject,
+                        occurrence,
+                        excerpts,
+                    },
+                    play: play(&asset, source_start, speed, 0.0, seconds),
+                },
+            ));
+        }
+    }
+    Ok(items)
+}
+
+/// Each shared-material pair's two plays over their passage, pair j's in
+/// mixes 2j and 2j + `SHARED_SECOND_MIX`.
+fn shared_items(
+    shared: &[SharedPair],
+    roots: &Roots,
+    rng: &mut Rng,
+) -> Result<Vec<(usize, Item)>, String> {
+    let mut items = Vec::new();
+    for (pair, shared_pair) in shared.iter().enumerate() {
+        for side in 0..2 {
+            let asset = &shared_pair.files[side];
+            let (from, to) = shared_pair.passages[side];
+            let duration = file_length(roots, asset)?;
+            let speed = between(OTHER_SPEEDS, rng);
+            let source_start = (from - SHARED_LEAD_SECONDS).max(0.0);
+            let source_end = (to + SHARED_LEAD_SECONDS)
+                .max(source_start + PLAY_SECONDS.0 * speed)
+                .min(duration - 0.5);
+            items.push((
+                (2 * pair + side * SHARED_SECOND_MIX) % MIXES,
+                Item {
+                    role: Role::Shared { pair, side },
+                    play: play(
+                        asset,
+                        source_start,
+                        speed,
+                        0.0,
+                        (source_end - source_start) / speed,
+                    ),
+                },
+            ));
+        }
+    }
+    Ok(items)
+}
+
+/// A drawn partner of `partners`, whose cluster then joins `used`.
+fn partner(
+    partners: &[&PeakRecord],
+    used: &mut BTreeSet<BTreeSet<String>>,
+    clusters: &Clusters,
+    rng: &mut Rng,
+) -> Result<Item, String> {
+    let record = draw_unused(partners, used, clusters, rng)
+        .ok_or("the library has too few indexed records for the partners")?;
+    let seconds = between(PLAY_SECONDS, rng);
+    let speed = between(OTHER_SPEEDS, rng);
+    let duration = record.header.duration_seconds;
+    let earliest = 0.1 * duration;
+    let latest = 0.95 * duration - seconds * speed;
+    let mut placed = play(
+        &record.header.source.path,
+        earliest + rng.unit() * (latest - earliest),
+        speed,
+        0.0,
+        seconds,
+    );
+    placed.held_out = false;
+    Ok(Item {
+        role: Role::Partner,
+        play: placed,
+    })
+}
+
+/// `held_out` in order, a partner before, between and after them,
+/// placed one after another and joined by crossfades.
+fn joined(
+    held_out: Vec<Item>,
+    partners: &[&PeakRecord],
+    clusters: &Clusters,
+    rng: &mut Rng,
+) -> Result<Vec<BatchPlay>, String> {
+    let mut used = BTreeSet::new();
+    let mut sequence: Vec<Item> = vec![partner(partners, &mut used, clusters, rng)?];
+    for item in held_out {
+        sequence.push(item);
+        sequence.push(partner(partners, &mut used, clusters, rng)?);
+    }
+    let mut plays: Vec<BatchPlay> = Vec::new();
+    let mut start = 0.0;
+    for Item { role, mut play } in sequence {
+        let seconds = play.end_seconds - play.start_seconds;
+        play.start_seconds = start;
+        play.end_seconds = start + seconds;
+        if let Some(previous) = plays.last_mut() {
+            crossfade(&mut previous.play, &mut play, rng);
+        }
+        start = play.end_seconds;
+        plays.push(BatchPlay { role, play });
+    }
+    Ok(plays)
+}
+
+/// The insert from the middle of `insert`, over the middle of the first
+/// subject's occurrence among `plays`.
+fn laid_insert(plays: &[BatchPlay], insert: &PeakRecord) -> Result<BatchPlay, String> {
+    let over = plays
+        .iter()
+        .find(|play| matches!(play.role, Role::Subject { .. }))
+        .ok_or("a mix of the insert has no subject")?;
+    let middle = (over.play.start_seconds + over.play.end_seconds) / 2.0;
+    let mut laid = play(
+        &insert.header.source.path,
+        insert.header.duration_seconds / 2.0 - INSERT_SECONDS / 2.0,
+        1.0,
+        middle - INSERT_SECONDS / 2.0,
+        INSERT_SECONDS,
+    );
+    laid.fade_in_seconds = INSERT_FADE_SECONDS;
+    laid.fade_out_seconds = INSERT_FADE_SECONDS;
+    Ok(BatchPlay {
+        role: Role::Insert,
+        play: laid,
     })
 }
 
@@ -712,7 +794,7 @@ pub struct Positive {
     pub plays: [PlayRef; 2],
     pub roles: [Role; 2],
     pub overlap_seconds: f64,
-    /// The relative speed of the second over the first.
+    /// The second play's turntable speed over the first's.
     pub relative_speed: f64,
     pub found: bool,
     /// Over the found correspondence covering most of the overlap: how
@@ -942,7 +1024,7 @@ pub fn score(
                 Role::Subject {
                     subject: x,
                     occurrence: i,
-                    control: true,
+                    excerpts: Excerpts::Apart,
                 },
                 Role::Subject {
                     subject: y,
@@ -1109,6 +1191,16 @@ pub struct Run {
     pub score: Score,
 }
 
+/// What the pairwise search of one mode and range found, and its cost.
+struct Searched {
+    links: Vec<Link>,
+    postings: usize,
+    index_seconds: f64,
+    search_seconds: f64,
+    /// The sum of each piece's search time on its thread.
+    search_thread_seconds: f64,
+}
+
 /// The pairwise search of `pieces` (each a mix's piece and its samples)
 /// against all of them, confident links only, a piece's own mix left out.
 fn pairwise(
@@ -1116,7 +1208,7 @@ fn pairwise(
     rungs: &[Rung],
     matching: &Matching,
     jobs: usize,
-) -> Result<(Vec<Link>, usize, f64, f64, f64), String> {
+) -> Result<Searched, String> {
     let started = Instant::now();
     let records: Vec<PeakRecord> = map_in_order(pieces, jobs, |&(mix, span, samples)| {
         piece_record(mix, span, samples, matching)
@@ -1130,16 +1222,23 @@ fn pairwise(
         .collect();
     let profile = matching.profile();
     let started = Instant::now();
-    let found: Vec<(Vec<Link>, f64)> = map_in_order(pieces, jobs, |&(mix, span, samples)| {
-        let began = Instant::now();
-        let links = matching
-            .search(&index, samples, &profile, rungs, 1)
-            .into_iter()
-            .filter(|detection| detection.evidence.confidence() == Confidence::Confident)
-            .filter_map(|detection| {
-                let (other, other_span, _) =
-                    pieces[by_path[index.asset(detection.asset).path.as_str()]];
-                (other != mix).then_some(Link {
+    let found: Vec<Result<(Vec<Link>, f64), String>> =
+        map_in_order(pieces, jobs, |&(mix, span, samples)| {
+            let began = Instant::now();
+            let mut links = Vec::new();
+            for detection in matching.search(&index, samples, &profile, rungs, 1) {
+                if detection.evidence.confidence() != Confidence::Confident {
+                    continue;
+                }
+                let path = &index.asset(detection.asset).path;
+                let &(other, other_span, _) = by_path
+                    .get(path.as_str())
+                    .and_then(|&position| pieces.get(position))
+                    .ok_or_else(|| format!("the pieces' index holds an unknown record {path}"))?;
+                if other == mix {
+                    continue;
+                }
+                links.push(Link {
                     query: Span {
                         mix,
                         start_seconds: span.0 + detection.start_seconds,
@@ -1153,20 +1252,19 @@ fn pairwise(
                     speed: detection.speed.0,
                     hits: detection.evidence.hits,
                     windows: detection.evidence.windows,
-                })
-            })
-            .collect();
-        (links, began.elapsed().as_secs_f64())
-    });
+                });
+            }
+            Ok((links, began.elapsed().as_secs_f64()))
+        });
     let search_seconds = started.elapsed().as_secs_f64();
-    let thread_seconds = found.iter().map(|(_, seconds)| seconds).sum();
-    Ok((
-        found.into_iter().flat_map(|(links, _)| links).collect(),
-        index.posting_count(),
+    let found: Vec<(Vec<Link>, f64)> = found.into_iter().collect::<Result<_, String>>()?;
+    Ok(Searched {
+        search_thread_seconds: found.iter().map(|(_, seconds)| seconds).sum(),
+        links: found.into_iter().flat_map(|(links, _)| links).collect(),
+        postings: index.posting_count(),
         index_seconds,
         search_seconds,
-        thread_seconds,
-    ))
+    })
 }
 
 pub struct Options<'a> {
@@ -1317,7 +1415,8 @@ pub fn run(
         .collect::<Result<_, String>>()?;
     let render_and_search_seconds = started.elapsed().as_secs_f64();
     if !options.keep_renders {
-        let _ = fs::remove_dir_all(&renders);
+        fs::remove_dir_all(&renders)
+            .map_err(|error| format!("cannot delete {}: {error}", renders.display()))?;
     }
     let rate = f64::from(options.matching.profile().sample_rate);
     let mut runs = Vec::new();
@@ -1337,8 +1436,13 @@ pub fn run(
             .collect();
         for &range in options.ranges {
             let rungs = relative_ladder(range);
-            let (links, postings, index_seconds, search_seconds, search_thread_seconds) =
-                pairwise(&pieces, &rungs, options.matching, options.jobs)?;
+            let Searched {
+                links,
+                postings,
+                index_seconds,
+                search_seconds,
+                search_thread_seconds,
+            } = pairwise(&pieces, &rungs, options.matching, options.jobs)?;
             let found = correspondences(&links);
             let score = score(&batch, &found, |asset| clusters.cluster_of(asset));
             runs.push(Run {
@@ -1486,7 +1590,7 @@ mod tests {
             role: Role::Subject {
                 subject: 0,
                 occurrence: mix,
-                control: false,
+                excerpts: Excerpts::Overlapping,
             },
             play: play("subject.mp3", source_start, 1.0, start, 120.0),
         }
@@ -1618,7 +1722,7 @@ mod tests {
     #[test]
     fn a_passage_played_fifteen_percent_faster_is_found_only_within_eighteen_percent() {
         let profile = MATCHING.profile();
-        let original = bursts(90.0, profile.sample_rate);
+        let original = bursts(60.0, profile.sample_rate);
         let played = faster(&original, 1.15);
         let index = MATCHING
             .index(Index::build(&[piece_record(0, (0.0, 90.0), &original, &MATCHING)]).unwrap());
