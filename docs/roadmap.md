@@ -287,6 +287,17 @@ cases. None is an adopted decision or an experiment result.
   a known related version of the record under the masked one confident
   (see the proposals note). A partner found only in a residual would
   still be a marked play here.
+  Session 70 (experiments 0269-0271) found why another rip leaves the
+  masked record behind (a rip of another transfer placed tens of
+  milliseconds off by its stored peaks' line), fixed it by aligning the
+  reference on the mixture, and measured the time map from the whole-mix
+  detection instead of the generator: on fresh seeds at NAS scale 61 of
+  64 quiet and brief partners confirmed (plain 41), 46 confidently
+  (plain 15), with no wrong confident answer. Needing evidence in the
+  original mixture removed no wrong answer and dropped 10 of those
+  partners. A product version needs A's audio at search time, the
+  alignment, a further search of each confident play's span, a rule for
+  related versions and an ADR (see the proposals note).
 - **Report edits.** *(out of scope for the product, ADR 0017, 2026-10-13;
   kept as the history of the listening tools, which stay development
   tools for evaluation ground truth)* Confirming, rejecting or renaming

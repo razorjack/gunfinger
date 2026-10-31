@@ -302,6 +302,39 @@ confident play stays marked by ADR 0019 whatever its level), and the
 cost in a product (here every confident play's span is searched three
 or four more times).
 
+**Measured, the residue, detected timing and an evidence rule (session
+70, experiments 0269-0271).** Why another rip left A behind: of
+0257's 403 other-rip cases, 250 rips line up with the played file at
+speed 1 (by inference the same transfer, another encode), and there the
+mask removed A as with the played file (A stayed in 4). The other 153
+are other transfers, 0.1-0.2% off in speed; their stored peaks' line
+placed them a median 12 ms (corpus) and 62 ms (NAS) off in the excerpt,
+and A stayed in 111. Neither the render's seek nor lossy encoding made
+the difference. A fix that shifts the reference onto the mixture
+before the gains are fitted (*Align*: lags measured per block of 8 s on
+band levels, a Theil-Sen line, refined in 2 ms steps) left A confident
+in 31 of the 403 cases (115 without it) and raised the quiet and brief
+partners confirmed at NAS scale from 50 to 61 of 64 (plain 40). A's
+time map from the whole-mix search's detection, with the same
+reference rule, gave the same counts as the generator's time map at
+both scales. On two fresh test seeds at NAS scale, detected timing with
+*Align* confirmed 61 of 64 (plain 41), 46 confidently (plain 15), with
+no wrong confident answer; *Align* also removed the two Cool Rock
+answers that the unaligned mask kept. A rule that counts a masked
+detection only with at least 20 hits at its alignment in the plain
+excerpt removed no wrong confident answer there and dropped 10 of
+those partners: the related versions it was meant for (Cool Rock) are
+present in the original mixture with hundreds of hits, so evidence in
+the mixture does not tell them apart. What a product version would
+need: reference audio of A at search time (a decode of the matched
+file, which `--store-only` lacks, or a stored representation with its
+own size measurement and ADR); the alignment step; a masked search of
+every confident play's span (in the harness one more search per play
+and timing, not timed apart for a product); a rule for related versions other than
+evidence in the mixture; an ADR for any acceptance rule, and a decision
+under ADR 0019 on how a partner under a confident play is printed. Not
+measured: real mixes, broadcast processing, pitch rides under A.
+
 ## 5. Measure evidence outside the dominant drum texture
 
 **Evidence.** Related versions gain alongside true plays under tolerant
