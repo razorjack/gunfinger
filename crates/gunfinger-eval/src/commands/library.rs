@@ -62,6 +62,11 @@ pub struct VariantStoreArgs {
     /// the file, one per line (a faulted copy of a rip).
     #[arg(long)]
     pub replace: Option<PathBuf>,
+    /// Check each file's two channels and, where one is inverted (brief
+    /// 67), pick its peaks from the downmix with that channel's polarity
+    /// reversed; every other record is today's.
+    #[arg(long)]
+    pub repair_inverted: bool,
 }
 
 #[derive(clap::Args)]
@@ -208,7 +213,11 @@ fn other_widths(
 /// A store of the library's files under `--front-end`'s profile, for the
 /// front-end variant's experiments (0245 and after).
 pub fn variant_store(harness: &Harness, jobs: usize, args: VariantStoreArgs) -> Result<(), String> {
-    let VariantStoreArgs { out, replace } = args;
+    let VariantStoreArgs {
+        out,
+        replace,
+        repair_inverted,
+    } = args;
     let replacements = match replace {
         Some(list) => read_replacements(&list)?,
         None => BTreeMap::new(),
@@ -219,6 +228,11 @@ pub fn variant_store(harness: &Harness, jobs: usize, args: VariantStoreArgs) -> 
         &harness.store()?,
         &out,
         harness.search.matching.front_end,
+        if repair_inverted {
+            stereo::Polarity::RepairInverted
+        } else {
+            stereo::Polarity::AsDecoded
+        },
         &replacements,
         jobs,
     )?;

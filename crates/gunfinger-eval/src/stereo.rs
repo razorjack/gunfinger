@@ -4,7 +4,9 @@
 //! in `decode.rs`); the other choices here are a diagnostic, and nothing
 //! outside the harness uses them. `FrontEnd` is the variant that adds the
 //! two channels' powers instead (experiment 0245 and after), for queries
-//! alone or for queries and records.
+//! alone or for queries and records. `Polarity` is the check at indexing
+//! of brief 67: a record picked from the downmix with one channel's
+//! polarity reversed, only for a file whose channels are inverted.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
@@ -149,6 +151,9 @@ pub struct StoreBuilt {
     pub records: usize,
     /// Files decoded from a replacement instead of their library file.
     pub replaced: usize,
+    /// Files whose record was picked from the downmix with one channel's
+    /// polarity reversed (`Polarity::RepairInverted`).
+    pub repaired: Vec<String>,
     pub seconds_of_audio: f64,
     pub peaks: usize,
     pub postings: usize,
@@ -158,19 +163,26 @@ pub struct StoreBuilt {
 /// Writes to `out` a record under `front_end`'s profile for each library
 /// file with a current record in `store` (today's profile), decoding it, or
 /// its replacement in `replacements` (by library path), whole at the
-/// profile's rate. `out` must not be `store`: the records of a variant or of
-/// a replaced file never go to the library's own store.
+/// profile's rate, with its polarity checked as `polarity` says. `out` must
+/// not be `store`: the records of a variant or of a replaced file never go
+/// to the library's own store.
 pub fn build_store(
     library: &Library,
     store: &PeakStore,
     out: &PeakStore,
     front_end: FrontEnd,
+    polarity: Polarity,
     replacements: &BTreeMap<String, PathBuf>,
     jobs: usize,
 ) -> Result<StoreBuilt, String> {
     if front_end == FrontEnd::PowerSumQueries {
         return Err(String::from(
             "a store is built for --front-end downmix or power-sum",
+        ));
+    }
+    if polarity == Polarity::RepairInverted && front_end != FrontEnd::Downmix {
+        return Err(String::from(
+            "inverted channels are repaired only under --front-end downmix",
         ));
     }
     let same_dir = |a: &Path, b: &Path| a.canonicalize().ok() == b.canonicalize().ok();
@@ -194,7 +206,16 @@ pub fn build_store(
             .get(&source.path)
             .cloned()
             .unwrap_or_else(|| library.root.join(&source.path));
-        let audio = front_end.decode_query(&file, profile.sample_rate)?;
+        let (audio, checked) = match polarity {
+            Polarity::AsDecoded => (
+                front_end.decode_query(&file, profile.sample_rate)?,
+                Checked::Unchanged,
+            ),
+            Polarity::RepairInverted => {
+                let (samples, checked) = decode_repairing(&file, profile.sample_rate)?;
+                (QueryAudio::Mono(samples), checked)
+            }
+        };
         let signal = audio.signal();
         let record = PeakRecord {
             header: RecordHeader {
@@ -205,10 +226,16 @@ pub fn build_store(
             peaks: extract_signal_peaks(signal, &profile),
         };
         out.save(&record).map_err(|error| error.to_string())?;
-        Ok(record)
+        Ok((record, checked))
     })
     .into_iter()
-    .collect::<Result<Vec<PeakRecord>, String>>()?;
+    .collect::<Result<Vec<(PeakRecord, Checked)>, String>>()?;
+    let repaired = records
+        .iter()
+        .filter(|(_, checked)| *checked == Checked::Repaired)
+        .map(|(record, _)| record.header.source.path.clone())
+        .collect();
+    let records: Vec<PeakRecord> = records.into_iter().map(|(record, _)| record).collect();
     let index = Index::build(&records).map_err(|error| error.to_string())?;
     Ok(StoreBuilt {
         front_end: front_end.name(),
@@ -218,6 +245,7 @@ pub fn build_store(
             .iter()
             .filter(|source| replacements.contains_key(&source.path))
             .count(),
+        repaired,
         seconds_of_audio: records
             .iter()
             .map(|record| record.header.duration_seconds)
@@ -226,6 +254,86 @@ pub fn build_store(
         postings: index.posting_count(),
         wall_seconds: started.elapsed().as_secs_f64(),
     })
+}
+
+/// Whether `build_store` checks each file's channels for an inverted one
+/// (brief 67's pre-registration).
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Polarity {
+    /// Today's: every file as the front end decodes it.
+    AsDecoded,
+    /// A file whose channels are inverted (`inverted`) gets the downmix with
+    /// one channel's polarity reversed; every other file today's downmix.
+    RepairInverted,
+}
+
+/// What the check did to one file.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Checked {
+    Unchanged,
+    Repaired,
+}
+
+/// The file at `path` at `sample_rate` as `Polarity::RepairInverted`
+/// indexes it. Only an inverted file is mixed down here; every other file
+/// goes through the core's `decode`, so its record stays byte-identical to
+/// today's (FFmpeg's own downmix need not equal one made from its two
+/// channels to the bit).
+pub fn decode_repairing(path: &Path, sample_rate: u32) -> Result<(Vec<f32>, Checked), String> {
+    let stereo = decode_stereo(path, sample_rate)?;
+    if inverted(&channels(&stereo)) {
+        return Ok((reversed_downmix(&stereo), Checked::Repaired));
+    }
+    let samples = decode(path, sample_rate, Excerpt::default())
+        .map_err(|error| error.to_string())?
+        .samples;
+    Ok((samples, Checked::Unchanged))
+}
+
+/// The detector of brief 67: both channels present (within
+/// `ONE_CHANNEL_DB`), correlated at `INVERTED_CORRELATION` or below at lag
+/// 0, and most strongly there within `MAX_LAG`, so that a delayed channel
+/// is not taken for an inverted one. A negative correlation already makes
+/// the side louder than the mid, so the side-to-mid ratio adds nothing.
+pub fn inverted(channels: &Channels) -> bool {
+    channels.balance_db.abs() < ONE_CHANNEL_DB
+        && channels.correlation <= INVERTED_CORRELATION
+        && channels.strongest_lag == 0
+}
+
+/// (L - R) / sqrt(2): FFmpeg's downmix, (L + R) / sqrt(2), with the right
+/// channel's polarity reversed. Reversing the left instead negates every
+/// sample, which leaves the spectrogram's power, and so the peaks, as
+/// they are.
+fn reversed_downmix(stereo: &Stereo) -> Vec<f32> {
+    stereo
+        .left
+        .iter()
+        .zip(&stereo.right)
+        .map(|(&left, &right)| (left - right) * std::f32::consts::FRAC_1_SQRT_2)
+        .collect()
+}
+
+/// The census's windows for a file inverted only partway: 30 s, the last
+/// kept from 10 s.
+const WINDOW_SECONDS: usize = 30;
+const LAST_WINDOW_SECONDS: usize = 10;
+
+/// The correlation at lag 0 in each window of `stereo` at `sample_rate`.
+pub fn window_correlations(stereo: &Stereo, sample_rate: u32) -> Vec<f64> {
+    let rate = sample_rate as usize;
+    let frames = stereo.left.len().min(stereo.right.len());
+    (0..frames)
+        .step_by(WINDOW_SECONDS * rate)
+        .map(|start| start..frames.min(start + WINDOW_SECONDS * rate))
+        .filter(|window| window.len() >= LAST_WINDOW_SECONDS * rate)
+        .map(|window| {
+            let (left, right) = (&stereo.left[window.clone()], &stereo.right[window]);
+            let scale = (mean_square(left).max(SILENCE) * mean_square(right).max(SILENCE)).sqrt()
+                * left.len() as f64;
+            dot(left, right) / scale
+        })
+        .collect()
 }
 
 /// The channel with the higher RMS.
@@ -483,6 +591,12 @@ pub struct FileWidth {
     pub width: &'static str,
     pub channels: Channels,
     pub class: &'static str,
+    /// Whether the check at indexing (`inverted`) would repair the record.
+    pub repaired: bool,
+    /// The 30 s windows, and those correlated at `INVERTED_CORRELATION` or
+    /// below at lag 0: a file inverted only partway.
+    pub windows: usize,
+    pub inverted_windows: usize,
 }
 
 /// The file at `path` decoded whole as two channels at the profile's rate,
@@ -492,6 +606,7 @@ fn measure(path: &Path, asset: &str, kind: Option<Kind>) -> Result<FileWidth, St
     let stereo = decode_stereo(path, sample_rate)?;
     let ratio = side_to_mid_db(&stereo);
     let channels = channels(&stereo);
+    let windows = window_correlations(&stereo, sample_rate);
     Ok(FileWidth {
         asset: asset.to_owned(),
         kind,
@@ -500,6 +615,12 @@ fn measure(path: &Path, asset: &str, kind: Option<Kind>) -> Result<FileWidth, St
         width: Width::of(ratio).name(),
         channels,
         class: Class::of(&channels, ratio).name(),
+        repaired: inverted(&channels),
+        windows: windows.len(),
+        inverted_windows: windows
+            .iter()
+            .filter(|&&correlation| correlation <= INVERTED_CORRELATION)
+            .count(),
     })
 }
 
@@ -689,6 +810,13 @@ pub fn print_widths(report: &WidthReport) {
         .filter(|file| file.side_to_mid_db > 0.0)
         .count();
     println!("side louder than mid: {louder_side}");
+    let repaired = report.files.iter().filter(|file| file.repaired).count();
+    let partly = report
+        .files
+        .iter()
+        .filter(|file| !file.repaired && file.inverted_windows > 0)
+        .count();
+    println!("repaired by the check: {repaired}; partly inverted, not repaired: {partly}");
 }
 
 #[cfg(test)]
@@ -813,6 +941,79 @@ mod tests {
     }
 
     #[test]
+    fn the_check_repairs_only_a_channel_inverted_at_lag_0() {
+        let mid = noise(16_000, 1);
+        let other = noise(16_000, 2);
+        let right: Vec<f32> = mid.iter().zip(&other).map(|(m, o)| m + 0.5 * o).collect();
+        let negated = |samples: &[f32]| samples.iter().map(|x| -x).collect::<Vec<f32>>();
+        let check = |left: &[f32], right: &[f32]| inverted(&channels(&stereo(left, right)));
+
+        assert!(!check(&mid, &right), "an ordinary narrow source");
+        assert!(!check(&mid, &mid), "a mono source");
+        assert!(check(&mid, &negated(&right)), "the right channel inverted");
+        assert!(check(&negated(&mid), &right), "the left channel inverted");
+        assert!(!check(&mid, &vec![0.0; mid.len()]), "a silent channel");
+        // Quieter by more than 20 dB: one channel, not an inverted pair.
+        let faint: Vec<f32> = right.iter().map(|x| -0.05 * x).collect();
+        assert!(!check(&mid, &faint));
+        // A wide source correlated at about -0.3: the side louder than the
+        // mid, but not an inverted channel by the rule.
+        let wide: Vec<f32> = mid
+            .iter()
+            .zip(&other)
+            .map(|(m, o)| -0.3 * m + 0.95 * o)
+            .collect();
+        let wide_channels = channels(&stereo(&mid, &wide));
+        assert!(
+            (-0.5..-0.1).contains(&wide_channels.correlation),
+            "{wide_channels:?}"
+        );
+        assert!(!inverted(&wide_channels));
+        // Inverted and 5 ms late: correlated most strongly at 40 samples,
+        // which reversing the polarity at lag 0 would not repair.
+        let late: Vec<f32> = [vec![0.0; 40], negated(&mid[..mid.len() - 40])].concat();
+        let late_channels = channels(&stereo(&mid, &late));
+        assert_eq!(late_channels.strongest_lag, 40);
+        assert!(!inverted(&late_channels));
+    }
+
+    #[test]
+    fn the_reversed_downmix_of_an_inverted_channel_is_the_original_downmix() {
+        let left = [0.3, -0.1, 0.25];
+        let right = [0.1, 0.2, -0.05];
+        let inverted: Vec<f32> = right.iter().map(|x| -x).collect();
+
+        let repaired = reversed_downmix(&stereo(&left, &inverted));
+
+        for ((a, l), r) in repaired.iter().zip(&left).zip(&right) {
+            assert!((a - (l + r) * std::f32::consts::FRAC_1_SQRT_2).abs() < 1e-7);
+        }
+    }
+
+    #[test]
+    fn windows_find_a_channel_inverted_partway() {
+        let rate = 8_000;
+        let mid = noise(75 * rate, 3);
+        // Inverted from 30 s: windows 0-30 s, 30-60 s and 60-75 s.
+        let right: Vec<f32> = mid
+            .iter()
+            .enumerate()
+            .map(|(index, x)| if index < 30 * rate { *x } else { -x })
+            .collect();
+
+        let windows = window_correlations(&stereo(&mid, &right), rate as u32);
+
+        assert_eq!(windows.len(), 3);
+        assert!(windows[0] > 0.99, "{windows:?}");
+        assert!(windows[1] < -0.99 && windows[2] < -0.99, "{windows:?}");
+        // The whole file is correlated at about -1/3, so the check leaves it.
+        assert!(!inverted(&channels(&stereo(&mid, &right))));
+        // A last window shorter than 10 s is dropped.
+        let short = stereo(&mid[..65 * rate], &right[..65 * rate]);
+        assert_eq!(window_correlations(&short, rate as u32).len(), 2);
+    }
+
+    #[test]
     fn the_census_draws_an_equal_share_of_each_kind() {
         let paths: Vec<String> = (0..30)
             .map(|index| format!("__full_scene/release-{index}/track.mp3"))
@@ -890,6 +1091,84 @@ mod tests {
             downmix.len()
         );
         assert!(summed.len().abs_diff(downmix.len()) <= downmix.len() / 100);
+        std::fs::remove_dir_all(&dir).ok();
+    }
+
+    /// Writes 8 s of two pink noises mixed into two channels by `pan`
+    /// (FFmpeg's channel gains), or into one with `channels` 1.
+    fn generated(dir: &Path, name: &str, pan: &str, channels: u32) -> Option<PathBuf> {
+        let file = dir.join(name);
+        let generated = Command::new("ffmpeg")
+            .args(["-nostdin", "-v", "error", "-y", "-f", "lavfi", "-i"])
+            .arg("anoisesrc=d=8:c=pink:r=44100:a=0.3:seed=7")
+            .args(["-f", "lavfi", "-i"])
+            .arg("anoisesrc=d=8:c=pink:r=44100:a=0.3:seed=8")
+            .arg("-filter_complex")
+            .arg(format!("[0:a][1:a]amerge=inputs=2,{pan}"))
+            .args(["-ac", &channels.to_string()])
+            .arg(&file)
+            .status()
+            .is_ok_and(|status| status.success());
+        generated.then_some(file)
+    }
+
+    #[test]
+    fn the_check_leaves_ordinary_files_to_the_core_decoder_and_repairs_an_inverted_one() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-polarity-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let narrow = "pan=stereo|c0=c0|c1=0.8*c0+0.3*c1";
+        let (Some(ordinary), Some(flipped), Some(mono)) = (
+            generated(&dir, "narrow.wav", narrow, 2),
+            generated(
+                &dir,
+                "inverted.wav",
+                "pan=stereo|c0=c0|c1=-0.8*c0-0.3*c1",
+                2,
+            ),
+            generated(&dir, "mono.wav", "pan=mono|c0=c0", 1),
+        ) else {
+            eprintln!("skipped: ffmpeg cannot generate audio here");
+            return;
+        };
+        let profile = Profile::CURRENT;
+        let core = |file: &Path| {
+            decode(file, profile.sample_rate, Excerpt::default())
+                .unwrap()
+                .samples
+        };
+        let peaks = |samples: &[f32]| extract_signal_peaks(Signal::Mono(samples), &profile);
+
+        for file in [&ordinary, &mono] {
+            let (samples, checked) = decode_repairing(file, profile.sample_rate).unwrap();
+            assert_eq!(checked, Checked::Unchanged, "{}", file.display());
+            assert_eq!(samples, core(file), "{}", file.display());
+        }
+
+        let (repaired, checked) = decode_repairing(&flipped, profile.sample_rate).unwrap();
+        assert_eq!(checked, Checked::Repaired);
+        let clean = peaks(&core(&ordinary));
+        let shared_with_clean = |found: &[gunfinger_core::peaks::Peak]| {
+            found.iter().filter(|peak| clean.contains(peak)).count() as f64 / clean.len() as f64
+        };
+        let after = shared_with_clean(&peaks(&repaired));
+        let before = shared_with_clean(&peaks(&core(&flipped)));
+        assert!(clean.len() > 200, "{}", clean.len());
+        assert!(
+            after >= 0.9,
+            "{after} of the clean file's peaks after the repair"
+        );
+        assert!(
+            before < 0.5,
+            "{before} of them in today's record of the inverted file"
+        );
+        // Off, the store's decoding is today's for the inverted file too.
+        let QueryAudio::Mono(today) = FrontEnd::Downmix
+            .decode_query(&flipped, profile.sample_rate)
+            .unwrap()
+        else {
+            panic!("the downmix front end decodes one channel");
+        };
+        assert_eq!(today, core(&flipped));
         std::fs::remove_dir_all(&dir).ok();
     }
 

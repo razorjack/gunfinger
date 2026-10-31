@@ -112,15 +112,15 @@ Rules for this session:
 
 | Step | What | Expected |
 |---|---|---|
-| First | reading; digests; brief; start build and both regressions (tmux `s67start`) | 02:08-02:40 |
-| 1 | pre-registration (below), committed before any search | 02:40-02:55 |
-| 2 | the harness: the detector and the repair, opt-in (`stereo-width` reports the verdict; `variant-store --repair-inverted`), unit tests; `regress` identical with it off | 02:55-03:25 |
+| First | reading; digests; brief; start build and both regressions (tmux `s67start`) | 02:08-02:20 |
+| 1 | pre-registration (below), committed before any search | 02:12-02:15 |
+| 2 | the harness: the detector and the repair, opt-in (`stereo-width` reports the verdict; `variant-store --repair-inverted`), unit tests; `regress` identical with it off | 02:15-02:55 |
 | 3 | census extension (6,000 files, decoding only); then the recovery test and the controls with scratch stores under `work/s67/` | 03:25-04:05 |
 | 4 | experiments (0262 and up) | with the runs |
 | 5 | decision note "Session 67"; the roadmap; the proposals note's §1 | 04:05-04:20 |
 | 6-7 | review, notes, status, checklist, final checks | 04:20-04:50 |
 
-## Pre-registration (step 1; written at 02:35-02:50, before any search)
+## Pre-registration (step 1; written at 02:12-02:15, before any search)
 
 **Question.** At indexing, can a check of a file's two channels find the
 rips whose channel is inverted and repair their records, with every
@@ -245,3 +245,57 @@ is ours; this session writes none.
   `s67start`, logs in `work/s67/logs/`; `run.sh` and `same.py` are
   session 66's with the paths changed). The start build is
   byte-identical to `s66-final`.
+- **(02:15) Pre-registration committed** (`faeadee`), before any search;
+  the times in its heading were corrected afterwards (no other change).
+- **(02:16) Both regressions with the start build identical** (0:51;
+  3:54), every report equal to its baseline's apart from
+  `wall_seconds`.
+- **(02:17) The harness** (`stereo.rs`, `commands/library.rs`):
+  `stereo::inverted` (the detector), `decode_repairing` and
+  `reversed_downmix` (the repair), `Polarity` for `build_store`
+  (`variant-store --repair-inverted`, only under `--front-end downmix`;
+  its report lists the repaired files), and `stereo-width`'s per-file
+  `repaired`, `windows` and `inverted_windows` (30 s windows at lag 0).
+  Unit tests: the detector on fixed samples (an inverted channel either
+  side; mono, narrow, one-channel, silent, wide at about -0.3 and an
+  inverted channel 5 ms late left alone), the repaired downmix, windows
+  of a file inverted from 30 s, and on FFmpeg-generated files that a
+  mono and an ordinary stereo file are decoded by the core's `decode`
+  exactly, that an inverted file is repaired (90% or more of the clean
+  file's peaks against under 50% today) and that the default front end
+  decodes it as today.
+- **(02:18) The census extension started** (`work/s67/census.sh`, tmux
+  `s67census`, the run build `work/bin/s67-run/`, 16 jobs, alone), then
+  both regressions with the run build.
+- **(02:20) Scratch stores** T and R: reflink copies of the NAS store in
+  `work/s67/stores/{T,R}/nas-dnb-peaks/` (the NAS store only read).
+  A repaired record keeps today's header (path, size, mtime, profile),
+  so a saved index of today's records would pass for R's (ADR 0011's
+  provenance holds the sources and the profile, not the peaks): the CLI
+  searches with `--saved-index off`, and the harness's work directory
+  for R (`work/s67/wr`) starts without a saved index, so that its first
+  run builds one from R's records. This also bears on adoption (a
+  per-record flag must change something the provenance holds).
+- **(02:21) The search tool for the recovery test.** `identify` takes
+  every query in one run (`--save-dir`, one JSON report a query), so the
+  index is built once per store; queries are rendered by
+  `work/s67/queries.py` (checked on a corpus file first: a 30 s excerpt
+  and a 310 s mix, mono at 44.1 kHz).
+- **(02:28) Census extension done** (02:18-02:28, 9:43; 0262). A
+  departure from the pre-registration: the draw is not a superset of
+  0248's, because session 64's prune of 4 uploads changed the uploads'
+  shuffle and so the next kind's; 1,234 of 0248's 2,000 files are in it
+  (all 667 scene releases), Keltech - Axis and Plasmic - The Weapon not.
+  Decided (conservative): estimates use the union of both censuses
+  (6,766 distinct files), and F is every file the rule repairs in either
+  report (the rule applied to 0248's channel measures, which it holds):
+  Paradox - Filmscape (new), Advent, Plasmic - The Weapon, Keltech -
+  Axis (plainly inverted) and We - Hello World (uncertain). The control
+  sample (b) takes its 40 unflagged files from the new census, as
+  registered, plus DJ Sense - Let You Go from 0248's (0248's `inverted`
+  class, left alone at lag 0), 46 files in all.
+- **(02:31) 0262 written** before the recovery test's runs.
+- **(02:33) Both regressions with the run build identical** (0:52;
+  3:48; the option off), every report equal to its baseline's apart
+  from `wall_seconds`. The recovery test and the controls started
+  (`work/s67/recovery.sh`, tmux `s67recovery`).
