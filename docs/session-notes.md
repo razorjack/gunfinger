@@ -13502,6 +13502,17 @@ threshold (T0), negatives kept, AUC, NAS scale:
 | `shared`, development, 262 tracks, no view | 2:48 | 0.62 GiB |
 | `scripts/check.sh` (beside the development run) | 5:47 | |
 
+### Final checks
+
+`work/s66/final.sh` with `work/bin/s66-final/` (master after the
+review's fixes, `0757471`): `scripts/check.sh` green (4:55, 679 tests);
+`gunfinger` byte-identical to `s65-final`'s; `regress session-54-linux`
+(0:51) and `regress session-64-linux-nas` (3:54) identical, every
+report equal to its baseline's apart from `wall_seconds`;
+`docs/pair-verdicts.txt`, the NAS clusters file (`c4d3da2e7e37...`) and
+the answer log at their start digests
+(`work/s66/listening-digests-end.txt`).
+
 ### Decided this session, open to change
 
 - The separation's lengths (25 frames, 17 bins), the soft mask, the 8 x 8

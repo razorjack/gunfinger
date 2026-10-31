@@ -26,4 +26,4 @@ for scope and rules.
 - [x] 5. Decision note `docs/research/2026-10-31-harmonic-view-decision.md`;
   the roadmap's matching bullets and the proposals note's §5
 - [x] 6. Read-only review by a subagent; findings fixed
-- [~] 7. Wrap-up: notes "Session 66", status, checklist; final checks
+- [x] 7. Wrap-up: notes "Session 66", status, checklist; final checks

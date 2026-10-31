@@ -387,3 +387,9 @@ the binding positive control of any later rule, 0116, 0118, 0125).
   `atempo` to four decimals (about a frame over 300 s; no key-locked
   case was checked). The notes' handoff names the final build only
   after the final checks below.
+- **(02:07) Final checks** (`work/s66/final.sh`, tmux `s66final`,
+  `work/bin/s66-final/`): `check.sh` green (4:55); `gunfinger`
+  byte-identical to `s65-final`'s; both regressions identical (0:51;
+  3:54); the three digests unchanged. The cost run's renders
+  (`work/s66/wk/shared`) were deleted; the plans' renders stay in
+  `work/s66/wn/shared` and `work/s66/wc/shared` (1.1 GB).

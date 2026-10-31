@@ -5729,3 +5729,7 @@ byte-identical to `s65-final`'s).
   of it;
   a product use would need reference audio at identification time or a
   new stored field, each with its own ADR (0261). Not proposed.
+- Final checks with `work/bin/s66-final/`: `scripts/check.sh` green;
+  `regress session-54-linux` and `regress session-64-linux-nas`
+  identical; `docs/pair-verdicts.txt` and the NAS clusters file
+  (`c4d3da2e7e37...`) unchanged.
