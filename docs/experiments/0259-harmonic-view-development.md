@@ -1,18 +1,17 @@
 # 0259: the harmonic view on the development families, NAS scale
 
-**Question.** Brief 66 (pre-registration committed at `0da37f3`): at the
-alignment the search finds, does a candidate's harmonic part (FitzGerald
-2010, §2; medians over 25 frames and 17 bins, soft mask) match the query's
-better for true plays than for related versions sharing their drums, at
-similar hits, and better than denser peaks of the whole spectrum (D)?
+**Question.** Brief 66 (pre-registration `0da37f3`): at the search's
+alignment, does a candidate's harmonic part (FitzGerald 2010, §2; medians
+over 25 frames and 17 bins) match the query's better for true plays than
+for related versions sharing their drums, at similar hits, and better
+than denser whole-spectrum peaks (D)?
 
-**Run.** `shared --harmonic` (`7604a41`, `work/bin/s66-run`), NAS scale,
-the development part's 26 scenarios in four parallel processes (24:06-
-34:28, 9.0-10.3 GB each); `harmonic_views.py develop`. 9,678 cases (20
-hits or more): 1,763 positives (870 within the negatives' 20-600 hits:
-301 blend, 152 looped, 115 damaged, 46 killed...), 2,389 negatives (540
-confident), 5,526 others (605 confident). No view abstained, no error.
-Data: `data/0259-harmonic-view-development.json`.
+**Run.** `shared --harmonic` (`7604a41`), NAS scale, the development
+part's 26 scenarios in four processes (24:06-34:28, 9.0-10.3 GB each);
+`harmonic_views.py develop`. 9,678 cases (20 hits or more): 1,763
+positives (870 within the negatives' 20-600 hits: 301 blend, 152 looped,
+115 damaged, 46 killed...), 2,389 negatives (540 confident), 5,526 others
+(605 confident). No view abstained. `data/0259-harmonic-view-development.json`.
 
 | Measure (excess share) | T0 | Kept at T0 (of 870) | T10 | Kept at T10 | Killed at T0 (of 46) | AUC | AUC 20-59; 60-239; 240+ hits |
 |---|--:|--:|--:|--:|--:|--:|---|
@@ -22,10 +21,9 @@ Data: `data/0259-harmonic-view-development.json`.
 | Hits (neither) | 600 | 0 | 394 | 217 | 0 | 0.591 | 0.547; 0.445; 0.601 |
 | Verifier, 12 x 12 (beside) | 0.589 | 235 | 0.484 | 358 | 26 | 0.648 | 0.319; 0.581; 0.914 |
 
-- Medians, positives / negatives, H; D: 20-59 hits 0.084/0.134;
-  0.225/0.228; 60-239 0.155/0.211; 0.339/0.284; 240+ 0.544/0.211;
-  0.595/0.259. Blend partners (347 hit-matched positives) H 0.113, D
-  0.292; the played recording's (523) H 0.477, D 0.549.
+- Medians, positives / negatives, H; D: 20-59 hits 0.084/0.134; 0.225/0.228;
+  60-239 0.155/0.211; 0.339/0.284; 240+ 0.544/0.211; 0.595/0.259. The
+  partner (347 positives) H 0.113, D 0.292; the played (523) 0.477, 0.549.
 - At T0, H and D by family: Phantom Force 137, 111 of 348; Sonar 20, 12;
   Dozer 19, 19; Fire 29, 31; Pyro 6, 8; Wikki Wikki 2, 3; We R The Ones
   2, 0; Tower Bass 1, 1. H's AUC is below D's in every family.
