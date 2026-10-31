@@ -366,6 +366,15 @@ pub struct WrongAnswer {
 }
 
 impl Outcome {
+    /// The same level and wrong answers, and the same uncovered stretch
+    /// to a microsecond: serde_json's default parsing can read a saved
+    /// float one unit in the last place off.
+    fn agrees(&self, other: &Outcome) -> bool {
+        self.target == other.target
+            && self.wrong == other.wrong
+            && (self.uncovered_seconds - other.uncovered_seconds).abs() < 1e-6
+    }
+
     /// `accepted`: the files a detection of the target may name (its
     /// cluster and the files judged to carry its title).
     fn of(result: &MixResult, accepted: &BTreeSet<String>) -> Outcome {
@@ -812,7 +821,8 @@ pub struct Replay {
     pub failure: Failure,
     pub class: String,
     pub holds: bool,
-    /// The outcome equals the one saved with the recipe.
+    /// The outcome agrees with the one saved with the recipe
+    /// (`Outcome::agrees`).
     pub same_outcome: bool,
     pub outcome: Outcome,
     /// Every detection of two windows or more in the render.
@@ -839,7 +849,7 @@ pub fn replay(
         failure: counterexample.failure.clone(),
         class: counterexample.class.clone(),
         holds: counterexample.failure.holds(&outcome),
-        same_outcome: outcome == counterexample.minimal_outcome,
+        same_outcome: outcome.agrees(&counterexample.minimal_outcome),
         outcome,
         detections,
     })
@@ -1046,6 +1056,25 @@ mod tests {
         );
         assert_eq!(longest_uncovered(30.0, 100.0, vec![(32.0, 64.0)]), 36.0);
         assert_eq!(longest_uncovered(30.0, 100.0, vec![(0.0, 120.0)]), 0.0);
+    }
+
+    #[test]
+    fn outcomes_agree_across_a_float_read_one_unit_off() {
+        let outcome = Outcome {
+            target: Level::Confident,
+            uncovered_seconds: 44.580_687_133_200_925,
+            wrong: Vec::new(),
+        };
+        let read = Outcome {
+            uncovered_seconds: 44.580_687_133_200_91,
+            ..outcome.clone()
+        };
+        assert!(outcome.agrees(&read));
+        let possible = Outcome {
+            target: Level::Possible,
+            ..read
+        };
+        assert!(!outcome.agrees(&possible));
     }
 
     #[test]
