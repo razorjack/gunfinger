@@ -261,7 +261,11 @@ elapsed time and CPU).
   interest, the first of each (`work/s68/replay-picks.txt`: every
   single-fault gap by fault, `lost: blend`, `gap: blend`, the ride
   classes, and each wrong family at NAS scale), with
-  `work/bin/s68-replay/` (master at `d77e4ae`; tmux `s68replays`).
+  `work/bin/s68-replay/` (tmux `s68replays`). That first build was
+  copied from a binary built before `d77e4ae`'s detections change, so it
+  wrote no detections; it also compared floats exactly. The replays
+  reported in 0265 ran at 04:33 with the build of `424185d` (tmux
+  `s68replays2`).
 - **(04:35) Experiment 0265 committed** (`e5b6d64`): all 12 replays hold
   and agree. By the registered reading, criterion (b) holds and (a) does
   not; the compounds of known failures are reported as the finding.

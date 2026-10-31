@@ -23,18 +23,18 @@ data `data/0264-counterexample-classes.json`.
   at most 1.3 s uncovered, a ride (54) 15.2 s (200 rides without a blend or fault: none
   20 s or more); a blend (53) loses one. No minimal recipe is a speed or bass kill alone.
 - Faults in minimal recipes: inverted 64 of 101 sampled, noise at -10 dB 57 of 93, each other one 4-9 of 74-101.
-- `lost: blend`: targets of 40-48 s under a partner for the whole play
-  (39-59 s, -3.6 to -0.1 dB), possible (8) or weak (1). `gap:
+- `lost: blend`: targets of 40-48 s under a partner for all or nearly all
+  of the play (39-59 s, -3.6 to -0.1 dB), possible (8) or weak (1). `gap:
   ride+blend`: from the ride to the end, under a 30-60 s blend, 30-51 s
-  uncovered; rides halved to 0.6-1.0% still fail.
+  uncovered; minimal rides 0.6-2.9%.
 - Wrong at NAS scale, all without a transformation: Bad Company - The
-  Nine (Evol Intent VIP) over The Nine (13; 240-791 hits; the original
-  held out in 6), Cool Rock Shook Ones over an Aphrodite file (3), Pyro -
-  Ignorance over Pyro - Time Is Broken (1).
+  Nine (Evol Intent VIP) over The Nine (12; 240-791 hits; The Nine is
+  held out, the lead in 7, the target in 5), Cool Rock Shook Ones over an
+  Aphrodite file (3), Pyro - Ignorance over Pyro - Time Is Broken (1).
 - Scales: 54 of the first 500's 55 lost or gap failures recur at NAS scale (2 new
   there), 43 minimal recipes identical; median 6 and 5 renders to minimize.
 - Cost: 262, 16:38 and 29,760 CPU s (3,165 renders), 5.3 s and 157 CPU s per failure;
   NAS, 17:12 and 27,983 CPU s (860 renders), 14.3 s and 389 CPU s per failure, 9.6 GiB.
 
-**Conclusion.** Every class needs a channel fault or a blend, alone or with one or two
-more; speed, bass kills and rides alone keep the target. The wrong answers are related versions the base alone shows.
+**Conclusion.** Every lost or gap class needs a channel fault or a blend, alone or with up to three more; the wrong answers need none.
+**Superseded by 0266**: the target's level here is the scorer's (its strongest detection by hits), so 2 lost failures (#92, #120) are not failures.

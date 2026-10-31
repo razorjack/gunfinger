@@ -1,9 +1,9 @@
 """Session 68: a `counterexamples` report's failures by class (experiments
-0264-0265). Writes, per class (the failure's kind and its minimal
+0264 and 0266). Writes, per class (the failure's kind and its minimal
 transformations' kinds): failures, distinct families, the families with
-their counts, and the renders the minimizer spent; per sample, how many
-held each kind of failure; and the sampled transformation counts against
-the minimal ones. File names only.
+their counts, and the renders the minimizer spent; the failures of each
+kind and the samples holding one; and the sampled transformation counts
+against the minimal ones. File names only.
 Usage: counterexample_classes.py REPORT OUT.json"""
 import json, sys
 from collections import Counter, defaultdict

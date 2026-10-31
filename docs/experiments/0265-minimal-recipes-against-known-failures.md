@@ -17,20 +17,21 @@ Data: `data/0265-counterexample-replays.json` (with each render's detections).
 | 262 0039 (lost: a 0.5% ride and a 53 s blend at -4.3 dB) | holds | one detection at 1.0032 (190 hits), between the two speeds | one fitted speed per play (0024, 0032) and 0184 |
 | 262 0064 (lost: a 2.3% ride at 14 s and a 5 ms delay) | holds | 492 hits in 2 windows before the ride; 218 after, under the fault | "rides inside short plays" (open) and 0198 |
 | 262 0018 (gap: a -2.8% ride and noise at -10 dB) | holds | the ridden side (441 hits) ends 8 s into the fault | 0176 and 0198 |
-| NAS 0002 (wrong: The Nine's Evol Intent VIP over The Nine) | holds | 430 and 327 hits, no transformation | the roadmap's shared material (877) |
-| NAS 0000 (wrong: Cool Rock Shook Ones over Cool Rock Stuff) | holds | no transformation | the roadmap's verdicts (1245-1262) |
+| NAS 0002 (wrong: The Nine's Evol Intent VIP over The Nine) | holds | 430 and 327 hits, no transformation | "A confidence statistic for shared material" |
+| NAS 0000 (wrong: Cool Rock Shook Ones over Cool Rock Stuff) | holds | no transformation | "The verdicts by ear on borderline pairs" |
 | NAS 0057 (wrong: Pyro - Ignorance over Time Is Broken) | holds | no transformation | related recordings (0038, 0148) |
 
-- All 12 replays hold their failure and agree with the saved outcome
-  (the first replay build compared floats exactly and called 4 of them
-  different by one unit in the last place; fixed in `424185d`).
+- All 12 replays hold their failure and agree with the saved outcome to
+  a microsecond. serde_json reads some of a recipe's floats one unit in
+  the last place off, so 4 replays moved a play's end, and the uncovered
+  stretch, by about 1e-14 s (the first replay build compared exactly).
 - Each replay took 3-7 s at 262 tracks and 14-21 s at NAS scale, most
   of it building or loading the index.
-- By the registered reading no class is new: each minimal recipe is one
-  known failure, or two known ones in one play (a ride's side or one
-  fitted speed, made weaker by a blend or a fault).
+- Read after the runs (not registered): no class is new, since each
+  minimal recipe is one known failure or two in one play (a ride's side
+  or one fitted speed, made weaker by a blend or a fault). Literally,
+  `gap: ride+blend` is in no roadmap entry and would meet (a).
 
-**Conclusion.** Criterion (b) holds (known classes from minimal recipes
-of one or two transformations, replayed), (a) does not (no new class).
-The compounds are the pilot's only finding beyond the roadmap: a ride
-of 0.5-1.0%, harmless alone (0176), loses its later side under a blend.
+**Conclusion.** Criterion (b) holds (known classes from minimal recipes of one or two
+transformations, replayed); (a) only if a compound counts as new. These are 0264's
+recipes; 0266 reruns the budget with the target's level as registered.
