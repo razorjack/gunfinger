@@ -344,7 +344,7 @@ the binding positive control of any later rule, 0116, 0118, 0125).
   with the 262-track run beside (tmux `s66c262`). Each scenario is
   searched on its own indexes, so the split changes no result. The
   frozen plan is split the same way (`frozen-a.json` to `frozen-d.json`).
-- **(01:31) Experiment 0259 written; thresholds frozen** (in
+- **(01:21) Experiment 0259 written; thresholds frozen** (in
   `docs/experiments/data/0259-harmonic-view-development.json`, copied
   from `work/s66/thresholds-dev.json`). Reading rule (1) is not met on
   the development part (H +3.6 points over D at T0, AUC 0.579 against

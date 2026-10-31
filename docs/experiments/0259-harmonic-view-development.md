@@ -26,19 +26,17 @@ Data: `data/0259-harmonic-view-development.json`.
   0.225/0.228; 60-239 0.155/0.211; 0.339/0.284; 240+ 0.544/0.211;
   0.595/0.259. Blend partners (347 hit-matched positives) H 0.113, D
   0.292; the played recording's (523) H 0.477, D 0.549.
-- By family at T0, H against D: Phantom Force 137 and 111 of 348, Sonar
-  20 and 12, Dozer 19 and 19, Fire 29 and 31, Pyro 6 and 8, Wikki Wikki
-  2 and 3, We R The Ones 2 and 0, Tower Bass 1 and 1. Pooled AUC higher
-  for H than D in no family (We R The Ones 0.87 and 0.91).
-- Near-identical marking: the other rips' 5th percentile of D is 0.029,
-  so 2,332 of 2,389 negatives are marked; the marker separates nothing.
-  Without the looped and break kinds (beside): AUC H 0.570, D 0.733.
+- At T0, H and D by family: Phantom Force 137, 111 of 348; Sonar 20, 12;
+  Dozer 19, 19; Fire 29, 31; Pyro 6, 8; Wikki Wikki 2, 3; We R The Ones
+  2, 0; Tower Bass 1, 1. H's AUC is below D's in every family.
+- Near-identical: the other rips' 5th percentile of D (0.029) marks
+  2,332 of 2,389 negatives, so it separates nothing. Without looped and
+  break queries (beside): AUC H 0.570, D 0.733.
 
-**Reading rule (1)** (H at least 10 points above D at T0, AUC at least
-0.05 above D's): not met, +3.6 points and -0.105. Rule (3), the bass
-kill: met (32 against 26). **Thresholds frozen** for 0260 (in the data).
-
-**Conclusion.** Under 240 hits the harmonic view scores true plays
-below the related versions: a blend partner's sustained material is
-masked by the record over it, while drums survive. At 240 hits and more
-it separates (0.913), about as the verifier does (0.914).
+**Reading rule (1)** (H at least 10 points above D at T0, AUC 0.05
+above): not met, +3.6 points, -0.105; rule (3), the bass kill, met (32
+against 26). **Thresholds frozen** for 0260 (in the data).
+**Conclusion.** Under 240 hits the harmonic view scores true plays below
+related versions: a partner's sustained material is masked by the record
+over it, while its drums survive. At 240+ hits it separates (AUC 0.913),
+as the verifier does (0.914).
