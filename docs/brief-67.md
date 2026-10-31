@@ -120,6 +120,125 @@ Rules for this session:
 | 5 | decision note "Session 67"; the roadmap; the proposals note's §1 | 04:05-04:20 |
 | 6-7 | review, notes, status, checklist, final checks | 04:20-04:50 |
 
+## Pre-registration (step 1; written at 02:35-02:50, before any search)
+
+**Question.** At indexing, can a check of a file's two channels find the
+rips whose channel is inverted and repair their records, with every
+other record byte-identical, recovering the recording in mixes and
+adding no wrong confident answer?
+
+**The detector (frozen).** Each file decoded whole as two channels at 8
+kHz (`stereo::decode_stereo`, as the census). Measures over the whole
+file, as 0248's: the balance, the correlation at lag 0 (`correlation`),
+the strongest correlation within ±80 samples and its lag, and the side
+against the mid. A file is repaired when all hold:
+
+1. the balance is within ±20 dB (not one channel);
+2. the correlation at lag 0 is -0.5 or less;
+3. the strongest correlation within ±80 samples is at lag 0.
+
+The side-to-mid ratio is reported, not tested: with a negative
+correlation the side is always louder than the mid, so it adds nothing
+to 2. The threshold is the census's (`INVERTED_CORRELATION`, brief 62),
+not tuned again: on session 42's synthetic faults it takes 96 of 100
+inverted renders and 10 of 10 of 0197's inverted copies, and no clean,
+silent, noisy or delayed render (condition 3 leaves out the one 5 ms
+render at -0.55); in 0248's 2,000 files no correlation lies between
+-0.76 and -0.32. The rule differs from 0248's `inverted` class only in
+using lag 0 (the repair reverses polarity at lag 0): DJ Sense - Let You
+Go (+0.62 at lag 0) is not repaired. The user's answers are a check,
+not an input: by the rule, Advent, Keltech - Axis and Plasmic - The
+Weapon are repaired, and so is We - Hello World (-0.76).
+
+**How sure a repair is, by measure only.** A repair swaps the mid and
+the side, so the repaired file's side-to-mid ratio is today's negated.
+A flagged file whose side is 10 dB or more above its mid becomes narrow
+or narrower when repaired, like 93% of the census's files: counted
+*plainly inverted*. One with the side 0-10 dB above the mid stays wide
+either way and could be a wide recording: counted *uncertain* and listed
+for listening (Hello World, 8.6 dB, would be the one in 0248). The -10
+dB boundary is brief 42's width class.
+
+**The repair.** Only for a flagged file: peaks picked from (L - R) /
+sqrt(2) of the two-channel decode, the downmix with one channel's
+polarity reversed, at the downmix's scale. Every other file is decoded
+by the core's `decode` (`-ac 1`) as today, so its record is
+byte-identical. A file inverted only partway is judged whole: it is
+repaired only if the whole file crosses -0.5, and then its correct part
+becomes the side and is lost. The census also measures the correlation
+at lag 0 in 30 s windows (the last kept from 10 s) and lists unflagged
+files with any window at -0.5 or less as partly inverted candidates,
+for listening; they are not repaired.
+
+**The census extension (false positives).** `stereo-width --other
+--seed 2026 --sample 6000 --exclude work/s62/census-exclude.txt`, 16
+jobs, decoding only, read only, alone on the machine. With the same
+seed the draw of each kind is a prefix-extension of 0248's (2,000 per
+kind instead of 667), so 0248's files are included and 4,000 are new;
+both are reported. Scores: files repaired, by kind and weighted to the
+store (Wilson bounds, as 0248); plainly inverted and uncertain among
+them; partly inverted candidates; the decode rate (files and hours of
+audio per minute), the check's cost at indexing.
+
+**The recovery test.** F = the files the rule repairs in the extension
+(at most 16: every plainly inverted one, then uncertain ones by
+correlation). For each f in F, the correct-polarity audio is f with
+its right channel negated (FFmpeg `pan`); queries are rendered from it
+as mono MP3s at 128 kbit/s and 44.1 kHz:
+
+- excerpts: 30 s at 20, 40, 60 and 80% of the file, each at speed 0.96,
+  1.00 and 1.04 (turntable: `asetrate`, then `aresample`): 12 a file;
+- a generated mix: a corpus track drawn with seed 2026 (90 s), then f
+  at speed 1.02 from 25% of its length (150 s), then another drawn
+  track (90 s), 10 s crossfades;
+- other rips: the NAS files confident in at least 3 of f's 4 excerpts
+  at speed 1.00 against today's store (audio-derived; at most 3 per f,
+  by path), each cut at 30 and 70% at the three speeds: 6 a rip. They
+  are listed for listening; agents do not judge them.
+
+Two scratch stores in `work/s67/stores/`: T, a reflink copy of the NAS
+store (today's records), and R, T with the records of F replaced by
+repaired ones. Both are searched by the CLI (`identify --config
+nas-dnb.toml --peaks-dir <store> --store-only --saved-index off --format
+json`, every query in one run). The affected records are also built
+today's way from scratch copies of the files (`gunfinger index`), which
+must equal the NAS records byte for byte, and repaired by `variant-store
+--repair-inverted`.
+
+**The controls.** (a) `variant-store --repair-inverted` over the corpus
+library: each record byte-identical to `work/peaks`'s unless flagged;
+(b) the same over a scratch library of F and 40 unflagged census files
+(the 20 lowest correlations among the unflagged, DJ Sense and the
+delayed file among them, and 20 drawn with seed 2026): every unflagged
+record byte-identical to the NAS record; (c) `regress
+session-64-linux-nas` against R in a scratch work directory, and the
+three development scans (named) against T and R: identical, apart from
+detections of F's files, which are listed.
+
+**Scores.** Confident and possible queries naming f, under T and under
+R, for the excerpts, the mix plays and the other rips' queries (each
+apart); wrong confident answers: a confident file outside f and its
+other rips, and which (query, file) pairs are new under R; records
+changed (in the census, in the control sample, weighted to the store).
+
+**What would justify an ADR proposal (all of):**
+
+1. f's excerpts confident in 10% or fewer under T and 90% or more
+   under R, over the plainly inverted files, and each one's mix play
+   confident under R;
+2. where other rips exist, 90% or more of their queries name f
+   confidently under R (10% or fewer under T); unmeasured if none
+   exist (stated);
+3. no new wrong confident (query, file) pair under R in any search;
+4. every unflagged record byte-identical in (a) and (b), and (c)
+   identical apart from F's files;
+5. of the files repaired in the census, at least 3 in 4 plainly
+   inverted; the rest listed for listening.
+
+If 1-4 hold and 5 does not, no proposal: the uncertain repairs need
+listening first. The ADR itself (a profile bump or a per-record flag)
+is ours; this session writes none.
+
 ## Decisions
 
 - **(02:11) Start build and regressions** (`work/s67/start.sh`, tmux
