@@ -309,7 +309,16 @@ the test seeds is a candidate for a later ADR, not a decision.
   20. A check of the measure before freezing (not a tuning): where the
   plain excerpt confirms B, the single-file search finds about the same
   hits (222 against 224, 440 against 428).
-- **(08:08) The test seeds** (`work/s70/test.sh SEED corpus|nas
+- **(08:05) The test seeds** (`work/s70/test.sh SEED corpus|nas
   off,align`, tmux `s70test-<scale>-<seed>`, four side by side, each
   rendering its own mixes in `work/s70/t-<scale>-<seed>`), true and
   detected timing, no fix and *Align*.
+- **(08:05-08:52) The test seeds' runs** (262 tracks 22 min, NAS scale
+  46-47 min, 14.8 GB peak): experiment 0271. Detected timing with
+  *Align* keeps the gain at NAS scale (quiet and brief Bs confirmed 61
+  of 64, plain 41; confident 46, plain 15) with no wrong confident
+  answer in M or MH; the rule at `H` 20 gives 51 / 42 and removes no
+  wrong confident answer (there is none to remove under *Align*; the two
+  Cool Rock answers without a fix have 385 and 638 plain hits).
+- **(08:09) The corpus regression with the run build** identical
+  (`work/s70/regress-run.sh`, 3:36 beside the test runs).
