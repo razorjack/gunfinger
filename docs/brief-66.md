@@ -333,3 +333,19 @@ the binding positive control of any later rule, 0116, 0118, 0125).
   `regress session-64-linux-nas` (4:15) identical, every report equal
   to its baseline's apart from `wall_seconds`; `scripts/check.sh` green
   (5:47, beside the development run).
+- **(00:45) The NAS development run split in four.** One process ran
+  at about 4.2 cores and 3.7 minutes a scenario (the long looped
+  queries and their many candidates are measured one after another in
+  one worker), which would have ended the development part near 02:00
+  and the frozen part near 03:00. It was stopped after 22 minutes (6 of
+  26 scenarios rendered, no report written) and restarted as four
+  processes over four parts of the plan (`work/s66/plans/dev-a.json` to
+  `dev-d.json`, every fourth scenario; tmux `s66deva` to `s66devd`),
+  with the 262-track run beside (tmux `s66c262`). Each scenario is
+  searched on its own indexes, so the split changes no result. The
+  frozen plan is split the same way (`frozen-a.json` to `frozen-d.json`).
+- **(01:31) Experiment 0259 written; thresholds frozen** (in
+  `docs/experiments/data/0259-harmonic-view-development.json`, copied
+  from `work/s66/thresholds-dev.json`). Reading rule (1) is not met on
+  the development part (H +3.6 points over D at T0, AUC 0.579 against
+  0.684); the frozen part runs once as registered.
