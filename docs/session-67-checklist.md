@@ -25,5 +25,5 @@ for scope and rules.
   recovery and controls
 - [x] 5. The decision note's "Session 67"; the roadmap's "Stereo faults
   before the downmix"; the proposals note's §1
-- [ ] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 67", status, checklist; final checks
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 67", status, checklist; final checks

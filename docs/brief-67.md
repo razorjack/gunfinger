@@ -395,3 +395,11 @@ is ours; this session writes none.
   Evol Intent VIP play in both arms' mixes. A departure not recorded
   before: the harness was committed (`a33b304`, 02:33) after the census
   had run on `s67-run`, built at 02:18 from the same code uncommitted.
+- **(03:26) Final checks** (`work/s67/final.sh`, `work/bin/s67-final/`
+  at `90dc565`): `scripts/check.sh` green (4:57); `gunfinger`
+  byte-identical to `s66-final`'s; both regressions identical (0:51;
+  3:46); the digests unchanged. `s67-final`'s `gunfinger-eval` differs
+  from `s67-run`'s, also with debug information stripped; the only
+  source change between them is the test case added after the review.
+  The scratch library's copied NAS audio (`work/s67/c/library/`) is
+  deleted; the renders in `work/s67/q/` (78 MB) are kept.

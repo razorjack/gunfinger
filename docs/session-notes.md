@@ -13640,6 +13640,21 @@ files moved the same kind of quantities.
 | `sweep --set-aside-like` against R | 2:28 | 8.6 GiB |
 | `scripts/check.sh` | 5:08 | |
 
+### Final checks
+
+`work/s67/final.sh` with `work/bin/s67-final/` (master at `90dc565`):
+`scripts/check.sh` green (4:57, 683 tests); the
+`gunfinger` binary byte-identical to `s66-final`'s; `regress
+session-54-linux` (0:51) and `regress session-64-linux-nas` (3:46)
+identical, every report equal to its baseline's apart from
+`wall_seconds`; `docs/pair-verdicts.txt`, the NAS clusters file
+(`c4d3da2e7e37...`) and the answer log at their start digests
+(`work/s67/listening-digests-end.txt`). `s67-final`'s `gunfinger-eval`
+is not byte-identical to `s67-run`'s (with debug information stripped
+too); the only source change between them is the test case added after
+the review, in `stereo.rs`'s test module, and both builds give
+identical regressions.
+
 ### Decided this session, open to change
 
 - The detector's threshold is the census's (brief 62), not tuned again;
@@ -13658,8 +13673,8 @@ files moved the same kind of quantities.
 - The bar is read as registered: item 4 fails, so no ADR proposal;
   item 5 is reported both ways.
 - The harness change was committed (`a33b304`) after the census ran on
-  `s67-run`, built from the same, then uncommitted, code; `s67-final`'s
-  `gunfinger-eval` is compared with it in the final checks.
+  `s67-run`, built from the same, then uncommitted, code (see the final
+  checks for the two builds).
 
 ### Questions this leaves for us
 
@@ -13708,8 +13723,8 @@ files moved the same kind of quantities.
    and its summary `census-polarity.json`; the stores `stores/T/` and
    `stores/R/` (reflink copies of the NAS store; R has the five
    repaired records); the queries and plan in `q/`, the reports in
-   `rep/T/` and `rep/R/`, the score `recovery-score.json`; the scratch
-   library and stores of the controls in `c/`; harness work directories
+   `rep/T/` and `rep/R/`, the score `recovery-score.json`; the control
+   stores in `c/` (the copied audio of its scratch library deleted); harness work directories
    `wt/` (T, the saved index hard-linked), `wr/` (R, with its own saved
    index, 4.7 GB) and `wt2/` (T, index removed). All safe to delete.
 4. Commands:
