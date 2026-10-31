@@ -13421,3 +13421,132 @@ checks after the review failed only in the load-sensitive
    (above), then `--residual-timing detected`, then an evidence rule;
    each with its own pre-registration. Test seeds 2036 and 2039 are used
    now; 2040 and 2041 also keep both Clockwork records indexed.
+
+## Session 66
+
+### What changed
+
+The product did not change: the `gunfinger` binary is byte-identical to
+`s65-final`'s. The harness gained proposal 5's diagnostic, opt-in:
+`shared --harmonic`. Each detection of 20 hits or more is measured at
+the line through its ends: its file is decoded as indexed and rendered
+there (`harmonic::reference`), the render and the query are each split
+into a harmonic and a percussive part by median filtering (FitzGerald
+2010, §2: 25 frames across time, 17 bins across frequency, soft mask
+with power 2, resynthesised by session 65's overlap-add), and the share
+of the reference's peaks found in the query (±1 bin, ±1 frame) is
+counted for the harmonic part (H), the percussive part (P) and the whole
+spectrum (D, the comparison arm), all with the core's picker at 8 x 8,
+against the verifier's four chance shifts. With the option the
+scenarios also get `killed` (a 24 dB an octave bass kill below 250 Hz)
+and `damaged` (robust's combined damage at 3% fast) queries, and the
+report is `<plan>-harmonic.json`. Default reports, renders and
+regressions do not change. `scripts/analysis/harmonic_views.py` scores
+reports as the pre-registration says.
+
+In short: the harmonic view does not tell true plays from related
+versions better than denser peaks without separation. At equal hits its
+AUC is lower than the denser arm's on the development families (0.579
+against 0.684) and on the frozen ones (0.667 against 0.724); above 240
+hits every view separates (0.88-0.95), below it the harmonic view reads
+the wrong way because a blend partner's sustained material is masked by
+the record over it. The bass kill did not read as a contradiction. Not
+proposed (`docs/research/2026-10-31-harmonic-view-decision.md`).
+
+### Experiments 0259-0261
+
+Hit-matched true plays retained at the development part's rate-0
+threshold (T0), negatives kept, AUC, NAS scale:
+
+| Part | Cases (+ at equal hits / -) | H kept; negatives; AUC | D kept; negatives; AUC | P AUC | Hits AUC | Verifier AUC |
+|---|---|---|---|--:|--:|--:|
+| Development, 8 families (0259) | 870 / 2,389 | 216; 0; 0.579 | 185; 0; 0.684 | 0.715 | 0.591 | 0.648 |
+| Frozen, 7 families (0260) | 944 / 1,156 | 483; 6; 0.667 | 474; 4; 0.724 | 0.752 | 0.738 | 0.739 |
+
+- By hit band (development; frozen), H against D: 20-59 hits 0.257 and
+  0.468; 0.602 and 0.673. 60-239: 0.403 and 0.591; 0.184 and 0.414.
+  240+: 0.913 and 0.882; 0.896 and 0.903.
+- Reading rules: (1) on development, H at least 10 points above D at T0
+  and AUC 0.05 above: not met (+3.6 points, -0.105); (2) on frozen, H's
+  wrong rate at most D's: not met (0.5% against 0.3%); (3) the bass
+  kill: met (H kept 32 of 46 and 43 of 49 killed plays, D 26 and 37).
+- The Cool Rock pair (frozen): 105 negative cases, 80 confident, up to
+  1,288 hits; kept at T0 by H 6 (two detections under three indexes), D
+  4, P 0, the verifier 9, hits 68; its 75 hit-matched true plays, H 12,
+  D 6.
+- At 262 tracks (beside): the only indexed related pairs are Wikki
+  Wikki ~ Defjammer (development) and Clockwork (frozen); the
+  hit-matched true plays are blend partners, and every measure scores
+  them below the related files (frozen AUC H 0.114, D 0.120).
+- The near-identical marker (D at least the other rips' 5th percentile)
+  marked nearly every negative (2,332 of 2,389), so it separated
+  nothing.
+- Cost (0261): about 3.2 s of CPU per case (0.4 s of it the reference's
+  decode); peak memory 4.6 GiB at 262 tracks (0.62 without), 8.6-9.8
+  GiB per NAS process.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux`; `regress session-64-linux-nas` (start) | 0:51; 3:48 | 0.4; 5.4 GiB |
+| The same with the harness build | 1:00; 4:15 | 0.4; 5.3 GiB |
+| `shared --harmonic`, development, NAS scale, four processes at once | 24:06-34:28 | 8.6-9.8 GiB each |
+| The same, frozen | 7:44-16:36 | 7.2-8.7 GiB each |
+| `shared --harmonic`, development; frozen, 262 tracks | 5:38; 7:42 | 4.6; 3.7 GiB |
+| `shared`, development, 262 tracks, no view | 2:48 | 0.62 GiB |
+| `scripts/check.sh` (beside the development run) | 5:47 | |
+
+### Decided this session, open to change
+
+- The separation's lengths (25 frames, 17 bins), the soft mask, the 8 x 8
+  picker for every view, the ±1 bin, ±1 frame tolerance and the 20-hit
+  minimum were fixed before any data (brief 66).
+- The family split: development dozer, fire, pyro, sonar, phantom-force,
+  we-r-the-ones, tower-bass, wikki-wikki; frozen playground-shades,
+  watermelon, star-trails, cool-rock, stalker, konflict, clockwork.
+  Clockwork's family is in the first panel's validation half; none of
+  that half's scenarios was used, its scenario came from `pair`, and it
+  was used once, frozen, as calibrate's strongest false at 262 tracks.
+- The plan names Defjammer's corpus copy, under which it is indexed
+  (found by the smoke run, before any development run).
+- The NAS runs were split into four processes over parts of each plan;
+  each scenario is searched on its own indexes, so no result changes.
+- Not proposed: no rule, no ADR. The harness option stays.
+
+### Questions this leaves for us
+
+- Whether the related files' sustained material in the shared passages
+  is the played recording's (the scores suggest so where H stays high
+  for a related file); listening to a few of the strongest negatives
+  (Cool Rock's 30 s alone query among them) would say.
+- Whether a view that removes the louder record first (session 65's
+  residual) would give a blend partner's harmonic part back; not tried.
+
+### Questions for listening (none answered by agents)
+
+- None new beyond the above. Pending from before: the pitch rides (Star
+  Trails, Into Music), the Planet Dust (DC Breaks Remix) cut, the
+  Paragliders file against Konflict - Pendulum (session 65), the 65
+  candidates in `work/s58/different-name-files.txt`.
+
+### Handoff for the next session
+
+1. Baselines unchanged: `session-54-linux` (262 tracks) and
+   `session-64-linux-nas` (NAS scale). The NAS store: 40,674 records,
+   revision `7210fc479da58376`; the NAS clusters file
+   `c4d3da2e7e3720cbf4e79e4f7cf86d71493fc6349af639b323d814656a8b9e4f`,
+   unchanged.
+2. Builds: `work/bin/s66-start/` (= `s65-final`), `s66-run/` (the
+   harness; every run), `s66-final/` (master; the final checks). The
+   `gunfinger` binary is the same in all.
+3. Data: `work/s66/` (logs in `logs/`; scripts `run.sh`, `start.sh`,
+   `pair.sh`, `dev.sh`, `dev262.sh`, `frozen.sh`, `cost.sh`,
+   `regress.sh`, `final.sh`, `same.py`; plans in `plans/`); reports in
+   `work/s66/wn/reports/library-nas-dnb-peaks/` (NAS scale, the parts
+   `shared-dev-[abcd]-harmonic.json` and `shared-frozen-[abcd]-harmonic.json`)
+   and `work/s66/wc/reports/` (262 tracks); summaries with
+   `python3 -I scripts/analysis/harmonic_views.py develop|frozen ...`.
+4. If shared material is taken up again: the percussive part and the
+   existing verifier separate as well as the harmonic view above 240
+   hits; real mixes' true plays remain the binding control (0116, 0118).

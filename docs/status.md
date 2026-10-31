@@ -5697,3 +5697,33 @@ is byte-identical to `s64-final`'s).
   `regress session-54-linux` and `regress session-64-linux-nas`
   identical; `docs/pair-verdicts.txt` and the NAS clusters file
   (`c4d3da2e7e37...`) unchanged.
+
+## 2026-10-31: session 66, proposal 5's harmonic view, measured and not proposed
+
+Brief `docs/brief-66.md` (with the pre-registration), checklist
+`docs/session-66-checklist.md`; notes "Session 66"; experiments
+0259-0261; decision note `docs/research/2026-10-31-harmonic-view-decision.md`.
+Gunfinger's behaviour is unchanged (the `gunfinger` binary is
+byte-identical to `s65-final`'s).
+
+- 00:03 start at `1772995`, clean. Start build `work/bin/s66-start/`;
+  both regressions identical (0:51; 3:48).
+- Harness, opt-in: `shared --harmonic`. Each candidate of 20 hits or
+  more is rendered from its file along the search's line, split with the
+  query into harmonic and percussive parts by median filtering
+  (FitzGerald 2010), and the share of its peaks found in the query is
+  counted per part and on the whole spectrum with the same 8 x 8 picker
+  (the comparison arm), against chance shifts. Bass-killed and damaged
+  queries are added. Unit tests on synthetic signals; both regressions
+  identical with the option off.
+- At NAS scale, at equal hits, the harmonic view's AUC was below the
+  denser arm's on eight development families (0.579 against 0.684) and
+  on seven frozen ones (0.667 against 0.724); both pre-registered reading
+  rules failed. Above 240 hits every view separates (0.88-0.95); below,
+  a blend partner's sustained material is masked by the record over it.
+  The bass kill was not read as a contradiction. The Cool Rock pair's 105
+  negative cases: 6 kept by the harmonic view at the frozen threshold, 4
+  by the denser arm, 68 by hits (0259, 0260).
+- Cost: about 3.2 s of CPU per candidate, reference decode 0.4 s of it;
+  a product use would need reference audio at identification time or a
+  new stored field, each with its own ADR (0261). Not proposed.
