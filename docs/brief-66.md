@@ -349,3 +349,11 @@ the binding positive control of any later rule, 0116, 0118, 0125).
   from `work/s66/thresholds-dev.json`). Reading rule (1) is not met on
   the development part (H +3.6 points over D at T0, AUC 0.579 against
   0.684); the frozen part runs once as registered.
+- **(01:22) A slip, corrected:** 0259 was first committed at 44 lines
+  and trimmed to 40 in the next two commits, while the frozen runs
+  started; no number changed.
+- **(01:22) Frozen runs** (`work/s66/frozen.sh a`-`d` and `262`, tmux
+  `s66frza`-`s66frzd`, `s66f262`), once, ended 01:38: experiment 0260.
+  Reading rule (2) not met (H's wrong rate 0.5% against D's 0.3% at the
+  frozen T0); the Cool Rock pair's negatives are rejected by H at T0
+  but for 6 cases (D 4, hits 68). **The view is not proposed.**

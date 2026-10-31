@@ -1,0 +1,836 @@
+{
+ "nas": {
+  "cases": 3085,
+  "positives": 1121,
+  "positives_hit_matched": 944,
+  "negatives": 1156,
+  "others": 808,
+  "negative_hits": [
+   21,
+   1288
+  ],
+  "abstained": {
+   "percussive": {
+    "positives": 0,
+    "negatives": 0
+   },
+   "denser": {
+    "positives": 0,
+    "negatives": 0
+   },
+   "harmonic": {
+    "positives": 0,
+    "negatives": 0
+   }
+  },
+  "thresholds": {
+   "harmonic": {
+    "rate_0": 0.5236789872811485,
+    "rate_10": 0.3751471464942084
+   },
+   "denser": {
+    "rate_0": 0.6052145303515809,
+    "rate_10": 0.4537173273436064
+   },
+   "percussive": {
+    "rate_0": 0.6157140994881192,
+    "rate_10": 0.4372151162843321
+   },
+   "hits": {
+    "rate_0": 600,
+    "rate_10": 394
+   },
+   "verifier": {
+    "rate_0": 0.5886635879907116,
+    "rate_10": 0.48396525313468447
+   }
+  },
+  "near_identical_floor": 0.044591622328073295,
+  "near_identical_negatives": 1103,
+  "measures": {
+   "harmonic": {
+    "auc": 0.6673426411940648,
+    "rate_0": {
+     "retained": 483,
+     "negatives_kept": 6,
+     "killed_retained": 43,
+     "killed": 49
+    },
+    "rate_10": {
+     "retained": 560,
+     "negatives_kept": 163,
+     "killed_retained": 49,
+     "killed": 49
+    },
+    "auc_by_band": {
+     "20-59": 0.6021316033364226,
+     "60-239": 0.1836810962317035,
+     "240-": 0.8960040485041945
+    },
+    "auc_without_loops": 0.632778371320038,
+    "auc_without_near_identical": 0.9782539174928047,
+    "rate_0_without_near_identical": {
+     "negatives_kept": 0,
+     "of": 53
+    }
+   },
+   "denser": {
+    "auc": 0.7242894478329717,
+    "rate_0": {
+     "retained": 474,
+     "negatives_kept": 4,
+     "killed_retained": 37,
+     "killed": 49
+    },
+    "rate_10": {
+     "retained": 599,
+     "negatives_kept": 98,
+     "killed_retained": 49,
+     "killed": 49
+    },
+    "auc_by_band": {
+     "20-59": 0.6734939759036145,
+     "60-239": 0.41415273884909515,
+     "240-": 0.9025114999578281
+    },
+    "auc_without_loops": 0.7449548907882241,
+    "auc_without_near_identical": 0.9691197633514551,
+    "rate_0_without_near_identical": {
+     "negatives_kept": 0,
+     "of": 53
+    }
+   },
+   "percussive": {
+    "auc": 0.7516925326960295,
+    "rate_0": {
+     "retained": 439,
+     "negatives_kept": 0,
+     "killed_retained": 31,
+     "killed": 49
+    },
+    "rate_10": {
+     "retained": 603,
+     "negatives_kept": 71,
+     "killed_retained": 49,
+     "killed": 49
+    },
+    "auc_by_band": {
+     "20-59": 0.6930954587581094,
+     "60-239": 0.5216097442818091,
+     "240-": 0.902874827257333
+    },
+    "auc_without_loops": 0.7854107312440646,
+    "auc_without_near_identical": 0.9703589702590342,
+    "rate_0_without_near_identical": {
+     "negatives_kept": 0,
+     "of": 53
+    }
+   },
+   "hits": {
+    "auc": 0.7382924755146326,
+    "rate_0": {
+     "retained": 338,
+     "negatives_kept": 68,
+     "killed_retained": 24,
+     "killed": 49
+    },
+    "rate_10": {
+     "retained": 554,
+     "negatives_kept": 106,
+     "killed_retained": 39,
+     "killed": 49
+    },
+    "auc_by_band": {
+     "20-59": 0.6968952734012975,
+     "60-239": 0.6251150558842866,
+     "240-": 0.6909966197585171
+    },
+    "auc_without_loops": 0.6520877849002849,
+    "auc_without_near_identical": 0.8061640550047969,
+    "rate_0_without_near_identical": {
+     "negatives_kept": 0,
+     "of": 53
+    }
+   },
+   "verifier": {
+    "auc": 0.7390778033546419,
+    "rate_0": {
+     "retained": 563,
+     "negatives_kept": 13,
+     "killed_retained": 45,
+     "killed": 49
+    },
+    "rate_10": {
+     "retained": 629,
+     "negatives_kept": 241,
+     "killed_retained": 49,
+     "killed": 49
+    },
+    "auc_by_band": {
+     "20-59": 0.4675625579240037,
+     "60-239": 0.3836603342676217,
+     "240-": 0.9543051040997593
+    },
+    "auc_without_loops": 0.703059710351377,
+    "auc_without_near_identical": 0.9367204988807163,
+    "rate_0_without_near_identical": {
+     "negatives_kept": 0,
+     "of": 53
+    }
+   }
+  },
+  "families": {
+   "clockwork": {
+    "positives": 306,
+    "negatives": 477,
+    "harmonic": {
+     "retained_rate_0": 262,
+     "retained_rate_10": 274,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.9153409791589592
+    },
+    "denser": {
+     "retained_rate_0": 262,
+     "retained_rate_10": 278,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.940251572327044
+    },
+    "percussive": {
+     "retained_rate_0": 259,
+     "retained_rate_10": 277,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 6,
+     "auc": 0.9495211082336499
+    },
+    "hits": {
+     "retained_rate_0": 134,
+     "retained_rate_10": 265,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.9643914169441361
+    },
+    "verifier": {
+     "retained_rate_0": 266,
+     "retained_rate_10": 275,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 51,
+     "auc": 0.9194105315082007
+    }
+   },
+   "cool-rock": {
+    "positives": 75,
+    "negatives": 105,
+    "harmonic": {
+     "retained_rate_0": 12,
+     "retained_rate_10": 16,
+     "negatives_kept_rate_0": 6,
+     "negatives_kept_rate_10": 31,
+     "auc": 0.24203174603174604
+    },
+    "denser": {
+     "retained_rate_0": 6,
+     "retained_rate_10": 34,
+     "negatives_kept_rate_0": 4,
+     "negatives_kept_rate_10": 35,
+     "auc": 0.43606349206349204
+    },
+    "percussive": {
+     "retained_rate_0": 9,
+     "retained_rate_10": 34,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 35,
+     "auc": 0.48368253968253966
+    },
+    "hits": {
+     "retained_rate_0": 7,
+     "retained_rate_10": 10,
+     "negatives_kept_rate_0": 68,
+     "negatives_kept_rate_10": 68,
+     "auc": 0.1699047619047619
+    },
+    "verifier": {
+     "retained_rate_0": 17,
+     "retained_rate_10": 34,
+     "negatives_kept_rate_0": 9,
+     "negatives_kept_rate_10": 72,
+     "auc": 0.38831746031746034
+    }
+   },
+   "konflict": {
+    "positives": 87,
+    "negatives": 109,
+    "harmonic": {
+     "retained_rate_0": 41,
+     "retained_rate_10": 43,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.6328166192133291
+    },
+    "denser": {
+     "retained_rate_0": 43,
+     "retained_rate_10": 46,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.7391120953284825
+    },
+    "percussive": {
+     "retained_rate_0": 44,
+     "retained_rate_10": 46,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.8078667088474112
+    },
+    "hits": {
+     "retained_rate_0": 28,
+     "retained_rate_10": 44,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 21,
+     "auc": 0.5697564062005694
+    },
+    "verifier": {
+     "retained_rate_0": 46,
+     "retained_rate_10": 46,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.7899398924391016
+    }
+   },
+   "playground-shades": {
+    "positives": 118,
+    "negatives": 0,
+    "harmonic": {
+     "retained_rate_0": 29,
+     "retained_rate_10": 45,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "denser": {
+     "retained_rate_0": 21,
+     "retained_rate_10": 47,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "percussive": {
+     "retained_rate_0": 17,
+     "retained_rate_10": 47,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "hits": {
+     "retained_rate_0": 33,
+     "retained_rate_10": 46,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "verifier": {
+     "retained_rate_0": 50,
+     "retained_rate_10": 59,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    }
+   },
+   "stalker": {
+    "positives": 89,
+    "negatives": 133,
+    "harmonic": {
+     "retained_rate_0": 10,
+     "retained_rate_10": 36,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 4,
+     "auc": 0.5937315198107629
+    },
+    "denser": {
+     "retained_rate_0": 20,
+     "retained_rate_10": 39,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 27,
+     "auc": 0.647461350004224
+    },
+    "percussive": {
+     "retained_rate_0": 12,
+     "retained_rate_10": 39,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 30,
+     "auc": 0.6440821154008617
+    },
+    "hits": {
+     "retained_rate_0": 32,
+     "retained_rate_10": 32,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 17,
+     "auc": 0.5053645349328377
+    },
+    "verifier": {
+     "retained_rate_0": 36,
+     "retained_rate_10": 42,
+     "negatives_kept_rate_0": 4,
+     "negatives_kept_rate_10": 56,
+     "auc": 0.5880713018501309
+    }
+   },
+   "star-trails": {
+    "positives": 164,
+    "negatives": 247,
+    "harmonic": {
+     "retained_rate_0": 98,
+     "retained_rate_10": 108,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 128,
+     "auc": 0.6721635232546658
+    },
+    "denser": {
+     "retained_rate_0": 86,
+     "retained_rate_10": 115,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 36,
+     "auc": 0.771255060728745
+    },
+    "percussive": {
+     "retained_rate_0": 63,
+     "retained_rate_10": 120,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.834205589019453
+    },
+    "hits": {
+     "retained_rate_0": 55,
+     "retained_rate_10": 100,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.8219487508640269
+    },
+    "verifier": {
+     "retained_rate_0": 110,
+     "retained_rate_10": 127,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 62,
+     "auc": 0.8196158783450183
+    }
+   },
+   "watermelon": {
+    "positives": 105,
+    "negatives": 85,
+    "harmonic": {
+     "retained_rate_0": 31,
+     "retained_rate_10": 38,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.7195518207282913
+    },
+    "denser": {
+     "retained_rate_0": 36,
+     "retained_rate_10": 40,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.6526610644257703
+    },
+    "percussive": {
+     "retained_rate_0": 35,
+     "retained_rate_10": 40,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.6535574229691877
+    },
+    "hits": {
+     "retained_rate_0": 49,
+     "retained_rate_10": 57,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.9662745098039216
+    },
+    "verifier": {
+     "retained_rate_0": 38,
+     "retained_rate_10": 46,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.761344537815126
+    }
+   }
+  }
+ },
+ "corpus_262": {
+  "cases": 486,
+  "positives": 261,
+  "positives_hit_matched": 25,
+  "negatives": 217,
+  "others": 8,
+  "negative_hits": [
+   33,
+   134
+  ],
+  "abstained": {
+   "denser": {
+    "positives": 0,
+    "negatives": 0
+   },
+   "harmonic": {
+    "positives": 0,
+    "negatives": 0
+   },
+   "percussive": {
+    "positives": 0,
+    "negatives": 0
+   }
+  },
+  "thresholds": {
+   "harmonic": {
+    "rate_0": 0.5236789872811485,
+    "rate_10": 0.3751471464942084
+   },
+   "denser": {
+    "rate_0": 0.6052145303515809,
+    "rate_10": 0.4537173273436064
+   },
+   "percussive": {
+    "rate_0": 0.6157140994881192,
+    "rate_10": 0.4372151162843321
+   },
+   "hits": {
+    "rate_0": 600,
+    "rate_10": 394
+   },
+   "verifier": {
+    "rate_0": 0.5886635879907116,
+    "rate_10": 0.48396525313468447
+   }
+  },
+  "near_identical_floor": 0.5699705064552606,
+  "near_identical_negatives": 0,
+  "measures": {
+   "harmonic": {
+    "auc": 0.11373271889400921,
+    "rate_0": {
+     "retained": 0,
+     "negatives_kept": 0,
+     "killed_retained": 0,
+     "killed": 0
+    },
+    "rate_10": {
+     "retained": 0,
+     "negatives_kept": 0,
+     "killed_retained": 0,
+     "killed": 0
+    },
+    "auc_by_band": {
+     "20-59": 0.16776315789473684,
+     "60-239": 0.22671156004489337,
+     "240-": null
+    },
+    "auc_without_loops": 0.16795865633074936,
+    "auc_without_near_identical": 0.11373271889400921,
+    "rate_0_without_near_identical": {
+     "negatives_kept": 0,
+     "of": 217
+    }
+   },
+   "denser": {
+    "auc": 0.11981566820276497,
+    "rate_0": {
+     "retained": 0,
+     "negatives_kept": 0,
+     "killed_retained": 0,
+     "killed": 0
+    },
+    "rate_10": {
+     "retained": 0,
+     "negatives_kept": 0,
+     "killed_retained": 0,
+     "killed": 0
+    },
+    "auc_by_band": {
+     "20-59": 0.5723684210526315,
+     "60-239": 0.10662177328843996,
+     "240-": null
+    },
+    "auc_without_loops": 0.12015503875968993,
+    "auc_without_near_identical": 0.11981566820276497,
+    "rate_0_without_near_identical": {
+     "negatives_kept": 0,
+     "of": 217
+    }
+   },
+   "percussive": {
+    "auc": 0.29069124423963133,
+    "rate_0": {
+     "retained": 0,
+     "negatives_kept": 0,
+     "killed_retained": 0,
+     "killed": 0
+    },
+    "rate_10": {
+     "retained": 0,
+     "negatives_kept": 0,
+     "killed_retained": 0,
+     "killed": 0
+    },
+    "auc_by_band": {
+     "20-59": 0.5723684210526315,
+     "60-239": 0.5084175084175084,
+     "240-": null
+    },
+    "auc_without_loops": 0.3798449612403101,
+    "auc_without_near_identical": 0.29069124423963133,
+    "rate_0_without_near_identical": {
+     "negatives_kept": 0,
+     "of": 217
+    }
+   },
+   "hits": {
+    "auc": 0.14626728110599077,
+    "rate_0": {
+     "retained": 0,
+     "negatives_kept": 0,
+     "killed_retained": 0,
+     "killed": 0
+    },
+    "rate_10": {
+     "retained": 0,
+     "negatives_kept": 0,
+     "killed_retained": 0,
+     "killed": 0
+    },
+    "auc_by_band": {
+     "20-59": 0.22203947368421054,
+     "60-239": 0.3114478114478115,
+     "240-": null
+    },
+    "auc_without_loops": 0.16925064599483206,
+    "auc_without_near_identical": 0.14626728110599077,
+    "rate_0_without_near_identical": {
+     "negatives_kept": 0,
+     "of": 217
+    }
+   },
+   "verifier": {
+    "auc": 0.0584331797235023,
+    "rate_0": {
+     "retained": 0,
+     "negatives_kept": 0,
+     "killed_retained": 0,
+     "killed": 0
+    },
+    "rate_10": {
+     "retained": 0,
+     "negatives_kept": 31,
+     "killed_retained": 0,
+     "killed": 0
+    },
+    "auc_by_band": {
+     "20-59": 0.17763157894736842,
+     "60-239": 0.07295173961840629,
+     "240-": null
+    },
+    "auc_without_loops": 0.082687338501292,
+    "auc_without_near_identical": 0.0584331797235023,
+    "rate_0_without_near_identical": {
+     "negatives_kept": 0,
+     "of": 217
+    }
+   }
+  },
+  "families": {
+   "clockwork": {
+    "positives": 4,
+    "negatives": 217,
+    "harmonic": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.020737327188940093
+    },
+    "denser": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.12442396313364056
+    },
+    "percussive": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.7396313364055299
+    },
+    "hits": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": 0.4400921658986175
+    },
+    "verifier": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 31,
+     "auc": 0.0576036866359447
+    }
+   },
+   "cool-rock": {
+    "positives": 8,
+    "negatives": 0,
+    "harmonic": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "denser": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "percussive": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "hits": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "verifier": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    }
+   },
+   "konflict": {
+    "positives": 5,
+    "negatives": 0,
+    "harmonic": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "denser": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "percussive": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "hits": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "verifier": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    }
+   },
+   "playground-shades": {
+    "positives": 3,
+    "negatives": 0,
+    "harmonic": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "denser": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "percussive": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "hits": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "verifier": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    }
+   },
+   "watermelon": {
+    "positives": 5,
+    "negatives": 0,
+    "harmonic": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "denser": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "percussive": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "hits": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    },
+    "verifier": {
+     "retained_rate_0": 0,
+     "retained_rate_10": 0,
+     "negatives_kept_rate_0": 0,
+     "negatives_kept_rate_10": 0,
+     "auc": null
+    }
+   }
+  }
+ }
+}
