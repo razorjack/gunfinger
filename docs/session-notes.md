@@ -13912,3 +13912,142 @@ None new: nothing in this session needs listening.
   stale references, replay context checks (added), the minimizer's
   order, the fault's fixed placement, and small code points (wrong
   files now collected once each); all fixed or stated (brief 68, 04:50).
+
+## Session 69
+
+### What changed
+
+The product did not change: no threshold, default or output moved, and
+both regressions stay identical. The harness gained `gunfinger-eval
+passages` (`passages.rs`, wired in `commands/mixes.rs`), opt-in and
+tested, a pilot of proposal 6 of the proposals note (recurring
+unidentified passages across a batch of mixes). It draws a batch of 12
+generated mixes in which 16 recordings left out of the index occur three
+times each, with different partners, cue points, bass swaps (the long
+mixes' crossfades) and speeds: occurrences at 1.04-1.08 and 0.92-0.96,
+opposite deck settings, and a third at 0.94-1.06; for half of the
+subjects the third occurrence shares no source time with the others.
+Controls: those non-overlapping excerpts, the shared-material panel's
+development pairs (Dozer, Fire, Sonar as related versions; Pyro and
+Watermelon as different tunes sharing a passage), and a 12 s insert in
+6 mixes. Each mix is searched against the 262-track index; its
+unidentified spans (30 s or more without a confident detection), or the
+whole mix, are indexed in memory as pieces of at most 600 s and searched
+against each other at ±8% (the product's ladder) and ±18%
+(`--relative-speed-range`, 91 rungs). A link is a confident detection
+under the frozen rule, reported pairwise with its spans; only the two
+directions of one match are joined, and links are scored against the
+construction (right, insert, one recording at another passage, shared
+passage, other). `scripts/analysis/passages_summary.py` summarises the
+reports. Pre-registered in `084d659` (brief 69) before any run.
+
+In short: the links are precise as passages but recall from the
+unidentified spans is low. Over ten batches no link joined unrelated
+records, and shared-material links stay within 0.2 s (gaps) or 12.3 s
+(whole) of their passage. From the unidentified spans only half of the
+recurring passages are found, because a held-out record's time in a gap
+is short; whole mixes find 85%. ±18% is needed for opposite deck
+settings and costs 2.33 times the product's ladder.
+
+### Experiments 0267-0268
+
+| Run | Result |
+|---|---|
+| Registered (seeds 6901-6902), gaps mode, ±18% | 30 of 60 subjects' positives (bar 80%), 23 of 43 above 8% (bar 70%): fails (1); no "other" link and 0 of 32 control pairs linked: (2) holds; shared links at most 0.2 s past their passage: (3) holds |
+| Ten batches, ±18%: gaps; whole | 192 / 312; 266 / 312 positives found |
+| Ten batches, ±8%: gaps; whole | 77 / 312; 100 / 312 (none of the 112 beyond 12% relative speed) |
+| Why gaps mode misses | 77 of 580 held-out plays have no unidentified time (28 inside their neighbours' crossfades, 49 with at most 21 s between them); the median play keeps 58% of its time in a gap |
+| Found spans against the true overlap | gaps: 19 s late, 19 s early, half covered (medians); whole: 9 s, 9 s, 0.7 |
+| Wrong links, ten batches, ±18% | other 0; shared passage 20 of 50 pairs (Fire 10, Pyro 10, Dozer 0-1, Sonar and Watermelon 0); one recording at another place 15 (gaps) and 37 (whole), 51 of 52 at the right relative speed and 10-178 s apart in the track, 9 and 11 joining control pairs |
+| The insert | never linked: 12 s is shorter than the rule's windows, so it could not test bridging |
+| Cost per batch (0268) | 1:15-1:22, 1,146-1,325 CPU s, 2.33-2.56 GiB; pairwise thread seconds: gaps 79 (±8%) and 185 (±18%), whole 176 and 409; ±18% costs 2.33 times ±8% |
+
+### Times on the Linux machine
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux`; `regress session-64-linux-nas` (start build) | 0:51; 4:01 | 0.4; 5.3 GiB |
+| The same with the run build | 0:51; 3:53 | 0.4; 5.3 GiB |
+| `passages`, one batch of 12 mixes (2.6-2.85 h), both modes and ranges, 32 workers | 1:15-1:22 | 2.33-2.56 GiB |
+| `scripts/check.sh` (run build, after the batches; final build) | 8:53; 7:36 | |
+| `regress session-54-linux`; `regress session-64-linux-nas` (final build) | 0:52; 3:59 | 0.4; 5.3 GiB |
+
+### Final checks
+
+`work/s69/final.sh` with `work/bin/s69-final/` (master at `e9dda8a`;
+no code change after it): its `gunfinger` byte-identical to
+`s68-final`'s; seed 6901 run again gives the run build's report apart
+from timings and the control flag's new name; `regress
+session-54-linux` (0:52) and `regress session-64-linux-nas` (3:59)
+identical, every report equal to its baseline's apart from
+`wall_seconds`; `scripts/check.sh` green (7:36, 699 tests);
+`docs/pair-verdicts.txt`, the NAS clusters file (`c4d3da2e7e37...`) and
+the answer log at their start digests
+(`work/s69/listening-digests-end.txt`).
+
+### Decided this session, open to change
+
+- Gaps mode takes spans of 30 s without a confident detection (not the
+  product's gaps of confident plays' segments at 45 s), so that it
+  reaches every missed DJ-length track by 0159; even so, plays inside
+  or between long crossfades leave nothing to search.
+- A correspondence joins only links between the same two mixes that
+  overlap in both, the first such one in order; within one pair of
+  mixes the result can depend on the links' order.
+- Eight batches beyond the two registered ran beside them, decided
+  before the runs; the bar was read on the registered two.
+- No NAS-scale batch: the subjects' other rips in the NAS store would
+  have to be left out first.
+- The insert as built (12 s) cannot pass the rule's windows; a longer
+  insert, or one at another speed, is needed to test whether an insert
+  bridges two records.
+
+### Questions this leaves for us
+
+- Whether to search whole mixes, or unidentified spans with a shorter
+  minimum widened over the crossfades around them, and report a
+  correspondence only with its spans (never a title or a track).
+- How the pairwise search's cost grows with an archive (every mix a
+  query against every other); not measured beyond a batch of 2.6-2.85 h.
+- Whether links between one recording's different places (its own
+  repeats) need a rule of their own before such links are shown to
+  anyone.
+
+### Questions for listening (none answered by agents)
+
+None new: nothing in this session needs listening.
+
+### Handoff
+
+1. State: master clean after the final commit; builds
+   `work/bin/s69-final/` (master), `s69-run` (the reported runs) and
+   `s69-start`.
+2. Data: `work/s69/batches/` (ten reports; renders deleted),
+   `work/s69/final-batch/` (seed 6901 again with the final build),
+   summaries `work/s69/summary-registered.json` and
+   `work/s69/summary-all.json`, logs in `work/s69/logs/`; about 5 MB.
+3. To run it again:
+   ```sh
+   E=work/bin/s69-final/gunfinger-eval
+   $E passages --seed 6901 --out OUT --other-root /mnt/atlas/Music/dnb
+   $E passages --seed 6901 --out OUT --other-root /mnt/atlas/Music/dnb --mode whole --relative-speed-range 0.18
+   python3 -I scripts/analysis/passages_summary.py SUMMARY.json OUT/passages-seed-6901.json
+   ```
+   The NAS root is read only to render the panel's NAS files; nothing at
+   the NAS root plays. `--extra-rungs` is refused (the ranges set the
+   ladders).
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. Only generated mixes were
+  searched (and Stakka through `regress`). The NAS was only read;
+  `work/peaks` only read.
+- A read-only review by a separate agent (06:17-06:24) found no product
+  change and no error in the draw or the scoring; it corrected the
+  reason gaps mode misses plays (crossfades for 28 of 77; spans under
+  30 s for 49), the insert's limit, an unmarked inference, the shared
+  links' reach, unrecorded deviations, units and medians, and asked for
+  house-style fixes (an enum for the control flag, a named result for
+  the pairwise search, `draw_batch` split, no panicking lookup); all
+  fixed or stated (brief 69, 06:17-06:24).

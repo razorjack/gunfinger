@@ -5802,3 +5802,37 @@ the roadmap's bullet of that name. Gunfinger's behaviour is unchanged.
    $E counterexamples --out OUT --replay OUT/recipes/NNNN.json
    python3 -I scripts/analysis/counterexample_classes.py OUT/counterexamples-seed-2026.json SUMMARY.json
    ```
+
+## 2026-10-31: session 69, a pilot of recurring unidentified passages across a batch of mixes
+
+Brief `docs/brief-69.md` (with the pre-registration), checklist
+`docs/session-69-checklist.md`; notes "Session 69"; experiments
+0267-0268; the proposals note's §6 ("Session 69's pilot") and the
+roadmap's "Time without a confident match". Gunfinger's behaviour is
+unchanged.
+
+- 05:37 start at `c4310c3`, clean. Start build `work/bin/s69-start/`
+  (= `s68-final`); both regressions identical (0:51; 4:01).
+- Harness, opt-in: `passages` (batches of 12 generated mixes in which
+  16 recordings left out of the index recur at different speeds,
+  opposite deck settings included; their unidentified spans or the
+  whole mixes indexed in memory and searched against each other at ±8%
+  and ±18% relative speed; links pairwise, scored against the
+  construction). Unit tests for the pairwise report (no transitive
+  merge), the scoring, the speed ranges and the pieces; both
+  regressions identical.
+- Results (0267-0268, ten batches; seeds 6901-6902 registered): no link
+  joined unrelated records; links of records sharing a passage (Fire,
+  Pyro) stay within 0.2 s (gaps) or 12.3 s (whole) of it; from the
+  unidentified spans 30 of 60 registered positives found (192 of 312
+  over ten), so the registered bar fails on recall; whole mixes 266 of
+  312. The product's ladder finds none beyond 12% relative speed; ±18%
+  costs 2.33 times its thread seconds. Remaining wrong links: one
+  recording at another place in it (15 and 37). A batch takes 1:15-1:22
+  and 2.3-2.6 GiB. Not worth a design note yet; a next step would
+  search whole mixes and measure archive-scale cost.
+   ```sh
+   E=work/bin/s69-final/gunfinger-eval
+   $E passages --seed 6901 --out OUT --other-root /mnt/atlas/Music/dnb
+   python3 -I scripts/analysis/passages_summary.py SUMMARY.json OUT/passages-seed-6901.json
+   ```

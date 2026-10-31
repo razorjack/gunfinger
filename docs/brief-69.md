@@ -350,3 +350,8 @@ such links in the product's output.
   (12) the speed test's fixture is 60 s instead of 90 s.
   The refactor changes no draw or score: the final build's report of
   seed 6901 is compared with the run build's below.
+- **(06:27-06:41) Final checks** (`work/s69/final.sh`, tmux
+  `s69final`): `work/bin/s69-final/` from `e9dda8a`; seed 6901 again
+  gives the run build's report apart from timings and the flag's name;
+  both regressions identical (0:52; 3:59); `scripts/check.sh` green
+  (7:36); the digests unchanged. Session closed.

@@ -26,5 +26,5 @@ for scope and rules.
   cost and the speed range (0267, 0268)
 - [x] 5. The proposals note's §6 and the roadmap's "Time without a
   confident match"
-- [ ] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 69", status, checklist; final checks
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 69", status, checklist; final checks
