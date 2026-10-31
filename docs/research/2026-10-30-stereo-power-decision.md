@@ -1,7 +1,8 @@
 # Stereo power: what it recovers, what it costs (2026-10-30)
 
 **Status: measured (session 61, experiments 0245-0247; session 62, the
-query side alone at NAS scale, 0248-0250); not adopted.**
+query side alone at NAS scale, 0248-0250; session 67, a polarity check
+of the records at indexing, 0262-0263); not adopted.**
 The product, its front end and every default are unchanged. The variant
 is an opt-in harness front end (`--front-end`, `variant-store`); this
 note gives our recommendation for whether to take it further.
@@ -147,3 +148,89 @@ in each bin) would be the next candidate, measured first on wide
 sources (`recall`'s panel) and on mono queries; that is an idea, not
 measured. The harness keeps `--front-end` and the census
 (`stereo-width --other`) for it.
+
+## Session 67: a polarity check of the records at indexing
+
+Session 67 measured the narrower record-side idea: at indexing, decode
+both channels, and only when they are strongly anti-correlated pick
+the peaks from the downmix with one channel's polarity reversed, (L -
+R) / sqrt(2); every other file goes through the core's decoding as
+today. The rule was frozen before any search (`docs/brief-67.md`): the
+correlation at lag 0 -0.5 or less, strongest there within ±80 samples,
+both channels within 20 dB. It is the census's threshold, which takes
+96 of 100 of session 42's inverted renders and no other fault. The
+harness has it as `variant-store --repair-inverted` and
+`stereo-width`'s `repaired`; the product is unchanged.
+
+**What the check would change in the store (0262).** In 6,766 distinct
+NAS files (a new census of 6,000 and 0248's 2,000), it repairs five:
+Paradox - Filmscape, Usual Suspects - Advent, Plasmic - The Weapon and
+Keltech - Axis, plainly inverted (the side 13-22 dB above the mid, so
+narrow once repaired), and We - Hello World (8.6 dB), uncertain. That
+is about 0.08% of the store, about 31 records (95%: 0.02-0.28%). 0248's
+0.4% rested on 3 uploads in 667. No correlation in the census lies
+between -0.76 and -0.32, so the threshold is not near any file. No file
+is inverted over most of its length without crossing the whole-file
+rule; 29 have a 30 s window at -0.5 or less, by inference stereo
+effects of the recordings (three rips of one track share them).
+
+**What it recovers (0263).** Against a copy of the NAS store with the
+five records repaired (R) and an unchanged copy (T), searched by
+`identify` with correct-polarity queries: the four plainly inverted
+recordings go from 0 to 48 of 48 confident excerpts and from 0 to 4 of 4
+confident plays in generated mixes; Hello World is confident under both
+(313 against 1,450 median hits). No other rip of the five exists in the
+library by audio, so the cross-rip case is unmeasured. No new wrong
+confident answer appeared in any search. In the rip's own polarity
+(exploratory) the repair costs what it gains: the four are found by 0
+of 48 such excerpts under R. A mix made digitally from the same
+inverted file would be that case; a vinyl play would not.
+
+**What else moves.** Every other record is byte-identical: 265 of 265
+corpus records and 41 of 41 unflagged NAS files rebuilt with the check.
+But a NAS regression against R is not identical: 11 of 720 sweep
+queries change in sub-threshold candidates (6-8 hits) and fitted
+speeds in the eighth digit, with no confident detection, score or
+calibrate number changed. The cause is the lists the matcher sets aside
+(ADR 0014; 0242, 0254): the five records add postings, so one list
+crosses the cut each way; with today's lists set aside R's sweep equals
+the baseline in all 720 queries. Any change of postings, a prune of
+four files included (0254), moves these quantities, so the registered
+item that asked for an identical regression could not have held.
+
+**How adoption would work (not decided).**
+
+- *A profile bump.* `Profile` gains a channel handling for checked
+  records; ADR 0003's invalidation rule then re-extracts every record:
+  the NAS store's 40,674 files decoded again from the NAS, both as two
+  channels (the check; 0262's rate, 617 files a minute at 16 jobs,
+  about 66 minutes, includes the census's lag search over ±80 samples)
+  and as today's downmix (about 37 minutes by session 61's estimate),
+  unless records are picked from the two-channel decode for every
+  file, which would change every record slightly and need its own
+  regression. Every baseline and saved index moves with the profile.
+- *A per-record flag.* Unflagged records keep their bytes and profile;
+  `index` runs the check once over every existing file (about 66
+  minutes for the NAS store, then one two-channel decode per new file)
+  and rewrites only the flagged files' records, about 31. The store must
+  remember which files were checked, and a repaired record must differ
+  in something the saved index's provenance holds (today: the sources
+  and the profile, not the peaks), for example its own profile
+  identifier that the search accepts beside today's; otherwise a saved
+  index of the old records would pass for the new ones. Results change
+  only through those records and the cut above.
+
+**Recommendation (ours to take).** No ADR proposal from this session:
+by the registered rule, item 4 fails as written, although what it was
+meant to protect holds (unflagged records byte-identical, no confident
+answer moved). The measured case for the check is narrow but clean: it
+finds about 1 file in 1,300, recovers the plainly inverted ones in
+full, adds no wrong answer and leaves every other record alone. If we
+take it further, the next step is to re-register item 4 as "unflagged
+records byte-identical; no confident detection, score or calibrate
+number changed; sub-threshold changes accounted for by the set-aside
+cut (`--set-aside-like`)", then write the ADR for the per-record
+route, the smaller change: about 31 records rewritten after one pass of
+about an hour. The Hello World repair costs little either way (0263);
+listening to Paradox - Filmscape and Hello World would settle the
+uncertain case.

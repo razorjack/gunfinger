@@ -1466,6 +1466,20 @@ cases. None is an adopted decision or an experiment result.
   played against their downmix, Usual Suspects - Advent, Keltech - Axis
   (Low Level Mix) and Plasmic - The Weapon are inverted in one channel;
   We - Hello World is unsure.
+  *(Session 67, experiments 0262-0263, opt-in `variant-store
+  --repair-inverted`)* A check at indexing that repairs only files whose
+  channels correlate at -0.5 or less at lag 0 (peaks from the downmix
+  with one channel's polarity reversed) flags 5 of 6,766 NAS files (about
+  0.08% of the store, about 31 records; 4 plainly inverted, Hello World
+  uncertain). With the five records repaired, the four plainly inverted
+  recordings go from 0 to 48 of 48 confident excerpts and 0 to 4 of 4
+  mix plays in correct-polarity queries; no new wrong answer; every
+  other record byte-identical. A NAS regression moves sub-threshold
+  candidates through the lists set aside (as any change of postings
+  does), so the registered bar fails on that item; no ADR. Open (ours):
+  re-registering that item and an ADR for a per-record flag (one check
+  pass of about an hour over the NAS store, about 31 records rewritten)
+  or a profile bump (every record rebuilt).
 - **More development mixes.** Mixes of existing library tracks, especially
   with brief plays and long blends, would test what the single development
   mix cannot. Agree each mix's role before looking at its results. The

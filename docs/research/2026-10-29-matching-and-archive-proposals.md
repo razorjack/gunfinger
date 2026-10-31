@@ -110,6 +110,16 @@ side within 15 dB of the mid), so its bar
 fails; no ADR. About 0.4% of the NAS rips have an inverted channel
 (0248). See the decision note's "Session 62".
 
+**Measured (session 67, experiments 0262-0263).** Not this proposal but
+the record side it cannot reach: a check at indexing that repairs only
+records of files whose channels are inverted (the downmix with one
+channel's polarity reversed). It flags about 0.08% of the NAS store
+(5 of 6,766 files, 4 plainly inverted), recovers those recordings in
+full (0 to 48 of 48 excerpts, 0 to 4 of 4 mix plays) with no new wrong
+answer, and leaves every other record byte-identical; sub-threshold
+candidates move through the lists set aside, so its registered bar
+fails on that item. No ADR; see the decision note's "Session 67".
+
 ## 2. Reject impossible alignments before scattering hits
 
 **Evidence.** `WindowHits::lines` in `search/lines.rs` takes a part's

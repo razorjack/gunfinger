@@ -354,7 +354,7 @@ is ours; this session writes none.
   1,337,041 (9,910 postings under T, 9,913 under R) into the set aside,
   hash 69,523 (9,911 to 9,910) out. Control (c)'s differences are that
   move (0242, 0254), not candidates of the five.
-- **(02:56) The bar, as registered** (0263): 1 holds (0 to 48 of 48
+- **(02:54) The bar, as registered** (0263): 1 holds (0 to 48 of 48
   excerpts, 0 to 4 of 4 mix plays over the four plainly inverted); 2
   unmeasured (no other rip by audio); 3 holds (no new wrong confident
   pair anywhere); 4 fails as written: records (a) and (b) are
@@ -365,3 +365,9 @@ is ours; this session writes none.
   this session. Item 4's (c) could not have held for any change of
   postings (a prune of four files moved the same quantities in 0254);
   the decision note says so and leaves a re-registration to us.
+- **(02:58) Step 5:** the decision note's "Session 67" (what the check
+  recovers and changes, adoption by a profile bump or a per-record flag,
+  our recommendation: no ADR proposal by the registered rule; a
+  re-registration of item 4 and then the per-record route, if we go on),
+  the roadmap's "Stereo faults before the downmix" and the proposals
+  note's §1.
