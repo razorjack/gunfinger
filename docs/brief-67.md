@@ -299,3 +299,69 @@ is ours; this session writes none.
   3:48; the option off), every report equal to its baseline's apart
   from `wall_seconds`. The recovery test and the controls started
   (`work/s67/recovery.sh`, tmux `s67recovery`).
+- **(02:34) Controls (a) and (b).** (a) `variant-store --repair-inverted`
+  over the corpus library (0:37): no file repaired, 265 of 265 records
+  byte-identical to `work/peaks`'s. (b) The 46 NAS files copied with
+  their times (`cp -p`) to `work/s67/c/library/` and indexed today's way
+  (`gunfinger index`, a scratch store): 46 of 46 records byte-identical
+  to the NAS store's; checked and repaired (`variant-store
+  --repair-inverted`, 7.3 s): exactly the five of F repaired, the other
+  41 byte-identical. R holds the five repaired records in place of
+  today's (40,669 identical to the NAS store's, 5 different).
+- **(02:35) A slip in `recovery.sh`:** its `identify` runs lacked the
+  subcommand and exited at once; the searches run from
+  `work/s67/search.sh` (tmux `s67search`), beside control (c)'s
+  `regress` against R, which `recovery.sh` went on to (no timing run
+  is involved).
+- **(02:36) The recovery searches done** (`identify`, 0:40 a store, 65
+  queries: 12 excerpts and a mix for each of F's five). No other rip by
+  audio: under T no file other than f is confident in any of f's
+  excerpts at 1.00, so the other-rips queries are empty and bar item 2
+  is unmeasured (as registered). Results go to 0263.
+- **(02:36) Exploratory, not registered:** the same 12 excerpts of each
+  f in the rip's own polarity (FFmpeg's downmix, uncorrected), against T
+  and R (`work/s67/asripped.sh`, tmux `s67asripped`): what a repair
+  would cost a query that carries the rip's polarity, which is the case
+  if a repaired file were a wide recording rather than a fault (Hello
+  World). Reported apart in 0263; no bar item rests on it.
+- **(02:43) Control (c) is not identical.** `regress
+  session-64-linux-nas` against R (`work/s67/wr`, an index built from
+  R's records, 6:51): 709 of 720 sweep queries identical; the others
+  change sub-threshold candidates (6-8 hits) and fitted speeds in the
+  eighth significant digit; the Stakka scans keep every count, with 3
+  and 1 detections' speeds changed in the same digit; calibrate
+  unchanged. The other two development scans, T (`work/s67/wt`) against
+  R: confident detections equal (41 and 42), scores equal; Nocny Trans
+  loses a non-confident candidate of today's Advent record (684-698 s)
+  and its list shifts. Decided: the registered reading stands (item 4
+  fails as written); the cause is checked twice below.
+- **(02:50) An index built afresh from T** (`work/s67/rebuilt.sh`, a
+  work directory with no saved index, 6:00) gives a regression
+  identical to the baseline, so R's differences come from the five
+  records, not from a rebuilt index.
+- **(02:50) R's sweep with today's lists set aside** (`sweep
+  --set-aside-like work/indexes/library-nas-dnb-peaks.index`, only
+  read; 0242's and 0254's mechanism: the lists set aside are a share of
+  the index searched, so changed postings move the cut), tmux
+  `s67setaside`.
+- **(02:50) Exploratory as-ripped result:** under R the four plainly
+  inverted files' as-ripped excerpts are found by none (12 of 12 each
+  under T); Hello World's by 12 of 12 under both (about 1,450 and 300
+  hits for the matching and the other polarity).
+- **(02:53) R's sweep with today's lists set aside** (2:28) equals the
+  baseline in all 720 queries and `per_speed`; the five files had no
+  candidate in the sweep. One list each way crosses the cut: hash
+  1,337,041 (9,910 postings under T, 9,913 under R) into the set aside,
+  hash 69,523 (9,911 to 9,910) out. Control (c)'s differences are that
+  move (0242, 0254), not candidates of the five.
+- **(02:56) The bar, as registered** (0263): 1 holds (0 to 48 of 48
+  excerpts, 0 to 4 of 4 mix plays over the four plainly inverted); 2
+  unmeasured (no other rip by audio); 3 holds (no new wrong confident
+  pair anywhere); 4 fails as written: records (a) and (b) are
+  byte-identical, but (c) is not identical apart from F's files (the
+  cut moved sub-threshold candidates and speed digits; no confident
+  detection, score or calibrate number changed); 5 holds (4 of 5
+  plainly inverted). So, by the registered rule, no ADR proposal from
+  this session. Item 4's (c) could not have held for any change of
+  postings (a prune of four files moved the same quantities in 0254);
+  the decision note says so and leaves a re-registration to us.

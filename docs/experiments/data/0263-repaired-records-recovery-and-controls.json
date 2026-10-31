@@ -1,0 +1,353 @@
+{
+ "flagged": [
+  {
+   "asset": "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3",
+   "kind": "elsewhere",
+   "correlation": -0.9878009788467669,
+   "side_to_mid_db": 21.962239752051467,
+   "plainly": true,
+   "seconds": 400.831361
+  },
+  {
+   "asset": "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3",
+   "kind": "scene-release",
+   "correlation": -0.9513735191023119,
+   "side_to_mid_db": 15.884253958397734,
+   "plainly": true,
+   "seconds": 356.943625
+  },
+  {
+   "asset": "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus",
+   "kind": "youtube-channel",
+   "correlation": -0.9379133799337104,
+   "side_to_mid_db": 14.884756051961695,
+   "plainly": true,
+   "seconds": 439.16
+  },
+  {
+   "asset": "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a",
+   "kind": "youtube-channel",
+   "correlation": -0.9183425671902711,
+   "side_to_mid_db": 12.96550921527418,
+   "plainly": true,
+   "seconds": 471.08644
+  },
+  {
+   "asset": "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3",
+   "kind": "scene-release",
+   "correlation": -0.7580095536971544,
+   "side_to_mid_db": 8.605480212567535,
+   "plainly": false,
+   "seconds": 136.547333
+  }
+ ],
+ "other_rips": {
+  "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3": [],
+  "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3": [],
+  "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus": [],
+  "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a": [],
+  "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3": []
+ },
+ "arms": {
+  "T": {
+   "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3 | as-ripped": {
+    "queries": 12,
+    "confident": 12,
+    "possible": 12
+   },
+   "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3 | mix": {
+    "queries": 1,
+    "confident": 0,
+    "possible": 0
+   },
+   "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3 | excerpt": {
+    "queries": 12,
+    "confident": 0,
+    "possible": 0
+   },
+   "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3 | as-ripped": {
+    "queries": 12,
+    "confident": 12,
+    "possible": 12
+   },
+   "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3 | mix": {
+    "queries": 1,
+    "confident": 0,
+    "possible": 0
+   },
+   "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3 | excerpt": {
+    "queries": 12,
+    "confident": 0,
+    "possible": 0
+   },
+   "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus | as-ripped": {
+    "queries": 12,
+    "confident": 12,
+    "possible": 12
+   },
+   "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus | mix": {
+    "queries": 1,
+    "confident": 0,
+    "possible": 0
+   },
+   "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus | excerpt": {
+    "queries": 12,
+    "confident": 0,
+    "possible": 0
+   },
+   "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a | as-ripped": {
+    "queries": 12,
+    "confident": 12,
+    "possible": 12
+   },
+   "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a | mix": {
+    "queries": 1,
+    "confident": 0,
+    "possible": 0
+   },
+   "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a | excerpt": {
+    "queries": 12,
+    "confident": 0,
+    "possible": 0
+   },
+   "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3 | as-ripped": {
+    "queries": 12,
+    "confident": 12,
+    "possible": 12
+   },
+   "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3 | mix": {
+    "queries": 1,
+    "confident": 1,
+    "possible": 1
+   },
+   "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3 | excerpt": {
+    "queries": 12,
+    "confident": 12,
+    "possible": 12
+   }
+  },
+  "R": {
+   "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3 | as-ripped": {
+    "queries": 12,
+    "confident": 0,
+    "possible": 0
+   },
+   "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3 | mix": {
+    "queries": 1,
+    "confident": 1,
+    "possible": 1
+   },
+   "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3 | excerpt": {
+    "queries": 12,
+    "confident": 12,
+    "possible": 12
+   },
+   "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3 | as-ripped": {
+    "queries": 12,
+    "confident": 0,
+    "possible": 0
+   },
+   "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3 | mix": {
+    "queries": 1,
+    "confident": 1,
+    "possible": 1
+   },
+   "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3 | excerpt": {
+    "queries": 12,
+    "confident": 12,
+    "possible": 12
+   },
+   "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus | as-ripped": {
+    "queries": 12,
+    "confident": 0,
+    "possible": 0
+   },
+   "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus | mix": {
+    "queries": 1,
+    "confident": 1,
+    "possible": 1
+   },
+   "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus | excerpt": {
+    "queries": 12,
+    "confident": 12,
+    "possible": 12
+   },
+   "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a | as-ripped": {
+    "queries": 12,
+    "confident": 0,
+    "possible": 0
+   },
+   "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a | mix": {
+    "queries": 1,
+    "confident": 1,
+    "possible": 1
+   },
+   "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a | excerpt": {
+    "queries": 12,
+    "confident": 12,
+    "possible": 12
+   },
+   "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3 | as-ripped": {
+    "queries": 12,
+    "confident": 12,
+    "possible": 12
+   },
+   "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3 | mix": {
+    "queries": 1,
+    "confident": 1,
+    "possible": 1
+   },
+   "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3 | excerpt": {
+    "queries": 12,
+    "confident": 12,
+    "possible": 12
+   }
+  }
+ },
+ "new_wrong_confident_pairs": [],
+ "confident_pairs": {
+  "T": 103,
+  "R": 107
+ },
+ "pairs_confident_under_T_only": 48,
+ "hits": {
+  "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3 | excerpt | T": {
+   "median": 0.0,
+   "min": 0,
+   "max": 0
+  },
+  "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3 | excerpt | R": {
+   "median": 1416.5,
+   "min": 1279,
+   "max": 1631
+  },
+  "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3 | as-ripped | T": {
+   "median": 1159.0,
+   "min": 931,
+   "max": 1227
+  },
+  "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3 | as-ripped | R": {
+   "median": 0.0,
+   "min": 0,
+   "max": 0
+  },
+  "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3 | excerpt | T": {
+   "median": 0.0,
+   "min": 0,
+   "max": 0
+  },
+  "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3 | excerpt | R": {
+   "median": 1036.5,
+   "min": 792,
+   "max": 1263
+  },
+  "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3 | as-ripped | T": {
+   "median": 1073.5,
+   "min": 723,
+   "max": 1583
+  },
+  "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3 | as-ripped | R": {
+   "median": 0.0,
+   "min": 0,
+   "max": 0
+  },
+  "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus | excerpt | T": {
+   "median": 0.0,
+   "min": 0,
+   "max": 0
+  },
+  "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus | excerpt | R": {
+   "median": 1240.5,
+   "min": 1077,
+   "max": 1431
+  },
+  "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus | as-ripped | T": {
+   "median": 1150.5,
+   "min": 954,
+   "max": 1391
+  },
+  "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus | as-ripped | R": {
+   "median": 0.0,
+   "min": 0,
+   "max": 0
+  },
+  "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a | excerpt | T": {
+   "median": 0.0,
+   "min": 0,
+   "max": 0
+  },
+  "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a | excerpt | R": {
+   "median": 1198.5,
+   "min": 976,
+   "max": 1414
+  },
+  "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a | as-ripped | T": {
+   "median": 1095.5,
+   "min": 832,
+   "max": 1455
+  },
+  "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a | as-ripped | R": {
+   "median": 0.0,
+   "min": 0,
+   "max": 0
+  },
+  "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3 | excerpt | T": {
+   "median": 313.0,
+   "min": 250,
+   "max": 383
+  },
+  "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3 | excerpt | R": {
+   "median": 1449.5,
+   "min": 1230,
+   "max": 1739
+  },
+  "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3 | as-ripped | T": {
+   "median": 1322.5,
+   "min": 1187,
+   "max": 1592
+  },
+  "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3 | as-ripped | R": {
+   "median": 301.5,
+   "min": 263,
+   "max": 371
+  }
+ },
+ "controls": {
+  "corpus_records_identical": "265 of 265, none repaired",
+  "nas_sample_today_identical": "46 of 46",
+  "nas_sample_checked": "41 identical, 5 repaired (F)",
+  "store_R": "40,669 identical, 5 repaired",
+  "regress_R": "sweep 709 of 720 queries identical; Stakka scans every count equal; calibrate equal",
+  "regress_T_rebuilt": "identical",
+  "sweep_R_set_aside_like_today": "720 of 720 identical, per_speed equal",
+  "set_aside_like": {
+   "file": "work/indexes/library-nas-dnb-peaks.index",
+   "only_there": [],
+   "same_postings_without_them": false,
+   "lists_here": 10863,
+   "lists_there": 10863,
+   "shortest_here": 9911,
+   "shortest_there": 9911,
+   "set_aside_here_only": [
+    {
+     "hash": 1337041,
+     "here": 9913,
+     "there": 9910,
+     "there_of_files_only_there": 0
+    }
+   ],
+   "set_aside_there_only": [
+    {
+     "hash": 69523,
+     "here": 9910,
+     "there": 9911,
+     "there_of_files_only_there": 0
+    }
+   ]
+  },
+  "scans_T_vs_R": {
+   "razorjack-2003-03-29": "41 confident equal; 1 speed in the 8th digit",
+   "nocny-trans-vertical-2002-08-23": "42 confident equal; 4,163 to 4,161 detections (a non-confident Advent candidate gone)"
+  }
+ }
+}
