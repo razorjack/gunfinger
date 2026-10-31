@@ -7,7 +7,7 @@ for related versions sharing their drums, at similar hits, and better
 than denser whole-spectrum peaks (D)?
 
 **Run.** `shared --harmonic` (`7604a41`), NAS scale, the development
-part's 26 scenarios in four processes (24:06-34:28, 9.0-10.3 GB each);
+part's 26 scenarios in four processes (24:06-34:28, 8.6-9.8 GiB each);
 `harmonic_views.py develop`. 9,678 cases (20 hits or more): 1,763
 positives (870 within the negatives' 20-600 hits: 301 blend, 152 looped,
 115 damaged, 46 killed...), 2,389 negatives (540 confident), 5,526 others

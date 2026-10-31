@@ -6,7 +6,7 @@ rate at or below the denser arm's (D) and at most 10%, while retaining
 more hit-matched true plays than D?
 
 **Run.** Once, after 0259's commit: `shared --harmonic`, NAS scale, 14
-scenarios of seven families in four processes (7:44-16:36, 7.5-9.1 GB),
+scenarios of seven families in four processes (7:44-16:36, 7.2-8.7 GiB),
 and at 262 tracks (7:42) beside. NAS: 3,085 cases; 944 hit-matched
 positives (negatives' hits reach 1,288, against 600 in development);
 1,156 negatives; 808 others; a detection counts once per index it is
