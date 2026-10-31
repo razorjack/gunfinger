@@ -1,7 +1,8 @@
 """Session 69: `passages` reports summarised by run (mode and relative-speed
 range), pooled over the reports given, and checked against brief 69's
 registered bar (experiments 0267 and up). Writes per seed and pooled:
-the subjects' positives found (all, up to 8% relative speed, above),
+the subjects' positives found (all, up to 8% relative speed, above; by
+relative speed and by source overlap),
 their times, the correspondences by verdict, the control subjects' pairs
 linked, the shared-material pairs linked and how far their spans reach
 past the panel's passage, the insert's and the partners' positives, the
@@ -21,7 +22,7 @@ def role(r):
 def tally(runs):
     positives = [p for run in runs for p in run["score"]["positives"]]
     subjects = [p for p in positives if role(p["roles"][0]) == "subject"]
-    near = [p for p in subjects if abs(p["relative_speed"] - 1) <= 0.08 and abs(1 / p["relative_speed"] - 1) <= 0.08]
+    near = [p for p in subjects if max(p["relative_speed"], 1 / p["relative_speed"]) <= 1.08]
     far = [p for p in subjects if p not in near]
     found = [p for p in subjects if p["found"]]
     verdicts = {}
@@ -37,8 +38,18 @@ def tally(runs):
     def med(values):
         return round(median(values), 1) if values else None
 
+    def apart(p):
+        return 100 * (max(p["relative_speed"], 1 / p["relative_speed"]) - 1)
+
+    buckets = [(0, 4), (4, 8), (8, 12), (12, 18)]
+    by_speed = {f"{low}-{high}%": share([p for p in subjects if low < apart(p) <= high or (low == 0 and apart(p) == 0)])
+                for low, high in buckets}
+    by_overlap = {f"{low}-{high} s": share([p for p in subjects if low <= p["overlap_seconds"] < high])
+                  for low, high in [(30, 60), (60, 90), (90, 1000)]}
     return {
         "subjects": share(subjects),
+        "subjects_by_relative_speed": by_speed,
+        "subjects_by_source_overlap": by_overlap,
         "subjects_up_to_8_percent": share(near),
         "subjects_above_8_percent": share(far),
         "start_late_seconds_median": med([x for p in found for x in p["start_late_seconds"]]),
