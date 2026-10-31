@@ -1536,6 +1536,31 @@ cases. None is an adopted decision or an experiment result.
   The Eyes Of A Scorpion); 96 radio shows and sets in `sety/`. The root's
   `EM_1999_02_07_-_Ed_Rush_Optical.mp3` is by name the broadcast of the
   held-out test set: keep it out of development use.
+- **Automated counterexample search.** *(a pilot in session 68,
+  experiments 0264 and 0265; the proposals note of 2026-10-29)*
+  `gunfinger-eval counterexamples` samples small generated mixes under
+  transformations within the generator's bounds (speed, a pitch ride, a
+  bass kill, a blend, a channel fault), minimizes each play lost, gap
+  of 30 s or more in a found play, or wrong answer to the fewest and
+  smallest transformations that keep it, and saves a recipe that
+  `--replay` renders and searches again. 2,000 samples at 262 tracks
+  gave 189 failures in 17 classes, 500 at NAS scale 72 in 11; no class
+  is new. Every play lost or gap needs a channel fault (0198) or a blend
+  (0184), alone or with one or two more; speed, bass kills and rides
+  alone kept every target. Two compounds go beyond the entries above: a
+  ride of 0.5-1.0%, harmless alone (0176), loses its later side under a
+  blend, or the play becomes one detection at a speed between the two
+  (0024's one fitted speed), possible only; and a ride 14 s into a 42 s
+  play leaves 2 windows before it, so a fault over the later side loses
+  the play (the open "rides inside short plays").
+  The wrong answers, at NAS scale only, need no transformation (The
+  Nine's Evol Intent VIP, Cool Rock Shook Ones, Pyro - Ignorance).
+  Cost: about 16-17 minutes per run, 157 CPU s per failure at 262
+  tracks and 389 at NAS scale. Next: run it with the same seed beside a
+  variant, so that classes gained or lost compare sample for sample;
+  for new classes, axes the generator lacks (other EQ, beatmatched and
+  quiet partners, key-locked plays). It does not replace real positive
+  controls (0116, 0118).
 - **Public DJ-mix datasets and per-second scoring.** Mixotic (10
   Creative Commons techno and house mixes, 723 reference tracks,
   approximate song borders) and UnmixDB (mixes generated

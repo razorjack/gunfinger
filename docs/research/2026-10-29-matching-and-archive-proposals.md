@@ -413,6 +413,28 @@ experiments obtained many examples of one shared-material relationship
 positive controls remain necessary because statistics that separated
 clean renders rejected real true plays (0116, 0118).
 
+**Session 68's pilot (experiments 0264, 0265).** `gunfinger-eval
+counterexamples` draws small generated mixes (a held-out lead-in, the
+target, a partner), adds transformations within the generator's bounds
+(speed ±6%, a 1-3% ride, a bass kill and a blend of 10-60 s, brief 42's
+channel faults), and minimizes each failure greedily; `--replay` renders
+and searches a saved recipe again. Of 2,000 samples at 262 tracks, 189
+failed (17 classes); of the same first 500 at NAS scale, 72 (11
+classes). Every play lost or long gap needs a channel fault or a blend,
+alone or with one or two more transformations; speed, bass kills and
+rides alone never failed. The wrong answers (NAS scale only) need no
+transformation: three related-version families already in the roadmap.
+All 12 replayed recipes reproduced their failure. No class is new; the
+compounds are the finding (a 0.5-1.0% ride, harmless alone, loses its
+later side under a blend). Cost: 5.3 s and 157 CPU s per failure at 262
+tracks (16:38 for the run), 14.3 s and 389 CPU s at NAS scale (17:12 for
+500 samples). Worth running beside a later session as a paired check of
+a variant (the same seed draws the same samples, so classes gained or
+lost compare directly), not as a search for new classes with these
+axes; that needs axes the generator lacks (other EQ, beatmatched or
+quiet partners, key-locked plays), and real recordings stay the
+positive controls.
+
 ## Evaluation and adoption boundaries
 
 - Register each experiment's hypotheses, development data, frozen

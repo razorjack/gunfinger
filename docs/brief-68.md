@@ -262,3 +262,9 @@ elapsed time and CPU).
   single-fault gap by fault, `lost: blend`, `gap: blend`, the ride
   classes, and each wrong family at NAS scale), with
   `work/bin/s68-replay/` (master at `d77e4ae`; tmux `s68replays`).
+- **(04:35) Experiment 0265 committed** (`e5b6d64`): all 12 replays hold
+  and agree. By the registered reading, criterion (b) holds and (a) does
+  not; the compounds of known failures are reported as the finding.
+- **(04:40) The proposals note and the roadmap** gained the pilot's
+  result (a paragraph under "Automated counterexample search"; a bullet
+  "Automated counterexample search" under Evaluation).

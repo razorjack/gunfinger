@@ -19,11 +19,11 @@ for scope and rules.
   budgeted search
 - [x] 2. The driver (`counterexamples`), harness only and opt-in, unit
   tests for the minimizer and the recipe round trip; `regress` identical
-- [~] 3. The budgeted search at 262 tracks; a smaller one at NAS scale if
+- [x] 3. The budgeted search at 262 tracks; a smaller one at NAS scale if
   time allows; renders deleted once their recipes are saved
-- [ ] 4. Experiments (0264 and up): the first budget and its failure
+- [x] 4. Experiments (0264 and up): the first budget and its failure
   classes; the minimized recipes against the roadmap's known failures
-- [ ] 5. The proposals note's "Automated counterexample search" and the
+- [x] 5. The proposals note's "Automated counterexample search" and the
   roadmap
-- [ ] 6. Read-only review by a subagent; findings fixed
+- [~] 6. Read-only review by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 68", status, checklist; final checks
