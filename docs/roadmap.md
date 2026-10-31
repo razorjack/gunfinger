@@ -1059,6 +1059,14 @@ cases. None is an adopted decision or an experiment result.
   in the other file); the peak verifier's share reads the wrong way.
   The shared class rests on one relation (Clockwork) in the generated
   mixes and five plays of four families in the development mixes.
+  *(session 66, experiments 0259-0261)* A harmonic view of each
+  candidate (median-filter separation, FitzGerald 2010, its peaks
+  counted at the search's alignment) does not tell true plays from
+  related versions better than denser whole-spectrum peaks at equal
+  hits (AUC 0.579 against 0.684 on eight development families, 0.667
+  against 0.724 on seven frozen ones); above 240 hits every view
+  separates, below it a blend partner's sustained material is masked.
+  Not proposed (`docs/research/2026-10-31-harmonic-view-decision.md`).
 - **Evidence beyond exact pair hashes.** The second pass counts only
   exact pair-hash matches at the fitted speed (`search/refine.rs`).
   Peaks can survive where their hashes do not: a peak half a bin away

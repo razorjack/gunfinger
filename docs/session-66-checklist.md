@@ -19,11 +19,11 @@ for scope and rules.
   harmonic-view run
 - [x] 2. The diagnostic, harness only and opt-in, unit tests on
   synthetic signals; `regress` identical with it off
-- [~] 3. The runs at 262 tracks and at NAS scale, development families
+- [x] 3. The runs at 262 tracks and at NAS scale, development families
   first, the frozen families once
-- [ ] 4. Experiments (0259 and up): development families against both
+- [x] 4. Experiments (0259 and up): development families against both
   arms; frozen families; cost
-- [ ] 5. Decision note `docs/research/2026-10-31-harmonic-view-decision.md`;
+- [x] 5. Decision note `docs/research/2026-10-31-harmonic-view-decision.md`;
   the roadmap's matching bullets and the proposals note's §5
 - [ ] 6. Read-only review by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 66", status, checklist; final checks

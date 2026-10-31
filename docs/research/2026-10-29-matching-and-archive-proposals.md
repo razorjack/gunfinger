@@ -332,6 +332,15 @@ acceptance rule measured on fresh families and a decision on reference
 audio or supplementary stored features; no blanket rejection rule is
 proposed here.
 
+**Measured (session 66, experiments 0259-0261).** As a candidate-only
+diagnostic on the shared-material panels' development halves and seven
+judged pairs at NAS scale, the harmonic view separated no better than
+denser peaks without separation at equal hits, and read the wrong way
+below 240 hits, where a blend partner's sustained material is masked.
+The bass kill was not read as a contradiction. Not proposed; the
+decision note is
+[2026-10-31-harmonic-view-decision.md](2026-10-31-harmonic-view-decision.md).
+
 ## 6. Find recurring unidentified passages across a batch of mixes
 
 **Potential value.** An archive could report a direct correspondence:
