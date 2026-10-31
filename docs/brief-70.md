@@ -288,3 +288,28 @@ the test seeds is a candidate for a later ADR, not a decision.
   (`work/s70/w-<scale>-<seed>`), with the renders copied: the residual's
   scratch directory is removed at the end of a run, so two runs in one
   work directory could remove each other's temporary WAVs.
+- **(07:04-08:01) The development runs** (`work/s70/dev.sh SEED
+  corpus|nas`, tmux `s70dev-<scale>-<seed>`, four side by side; 262
+  tracks 28 min, NAS scale 57 min, 14.6 GB peak). No fix reproduces
+  0255 and 0257 exactly. `scripts/check.sh` ran beside them, green
+  (22:37). Experiments 0269 and 0270.
+- **(08:05) Step 1 read: frozen fix *Align*.** It leaves A confident in
+  31 of 403 other-rip cases at NAS scale (115 without it; the bar was
+  half), adds no wrong confident answer and confirms 61 quiet and brief
+  Bs (50 without it); *Align* with finer gains leaves 32 (under 5
+  apart, so the simpler). The cause, from the measures: rips of another
+  transfer (0.1-0.2% off in speed) placed tens of milliseconds off by
+  their stored peaks' line; not the seek, not lossy encoding.
+- **(08:05) Step 2 read** (no threshold): detected timing with *Align*
+  gives the same counts as the true time map at both scales.
+- **(08:06) Step 3's bar frozen: `H` = 20.** On the development seeds
+  (NAS scale, detected timing, *Align*), of the 21 quiet and brief Bs
+  that M confirms and plain does not, the rule keeps 6 at 20, 2 at 40
+  and 2 at 60; none keeps three quarters, so the registered fallback,
+  20. A check of the measure before freezing (not a tuning): where the
+  plain excerpt confirms B, the single-file search finds about the same
+  hits (222 against 224, 440 against 428).
+- **(08:08) The test seeds** (`work/s70/test.sh SEED corpus|nas
+  off,align`, tmux `s70test-<scale>-<seed>`, four side by side, each
+  rendering its own mixes in `work/s70/t-<scale>-<seed>`), true and
+  detected timing, no fix and *Align*.

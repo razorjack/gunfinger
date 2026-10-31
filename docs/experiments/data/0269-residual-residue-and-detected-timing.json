@@ -1,0 +1,4351 @@
+{
+ "nas_scale": {
+  "by_timing_and_fix": {
+   "detected align": {
+    "cases": {
+     "nas-file": 271,
+     "corpus-rip": 132,
+     "played": 37
+    },
+    "rows": {
+     "quiet": {
+      "plain": [
+       19,
+       15,
+       4,
+       32
+      ],
+      "denser": [
+       23,
+       13,
+       4,
+       32
+      ],
+      "masked": [
+       32,
+       29,
+       17,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       17,
+       14,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       15,
+       12,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       15,
+       12,
+       32
+      ]
+     },
+     "brief": {
+      "plain": [
+       29,
+       25,
+       4,
+       32
+      ],
+      "denser": [
+       29,
+       24,
+       2,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       21,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       29,
+       20,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       27,
+       20,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       26,
+       19,
+       32
+      ]
+     },
+     "unrelated-drop": {
+      "plain": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "denser": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       31,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       31,
+       31,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       31,
+       31,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       31,
+       31,
+       32
+      ]
+     },
+     "pair-drop": {
+      "plain": [
+       19,
+       19,
+       12,
+       19
+      ],
+      "denser": [
+       19,
+       19,
+       11,
+       19
+      ],
+      "masked": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 20": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 40": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 60": [
+       19,
+       19,
+       19,
+       19
+      ]
+     }
+    },
+    "quiet_brief": {
+     "plain": [
+      48,
+      40,
+      8,
+      64
+     ],
+     "denser": [
+      52,
+      37,
+      6,
+      64
+     ],
+     "masked": [
+      64,
+      61,
+      38,
+      64
+     ],
+     "masked rule 20": [
+      64,
+      46,
+      34,
+      64
+     ],
+     "masked rule 40": [
+      64,
+      42,
+      32,
+      64
+     ],
+     "masked rule 60": [
+      64,
+      41,
+      31,
+      64
+     ]
+    },
+    "quiet_brief_by_reference": {
+     "played": {
+      "plain": [
+       8,
+       8,
+       2,
+       11
+      ],
+      "masked": [
+       11,
+       11,
+       10,
+       11
+      ],
+      "masked rule 20": [
+       11,
+       8,
+       8,
+       11
+      ],
+      "masked rule 40": [
+       11,
+       8,
+       8,
+       11
+      ],
+      "masked rule 60": [
+       11,
+       7,
+       7,
+       11
+      ]
+     },
+     "corpus-rip": {
+      "plain": [
+       1,
+       1,
+       0,
+       2
+      ],
+      "masked": [
+       2,
+       2,
+       1,
+       2
+      ],
+      "masked rule 20": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 40": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 60": [
+       2,
+       1,
+       1,
+       2
+      ]
+     },
+     "nas-file": {
+      "plain": [
+       39,
+       31,
+       6,
+       51
+      ],
+      "masked": [
+       51,
+       48,
+       27,
+       51
+      ],
+      "masked rule 20": [
+       51,
+       37,
+       25,
+       51
+      ],
+      "masked rule 40": [
+       51,
+       33,
+       23,
+       51
+      ],
+      "masked rule 60": [
+       51,
+       33,
+       23,
+       51
+      ]
+     }
+    },
+    "wrong": {
+     "plain": {
+      "possible": 292,
+      "confident": 2
+     },
+     "denser": {
+      "possible": 252,
+      "confident": 2
+     },
+     "masked": {
+      "possible": 6
+     },
+     "masked rule 20": {
+      "possible": 1
+     },
+     "masked rule 40": {
+      "possible": 1
+     },
+     "masked rule 60": {
+      "possible": 1
+     }
+    },
+    "wrong_confident_items": {
+     "plain": [
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 508.7,
+       "hits": 489,
+       "plain_hits": null
+      },
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 1624.3,
+       "hits": 509,
+       "plain_hits": null
+      }
+     ],
+     "denser": [
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 508.7,
+       "hits": 331,
+       "plain_hits": null
+      },
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 1624.3,
+       "hits": 333,
+       "plain_hits": null
+      }
+     ]
+    },
+    "residue": {
+     "nas-file none": 135,
+     "nas-file possible": 38,
+     "corpus-rip possible": 18,
+     "nas-file confident": 31,
+     "nas-file weak": 67,
+     "corpus-rip none": 81,
+     "corpus-rip weak": 33,
+     "played none": 37
+    },
+    "newly_confirmed": 21,
+    "newly_with_plain_detection": 8,
+    "newly_kept_by_rule": {
+     "20": 6,
+     "40": 2,
+     "60": 2
+    }
+   },
+   "detected align-fine": {
+    "cases": {
+     "nas-file": 271,
+     "corpus-rip": 132,
+     "played": 37
+    },
+    "rows": {
+     "quiet": {
+      "plain": [
+       19,
+       15,
+       4,
+       32
+      ],
+      "denser": [
+       23,
+       13,
+       4,
+       32
+      ],
+      "masked": [
+       32,
+       29,
+       17,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       18,
+       14,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       15,
+       13,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       14,
+       13,
+       32
+      ]
+     },
+     "brief": {
+      "plain": [
+       29,
+       25,
+       4,
+       32
+      ],
+      "denser": [
+       29,
+       24,
+       2,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       19,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       29,
+       18,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       27,
+       18,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       26,
+       18,
+       32
+      ]
+     },
+     "unrelated-drop": {
+      "plain": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "denser": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       31,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       31,
+       31,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       31,
+       31,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       31,
+       31,
+       32
+      ]
+     },
+     "pair-drop": {
+      "plain": [
+       19,
+       19,
+       12,
+       19
+      ],
+      "denser": [
+       19,
+       19,
+       11,
+       19
+      ],
+      "masked": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 20": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 40": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 60": [
+       19,
+       19,
+       19,
+       19
+      ]
+     }
+    },
+    "quiet_brief": {
+     "plain": [
+      48,
+      40,
+      8,
+      64
+     ],
+     "denser": [
+      52,
+      37,
+      6,
+      64
+     ],
+     "masked": [
+      64,
+      61,
+      36,
+      64
+     ],
+     "masked rule 20": [
+      64,
+      47,
+      32,
+      64
+     ],
+     "masked rule 40": [
+      64,
+      42,
+      31,
+      64
+     ],
+     "masked rule 60": [
+      64,
+      40,
+      31,
+      64
+     ]
+    },
+    "quiet_brief_by_reference": {
+     "played": {
+      "plain": [
+       8,
+       8,
+       2,
+       11
+      ],
+      "masked": [
+       11,
+       11,
+       8,
+       11
+      ],
+      "masked rule 20": [
+       11,
+       8,
+       6,
+       11
+      ],
+      "masked rule 40": [
+       11,
+       8,
+       6,
+       11
+      ],
+      "masked rule 60": [
+       11,
+       7,
+       6,
+       11
+      ]
+     },
+     "corpus-rip": {
+      "plain": [
+       1,
+       1,
+       0,
+       2
+      ],
+      "masked": [
+       2,
+       2,
+       1,
+       2
+      ],
+      "masked rule 20": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 40": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 60": [
+       2,
+       1,
+       1,
+       2
+      ]
+     },
+     "nas-file": {
+      "plain": [
+       39,
+       31,
+       6,
+       51
+      ],
+      "masked": [
+       51,
+       48,
+       27,
+       51
+      ],
+      "masked rule 20": [
+       51,
+       38,
+       25,
+       51
+      ],
+      "masked rule 40": [
+       51,
+       33,
+       24,
+       51
+      ],
+      "masked rule 60": [
+       51,
+       32,
+       24,
+       51
+      ]
+     }
+    },
+    "wrong": {
+     "plain": {
+      "possible": 292,
+      "confident": 2
+     },
+     "denser": {
+      "possible": 252,
+      "confident": 2
+     },
+     "masked": {
+      "possible": 4
+     },
+     "masked rule 20": {
+      "possible": 1
+     },
+     "masked rule 40": {
+      "possible": 1
+     },
+     "masked rule 60": {
+      "possible": 1
+     }
+    },
+    "wrong_confident_items": {
+     "plain": [
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 508.7,
+       "hits": 489,
+       "plain_hits": null
+      },
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 1624.3,
+       "hits": 509,
+       "plain_hits": null
+      }
+     ],
+     "denser": [
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 508.7,
+       "hits": 331,
+       "plain_hits": null
+      },
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 1624.3,
+       "hits": 333,
+       "plain_hits": null
+      }
+     ]
+    },
+    "residue": {
+     "nas-file none": 136,
+     "nas-file possible": 41,
+     "corpus-rip weak": 36,
+     "nas-file confident": 29,
+     "nas-file weak": 65,
+     "corpus-rip none": 81,
+     "played none": 37,
+     "corpus-rip possible": 15
+    },
+    "newly_confirmed": 21,
+    "newly_with_plain_detection": 8,
+    "newly_kept_by_rule": {
+     "20": 7,
+     "40": 2,
+     "60": 2
+    }
+   },
+   "detected off": {
+    "cases": {
+     "nas-file": 271,
+     "corpus-rip": 132,
+     "played": 37
+    },
+    "rows": {
+     "quiet": {
+      "plain": [
+       19,
+       15,
+       4,
+       32
+      ],
+      "denser": [
+       23,
+       13,
+       4,
+       32
+      ],
+      "masked": [
+       29,
+       20,
+       14,
+       32
+      ],
+      "masked rule 20": [
+       29,
+       14,
+       10,
+       32
+      ],
+      "masked rule 40": [
+       29,
+       13,
+       9,
+       32
+      ],
+      "masked rule 60": [
+       29,
+       13,
+       9,
+       32
+      ]
+     },
+     "brief": {
+      "plain": [
+       29,
+       25,
+       4,
+       32
+      ],
+      "denser": [
+       29,
+       24,
+       2,
+       32
+      ],
+      "masked": [
+       31,
+       29,
+       18,
+       32
+      ],
+      "masked rule 20": [
+       31,
+       27,
+       17,
+       32
+      ],
+      "masked rule 40": [
+       31,
+       26,
+       17,
+       32
+      ],
+      "masked rule 60": [
+       31,
+       25,
+       16,
+       32
+      ]
+     },
+     "unrelated-drop": {
+      "plain": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "denser": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       29,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       32,
+       29,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       31,
+       29,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       31,
+       29,
+       32
+      ]
+     },
+     "pair-drop": {
+      "plain": [
+       19,
+       19,
+       12,
+       19
+      ],
+      "denser": [
+       19,
+       19,
+       11,
+       19
+      ],
+      "masked": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 20": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 40": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 60": [
+       19,
+       19,
+       19,
+       19
+      ]
+     }
+    },
+    "quiet_brief": {
+     "plain": [
+      48,
+      40,
+      8,
+      64
+     ],
+     "denser": [
+      52,
+      37,
+      6,
+      64
+     ],
+     "masked": [
+      60,
+      49,
+      32,
+      64
+     ],
+     "masked rule 20": [
+      60,
+      41,
+      27,
+      64
+     ],
+     "masked rule 40": [
+      60,
+      39,
+      26,
+      64
+     ],
+     "masked rule 60": [
+      60,
+      38,
+      25,
+      64
+     ]
+    },
+    "quiet_brief_by_reference": {
+     "played": {
+      "plain": [
+       8,
+       8,
+       2,
+       11
+      ],
+      "masked": [
+       11,
+       11,
+       10,
+       11
+      ],
+      "masked rule 20": [
+       11,
+       8,
+       8,
+       11
+      ],
+      "masked rule 40": [
+       11,
+       8,
+       8,
+       11
+      ],
+      "masked rule 60": [
+       11,
+       7,
+       7,
+       11
+      ]
+     },
+     "corpus-rip": {
+      "plain": [
+       1,
+       1,
+       0,
+       2
+      ],
+      "masked": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 20": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 40": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 60": [
+       2,
+       1,
+       1,
+       2
+      ]
+     },
+     "nas-file": {
+      "plain": [
+       39,
+       31,
+       6,
+       51
+      ],
+      "masked": [
+       47,
+       37,
+       21,
+       51
+      ],
+      "masked rule 20": [
+       47,
+       32,
+       18,
+       51
+      ],
+      "masked rule 40": [
+       47,
+       30,
+       17,
+       51
+      ],
+      "masked rule 60": [
+       47,
+       30,
+       17,
+       51
+      ]
+     }
+    },
+    "wrong": {
+     "plain": {
+      "possible": 292,
+      "confident": 2
+     },
+     "denser": {
+      "possible": 252,
+      "confident": 2
+     },
+     "masked": {
+      "possible": 7
+     },
+     "masked rule 20": {
+      "possible": 1
+     },
+     "masked rule 40": {
+      "possible": 1
+     },
+     "masked rule 60": {
+      "possible": 1
+     }
+    },
+    "wrong_confident_items": {
+     "plain": [
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 508.7,
+       "hits": 489,
+       "plain_hits": null
+      },
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 1624.3,
+       "hits": 509,
+       "plain_hits": null
+      }
+     ],
+     "denser": [
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 508.7,
+       "hits": 331,
+       "plain_hits": null
+      },
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 1624.3,
+       "hits": 333,
+       "plain_hits": null
+      }
+     ]
+    },
+    "residue": {
+     "nas-file none": 117,
+     "nas-file possible": 23,
+     "corpus-rip possible": 10,
+     "nas-file confident": 94,
+     "nas-file weak": 37,
+     "corpus-rip none": 78,
+     "corpus-rip weak": 22,
+     "played none": 37,
+     "corpus-rip confident": 22
+    },
+    "newly_confirmed": 11,
+    "newly_with_plain_detection": 5,
+    "newly_kept_by_rule": {
+     "20": 3,
+     "40": 1,
+     "60": 1
+    }
+   },
+   "truth align": {
+    "cases": {
+     "nas-file": 271,
+     "corpus-rip": 132,
+     "played": 37
+    },
+    "rows": {
+     "quiet": {
+      "plain": [
+       19,
+       15,
+       4,
+       32
+      ],
+      "denser": [
+       23,
+       13,
+       4,
+       32
+      ],
+      "masked": [
+       32,
+       29,
+       17,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       17,
+       14,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       15,
+       12,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       15,
+       12,
+       32
+      ]
+     },
+     "brief": {
+      "plain": [
+       29,
+       25,
+       4,
+       32
+      ],
+      "denser": [
+       29,
+       24,
+       2,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       21,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       29,
+       20,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       27,
+       20,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       26,
+       19,
+       32
+      ]
+     },
+     "unrelated-drop": {
+      "plain": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "denser": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       31,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       31,
+       31,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       31,
+       31,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       31,
+       31,
+       32
+      ]
+     },
+     "pair-drop": {
+      "plain": [
+       19,
+       19,
+       12,
+       19
+      ],
+      "denser": [
+       19,
+       19,
+       11,
+       19
+      ],
+      "masked": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 20": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 40": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 60": [
+       19,
+       19,
+       19,
+       19
+      ]
+     }
+    },
+    "quiet_brief": {
+     "plain": [
+      48,
+      40,
+      8,
+      64
+     ],
+     "denser": [
+      52,
+      37,
+      6,
+      64
+     ],
+     "masked": [
+      64,
+      61,
+      38,
+      64
+     ],
+     "masked rule 20": [
+      64,
+      46,
+      34,
+      64
+     ],
+     "masked rule 40": [
+      64,
+      42,
+      32,
+      64
+     ],
+     "masked rule 60": [
+      64,
+      41,
+      31,
+      64
+     ]
+    },
+    "quiet_brief_by_reference": {
+     "played": {
+      "plain": [
+       8,
+       8,
+       2,
+       11
+      ],
+      "masked": [
+       11,
+       11,
+       10,
+       11
+      ],
+      "masked rule 20": [
+       11,
+       8,
+       8,
+       11
+      ],
+      "masked rule 40": [
+       11,
+       8,
+       8,
+       11
+      ],
+      "masked rule 60": [
+       11,
+       7,
+       7,
+       11
+      ]
+     },
+     "corpus-rip": {
+      "plain": [
+       1,
+       1,
+       0,
+       2
+      ],
+      "masked": [
+       2,
+       2,
+       1,
+       2
+      ],
+      "masked rule 20": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 40": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 60": [
+       2,
+       1,
+       1,
+       2
+      ]
+     },
+     "nas-file": {
+      "plain": [
+       39,
+       31,
+       6,
+       51
+      ],
+      "masked": [
+       51,
+       48,
+       27,
+       51
+      ],
+      "masked rule 20": [
+       51,
+       37,
+       25,
+       51
+      ],
+      "masked rule 40": [
+       51,
+       33,
+       23,
+       51
+      ],
+      "masked rule 60": [
+       51,
+       33,
+       23,
+       51
+      ]
+     }
+    },
+    "wrong": {
+     "plain": {
+      "possible": 292,
+      "confident": 2
+     },
+     "denser": {
+      "possible": 252,
+      "confident": 2
+     },
+     "masked": {
+      "possible": 8
+     },
+     "masked rule 20": {
+      "possible": 1
+     },
+     "masked rule 40": {
+      "possible": 1
+     },
+     "masked rule 60": {
+      "possible": 1
+     }
+    },
+    "wrong_confident_items": {
+     "plain": [
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 508.7,
+       "hits": 489,
+       "plain_hits": null
+      },
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 1624.3,
+       "hits": 509,
+       "plain_hits": null
+      }
+     ],
+     "denser": [
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 508.7,
+       "hits": 331,
+       "plain_hits": null
+      },
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 1624.3,
+       "hits": 333,
+       "plain_hits": null
+      }
+     ]
+    },
+    "residue": {
+     "nas-file none": 137,
+     "nas-file possible": 38,
+     "corpus-rip possible": 17,
+     "nas-file confident": 31,
+     "nas-file weak": 65,
+     "corpus-rip none": 81,
+     "corpus-rip weak": 34,
+     "played none": 37
+    },
+    "newly_confirmed": 21,
+    "newly_with_plain_detection": 8,
+    "newly_kept_by_rule": {
+     "20": 6,
+     "40": 2,
+     "60": 2
+    }
+   },
+   "truth align-fine": {
+    "cases": {
+     "nas-file": 271,
+     "corpus-rip": 132,
+     "played": 37
+    },
+    "rows": {
+     "quiet": {
+      "plain": [
+       19,
+       15,
+       4,
+       32
+      ],
+      "denser": [
+       23,
+       13,
+       4,
+       32
+      ],
+      "masked": [
+       32,
+       29,
+       17,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       17,
+       14,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       15,
+       13,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       15,
+       13,
+       32
+      ]
+     },
+     "brief": {
+      "plain": [
+       29,
+       25,
+       4,
+       32
+      ],
+      "denser": [
+       29,
+       24,
+       2,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       19,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       29,
+       18,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       27,
+       18,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       26,
+       18,
+       32
+      ]
+     },
+     "unrelated-drop": {
+      "plain": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "denser": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       31,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       31,
+       31,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       31,
+       31,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       31,
+       31,
+       32
+      ]
+     },
+     "pair-drop": {
+      "plain": [
+       19,
+       19,
+       12,
+       19
+      ],
+      "denser": [
+       19,
+       19,
+       11,
+       19
+      ],
+      "masked": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 20": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 40": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 60": [
+       19,
+       19,
+       19,
+       19
+      ]
+     }
+    },
+    "quiet_brief": {
+     "plain": [
+      48,
+      40,
+      8,
+      64
+     ],
+     "denser": [
+      52,
+      37,
+      6,
+      64
+     ],
+     "masked": [
+      64,
+      61,
+      36,
+      64
+     ],
+     "masked rule 20": [
+      64,
+      46,
+      32,
+      64
+     ],
+     "masked rule 40": [
+      64,
+      42,
+      31,
+      64
+     ],
+     "masked rule 60": [
+      64,
+      41,
+      31,
+      64
+     ]
+    },
+    "quiet_brief_by_reference": {
+     "played": {
+      "plain": [
+       8,
+       8,
+       2,
+       11
+      ],
+      "masked": [
+       11,
+       11,
+       8,
+       11
+      ],
+      "masked rule 20": [
+       11,
+       8,
+       6,
+       11
+      ],
+      "masked rule 40": [
+       11,
+       8,
+       6,
+       11
+      ],
+      "masked rule 60": [
+       11,
+       7,
+       6,
+       11
+      ]
+     },
+     "corpus-rip": {
+      "plain": [
+       1,
+       1,
+       0,
+       2
+      ],
+      "masked": [
+       2,
+       2,
+       1,
+       2
+      ],
+      "masked rule 20": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 40": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 60": [
+       2,
+       1,
+       1,
+       2
+      ]
+     },
+     "nas-file": {
+      "plain": [
+       39,
+       31,
+       6,
+       51
+      ],
+      "masked": [
+       51,
+       48,
+       27,
+       51
+      ],
+      "masked rule 20": [
+       51,
+       37,
+       25,
+       51
+      ],
+      "masked rule 40": [
+       51,
+       33,
+       24,
+       51
+      ],
+      "masked rule 60": [
+       51,
+       33,
+       24,
+       51
+      ]
+     }
+    },
+    "wrong": {
+     "plain": {
+      "possible": 292,
+      "confident": 2
+     },
+     "denser": {
+      "possible": 252,
+      "confident": 2
+     },
+     "masked": {
+      "possible": 4
+     },
+     "masked rule 20": {
+      "possible": 1
+     },
+     "masked rule 40": {
+      "possible": 1
+     },
+     "masked rule 60": {
+      "possible": 1
+     }
+    },
+    "wrong_confident_items": {
+     "plain": [
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 508.7,
+       "hits": 489,
+       "plain_hits": null
+      },
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 1624.3,
+       "hits": 509,
+       "plain_hits": null
+      }
+     ],
+     "denser": [
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 508.7,
+       "hits": 331,
+       "plain_hits": null
+      },
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 1624.3,
+       "hits": 333,
+       "plain_hits": null
+      }
+     ]
+    },
+    "residue": {
+     "nas-file none": 141,
+     "nas-file possible": 39,
+     "corpus-rip weak": 34,
+     "nas-file confident": 32,
+     "nas-file weak": 59,
+     "corpus-rip none": 83,
+     "played none": 37,
+     "corpus-rip possible": 15
+    },
+    "newly_confirmed": 21,
+    "newly_with_plain_detection": 8,
+    "newly_kept_by_rule": {
+     "20": 6,
+     "40": 2,
+     "60": 2
+    }
+   },
+   "truth off": {
+    "cases": {
+     "nas-file": 271,
+     "corpus-rip": 132,
+     "played": 37
+    },
+    "rows": {
+     "quiet": {
+      "plain": [
+       19,
+       15,
+       4,
+       32
+      ],
+      "denser": [
+       23,
+       13,
+       4,
+       32
+      ],
+      "masked": [
+       29,
+       21,
+       14,
+       32
+      ],
+      "masked rule 20": [
+       29,
+       15,
+       11,
+       32
+      ],
+      "masked rule 40": [
+       29,
+       13,
+       9,
+       32
+      ],
+      "masked rule 60": [
+       29,
+       13,
+       9,
+       32
+      ]
+     },
+     "brief": {
+      "plain": [
+       29,
+       25,
+       4,
+       32
+      ],
+      "denser": [
+       29,
+       24,
+       2,
+       32
+      ],
+      "masked": [
+       31,
+       29,
+       18,
+       32
+      ],
+      "masked rule 20": [
+       31,
+       27,
+       17,
+       32
+      ],
+      "masked rule 40": [
+       31,
+       26,
+       17,
+       32
+      ],
+      "masked rule 60": [
+       31,
+       25,
+       16,
+       32
+      ]
+     },
+     "unrelated-drop": {
+      "plain": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "denser": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       29,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       32,
+       29,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       32,
+       29,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       31,
+       29,
+       32
+      ]
+     },
+     "pair-drop": {
+      "plain": [
+       19,
+       19,
+       12,
+       19
+      ],
+      "denser": [
+       19,
+       19,
+       11,
+       19
+      ],
+      "masked": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 20": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 40": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 60": [
+       19,
+       19,
+       19,
+       19
+      ]
+     }
+    },
+    "quiet_brief": {
+     "plain": [
+      48,
+      40,
+      8,
+      64
+     ],
+     "denser": [
+      52,
+      37,
+      6,
+      64
+     ],
+     "masked": [
+      60,
+      50,
+      32,
+      64
+     ],
+     "masked rule 20": [
+      60,
+      42,
+      28,
+      64
+     ],
+     "masked rule 40": [
+      60,
+      39,
+      26,
+      64
+     ],
+     "masked rule 60": [
+      60,
+      38,
+      25,
+      64
+     ]
+    },
+    "quiet_brief_by_reference": {
+     "played": {
+      "plain": [
+       8,
+       8,
+       2,
+       11
+      ],
+      "masked": [
+       11,
+       11,
+       10,
+       11
+      ],
+      "masked rule 20": [
+       11,
+       8,
+       8,
+       11
+      ],
+      "masked rule 40": [
+       11,
+       8,
+       8,
+       11
+      ],
+      "masked rule 60": [
+       11,
+       7,
+       7,
+       11
+      ]
+     },
+     "corpus-rip": {
+      "plain": [
+       1,
+       1,
+       0,
+       2
+      ],
+      "masked": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 20": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 40": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 60": [
+       2,
+       1,
+       1,
+       2
+      ]
+     },
+     "nas-file": {
+      "plain": [
+       39,
+       31,
+       6,
+       51
+      ],
+      "masked": [
+       47,
+       38,
+       21,
+       51
+      ],
+      "masked rule 20": [
+       47,
+       33,
+       19,
+       51
+      ],
+      "masked rule 40": [
+       47,
+       30,
+       17,
+       51
+      ],
+      "masked rule 60": [
+       47,
+       30,
+       17,
+       51
+      ]
+     }
+    },
+    "wrong": {
+     "plain": {
+      "possible": 292,
+      "confident": 2
+     },
+     "denser": {
+      "possible": 252,
+      "confident": 2
+     },
+     "masked": {
+      "possible": 4
+     },
+     "masked rule 20": {
+      "possible": 1
+     },
+     "masked rule 40": {
+      "possible": 1
+     },
+     "masked rule 60": {
+      "possible": 1
+     }
+    },
+    "wrong_confident_items": {
+     "plain": [
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 508.7,
+       "hits": 489,
+       "plain_hits": null
+      },
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 1624.3,
+       "hits": 509,
+       "plain_hits": null
+      }
+     ],
+     "denser": [
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 508.7,
+       "hits": 331,
+       "plain_hits": null
+      },
+      {
+       "seed": 2028,
+       "mix": "mix-02",
+       "asset": "Kemal - Animation (Silent Extent Remix).opus",
+       "start": 1624.3,
+       "hits": 333,
+       "plain_hits": null
+      }
+     ]
+    },
+    "residue": {
+     "nas-file none": 115,
+     "nas-file possible": 22,
+     "corpus-rip possible": 12,
+     "nas-file confident": 95,
+     "nas-file weak": 39,
+     "corpus-rip none": 78,
+     "corpus-rip weak": 22,
+     "played none": 37,
+     "corpus-rip confident": 20
+    },
+    "newly_confirmed": 12,
+    "newly_with_plain_detection": 5,
+    "newly_kept_by_rule": {
+     "20": 4,
+     "40": 1,
+     "60": 1
+    }
+   }
+  },
+  "diagnosis": {
+   "corpus-rip goes": {
+    "rip_hits": 26448.0,
+    "rip_speed_off_ppm": 0.0,
+    "abs_lag_ms": 0.0,
+    "lag_spread_ms": 2.0,
+    "drift_ppm": 0.0,
+    "correlation": 0.99,
+    "at_zero": 0.99,
+    "gain_spread_db": 0.27,
+    "reference_seek_ms": 0.0,
+    "played_seek_ms": 0.0,
+    "n": 112,
+    "abs_lag_over_20ms": 0,
+    "seek_off_over_5ms": 0,
+    "after_fix": {
+     "off": {
+      "possible": 12,
+      "none": 78,
+      "weak": 22
+     },
+     "align": {
+      "possible": 5,
+      "none": 81,
+      "weak": 26
+     },
+     "align-fine": {
+      "weak": 27,
+      "none": 81,
+      "possible": 4
+     }
+    },
+    "codecs": {
+     "mp3 192": 100,
+     "mp3 256": 6,
+     "mp3 160": 5,
+     "mp3 229": 1
+    },
+    "lossy_under_256": 106
+   },
+   "corpus-rip stays": {
+    "rip_hits": 7510.5,
+    "rip_speed_off_ppm": 1673.0,
+    "abs_lag_ms": 12.0,
+    "lag_spread_ms": 4.0,
+    "drift_ppm": 0.0,
+    "correlation": 0.99,
+    "at_zero": 0.94,
+    "gain_spread_db": 2.77,
+    "reference_seek_ms": 0.0,
+    "played_seek_ms": -0.23,
+    "n": 20,
+    "abs_lag_over_20ms": 0,
+    "seek_off_over_5ms": 0,
+    "after_fix": {
+     "off": {
+      "confident": 20
+     },
+     "align": {
+      "weak": 8,
+      "possible": 12
+     },
+     "align-fine": {
+      "none": 2,
+      "possible": 11,
+      "weak": 7
+     }
+    },
+    "codecs": {
+     "mp3 229": 10,
+     "mp3 256": 9,
+     "mp3 192": 1
+    },
+    "lossy_under_256": 11
+   },
+   "nas-file goes": {
+    "rip_hits": 26449.0,
+    "rip_speed_off_ppm": 0.0,
+    "abs_lag_ms": 0.0,
+    "lag_spread_ms": 4.0,
+    "drift_ppm": 0.0,
+    "correlation": 0.98,
+    "at_zero": 0.98,
+    "gain_spread_db": 0.88,
+    "reference_seek_ms": 0.0,
+    "played_seek_ms": 0.0,
+    "n": 176,
+    "abs_lag_over_20ms": 0,
+    "seek_off_over_5ms": 0,
+    "after_fix": {
+     "off": {
+      "none": 115,
+      "possible": 22,
+      "weak": 39
+     },
+     "align": {
+      "none": 123,
+      "possible": 7,
+      "weak": 46
+     },
+     "align-fine": {
+      "none": 125,
+      "possible": 9,
+      "weak": 42
+     }
+    },
+    "codecs": {
+     "mp3 192": 105,
+     "aac 127": 42,
+     "opus 132": 5,
+     "opus 137": 4,
+     "opus 134": 4,
+     "mp3 320": 3,
+     "opus 130": 3,
+     "None None": 2
+    },
+    "lossy_under_256": 170
+   },
+   "nas-file stays": {
+    "rip_hits": 4888,
+    "rip_speed_off_ppm": 1987,
+    "abs_lag_ms": 62.0,
+    "lag_spread_ms": 30.0,
+    "drift_ppm": 0,
+    "correlation": 0.97,
+    "at_zero": 0.39,
+    "gain_spread_db": 7.57,
+    "reference_seek_ms": 0.0,
+    "played_seek_ms": 0.0,
+    "n": 95,
+    "abs_lag_over_20ms": 67,
+    "seek_off_over_5ms": 5,
+    "after_fix": {
+     "off": {
+      "confident": 95
+     },
+     "align": {
+      "confident": 31,
+      "weak": 19,
+      "none": 14,
+      "possible": 31
+     },
+     "align-fine": {
+      "confident": 32,
+      "weak": 17,
+      "none": 16,
+      "possible": 30
+     }
+    },
+    "codecs": {
+     "aac 127": 40,
+     "mp3 192": 12,
+     "aac 128": 6,
+     "opus 133": 6,
+     "opus 131": 6,
+     "opus 136": 5,
+     "opus 132": 4,
+     "opus 128": 3
+    },
+    "lossy_under_256": 94
+   },
+   "played goes": {
+    "rip_hits": null,
+    "rip_speed_off_ppm": null,
+    "abs_lag_ms": 0.0,
+    "lag_spread_ms": 4.0,
+    "drift_ppm": 0,
+    "correlation": 0.98,
+    "at_zero": 0.98,
+    "gain_spread_db": 0.43,
+    "reference_seek_ms": 0.0,
+    "played_seek_ms": 0.0,
+    "n": 37,
+    "abs_lag_over_20ms": 0,
+    "seek_off_over_5ms": 0,
+    "after_fix": {
+     "off": {
+      "none": 37
+     },
+     "align": {
+      "none": 37
+     },
+     "align-fine": {
+      "none": 37
+     }
+    },
+    "codecs": {
+     "None None": 37
+    },
+    "lossy_under_256": 0
+   }
+  }
+ },
+ "262_tracks": {
+  "by_timing_and_fix": {
+   "detected align": {
+    "cases": {
+     "played": 309,
+     "corpus-rip": 132
+    },
+    "rows": {
+     "quiet": {
+      "plain": [
+       19,
+       15,
+       4,
+       32
+      ],
+      "denser": [
+       24,
+       14,
+       4,
+       32
+      ],
+      "masked": [
+       32,
+       31,
+       21,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       18,
+       16,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       15,
+       14,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       15,
+       14,
+       32
+      ]
+     },
+     "brief": {
+      "plain": [
+       28,
+       26,
+       4,
+       32
+      ],
+      "denser": [
+       30,
+       25,
+       2,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       24,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       28,
+       23,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       26,
+       23,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       25,
+       22,
+       32
+      ]
+     },
+     "unrelated-drop": {
+      "plain": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "denser": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       31,
+       31,
+       32
+      ]
+     },
+     "pair-drop": {
+      "plain": [
+       19,
+       19,
+       12,
+       19
+      ],
+      "denser": [
+       19,
+       19,
+       11,
+       19
+      ],
+      "masked": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 20": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 40": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 60": [
+       19,
+       19,
+       19,
+       19
+      ]
+     }
+    },
+    "quiet_brief": {
+     "plain": [
+      47,
+      41,
+      8,
+      64
+     ],
+     "denser": [
+      54,
+      39,
+      6,
+      64
+     ],
+     "masked": [
+      64,
+      63,
+      45,
+      64
+     ],
+     "masked rule 20": [
+      64,
+      46,
+      39,
+      64
+     ],
+     "masked rule 40": [
+      64,
+      41,
+      37,
+      64
+     ],
+     "masked rule 60": [
+      64,
+      40,
+      36,
+      64
+     ]
+    },
+    "quiet_brief_by_reference": {
+     "played": {
+      "plain": [
+       46,
+       40,
+       8,
+       62
+      ],
+      "masked": [
+       62,
+       61,
+       44,
+       62
+      ],
+      "masked rule 20": [
+       62,
+       45,
+       38,
+       62
+      ],
+      "masked rule 40": [
+       62,
+       40,
+       36,
+       62
+      ],
+      "masked rule 60": [
+       62,
+       39,
+       35,
+       62
+      ]
+     },
+     "corpus-rip": {
+      "plain": [
+       1,
+       1,
+       0,
+       2
+      ],
+      "masked": [
+       2,
+       2,
+       1,
+       2
+      ],
+      "masked rule 20": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 40": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 60": [
+       2,
+       1,
+       1,
+       2
+      ]
+     },
+     "nas-file": {
+      "plain": null,
+      "masked": null,
+      "masked rule 20": null,
+      "masked rule 40": null,
+      "masked rule 60": null
+     }
+    },
+    "wrong": {
+     "plain": {
+      "possible": 181
+     },
+     "denser": {
+      "possible": 135
+     },
+     "masked": {
+      "possible": 6
+     }
+    },
+    "wrong_confident_items": {},
+    "residue": {
+     "played none": 277,
+     "corpus-rip possible": 18,
+     "corpus-rip none": 80,
+     "played possible": 5,
+     "corpus-rip weak": 34,
+     "played weak": 27
+    },
+    "newly_confirmed": 22,
+    "newly_with_plain_detection": 6,
+    "newly_kept_by_rule": {
+     "20": 6,
+     "40": 1,
+     "60": 1
+    }
+   },
+   "detected align-fine": {
+    "cases": {
+     "played": 309,
+     "corpus-rip": 132
+    },
+    "rows": {
+     "quiet": {
+      "plain": [
+       19,
+       15,
+       4,
+       32
+      ],
+      "denser": [
+       24,
+       14,
+       4,
+       32
+      ],
+      "masked": [
+       32,
+       31,
+       21,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       18,
+       16,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       16,
+       15,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       14,
+       13,
+       32
+      ]
+     },
+     "brief": {
+      "plain": [
+       28,
+       26,
+       4,
+       32
+      ],
+      "denser": [
+       30,
+       25,
+       2,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       22,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       28,
+       21,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       26,
+       21,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       25,
+       21,
+       32
+      ]
+     },
+     "unrelated-drop": {
+      "plain": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "denser": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       31,
+       31,
+       32
+      ]
+     },
+     "pair-drop": {
+      "plain": [
+       19,
+       19,
+       12,
+       19
+      ],
+      "denser": [
+       19,
+       19,
+       11,
+       19
+      ],
+      "masked": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 20": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 40": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 60": [
+       19,
+       19,
+       19,
+       19
+      ]
+     }
+    },
+    "quiet_brief": {
+     "plain": [
+      47,
+      41,
+      8,
+      64
+     ],
+     "denser": [
+      54,
+      39,
+      6,
+      64
+     ],
+     "masked": [
+      64,
+      63,
+      43,
+      64
+     ],
+     "masked rule 20": [
+      64,
+      46,
+      37,
+      64
+     ],
+     "masked rule 40": [
+      64,
+      42,
+      36,
+      64
+     ],
+     "masked rule 60": [
+      64,
+      39,
+      34,
+      64
+     ]
+    },
+    "quiet_brief_by_reference": {
+     "played": {
+      "plain": [
+       46,
+       40,
+       8,
+       62
+      ],
+      "masked": [
+       62,
+       61,
+       42,
+       62
+      ],
+      "masked rule 20": [
+       62,
+       45,
+       36,
+       62
+      ],
+      "masked rule 40": [
+       62,
+       41,
+       35,
+       62
+      ],
+      "masked rule 60": [
+       62,
+       38,
+       33,
+       62
+      ]
+     },
+     "corpus-rip": {
+      "plain": [
+       1,
+       1,
+       0,
+       2
+      ],
+      "masked": [
+       2,
+       2,
+       1,
+       2
+      ],
+      "masked rule 20": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 40": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 60": [
+       2,
+       1,
+       1,
+       2
+      ]
+     },
+     "nas-file": {
+      "plain": null,
+      "masked": null,
+      "masked rule 20": null,
+      "masked rule 40": null,
+      "masked rule 60": null
+     }
+    },
+    "wrong": {
+     "plain": {
+      "possible": 181
+     },
+     "denser": {
+      "possible": 135
+     },
+     "masked": {
+      "possible": 4
+     }
+    },
+    "wrong_confident_items": {},
+    "residue": {
+     "played none": 275,
+     "corpus-rip weak": 36,
+     "corpus-rip none": 81,
+     "played possible": 6,
+     "played weak": 28,
+     "corpus-rip possible": 15
+    },
+    "newly_confirmed": 22,
+    "newly_with_plain_detection": 6,
+    "newly_kept_by_rule": {
+     "20": 6,
+     "40": 2,
+     "60": 1
+    }
+   },
+   "detected off": {
+    "cases": {
+     "played": 309,
+     "corpus-rip": 132
+    },
+    "rows": {
+     "quiet": {
+      "plain": [
+       19,
+       15,
+       4,
+       32
+      ],
+      "denser": [
+       24,
+       14,
+       4,
+       32
+      ],
+      "masked": [
+       32,
+       30,
+       22,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       18,
+       17,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       15,
+       15,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       15,
+       15,
+       32
+      ]
+     },
+     "brief": {
+      "plain": [
+       28,
+       26,
+       4,
+       32
+      ],
+      "denser": [
+       30,
+       25,
+       2,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       25,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       28,
+       24,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       26,
+       23,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       25,
+       22,
+       32
+      ]
+     },
+     "unrelated-drop": {
+      "plain": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "denser": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       31,
+       31,
+       32
+      ]
+     },
+     "pair-drop": {
+      "plain": [
+       19,
+       19,
+       12,
+       19
+      ],
+      "denser": [
+       19,
+       19,
+       11,
+       19
+      ],
+      "masked": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 20": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 40": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 60": [
+       19,
+       19,
+       19,
+       19
+      ]
+     }
+    },
+    "quiet_brief": {
+     "plain": [
+      47,
+      41,
+      8,
+      64
+     ],
+     "denser": [
+      54,
+      39,
+      6,
+      64
+     ],
+     "masked": [
+      64,
+      62,
+      47,
+      64
+     ],
+     "masked rule 20": [
+      64,
+      46,
+      41,
+      64
+     ],
+     "masked rule 40": [
+      64,
+      41,
+      38,
+      64
+     ],
+     "masked rule 60": [
+      64,
+      40,
+      37,
+      64
+     ]
+    },
+    "quiet_brief_by_reference": {
+     "played": {
+      "plain": [
+       46,
+       40,
+       8,
+       62
+      ],
+      "masked": [
+       62,
+       61,
+       46,
+       62
+      ],
+      "masked rule 20": [
+       62,
+       45,
+       40,
+       62
+      ],
+      "masked rule 40": [
+       62,
+       40,
+       37,
+       62
+      ],
+      "masked rule 60": [
+       62,
+       39,
+       36,
+       62
+      ]
+     },
+     "corpus-rip": {
+      "plain": [
+       1,
+       1,
+       0,
+       2
+      ],
+      "masked": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 20": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 40": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 60": [
+       2,
+       1,
+       1,
+       2
+      ]
+     },
+     "nas-file": {
+      "plain": null,
+      "masked": null,
+      "masked rule 20": null,
+      "masked rule 40": null,
+      "masked rule 60": null
+     }
+    },
+    "wrong": {
+     "plain": {
+      "possible": 181
+     },
+     "denser": {
+      "possible": 135
+     },
+     "masked": {
+      "possible": 4
+     }
+    },
+    "wrong_confident_items": {},
+    "residue": {
+     "played none": 272,
+     "corpus-rip possible": 10,
+     "corpus-rip none": 78,
+     "played possible": 6,
+     "played confident": 5,
+     "corpus-rip weak": 23,
+     "played weak": 26,
+     "corpus-rip confident": 21
+    },
+    "newly_confirmed": 21,
+    "newly_with_plain_detection": 6,
+    "newly_kept_by_rule": {
+     "20": 6,
+     "40": 1,
+     "60": 1
+    }
+   },
+   "truth align": {
+    "cases": {
+     "played": 309,
+     "corpus-rip": 132
+    },
+    "rows": {
+     "quiet": {
+      "plain": [
+       19,
+       15,
+       4,
+       32
+      ],
+      "denser": [
+       24,
+       14,
+       4,
+       32
+      ],
+      "masked": [
+       32,
+       31,
+       21,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       18,
+       16,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       16,
+       15,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       15,
+       14,
+       32
+      ]
+     },
+     "brief": {
+      "plain": [
+       28,
+       26,
+       4,
+       32
+      ],
+      "denser": [
+       30,
+       25,
+       2,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       24,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       28,
+       23,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       26,
+       23,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       25,
+       22,
+       32
+      ]
+     },
+     "unrelated-drop": {
+      "plain": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "denser": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       31,
+       31,
+       32
+      ]
+     },
+     "pair-drop": {
+      "plain": [
+       19,
+       19,
+       12,
+       19
+      ],
+      "denser": [
+       19,
+       19,
+       11,
+       19
+      ],
+      "masked": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 20": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 40": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 60": [
+       19,
+       19,
+       19,
+       19
+      ]
+     }
+    },
+    "quiet_brief": {
+     "plain": [
+      47,
+      41,
+      8,
+      64
+     ],
+     "denser": [
+      54,
+      39,
+      6,
+      64
+     ],
+     "masked": [
+      64,
+      63,
+      45,
+      64
+     ],
+     "masked rule 20": [
+      64,
+      46,
+      39,
+      64
+     ],
+     "masked rule 40": [
+      64,
+      42,
+      38,
+      64
+     ],
+     "masked rule 60": [
+      64,
+      40,
+      36,
+      64
+     ]
+    },
+    "quiet_brief_by_reference": {
+     "played": {
+      "plain": [
+       46,
+       40,
+       8,
+       62
+      ],
+      "masked": [
+       62,
+       61,
+       44,
+       62
+      ],
+      "masked rule 20": [
+       62,
+       45,
+       38,
+       62
+      ],
+      "masked rule 40": [
+       62,
+       41,
+       37,
+       62
+      ],
+      "masked rule 60": [
+       62,
+       39,
+       35,
+       62
+      ]
+     },
+     "corpus-rip": {
+      "plain": [
+       1,
+       1,
+       0,
+       2
+      ],
+      "masked": [
+       2,
+       2,
+       1,
+       2
+      ],
+      "masked rule 20": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 40": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 60": [
+       2,
+       1,
+       1,
+       2
+      ]
+     },
+     "nas-file": {
+      "plain": null,
+      "masked": null,
+      "masked rule 20": null,
+      "masked rule 40": null,
+      "masked rule 60": null
+     }
+    },
+    "wrong": {
+     "plain": {
+      "possible": 181
+     },
+     "denser": {
+      "possible": 135
+     },
+     "masked": {
+      "possible": 6
+     }
+    },
+    "wrong_confident_items": {},
+    "residue": {
+     "played none": 277,
+     "corpus-rip possible": 18,
+     "corpus-rip none": 81,
+     "played possible": 4,
+     "corpus-rip weak": 33,
+     "played weak": 28
+    },
+    "newly_confirmed": 22,
+    "newly_with_plain_detection": 6,
+    "newly_kept_by_rule": {
+     "20": 6,
+     "40": 2,
+     "60": 1
+    }
+   },
+   "truth align-fine": {
+    "cases": {
+     "played": 309,
+     "corpus-rip": 132
+    },
+    "rows": {
+     "quiet": {
+      "plain": [
+       19,
+       15,
+       4,
+       32
+      ],
+      "denser": [
+       24,
+       14,
+       4,
+       32
+      ],
+      "masked": [
+       32,
+       31,
+       21,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       18,
+       16,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       16,
+       15,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       14,
+       13,
+       32
+      ]
+     },
+     "brief": {
+      "plain": [
+       28,
+       26,
+       4,
+       32
+      ],
+      "denser": [
+       30,
+       25,
+       2,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       22,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       28,
+       21,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       26,
+       21,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       25,
+       21,
+       32
+      ]
+     },
+     "unrelated-drop": {
+      "plain": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "denser": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       31,
+       31,
+       32
+      ]
+     },
+     "pair-drop": {
+      "plain": [
+       19,
+       19,
+       12,
+       19
+      ],
+      "denser": [
+       19,
+       19,
+       11,
+       19
+      ],
+      "masked": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 20": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 40": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 60": [
+       19,
+       19,
+       19,
+       19
+      ]
+     }
+    },
+    "quiet_brief": {
+     "plain": [
+      47,
+      41,
+      8,
+      64
+     ],
+     "denser": [
+      54,
+      39,
+      6,
+      64
+     ],
+     "masked": [
+      64,
+      63,
+      43,
+      64
+     ],
+     "masked rule 20": [
+      64,
+      46,
+      37,
+      64
+     ],
+     "masked rule 40": [
+      64,
+      42,
+      36,
+      64
+     ],
+     "masked rule 60": [
+      64,
+      39,
+      34,
+      64
+     ]
+    },
+    "quiet_brief_by_reference": {
+     "played": {
+      "plain": [
+       46,
+       40,
+       8,
+       62
+      ],
+      "masked": [
+       62,
+       61,
+       42,
+       62
+      ],
+      "masked rule 20": [
+       62,
+       45,
+       36,
+       62
+      ],
+      "masked rule 40": [
+       62,
+       41,
+       35,
+       62
+      ],
+      "masked rule 60": [
+       62,
+       38,
+       33,
+       62
+      ]
+     },
+     "corpus-rip": {
+      "plain": [
+       1,
+       1,
+       0,
+       2
+      ],
+      "masked": [
+       2,
+       2,
+       1,
+       2
+      ],
+      "masked rule 20": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 40": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 60": [
+       2,
+       1,
+       1,
+       2
+      ]
+     },
+     "nas-file": {
+      "plain": null,
+      "masked": null,
+      "masked rule 20": null,
+      "masked rule 40": null,
+      "masked rule 60": null
+     }
+    },
+    "wrong": {
+     "plain": {
+      "possible": 181
+     },
+     "denser": {
+      "possible": 135
+     },
+     "masked": {
+      "possible": 4
+     }
+    },
+    "wrong_confident_items": {},
+    "residue": {
+     "played none": 277,
+     "corpus-rip weak": 37,
+     "corpus-rip none": 82,
+     "played possible": 6,
+     "played weak": 26,
+     "corpus-rip possible": 13
+    },
+    "newly_confirmed": 22,
+    "newly_with_plain_detection": 6,
+    "newly_kept_by_rule": {
+     "20": 6,
+     "40": 2,
+     "60": 1
+    }
+   },
+   "truth off": {
+    "cases": {
+     "played": 309,
+     "corpus-rip": 132
+    },
+    "rows": {
+     "quiet": {
+      "plain": [
+       19,
+       15,
+       4,
+       32
+      ],
+      "denser": [
+       24,
+       14,
+       4,
+       32
+      ],
+      "masked": [
+       32,
+       30,
+       22,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       18,
+       17,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       16,
+       16,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       15,
+       15,
+       32
+      ]
+     },
+     "brief": {
+      "plain": [
+       28,
+       26,
+       4,
+       32
+      ],
+      "denser": [
+       30,
+       25,
+       2,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       25,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       28,
+       24,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       26,
+       23,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       25,
+       22,
+       32
+      ]
+     },
+     "unrelated-drop": {
+      "plain": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "denser": [
+       32,
+       31,
+       23,
+       32
+      ],
+      "masked": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 20": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 40": [
+       32,
+       32,
+       32,
+       32
+      ],
+      "masked rule 60": [
+       32,
+       31,
+       31,
+       32
+      ]
+     },
+     "pair-drop": {
+      "plain": [
+       19,
+       19,
+       12,
+       19
+      ],
+      "denser": [
+       19,
+       19,
+       11,
+       19
+      ],
+      "masked": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 20": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 40": [
+       19,
+       19,
+       19,
+       19
+      ],
+      "masked rule 60": [
+       19,
+       19,
+       19,
+       19
+      ]
+     }
+    },
+    "quiet_brief": {
+     "plain": [
+      47,
+      41,
+      8,
+      64
+     ],
+     "denser": [
+      54,
+      39,
+      6,
+      64
+     ],
+     "masked": [
+      64,
+      62,
+      47,
+      64
+     ],
+     "masked rule 20": [
+      64,
+      46,
+      41,
+      64
+     ],
+     "masked rule 40": [
+      64,
+      42,
+      39,
+      64
+     ],
+     "masked rule 60": [
+      64,
+      40,
+      37,
+      64
+     ]
+    },
+    "quiet_brief_by_reference": {
+     "played": {
+      "plain": [
+       46,
+       40,
+       8,
+       62
+      ],
+      "masked": [
+       62,
+       61,
+       46,
+       62
+      ],
+      "masked rule 20": [
+       62,
+       45,
+       40,
+       62
+      ],
+      "masked rule 40": [
+       62,
+       41,
+       38,
+       62
+      ],
+      "masked rule 60": [
+       62,
+       39,
+       36,
+       62
+      ]
+     },
+     "corpus-rip": {
+      "plain": [
+       1,
+       1,
+       0,
+       2
+      ],
+      "masked": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 20": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 40": [
+       2,
+       1,
+       1,
+       2
+      ],
+      "masked rule 60": [
+       2,
+       1,
+       1,
+       2
+      ]
+     },
+     "nas-file": {
+      "plain": null,
+      "masked": null,
+      "masked rule 20": null,
+      "masked rule 40": null,
+      "masked rule 60": null
+     }
+    },
+    "wrong": {
+     "plain": {
+      "possible": 181
+     },
+     "denser": {
+      "possible": 135
+     },
+     "masked": {
+      "possible": 6
+     }
+    },
+    "wrong_confident_items": {},
+    "residue": {
+     "played none": 276,
+     "corpus-rip possible": 10,
+     "corpus-rip none": 78,
+     "played possible": 4,
+     "corpus-rip weak": 24,
+     "played weak": 29,
+     "corpus-rip confident": 20
+    },
+    "newly_confirmed": 21,
+    "newly_with_plain_detection": 6,
+    "newly_kept_by_rule": {
+     "20": 6,
+     "40": 2,
+     "60": 1
+    }
+   }
+  },
+  "diagnosis": {
+   "corpus-rip goes": {
+    "rip_hits": 26448.0,
+    "rip_speed_off_ppm": 0.0,
+    "abs_lag_ms": 0.0,
+    "lag_spread_ms": 2.0,
+    "drift_ppm": 0.0,
+    "correlation": 0.99,
+    "at_zero": 0.99,
+    "gain_spread_db": 0.27,
+    "reference_seek_ms": 0.0,
+    "played_seek_ms": 0.0,
+    "n": 112,
+    "abs_lag_over_20ms": 0,
+    "seek_off_over_5ms": 0,
+    "after_fix": {
+     "off": {
+      "possible": 10,
+      "none": 78,
+      "weak": 24
+     },
+     "align": {
+      "possible": 5,
+      "none": 81,
+      "weak": 26
+     },
+     "align-fine": {
+      "weak": 30,
+      "none": 80,
+      "possible": 2
+     }
+    },
+    "codecs": {
+     "mp3 192": 100,
+     "mp3 256": 6,
+     "mp3 160": 5,
+     "mp3 229": 1
+    },
+    "lossy_under_256": 106
+   },
+   "corpus-rip stays": {
+    "rip_hits": 7510.5,
+    "rip_speed_off_ppm": 1673.0,
+    "abs_lag_ms": 12.0,
+    "lag_spread_ms": 4.0,
+    "drift_ppm": 0.0,
+    "correlation": 0.99,
+    "at_zero": 0.94,
+    "gain_spread_db": 2.77,
+    "reference_seek_ms": 0.0,
+    "played_seek_ms": -0.23,
+    "n": 20,
+    "abs_lag_over_20ms": 0,
+    "seek_off_over_5ms": 0,
+    "after_fix": {
+     "off": {
+      "confident": 20
+     },
+     "align": {
+      "weak": 7,
+      "possible": 13
+     },
+     "align-fine": {
+      "none": 2,
+      "possible": 11,
+      "weak": 7
+     }
+    },
+    "codecs": {
+     "mp3 229": 10,
+     "mp3 256": 9,
+     "mp3 192": 1
+    },
+    "lossy_under_256": 11
+   },
+   "played goes": {
+    "rip_hits": null,
+    "rip_speed_off_ppm": null,
+    "abs_lag_ms": 0.0,
+    "lag_spread_ms": 4.0,
+    "drift_ppm": 0,
+    "correlation": 0.98,
+    "at_zero": 0.98,
+    "gain_spread_db": 0.29,
+    "reference_seek_ms": 0.0,
+    "played_seek_ms": 0.0,
+    "n": 309,
+    "abs_lag_over_20ms": 0,
+    "seek_off_over_5ms": 5,
+    "after_fix": {
+     "off": {
+      "none": 276,
+      "possible": 4,
+      "weak": 29
+     },
+     "align": {
+      "none": 277,
+      "possible": 4,
+      "weak": 28
+     },
+     "align-fine": {
+      "none": 277,
+      "possible": 6,
+      "weak": 26
+     }
+    },
+    "codecs": {
+     "None None": 309
+    },
+    "lossy_under_256": 0
+   }
+  }
+ }
+}
