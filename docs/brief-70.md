@@ -323,8 +323,8 @@ the test seeds is a candidate for a later ADR, not a decision.
   Cool Rock answers without a fix have 385 and 638 plain hits).
 - **(08:09) The corpus regression with the run build** identical
   (`work/s70/regress-run.sh`, 3:36 beside the test runs).
-- **(09:15) The review's findings** (a separate agent, read-only,
-  09:02-09:10). No product change; the code's arithmetic (lag signs,
+- **(09:04) The review's findings** (a separate agent, read-only,
+  08:56-09:03). No product change; the code's arithmetic (lag signs,
   `shifted`, `Lags::at`, Theil-Sen, the gain spread, `agrees`, the seek's
   sign) checked; every count in 0269-0271 matches the reports apart from
   those below. Taken: the proposals note gave the NAS rips' median lag of
