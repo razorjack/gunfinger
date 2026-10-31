@@ -15,16 +15,16 @@ for scope and rules.
 
 ## Steps
 
-- [~] 1. Pre-registration in `docs/brief-69.md`, committed before any
+- [x] 1. Pre-registration in `docs/brief-69.md`, committed before any
   batch run
-- [ ] 2. The prototype (`passages`), harness only and opt-in, unit
+- [x] 2. The prototype (`passages`), harness only and opt-in, unit
   tests for the pairwise report (no transitive merge) and the
   relative-speed range; `regress` identical
-- [ ] 3. The batches at 262 tracks (held-out recordings left out of
+- [x] 3. The batches at 262 tracks (held-out recordings left out of
   the index); renders deleted when no longer needed
-- [ ] 4. Experiments (0267 and up): retrieval and wrong links; the
-  cost and the speed range
-- [ ] 5. The proposals note's §6 and the roadmap's "Time without a
+- [x] 4. Experiments (0267 and up): retrieval and wrong links; the
+  cost and the speed range (0267, 0268)
+- [x] 5. The proposals note's §6 and the roadmap's "Time without a
   confident match"
 - [ ] 6. Read-only review by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 69", status, checklist; final checks

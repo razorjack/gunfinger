@@ -238,7 +238,17 @@ cases. None is an adopted decision or an experiment result.
   in the report, so `show` prints the estimate without decoding again.
   What is left belongs elsewhere: records sharing material, pitch rides
   (0166) and a gap holding no missed track, which the estimate cannot
-  tell from one that does.
+  tell from one that does. Session 69 piloted the archive's question
+  that follows, whether a gap's passage recurs in another mix
+  (proposal 6 of `docs/research/2026-10-29-matching-and-archive-proposals.md`;
+  `gunfinger-eval passages`, experiments 0267-0268): over ten batches
+  of generated mixes, gaps searched against each other at ±18% relative
+  speed linked no unrelated records, and links between records sharing
+  a passage stayed within it, but found only 192 of 312 recurring
+  passages (whole mixes: 266), because a missed record's time in a gap
+  is short; the product's ladder reaches none beyond 12% relative
+  speed. Not a product change; a next step would search whole mixes and
+  measure archive-scale cost.
 - **Possible plays inside a confident play of another recording.**
   *(done on 2026-10-14, our decision, ADR 0019, experiment
   0107)* The default tracklist printed a possible play lying inside a

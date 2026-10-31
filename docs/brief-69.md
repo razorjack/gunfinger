@@ -280,7 +280,7 @@ such links in the product's output.
   first; at NAS scale the subjects' other rips would have to be left
   out through `clusters::find_around`, which the time box does not
   allow. The NAS is read only to render the shared-material pairs.
-- **(05:47-05:58) The prototype** (`passages.rs`, the subcommand in
+- **(05:47-05:55) The prototype** (`passages.rs`, the subcommand in
   `commands/mixes.rs`; `mixes::crossfade` made visible to the harness,
   unchanged). The NAS root option is `--other-root`, the name `mixes`
   already uses, not `--other-library`. A smoke run on seed 6900 (not a
@@ -290,8 +290,23 @@ such links in the product's output.
   them (a property of the registered construction; nothing changed).
   Each correspondence's reach past the panel's passage is the larger of
   its two ends' (the registered "within the passage ±15 s").
-- **(05:58) Eight more batches.** A batch costs under 2 minutes, so
+- **(05:55) Eight more batches.** A batch costs under 2 minutes, so
   seeds 6903-6910 run as well, after the two registered ones, with the
   same build and rules. They are reported beside seeds 6901 and 6902;
   the bar is read on 6901 and 6902 as registered, and the pool of ten
   is reported apart.
+- **(05:55) The queue** (`work/s69/queue.sh`, tmux `s69queue`): the
+  run build `work/bin/s69-run/` from `ebdb991` (its `gunfinger`
+  byte-identical to `s68-final`'s), both regressions (identical, 0:51
+  and 3:53, every report equal to its baseline's apart from
+  `wall_seconds`), the ten batches (1:15-1:22 each), then
+  `scripts/check.sh`.
+- **(06:14) Results.** By the registered bar the pilot fails (1): in
+  gaps mode at ±18%, 30 of 60 subjects' positives on seeds 6901-6902
+  (23 of 43 above 8%); (2) and (3) hold; the ±18% range costs 2.33 times
+  the ±8%'s thread seconds. Experiments 0267 (`8911e52`) and 0268
+  (`357baf5`). Whole mode, reported beside as registered, finds 48 of
+  60 (266 of 312 over ten batches); it decides nothing.
+- **(06:16) The proposals note's §6 and the roadmap's "Time without a
+  confident match"** gained the pilot's result and the next step it
+  suggests (whole mixes, archive-scale cost); no design note and no ADR.
