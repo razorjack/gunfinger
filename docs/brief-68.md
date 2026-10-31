@@ -253,3 +253,12 @@ elapsed time and CPU).
 - **(04:15) `--replay` writes the render's detections too**, to read
   the mechanism of a class; the outcome and the saved recipes are
   unchanged. Replays run after the NAS search, with the final code.
+- **(04:28) The NAS search finished** (17:12, 500 samples, 72
+  failures). Experiment 0264 written and committed (`d98687d`) before
+  the replays. The NAS run drew the same 500 bases as the 262 run's first
+  500 (checked), although the pre-registration allowed them to differ.
+- **(04:30) Replays (experiment 0265)**: one minimal recipe per class of
+  interest, the first of each (`work/s68/replay-picks.txt`: every
+  single-fault gap by fault, `lost: blend`, `gap: blend`, the ride
+  classes, and each wrong family at NAS scale), with
+  `work/bin/s68-replay/` (master at `d77e4ae`; tmux `s68replays`).

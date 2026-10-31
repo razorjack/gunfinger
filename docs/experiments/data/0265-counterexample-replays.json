@@ -1,0 +1,870 @@
+[
+ {
+  "scale": "262",
+  "recipe": "0001.json",
+  "class": "gap: channel-fault",
+  "holds": true,
+  "same_outcome": true,
+  "minimal": {
+   "base": {
+    "lead": {
+     "asset": "extra/a-mo_funk-slipstream-sour.mp3",
+     "held_out": true,
+     "start_seconds": 278.39103356625697
+    },
+    "target": {
+     "asset": "extra/D-Usual_Suspects-Bodycount_(C4C_Remix)-sour.mp3",
+     "held_out": false,
+     "start_seconds": 207.89695998326857
+    },
+    "target_seconds": 96.77418713320091,
+    "partner": {
+     "asset": "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+     "held_out": false,
+     "start_seconds": 72.43698068700994
+    }
+   },
+   "transformations": [
+    {
+     "kind": "channel-fault",
+     "fault": "stereo-noise-snr--10db"
+    }
+   ]
+  },
+  "outcome": {
+   "target": "confident",
+   "uncovered_seconds": 44.580687133200925,
+   "wrong": []
+  },
+  "detections": [
+   {
+    "asset": "extra/D-Usual_Suspects-Bodycount_(C4C_Remix)-sour.mp3",
+    "start_seconds": 30.245,
+    "end_seconds": 82.1935,
+    "speed": 0.9999969959628691,
+    "windows": 6,
+    "hits": 1356
+   },
+   {
+    "asset": "extra/B-Aquasky-Lords_Of_Motion_(Technical_Itch_Remix)-sour.mp3",
+    "start_seconds": 126.92875,
+    "end_seconds": 156.461,
+    "speed": 0.9998290009719648,
+    "windows": 4,
+    "hits": 107
+   }
+  ]
+ },
+ {
+  "scale": "262",
+  "recipe": "0003.json",
+  "class": "gap: channel-fault",
+  "holds": true,
+  "same_outcome": true,
+  "minimal": {
+   "base": {
+    "lead": {
+     "asset": "extra/AA-Amir-Bulletproof-sour.mp3",
+     "held_out": true,
+     "start_seconds": 343.11432703391716
+    },
+    "target": {
+     "asset": "extra/Cyb Orc - People From South.mp3",
+     "held_out": false,
+     "start_seconds": 80.14990376400394
+    },
+    "target_seconds": 94.0770716009916,
+    "partner": {
+     "asset": "extra/a-bullet_proof-anthrax-sour.mp3",
+     "held_out": false,
+     "start_seconds": 151.8831898848225
+    }
+   },
+   "transformations": [
+    {
+     "kind": "channel-fault",
+     "fault": "stereo-inverted"
+    }
+   ]
+  },
+  "outcome": {
+   "target": "confident",
+   "uncovered_seconds": 47.3300716009916,
+   "wrong": []
+  },
+  "detections": [
+   {
+    "asset": "extra/Cyb Orc - People From South.mp3",
+    "start_seconds": 30.05925,
+    "end_seconds": 76.747,
+    "speed": 0.999987352603283,
+    "windows": 5,
+    "hits": 2034
+   }
+  ]
+ },
+ {
+  "scale": "262",
+  "recipe": "0007.json",
+  "class": "gap: ride+blend",
+  "holds": true,
+  "same_outcome": true,
+  "minimal": {
+   "base": {
+    "lead": {
+     "asset": "extra/4.Usual Suspects - Killa Bees (Konflict Remix).mp3",
+     "held_out": true,
+     "start_seconds": 122.40591391800506
+    },
+    "target": {
+     "asset": "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+     "held_out": false,
+     "start_seconds": 98.25395129766845
+    },
+    "target_seconds": 62.24253327731347,
+    "partner": {
+     "asset": "extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+     "held_out": true,
+     "start_seconds": 252.79368085227685
+    }
+   },
+   "transformations": [
+    {
+     "kind": "ride",
+     "change": 0.010179344104904602,
+     "at": 0.35050355346615564,
+     "seconds": 7.461024892425437
+    },
+    {
+     "kind": "blend",
+     "seconds": 47.67421431682421,
+     "gain_db": -0.4195978479197153
+    }
+   ]
+  },
+  "outcome": {
+   "target": "confident",
+   "uncovered_seconds": 34.50803327731347,
+   "wrong": []
+  },
+  "detections": [
+   {
+    "asset": "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+    "start_seconds": 30.0035,
+    "end_seconds": 57.7345,
+    "speed": 1.0,
+    "windows": 3,
+    "hits": 908
+   },
+   {
+    "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+    "start_seconds": 30.0035,
+    "end_seconds": 57.7345,
+    "speed": 1.0,
+    "windows": 3,
+    "hits": 908
+   },
+   {
+    "asset": "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3",
+    "start_seconds": 45.9164609375,
+    "end_seconds": 91.113826171875,
+    "speed": 1.0100263782782348,
+    "windows": 6,
+    "hits": 118
+   },
+   {
+    "asset": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/102-stakka_and_skynet_feat_kemal_and_rob_data-bios_fear-sour.mp3",
+    "start_seconds": 45.9164609375,
+    "end_seconds": 91.113826171875,
+    "speed": 1.0100263782782348,
+    "windows": 6,
+    "hits": 118
+   }
+  ]
+ },
+ {
+  "scale": "262",
+  "recipe": "0013.json",
+  "class": "lost: blend",
+  "holds": true,
+  "same_outcome": true,
+  "minimal": {
+   "base": {
+    "lead": {
+     "asset": "extra/a-usual_suspects-bleach-sour.mp3",
+     "held_out": true,
+     "start_seconds": 71.03384442379
+    },
+    "target": {
+     "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+     "held_out": false,
+     "start_seconds": 93.6541165725809
+    },
+    "target_seconds": 46.40367443502227,
+    "partner": {
+     "asset": "extra/208-shimon_and_andy_c-firewire-sour.mp3",
+     "held_out": false,
+     "start_seconds": 251.51960575344958
+    }
+   },
+   "transformations": [
+    {
+     "kind": "blend",
+     "seconds": 57.652051794286926,
+     "gain_db": -0.9877517910695781
+    }
+   ]
+  },
+  "outcome": {
+   "target": "possible",
+   "uncovered_seconds": 46.40367443502227,
+   "wrong": []
+  },
+  "detections": [
+   {
+    "asset": "extra/208-shimon_and_andy_c-firewire-sour.mp3",
+    "start_seconds": 30.037,
+    "end_seconds": 106.015,
+    "speed": 0.9999948140930393,
+    "windows": 8,
+    "hits": 1424
+   },
+   {
+    "asset": "Stakka & K.Tee - Auto Ignition.mp3",
+    "start_seconds": 30.46325,
+    "end_seconds": 75.857,
+    "speed": 0.9999394991880078,
+    "windows": 5,
+    "hits": 200
+   }
+  ]
+ },
+ {
+  "scale": "262",
+  "recipe": "0018.json",
+  "class": "gap: ride+channel-fault",
+  "holds": true,
+  "same_outcome": true,
+  "minimal": {
+   "base": {
+    "lead": {
+     "asset": "extra/02_-_skinnah_-_figurehead.mp3",
+     "held_out": true,
+     "start_seconds": 308.9198745664323
+    },
+    "target": {
+     "asset": "extra/b-kemal_and_rob_data-linear-sour.mp3",
+     "held_out": false,
+     "start_seconds": 66.53213072744819
+    },
+    "target_seconds": 117.04344806332577,
+    "partner": {
+     "asset": "Ed Rush & Optical - Sick Note.mp3",
+     "held_out": false,
+     "start_seconds": 224.67493386530163
+    }
+   },
+   "transformations": [
+    {
+     "kind": "ride",
+     "change": -0.027618807407296025,
+     "at": 0.3419743742416931,
+     "seconds": 7.982439907710423
+    },
+    {
+     "kind": "channel-fault",
+     "fault": "stereo-noise-snr--10db"
+    }
+   ]
+  },
+  "outcome": {
+   "target": "confident",
+   "uncovered_seconds": 50.29789337582574,
+   "wrong": []
+  },
+  "detections": [
+   {
+    "asset": "extra/b-kemal_and_rob_data-linear-sour.mp3",
+    "start_seconds": 29.96875,
+    "end_seconds": 74.083,
+    "speed": 0.9999888680774766,
+    "windows": 6,
+    "hits": 1522
+   },
+   {
+    "asset": "extra/b-kemal_and_rob_data-linear-sour.mp3",
+    "start_seconds": 74.070171875,
+    "end_seconds": 96.7455546875,
+    "speed": 0.9732777777777778,
+    "windows": 3,
+    "hits": 441
+   },
+   {
+    "asset": "extra/b-kemal_and_rob_data-linear-sour.mp3",
+    "start_seconds": 100.6507109375,
+    "end_seconds": 145.9643515625,
+    "speed": 0.972259832685685,
+    "windows": 5,
+    "hits": 44
+   }
+  ]
+ },
+ {
+  "scale": "262",
+  "recipe": "0039.json",
+  "class": "lost: ride+blend",
+  "holds": true,
+  "same_outcome": true,
+  "minimal": {
+   "base": {
+    "lead": {
+     "asset": "Kemal & Paul Reset - Kontempt.mp3",
+     "held_out": true,
+     "start_seconds": 102.54513478804925
+    },
+    "target": {
+     "asset": "extra/04-Skinny_and_Friction-Depth_Charge-sour.mp3",
+     "held_out": false,
+     "start_seconds": 59.48942758157764
+    },
+    "target_seconds": 46.596176457731815,
+    "partner": {
+     "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+     "held_out": false,
+     "start_seconds": 42.68559684145833
+    }
+   },
+   "transformations": [
+    {
+     "kind": "ride",
+     "change": 0.005417268263597071,
+     "at": 0.31863484376858625,
+     "seconds": 5.40327937808597
+    },
+    {
+     "kind": "blend",
+     "seconds": 52.52825267689553,
+     "gain_db": -4.310048832174949
+    }
+   ]
+  },
+  "outcome": {
+   "target": "possible",
+   "uncovered_seconds": 46.596176457731815,
+   "wrong": []
+  },
+  "detections": [
+   {
+    "asset": "extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3",
+    "start_seconds": 30.42275,
+    "end_seconds": 105.91525,
+    "speed": 0.9999731061052872,
+    "windows": 8,
+    "hits": 1249
+   },
+   {
+    "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/a-aphrodite-fanfare-sour.mp3",
+    "start_seconds": 30.42275,
+    "end_seconds": 105.91525,
+    "speed": 0.9999731061052872,
+    "windows": 8,
+    "hits": 1249
+   },
+   {
+    "asset": "extra/04-Skinny_and_Friction-Depth_Charge-sour.mp3",
+    "start_seconds": 30.1945,
+    "end_seconds": 76.3585,
+    "speed": 1.0032490170075938,
+    "windows": 5,
+    "hits": 190
+   },
+   {
+    "asset": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+    "start_seconds": 76.8353046875,
+    "end_seconds": 90.696505859375,
+    "speed": 0.992,
+    "windows": 3,
+    "hits": 32
+   },
+   {
+    "asset": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+    "start_seconds": 76.8353046875,
+    "end_seconds": 90.696505859375,
+    "speed": 0.992,
+    "windows": 3,
+    "hits": 32
+   }
+  ]
+ },
+ {
+  "scale": "262",
+  "recipe": "0064.json",
+  "class": "lost: ride+channel-fault",
+  "holds": true,
+  "same_outcome": true,
+  "minimal": {
+   "base": {
+    "lead": {
+     "asset": "extra/207-ant_miles-china_town-sour.mp3",
+     "held_out": true,
+     "start_seconds": 161.63166264055562
+    },
+    "target": {
+     "asset": "extra/D-Usual_Suspects-Bodycount_(C4C_Remix)-sour.mp3",
+     "held_out": false,
+     "start_seconds": 273.06983477253414
+    },
+    "target_seconds": 41.668518618779856,
+    "partner": {
+     "asset": "extra/b-subwave-digital_symphony-sour.mp3",
+     "held_out": false,
+     "start_seconds": 196.9962443239008
+    }
+   },
+   "transformations": [
+    {
+     "kind": "ride",
+     "change": 0.023435952528835104,
+     "at": 0.32573096468023716,
+     "seconds": 5.758453670753897
+    },
+    {
+     "kind": "channel-fault",
+     "fault": "stereo-delay-5ms"
+    }
+   ]
+  },
+  "outcome": {
+   "target": "possible",
+   "uncovered_seconds": 41.668518618779856,
+   "wrong": []
+  },
+  "detections": [
+   {
+    "asset": "extra/D-Usual_Suspects-Bodycount_(C4C_Remix)-sour.mp3",
+    "start_seconds": 30.06325,
+    "end_seconds": 46.57475,
+    "speed": 1.0,
+    "windows": 2,
+    "hits": 492
+   },
+   {
+    "asset": "extra/b-subwave-digital_symphony-sour.mp3",
+    "start_seconds": 71.89825,
+    "end_seconds": 100.9595,
+    "speed": 1.00002353870984,
+    "windows": 4,
+    "hits": 350
+   },
+   {
+    "asset": "extra/D-Usual_Suspects-Bodycount_(C4C_Remix)-sour.mp3",
+    "start_seconds": 46.058296875,
+    "end_seconds": 70.477486328125,
+    "speed": 1.0239076923076924,
+    "windows": 4,
+    "hits": 218
+   }
+  ]
+ },
+ {
+  "scale": "262",
+  "recipe": "0175.json",
+  "class": "gap: blend",
+  "holds": true,
+  "same_outcome": true,
+  "minimal": {
+   "base": {
+    "lead": {
+     "asset": "extra/207-ant_miles-china_town-sour.mp3",
+     "held_out": true,
+     "start_seconds": 175.98584084512285
+    },
+    "target": {
+     "asset": "extra/04_Rec.mp3",
+     "held_out": false,
+     "start_seconds": 162.71688079526209
+    },
+    "target_seconds": 105.21335852753225,
+    "partner": {
+     "asset": "extra/a-ed_rush_and_optical-sicknote-sour.mp3",
+     "held_out": false,
+     "start_seconds": 74.07594580021441
+    }
+   },
+   "transformations": [
+    {
+     "kind": "blend",
+     "seconds": 48.58718126593915,
+     "gain_db": -1.3630017402613577
+    }
+   ]
+  },
+  "outcome": {
+   "target": "confident",
+   "uncovered_seconds": 37.619358527532256,
+   "wrong": []
+  },
+  "detections": [
+   {
+    "asset": "extra/04_Rec.mp3",
+    "start_seconds": 30.14225,
+    "end_seconds": 97.594,
+    "speed": 1.0000003326808695,
+    "windows": 7,
+    "hits": 2028
+   },
+   {
+    "asset": "Ed Rush & Optical - Sick Note.mp3",
+    "start_seconds": 86.60475,
+    "end_seconds": 164.83675,
+    "speed": 0.9999807480850276,
+    "windows": 9,
+    "hits": 2027
+   },
+   {
+    "asset": "extra/a-ed_rush_and_optical-sicknote-sour.mp3",
+    "start_seconds": 86.60475,
+    "end_seconds": 164.83675,
+    "speed": 0.9999807480850276,
+    "windows": 9,
+    "hits": 2027
+   }
+  ]
+ },
+ {
+  "scale": "262",
+  "recipe": "0178.json",
+  "class": "gap: channel-fault",
+  "holds": true,
+  "same_outcome": true,
+  "minimal": {
+   "base": {
+    "lead": {
+     "asset": "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3",
+     "held_out": true,
+     "start_seconds": 161.40738453397597
+    },
+    "target": {
+     "asset": "extra/d. falcon - the stand.mp3",
+     "held_out": false,
+     "start_seconds": 162.21406033291478
+    },
+    "target_seconds": 104.06732203336063,
+    "partner": {
+     "asset": "extra/a-)eib(-miami-sour.mp3",
+     "held_out": true,
+     "start_seconds": 133.03247624187367
+    }
+   },
+   "transformations": [
+    {
+     "kind": "channel-fault",
+     "fault": "stereo-noise-snr-0db"
+    }
+   ]
+  },
+  "outcome": {
+   "target": "confident",
+   "uncovered_seconds": 34.49007203336065,
+   "wrong": []
+  },
+  "detections": [
+   {
+    "asset": "extra/d. falcon - the stand.mp3",
+    "start_seconds": 30.0405,
+    "end_seconds": 99.57725,
+    "speed": 0.9999919375658706,
+    "windows": 7,
+    "hits": 2718
+   }
+  ]
+ },
+ {
+  "scale": "nas",
+  "recipe": "0000.json",
+  "class": "wrong: none",
+  "holds": true,
+  "same_outcome": true,
+  "minimal": {
+   "base": {
+    "lead": {
+     "asset": "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3",
+     "held_out": true,
+     "start_seconds": 63.586866140007544
+    },
+    "target": {
+     "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+     "held_out": false,
+     "start_seconds": 300.80832467885045
+    },
+    "target_seconds": 63.532449539317064,
+    "partner": {
+     "asset": "extra/APH28-Aphrodite-VINYL-1998-LAME/b1-aphrodite-dark_dark_side-lame.mp3",
+     "held_out": false,
+     "start_seconds": 59.90074888022021
+    }
+   },
+   "transformations": []
+  },
+  "outcome": {
+   "target": "confident",
+   "uncovered_seconds": 0.28544953931707084,
+   "wrong": [
+    {
+     "asset": "second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a",
+     "hits": 285,
+     "over": "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3"
+    }
+   ]
+  },
+  "detections": [
+   {
+    "asset": "extra/D-Sinthetix-Cryogenic-sour.mp3",
+    "start_seconds": 30.206,
+    "end_seconds": 93.247,
+    "speed": 1.0000112170758895,
+    "windows": 7,
+    "hits": 2673
+   },
+   {
+    "asset": "second-library/va-spy_technologies_lp_part_one-dsci4lp002abcd-2002-sour/d-sinthetix-cryogenic-sour.mp3",
+    "start_seconds": 30.206,
+    "end_seconds": 93.247,
+    "speed": 1.0000112170758895,
+    "windows": 7,
+    "hits": 2673
+   },
+   {
+    "asset": "extra/APH28-Aphrodite-VINYL-1998-LAME/b1-aphrodite-dark_dark_side-lame.mp3",
+    "start_seconds": 93.5415,
+    "end_seconds": 123.24625,
+    "speed": 1.0000094432098128,
+    "windows": 4,
+    "hits": 1183
+   },
+   {
+    "asset": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a",
+    "start_seconds": 93.54375,
+    "end_seconds": 122.97975,
+    "speed": 0.9982755877854919,
+    "windows": 4,
+    "hits": 519
+   },
+   {
+    "asset": "second-library/__youtube_archivists/alien5ive/DSCI4 RECORDINGS [ DSCI4LP 002 ： SINTHETIX - cryogenic - ] drum and bass.opus",
+    "start_seconds": 30.221236328125,
+    "end_seconds": 92.83903906249999,
+    "speed": 0.9638809140897708,
+    "windows": 7,
+    "hits": 395
+   },
+   {
+    "asset": "second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a",
+    "start_seconds": 0.10460546875000001,
+    "end_seconds": 29.439886718750003,
+    "speed": 1.0449116737544497,
+    "windows": 3,
+    "hits": 285
+   },
+   {
+    "asset": "extra/a-sinthetix-neurotoxin-sour.mp3",
+    "start_seconds": 44.676345703125,
+    "end_seconds": 65.438794921875,
+    "speed": 0.996,
+    "windows": 3,
+    "hits": 50
+   },
+   {
+    "asset": "second-library/__youtube_archivists/alien5ive/SHADOW LAW RECORDINGS [ SLR 001 ： ROB F & IMPULSE & MECHA - neurotoxin - ] drum and bass.opus",
+    "start_seconds": 33.35421875,
+    "end_seconds": 59.1465546875,
+    "speed": 0.9704761904761906,
+    "windows": 3,
+    "hits": 42
+   }
+  ]
+ },
+ {
+  "scale": "nas",
+  "recipe": "0002.json",
+  "class": "wrong: none",
+  "holds": true,
+  "same_outcome": true,
+  "minimal": {
+   "base": {
+    "lead": {
+     "asset": "extra/207-ant_miles-china_town-sour.mp3",
+     "held_out": true,
+     "start_seconds": 235.357279253912
+    },
+    "target": {
+     "asset": "extra/A- The_Nine.mp3",
+     "held_out": true,
+     "start_seconds": 146.8073461749233
+    },
+    "target_seconds": 115.854334583734,
+    "partner": {
+     "asset": "extra/d-shimon-mutationz_iv-sour.mp3",
+     "held_out": false,
+     "start_seconds": 183.59213790397422
+    }
+   },
+   "transformations": []
+  },
+  "outcome": {
+   "target": "none",
+   "uncovered_seconds": 115.85433458373399,
+   "wrong": [
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "hits": 430,
+     "over": "extra/A- The_Nine.mp3"
+    },
+    {
+     "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "hits": 327,
+     "over": "extra/A- The_Nine.mp3"
+    }
+   ]
+  },
+  "detections": [
+   {
+    "asset": "extra/d-shimon-mutationz_iv-sour.mp3",
+    "start_seconds": 145.89975,
+    "end_seconds": 175.68225,
+    "speed": 1.0,
+    "windows": 4,
+    "hits": 1187
+   },
+   {
+    "asset": "second-library/DSCI4-DSCI4EP001-Various_Artists-2001-sour/D-Shimon-Mutationz_IV-sour.mp3",
+    "start_seconds": 145.89975,
+    "end_seconds": 175.68225,
+    "speed": 1.0,
+    "windows": 4,
+    "hits": 1187
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Shimon - Mutationz IV.opus",
+    "start_seconds": 145.89975,
+    "end_seconds": 175.68225,
+    "speed": 0.9999919670902055,
+    "windows": 4,
+    "hits": 799
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "start_seconds": 30.131271484375,
+    "end_seconds": 95.56173437500001,
+    "speed": 0.9956066525640104,
+    "windows": 7,
+    "hits": 430
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+    "start_seconds": 104.3778984375,
+    "end_seconds": 145.507482421875,
+    "speed": 0.996,
+    "windows": 5,
+    "hits": 327
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Ant Miles - Sea Of Chaos.m4a",
+    "start_seconds": 0.64475,
+    "end_seconds": 28.7565,
+    "speed": 1.0,
+    "windows": 3,
+    "hits": 108
+   },
+   {
+    "asset": "second-library/__youtube_archivists/the-hifi-junglist/Ant Miles - Sea Of Chaos (Drum&BassArena, React REACTCD201 disc 2 track 1) 2001.m4a",
+    "start_seconds": 4.473125,
+    "end_seconds": 29.451375,
+    "speed": 1.001818181818182,
+    "windows": 3,
+    "hits": 103
+   },
+   {
+    "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-01/breakbeat_culture-fresh_and_vegas-bbc009-1999-sour/a-fresh_and_vegas-meekon-sour.mp3",
+    "start_seconds": 104.6535,
+    "end_seconds": 137.13075,
+    "speed": 0.9986086956521739,
+    "windows": 4,
+    "hits": 53
+   },
+   {
+    "asset": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-01/breakbeat_culture-fresh_and_vegas-bbc009-1999-sour/a-fresh_and_vegas-meekon-sour.mp3",
+    "start_seconds": 41.114390625,
+    "end_seconds": 75.6672421875,
+    "speed": 0.996,
+    "windows": 4,
+    "hits": 37
+   },
+   {
+    "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - Bullet Time (Maldini VIP) [CUT].m4a",
+    "start_seconds": 36.9633671875,
+    "end_seconds": 55.0117890625,
+    "speed": 0.9661666666666667,
+    "windows": 3,
+    "hits": 31
+   },
+   {
+    "asset": "second-library/__youtube_archivists/dfect-dnb/Fresh & Vegas - Meekon.m4a",
+    "start_seconds": 105.358546875,
+    "end_seconds": 137.804814453125,
+    "speed": 1.008,
+    "windows": 4,
+    "hits": 30
+   }
+  ]
+ },
+ {
+  "scale": "nas",
+  "recipe": "0057.json",
+  "class": "wrong: none",
+  "holds": true,
+  "same_outcome": true,
+  "minimal": {
+   "base": {
+    "lead": {
+     "asset": "extra/A. Pyro -- Time Is Broken.mp3",
+     "held_out": true,
+     "start_seconds": 83.12294694033054
+    },
+    "target": {
+     "asset": "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3",
+     "held_out": true,
+     "start_seconds": 273.0200941724919
+    },
+    "target_seconds": 44.41558738463763,
+    "partner": {
+     "asset": "Ed Rush & Optical - Funktion.mp3",
+     "held_out": true,
+     "start_seconds": 122.52701725501745
+    }
+   },
+   "transformations": []
+  },
+  "outcome": {
+   "target": "none",
+   "uncovered_seconds": 44.41558738463763,
+   "wrong": [
+    {
+     "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+     "hits": 271,
+     "over": "extra/A. Pyro -- Time Is Broken.mp3"
+    }
+   ]
+  },
+  "detections": [
+   {
+    "asset": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+    "start_seconds": 1.836,
+    "end_seconds": 27.6625,
+    "speed": 1.0,
+    "windows": 3,
+    "hits": 271
+   }
+  ]
+ }
+]
