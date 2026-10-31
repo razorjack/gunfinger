@@ -1262,7 +1262,7 @@ pub struct Options<'a> {
     pub verify: bool,
     /// Search each confident play's span again with what it explains
     /// taken out (the drops kind; `residual`).
-    pub residual: Option<residual::Pilot>,
+    pub residual: Option<&'a residual::Pilot>,
     pub jobs: usize,
 }
 

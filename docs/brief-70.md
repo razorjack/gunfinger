@@ -253,3 +253,38 @@ the test seeds is a candidate for a later ADR, not a decision.
 
 ## Decisions
 
+- **(06:43-06:51) Start build and regressions** (`work/s70/start.sh`,
+  tmux `s70start`, logs in `work/s70/logs/`; `run.sh` and `same.py`
+  are session 69's with the paths changed). Cargo had nothing to
+  rebuild: the start build is byte-identical to `work/bin/s69-final/`;
+  `regress session-54-linux` (0:51) and `regress session-64-linux-nas`
+  (4:00) identical, every report equal to its baseline's.
+- **(06:58) Two changes to the lag measure before any run**, both
+  found by the unit tests on synthetic signals (irregular tone bursts,
+  A 125 ms late in the mixture). The bands' levels are the cube root of
+  their power, not its logarithm: with the logarithm the window's
+  leakage around short bursts pulled the lag to 130 ms (the cube root,
+  like the logarithm, leaves a correlation unchanged by a gain per
+  band). The refinement does not fit a parabola through the best frame
+  (it was 4.5 ms off); it tries each lag within 3 frames of the line in
+  steps of an eighth of a hop (2 ms), from spectra of the reference
+  started that many samples later. With it the test finds 126 ms and
+  *Align* leaves 2-3 of A's 66-70 peaks per tone (the exact delay 0-1;
+  without the fix all). Beyond the first and the last block the map
+  follows the line's slope from that block's lag, so it stays
+  continuous.
+- **(06:59) The harness** (`mixes --kind drops --residual
+  --residual-timing truth,detected --residual-fix off,align,align-fine`;
+  `residual.rs`: `Fix`, `lags`, the gain spread; `mixes/residual.rs`:
+  several timings and fixes per run, the rip's line, the seek offsets,
+  the plain evidence per masked detection). The report's `residual`
+  now nests the masked arms per timing (`maskings`) and fix (`fits`);
+  session 65's reports keep their layout and `residual_pilot.py`. The
+  report name adds `-fix-<fixes>` unless the only fix is `off`.
+  `ReferenceKind::Detected` is gone: the kind says whether the
+  reference audio is the played file's. `gunfinger` is byte-identical
+  to `s69-final`'s. Summaries: `scripts/analysis/residual_residue.py`.
+- **(07:05) Each run has its own work directory**
+  (`work/s70/w-<scale>-<seed>`), with the renders copied: the residual's
+  scratch directory is removed at the end of a run, so two runs in one
+  work directory could remove each other's temporary WAVs.

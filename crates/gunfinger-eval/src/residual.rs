@@ -10,6 +10,10 @@
 //! (a power residual: powers of unrelated signals add only on average).
 //! The masked spectrum is turned back into audio by overlap-add, because
 //! the search analyses its query again on every rung of the ladder.
+//!
+//! Brief 70 adds a measure of the timing the reference is off by (`lags`)
+//! and two fixes (`Fix`): the reference shifted onto the mixture by those
+//! lags, and the same with gains fitted over shorter blocks.
 
 use std::ops::Range;
 
@@ -29,10 +33,54 @@ pub struct Rule {
     pub over: f64,
 }
 
+/// What is done before the mask (brief 70's fixes, fixed before their
+/// runs).
+#[derive(clap::ValueEnum, Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum Fix {
+    /// The reference as placed by its time map (session 65).
+    Off,
+    /// The reference shifted onto the mixture by the lags `lags` measures.
+    Align,
+    /// `Align`, and gains fitted per block of `FINE_BLOCK_FRAMES`.
+    AlignFine,
+}
+
+impl Fix {
+    pub fn name(self) -> &'static str {
+        match self {
+            Fix::Off => "off",
+            Fix::Align => "align",
+            Fix::AlignFine => "align-fine",
+        }
+    }
+
+    fn block_frames(self) -> usize {
+        match self {
+            Fix::Off | Fix::Align => BLOCK_FRAMES,
+            Fix::AlignFine => FINE_BLOCK_FRAMES,
+        }
+    }
+}
+
+/// The residual's samples, and how well the gains fitted.
+pub struct Residual {
+    pub samples: Vec<f32>,
+    /// Per band, the median over blocks of the spread of the mixture's
+    /// power over the reference's at the points the gain is read from:
+    /// the 70th over the 30th percentile, in dB. A record the reference
+    /// matches up to a gain spreads little; one it is off from in time or
+    /// in sound spreads more. `None` where no block has a gain.
+    pub gain_spread_db: Vec<Option<f32>>,
+}
+
 /// Gains are fitted per block of this many frames (about 1 s at the
 /// profile's hop): slow enough to hold many points, fast enough to
 /// follow a fade of 2 s or more.
 const BLOCK_FRAMES: usize = 63;
+/// `Fix::AlignFine`'s blocks: about 0.5 s, still 16 points above the
+/// median in a band one bin wide.
+const FINE_BLOCK_FRAMES: usize = 32;
 /// The gain is this quantile of the mixture's power over the reference's
 /// at the reference's stronger points: where another record adds power
 /// the ratio rises, so a low quantile follows the points the reference
@@ -53,20 +101,33 @@ const FIRST_BAND_END: usize = 5;
 /// and last few) keep the mixture's value.
 const MIN_WINDOW_WEIGHT: f32 = 0.1;
 
-/// The residual of `mixture` once `reference` (the same span, aligned
-/// sample for sample, at any level) is taken out under `rule`. Both are
-/// mono at the profile's rate; the residual has the mixture's length.
-pub fn residual(mixture: &[f32], reference: &[f32], profile: &Profile, rule: Rule) -> Vec<f32> {
-    let mut reference = reference.to_vec();
+/// The residual of `mixture` once `reference` (the same span, placed by
+/// its time map, at any level) is taken out under `rule`, after `fix`.
+/// Both are mono at the profile's rate; the residual has the mixture's
+/// length.
+pub fn residual(
+    mixture: &[f32],
+    reference: &[f32],
+    profile: &Profile,
+    rule: Rule,
+    fix: Fix,
+) -> Residual {
+    let mut reference = match fix {
+        Fix::Off => reference.to_vec(),
+        Fix::Align | Fix::AlignFine => {
+            shifted(reference, &lags(mixture, reference, profile), profile)
+        }
+    };
     reference.resize(mixture.len(), 0.0);
     let mut spectra = spectra(mixture, profile);
     let mixture_powers: Vec<Vec<f32>> = spectra.iter().map(|frame| powers(frame)).collect();
-    let reference_powers: Vec<Vec<f32>> = spectra_of_reference(&reference, profile);
+    let reference_powers: Vec<Vec<f32>> = power_spectra(&reference, profile);
     let bands = bands(profile.fft_size / 2 + 1);
-    let gains = band_gains(&mixture_powers, &reference_powers, &bands);
+    let block_frames = fix.block_frames();
+    let fit = band_gains(&mixture_powers, &reference_powers, &bands, block_frames);
     let over = rule.over as f32;
     for (frame, spectrum) in spectra.iter_mut().enumerate() {
-        let block = &gains[frame / BLOCK_FRAMES];
+        let block = &fit.gains[frame / block_frames];
         for (band, &gain) in bands.iter().zip(block) {
             for bin in band.clone() {
                 let explained = over * gain * reference_powers[frame][bin];
@@ -78,43 +139,75 @@ pub fn residual(mixture: &[f32], reference: &[f32], profile: &Profile, rule: Rul
             }
         }
     }
-    overlap_add(&spectra, mixture, profile)
+    Residual {
+        samples: overlap_add(&spectra, mixture, profile),
+        gain_spread_db: fit.spread_db,
+    }
 }
 
-/// The reference's gain in the mixture, per block of `BLOCK_FRAMES`
-/// frames (outer) and band (inner), as a ratio of powers.
+struct GainFit {
+    /// Per block (outer) and band (inner), as a ratio of powers.
+    gains: Vec<Vec<f32>>,
+    /// Per band: `Residual::gain_spread_db`.
+    spread_db: Vec<Option<f32>>,
+}
+
+/// The reference's gain in the mixture, per block of `block_frames` frames
+/// and band.
 fn band_gains(
     mixture: &[Vec<f32>],
     reference: &[Vec<f32>],
     bands: &[Range<usize>],
-) -> Vec<Vec<f32>> {
+    block_frames: usize,
+) -> GainFit {
     let means: Vec<f32> = bands
         .iter()
         .map(|band| mean_power(reference, band.clone()))
         .collect();
-    mixture
-        .chunks(BLOCK_FRAMES)
-        .zip(reference.chunks(BLOCK_FRAMES))
+    let mut spreads: Vec<Vec<f32>> = vec![Vec::new(); bands.len()];
+    let gains = mixture
+        .chunks(block_frames)
+        .zip(reference.chunks(block_frames))
         .map(|(mixture, reference)| {
             bands
                 .iter()
                 .zip(&means)
-                .map(|(band, &mean)| {
+                .zip(&mut spreads)
+                .map(|((band, &mean), spreads)| {
                     if mean_power(reference, band.clone()) < SILENT_SHARE * mean {
-                        0.0
-                    } else {
-                        block_gain(mixture, reference, band.clone())
+                        return 0.0;
                     }
+                    let Some(ratios) = strong_ratios(mixture, reference, band.clone()) else {
+                        return 0.0;
+                    };
+                    let gain = quantile(ratios.clone(), GAIN_QUANTILE);
+                    if gain > 0.0 {
+                        let high = quantile(ratios, 1.0 - GAIN_QUANTILE);
+                        spreads.push(10.0 * (high / gain).log10());
+                    }
+                    gain
                 })
                 .collect()
         })
-        .collect()
+        .collect();
+    GainFit {
+        gains,
+        spread_db: spreads
+            .into_iter()
+            .map(|spreads| (!spreads.is_empty()).then(|| quantile(spreads, 0.5)))
+            .collect(),
+    }
 }
 
-/// `GAIN_QUANTILE` of the mixture's power over the reference's, at the
-/// points of the band and block where the reference's power is at least
-/// its median there.
-fn block_gain(mixture: &[Vec<f32>], reference: &[Vec<f32>], band: Range<usize>) -> f32 {
+/// The mixture's power over the reference's at the points of the band and
+/// block where the reference's power is at least its median there; `None`
+/// when there are fewer than `MIN_POINTS`. The gain is their
+/// `GAIN_QUANTILE`.
+fn strong_ratios(
+    mixture: &[Vec<f32>],
+    reference: &[Vec<f32>],
+    band: Range<usize>,
+) -> Option<Vec<f32>> {
     let points: Vec<(f32, f32)> = mixture
         .iter()
         .zip(reference)
@@ -124,7 +217,7 @@ fn block_gain(mixture: &[Vec<f32>], reference: &[Vec<f32>], band: Range<usize>) 
         .filter(|&(_, reference)| reference > 0.0)
         .collect();
     if points.len() < MIN_POINTS {
-        return 0.0;
+        return None;
     }
     let median = quantile(
         points.iter().map(|&(_, reference)| reference).collect(),
@@ -135,10 +228,7 @@ fn block_gain(mixture: &[Vec<f32>], reference: &[Vec<f32>], band: Range<usize>) 
         .filter(|&&(_, reference)| reference >= median)
         .map(|&(mixture, reference)| mixture / reference)
         .collect();
-    if ratios.len() < MIN_POINTS {
-        return 0.0;
-    }
-    quantile(ratios, GAIN_QUANTILE)
+    (ratios.len() >= MIN_POINTS).then_some(ratios)
 }
 
 /// The value at `share` of the way through `values` sorted (nearest rank).
@@ -156,6 +246,293 @@ fn mean_power(frames: &[Vec<f32>], band: Range<usize>) -> f32 {
         .map(|&power| f64::from(power))
         .sum();
     (total / count.max(1) as f64) as f32
+}
+
+/// The lags are measured over blocks of this many frames (8.2 s at the
+/// profile's hop) every `LAG_STEP` frames.
+const LAG_BLOCK: usize = 512;
+const LAG_STEP: usize = 256;
+/// Lags of up to this many frames either way (400 ms) are tried: more
+/// than the lines' errors of 0127 and the seek's offset of Do Drop In.
+const MAX_LAG: isize = 25;
+/// Each block's lag is refined within this many frames of the line
+/// through the blocks' first estimates...
+const REFINE_LAG: isize = 3;
+/// ...in steps of a hop over this many: the reference's spectra are also
+/// taken from each such step into its first frame (2 ms at the profile's
+/// hop).
+const PHASES: usize = 8;
+/// A block whose best correlation is under this is not used: the
+/// reference does not follow the mixture there (a break, another record).
+const MIN_CORRELATION: f64 = 0.3;
+/// A block whose reference power is under this share of the excerpt's
+/// mean is the record's silence.
+const SILENT_BLOCK_SHARE: f64 = 1e-3;
+
+/// How far the reference is from the mixture in time (brief 70): the
+/// reference sample at mixture time `t` should be the one at `t - lag`.
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
+pub struct Lags {
+    /// The blocks used, in order.
+    pub blocks: Vec<BlockLag>,
+    /// The blocks measured, used or not.
+    pub measured: usize,
+    /// The Theil-Sen line through the blocks' first estimates: its lag at
+    /// the excerpt's start and its slope in parts per million.
+    pub offset_ms: f64,
+    pub drift_ppm: f64,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct BlockLag {
+    /// The block's middle, from the excerpt's start.
+    pub seconds: f64,
+    pub lag_ms: f64,
+    /// The mean over bands of the correlation of band levels (`levels`) at the
+    /// lag found, and at no lag.
+    pub correlation: f64,
+    pub at_zero: f64,
+}
+
+impl Lags {
+    /// The lag at `seconds`: linear between the blocks' lags, along the
+    /// line's slope beyond the first and the last; 0 without blocks.
+    pub fn at(&self, seconds: f64) -> f64 {
+        let (Some(first), Some(last)) = (self.blocks.first(), self.blocks.last()) else {
+            return 0.0;
+        };
+        let slope = self.drift_ppm * 1e-6;
+        if seconds <= first.seconds {
+            return first.lag_ms - slope * (first.seconds - seconds) * 1000.0;
+        }
+        if seconds >= last.seconds {
+            return last.lag_ms + slope * (seconds - last.seconds) * 1000.0;
+        }
+        let after = self
+            .blocks
+            .iter()
+            .position(|block| block.seconds > seconds)
+            .unwrap_or(self.blocks.len() - 1)
+            .max(1);
+        let (before, after) = (&self.blocks[after - 1], &self.blocks[after]);
+        let share = (seconds - before.seconds) / (after.seconds - before.seconds);
+        before.lag_ms + share * (after.lag_ms - before.lag_ms)
+    }
+}
+
+/// The lags between `reference` and `mixture` (same rate, the reference
+/// placed by its time map): per block, the lag of the reference's band
+/// levels (`levels`) that best correlates with the mixture's within `MAX_LAG`
+/// frames; a Theil-Sen line through those; each block's lag refined
+/// within `REFINE_LAG` frames of the line, in steps of a `PHASES`th of a
+/// hop.
+pub fn lags(mixture: &[f32], reference: &[f32], profile: &Profile) -> Lags {
+    let mut reference = reference.to_vec();
+    reference.resize(mixture.len(), 0.0);
+    let mixture = power_spectra(mixture, profile);
+    let bands = bands(profile.fft_size / 2 + 1);
+    let mixture_levels = levels(&mixture, &bands);
+    let step = profile.hop / PHASES;
+    // Phase `p`'s frame `f` starts at the reference's sample
+    // `p * step + f * hop`: matched with the mixture's frame `f + k`, the
+    // reference is `k * hop - p * step` samples late.
+    let phases: Vec<Vec<Vec<f64>>> = (0..PHASES)
+        .map(|phase| levels(&power_spectra(&reference[phase * step..], profile), &bands))
+        .collect();
+    let loudness: Vec<f64> = power_spectra(&reference, profile)
+        .iter()
+        .map(|frame| frame.iter().map(|&power| f64::from(power)).sum())
+        .collect();
+    let mean_loudness = loudness.iter().sum::<f64>() / loudness.len().max(1) as f64;
+    let frames = mixture.len();
+    let starts: Vec<usize> = if frames >= LAG_BLOCK {
+        (0..=(frames - LAG_BLOCK) / LAG_STEP)
+            .map(|block| block * LAG_STEP)
+            .collect()
+    } else if frames > 2 * MAX_LAG as usize {
+        vec![0]
+    } else {
+        Vec::new()
+    };
+    let correlation = |start: usize, lag: isize, phase: usize| {
+        let block = start..(start + LAG_BLOCK).min(frames);
+        mean_correlation(&mixture_levels, &phases[phase], block, lag)
+    };
+    let first: Vec<(usize, f64)> = starts
+        .iter()
+        .filter(|&&start| {
+            let end = (start + LAG_BLOCK).min(frames);
+            let mean = loudness[start..end].iter().sum::<f64>() / (end - start) as f64;
+            mean >= SILENT_BLOCK_SHARE * mean_loudness
+        })
+        .filter_map(|&start| {
+            let (lag, best) = best_lag(-MAX_LAG..=MAX_LAG, 0, |lag| correlation(start, lag, 0));
+            (best >= MIN_CORRELATION).then_some((start, lag as f64))
+        })
+        .collect();
+    let middle = |start: usize| start as f64 + (LAG_BLOCK.min(frames) as f64) / 2.0;
+    let (offset, slope) = theil_sen(
+        &first
+            .iter()
+            .map(|&(start, lag)| (middle(start), lag))
+            .collect::<Vec<_>>(),
+    );
+    let rate = f64::from(profile.sample_rate);
+    let frame_seconds = profile.hop as f64 / rate;
+    let blocks = first
+        .iter()
+        .map(|&(start, _)| {
+            let centre = (offset + slope * middle(start)).round() as isize;
+            let candidates = (centre - REFINE_LAG..=centre + REFINE_LAG)
+                .flat_map(|lag| (0..PHASES).map(move |phase| (lag, phase)));
+            let ((lag, phase), best) = best_lag(candidates, (centre, 0), |(lag, phase)| {
+                correlation(start, lag, phase)
+            });
+            let samples = lag * profile.hop as isize - (phase * step) as isize;
+            BlockLag {
+                seconds: middle(start) * frame_seconds,
+                lag_ms: samples as f64 / rate * 1000.0,
+                correlation: best,
+                at_zero: correlation(start, 0, 0),
+            }
+        })
+        .collect();
+    Lags {
+        blocks,
+        measured: starts.len(),
+        offset_ms: offset * frame_seconds * 1000.0,
+        drift_ppm: slope * 1e6,
+    }
+}
+
+/// The candidate with the highest correlation, the first on a tie (and
+/// `fallback` with none).
+fn best_lag<T: Copy>(
+    candidates: impl Iterator<Item = T>,
+    fallback: T,
+    correlation: impl Fn(T) -> f64,
+) -> (T, f64) {
+    candidates
+        .map(|candidate| (candidate, correlation(candidate)))
+        .fold((fallback, f64::NEG_INFINITY), |best, candidate| {
+            if candidate.1 > best.1 {
+                candidate
+            } else {
+                best
+            }
+        })
+}
+
+/// Per frame (outer) and band above the first (inner), the cube root of
+/// the band's power: compressed so that loud frames do not decide alone,
+/// but not so far as the logarithm, under which the window's leakage
+/// around short sounds pulled the lag off by 5 ms in the tests. A gain
+/// per band does not change a correlation.
+fn levels(frames: &[Vec<f32>], bands: &[Range<usize>]) -> Vec<Vec<f64>> {
+    frames
+        .iter()
+        .map(|frame| {
+            bands[1..]
+                .iter()
+                .map(|band| {
+                    let power: f64 = frame[band.clone()].iter().map(|&p| f64::from(p)).sum();
+                    power.cbrt()
+                })
+                .collect()
+        })
+        .collect()
+}
+
+/// The mean over bands of Pearson's correlation between the mixture's
+/// levels over `block` and the reference's `lag` frames earlier, over the
+/// frames both have; bands that do not vary are left out.
+fn mean_correlation(
+    mixture: &[Vec<f64>],
+    reference: &[Vec<f64>],
+    block: Range<usize>,
+    lag: isize,
+) -> f64 {
+    let pairs: Vec<(&Vec<f64>, &Vec<f64>)> = block
+        .filter_map(|frame| {
+            let other = usize::try_from(frame as isize - lag).ok()?;
+            Some((&mixture[frame], reference.get(other)?))
+        })
+        .collect();
+    let bands = mixture.first().map_or(0, Vec::len);
+    let correlations: Vec<f64> = (0..bands)
+        .filter_map(|band| {
+            let n = pairs.len() as f64;
+            let (x, y): (Vec<f64>, Vec<f64>) =
+                pairs.iter().map(|(m, r)| (m[band], r[band])).unzip();
+            let (mean_x, mean_y) = (x.iter().sum::<f64>() / n, y.iter().sum::<f64>() / n);
+            let mut products = 0.0;
+            let mut squares_x = 0.0;
+            let mut squares_y = 0.0;
+            for (x, y) in x.iter().zip(&y) {
+                products += (x - mean_x) * (y - mean_y);
+                squares_x += (x - mean_x) * (x - mean_x);
+                squares_y += (y - mean_y) * (y - mean_y);
+            }
+            let scale = (squares_x * squares_y).sqrt();
+            (scale > 1e-12).then(|| products / scale)
+        })
+        .collect();
+    if correlations.is_empty() {
+        return f64::NEG_INFINITY;
+    }
+    correlations.iter().sum::<f64>() / correlations.len() as f64
+}
+
+/// The Theil-Sen line through `points`: the median of the pairs' slopes,
+/// and the median of the intercepts it leaves (robust to a block locked
+/// on the wrong beat). One point gives a flat line; none, zero.
+fn theil_sen(points: &[(f64, f64)]) -> (f64, f64) {
+    let median = |mut values: Vec<f64>| {
+        values.sort_by(f64::total_cmp);
+        let middle = values.len() / 2;
+        if values.len() % 2 == 1 {
+            values[middle]
+        } else {
+            0.5 * (values[middle - 1] + values[middle])
+        }
+    };
+    if points.is_empty() {
+        return (0.0, 0.0);
+    }
+    let slopes: Vec<f64> = points
+        .iter()
+        .enumerate()
+        .flat_map(|(i, a)| {
+            points[i + 1..]
+                .iter()
+                .map(move |b| (b.1 - a.1) / (b.0 - a.0))
+        })
+        .collect();
+    let slope = if slopes.is_empty() {
+        0.0
+    } else {
+        median(slopes)
+    };
+    let offset = median(points.iter().map(|(x, y)| y - slope * x).collect());
+    (offset, slope)
+}
+
+/// `reference` moved by `lags`: the sample at mixture time `t` is the
+/// reference's at `t - lag(t)`, the nearest sample (silence outside it).
+fn shifted(reference: &[f32], lags: &Lags, profile: &Profile) -> Vec<f32> {
+    let rate = f64::from(profile.sample_rate);
+    (0..reference.len())
+        .map(|n| {
+            let seconds = n as f64 / rate;
+            let source = n as f64 - lags.at(seconds) / 1000.0 * rate;
+            let source = source.round();
+            if source >= 0.0 && (source as usize) < reference.len() {
+                reference[source as usize]
+            } else {
+                0.0
+            }
+        })
+        .collect()
 }
 
 /// The bands gains are fitted in: below `FIRST_BAND_END`, then a third of
@@ -197,7 +574,7 @@ pub(crate) fn spectra(samples: &[f32], profile: &Profile) -> Vec<Vec<Complex<f32
     frames
 }
 
-fn spectra_of_reference(reference: &[f32], profile: &Profile) -> Vec<Vec<f32>> {
+fn power_spectra(reference: &[f32], profile: &Profile) -> Vec<Vec<f32>> {
     spectra(reference, profile)
         .iter()
         .map(|frame| powers(frame))
@@ -326,8 +703,8 @@ mod tests {
         let profile = Profile::CURRENT;
         let before = extract_peaks(&mixture, &profile);
         // The reference is A at another level: the gain is fitted.
-        let left = residual(&mixture, &a, &profile, Rule { over: 2.0 });
-        let after = extract_peaks(&left, &profile);
+        let left = residual(&mixture, &a, &profile, Rule { over: 2.0 }, Fix::Off);
+        let after = extract_peaks(&left.samples, &profile);
         for hz in [300.0, 1200.0] {
             assert!(
                 near(&before, hz) >= 30,
@@ -358,10 +735,11 @@ mod tests {
             &vec![0.0; mixture.len()],
             &profile,
             Rule { over: 2.0 },
+            Fix::Off,
         );
         let largest_error = mixture
             .iter()
-            .zip(&left)
+            .zip(&left.samples)
             .map(|(before, after)| (before - after).abs())
             .fold(0.0_f32, f32::max);
         assert!(
@@ -378,16 +756,144 @@ mod tests {
             .iter()
             .map(|frame| powers(frame))
             .collect();
-        let reference = spectra_of_reference(&a, &profile);
+        let reference = power_spectra(&a, &profile);
         let bands = bands(profile.fft_size / 2 + 1);
-        let gains = band_gains(&mixture, &reference, &bands);
+        let fit = band_gains(&mixture, &reference, &bands, BLOCK_FRAMES);
         // The band holding 300 Hz (bin 38.4), in a block in the middle.
         let band = bands.iter().position(|band| band.contains(&38)).unwrap();
-        let gain = gains[gains.len() / 2][band];
+        let gain = fit.gains[fit.gains.len() / 2][band];
         assert!(
             (gain - 0.25).abs() < 0.01,
             "an amplitude of 0.5 is a power of 0.25: {gain}"
         );
+        let spread = fit.spread_db[band].unwrap();
+        assert!(
+            spread < 0.1,
+            "a copy at another level spreads by {spread} dB"
+        );
+    }
+
+    /// Tone bursts at `hz` as `bursts` makes them, starting at irregular
+    /// times (0.3 to 0.9 s apart, from a fixed generator), so that no
+    /// shift of a few hundred milliseconds looks like another.
+    fn irregular(hz: f32, seconds: f32, amplitude: f32, seed: u64) -> Vec<f32> {
+        let length = (seconds * RATE) as usize;
+        let burst = (0.08 * RATE) as usize;
+        let mut samples = vec![0.0; length];
+        let mut state = seed;
+        let mut start = (0.5 * RATE) as usize;
+        while start + burst < length {
+            for n in 0..burst {
+                let envelope =
+                    0.5 - 0.5 * (2.0 * std::f32::consts::PI * n as f32 / burst as f32).cos();
+                let t = (start + n) as f32 / RATE;
+                samples[start + n] +=
+                    amplitude * envelope * (2.0 * std::f32::consts::PI * hz * t).sin();
+            }
+            state = state
+                .wrapping_mul(6_364_136_223_846_793_005)
+                .wrapping_add(1_442_695_040_888_963_407);
+            let gap = 0.3 + 0.6 * ((state >> 33) as f32 / (1_u64 << 31) as f32);
+            start += (gap * RATE) as usize;
+        }
+        samples
+    }
+
+    /// `samples` later by `delay` samples (silence before), same length.
+    fn delayed(samples: &[f32], delay: usize) -> Vec<f32> {
+        let mut later = vec![0.0; delay];
+        later.extend_from_slice(&samples[..samples.len() - delay]);
+        later
+    }
+
+    fn irregular_records() -> (Vec<f32>, Vec<f32>) {
+        let a = added(
+            &irregular(300.0, 40.0, 0.3, 1),
+            &irregular(1200.0, 40.0, 0.3, 2),
+        );
+        let quiet = 0.3 * 10_f32.powf(-9.0 / 20.0);
+        let b = added(
+            &irregular(700.0, 40.0, quiet, 3),
+            &irregular(2000.0, 40.0, quiet, 4),
+        );
+        (a, b)
+    }
+
+    #[test]
+    fn the_lags_find_a_reference_placed_125_ms_early() {
+        let (a, b) = irregular_records();
+        // The mixture holds A 1,000 samples (125 ms) later than the
+        // reference has it.
+        let mixture = added(&scaled(&delayed(&a, 1000), 0.5), &b);
+        let lags = lags(&mixture, &a, &Profile::CURRENT);
+        assert!(lags.measured >= 8, "{} blocks", lags.measured);
+        assert!(!lags.blocks.is_empty());
+        for block in &lags.blocks {
+            assert!(
+                (block.lag_ms - 125.0).abs() < 4.0,
+                "at {} s: {} ms",
+                block.seconds,
+                block.lag_ms
+            );
+            assert!(block.correlation > block.at_zero);
+        }
+        assert!(lags.drift_ppm.abs() < 100.0, "{} ppm", lags.drift_ppm);
+    }
+
+    #[test]
+    fn aligning_takes_out_a_record_whose_reference_is_off_in_time() {
+        let (a, b) = irregular_records();
+        let mixture = added(&scaled(&delayed(&a, 1000), 0.5), &b);
+        let profile = Profile::CURRENT;
+        let count = |samples: &[f32], hz: f32| near(&extract_peaks(samples, &profile), hz);
+        let off = residual(&mixture, &a, &profile, Rule { over: 2.0 }, Fix::Off);
+        let aligned = residual(&mixture, &a, &profile, Rule { over: 2.0 }, Fix::Align);
+        for hz in [300.0, 1200.0] {
+            assert!(
+                count(&off.samples, hz) >= 20,
+                "unaligned, A stays at {hz} Hz"
+            );
+            // A millisecond off still leaves a peak or two at a burst's
+            // edges (with the exact delay, at most one).
+            assert!(
+                count(&aligned.samples, hz) <= 5,
+                "aligned, A goes at {hz} Hz"
+            );
+        }
+        for hz in [700.0, 2000.0] {
+            assert!(
+                count(&aligned.samples, hz) + 2 >= count(&mixture, hz),
+                "B's peaks at {hz} Hz kept"
+            );
+        }
+    }
+
+    #[test]
+    fn the_lag_between_blocks_is_linear_and_follows_the_drift_beyond_them() {
+        let block = |seconds: f64, lag_ms: f64| BlockLag {
+            seconds,
+            lag_ms,
+            correlation: 0.9,
+            at_zero: 0.1,
+        };
+        let lags = Lags {
+            blocks: vec![block(10.0, 20.0), block(20.0, 40.0)],
+            measured: 2,
+            offset_ms: 0.0,
+            drift_ppm: 2000.0,
+        };
+        assert!((lags.at(15.0) - 30.0).abs() < 1e-9);
+        // 2,000 ppm is 2 ms a second.
+        assert!((lags.at(5.0) - 10.0).abs() < 1e-9);
+        assert!((lags.at(25.0) - 50.0).abs() < 1e-9);
+        assert_eq!(Lags::default().at(12.0), 0.0);
+    }
+
+    #[test]
+    fn the_theil_sen_line_ignores_a_block_on_the_wrong_beat() {
+        let points = [(0.0, 1.0), (1.0, 2.0), (2.0, 3.0), (3.0, 40.0), (4.0, 5.0)];
+        let (offset, slope) = theil_sen(&points);
+        assert!((slope - 1.0).abs() < 1e-9 && (offset - 1.0).abs() < 1e-9);
     }
 
     #[test]

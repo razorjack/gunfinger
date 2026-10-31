@@ -8,7 +8,7 @@ use crate::files::{read_json, write_json};
 use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::mixes::residual::{Pilot, Timing};
 use crate::mixes::{DropsOptions, KindOptions, MixKind};
-use crate::residual::Rule;
+use crate::residual::{Fix, Rule};
 use crate::{counterexamples, grid, mixes, passages, robust};
 
 #[derive(clap::Args)]
@@ -70,16 +70,34 @@ pub struct MixesArgs {
     /// it, with denser query peaks, and with what the play explains taken
     /// out (a spectral mask from a render of the play); the report gains
     /// `residual` and goes to
-    /// `mixes-drops-seed-<seed>-residual-<timing>-over-<over>.json`.
+    /// `mixes-drops-seed-<seed>-residual-<timings>-over-<over>.json`
+    /// (`-fix-<fixes>` added unless the only fix is `off`).
     #[arg(long)]
     pub residual: bool,
     /// With `--residual`: how many times the play's estimated power each
     /// bin loses.
     #[arg(long, requires = "residual", default_value_t = 2.0)]
     pub residual_over: f64,
-    /// With `--residual`: where the play's time map comes from.
-    #[arg(long, requires = "residual", value_enum, default_value_t = Timing::Truth)]
-    pub residual_timing: Timing,
+    /// With `--residual`: where the play's time map comes from; several,
+    /// separated by commas, are each masked and searched in one run.
+    #[arg(
+        long,
+        requires = "residual",
+        value_enum,
+        value_delimiter = ',',
+        default_value = "truth"
+    )]
+    pub residual_timing: Vec<Timing>,
+    /// With `--residual`: what is done to the play's render before the mask
+    /// (brief 70); several, separated by commas, are each searched.
+    #[arg(
+        long,
+        requires = "residual",
+        value_enum,
+        value_delimiter = ',',
+        default_value = "off"
+    )]
+    pub residual_fix: Vec<Fix>,
 }
 
 #[derive(clap::Args)]
@@ -254,6 +272,7 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
         residual,
         residual_over,
         residual_timing,
+        residual_fix,
     } = args;
     if residual && (kind != MixKind::Drops || other_pairs || aligned_drops) {
         return Err(String::from(
@@ -267,7 +286,8 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
         rule: Rule {
             over: residual_over,
         },
-        timing: residual_timing,
+        timings: deduplicated(residual_timing),
+        fixes: deduplicated(residual_fix),
     });
     if aligned_drops && kind != MixKind::Drops {
         return Err(String::from("--aligned-drops applies to --kind drops only"));
@@ -316,18 +336,14 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
             matching: &harness.search.matching,
             padding: &harness.padding(&UNCHANGED_INDEX)?,
             verify: harness.search.verify,
-            residual: pilot,
+            residual: pilot.as_ref(),
             jobs,
         },
     )?;
     let name = kind.name(seed, report.label().as_deref());
-    let name = match pilot {
+    let name = match &pilot {
         None => name,
-        Some(pilot) => format!(
-            "{name}-residual-{}-over-{}",
-            pilot.timing.name(),
-            pilot.rule.over
-        ),
+        Some(pilot) => format!("{name}-{}", pilot.name()),
     };
     write_json(
         &harness.reports().join(format!("mixes-{name}.json")),
@@ -335,6 +351,17 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
     )?;
     mixes::print_summary(&report, kind);
     Ok(())
+}
+
+/// `values` in the order first given, each once.
+fn deduplicated<T: PartialEq>(values: Vec<T>) -> Vec<T> {
+    let mut kept = Vec::with_capacity(values.len());
+    for value in values {
+        if !kept.contains(&value) {
+            kept.push(value);
+        }
+    }
+    kept
 }
 
 pub fn grid(harness: &Harness, jobs: usize, args: GridArgs) -> Result<(), String> {
