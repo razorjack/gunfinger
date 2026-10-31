@@ -166,13 +166,18 @@ harness has it as `variant-store --repair-inverted` and
 NAS files (a new census of 6,000 and 0248's 2,000), it repairs five:
 Paradox - Filmscape, Usual Suspects - Advent, Plasmic - The Weapon and
 Keltech - Axis, plainly inverted (the side 13-22 dB above the mid, so
-narrow once repaired), and We - Hello World (8.6 dB), uncertain. That
-is about 0.08% of the store, about 31 records (95%: 0.02-0.28%). 0248's
-0.4% rested on 3 uploads in 667. No correlation in the census lies
-between -0.76 and -0.32, so the threshold is not near any file. No file
-is inverted over most of its length without crossing the whole-file
-rule; 29 have a 30 s window at -0.5 or less, by inference stereo
-effects of the recordings (three rips of one track share them).
+narrow or narrower once repaired), and We - Hello World (8.6 dB),
+uncertain. That is about 0.08% of the store, about 31 records (95%:
+0.02-0.28%). 0248's 0.4% rested on 3 uploads in 667. The new census
+alone, as registered, repairs three (Filmscape, Advent, Hello World):
+2 of 3 plainly inverted, below the registered 3 in 4; the union of both
+censuses, decided after the census because the draw was not the
+superset of 0248's that the pre-registration assumed, gives 4 of 5. No
+correlation in the census lies between -0.76 and -0.32, so the
+threshold is not near any file. Of the new census's 6,000 files, 29
+unflagged ones have a 30 s window at -0.5 or less, none in more than
+29% of its windows; by inference stereo effects of the recordings
+(three rips of one track share them).
 
 **What it recovers (0263).** Against a copy of the NAS store with the
 five records repaired (R) and an unchanged copy (T), searched by
@@ -184,19 +189,27 @@ library by audio, so the cross-rip case is unmeasured. No new wrong
 confident answer appeared in any search. In the rip's own polarity
 (exploratory) the repair costs what it gains: the four are found by 0
 of 48 such excerpts under R. A mix made digitally from the same
-inverted file would be that case; a vinyl play would not.
+inverted file would be that case, a vinyl play would not (an
+inference).
 
 **What else moves.** Every other record is byte-identical: 265 of 265
 corpus records and 41 of 41 unflagged NAS files rebuilt with the check.
 But a NAS regression against R is not identical: 11 of 720 sweep
-queries change in sub-threshold candidates (6-8 hits) and fitted
-speeds in the eighth digit, with no confident detection, score or
-calibrate number changed. The cause is the lists the matcher sets aside
-(ADR 0014; 0242, 0254): the five records add postings, so one list
-crosses the cut each way; with today's lists set aside R's sweep equals
-the baseline in all 720 queries. Any change of postings, a prune of
-four files included (0254), moves these quantities, so the registered
-item that asked for an identical regression could not have held.
+queries change, 9 of them in the fitted speed of one confident
+detection (Cause 4 Concern - Abduction, by up to 2e-4 percentage
+points, hits equal) and 2 in sub-threshold candidates (6-7 hits); the
+sweep's mean speed errors move in the sixth digit. No confident
+detection is gained or lost, and identification counts and calibrate
+are unchanged; the other development scans keep every confident
+detection, and the Nocny Trans scan loses two 6-hit candidates. The
+cause is the lists the matcher sets aside (ADR 0014; 0242, 0254): the
+five records change postings, so one list crosses the cut each way;
+with today's lists set aside R's sweep equals the baseline in all 720
+queries (for the scans, which have no such option, an inference). A
+change of postings can move a list across the cut, as session 64's
+prune of four files did (0254), though session 52's moved none in the
+whole index (ADR 0014); the registered item asked for more than any
+change of records can promise.
 
 **How adoption would work (not decided).**
 
@@ -221,16 +234,21 @@ item that asked for an identical regression could not have held.
   only through those records and the cut above.
 
 **Recommendation (ours to take).** No ADR proposal from this session:
-by the registered rule, item 4 fails as written, although what it was
-meant to protect holds (unflagged records byte-identical, no confident
-answer moved). The measured case for the check is narrow but clean: it
+by the registered rule, item 4 fails as written (and item 5 holds only
+on the union of both censuses), although what item 4 was meant to
+protect holds (unflagged records byte-identical, no confident answer
+gained or lost). The measured case for the check is narrow but clean: it
 finds about 1 file in 1,300, recovers the plainly inverted ones in
 full, adds no wrong answer and leaves every other record alone. If we
 take it further, the next step is to re-register item 4 as "unflagged
-records byte-identical; no confident detection, score or calibrate
-number changed; sub-threshold changes accounted for by the set-aside
-cut (`--set-aside-like`)", then write the ADR for the per-record
-route, the smaller change: about 31 records rewritten after one pass of
-about an hour. The Hello World repair costs little either way (0263);
-listening to Paradox - Filmscape and Hello World would settle the
-uncertain case.
+records byte-identical; no confident detection gained or lost and no
+identification count or calibrate number changed; other changes
+accounted for by the set-aside cut", which `--set-aside-like` checks
+for `sweep` and `recall` only (`scan` would need the option), and item
+5 on a census drawn from today's store; then write the ADR for the
+per-record route, the smaller change: about 31 records rewritten after
+one pass of about an hour. The Hello World repair costs little either
+way (0263), and listening would settle whether it is a fault; Paradox -
+Filmscape, plainly inverted by measure, has not been heard. The harness
+keeps `variant-store --repair-inverted` and `stereo-width`'s verdict,
+which such a re-registration would reuse.

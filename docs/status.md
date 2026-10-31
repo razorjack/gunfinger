@@ -5733,3 +5733,36 @@ byte-identical to `s65-final`'s).
   `regress session-54-linux` and `regress session-64-linux-nas`
   identical; `docs/pair-verdicts.txt` and the NAS clusters file
   (`c4d3da2e7e37...`) unchanged.
+
+## 2026-10-31: session 67, a polarity check of the records at indexing, measured and not proposed
+
+Brief `docs/brief-67.md` (with the pre-registration), checklist
+`docs/session-67-checklist.md`; notes "Session 67"; experiments
+0262-0263; the stereo decision note's "Session 67"
+(`docs/research/2026-10-30-stereo-power-decision.md`). Gunfinger's
+behaviour is unchanged.
+
+- 02:08 start at `762983b`, clean. Start build `work/bin/s67-start/`
+  (= `s66-final`); both regressions identical (0:51; 3:54).
+- Harness, opt-in: `variant-store --repair-inverted` (a file whose
+  channels correlate at -0.5 or less at lag 0, strongest there, is
+  indexed from the downmix with one channel's polarity reversed; every
+  other file as today) and `stereo-width`'s `repaired` and 30 s windows.
+  Unit tests; both regressions identical with it off.
+- Census (0262): 6,000 NAS files plus 0248's 2,000 (6,766 distinct);
+  the check repairs 5, about 0.08% of the store (about 31 records,
+  0.02-0.28%): Paradox - Filmscape, Usual Suspects - Advent, Plasmic -
+  The Weapon, Keltech - Axis plainly inverted, We - Hello World
+  uncertain (4 of 5 plainly inverted on the union; 2 of 3 on the new
+  census alone, below the registered 3 in 4). The check over every NAS
+  file would take about 66 minutes at 16 jobs.
+- Recovery (0263), copies of the NAS store with and without the five
+  repaired records: the four plainly inverted recordings 0 to 48 of 48
+  confident excerpts and 0 to 4 of 4 mix plays; Hello World found
+  either way; no new wrong answer; every other record byte-identical.
+  A NAS regression against the repaired store moves sub-threshold
+  candidates and one confident detection's fitted speed (no confident
+  detection gained or lost) through the set-aside cut (with today's lists set aside,
+  720 of 720 sweep queries identical), so the registered bar fails on
+  that item. No ADR proposal; re-registering the item and the ADR (a
+  per-record flag or a profile bump) are ours.

@@ -1475,8 +1475,9 @@ cases. None is an adopted decision or an experiment result.
   recordings go from 0 to 48 of 48 confident excerpts and 0 to 4 of 4
   mix plays in correct-polarity queries; no new wrong answer; every
   other record byte-identical. A NAS regression moves sub-threshold
-  candidates through the lists set aside (as any change of postings
-  does), so the registered bar fails on that item; no ADR. Open (ours):
+  candidates and one fitted speed through the lists set aside (as a
+  change of postings can), so the registered bar fails on that item;
+  no ADR. Open (ours):
   re-registering that item and an ADR for a per-record flag (one check
   pass of about an hour over the NAS store, about 31 records rewritten)
   or a profile bump (every record rebuilt).

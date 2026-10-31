@@ -371,3 +371,27 @@ is ours; this session writes none.
   re-registration of item 4 and then the per-record route, if we go on),
   the roadmap's "Stereo faults before the downmix" and the proposals
   note's §1.
+- **(03:11) Review** (step 6; a read-only agent, 02:59-03:11): 19
+  points. **(03:15) Fixed:** item 5 is reported both ways, 2 of 3
+  plainly inverted on the registered census (fails) and 4 of 5 on the
+  union (holds), so the 02:54 entry's "5 holds" stands only for the
+  union; the 02:54 entry's "could not have held for any change of
+  postings" is too strong (ADR 0014 records a prune that moved no list
+  of the whole index) and is replaced by "can move", an inference; the
+  02:43 entry's sweep is corrected: 9 of the 11 changed queries are one
+  confident detection's fitted speed (Cause 4 Concern - Abduction, by
+  up to 2e-4 percentage points, hits equal), 2 are sub-threshold
+  candidates of 6-7 hits, and the sweep's mean speed errors move in the
+  sixth digit; the scans' "scores equal" means equal counts (the 2003
+  mix's score holds Into Music's speed, changed in the eighth digit),
+  and Nocny Trans loses two 6-hit candidates (today's Advent record and
+  Amex & Kano - Descent); the 02:53 entry's cause holds for the sweep,
+  for the scans it is an inference (`scan` has no `--set-aside-like`);
+  the 02:50 entry's as-ripped hits for Hello World are about 1,320
+  (T) and 300 (R). A unit test now isolates the lag condition (lag 0
+  at about -0.55, strongest at 40 samples). `polarity_census.py` makes
+  the union itself; 0263 names the 52 new pairs (the four plainly
+  inverted), reports possible equal to confident and the known wrong
+  Evol Intent VIP play in both arms' mixes. A departure not recorded
+  before: the harness was committed (`a33b304`, 02:33) after the census
+  had run on `s67-run`, built at 02:18 from the same code uncommitted.

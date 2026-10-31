@@ -975,6 +975,18 @@ mod tests {
         let late_channels = channels(&stereo(&mid, &late));
         assert_eq!(late_channels.strongest_lag, 40);
         assert!(!inverted(&late_channels));
+        // At lag 0 below -0.5 too (about -0.55), but strongest at 40
+        // samples (about -0.83), like session 42's one 5 ms render the
+        // census counted inverted: only the lag condition leaves it.
+        let echoed: Vec<f32> = mid
+            .iter()
+            .zip(&late)
+            .map(|(m, l)| -0.6 * m + 0.9 * l)
+            .collect();
+        let echoed_channels = channels(&stereo(&mid, &echoed));
+        assert!(echoed_channels.correlation <= -0.5, "{echoed_channels:?}");
+        assert_eq!(echoed_channels.strongest_lag, 40);
+        assert!(!inverted(&echoed_channels));
     }
 
     #[test]
@@ -1006,7 +1018,8 @@ mod tests {
         assert_eq!(windows.len(), 3);
         assert!(windows[0] > 0.99, "{windows:?}");
         assert!(windows[1] < -0.99 && windows[2] < -0.99, "{windows:?}");
-        // The whole file is correlated at about -1/3, so the check leaves it.
+        // The whole file is correlated at about (30 - 45) / 75 = -0.2, so
+        // the check leaves it.
         assert!(!inverted(&channels(&stereo(&mid, &right))));
         // A last window shorter than 10 s is dropped.
         let short = stereo(&mid[..65 * rate], &right[..65 * rate]);

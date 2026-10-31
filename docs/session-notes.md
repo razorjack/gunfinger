@@ -13568,3 +13568,179 @@ the answer log at their start digests
    below 240 none helps. The percussive part (beside) kept the fewest
    killed true plays. Real mixes' true plays remain the binding control
    (0116, 0118).
+
+## Session 67
+
+### What changed
+
+The product did not change: no threshold, default or output moved, and
+both regressions stay identical. The harness gained a polarity check,
+opt-in and tested: `stereo::inverted` (both channels within 20 dB,
+correlation at lag 0 of -0.5 or less, strongest there within ±80
+samples), `variant-store --repair-inverted` (a flagged file's peaks are
+picked from (L - R) / sqrt(2) of its two-channel decode; every other
+file goes through the core's `decode`, so its record is byte-identical;
+the report lists the repaired files), and `stereo-width`'s per-file
+`repaired`, `windows` and `inverted_windows` (30 s windows at lag 0).
+`scripts/analysis/polarity_census.py` summarises a census. Without the
+option, `variant-store`'s report gains an empty `repaired` list and
+`stereo-width` its new fields and one more printed line; `regress` is
+unaffected. The rule,
+the repair, the census, the recovery test, the controls and the bar
+were pre-registered before any search (`faeadee`, brief 67).
+
+In short: the check would repair about 0.08% of the NAS store (5 of
+6,766 files sampled, about 31 records), 4 of them plainly inverted.
+With those records repaired, the four plainly inverted recordings go
+from never found to found in every correct-polarity excerpt and mix,
+no wrong answer is added and every other record is byte-identical. The
+registered bar still fails on one item: a NAS regression against the
+repaired store moves sub-threshold candidates and one confident
+detection's fitted speed, because the lists set aside are a share of
+the whole index. No ADR proposal.
+
+### Experiments 0262-0263 (NAS scale)
+
+| Run | Result |
+|---|---|
+| Census, 6,000 files (seed 2026) and 0248's 2,000; 6,766 distinct (0262) | 5 repaired: Paradox - Filmscape (new), Usual Suspects - Advent, Plasmic - The Weapon, Keltech - Axis (plainly inverted), We - Hello World (uncertain); 0.08% (0.02-0.28%) of 40,659 |
+| Correlations at lag 0 | none between -0.76 and -0.32 in 6,766 files; DJ Sense (+0.62) not repaired |
+| Partly inverted (an unflagged file with a 30 s window at -0.5 or less) | 29, at most 2 of 7 windows; none inverted over most of its length |
+| The four plainly inverted: excerpts; mix plays, T against R (0263) | 0 of 48; 0 of 4, against 48 of 48; 4 of 4 |
+| Hello World: excerpts, T against R | 12 of 12 both (median hits 313 and 1,450) |
+| Exploratory: the four as ripped (uncorrected), T against R | 48 of 48 against 0 of 48 |
+| Other rips of the five, by audio | none in the library |
+| New wrong confident answers under R | none |
+| Records: corpus; NAS sample of 46 rebuilt today's way; checked | 265 of 265 identical; 46 of 46; 41 identical, 5 repaired |
+| `regress session-64-linux-nas` against R | 709 of 720 sweep queries identical (9: one confident detection's fitted speed, by up to 2e-4 percentage points; 2: sub-threshold candidates); Stakka counts, calibrate unchanged |
+| The 2003 mix and Nocny Trans scans, T against R | confident detections equal (41, 42); Nocny loses two 6-hit candidates |
+| The same against T with an index built afresh | identical |
+| R's sweep with today's lists set aside (`--set-aside-like`) | 720 of 720 identical |
+
+The bar: item 1 (recovery) holds, 2 (other rips) is unmeasured, 3 (no
+new wrong answer) holds, 4 (byte-identical records and identical
+regressions apart from F's files) fails on the regression, 5 (at least 3
+in 4 repairs plainly inverted) fails on the registered census (2 of 3)
+and holds on the union with 0248 (4 of 5). The sweep's differences are
+one list crossing the set-aside cut each way (hash 1,337,041 from 9,910
+to 9,913 postings, into the set aside; 69,523 out), the mechanism of
+0242 and 0254 (for the scans, an inference); session 64's prune of four
+files moved the same kind of quantities.
+
+### Times on the Linux machine
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux`; `regress session-64-linux-nas` (start build) | 0:51; 3:54 | 0.4; 5.3 GiB |
+| The same with the run build | 0:52; 3:48 | 0.4; 5.3 GiB |
+| Census, 6,000 files, 16 jobs, alone (642 h of audio) | 9:43 | 1.4 GiB |
+| `variant-store --repair-inverted`: corpus (265 files); NAS sample (46) | 0:37; 0:07 | 2.3; 1.7 GiB |
+| `identify --store-only --saved-index off`, 65 queries at NAS scale | 0:40 | 4.5 GiB |
+| `regress session-64-linux-nas` against R; against T, index built | 6:51; 6:00 | 5.3 GiB |
+| `sweep --set-aside-like` against R | 2:28 | 8.6 GiB |
+| `scripts/check.sh` | 5:08 | |
+
+### Decided this session, open to change
+
+- The detector's threshold is the census's (brief 62), not tuned again;
+  lag 0 replaces the census's strongest lag because the repair reverses
+  polarity at lag 0. A repaired file is "plainly inverted" when its side
+  is 10 dB or more above its mid (narrow once repaired), else
+  "uncertain".
+- The census is not a superset of 0248's, as the pre-registration
+  assumed: session 64's prune of 4 uploads changed the uploads' shuffle.
+  Estimates use the union of both censuses, and F is every file the rule
+  repairs in either (brief 67, 02:28).
+- The control sample added DJ Sense - Let You Go from 0248's report
+  (46 files instead of 45).
+- The exploratory as-ripped queries were added after the registered
+  results were in; no bar item rests on them.
+- The bar is read as registered: item 4 fails, so no ADR proposal;
+  item 5 is reported both ways.
+- The harness change was committed (`a33b304`) after the census ran on
+  `s67-run`, built from the same, then uncommitted, code; `s67-final`'s
+  `gunfinger-eval` is compared with it in the final checks.
+
+### Questions this leaves for us
+
+- Whether to re-register item 4 as "unflagged records byte-identical;
+  no confident detection gained or lost, no identification count or
+  calibrate number changed; other changes accounted for by the
+  set-aside cut" (which `--set-aside-like` checks for `sweep` and
+  `recall`, not yet for `scan`), and item 5 on a census drawn from
+  today's store, and then write an ADR for the check. The decision note's "Session 67" compares
+  a profile bump (every record rebuilt) with a per-record flag (one
+  check pass of about an hour over the NAS store, about 31 records
+  rewritten; a repaired record must change something the saved index's
+  provenance holds, because today it holds the sources and the profile,
+  not the peaks).
+- Whether a mix made digitally from an inverted file matters: the repair
+  loses such a query (the exploratory row).
+
+### Questions for listening (none answered by agents)
+
+- Paradox - Filmscape (`Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3`):
+  plainly inverted by measure (-0.99, side 22 dB above the mid); not
+  heard yet.
+- We - Hello World stays unsure by ear; by measure it is the uncertain
+  case (8.6 dB), and the repair costs little either way.
+- Optionally: We - Polynesian Inventor (the same release; -0.27 at lag
+  0, 2 of 7 windows at -0.5 or less), a wide track or a partial fault.
+- Pending from before: the pitch rides (Star Trails, Into Music), the
+  Planet Dust (DC Breaks Remix) cut, the Paragliders file against
+  Konflict - Pendulum, the 65 candidates in
+  `work/s58/different-name-files.txt`.
+
+### Handoff for the next session
+
+1. Baselines unchanged: `session-54-linux` (262 tracks) and
+   `session-64-linux-nas` (NAS scale). The NAS store: 40,674 records,
+   revision `7210fc479da58376`, only read; the NAS clusters file
+   `c4d3da2e7e3720cbf4e79e4f7cf86d71493fc6349af639b323d814656a8b9e4f`,
+   unchanged.
+2. Builds: `work/bin/s67-start/` (= `s66-final`), `s67-run/` (every
+   run), `s67-final/` (master; the final checks).
+3. Data in `work/s67/`: logs in `logs/` (`queue.log` has every exit
+   line); scripts `run.sh`, `start.sh`, `census.sh`, `recovery.sh`,
+   `search.sh`, `asripped.sh`, `setup.sh`, `rebuilt.sh`, `setaside.sh`,
+   `final.sh`, `queries.py`, `picks.py`, `compare.py`, `same.py`; the
+   census report `w/reports/library-nas-dnb-peaks/stereo-width-other-seed-2026.json`
+   and its summary `census-polarity.json`; the stores `stores/T/` and
+   `stores/R/` (reflink copies of the NAS store; R has the five
+   repaired records); the queries and plan in `q/`, the reports in
+   `rep/T/` and `rep/R/`, the score `recovery-score.json`; the scratch
+   library and stores of the controls in `c/`; harness work directories
+   `wt/` (T, the saved index hard-linked), `wr/` (R, with its own saved
+   index, 4.7 GB) and `wt2/` (T, index removed). All safe to delete.
+4. Commands:
+
+   ```sh
+   E=work/bin/s67-final/gunfinger-eval; N=~/.local/share/gunfinger/nas-dnb-peaks
+   $E --work work/s67/w --other-peaks-dir $N --jobs 16 stereo-width --other --seed 2026 --sample 6000 --exclude work/s62/census-exclude.txt
+   $E --corpus SCRATCH --peaks-dir SCRATCH_STORE variant-store --out OUT --repair-inverted
+   $E --work work/s67/wr --other-peaks-dir work/s67/stores/R/nas-dnb-peaks sweep --set-aside-like work/indexes/library-nas-dnb-peaks.index
+   python3 -I scripts/analysis/polarity_census.py REPORT OUT.json [EARLIER_REPORT]
+   ```
+
+5. If the check is taken further: re-register item 4 first (above),
+   then the ADR. With today's harness, a scratch library of the files
+   to check (copied with `cp -p`) and `variant-store --repair-inverted`
+   build the repaired records; `--set-aside-like` separates the cut's
+   move from the records' own effect.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. Only the development mixes
+  (named explicitly: Stakka through `regress`, the 2003 mix and Nocny
+  Trans through `scan`) and generated mixes were searched. The census left out the NAS root's Ed Rush & Optical
+  file, 0065's too-long files and mixed-CD folders and the ignore
+  file's files. The NAS was only read; `work/peaks` only read.
+- Slips, all in brief 67: the pre-registration's heading first carried
+  wrong times (corrected); `recovery.sh`'s first `identify` runs lacked
+  the subcommand and exited at once (rerun by `search.sh`).
+- A read-only review by a separate agent (02:59-03:11) found 19 points:
+  item 5's two readings, an unsupported "could not have held", a unit
+  test that did not isolate the lag condition (added), the regression's
+  differences described too loosely, and wording; all fixed (brief 67,
+  03:15).

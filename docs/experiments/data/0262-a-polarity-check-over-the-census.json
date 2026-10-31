@@ -5,6 +5,7 @@
   "youtube-channel": 34571,
   "elsewhere": 2561
  },
+ "hours_of_audio": 641.9,
  "all": {
   "files": 6000,
   "by_kind": {
@@ -878,6 +879,54 @@
    "files_estimated": 244
   }
  },
+ "union_with_earlier": {
+  "files": 6766,
+  "by_kind": {
+   "scene-release": 2000,
+   "youtube-channel": 2634,
+   "elsewhere": 2132
+  },
+  "repaired": {
+   "by_kind": {
+    "scene-release": 2,
+    "youtube-channel": 2,
+    "elsewhere": 1
+   },
+   "share": 0.0007618984649606349,
+   "low": 0.0002060739586971775,
+   "high": 0.0028332762922174334,
+   "files_estimated": 31
+  },
+  "plainly_inverted": {
+   "by_kind": {
+    "scene-release": 1,
+    "youtube-channel": 2,
+    "elsewhere": 1
+   },
+   "share": 0.0007185255339982404,
+   "low": 0.00018993855905392578,
+   "high": 0.002762832131954564,
+   "files_estimated": 29
+  },
+  "uncertain": {
+   "by_kind": {
+    "scene-release": 1,
+    "youtube-channel": 0,
+    "elsewhere": 0
+   },
+   "share": 4.3372930962394554e-05,
+   "low": 7.65666341895044e-06,
+   "high": 0.001596795553197151,
+   "files_estimated": 2
+  },
+  "repaired_files": [
+   "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3",
+   "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3",
+   "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3",
+   "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a",
+   "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus"
+  ]
+ },
  "repaired": [
   {
    "asset": "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3",
@@ -1367,56 +1416,5 @@
    "windows": 16,
    "inverted_windows": 0
   }
- ],
- "union_with_0248": {
-  "files": 6766,
-  "by_kind": {
-   "scene-release": 2000,
-   "youtube-channel": 2634,
-   "elsewhere": 2132
-  },
-  "repaired": {
-   "by_kind": {
-    "scene-release": 2,
-    "youtube-channel": 2,
-    "elsewhere": 1
-   },
-   "share": 0.0007618984649606349,
-   "low": 0.0002060739586971775,
-   "high": 0.0028332762922174334,
-   "files_estimated": 31
-  },
-  "plainly_inverted": {
-   "by_kind": {
-    "scene-release": 1,
-    "youtube-channel": 2,
-    "elsewhere": 1
-   },
-   "share": 0.0007185255339982404,
-   "low": 0.00018993855905392578,
-   "high": 0.002762832131954564,
-   "files_estimated": 29
-  },
-  "uncertain": {
-   "by_kind": {
-    "scene-release": 1,
-    "youtube-channel": 0,
-    "elsewhere": 0
-   },
-   "share": 4.3372930962394554e-05,
-   "low": 7.65666341895044e-06,
-   "high": 0.001596795553197151,
-   "files_estimated": 2
-  },
-  "repaired_files": [
-   "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3",
-   "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3",
-   "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3",
-   "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a",
-   "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus"
-  ]
- },
- "wall_seconds": 583.25,
- "jobs": 16,
- "hours_of_audio": 641.9
+ ]
 }

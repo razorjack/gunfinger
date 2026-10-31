@@ -33,7 +33,7 @@ anything else:
    `docs/brief-47.md`, `docs/brief-48.md`, `docs/brief-49.md`,
    `docs/brief-50.md`, `docs/brief-51.md`, `docs/brief-52.md`,
    `docs/brief-53.md`, `docs/brief-54.md`, `docs/brief-55.md`, `docs/brief-56.md`, `docs/brief-57.md`, `docs/brief-58.md`, `docs/brief-59.md`, `docs/brief-60.md`, `docs/brief-61.md`, `docs/brief-62.md`, `docs/brief-63.md`, `docs/brief-64.md`, `docs/brief-65.md` and `docs/brief-66.md` hold
-   rules that still apply unless brief 66 changes them
+   rules that still apply unless brief 67 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's

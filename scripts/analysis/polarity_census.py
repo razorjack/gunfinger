@@ -38,6 +38,12 @@ def weighted(files, population, test):
     return row
 
 
+def inverted(f):
+    # `stereo::inverted`, for reports written before `repaired`.
+    c = f["channels"]
+    return abs(c["balance_db"]) < 20 and c["correlation"] <= -0.5 and c["strongest_lag"] == 0
+
+
 def entry(f):
     return {"asset": f["asset"], "kind": f["kind"], "seconds": round(f["seconds"]),
             "side_to_mid_db": round(f["side_to_mid_db"], 1),
@@ -47,9 +53,9 @@ def entry(f):
             "windows": f["windows"], "inverted_windows": f["inverted_windows"]}
 
 
-def summary(files, population):
+def summary(files, population, windows=True):
     repaired = lambda f: f["repaired"]
-    return {
+    row = {
         "files": len(files),
         "by_kind": {kind: sum(f["kind"] == kind for f in files) for kind in population},
         "repaired": weighted(files, population, repaired),
@@ -57,33 +63,42 @@ def summary(files, population):
             files, population, lambda f: repaired(f) and f["side_to_mid_db"] >= PLAINLY_DB),
         "uncertain": weighted(
             files, population, lambda f: repaired(f) and f["side_to_mid_db"] < PLAINLY_DB),
-        "partly_inverted": weighted(
-            files, population, lambda f: not repaired(f) and f["inverted_windows"] > 0),
     }
+    if windows:
+        row["partly_inverted"] = weighted(
+            files, population, lambda f: not repaired(f) and f["inverted_windows"] > 0)
+    return row
 
 
 report = json.load(open(sys.argv[1]))
 population = {k["kind"]: k["files"] for k in report["population_by_kind"]}
 files = report["files"]
 out = {"population": sum(population.values()), "population_by_kind": population,
+       "hours_of_audio": round(sum(f["seconds"] for f in files) / 3600, 1),
        "all": summary(files, population)}
 if len(sys.argv) > 3:
-    earlier = {f["asset"] for f in json.load(open(sys.argv[3]))["files"]}
+    earlier_files = json.load(open(sys.argv[3]))["files"]
+    earlier = {f["asset"] for f in earlier_files}
     paths = {f["asset"] for f in files}
     out["earlier_files"] = len(earlier)
     out["earlier_files_missing"] = sorted(earlier - paths)
     out["new"] = summary([f for f in files if f["asset"] not in earlier], population)
+    union = files + [dict(f, repaired=inverted(f)) for f in earlier_files if f["asset"] not in paths]
+    out["union_with_earlier"] = summary(union, population, windows=False)
+    out["union_with_earlier"]["repaired_files"] = sorted(f["asset"] for f in union if f["repaired"])
 out["repaired"] = [entry(f) for f in sorted(files, key=lambda f: f["channels"]["correlation"])
                    if f["repaired"]]
 out["partly_inverted"] = [entry(f) for f in files if not f["repaired"] and f["inverted_windows"] > 0]
 out["correlation_below_0_3"] = [entry(f) for f in sorted(files, key=lambda f: f["channels"]["correlation"])
                                 if f["channels"]["correlation"] < 0.3]
 json.dump(out, open(sys.argv[2], "w"), indent=1)
-for part in ("all", "new"):
+for part in ("all", "new", "union_with_earlier"):
     if part not in out:
         continue
     print(f"{part}: {out[part]['files']} files {out[part]['by_kind']}")
     for key in ("repaired", "plainly_inverted", "uncertain", "partly_inverted"):
+        if key not in out[part]:
+            continue
         row = out[part][key]
         print(f"  {key:<17} {row['by_kind']} share {100 * row['share']:.2f}% "
               f"({100 * row['low']:.2f}-{100 * row['high']:.2f}%), about {row['files_estimated']} files")

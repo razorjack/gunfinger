@@ -321,7 +321,7 @@
   "regress_T_rebuilt": "identical",
   "sweep_R_set_aside_like_today": "720 of 720 identical, per_speed equal",
   "set_aside_like": {
-   "file": "work/indexes/library-nas-dnb-peaks.index",
+   "file": "library-nas-dnb-peaks.index",
    "only_there": [],
    "same_postings_without_them": false,
    "lists_here": 10863,
