@@ -189,7 +189,7 @@ pub enum Command {
 }
 
 /// The commands that take --other-peaks-dir, by `Command::name`.
-const OTHER_LIBRARY_COMMANDS: [&str; 25] = [
+const OTHER_LIBRARY_COMMANDS: [&str; 26] = [
     "validate",
     "map-library",
     "clusters --from-peaks",
@@ -198,6 +198,7 @@ const OTHER_LIBRARY_COMMANDS: [&str; 25] = [
     "calibrate",
     "robust",
     "mixes",
+    "counterexamples",
     "stereo-width",
     "baseline",
     "regress",

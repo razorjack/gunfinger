@@ -237,3 +237,19 @@ elapsed time and CPU).
   the target confident, can be found.
 - **(03:41) Budget: 2,000 samples at 262 tracks, 500 at NAS scale**, by
   the smoke runs' cost (about 15 and 15 minutes expected).
+- **(03:43) Pre-registration and driver committed** (`7440c8e`), before
+  the budgeted search. The queue (`work/s68/queue.sh`, tmux `s68queue`)
+  builds `work/bin/s68-run/` from it (its `gunfinger` byte-identical to
+  `s67-final`'s), runs `scripts/check.sh` (green, 5:08), both
+  regressions (identical, 0:51 and 3:47, every report equal to its
+  baseline's apart from `wall_seconds`), then the searches.
+- **(03:53) The 262-track search started** (`c262`).
+- **(04:10) The 262-track search finished** (16:38: 2,000 samples, 189
+  failures, 3,165 renders). The NAS run failed at once: `counterexamples`
+  was not among the commands that take `--other-peaks-dir`. Added there
+  (no other change), built as `work/bin/s68-run2/`, and the NAS run
+  started at 04:11 (tmux `s68nas`, `work/s68/nas.sh`); the evaluation
+  code is the same as `s68-run`'s.
+- **(04:15) `--replay` writes the render's detections too**, to read
+  the mechanism of a class; the outcome and the saved recipes are
+  unchanged. Replays run after the NAS search, with the final code.

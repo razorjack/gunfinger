@@ -30,8 +30,8 @@ use crate::clusters::Clusters;
 use crate::files::write_json;
 use crate::matching::Matching;
 use crate::mixes::{
-    MixResult, PlannedMix, PlannedPlay, Pools, Ride, Searcher, SweepIndex, draw_unused, search_mix,
-    sweep_index,
+    MixFound, MixResult, PlannedMix, PlannedPlay, Pools, Ride, Searcher, SweepIndex, draw_unused,
+    search_mix, sweep_index,
 };
 use crate::padding::Padding;
 use crate::rng::Rng;
@@ -623,6 +623,11 @@ struct Evaluator<'a> {
 
 impl Evaluator<'_> {
     fn outcome(&self, recipe: &Recipe, name: &str) -> Result<Outcome, String> {
+        Ok(self.searched(recipe, name)?.0)
+    }
+
+    /// The outcome, and every detection of two windows or more.
+    fn searched(&self, recipe: &Recipe, name: &str) -> Result<(Outcome, Vec<MixFound>), String> {
         let (mix, fault) = recipe.planned(name)?;
         let path = self.renders.join(format!("{name}.mp3"));
         let searcher = Searcher {
@@ -654,7 +659,8 @@ impl Evaluator<'_> {
             .union(&self.titles.credited(self.clusters, &cluster))
             .cloned()
             .collect();
-        Ok(Outcome::of(&result?, &accepted))
+        let result = result?;
+        Ok((Outcome::of(&result, &accepted), result.detections))
     }
 }
 
@@ -809,6 +815,8 @@ pub struct Replay {
     /// The outcome equals the one saved with the recipe.
     pub same_outcome: bool,
     pub outcome: Outcome,
+    /// Every detection of two windows or more in the render.
+    pub detections: Vec<MixFound>,
 }
 
 /// Renders and searches `saved`'s minimal recipe again, under the index
@@ -823,7 +831,7 @@ pub fn replay(
     let SweepIndex { index, .. } = sweep(library, store, clusters, options)?;
     let evaluator = Evaluator::new(library, clusters, &index, options);
     let counterexample = &saved.counterexample;
-    let outcome = evaluator.outcome(
+    let (outcome, detections) = evaluator.searched(
         &counterexample.minimal,
         &format!("replay-{:05}", counterexample.number),
     )?;
@@ -833,6 +841,7 @@ pub fn replay(
         holds: counterexample.failure.holds(&outcome),
         same_outcome: outcome == counterexample.minimal_outcome,
         outcome,
+        detections,
     })
 }
 
