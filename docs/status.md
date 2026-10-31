@@ -5895,3 +5895,43 @@ byte-identical to `s69-final`'s).
   Konflict - Pendulum (session 65's question). The user's earlier
   answer already covers it: different recordings that share a lot of
   material.
+
+## 2026-10-31: the listening of the 2026-10-31 packs
+
+The user answered the main pack (answer log records 58-61) and 58 of
+the 59 optional `parts` questions (records 62-120; question 44,
+`aa_global_thang-bubberlin-2000-sour`, has no answer). The Planet Dust
+(DC Breaks Remix) cut keeps its earlier `unsure`. Comments, edited, in
+`work/audition/listening-comments-2026-10-31.md`.
+
+- Pitch rides: `ride` for Star Trails in the Stakka mix and Into Music in
+  the 2003 mix. For Star Trails the change is not audible, but in the
+  user's reading very likely: the DJ brought the track in, heard it
+  drift out of beat and corrected the pitch, a normal way to mix. The
+  two segments ADR 0021 keeps are therefore right.
+- Inverted channel: `inverted` for Paradox - Filmscape (session 67's
+  census flagged it) and for We - Polynesian Inventor, which the check
+  does not flag (correlation -0.27 overall, 2 of 7 windows at -0.5 or
+  less).
+- `parts`, the 58 answered: 46 `one`, 12 `several`. The user's reading
+  of the `several` uploads: mostly cuts from DJ sets, ripped from a set
+  when the vinyl was not available, so another track blends in near the
+  end. Among the `one` answers, Special Branch (UFO, UFOLP001) is built
+  on the Amen break and variants of it sampled differently, which line
+  up with other tracks using them; where different titles appear at a
+  file's edges (other than a remix of the same track), the user hears a
+  shared classic break (Amen, Think, Hot Pants).
+- At the user's request, three entries are added to the NAS
+  `.gunfingerignore` (lines 77-91, with comments; the file before in
+  `work/listening-2026-10-31/gunfingerignore.before`): `/sety/` (every
+  file there is a DJ set), the folder of the Virus on Kiss FM show of 3
+  May 2000 (the user named part 1; its four parts are one show), and the
+  folder of the Lowdown Vol 6 track fix (the user named its Plastic; the
+  fix of a mixed CD, as with the Vol 7 fix already ignored). The NAS
+  store is not pruned. `prune` without `--yes` lists 107 files they
+  leave out (`work/listening-2026-10-31/prune-dry-run.txt`): 8 peak
+  records (both Lowdown Vol 6 fix tracks, part 1 of the Kiss FM show
+  and five files of `sety/`), 99 skip notes (the other sets, longer
+  than a record allows) and 8 tag notes.
+- The user's idea: a way to ask which tracks use a break heard in
+  another.
