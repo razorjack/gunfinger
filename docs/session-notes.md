@@ -14051,3 +14051,202 @@ None new: nothing in this session needs listening.
   house-style fixes (an enum for the control flag, a named result for
   the pairwise search, `draw_batch` split, no panicking lookup); all
   fixed or stated (brief 69, 06:17-06:24).
+
+## Session 70
+
+### What changed
+
+The product did not change: the `gunfinger` binary is byte-identical to
+`s69-final`'s. The harness's residual pilot (`mixes --kind drops
+--residual`, session 65) gained, opt-in and tested:
+
+- `--residual-timing` and `--residual-fix` take lists, so one run
+  searches each case's plain and denser excerpts once and the masked
+  residual (M, and MH without the partners' recordings) for every
+  timing and fix. The report's `residual` nests the masked arms per
+  timing (`maskings`) and fix (`fits`); its name adds `-fix-<fixes>`
+  unless the only fix is `off`, so session 65's names hold.
+- A measure of how far A's reference is off in time in the excerpt
+  (`residual::lags`): per block of 8.2 s, the lag within 400 ms at which
+  the reference's band levels (cube root of third-octave power) best
+  correlate with the mixture's; a Theil-Sen line through those; each
+  block refined within 3 frames of the line in 2 ms steps. The fix
+  *Align* shifts the reference by that map before the gains are
+  fitted; *Align, fine* also fits gains per 0.5 s instead of 1 s.
+- Per case: the rip's line with the file the time map is on (hits,
+  windows, speed), the seek offsets of the reference and played files
+  (a render by seek against the decoded samples, 0127), and the gain
+  fit's spread per band.
+- Per masked detection at possible or above, the evidence the plain
+  excerpt holds of it: the hits of the strongest agreeing detection
+  when the excerpt over its span and 5 s either way is searched against
+  its file alone on the rungs within 0.6% of its speed.
+- Detected timing now takes its reference by 0257's rule (another rip
+  where the store holds one, placed through the detected file's line);
+  `ReferenceKind::Detected` is gone.
+
+`scripts/analysis/residual_residue.py` summarises the new reports
+(`--diagnose --probe` for step 1's measures). Both regressions stay
+identical.
+
+In short: another rip leaves A in the residual when it is another
+transfer, 0.1-0.2% off in speed, which its stored peaks' line places
+off in time in the excerpt (a median 12-28 ms); aligning the reference on the
+mixture (*Align*) removes most of that residue. With *Align*, A's time
+map from the whole-mix detection does as well as the generator's. On
+fresh test seeds at NAS scale the residual then confirms 61 of 64 quiet
+and brief partners (plain 41), 46 confidently (plain 15), with no wrong
+confident answer. Needing evidence in the original mixture (step 3's
+rule) removed no wrong answer and dropped 10 of those partners.
+
+### Experiments 0269-0271
+
+| Run | Quiet and brief Bs confirmed / confident (plain) | A confident after masking | Wrong confident in M (MH) |
+|---|---|---|---|
+| 0269, development, NAS scale, truth: no fix; *Align*; *Align, fine* | 50 / 32; 61 / 38; 61 / 36 (40 / 8) | 115; 31; 32 of 403 other-rip cases | 0 (0) |
+| 0269, development, 262 tracks, the same | 62 / 47; 63 / 45; 63 / 43 (41 / 8) | 20; 0; 0 of 132 | 0 (0) |
+| 0270, development, detected timing: no fix; *Align* | NAS 49 / 32; 61 / 38. 262 tracks 62 / 47; 63 / 45 | NAS 116; 31. 262 tracks 26; 0 | 0 (0) |
+| 0271, test seeds 2040 and 2041, NAS scale: truth, no fix; detected, no fix; detected, *Align*; with the rule (`H` 20) | 55 / 39; 55 / 39; 61 / 46; 51 / 42 (41 / 15) | other rips 125; 124; 33 of 420 | 2 (1); 2 (1); 0 (0); 0 (0) |
+| 0271, the same at 262 tracks | 63 / 53; 62 / 53; 64 / 53; 52 / 47 (41 / 17) | corpus rips 26; 26; 0 of 145 | 0 (0) |
+
+- The residue's cause (0269, NAS scale, true time map): 250 of 403
+  other rips line up with the played file at speed 1 with about 26,400
+  hits (A stays in 4); the 153 others run 0.1-0.2% off (median 1,673
+  and 1,987 ppm where A stays), their line has fewer hits (median 7,510
+  and 4,888 where A stays), the reference lands a median 12 ms (corpus)
+  and 28 ms (NAS; 62 ms where A stays) off in the excerpt, and A stays
+  in 111 of them. The gain fit's spread there is
+  2.8 and 7.6 dB (0.3-0.9 where A goes) and falls to about 2 dB once
+  aligned. The seek agrees with the decoded samples within 5 ms in 90 of
+  95 and 20 of 20 cases; the reference is lossy under 256 kb/s in nearly
+  every case either way, so encoding probably does not decide it (an
+  inference). After *Align*, the 31 left are the rips off most
+  (median 112 ms before the fix).
+- Frozen on the development seeds: *Align* (73% fewer cases with A
+  left, the bar half); `H` = 20 (the fallback: no bar kept three
+  quarters of the 21 newly confirmed partners; 20 kept 6).
+- The Cool Rock pair (0271, seed 2040): the plain search names the
+  Mobb Deep Vs Urban Takover - Cool Rock upload confidently twice (385
+  and 637 hits); the unaligned mask keeps both (A's residue in mix-07;
+  in mix-15 a passage the plain excerpt holds), *Align* removes both
+  from the confident answers (mix-07 keeps another detection of the
+  upload as possible, 135 hits, as without a fix). Their
+  plain evidence (385 and 638) is far above any bar.
+- Wrong possible in M: 4-8 against plain's 181-349.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux`; `regress session-64-linux-nas` (start build) | 0:51; 4:00 | 0.4; 5.6 GB |
+| Smoke: one mix, both timings, three fixes, 262 tracks | 3:55 | 0.9 GB |
+| Development, 16 mixes, two timings, three fixes; four runs side by side: 262 tracks; NAS scale | 28:17-28:30; 56:24-57:28 | 4.6; 14.6 GB |
+| Test seeds with renders, two timings, two fixes; four side by side: 262 tracks; NAS scale | 21:58-22:24; 45:59-46:52 | 7.1; 14.8 GB |
+| `scripts/check.sh` (beside the development runs) | 22:37 | |
+| `regress session-54-linux` (run build, beside the test runs) | 3:36 | 0.4 GB |
+| Final: both regressions; smoke mix; `scripts/check.sh` | 0:51, 4:00; 3:54; 7:26 | 0.4, 5.7; 0.9 GB |
+
+The runs' times are with four processes sharing 32 threads (load up to
+about 150), so they do not give a product's cost; session 65's NAS-scale
+run alone, with one timing and no fix, took 11-12 min.
+
+### Final checks
+
+`work/s70/final.sh` with `work/bin/s70-final/` (master after the
+review's fixes, `b4c8bc9`): its `gunfinger` byte-identical to
+`s69-final`'s; `regress session-54-linux` (0:51) and `regress
+session-64-linux-nas` (4:00) identical, every report equal to its
+baseline's apart from `wall_seconds`; the smoke mix run again gives the
+run build's report exactly; `scripts/check.sh` green (7:26, 707 tests);
+`docs/pair-verdicts.txt`, the NAS clusters file (`c4d3da2e7e37...`) and
+the answer log at their start digests
+(`work/s70/listening-digests-end.txt`).
+
+### Decided this session, open to change
+
+- Steps 1 and 2 shared their runs: each run searched the plain and
+  denser excerpts once and the masked residual for both timings and all
+  fixes; both pre-registrations were committed before the runs
+  (`c3217e8`). Without a fix the runs reproduce 0255 and 0257 exactly.
+- Before any run, the unit tests changed the lag measure: band levels
+  are the cube root of power (the logarithm pulled a known 125 ms lag
+  to 130 ms), and the refinement steps through eighths of a hop instead
+  of fitting a parabola (4.5 ms off).
+- *Align* was frozen (step 1's bar met); *Align, fine* did no better.
+  Detected timing takes the same reference rule as the oracle, so where
+  the store holds another rip the two timings render the same file.
+- The evidence rule's bar fell back to 20 (no bar kept three quarters
+  of the newly confirmed partners). The rule's evidence is a search of
+  the plain excerpt against the detection's file alone, on the rungs
+  within 0.6% of its speed; a check before freezing found its hits
+  close to the plain arm's where both find B.
+- The test seeds ran at both scales (time allowed), with true and
+  detected timing, no fix and *Align*.
+- The review (a separate agent, read-only) found no product change and
+  no error in the code's arithmetic; it corrected several numbers and
+  claims in the documents, and session 65's reports load again (brief
+  70, 09:04).
+- No product change, no ADR, nothing proposed for adoption.
+
+### Questions this leaves for us
+
+- Whether the 31-33 NAS rips that *Align* leaves behind need a finer
+  time map (median 112 ms off before the fix; vinyl wow, or blocks
+  under the 0.3 correlation), or a reference other than the first rip
+  of the cluster.
+- How a rule keeps out related versions that the original mixture
+  holds (Cool Rock): evidence in the mixture does not separate them;
+  *Align* removed the two seen here by taking them out with A.
+- What the masked search costs in a product (one more search of each
+  confident play's span per timing, plus the reference's decode and
+  render), and where A's audio would come from with `--store-only`.
+- Whether a partner found under a confident play should be printed
+  (ADR 0019 marks it today), which needs an ADR.
+
+### Questions for listening (none answered by agents)
+
+None new: nothing in this session needs listening. Pending from
+before: the pitch rides (Star Trails, Into Music), the Planet Dust (DC
+Breaks Remix) cut, the Paragliders file against Konflict - Pendulum
+(session 65), the 65 candidates in `work/s58/different-name-files.txt`.
+
+### Handoff for the next session
+
+1. Baselines unchanged: `session-54-linux` (262 tracks) and
+   `session-64-linux-nas` (NAS scale). The NAS store: 40,674 records,
+   revision `7210fc479da58376`; the NAS clusters file
+   `c4d3da2e7e3720cbf4e79e4f7cf86d71493fc6349af639b323d814656a8b9e4f`,
+   unchanged.
+2. Builds: `work/bin/s70-start/` (= `s69-final`), `s70-run/` (every
+   run), `s70-final/` (master; the final checks). The `gunfinger`
+   binary is the same in all.
+3. Data: `work/s70/` (logs in `logs/`; scripts `run.sh`, `start.sh`,
+   `smoke.sh`, `dev.sh`, `test.sh`, `regress-run.sh`, `final.sh`,
+   `same.py`); reports in `work/s70/w-<corpus|nas>-<2026|2028>/` and
+   `work/s70/t-<corpus|nas>-<2040|2041>/` (under
+   `reports/[library-nas-dnb-peaks/]ladder-turntable/`); summaries
+   `work/s70/summary-{dev,test}-{nas,corpus}.{txt,json}`. The test seeds'
+   renders are kept once, in `work/s70/t-nas-<seed>/mixes/` (about 1
+   GB); the copies of session 39's renders and the second copies were
+   deleted.
+4. To run it again:
+   ```sh
+   E="work/bin/s70-final/gunfinger-eval --work W --panels work/s65/panels --ladder turntable --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks"
+   $E mixes --kind drops --seed 2026 --count 16 --other-root /mnt/atlas/Music/dnb --tagged work/s39/tags-262.json --residual --residual-timing truth,detected --residual-fix off,align
+   python3 -I scripts/analysis/residual_residue.py REPORT... --diagnose [--probe]
+   ```
+   Each run needs its own work directory (the residual's scratch
+   directory is removed at the end of a run).
+5. Proposal 4's state: with *Align* and detected timing the residual
+   keeps the oracle's gain in generated double drops. Seeds 2036, 2039,
+   2040 and 2041 are used as test seeds now. A next step would be real
+   mixes' double drops (no truth beyond listening) or a product design
+   note with an ADR; the evidence rule as built is not worth keeping.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. Only generated mixes were
+  searched (and Stakka through `regress`). The NAS was only read;
+  `work/peaks` only read. `docs/pair-verdicts.txt` and the answer log
+  unchanged.

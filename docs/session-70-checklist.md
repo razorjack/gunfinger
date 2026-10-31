@@ -29,5 +29,5 @@ for scope and rules.
 - [x] 4. Experiments (0269 and up), each written before the next starts
 - [x] 5. The proposals note's §4 and the roadmap's "Possible plays
   inside a confident play of another recording"
-- [~] 6. Read-only review by a subagent; findings fixed
-- [~] 7. Wrap-up: notes "Session 70", status, checklist; final checks
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 70", status, checklist; final checks

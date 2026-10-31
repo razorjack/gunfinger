@@ -5836,3 +5836,45 @@ unchanged.
    $E passages --seed 6901 --out OUT --other-root /mnt/atlas/Music/dnb
    python3 -I scripts/analysis/passages_summary.py SUMMARY.json OUT/passages-seed-6901.json
    ```
+
+## 2026-10-31: session 70, proposal 4: the other-rip residue, detected timing and an evidence rule
+
+Brief `docs/brief-70.md` (with the pre-registration of three steps),
+checklist `docs/session-70-checklist.md`; notes "Session 70";
+experiments 0269-0271; the proposals note's §4 and the roadmap's
+"Possible plays inside a confident play of another recording".
+Gunfinger's behaviour is unchanged (the `gunfinger` binary is
+byte-identical to `s69-final`'s).
+
+- 06:43 start at `4929028`, clean. Start build `work/bin/s70-start/`
+  (= `s69-final`); both regressions identical (0:51; 4:00).
+- Harness, opt-in: `mixes --kind drops --residual` takes lists of
+  timings and fixes (`--residual-timing truth,detected
+  --residual-fix off,align,align-fine`), measures how far A's reference
+  is off in time (`residual::lags`), the rip's line, the seek offsets
+  and the gain fit's spread, and stores for each masked detection the
+  evidence the plain excerpt holds of it. *Align* shifts the reference
+  onto the mixture by the measured lags. Unit tests on synthetic
+  signals; `regress session-54-linux` identical with the run build.
+- The residue (0269): rips of another transfer (0.1-0.2% off in speed)
+  are placed off in time by their stored peaks' line (medians 12 and
+  28 ms);
+  250 of the 403 "other rips" are the same transfer at speed 1, where
+  the mask works. *Align* leaves A confident in 31 of 403 cases (115
+  without it) and confirms 61 of 64 quiet and brief partners at NAS
+  scale (50; plain 40). Frozen.
+- Detected timing (0270): with *Align*, the same counts as the true
+  time map at both scales.
+- Test seeds 2040 and 2041 (0271), NAS scale, detected timing with
+  *Align*: 61 of 64 confirmed (plain 41), 46 confident (plain 15), no
+  wrong confident answer; the unaligned mask kept two Cool Rock
+  answers, *Align* removed them. The evidence rule (at least 20 plain
+  hits at the alignment) removed no wrong answer and dropped 10
+  partners: not worth keeping as built.
+- Not proposed: no rule, no ADR. A product version would need A's audio
+  at search time (not with `--store-only`), the alignment, a further
+  search per confident play, a rule for related versions and an ADR.
+- Final checks with `work/bin/s70-final/`: `scripts/check.sh` green;
+  `regress session-54-linux` and `regress session-64-linux-nas`
+  identical; `docs/pair-verdicts.txt` and the NAS clusters file
+  (`c4d3da2e7e37...`) unchanged.

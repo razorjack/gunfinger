@@ -346,3 +346,10 @@ the test seeds is a candidate for a later ADR, not a decision.
   taken: the lags and seeks computed again per fix and timing (time
   only), the report name's fix list, AGENTS.md's harness map (it has not
   named `residual` since session 65; left for the user).
+- **(09:21) Final checks** (`work/s70/final.sh`, tmux `s70final`,
+  `work/bin/s70-final/`): `gunfinger` byte-identical to `s69-final`'s;
+  both regressions identical; the smoke mix gives the run build's report
+  exactly; `scripts/check.sh` green (707 tests); the digests unchanged.
+  The development copies of session 39's renders and the second copy of
+  each test seed's renders were deleted; one copy per test seed stays in
+  `work/s70/t-nas-<seed>/mixes/`.
