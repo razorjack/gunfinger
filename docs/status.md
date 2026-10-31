@@ -5766,3 +5766,39 @@ behaviour is unchanged.
   720 of 720 sweep queries identical), so the registered bar fails on
   that item. No ADR proposal; re-registering the item and the ADR (a
   per-record flag or a profile bump) are ours.
+
+## 2026-10-31: session 68, a pilot of automated counterexample search
+
+Brief `docs/brief-68.md` (with the pre-registration), checklist
+`docs/session-68-checklist.md`; notes "Session 68"; experiments
+0264-0266; the proposals note's "Automated counterexample search" and
+the roadmap's bullet of that name. Gunfinger's behaviour is unchanged.
+
+- 03:27 start at `dc137bb`, clean. Start build `work/bin/s68-start/`
+  (= `s67-final`); both regressions identical (0:51; 3:47).
+- Harness, opt-in: `counterexamples` (small generated mixes under
+  sampled transformations: speed, a pitch ride, a bass kill, a blend, a
+  channel fault; each play lost, gap of 30 s or more in a found play, or
+  wrong answer minimized greedily and saved as a recipe; `--replay`).
+  Unit tests for the minimizer, the recipe round trip, the plan, the
+  uncovered stretch and the target's level; both regressions identical.
+- Results (0266, superseding 0264; replays 0265): 2,000 samples at 262
+  tracks, 188 failures in 17 classes; the same first 500 at NAS scale,
+  72 in 11. Every play lost or gap needs a channel fault or a blend;
+  speed, bass kills and rides alone never failed. Wrong answers only at
+  NAS scale and without a transformation: The Nine's Evol Intent VIP,
+  Cool Rock Shook Ones, Pyro - Ignorance (known related versions). All
+  12 replayed recipes hold. No class outside the roadmap's entries
+  alone; the pairs none names: a ride of 0.5-3% whose later side a blend
+  or a fault loses. The blend is harsher than the generator's crossfade
+  (no fades). Cost: 16:30 and 157 CPU s per failure at 262 tracks;
+  17:10 and 389 CPU s per failure at NAS scale. Worth running beside a
+  variant as a paired check with the same seed; new classes need new
+  axes.
+   ```sh
+   E=work/bin/s68-final/gunfinger-eval; N=~/.local/share/gunfinger/nas-dnb-peaks
+   $E counterexamples --seed 2026 --samples 2000 --out OUT
+   $E --other-peaks-dir $N counterexamples --seed 2026 --samples 500 --out OUT
+   $E counterexamples --out OUT --replay OUT/recipes/NNNN.json
+   python3 -I scripts/analysis/counterexample_classes.py OUT/counterexamples-seed-2026.json SUMMARY.json
+   ```

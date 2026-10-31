@@ -290,3 +290,13 @@ elapsed time and CPU).
   beside the results. `--replay` now refuses a recipe whose seed, ladder
   or indexed count differs. The minimizer stays as registered; its
   result depends on the order of the drops (the draw's order).
+- **(05:24) The rerun finished** (`c262b` 16:30, 188 failures; `cnasb`
+  17:10, 72, every one as before); the 12 picks' recipes are unchanged
+  and hold when replayed with `s68-rerun`. Experiment 0266 committed
+  (`c987a6e`); 0264 corrected and marked superseded, 0265 corrected.
+- **(05:26) Final checks started** (`work/s68/final.sh`, tmux
+  `s68final`); the roadmap, the proposals note, the notes, the status
+  and the checklist updated with 0266's numbers.
+- **(05:36) Final checks**: `scripts/check.sh` green (5:00); both
+  regressions identical with `s68-final` (0:51; 4:01); the digests
+  unchanged. Session closed.

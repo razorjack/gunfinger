@@ -13759,3 +13759,156 @@ identical regressions.
   test that did not isolate the lag condition (added), the regression's
   differences described too loosely, and wording; all fixed (brief 67,
   03:15).
+
+## Session 68
+
+### What changed
+
+The product did not change: no threshold, default or output moved, and
+both regressions stay identical. The harness gained `gunfinger-eval
+counterexamples` (`counterexamples.rs`, wired in `commands/mixes.rs`),
+opt-in and tested: it draws small generated mixes (a held-out lead-in of
+30 s, the target of 40-120 s, a partner for 30 s after it) under
+transformations within fixed bounds (speed ±6%, a 1-3% ride over 5-15
+s, a bass kill and a blend of 10-60 s, brief 42's channel faults over
+the mix's second half), renders them with `mixes::render`, searches and
+scores them with the generated mixes' code, and minimizes each failure
+greedily (drop one transformation at a time while the failure persists,
+then halve each one left up to 3 times). Failures: the indexed target
+with no confident detection (lost), found but with 30 s or more of its
+play uncovered (gap), or a confident file matching no play (wrong).
+Each failure's recipe goes to `<out>/recipes/NNNN.json`; `--replay`
+renders and searches one again and checks that its seed, ladder and
+index match. `scripts/analysis/counterexample_classes.py` summarises a
+report. The axes, bounds, definitions, minimizer, classes and the bar
+were pre-registered before the budgeted search (`7440c8e`, brief 68).
+
+In short: the search finds only known failures and pairs of them. Every
+play lost or gap needs a channel fault or a blend; speed, bass kills and
+rides alone never failed. The wrong answers appear at NAS scale only and
+need no transformation (three related-version families). Its value is
+as a paired check of a variant with the same seed, at about 16-17
+minutes a run.
+
+### Experiments 0264-0266
+
+| Run | Result |
+|---|---|
+| 2,000 samples at 262 tracks (0266, the rerun) | 188 failures in 17 classes: 159 gaps, 29 lost, 0 wrong |
+| The same first 500 at NAS scale (0266) | 72 failures in 11 classes: 45 gaps, 11 lost, 16 wrong |
+| Largest classes (262) | gap: channel-fault 85 (68 families); gap: ride+channel-fault 20, ride+blend+channel-fault 20, ride+blend 15; lost: blend 9, blend+channel-fault 11 |
+| Alone, of 1,504 indexed targets | speed (42), a bass kill (55), the base (61): at most 1.3 s uncovered; a ride (54) 15.2 s; a blend (53) loses one |
+| Wrong (NAS), no transformation | The Nine's Evol Intent VIP over The Nine (12), Cool Rock Shook Ones over an Aphrodite file (3), Pyro - Ignorance over Time Is Broken (1) |
+| 12 minimal recipes replayed (0265, again in 0266) | 12 hold, outcomes equal to a microsecond |
+| Against the roadmap | each class a known failure (faults 0198, double drops 0184, related versions) or two in one play; the pairs no entry names: a ride of 0.5-3% whose later side a blend or fault loses |
+| Criterion | (b) holds (known classes from minimal recipes of 1-2 transformations, replayed); (a) only if a pair counts as new |
+| Cost | 262: 16:30, 157 CPU s and 5.3 s per failure; NAS: 17:10, 389 CPU s and 14.3 s per failure |
+
+0264 is the first run, superseded by 0266: it took the target's level
+from the scorer's strongest detection by hits (`score_play`), so a
+detection short of the rule's windows could hide a weaker confident one.
+With the registered definition one failure goes (#92) and one recipe
+minimizes otherwise; the rest are the same.
+
+### Times on the Linux machine
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux`; `regress session-64-linux-nas` (start build) | 0:51; 3:47 | 0.4; 5.4 GiB |
+| The same with the run build | 0:51; 3:47 | 0.4; 5.3 GiB |
+| `counterexamples`, 2,000 samples at 262 tracks, 32 workers | 16:30 | 5.3 GiB |
+| `counterexamples`, 500 samples at NAS scale | 17:10 | 9.6 GiB |
+| `counterexamples --replay`, one recipe: 262; NAS | 3-7 s; 14-21 s | 0.3; 4.4 GiB |
+| `scripts/check.sh` (run build) | 5:08 | |
+
+### Final checks
+
+`work/s68/final.sh` with `work/bin/s68-final/` (master at `c987a6e`;
+no code change after it): `scripts/check.sh` green (5:00, 691 tests);
+the `gunfinger` binary byte-identical to `s67-final`'s and the
+`gunfinger-eval` binary to `s68-rerun`'s; `regress session-54-linux`
+(0:51) and `regress session-64-linux-nas` (4:01) identical, every report
+equal to its baseline's apart from `wall_seconds`;
+`docs/pair-verdicts.txt`, the NAS clusters file (`c4d3da2e7e37...`) and
+the answer log at their start digests
+(`work/s68/listening-digests-end.txt`).
+
+### Decided this session, open to change
+
+- The bounds are the generator's ranges as registered, but the blend has
+  no fades and may cover the whole target, and the kill lasts up to 60 s
+  (a bass swap at most 30 s): harsher than `mixes::crossfade`. Every
+  lost play with a blend is a double drop (0184's construction). Kept as
+  registered for the rerun; stated in 0266.
+- A gap failure (30 s or more uncovered in a found play) was added after
+  the first smoke run and before the pre-registration, so that a ride's
+  lost side could be found.
+- "Not new" for a pair of known failures in one play was decided after
+  the runs; the literal reading would count `gap: ride+blend` as new
+  and meet criterion (a). Both readings are in 0265 and 0266.
+- The NAS run drew the same 500 bases as the 262 run's first 500.
+- The minimizer drops in the draw's order (speed, ride, kill, blend,
+  fault), so where two minimal sets exist the fault tends to stay; it
+  does not retry drops after halving (as registered).
+
+### Questions this leaves for us
+
+- Whether to run `counterexamples` with the same seed beside a variant
+  (for example a speed per stretch, `--speed-per-stretch`, against the
+  ride pairs), as a paired check: the samples are the same, so classes
+  gained or lost compare directly.
+- Whether to widen the axes: fades on the blend (the generator's
+  crossfade), the fault's placement within the play, other EQ, quiet and
+  beatmatched partners, key-locked plays. With today's axes the search
+  repeats known classes.
+
+### Questions for listening (none answered by agents)
+
+None new: nothing in this session needs listening.
+
+### Handoff
+
+1. State: master clean after the final commit; builds
+   `work/bin/s68-final/` (master), `s68-run`, `s68-run2`, `s68-rerun`
+   (the reported runs) and `s68-replay`.
+2. Data: `work/s68/c262b/` and `work/s68/cnasb/` (reports and 188 and
+   72 recipes; renders deleted), the first runs in `work/s68/c262/` and
+   `work/s68/cnas/`, replays under each `replays/`, logs in
+   `work/s68/logs/`, about 11 MB in all.
+3. To run it again or beside a variant:
+   ```sh
+   E=work/bin/s68-final/gunfinger-eval; N=~/.local/share/gunfinger/nas-dnb-peaks
+   $E counterexamples --seed 2026 --samples 2000 --out OUT
+   $E --other-peaks-dir $N counterexamples --seed 2026 --samples 500 --out OUT
+   $E counterexamples --out OUT --replay OUT/recipes/0007.json
+   python3 -I scripts/analysis/counterexample_classes.py OUT/counterexamples-seed-2026.json SUMMARY.json
+   ```
+   Matching options (`--speed-per-stretch` and the like) are global and
+   apply to the search; `--seed` other than 2026 writes a new sweep
+   panel into `docs/panels/` (`Plan::for_seed`), so keep 2026 or pass
+   `--panels` to a scratch copy.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. Only generated mixes were
+  searched (and Stakka through `regress`). The NAS was only read;
+  `work/peaks` only read.
+- Slips: the first NAS run exited at once because `counterexamples` was
+  not among the commands that take `--other-peaks-dir` (added,
+  `d77e4ae`); the first replay build was copied from a binary built
+  before the detections change and compared floats exactly (rerun with
+  `424185d`).
+- serde_json (without `float_roundtrip`) reads some of a recipe's floats
+  one unit in the last place off, so a replay's play ends can move by
+  about 1e-14 s; replays compare outcomes to a microsecond. Enabling
+  the feature would touch every report the harness reads, so it was left
+  alone.
+- A read-only review by a separate agent (04:37-04:48) found 13 points:
+  the target's level (fixed and rerun), the blend's and kill's distance
+  from the generator (stated), miscounts in 0264 and the notes (The
+  Nine 12, not 13), the ride range and the 0176 citation, "one or two
+  more", the post-hoc reading of the criterion, the float explanation,
+  stale references, replay context checks (added), the minimizer's
+  order, the fault's fixed placement, and small code points (wrong
+  files now collected once each); all fixed or stated (brief 68, 04:50).
