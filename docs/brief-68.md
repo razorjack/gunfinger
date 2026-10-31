@@ -268,3 +268,21 @@ elapsed time and CPU).
 - **(04:40) The proposals note and the roadmap** gained the pilot's
   result (a paragraph under "Automated counterexample search"; a bullet
   "Automated counterexample search" under Evaluation).
+- **(04:50) The review** (a read-only subagent) found, among smaller
+  points: (1) the pilot's target level was the scorer's (`score_play`:
+  the level of the matching detection with the most hits), so a
+  stronger detection short of the rule's windows hid a weaker confident
+  one, against the registered "no confident matching detection" (two
+  failures of 0264 are not failures, and minimizing may have been
+  misled); (2) the blend and the bass kill are harsher than the
+  generator's crossfade and bass swap, which fade both records over at
+  most half the shorter play; (3) counts and ranges misread in 0264,
+  0265, the roadmap and the proposals note. Decisions: the level is now
+  confident when any confident detection of the target's cluster or
+  title overlaps its play (tested); both budgets run again with it
+  (`c262b`, `cnasb`, same seed and counts), and 0264 and 0265 are
+  superseded by 0266; the registered bounds are kept as registered for
+  the rerun, and their distance from the generator's crossfade is stated
+  beside the results. `--replay` now refuses a recipe whose seed, ladder
+  or indexed count differs. The minimizer stays as registered; its
+  result depends on the order of the drops (the draw's order).

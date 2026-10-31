@@ -128,8 +128,9 @@ pub enum Command {
     Mixes(mixes::MixesArgs),
     /// Search small generated mixes under transformations sampled within
     /// fixed realistic bounds (speed, a pitch ride, a bass kill, a blend,
-    /// a channel fault), and minimize each true play lost or wrong answer
-    /// made to the fewest and smallest transformations that keep it
+    /// a channel fault), and minimize each true play lost, gap of 30 s or
+    /// more in a found one, or wrong answer made to the fewest and
+    /// smallest transformations that keep it
     /// (brief 68). Writes the report and one recipe per failure under
     /// --out; each render is deleted once searched.
     Counterexamples(mixes::CounterexamplesArgs),

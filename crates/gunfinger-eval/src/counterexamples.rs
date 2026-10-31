@@ -1,9 +1,10 @@
 //! Automated counterexample search (brief 68): small generated mixes under
 //! transformations sampled within fixed realistic bounds, searched and
-//! compared with the truth. Each failure, a true play lost or a wrong
-//! answer made, is then minimized while it persists: transformations are
-//! dropped one at a time, then each left is halved. The minimal recipe is
-//! saved; it renders the same mix again.
+//! compared with the truth. Each failure (a true play lost, a long gap in
+//! a found one, or a wrong answer) is then minimized while it persists:
+//! transformations are dropped one at a time, in the order they were
+//! drawn, then each left is halved. The minimal recipe is saved; it
+//! renders the same mix again.
 //!
 //! A sample plays a held-out lead-in, cut into the target play, then a
 //! partner after the target. The target is indexed or held out; the
@@ -367,8 +368,9 @@ pub struct WrongAnswer {
 
 impl Outcome {
     /// The same level and wrong answers, and the same uncovered stretch
-    /// to a microsecond: serde_json's default parsing can read a saved
-    /// float one unit in the last place off.
+    /// to a microsecond: serde_json's default parsing can read a float of
+    /// the recipe one unit in the last place off, and the play's ends,
+    /// and the stretch with them, move by as much.
     fn agrees(&self, other: &Outcome) -> bool {
         self.target == other.target
             && self.wrong == other.wrong
@@ -408,8 +410,17 @@ impl Outcome {
                 }
             })
             .collect();
+        // The scorer's level is its strongest detection's by hits, which
+        // can fall short of the rule while a weaker one is confident.
+        let found = covering
+            .iter()
+            .any(|&(start, end)| start < target.end_seconds && target.start_seconds < end);
         Outcome {
-            target: result.score.plays[1].level,
+            target: if found {
+                Level::Confident
+            } else {
+                result.score.plays[1].level
+            },
             uncovered_seconds: longest_uncovered(
                 target.start_seconds,
                 target.end_seconds,
@@ -432,15 +443,12 @@ impl Outcome {
         } else {
             None
         };
-        let mut wrong: Vec<Failure> = self
-            .wrong
-            .iter()
-            .map(|answer| Failure::Wrong {
-                asset: answer.asset.clone(),
-            })
-            .collect();
-        wrong.dedup();
-        lost.into_iter().chain(wrong).collect()
+        let wrong: BTreeSet<&String> = self.wrong.iter().map(|answer| &answer.asset).collect();
+        lost.into_iter()
+            .chain(wrong.into_iter().map(|asset| Failure::Wrong {
+                asset: asset.clone(),
+            }))
+            .collect()
     }
 }
 
@@ -613,7 +621,8 @@ pub struct Options<'a> {
     /// The index's records beside the corpus's; the samples play corpus
     /// files only.
     pub padding: &'a Padding,
-    /// Where the report, the recipes and the passing renders go.
+    /// Where the report, the recipes and the renders, while they are
+    /// searched, go.
     pub out: &'a Path,
     pub jobs: usize,
 }
@@ -838,7 +847,20 @@ pub fn replay(
     options: &Options,
     saved: &SavedRecipe,
 ) -> Result<Replay, String> {
+    if saved.seed != options.seed || saved.ladder != options.ladder_name {
+        return Err(format!(
+            "the recipe was found with seed {} and the {} ladder: replay it with --seed {} and that ladder",
+            saved.seed, saved.ladder, saved.seed
+        ));
+    }
     let SweepIndex { index, .. } = sweep(library, store, clusters, options)?;
+    if index.assets().len() != saved.indexed_assets {
+        return Err(format!(
+            "the recipe was found with {} files indexed, this index holds {}: replay it with the other library it was found with (--other-peaks-dir), or without",
+            saved.indexed_assets,
+            index.assets().len()
+        ));
+    }
     let evaluator = Evaluator::new(library, clusters, &index, options);
     let counterexample = &saved.counterexample;
     let (outcome, detections) = evaluator.searched(
@@ -1077,6 +1099,65 @@ mod tests {
         assert!(!outcome.agrees(&possible));
     }
 
+    fn found(
+        asset: &str,
+        start_seconds: f64,
+        end_seconds: f64,
+        windows: u32,
+        hits: u32,
+    ) -> MixFound {
+        MixFound {
+            asset: asset.to_owned(),
+            start_seconds,
+            end_seconds,
+            track_start_seconds: 0.0,
+            speed: 1.0,
+            windows,
+            hits,
+            fitted: true,
+            verified: None,
+        }
+    }
+
+    #[test]
+    fn a_target_is_found_when_any_detection_of_it_is_confident() {
+        let (mix, _) = recipe(Vec::new()).planned("mix").unwrap();
+        // The scorer's best by hits spans 2 windows, short of the rule;
+        // the weaker one is confident.
+        let strong_but_short = found("target.mp3", 30.0, 33.0, 2, 3000);
+        let confident = found("target.mp3", 31.0, 35.0, 5, 1000);
+        assert_eq!(strong_but_short.confidence(), Confidence::Possible);
+        assert_eq!(confident.confidence(), Confidence::Confident);
+        let result = MixResult {
+            score: crate::mixes::MixScore {
+                plays: mix
+                    .plays
+                    .iter()
+                    .map(|play| crate::mixes::PlayScore {
+                        truth: play.clone(),
+                        level: Level::Possible,
+                        best: None,
+                        start_late_seconds: None,
+                        end_early_seconds: None,
+                        position_error_seconds: None,
+                    })
+                    .collect(),
+                wrong_confident: Vec::new(),
+                wrong_possible: Vec::new(),
+                false_candidates: Vec::new(),
+                same_title: 0,
+            },
+            mix,
+            detections: vec![strong_but_short, confident],
+        };
+        let accepted = BTreeSet::from([String::from("target.mp3")]);
+        let outcome = Outcome::of(&result, &accepted);
+        assert_eq!(outcome.target, Level::Confident);
+        assert!((outcome.uncovered_seconds - 1.0).abs() < 1e-9);
+        let elsewhere = BTreeSet::from([String::from("partner.mp3")]);
+        assert_eq!(Outcome::of(&result, &elsewhere).target, Level::Possible);
+    }
+
     #[test]
     fn the_minimizer_returns_nothing_when_the_base_alone_fails() {
         let minimal = minimized(vec![kill(40.0), fault()], |_| true);
@@ -1177,26 +1258,31 @@ mod tests {
                 return;
             }
         }
-        let original = recipe(vec![
-            speed(1.03),
+        // Values as `draw` gives them, with every digit, which serde_json
+        // may read one unit in the last place off.
+        let mut original = recipe(vec![
+            speed(1.031_740_897_331_802_7),
             Transformation::Ride {
-                change: 0.01,
-                at: 0.4,
-                seconds: 1.0,
+                change: 0.010_179_344_104_904_602,
+                at: 0.350_503_553_466_155_64,
+                seconds: 1.461_024_892_425_437,
             },
-            kill(3.0),
+            kill(3.077_418_713_320_091),
             Transformation::Blend {
-                seconds: 2.0,
-                gain_db: -3.0,
+                seconds: 2.674_214_316_824_21,
+                gain_db: -3.419_597_847_919_715_3,
             },
             Transformation::ChannelFault {
                 fault: String::from("stereo-noise-snr-0db"),
             },
         ]);
+        original.base.target_seconds = 6.774_187_133_200_91;
+        original.base.target.start_seconds = 2.664_248_054_966_72;
         let saved = dir.join("recipe.json");
         write_json(&saved, &original).unwrap();
         let loaded: Recipe = crate::files::read_json(&saved).unwrap();
-        assert_eq!(loaded, original);
+        assert_eq!(loaded.transformations.len(), original.transformations.len());
+        assert!((loaded.base.target_seconds - original.base.target_seconds).abs() < 1e-12);
         let roots = Roots {
             library: &library,
             other: None,
@@ -1210,8 +1296,8 @@ mod tests {
         }
         assert_eq!(renders[0].0, renders[1].0);
         let samples = &renders[0].1;
-        // 66 s of mix at the render rate, give or take the encoder's padding.
-        let expected = 66.0 * f64::from(RENDER_RATE);
+        // 66.8 s of mix at the render rate, give or take the encoder's padding.
+        let expected = 66.774 * f64::from(RENDER_RATE);
         assert!((samples.len() as f64 - expected).abs() < 0.05 * expected);
         assert!(samples.iter().any(|&sample| sample.abs() > 0.01));
         fs::remove_dir_all(&dir).unwrap();
