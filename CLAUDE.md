@@ -6,14 +6,14 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-67.md` (the current session's brief, with its
-   pre-registration) and `docs/session-67-checklist.md` (its progress),
-   with `docs/research/2026-10-30-stereo-power-decision.md`, §1 of
-   `docs/research/2026-10-29-matching-and-archive-proposals.md` and its
-   "Evaluation and adoption boundaries", the roadmap's "Stereo faults
-   before the downmix", experiments 0194-0198 and 0245-0250, ADR 0003,
-   the newest four entries of `docs/status.md`, and this session's
-   experiments (0262 and up);
+2. `docs/brief-68.md` (the current session's brief, with its
+   pre-registration) and `docs/session-68-checklist.md` (its progress),
+   with the "Automated counterexample search" and "Evaluation and
+   adoption boundaries" of
+   `docs/research/2026-10-29-matching-and-archive-proposals.md`,
+   experiments 0116, 0118, 0166, 0175-0178, 0182-0185, 0198 and
+   0215-0218, the newest four entries of `docs/status.md`, and this
+   session's experiments (0264 and up);
    `docs/brief-2.md`,
    `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
    `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
@@ -32,7 +32,7 @@ anything else:
    `docs/brief-44.md`, `docs/brief-45.md`, `docs/brief-46.md`,
    `docs/brief-47.md`, `docs/brief-48.md`, `docs/brief-49.md`,
    `docs/brief-50.md`, `docs/brief-51.md`, `docs/brief-52.md`,
-   `docs/brief-53.md`, `docs/brief-54.md`, `docs/brief-55.md`, `docs/brief-56.md`, `docs/brief-57.md`, `docs/brief-58.md`, `docs/brief-59.md`, `docs/brief-60.md`, `docs/brief-61.md`, `docs/brief-62.md`, `docs/brief-63.md`, `docs/brief-64.md`, `docs/brief-65.md` and `docs/brief-66.md` hold
+   `docs/brief-53.md`, `docs/brief-54.md`, `docs/brief-55.md`, `docs/brief-56.md`, `docs/brief-57.md`, `docs/brief-58.md`, `docs/brief-59.md`, `docs/brief-60.md`, `docs/brief-61.md`, `docs/brief-62.md`, `docs/brief-63.md`, `docs/brief-64.md`, `docs/brief-65.md`, `docs/brief-66.md` and `docs/brief-67.md` hold
    rules that still apply unless brief 67 changes them
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
