@@ -1,5 +1,5 @@
-//! The `mixes`, `counterexamples` and `grid` commands: generated mixes
-//! with exact truth.
+//! The `mixes`, `counterexamples`, `passages` and `grid` commands:
+//! generated mixes with exact truth.
 
 use std::collections::BTreeSet;
 use std::path::{Path, PathBuf};
@@ -9,7 +9,7 @@ use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::mixes::residual::{Pilot, Timing};
 use crate::mixes::{DropsOptions, KindOptions, MixKind};
 use crate::residual::Rule;
-use crate::{counterexamples, grid, mixes, robust};
+use crate::{counterexamples, grid, mixes, passages, robust};
 
 #[derive(clap::Args)]
 pub struct MixesArgs {
@@ -157,6 +157,78 @@ pub fn counterexamples(
         &report,
     )?;
     counterexamples::print_summary(&report);
+    Ok(())
+}
+
+#[derive(clap::Args)]
+pub struct PassagesArgs {
+    /// The batch's seed.
+    #[arg(long, default_value_t = 6901)]
+    pub seed: u64,
+    /// Where the report (`passages-seed-<seed>.json`) and, while they are
+    /// searched, the renders go.
+    #[arg(long)]
+    pub out: PathBuf,
+    /// The other library's root, where the shared-material panel's files
+    /// under `second-library/` are read for rendering.
+    #[arg(long)]
+    pub other_root: Option<PathBuf>,
+    /// What is indexed and searched: each mix's unidentified spans, the
+    /// whole mixes, or both.
+    #[arg(long, value_enum, value_delimiter = ',', default_value = "gaps,whole")]
+    pub mode: Vec<passages::Mode>,
+    /// The relative speeds searched between two mixes, as shares either
+    /// side of 1 (0.08: the product's ladder; more adds rungs past its
+    /// ends, a step apart).
+    #[arg(long, value_delimiter = ',', default_value = "0.08,0.18")]
+    pub relative_speed_range: Vec<f64>,
+    /// Keep the renders under --out.
+    #[arg(long)]
+    pub keep_renders: bool,
+}
+
+pub fn passages(harness: &Harness, jobs: usize, args: PassagesArgs) -> Result<(), String> {
+    let PassagesArgs {
+        seed,
+        out,
+        other_root,
+        mode,
+        relative_speed_range,
+        keep_renders,
+    } = args;
+    if harness.search.extra_rungs > 0 {
+        return Err(String::from(
+            "passages sets its ladders by --relative-speed-range; leave out --extra-rungs",
+        ));
+    }
+    if relative_speed_range.iter().any(|&range| range < 0.08) {
+        return Err(String::from(
+            "--relative-speed-range starts at the product's ladder, 0.08",
+        ));
+    }
+    let library = harness.library()?;
+    let store = harness.store()?;
+    let clusters = harness.clusters()?;
+    let same_titles = harness.same_titles()?;
+    let ladder = harness.rungs();
+    let padding = harness.padding(&UNCHANGED_INDEX)?;
+    let options = passages::Options {
+        seed,
+        modes: &mode,
+        ranges: &relative_speed_range,
+        same_titles: &same_titles,
+        panels: &harness.paths.panels,
+        other_root: other_root.as_deref(),
+        ladder: &ladder,
+        matching: &harness.search.matching,
+        padding: &padding,
+        out: &out,
+        keep_renders,
+        jobs,
+    };
+    let report = passages::run(&library, &store, &clusters, &options)?;
+    passages::save(&out, &report)?;
+    passages::print_summary(&report);
     Ok(())
 }
 

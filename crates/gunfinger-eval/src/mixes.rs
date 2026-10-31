@@ -1091,7 +1091,7 @@ fn ride(play: &mut PlannedPlay, duration_seconds: f64, draw: &RideDraw, rng: &mu
 /// Moves `next` back over the end of `previous` by a crossfade of
 /// `LONG_CROSSFADE_SECONDS`, at most half the shorter play; half of them
 /// hand the low end over halfway.
-fn crossfade(previous: &mut PlannedPlay, next: &mut PlannedPlay, rng: &mut Rng) {
+pub(crate) fn crossfade(previous: &mut PlannedPlay, next: &mut PlannedPlay, rng: &mut Rng) {
     let longest = (previous.end_seconds - previous.start_seconds)
         .min(next.end_seconds - next.start_seconds)
         / 2.0;

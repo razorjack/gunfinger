@@ -122,7 +122,7 @@ where the pre-registration names its exact rules; no registered batch
 runs before the commit. Smoke runs on seed 6900 (two or three mixes)
 test the code and are not reported as results.
 
-## Pre-registration (step 1; written at 06:00, before any batch run)
+## Pre-registration (step 1; written at 05:38-05:45, before any batch run)
 
 **Question.** Within one run over a batch of generated mixes, can the
 mixes' unidentified passages be matched against each other, so that a
@@ -274,7 +274,24 @@ such links in the product's output.
   byte-identical to `s68-final`. Both regressions identical (0:51;
   4:01), every report equal to its baseline's apart from
   `wall_seconds`.
-- **(06:00) No NAS-scale batch.** The prompt asks for 262 tracks
+- **(05:45) Pre-registration committed** (`084d659`), before the
+  prototype and before any batch run.
+- **(05:45) No NAS-scale batch.** The prompt asks for 262 tracks
   first; at NAS scale the subjects' other rips would have to be left
   out through `clusters::find_around`, which the time box does not
   allow. The NAS is read only to render the shared-material pairs.
+- **(05:47-05:58) The prototype** (`passages.rs`, the subcommand in
+  `commands/mixes.rs`; `mixes::crossfade` made visible to the harness,
+  unchanged). The NAS root option is `--other-root`, the name `mixes`
+  already uses, not `--other-library`. A smoke run on seed 6900 (not a
+  result) took 1:17 and 2.5 GiB at 32 workers and showed the code
+  classifying as designed; it also showed that some subject plays lie
+  wholly inside their partners' crossfades, so gaps mode cannot reach
+  them (a property of the registered construction; nothing changed).
+  Each correspondence's reach past the panel's passage is the larger of
+  its two ends' (the registered "within the passage ±15 s").
+- **(05:58) Eight more batches.** A batch costs under 2 minutes, so
+  seeds 6903-6910 run as well, after the two registered ones, with the
+  same build and rules. They are reported beside seeds 6901 and 6902;
+  the bar is read on 6901 and 6902 as registered, and the pool of ten
+  is reported apart.

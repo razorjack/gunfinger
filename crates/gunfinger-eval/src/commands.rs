@@ -134,6 +134,14 @@ pub enum Command {
     /// (brief 68). Writes the report and one recipe per failure under
     /// --out; each render is deleted once searched.
     Counterexamples(mixes::CounterexamplesArgs),
+    /// Generated mixes in which recordings left out of the index recur
+    /// with different partners, cue points, bass swaps and speeds: their
+    /// unidentified spans (or the whole mixes) indexed in memory and
+    /// searched against each other within explicit relative-speed
+    /// ranges, links reported pairwise and scored against the
+    /// construction (brief 69). Writes `passages-seed-<seed>.json` under
+    /// --out.
+    Passages(mixes::PassagesArgs),
     /// Slide brief plays of indexed tracks across the 10 s window grid in
     /// 1 s steps, at several lengths and source positions, and compare
     /// the frozen rule with minimum aligned spans.
@@ -270,6 +278,7 @@ impl Command {
             Command::VariantStore(_) => "variant-store",
             Command::Mixes(_) => "mixes",
             Command::Counterexamples(_) => "counterexamples",
+            Command::Passages(_) => "passages",
             Command::Grid(_) => "grid",
             Command::Seconds(_) => "seconds",
             Command::Gaps(_) => "gaps",
@@ -356,6 +365,7 @@ pub fn run(harness: &Harness, jobs: usize, command: Command) -> Result<(), Strin
         Command::VariantStore(args) => library::variant_store(harness, jobs, args),
         Command::Mixes(args) => mixes::mixes(harness, jobs, args),
         Command::Counterexamples(args) => mixes::counterexamples(harness, jobs, args),
+        Command::Passages(args) => mixes::passages(harness, jobs, args),
         Command::Grid(args) => mixes::grid(harness, jobs, args),
         Command::Seconds(args) => saved_reports::seconds(harness, args),
         Command::Gaps(args) => saved_reports::gaps(harness, args),

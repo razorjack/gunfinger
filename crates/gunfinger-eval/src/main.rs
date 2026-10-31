@@ -27,6 +27,7 @@ mod padding;
 mod pair;
 mod pair_review;
 mod parts;
+mod passages;
 mod platform;
 mod recall;
 mod regress;
