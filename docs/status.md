@@ -5935,3 +5935,25 @@ the 59 optional `parts` questions (records 62-120; question 44,
   than a record allows) and 8 tag notes.
 - The user's idea: a way to ask which tracks use a break heard in
   another.
+
+## 2026-10-31: the last answer, and the user's decisions and views
+
+- Question 44 of the optional pack (`aa_global_thang-bubberlin-2000-sour`)
+  answered `one` (record 121). Every question of both packs now has an
+  answer, apart from the Planet Dust (DC Breaks Remix) cut (`unsure`).
+- The nine uploads answered `several` (cuts from DJ sets) stay in the
+  library, by the user's decision: when the user identifies a set, such
+  a cut may be the only file that carries the track's title, and giving
+  the title is Gunfinger's purpose.
+- Approved: a session may prune the records of the files the three new
+  ignore entries leave out (8 peak records, 99 skip notes, 8 tag notes)
+  and record new NAS-scale baselines, as session 64 did.
+- The user's view on a quiet track under an identified one (proposal 4):
+  worth pursuing. In the common double drop the quieter track goes on
+  alone once the louder one is cut, so it is usually identified anyway;
+  in a three-deck blend the user expects the third track to be found
+  too. On related versions found this way: acceptable to the user, since
+  a listener who learns a title can find the right version by ear, and
+  learning a title years later is the point.
+- The user's idea for inverted rips: index both the record as ripped
+  and the repaired one, so that neither kind of query loses the file.
