@@ -334,8 +334,9 @@ pub fn lags(mixture: &[f32], reference: &[f32], profile: &Profile) -> Lags {
     let mixture_levels = levels(&mixture, &bands);
     let step = profile.hop / PHASES;
     // Phase `p`'s frame `f` starts at the reference's sample
-    // `p * step + f * hop`: matched with the mixture's frame `f + k`, the
-    // reference is `k * hop - p * step` samples late.
+    // `p * step + f * hop`. Matched with the mixture's frame `f + k`, the
+    // mixture holds that audio `k * hop - p * step` samples later: the
+    // reference is early by that lag, as `Lags` counts it.
     let phases: Vec<Vec<Vec<f64>>> = (0..PHASES)
         .map(|phase| levels(&power_spectra(&reference[phase * step..], profile), &bands))
         .collect();

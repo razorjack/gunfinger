@@ -2264,11 +2264,6 @@
     "abs_lag_over_20ms": 0,
     "seek_off_over_5ms": 0,
     "after_fix": {
-     "off": {
-      "possible": 12,
-      "none": 78,
-      "weak": 22
-     },
      "align": {
       "possible": 5,
       "none": 81,
@@ -2278,6 +2273,11 @@
       "weak": 27,
       "none": 81,
       "possible": 4
+     },
+     "off": {
+      "possible": 12,
+      "none": 78,
+      "weak": 22
      }
     },
     "codecs": {
@@ -2303,9 +2303,6 @@
     "abs_lag_over_20ms": 0,
     "seek_off_over_5ms": 0,
     "after_fix": {
-     "off": {
-      "confident": 20
-     },
      "align": {
       "weak": 8,
       "possible": 12
@@ -2314,6 +2311,9 @@
       "none": 2,
       "possible": 11,
       "weak": 7
+     },
+     "off": {
+      "confident": 20
      }
     },
     "codecs": {
@@ -2338,11 +2338,6 @@
     "abs_lag_over_20ms": 0,
     "seek_off_over_5ms": 0,
     "after_fix": {
-     "off": {
-      "none": 115,
-      "possible": 22,
-      "weak": 39
-     },
      "align": {
       "none": 123,
       "possible": 7,
@@ -2352,6 +2347,11 @@
       "none": 125,
       "possible": 9,
       "weak": 42
+     },
+     "off": {
+      "none": 115,
+      "possible": 22,
+      "weak": 39
      }
     },
     "codecs": {
@@ -2381,9 +2381,6 @@
     "abs_lag_over_20ms": 67,
     "seek_off_over_5ms": 5,
     "after_fix": {
-     "off": {
-      "confident": 95
-     },
      "align": {
       "confident": 31,
       "weak": 19,
@@ -2395,6 +2392,9 @@
       "weak": 17,
       "none": 16,
       "possible": 30
+     },
+     "off": {
+      "confident": 95
      }
     },
     "codecs": {
@@ -2424,13 +2424,13 @@
     "abs_lag_over_20ms": 0,
     "seek_off_over_5ms": 0,
     "after_fix": {
-     "off": {
-      "none": 37
-     },
      "align": {
       "none": 37
      },
      "align-fine": {
+      "none": 37
+     },
+     "off": {
       "none": 37
      }
     },
@@ -4251,11 +4251,6 @@
     "abs_lag_over_20ms": 0,
     "seek_off_over_5ms": 0,
     "after_fix": {
-     "off": {
-      "possible": 10,
-      "none": 78,
-      "weak": 24
-     },
      "align": {
       "possible": 5,
       "none": 81,
@@ -4265,6 +4260,11 @@
       "weak": 30,
       "none": 80,
       "possible": 2
+     },
+     "off": {
+      "possible": 10,
+      "none": 78,
+      "weak": 24
      }
     },
     "codecs": {
@@ -4290,9 +4290,6 @@
     "abs_lag_over_20ms": 0,
     "seek_off_over_5ms": 0,
     "after_fix": {
-     "off": {
-      "confident": 20
-     },
      "align": {
       "weak": 7,
       "possible": 13
@@ -4301,6 +4298,9 @@
       "none": 2,
       "possible": 11,
       "weak": 7
+     },
+     "off": {
+      "confident": 20
      }
     },
     "codecs": {
@@ -4325,11 +4325,6 @@
     "abs_lag_over_20ms": 0,
     "seek_off_over_5ms": 5,
     "after_fix": {
-     "off": {
-      "none": 276,
-      "possible": 4,
-      "weak": 29
-     },
      "align": {
       "none": 277,
       "possible": 4,
@@ -4339,6 +4334,11 @@
       "none": 277,
       "possible": 6,
       "weak": 26
+     },
+     "off": {
+      "none": 276,
+      "possible": 4,
+      "weak": 29
      }
     },
     "codecs": {

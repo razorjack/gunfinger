@@ -288,9 +288,9 @@ cases. None is an adopted decision or an experiment result.
   (see the proposals note). A partner found only in a residual would
   still be a marked play here.
   Session 70 (experiments 0269-0271) found why another rip leaves the
-  masked record behind (a rip of another transfer placed tens of
-  milliseconds off by its stored peaks' line), fixed it by aligning the
-  reference on the mixture, and measured the time map from the whole-mix
+  masked record behind (a rip of another transfer placed off in time by
+  its stored peaks' line, a median 12-28 ms), reduced it from 115 to 31
+  of 403 cases by aligning the reference on the mixture, and measured the time map from the whole-mix
   detection instead of the generator: on fresh seeds at NAS scale 61 of
   64 quiet and brief partners confirmed (plain 41), 46 confidently
   (plain 15), with no wrong confident answer. Needing evidence in the

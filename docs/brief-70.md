@@ -299,10 +299,11 @@ the test seeds is a candidate for a later ADR, not a decision.
   Bs (50 without it); *Align* with finer gains leaves 32 (under 5
   apart, so the simpler). The cause, from the measures: rips of another
   transfer (0.1-0.2% off in speed) placed tens of milliseconds off by
-  their stored peaks' line; not the seek, not lossy encoding.
+  their stored peaks' line; not the seek, and probably not lossy
+  encoding (an inference).
 - **(08:05) Step 2 read** (no threshold): detected timing with *Align*
   gives the same counts as the true time map at both scales.
-- **(08:06) Step 3's bar frozen: `H` = 20.** On the development seeds
+- **(08:05) Step 3's bar frozen: `H` = 20.** On the development seeds
   (NAS scale, detected timing, *Align*), of the 21 quiet and brief Bs
   that M confirms and plain does not, the rule keeps 6 at 20, 2 at 40
   and 2 at 60; none keeps three quarters, so the registered fallback,
@@ -322,3 +323,26 @@ the test seeds is a candidate for a later ADR, not a decision.
   Cool Rock answers without a fix have 385 and 638 plain hits).
 - **(08:09) The corpus regression with the run build** identical
   (`work/s70/regress-run.sh`, 3:36 beside the test runs).
+- **(09:15) The review's findings** (a separate agent, read-only,
+  09:02-09:10). No product change; the code's arithmetic (lag signs,
+  `shifted`, `Lags::at`, Theil-Sen, the gain spread, `agrees`, the seek's
+  sign) checked; every count in 0269-0271 matches the reports apart from
+  those below. Taken: the proposals note gave the NAS rips' median lag of
+  the cases where A stays (62 ms) for all of them (28 ms); "not lossy
+  encoding" marked as an inference (lossy references are nearly all of
+  both groups; the AAC sentence was wrong); 0269's gain spread where
+  *Align* removes A is 1.65 dB (not 1.8) and "768 arms" explained; the
+  roadmap no longer says the residue was fixed (115 to 31 of 403);
+  0270's detected lines off are 26 to 448 ms, two at the measure's limit
+  of 28 frames; 0271's mix-07 detection still possible is another one,
+  possible also without a fix; "pitch rides"; a sign in a comment of
+  `lags`; session 65's reports load again (`serde(default)` on the new
+  fields, with a test); the script takes the fixes from the report and
+  prints the per-reference tables at the frozen bar 20; this entry's
+  times. Recorded here as deviations: the script counts a detection
+  the rule drops as a candidate ("weak"), so only the confirmed and
+  confident columns change (the pre-registration said "dropped"); the
+  NAS regression ran with the final build only, not the run build. Not
+  taken: the lags and seeks computed again per fix and timing (time
+  only), the report name's fix list, AGENTS.md's harness map (it has not
+  named `residual` since session 65; left for the user).

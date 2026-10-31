@@ -107,7 +107,11 @@ impl Timing {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Report {
     pub rule: Rule,
+    /// Absent from session 65's reports, which had one `timing` and no
+    /// fix; they still load, with their cases' masked arms left out.
+    #[serde(default)]
     pub timings: Vec<Timing>,
+    #[serde(default)]
     pub fixes: Vec<Fix>,
     pub cases: Vec<Case>,
 }
@@ -128,6 +132,7 @@ pub struct Case {
     /// The plain and denser arms.
     pub arms: Vec<Arm>,
     /// For each timing, A's reference and the masked arms.
+    #[serde(default)]
     pub maskings: Vec<Masking>,
 }
 
@@ -910,6 +915,16 @@ mod tests {
             .name(),
             "residual-truth-detected-over-2-fix-off-align-align-fine"
         );
+    }
+
+    #[test]
+    fn a_report_of_session_65_still_loads() {
+        let old = r#"{"rule": {"over": 2.0}, "timing": "truth", "cases": [{"mix": "mix-00",
+            "play": 3, "reference": "a.mp3", "reference_kind": "played",
+            "start_seconds": 600.0, "end_seconds": 750.0, "arms": []}]}"#;
+        let report: Report = serde_json::from_str(old).unwrap();
+        assert_eq!(report.cases.len(), 1);
+        assert!(report.timings.is_empty() && report.cases[0].maskings.is_empty());
     }
 
     #[test]

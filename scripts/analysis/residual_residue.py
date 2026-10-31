@@ -58,7 +58,9 @@ def evidence_of(arm, found):
 
 
 def level_under_rule(arm, found, level, bar):
-    """A detection's level once the evidence rule drops it under `bar`."""
+    """A detection's level once the evidence rule drops it under `bar`: it
+    stays a candidate ("weak"), so the rule changes only the confirmed and
+    confident columns."""
     if found is None or not at_least(level, "possible"):
         return level
     return level if evidence_of(arm, found) >= bar else "weak"
@@ -186,7 +188,7 @@ def report(out):
             chosen = [row for row in rows if row["reference"] == kind]
             if chosen:
                 print(f"  reference {kind}:")
-                table(chosen, ["plain", "masked", "masked rule 40"])
+                table(chosen, ["plain", "masked", "masked rule 20"])
         print("  wrong (confident deduplicated by mix, file, second / possible):")
         for name in sorted(entry["wrong"]):
             print(f"    {name:<36} {entry['wrong'][name]['confident']:>3} / {entry['wrong'][name]['possible']:>3}")
@@ -301,6 +303,7 @@ def diagnose(paths, with_probe):
     measures = ["rip_hits", "rip_speed_off_ppm", "abs_lag_ms", "lag_spread_ms", "drift_ppm",
                 "correlation", "at_zero", "gain_spread_db", "reference_seek_ms", "played_seek_ms"]
     summary = {}
+    fixes = sorted({fix for items in groups.values() for item in items for fix in item["after"]})
     for (kind, stays), items in sorted(groups.items()):
         line = {m: median([i.get(m) for i in items]) for m in measures}
         line["n"] = len(items)
@@ -310,7 +313,7 @@ def diagnose(paths, with_probe):
             if abs(i.get("reference_seek_ms") or 0) > 5 or abs(i.get("played_seek_ms") or 0) > 5
         )
         line["after_fix"] = {
-            fix: dict(Counter(i["after"].get(fix) for i in items)) for fix in ["off", "align", "align-fine"]
+            fix: dict(Counter(i["after"].get(fix) for i in items)) for fix in fixes
         }
         if with_probe:
             line["codecs"] = dict(Counter(f"{i.get('codec')} {i.get('kbps')}" for i in items).most_common(8))
