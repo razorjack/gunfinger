@@ -1,0 +1,2115 @@
+{
+ "262": {
+  "samples": 2000,
+  "indexed_assets": 212,
+  "evaluations": 3165,
+  "sampling_seconds": 610.5,
+  "minimizing_seconds": 386.8,
+  "failures": 189,
+  "samples_failing": 189,
+  "held_out_targets": 496,
+  "axis_joined": {
+   "speed": 999,
+   "ride": 997,
+   "bass-kill": 977,
+   "blend": 974,
+   "channel-fault": 967
+  },
+  "by_kind": {
+   "lost": 30,
+   "gap": 159
+  },
+  "classes": [
+   {
+    "class": "gap: channel-fault",
+    "failures": 85,
+    "families": 68,
+    "renders": 363,
+    "sampled_sizes": {
+     "1": 5,
+     "2": 12,
+     "3": 34,
+     "4": 25,
+     "5": 9
+    },
+    "faults": {
+     "stereo-noise-snr--10db": 35,
+     "stereo-inverted": 49,
+     "stereo-noise-snr-0db": 1
+    },
+    "by_family": {
+     "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3": 3,
+     "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3": 3,
+     "Skynet & Stakka - Clockwork.mp3": 3,
+     "extra/a-dj_friction_and_nu_balance_final_judgement-rfl.mp3": 3,
+     "Ed Rush & Optical - Bacteria.mp3": 2,
+     "extra/A. SKC & Cord -- Swarm.mp3": 2,
+     "extra/rawkuts-gridlok-rkt337-2001-sour/b-gridlok-soul_sucker-sour.mp3": 2,
+     "Skynet & Stakka - Decoy.mp3": 2,
+     "extra/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3": 2,
+     "extra/a-rascal_and_klone-snake_eyes-sour.mp3": 2,
+     "Ed Rush & Optical - Point Blank.mp3": 2,
+     "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/107-stakka_and_skynet_feat_dj_friction-altitude-sour.mp3": 2,
+     "Kraken - Side Effects (TeeBee Remix).mp3": 2,
+     "extra/D-Usual_Suspects-Bodycount_(C4C_Remix)-sour.mp3": 1,
+     "extra/Cyb Orc - People From South.mp3": 1,
+     "DJ Trace - Sonar.m4a": 1,
+     "extra/aa-pascal-bad_boy_sound_(brookie_and_ed_solo_rmx)-sour.mp3": 1,
+     "extra/b-skc-eclipse-gdn.mp3": 1,
+     "extra/03-Profound_Noize-Dropzone-sour.mp3": 1,
+     "extra/208-shimon_and_andy_c-firewire-sour.mp3": 1,
+     "extra/06_-_skinnah_-_state_of_violance.mp3": 1,
+     "extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3": 1,
+     "extra/10-muffler-nutcracker_(original_mix).mp3": 1,
+     "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3": 1,
+     "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3": 1,
+     "Ed Rush & Optical - Sick Note.mp3": 1,
+     "extra/a-cause_4_concern-skewer-sour.mp3": 1,
+     "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/109-africa_bambaata-planet_rock_(stakka_n_skynet_rmx)-sour.mp3": 1,
+     "extra/aa-cause_4_concern-psyke-sour.mp3": 1,
+     "extra/a-brockie_and_ed_solo-voices-sour.mp3": 1,
+     "extra/B. falcon - china delight.mp3": 1,
+     "Bad Company - The Pulse.mp3": 1,
+     "extra/d-marcus_intalex_and_s_t_files-balderdash-sour.mp3": 1,
+     "extra/D-Sinthetix-Cryogenic-sour.mp3": 1,
+     "extra/09-Decoder-Bountyhunter-sour.mp3": 1,
+     "extra/a-break-day_one-sour.mp3": 1,
+     "extra/212-red_one-kung_fu_fresh-sour.mp3": 1,
+     "extra/aa-stakka_and_k_tee-terratorial-sour.mp3": 1,
+     "extra/01-item.code-inspiration_(feat._fading_suns)-whoa.mp3": 1,
+     "extra/310-future_cut-horns_2000-sour.mp3": 1,
+     "extra/APH39B-Aphrodite-2001-sour/b-aphrodite-siren_bass-sour.mp3": 1,
+     "extra/b-stakka_and_k_tee-echo_chamber-atm.mp3": 1,
+     "extra/09-muffler-downfall_(original_mix).mp3": 1,
+     "Ed Rush & Optical - Glass Eye.mp3": 1,
+     "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3": 1,
+     "extra/c-black_sun_empire-1800_contact-sour.mp3": 1,
+     "extra/b-stakka_and_skynet-global_report-sour.mp3": 1,
+     "extra/[AA]_-_Phoenix.mp3": 1,
+     "extra/a-ecco_and_sabotage-hazy_shades-sour.mp3": 1,
+     "extra/[A]_-_Tribal_Warfare.mp3": 1,
+     "extra/[B]_-_Futuretech_-_Kashmir.mp3": 1,
+     "extra/e-cause_4_concern-blindside-sour.mp3": 1,
+     "extra/AA. Pyro -- Spaced.mp3": 1,
+     "extra/2. Phace - Fraxion.mp3": 1,
+     "Bad Company - China Cup.mp3": 1,
+     "extra/a-black_sun_empire-voltage-2000-sour.mp3": 1,
+     "Ed Rush & Optical - Wormhole.mp3": 1,
+     "extra/b-cause_4_concern-give_it_2_em-sour.mp3": 1,
+     "extra/aa-sinthetix-fallout-sour.mp3": 1,
+     "extra/a-cause_4_concern-nightgasp-sour.mp3": 1,
+     "extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3": 1,
+     "extra/d-shimon-mutationz_iv-sour.mp3": 1,
+     "Skynet & Stakka - Pathogen.mp3": 1,
+     "extra/b-bulletproof-scarred-sour.mp3": 1,
+     "extra/Cyb Orc - Agressor.mp3": 1,
+     "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3": 1,
+     "extra/d. falcon - the stand.mp3": 1,
+     "extra/B_-_Decoder_-_Dead_Fall.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 1,
+      "sampled": "speed+ride+channel-fault",
+      "minimal": [
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr--10db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 44.58068713320091,
+       "wrong": []
+      }
+     },
+     {
+      "number": 3,
+      "sampled": "channel-fault",
+      "minimal": [
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-inverted"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 47.3300716009916,
+       "wrong": []
+      }
+     },
+     {
+      "number": 4,
+      "sampled": "speed+channel-fault",
+      "minimal": [
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr--10db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 40.15298831117711,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: ride+blend+channel-fault",
+    "failures": 20,
+    "families": 18,
+    "renders": 179,
+    "sampled_sizes": {
+     "3": 7,
+     "4": 9,
+     "5": 4
+    },
+    "faults": {
+     "stereo-delay-1ms": 5,
+     "stereo-delay-5ms": 5,
+     "stereo-delay-0.2ms": 6,
+     "stereo-noise-snr-10db": 1,
+     "stereo-silent": 2,
+     "stereo-noise-snr--10db": 1
+    },
+    "by_family": {
+     "Skynet & Stakka - Logistics.mp3": 2,
+     "Skynet & Stakka - Decoy.mp3": 2,
+     "extra/B. falcon - china delight.mp3": 1,
+     "extra/a-gridlok-v_ger-sour.mp3": 1,
+     "extra/h-carlito_and_addiction-into_music-sour.mp3": 1,
+     "extra/aph031 - aphrodite - private plates vol. 4_1999/B. aphrodite - bomber style.mp3": 1,
+     "extra/kosheen [resist] -02- hide u.mp3": 1,
+     "extra/e-chris_su_and_skc-blackout-sour.mp3": 1,
+     "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3": 1,
+     "extra/rawkuts-gridlok-rkt337-2001-sour/b-gridlok-soul_sucker-sour.mp3": 1,
+     "extra/aa-cause_4_concern-psyke-sour.mp3": 1,
+     "extra/A. SKC & Cord -- Swarm.mp3": 1,
+     "Kraken - Dominion.opus": 1,
+     "extra/B_-_Decoder_-_Dead_Fall.mp3": 1,
+     "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3": 1,
+     "extra/J-Technical_Itch_and_Decoder-Abduction-sour.mp3": 1,
+     "Ed Rush & Optical - Sick Note.mp3": 1,
+     "extra/a-extreme_force-everytime_(original_mix)-sour.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 8,
+      "sampled": "ride+bass-kill+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.012224067380118706,
+        "at": 0.5115795523381954,
+        "seconds": 11.297231737922942
+       },
+       {
+        "kind": "blend",
+        "seconds": 55.52061943060041,
+        "gain_db": -5.335989048567765
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-delay-1ms"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 50.478158840891396,
+       "wrong": []
+      }
+     },
+     {
+      "number": 14,
+      "sampled": "speed+ride+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.01229270459442526,
+        "at": 0.555749012201868,
+        "seconds": 9.136993846554784
+       },
+       {
+        "kind": "blend",
+        "seconds": 22.88810493885148,
+        "gain_db": -0.16046336603416922
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-delay-1ms"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 38.421218544405804,
+       "wrong": []
+      }
+     },
+     {
+      "number": 28,
+      "sampled": "ride+bass-kill+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": 0.025229183830344455,
+        "at": 0.40674785909205513,
+        "seconds": 5.039703245006986
+       },
+       {
+        "kind": "blend",
+        "seconds": 40.12085989910222,
+        "gain_db": -0.732478504121751
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-delay-1ms"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 40.84103351189922,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: ride+channel-fault",
+    "failures": 20,
+    "families": 19,
+    "renders": 158,
+    "sampled_sizes": {
+     "2": 4,
+     "3": 7,
+     "4": 8,
+     "5": 1
+    },
+    "faults": {
+     "stereo-noise-snr--10db": 8,
+     "stereo-noise-snr-0db": 5,
+     "stereo-inverted": 6,
+     "stereo-silent": 1
+    },
+    "by_family": {
+     "extra/aa-kemal-mechanizm-sour.mp3": 2,
+     "extra/b-kemal_and_rob_data-linear-sour.mp3": 1,
+     "DJ Trace - Sonar.m4a": 1,
+     "Kraken - Side Effects (TeeBee Remix).mp3": 1,
+     "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/104-stakka_and_skynet_feat_keaton-isolation-sour.mp3": 1,
+     "extra/02-future_cut-razors_edge-trt.mp3": 1,
+     "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/105-stakka_and_skynet_feat_dj_skinny-straight_jacket-sour.mp3": 1,
+     "Ed Rush & Optical - Gas Mask.m4a": 1,
+     "Ed Rush & Optical - Sick Note.mp3": 1,
+     "extra/01-item.code-inspiration_(feat._fading_suns)-whoa.mp3": 1,
+     "extra/b-bulletproof-scarred-sour.mp3": 1,
+     "extra/A. SKC & Cord -- Swarm.mp3": 1,
+     "extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3": 1,
+     "extra/A-Chris_SU-Astro_Sine-sour.mp3": 1,
+     "Optical - Slip Thru.mp3": 1,
+     "Ed Rush & Optical - Watermelon.mp3": 1,
+     "Fortran - Splinter.mp3": 1,
+     "extra/a-unknown-udfr014-(synthesis_vip)-sour.mp3": 1,
+     "Bad Company - The Pulse.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 18,
+      "sampled": "ride+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.027618807407296025,
+        "at": 0.3419743742416931,
+        "seconds": 7.982439907710423
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr--10db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 50.297893375825765,
+       "wrong": []
+      }
+     },
+     {
+      "number": 32,
+      "sampled": "ride+bass-kill+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": 0.014934007686256145,
+        "at": 0.5393931724231189,
+        "seconds": 14.78217332288795
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr-0db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 43.348827562789666,
+       "wrong": []
+      }
+     },
+     {
+      "number": 41,
+      "sampled": "ride+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": 0.012038933885965195,
+        "at": 0.5828627487197104,
+        "seconds": 7.832445514844827
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr-0db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 38.680023559072595,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: ride+blend",
+    "failures": 15,
+    "families": 15,
+    "renders": 125,
+    "sampled_sizes": {
+     "2": 4,
+     "3": 6,
+     "4": 5
+    },
+    "faults": {},
+    "by_family": {
+     "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3": 1,
+     "extra/a-skc-devotee-sour.mp3": 1,
+     "extra/aa-stakka_and_k_tee-terratorial-sour.mp3": 1,
+     "extra/03_-_dj_ruffneck_-_jawbreaker.mp3": 1,
+     "extra/2. Noisia & Black Sun Empire - Infusion.mp3": 1,
+     "extra/a-extreme_force-everytime_(original_mix)-sour.mp3": 1,
+     "extra/05 - Bad Company - Sentient.mp3": 1,
+     "extra/Cyb Orc - No Peace.mp3": 1,
+     "extra/1.Kemal, Rob F & Impulse - Creature.mp3": 1,
+     "extra/AA-Chris_SU-Audiophile-sour.mp3": 1,
+     "Bad Company - China Cup.mp3": 1,
+     "extra/a-kemal-animation-sour.mp3": 1,
+     "extra/01-item.code-inspiration_(feat._fading_suns)-whoa.mp3": 1,
+     "extra/D-Sinthetix-Cryogenic-sour.mp3": 1,
+     "extra/d. falcon - the stand.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 7,
+      "sampled": "ride+bass-kill+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": 0.010179344104904602,
+        "at": 0.35050355346615564,
+        "seconds": 7.461024892425437
+       },
+       {
+        "kind": "blend",
+        "seconds": 47.67421431682421,
+        "gain_db": -0.4195978479197153
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 34.50803327731347,
+       "wrong": []
+      }
+     },
+     {
+      "number": 33,
+      "sampled": "speed+ride+bass-kill+blend",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.02179005162124125,
+        "at": 0.35098501771162044,
+        "seconds": 14.556520696396564
+       },
+       {
+        "kind": "blend",
+        "seconds": 48.7781028341443,
+        "gain_db": -1.0557876318359423
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 30.34367820392457,
+       "wrong": []
+      }
+     },
+     {
+      "number": 40,
+      "sampled": "ride+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.005831703883569697,
+        "at": 0.6823603894157938,
+        "seconds": 12.64725330963747
+       },
+       {
+        "kind": "blend",
+        "seconds": 51.90399181124028,
+        "gain_db": -2.6915997343093823
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 48.583930865471544,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "lost: blend+channel-fault",
+    "failures": 11,
+    "families": 11,
+    "renders": 64,
+    "sampled_sizes": {
+     "2": 6,
+     "3": 3,
+     "4": 1,
+     "5": 1
+    },
+    "faults": {
+     "stereo-noise-snr--10db": 5,
+     "stereo-delay-1ms": 1,
+     "stereo-noise-snr-0db": 1,
+     "stereo-inverted": 2,
+     "stereo-noise-snr-10db": 1,
+     "stereo-delay-0.2ms": 1
+    },
+    "by_family": {
+     "extra/[AA]_-_Phoenix.mp3": 1,
+     "extra/a-cause_4_concern-skewer-sour.mp3": 1,
+     "extra/209-origin_unknown-elevator-sour.mp3": 1,
+     "Roni Size & Reprazent - Watching Windows (DJ Die Remix).m4a": 1,
+     "extra/a-black_sun_empire-voltage-2000-sour.mp3": 1,
+     "Optical - Slip Thru.mp3": 1,
+     "extra/1.Kemal, Rob F & Impulse - Creature.mp3": 1,
+     "Skynet & Stakka - Logistics.mp3": 1,
+     "extra/a-rascal_and_klone-snake_eyes-sour.mp3": 1,
+     "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3": 1,
+     "extra/aa-stakka_and_k_tee-rubber_bullet-sour.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 0,
+      "sampled": "blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 47.5179578062034,
+        "gain_db": -0.14224700072187435
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr--10db"
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 51.235014035741614,
+       "wrong": []
+      }
+     },
+     {
+      "number": 5,
+      "sampled": "speed+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 43.02974186350386,
+        "gain_db": -2.802243164296491
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-delay-1ms"
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 44.07046518071269,
+       "wrong": []
+      }
+     },
+     {
+      "number": 11,
+      "sampled": "blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 58.96004926371849,
+        "gain_db": -0.4813903991272799
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr-0db"
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 51.160997873480824,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: blend+channel-fault",
+    "failures": 11,
+    "families": 11,
+    "renders": 69,
+    "sampled_sizes": {
+     "2": 4,
+     "3": 5,
+     "4": 2
+    },
+    "faults": {
+     "stereo-inverted": 6,
+     "stereo-noise-snr--10db": 5
+    },
+    "by_family": {
+     "extra/e-cause_4_concern-blindside-sour.mp3": 1,
+     "extra/A. SKC -- Recharger.mp3": 1,
+     "extra/D-Sinthetix-Cryogenic-sour.mp3": 1,
+     "extra/a-dj_reality-reasons.mp3": 1,
+     "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/111-stakka_and_skynet_feat_dj_red-9000_series-sour.mp3": 1,
+     "extra/a-skc-devotee-sour.mp3": 1,
+     "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3": 1,
+     "extra/a-cause_4_concern-relentless-sour.mp3": 1,
+     "extra/aph042 - aphrodite - ganja man/A - Aphrodite - Ganja Man.mp3": 1,
+     "extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/a1_clean_decibel-drum.mp3": 1,
+     "Ed Rush & Optical - Glass Eye.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 2,
+      "sampled": "speed+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 27.946332352232503,
+        "gain_db": -5.37492312740005
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-inverted"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 33.10089645751742,
+       "wrong": []
+      }
+     },
+     {
+      "number": 24,
+      "sampled": "speed+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 51.15001735284504,
+        "gain_db": -4.372429091865405
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-inverted"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 44.957884255634625,
+       "wrong": []
+      }
+     },
+     {
+      "number": 47,
+      "sampled": "speed+ride+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 27.57342947293248,
+        "gain_db": -5.434430741070608
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr--10db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 31.747915572387896,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "lost: blend",
+    "failures": 9,
+    "families": 9,
+    "renders": 55,
+    "sampled_sizes": {
+     "1": 1,
+     "2": 2,
+     "3": 1,
+     "4": 2,
+     "5": 3
+    },
+    "faults": {},
+    "by_family": {
+     "Stakka & K.Tee - Auto Ignition.mp3": 1,
+     "extra/c-black_sun_empire-1800_contact-sour.mp3": 1,
+     "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3": 1,
+     "extra/APH28-Aphrodite-VINYL-1998-LAME/b2-aphrodite-sweet_mind-lame.mp3": 1,
+     "extra/D-Sinthetix-Cryogenic-sour.mp3": 1,
+     "extra/APH036-Aphrodite - 2000/b-aphrodite-crater.mp3": 1,
+     "extra/a-cause_4_concern-skewer-sour.mp3": 1,
+     "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3": 1,
+     "Skynet & Stakka - Pathogen.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 13,
+      "sampled": "ride+bass-kill+blend",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 57.652051794286926,
+        "gain_db": -0.9877517910695781
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 46.40367443502227,
+       "wrong": []
+      }
+     },
+     {
+      "number": 27,
+      "sampled": "blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 48.33728041505752,
+        "gain_db": -2.0224267043447295
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 42.6849727494678,
+       "wrong": []
+      }
+     },
+     {
+      "number": 34,
+      "sampled": "speed+ride+bass-kill+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 45.41992314221433,
+        "gain_db": -1.0843999464492864
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 43.37523366414797,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "lost: ride+blend",
+    "failures": 4,
+    "families": 4,
+    "renders": 36,
+    "sampled_sizes": {
+     "2": 1,
+     "3": 2,
+     "4": 1
+    },
+    "faults": {},
+    "by_family": {
+     "extra/04-Skinny_and_Friction-Depth_Charge-sour.mp3": 1,
+     "extra/02-future_cut-razors_edge-trt.mp3": 1,
+     "extra/aa-stakka_and_k_tee-terratorial-sour.mp3": 1,
+     "extra/[AA]_-_Phoenix.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 39,
+      "sampled": "ride+blend",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": 0.005417268263597071,
+        "at": 0.31863484376858625,
+        "seconds": 5.40327937808597
+       },
+       {
+        "kind": "blend",
+        "seconds": 52.52825267689553,
+        "gain_db": -4.310048832174949
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 46.596176457731815,
+       "wrong": []
+      }
+     },
+     {
+      "number": 74,
+      "sampled": "speed+ride+blend",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.022288958847102833,
+        "at": 0.5693187888565057,
+        "seconds": 14.436849621905647
+       },
+       {
+        "kind": "blend",
+        "seconds": 47.453299199786166,
+        "gain_db": -2.3584748263360686
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 42.09388566885818,
+       "wrong": []
+      }
+     },
+     {
+      "number": 115,
+      "sampled": "ride+bass-kill+blend",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.012760389670056957,
+        "at": 0.5070720699751838,
+        "seconds": 12.066788288425506
+       },
+       {
+        "kind": "blend",
+        "seconds": 29.044885172533597,
+        "gain_db": -0.5450907220406656
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 40.254470725618944,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "lost: ride+blend+channel-fault",
+    "failures": 4,
+    "families": 4,
+    "renders": 33,
+    "sampled_sizes": {
+     "3": 2,
+     "4": 2
+    },
+    "faults": {
+     "stereo-delay-0.2ms": 1,
+     "stereo-silent": 1,
+     "stereo-noise-snr-10db": 1,
+     "stereo-delay-1ms": 1
+    },
+    "by_family": {
+     "extra/2. Konflict - Pendulum.mp3": 1,
+     "extra/rawkuts-gridlok-rkt337-2001-sour/a-gridlok-dilusion-sour.mp3": 1,
+     "Bad Company - The Pulse.mp3": 1,
+     "extra/aa-pascal-bad_boy_sound_(brookie_and_ed_solo_rmx)-sour.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 89,
+      "sampled": "ride+bass-kill+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.014615987334308415,
+        "at": 0.618241468067914,
+        "seconds": 12.90405001253907
+       },
+       {
+        "kind": "blend",
+        "seconds": 38.50940866518002,
+        "gain_db": -3.8302865722266586
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-delay-0.2ms"
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 41.20690046792585,
+       "wrong": []
+      }
+     },
+     {
+      "number": 101,
+      "sampled": "ride+bass-kill+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.010480764732882605,
+        "at": 0.3633847572858061,
+        "seconds": 14.456007619710832
+       },
+       {
+        "kind": "blend",
+        "seconds": 46.678294492681296,
+        "gain_db": -1.0439451500269463
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-silent"
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 49.58663907227586,
+       "wrong": []
+      }
+     },
+     {
+      "number": 141,
+      "sampled": "ride+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": 0.010192142736123925,
+        "at": 0.6106664661207108,
+        "seconds": 14.526956007403982
+       },
+       {
+        "kind": "blend",
+        "seconds": 59.42111932857802,
+        "gain_db": -3.327172097752559
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr-10db"
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 52.59904581270129,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "lost: ride+channel-fault",
+    "failures": 2,
+    "families": 1,
+    "renders": 12,
+    "sampled_sizes": {
+     "2": 1,
+     "3": 1
+    },
+    "faults": {
+     "stereo-delay-5ms": 1,
+     "stereo-noise-snr-10db": 1
+    },
+    "by_family": {
+     "extra/D-Usual_Suspects-Bodycount_(C4C_Remix)-sour.mp3": 2
+    },
+    "examples": [
+     {
+      "number": 64,
+      "sampled": "ride+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": 0.023435952528835104,
+        "at": 0.32573096468023716,
+        "seconds": 5.758453670753897
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-delay-5ms"
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 41.668518618779856,
+       "wrong": []
+      }
+     },
+     {
+      "number": 92,
+      "sampled": "ride+bass-kill+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.027742790562170556,
+        "at": 0.33987231567004494,
+        "seconds": 11.425972214699156
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr-10db"
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 18.300937500000003,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: speed+bass-kill+channel-fault",
+    "failures": 2,
+    "families": 2,
+    "renders": 20,
+    "sampled_sizes": {
+     "3": 2
+    },
+    "faults": {
+     "stereo-inverted": 1,
+     "stereo-noise-snr--10db": 1
+    },
+    "by_family": {
+     "extra/aa-pascal-bad_boy_sound_(brookie_and_ed_solo_rmx)-sour.mp3": 1,
+     "extra/a-ecco_and_sabotage-hazy_shades-sour.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 84,
+      "sampled": "speed+bass-kill+channel-fault",
+      "minimal": [
+       {
+        "kind": "speed",
+        "speed": 1.0070482118445883
+       },
+       {
+        "kind": "bass-kill",
+        "seconds": 58.12151837885625
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-inverted"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 33.7272217879186,
+       "wrong": []
+      }
+     },
+     {
+      "number": 162,
+      "sampled": "speed+bass-kill+channel-fault",
+      "minimal": [
+       {
+        "kind": "speed",
+        "speed": 1.0003344163362373
+       },
+       {
+        "kind": "bass-kill",
+        "seconds": 7.465230468451736
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr--10db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 38.27900627538624,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: bass-kill+blend+channel-fault",
+    "failures": 1,
+    "families": 1,
+    "renders": 9,
+    "sampled_sizes": {
+     "5": 1
+    },
+    "faults": {
+     "stereo-noise-snr-0db": 1
+    },
+    "by_family": {
+     "extra/aa-matrix-bad_dreams-sour.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 98,
+      "sampled": "speed+ride+bass-kill+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "bass-kill",
+        "seconds": 52.23226442618393
+       },
+       {
+        "kind": "blend",
+        "seconds": 47.00070851359861,
+        "gain_db": -0.18149258150706427
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr-0db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 38.857355673974595,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: speed+ride+channel-fault",
+    "failures": 1,
+    "families": 1,
+    "renders": 7,
+    "sampled_sizes": {
+     "3": 1
+    },
+    "faults": {
+     "stereo-noise-snr--10db": 1
+    },
+    "by_family": {
+     "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3": 1
+    },
+    "examples": [
+     {
+      "number": 104,
+      "sampled": "speed+ride+channel-fault",
+      "minimal": [
+       {
+        "kind": "speed",
+        "speed": 1.0170441408859991
+       },
+       {
+        "kind": "ride",
+        "change": -0.017559243173850346,
+        "at": 0.5507912924410756,
+        "seconds": 7.035972854144709
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr--10db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 31.111324163860473,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: speed+ride+blend+channel-fault",
+    "failures": 1,
+    "families": 1,
+    "renders": 11,
+    "sampled_sizes": {
+     "4": 1
+    },
+    "faults": {
+     "stereo-delay-5ms": 1
+    },
+    "by_family": {
+     "extra/01 - Aquasky - Spectre.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 130,
+      "sampled": "speed+ride+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "speed",
+        "speed": 1.0041270947847778
+       },
+       {
+        "kind": "ride",
+        "change": -0.012020282494727995,
+        "at": 0.3222263105921955,
+        "seconds": 12.754565166512894
+       },
+       {
+        "kind": "blend",
+        "seconds": 49.017850290267795,
+        "gain_db": -1.3353090275756312
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-delay-5ms"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 45.19001623347296,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: speed+ride+bass-kill+channel-fault",
+    "failures": 1,
+    "families": 1,
+    "renders": 9,
+    "sampled_sizes": {
+     "4": 1
+    },
+    "faults": {
+     "stereo-noise-snr-0db": 1
+    },
+    "by_family": {
+     "extra/d. falcon - the stand.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 134,
+      "sampled": "speed+ride+bass-kill+channel-fault",
+      "minimal": [
+       {
+        "kind": "speed",
+        "speed": 1.0119357490983991
+       },
+       {
+        "kind": "ride",
+        "change": -0.011250337983312519,
+        "at": 0.4208405643418738,
+        "seconds": 11.28000723273575
+       },
+       {
+        "kind": "bass-kill",
+        "seconds": 25.64647443417528
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr-0db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 30.44396879763299,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: blend",
+    "failures": 1,
+    "families": 1,
+    "renders": 5,
+    "sampled_sizes": {
+     "3": 1
+    },
+    "faults": {},
+    "by_family": {
+     "extra/04_Rec.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 175,
+      "sampled": "speed+ride+blend",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 48.58718126593915,
+        "gain_db": -1.3630017402613577
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 37.619358527532256,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: bass-kill+channel-fault",
+    "failures": 1,
+    "families": 1,
+    "renders": 10,
+    "sampled_sizes": {
+     "5": 1
+    },
+    "faults": {
+     "stereo-noise-snr--10db": 1
+    },
+    "by_family": {
+     "extra/c-total_science-yvon_is_on-sour.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 184,
+      "sampled": "speed+ride+bass-kill+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "bass-kill",
+        "seconds": 52.70798734985159
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr--10db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 36.0906796691237,
+       "wrong": []
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "nas": {
+  "samples": 500,
+  "indexed_assets": 40571,
+  "evaluations": 860,
+  "sampling_seconds": 543.5,
+  "minimizing_seconds": 483.6,
+  "failures": 72,
+  "samples_failing": 72,
+  "held_out_targets": 119,
+  "axis_joined": {
+   "speed": 245,
+   "ride": 246,
+   "bass-kill": 244,
+   "blend": 249,
+   "channel-fault": 241
+  },
+  "by_kind": {
+   "wrong": 16,
+   "lost": 11,
+   "gap": 45
+  },
+  "classes": [
+   {
+    "class": "gap: channel-fault",
+    "failures": 23,
+    "families": 23,
+    "renders": 100,
+    "sampled_sizes": {
+     "1": 2,
+     "2": 5,
+     "3": 6,
+     "4": 5,
+     "5": 5
+    },
+    "faults": {
+     "stereo-inverted": 14,
+     "stereo-noise-snr--10db": 9
+    },
+    "by_family": {
+     "extra/Cyb Orc - People From South.mp3": 1,
+     "extra/2. SKC - Recharger (Black Sun Empire Remix).mp3": 1,
+     "DJ Trace - Sonar.m4a": 1,
+     "extra/aa-pascal-bad_boy_sound_(brookie_and_ed_solo_rmx)-sour.mp3": 1,
+     "extra/b-skc-eclipse-gdn.mp3": 1,
+     "extra/03-Profound_Noize-Dropzone-sour.mp3": 1,
+     "extra/208-shimon_and_andy_c-firewire-sour.mp3": 1,
+     "extra/A. SKC & Cord -- Swarm.mp3": 1,
+     "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3": 1,
+     "extra/06_-_skinnah_-_state_of_violance.mp3": 1,
+     "extra/1.Absolute Zero & Subphonics - The Code (Usual Suspects Remix).mp3": 1,
+     "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3": 1,
+     "Skynet & Stakka - Decoy.mp3": 1,
+     "Skynet & Stakka - Clockwork.mp3": 1,
+     "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3": 1,
+     "Ed Rush & Optical - Sick Note.mp3": 1,
+     "extra/APH038-Aphrodite - 2001/aa-aphrodite-karma_sutra-bpm.mp3": 1,
+     "extra/a-cause_4_concern-skewer-sour.mp3": 1,
+     "extra/aa-cause_4_concern-psyke-sour.mp3": 1,
+     "extra/D-Sinthetix-Cryogenic-sour.mp3": 1,
+     "extra/a-brockie_and_ed_solo-voices-sour.mp3": 1,
+     "extra/B. falcon - china delight.mp3": 1,
+     "extra/a-rascal_and_klone-snake_eyes-sour.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 5,
+      "sampled": "channel-fault",
+      "minimal": [
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-inverted"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 47.3300716009916,
+       "wrong": []
+      }
+     },
+     {
+      "number": 6,
+      "sampled": "speed+channel-fault",
+      "minimal": [
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr--10db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 32.03322268617711,
+       "wrong": []
+      }
+     },
+     {
+      "number": 8,
+      "sampled": "channel-fault",
+      "minimal": [
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-inverted"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 37.36056243722959,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "wrong: none",
+    "failures": 16,
+    "families": 3,
+    "renders": 32,
+    "sampled_sizes": {
+     "1": 3,
+     "2": 10,
+     "3": 2,
+     "4": 1
+    },
+    "faults": {},
+    "by_family": {
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a over Bad Company - The Nine.mp3": 12,
+     "second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a over extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3": 3,
+     "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a over extra/A. Pyro -- Time Is Broken.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 0,
+      "sampled": "blend+channel-fault",
+      "minimal": [],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 0.28544953931707084,
+       "wrong": [
+        {
+         "asset": "second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a",
+         "hits": 285,
+         "over": "extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3"
+        }
+       ]
+      }
+     },
+     {
+      "number": 2,
+      "sampled": "channel-fault",
+      "minimal": [],
+      "outcome": {
+       "target": "none",
+       "uncovered_seconds": 115.85433458373399,
+       "wrong": [
+        {
+         "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+         "hits": 430,
+         "over": "extra/A- The_Nine.mp3"
+        },
+        {
+         "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+         "hits": 327,
+         "over": "extra/A- The_Nine.mp3"
+        }
+       ]
+      }
+     },
+     {
+      "number": 10,
+      "sampled": "ride+bass-kill",
+      "minimal": [],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 0.22931998953522736,
+       "wrong": [
+        {
+         "asset": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+         "hits": 240,
+         "over": "extra/A- The_Nine.mp3"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "class": "lost: blend+channel-fault",
+    "failures": 6,
+    "families": 6,
+    "renders": 34,
+    "sampled_sizes": {
+     "2": 4,
+     "3": 1,
+     "5": 1
+    },
+    "faults": {
+     "stereo-noise-snr--10db": 2,
+     "stereo-delay-1ms": 1,
+     "stereo-noise-snr-0db": 1,
+     "stereo-inverted": 1,
+     "stereo-noise-snr-10db": 1
+    },
+    "by_family": {
+     "extra/[AA]_-_Phoenix.mp3": 1,
+     "extra/a-cause_4_concern-skewer-sour.mp3": 1,
+     "extra/209-origin_unknown-elevator-sour.mp3": 1,
+     "Roni Size & Reprazent - Watching Windows (DJ Die Remix).m4a": 1,
+     "extra/a-black_sun_empire-voltage-2000-sour.mp3": 1,
+     "extra/aphrodite-aphrodite-aph041-2002-sour/b-aphrodite-the_time_the_place-sour.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 1,
+      "sampled": "blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 47.5179578062034,
+        "gain_db": -0.14224700072187435
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr--10db"
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 51.235014035741614,
+       "wrong": []
+      }
+     },
+     {
+      "number": 7,
+      "sampled": "speed+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 43.02974186350386,
+        "gain_db": -2.802243164296491
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-delay-1ms"
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 44.07046518071269,
+       "wrong": []
+      }
+     },
+     {
+      "number": 15,
+      "sampled": "blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 58.96004926371849,
+        "gain_db": -0.4813903991272799
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr-0db"
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 51.160997873480824,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: ride+channel-fault",
+    "failures": 6,
+    "families": 6,
+    "renders": 40,
+    "sampled_sizes": {
+     "2": 2,
+     "3": 4
+    },
+    "faults": {
+     "stereo-noise-snr--10db": 2,
+     "stereo-noise-snr-0db": 2,
+     "stereo-inverted": 2
+    },
+    "by_family": {
+     "extra/D-Usual_Suspects-Bodycount_(C4C_Remix)-sour.mp3": 1,
+     "extra/b-kemal_and_rob_data-linear-sour.mp3": 1,
+     "DJ Trace - Sonar.m4a": 1,
+     "Kraken - Side Effects (TeeBee Remix).mp3": 1,
+     "Bad Company - The Pulse.mp3": 1,
+     "extra/02-future_cut-razors_edge-trt.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 3,
+      "sampled": "speed+ride+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": 0.01209439812039022,
+        "at": 0.4032952089187784,
+        "seconds": 7.570574066138227
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr--10db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 51.57781994570091,
+       "wrong": []
+      }
+     },
+     {
+      "number": 24,
+      "sampled": "ride+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.027618807407296025,
+        "at": 0.3419743742416931,
+        "seconds": 7.982439907710423
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr--10db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 50.297893375825765,
+       "wrong": []
+      }
+     },
+     {
+      "number": 42,
+      "sampled": "ride+bass-kill+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": 0.014934007686256145,
+        "at": 0.5393931724231189,
+        "seconds": 14.78217332288795
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr-0db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 36.88532756278967,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: ride+blend+channel-fault",
+    "failures": 6,
+    "families": 6,
+    "renders": 53,
+    "sampled_sizes": {
+     "3": 1,
+     "4": 5
+    },
+    "faults": {
+     "stereo-delay-1ms": 4,
+     "stereo-noise-snr-0db": 1,
+     "stereo-delay-5ms": 1
+    },
+    "by_family": {
+     "Stakka & Skynet feat. Kemal & Rob Data - Bios-Fear.mp3": 1,
+     "Skynet & Stakka - Logistics.mp3": 1,
+     "extra/APH39B-Aphrodite-2001-sour/b-aphrodite-siren_bass-sour.mp3": 1,
+     "extra/B. falcon - china delight.mp3": 1,
+     "Skynet & Stakka - Decoy.mp3": 1,
+     "extra/a-gridlok-v_ger-sour.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 9,
+      "sampled": "ride+bass-kill+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": 0.010179344104904602,
+        "at": 0.35050355346615564,
+        "seconds": 7.461024892425437
+       },
+       {
+        "kind": "blend",
+        "seconds": 47.67421431682421,
+        "gain_db": -0.4195978479197153
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-delay-1ms"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 34.50803327731347,
+       "wrong": []
+      }
+     },
+     {
+      "number": 11,
+      "sampled": "ride+bass-kill+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.012224067380118706,
+        "at": 0.5115795523381954,
+        "seconds": 11.297231737922942
+       },
+       {
+        "kind": "blend",
+        "seconds": 55.52061943060041,
+        "gain_db": -5.335989048567765
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-delay-1ms"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 50.478158840891396,
+       "wrong": []
+      }
+     },
+     {
+      "number": 16,
+      "sampled": "speed+ride+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": 0.006634353549328618,
+        "at": 0.3586906352975074,
+        "seconds": 13.669655726436678
+       },
+       {
+        "kind": "blend",
+        "seconds": 50.55636004915586,
+        "gain_db": -1.9782443366735931
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr-0db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 40.03272239827933,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: blend+channel-fault",
+    "failures": 5,
+    "families": 5,
+    "renders": 30,
+    "sampled_sizes": {
+     "2": 1,
+     "3": 3,
+     "4": 1
+    },
+    "faults": {
+     "stereo-inverted": 3,
+     "stereo-delay-1ms": 1,
+     "stereo-noise-snr--10db": 1
+    },
+    "by_family": {
+     "extra/e-cause_4_concern-blindside-sour.mp3": 1,
+     "Ed Rush & Optical - Bacteria.mp3": 1,
+     "extra/208-shimon_and_andy_c-firewire-sour.mp3": 1,
+     "extra/A. SKC -- Recharger.mp3": 1,
+     "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/109-africa_bambaata-planet_rock_(stakka_n_skynet_rmx)-sour.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 4,
+      "sampled": "speed+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 55.892664704465005,
+        "gain_db": -5.37492312740005
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-inverted"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 33.10189645751743,
+       "wrong": []
+      }
+     },
+     {
+      "number": 22,
+      "sampled": "speed+bass-kill+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 47.89081043108065,
+        "gain_db": -0.22785602820877582
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-inverted"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 35.32524009381116,
+       "wrong": []
+      }
+     },
+     {
+      "number": 30,
+      "sampled": "blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 51.14744555779809,
+        "gain_db": -0.25095780577796223
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-delay-1ms"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 30.809183951049306,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "lost: blend",
+    "failures": 4,
+    "families": 4,
+    "renders": 21,
+    "sampled_sizes": {
+     "1": 1,
+     "2": 1,
+     "3": 1,
+     "5": 1
+    },
+    "faults": {},
+    "by_family": {
+     "Stakka & K.Tee - Auto Ignition.mp3": 1,
+     "extra/c-black_sun_empire-1800_contact-sour.mp3": 1,
+     "extra/APH28-Aphrodite-VINYL-1998-LAME/b2-aphrodite-sweet_mind-lame.mp3": 1,
+     "extra/D-Sinthetix-Cryogenic-sour.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 18,
+      "sampled": "ride+bass-kill+blend",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 57.652051794286926,
+        "gain_db": -0.9877517910695781
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 46.40367443502227,
+       "wrong": []
+      }
+     },
+     {
+      "number": 36,
+      "sampled": "blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 48.33728041505752,
+        "gain_db": -2.0224267043447295
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 42.6849727494678,
+       "wrong": []
+      }
+     },
+     {
+      "number": 56,
+      "sampled": "speed+ride+bass-kill+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "blend",
+        "seconds": 38.695749249365306,
+        "gain_db": -1.7404196976443682
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 41.55916292072881,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: ride+blend",
+    "failures": 3,
+    "families": 3,
+    "renders": 26,
+    "sampled_sizes": {
+     "3": 2,
+     "4": 1
+    },
+    "faults": {},
+    "by_family": {
+     "extra/a-skc-devotee-sour.mp3": 1,
+     "extra/aa-stakka_and_k_tee-terratorial-sour.mp3": 1,
+     "extra/03_-_dj_ruffneck_-_jawbreaker.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 43,
+      "sampled": "speed+ride+bass-kill+blend",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.02179005162124125,
+        "at": 0.35098501771162044,
+        "seconds": 14.556520696396564
+       },
+       {
+        "kind": "blend",
+        "seconds": 48.7781028341443,
+        "gain_db": -1.0557876318359423
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 30.34367820392457,
+       "wrong": []
+      }
+     },
+     {
+      "number": 52,
+      "sampled": "ride+blend+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.011663407767139394,
+        "at": 0.6823603894157938,
+        "seconds": 12.64725330963747
+       },
+       {
+        "kind": "blend",
+        "seconds": 51.90399181124028,
+        "gain_db": -2.6915997343093823
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 48.58313789672155,
+       "wrong": []
+      }
+     },
+     {
+      "number": 60,
+      "sampled": "speed+ride+blend",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": -0.02057684844477394,
+        "at": 0.6735551617890838,
+        "seconds": 6.649709102835432
+       },
+       {
+        "kind": "blend",
+        "seconds": 30.640818657565042,
+        "gain_db": -3.7682906935997504
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 34.766910718721405,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: ride+bass-kill+channel-fault",
+    "failures": 1,
+    "families": 1,
+    "renders": 9,
+    "sampled_sizes": {
+     "3": 1
+    },
+    "faults": {
+     "stereo-inverted": 1
+    },
+    "by_family": {
+     "extra/rawkuts-gridlok-rkt337-2001-sour/b-gridlok-soul_sucker-sour.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 26,
+      "sampled": "ride+bass-kill+channel-fault",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": 0.011203113047668148,
+        "at": 0.32170848003670943,
+        "seconds": 11.935742673397534
+       },
+       {
+        "kind": "bass-kill",
+        "seconds": 7.258575384245277
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-inverted"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 31.23450295408118,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "gap: speed+channel-fault",
+    "failures": 1,
+    "families": 1,
+    "renders": 7,
+    "sampled_sizes": {
+     "2": 1
+    },
+    "faults": {
+     "stereo-noise-snr--10db": 1
+    },
+    "by_family": {
+     "extra/10-muffler-nutcracker_(original_mix).mp3": 1
+    },
+    "examples": [
+     {
+      "number": 33,
+      "sampled": "speed+channel-fault",
+      "minimal": [
+       {
+        "kind": "speed",
+        "speed": 1.000888109355774
+       },
+       {
+        "kind": "channel-fault",
+        "fault": "stereo-noise-snr--10db"
+       }
+      ],
+      "outcome": {
+       "target": "confident",
+       "uncovered_seconds": 37.20215886178539,
+       "wrong": []
+      }
+     }
+    ]
+   },
+   {
+    "class": "lost: ride+blend",
+    "failures": 1,
+    "families": 1,
+    "renders": 8,
+    "sampled_sizes": {
+     "2": 1
+    },
+    "faults": {},
+    "by_family": {
+     "extra/04-Skinny_and_Friction-Depth_Charge-sour.mp3": 1
+    },
+    "examples": [
+     {
+      "number": 51,
+      "sampled": "ride+blend",
+      "minimal": [
+       {
+        "kind": "ride",
+        "change": 0.005417268263597071,
+        "at": 0.31863484376858625,
+        "seconds": 5.40327937808597
+       },
+       {
+        "kind": "blend",
+        "seconds": 52.52825267689553,
+        "gain_db": -4.310048832174949
+       }
+      ],
+      "outcome": {
+       "target": "possible",
+       "uncovered_seconds": 46.596176457731815,
+       "wrong": []
+      }
+     }
+    ]
+   }
+  ]
+ }
+}
