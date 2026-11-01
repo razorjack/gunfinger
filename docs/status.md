@@ -5957,3 +5957,18 @@ the 59 optional `parts` questions (records 62-120; question 44,
   learning a title years later is the point.
 - The user's idea for inverted rips: index both the record as ripped
   and the repaired one, so that neither kind of query loses the file.
+
+## 2026-11-02: the user's answers on a quiet track under an identified one
+
+The user answered the six questions an ADR on proposal 4 needs
+(sessions 65 and 70):
+
+1. On by default in `identify`, subject to point 5.
+2. The same acceptance rule as today's search (ADR 0006).
+3. How a partner is printed: open; try an option that seems right and
+   judge it in use.
+4. Related versions found this way: not printed at first. Gunfinger is
+   for learning a title; related versions matter less.
+5. The cost: measure it first, then decide whether the step is on by
+   default.
+6. The reference: the best-aligned rip of the louder track.
