@@ -5,7 +5,9 @@
 //! what is left is searched again under today's confidence rule. A
 //! detection there is a play under the entry unless its file is one of the
 //! entry's, shares material with the file taken out, or is already
-//! confident nearby in the recording (`Dropped`).
+//! confident nearby in the recording (`Dropped`); a play found there is
+//! dropped when it is one track with a confident play of the recording
+//! (`named_as_one_track`).
 
 use std::collections::BTreeMap;
 use std::path::Path;
@@ -167,7 +169,19 @@ fn under_entry(
             }),
             ..FoundPlay::new(catalog, same, offset)
         })
+        .filter(|found| !named_as_one_track(found, &report.plays))
         .collect())
+}
+
+/// Whether a play found under another is one track with a confident play
+/// of the recording by the tracklist's rule (ADR 0017): another upload of
+/// a track the tracklist names there already, lining up with it or tagged
+/// alike.
+fn named_as_one_track(found: &FoundPlay, plays: &[FoundPlay]) -> bool {
+    plays.iter().any(|play| {
+        play.confidence == Level::Confident
+            && (found.same_recording(play) || found.same_tagged_track(play))
+    })
 }
 
 /// `play`'s file as the recording plays it over `length` samples from
@@ -449,6 +463,56 @@ mod tests {
         remix.extend_from_slice(&a[..a.len() / 2]);
         assert!(shared.shares(&record("remix.wav", &remix).peaks));
         assert!(!shared.shares(&record("other.wav", &track(3, 60.0)).peaks));
+    }
+
+    #[test]
+    fn a_play_found_under_another_that_is_one_track_with_a_confident_play_is_dropped() {
+        let report = report();
+        // b.wav is confident from 38 to 81 s at -5%, from 5 s in the track.
+        let upload = |track_start: f64, artist: &str| FoundPlay {
+            asset: String::from("upload-of-b.wav"),
+            start_seconds: 40.0,
+            end_seconds: 75.0,
+            track_start_seconds: track_start,
+            speed: 0.95,
+            tags: Some(crate::report::PlayTags {
+                artist: Some(artist.to_owned()),
+                title: Some(String::from("Tune")),
+                album: None,
+            }),
+            ..report.plays[1].clone()
+        };
+        // Lining up with b.wav's play: the track would have started at the
+        // same mix time.
+        assert!(named_as_one_track(
+            &upload(5.0 + 2.0 * 0.95, "Other"),
+            &report.plays
+        ));
+        // 20 s away and tagged otherwise: another track.
+        assert!(!named_as_one_track(&upload(25.0, "Other"), &report.plays));
+        let mut tagged = report.plays.clone();
+        tagged[1].tags = Some(crate::report::PlayTags {
+            artist: Some(String::from("Artist")),
+            title: Some(String::from("Tune")),
+            album: None,
+        });
+        // Tagged alike over the same passage, however it lines up.
+        assert!(named_as_one_track(&upload(25.0, "Artist"), &tagged));
+    }
+
+    #[test]
+    fn plays_found_under_others_that_are_one_track_are_one_tracklist_entry() {
+        let mut found = with_plays_under();
+        if let Some(under) = found.under.as_mut() {
+            let mut rip = under[0].clone();
+            rip.asset = String::from("rip-of-x.wav");
+            rip.hits = 200;
+            under.insert(1, rip);
+        }
+        assert_eq!(
+            rendered(&found, ReportFormat::Tracklist),
+            " 1.    0:00  a\n 2.    0:10  x  (also: rip-of-x) (under 1.)\n 3.    0:38  b\n 4.    1:24  insert (possible)\n 5.    1:36  c\n"
+        );
     }
 
     fn partner(asset: &str, start: f64, end: f64, hits: u32) -> FoundPlay {

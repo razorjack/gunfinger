@@ -141,9 +141,14 @@ impl Entry<'_> {
 
 /// Groups the plays of one track, in order of start time.
 pub fn entries(report: &Report) -> Vec<Entry<'_>> {
-    let firsts = first_plays(&report.plays);
+    entries_of(&report.plays)
+}
+
+/// Groups `plays` into tracks as `entries` groups a report's plays.
+pub fn entries_of(plays: &[FoundPlay]) -> Vec<Entry<'_>> {
+    let firsts = first_plays(plays);
     let mut entries: Vec<(usize, Entry)> = Vec::new();
-    for (play, &first) in report.plays.iter().zip(&firsts) {
+    for (play, &first) in plays.iter().zip(&firsts) {
         match entries
             .iter_mut()
             .find(|(entry_first, _)| *entry_first == first)
@@ -196,9 +201,10 @@ fn first_plays(plays: &[FoundPlay]) -> Vec<usize> {
 /// table and JSON keep it (ADR 0019). Such a play is never grouped, so it
 /// is an entry of its own. Each gap (`gaps`) gets an unnumbered "ID - ID"
 /// line at its start, before an entry starting at the same moment: a number
-/// would count it as one track (ADR 0023). A confident play found under a
-/// confident play (`identify --under`) is an entry of its own at its start,
-/// marked "(under N.)" with the number of the louder track's entry; one
+/// would count it as one track (ADR 0023). Plays found under confident
+/// plays (`identify --under`) are grouped into tracks as plays are; a
+/// confident one is an entry of its own at its start, marked "(under N.)"
+/// with the number of the louder track's entry (its strongest play's); one
 /// found only as possible is left out, as above (ADR 0025). As the default
 /// output it says when nothing was found, so that an empty result does not
 /// look like a run that printed nothing.
@@ -213,12 +219,9 @@ pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
                     .any(|play| play.shares_material_with.is_none())
         })
         .collect();
-    let under: Vec<Entry> = report
-        .under
-        .iter()
-        .flatten()
-        .filter(|play| play.confidence == Level::Confident)
-        .map(|play| Entry { plays: vec![play] })
+    let under: Vec<Entry> = entries_of(report.under.as_deref().unwrap_or_default())
+        .into_iter()
+        .filter(|entry| entry.confidence() == Level::Confident)
         .collect();
     if entries.is_empty() && under.is_empty() {
         return String::from("no tracks found\n");
