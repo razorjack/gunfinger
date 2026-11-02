@@ -283,3 +283,25 @@ binary if a level can be found at which the plain search misses B.
   session-54-linux` (1:06) and `regress session-64-linux-nas` (5:22,
   beside `off.sh`) with the run build identical, every report equal to
   its baseline's. `scripts/check.sh` is run at the end.
+- **(05:00-05:04) First look, first pass** (`work/s72/look.sh`, run
+  build): the step works on real and generated mixes, and showed two
+  gaps in the design, fixed before the first look was run again. (1) At
+  NAS scale the quiet partner of generated mix-00 was found through two
+  files (`Original Mix` and an `Extended Mix` upload, lining up), and the
+  tracklist printed them as two entries: plays found under others are
+  now grouped into entries by the tracklist's own rule
+  (`export::entries_of`, the code of `entries`). (2) A found play can be
+  another upload of a track already confident over the same passage (the
+  Gridlok and Echo Chamber partners at NAS scale, found as possible
+  through other uploads): a found play that is one track with a
+  confident play of the recording by ADR 0017's rule (`same_recording`
+  or `same_tagged_track`) is now dropped (`under::named_as_one_track`),
+  a fourth drop rule. The script's loop variable collided with
+  `run.sh`'s global `name`, which garbled its output names (not the
+  runs); fixed.
+- **(05:06-05:09) First look** (`work/s72/look.sh` again, build
+  `work/bin/s72-run2/`): experiment 0272. Stakka: nothing found under a
+  confident play at either scale. Generated mix-00: the quiet partner
+  (Muffler - Nutcracker) found confidently under entry 5 at both scales,
+  one entry (two files at NAS scale, `titles disagree:`). The step took
+  15.9-32.9 s for 11-17 confident entries.

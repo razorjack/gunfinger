@@ -337,6 +337,22 @@ a decision under ADR 0019 on how a partner under a confident play is
 printed. Not measured: real mixes, broadcast processing, pitch rides
 under A.
 
+**Built behind an option (session 72, ADR 0025, proposed).** On
+2026-11-02 the user answered the questions an ADR needed (on by default
+subject to its cost, today's acceptance rule, the printing to be tried in
+use, related versions not printed at first, the cost measured first, the
+best-aligned rip as the reference). `gunfinger identify --under` runs the
+step, off by default: for each confident tracklist entry, the strongest
+play's file is decoded from the library at each segment's line, aligned
+and masked with the core's `residual` (`Mask::UNDER`: *Align*, `over`
+2), and the residual is searched under today's rule. A detection is not
+reported when its file is one of the entry's, shares material with the
+file taken out by their stored peaks (possible tier or above), or is
+confident within 90 s in the recording. The harness's residual now
+calls the core's code (its session 70 report is reproduced exactly). The
+default and the cost are session 73's to measure; the printing is to be
+judged in use.
+
 ## 5. Measure evidence outside the dominant drum texture
 
 **Evidence.** Related versions gain alongside true plays under tolerant

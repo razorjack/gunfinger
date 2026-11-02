@@ -298,6 +298,11 @@ cases. None is an adopted decision or an experiment result.
   partners. A product version needs A's audio at search time, the
   alignment, a further search of each confident play's span, a rule for
   related versions and an ADR (see the proposals note).
+  Session 72 built it behind `identify --under` (ADR 0025, proposed),
+  off by default after the user's answers of 2026-11-02: a confident
+  find under a confident track gets its own tracklist entry marked
+  "(under N.)"; possible finds stay in the table, CSV and JSON. Whether
+  it is on by default waits for session 73's measure of its cost.
 - **Report edits.** *(out of scope for the product, ADR 0017, 2026-10-13;
   kept as the history of the listening tools, which stay development
   tools for evaluation ground truth)* Confirming, rejecting or renaming

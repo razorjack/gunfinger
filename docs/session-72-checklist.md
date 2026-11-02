@@ -19,8 +19,8 @@ for scope and rules.
 - [x] 2. Implementation: core `residual` and `render`, CLI `--under`,
   printing, tests; harness on the core's code; option off identical
   (outputs, both regressions, the harness's residual report)
-- [ ] 3. First look: one development mix at 262 tracks and NAS scale,
+- [x] 3. First look: one development mix at 262 tracks and NAS scale,
   one generated drops mix; the added time
-- [ ] 4. ADR 0025 (Proposed); proposals note §4, roadmap, README and help
+- [x] 4. ADR 0025 (Proposed); proposals note §4, roadmap, README and help
 - [ ] 5. Read-only review by a subagent; findings fixed
 - [ ] 6. Wrap-up: notes "Session 72", status, checklist; final checks

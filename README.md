@@ -166,6 +166,27 @@ such as a remix that carries a passage of the original, is material the
 two share, not a track, and is left out; the table (`--format human`)
 shows it, marked `shares material with`, and JSON keeps it.
 
+`--under` also looks for a quieter track under each confident one, as
+in a double drop or a three-deck blend (ADR 0025, proposed; off by
+default until its cost is measured). The confident track's file is
+decoded from the library, placed where its matches put it, aligned on
+the recording and taken out; what is left is searched again under the
+same confidence rule. A confident find gets its own entry, marked with
+the entry it was under:
+
+```text
+ 1.    0:00  Artist A - Loud Track
+ 2.    0:20  Artist B - Quiet Track (under 1.)
+```
+
+A find only as possible stays out of the tracklist, as above. Finds of
+the louder track's own files, of files that share material with it in
+their stored peaks (other rips, related versions) and of tracks already
+listed confidently there (within 90 s, or another upload of a track
+listed over the same passage) are not reported. The step needs the
+library's audio, so it does not run on the peak store's own records
+(`--store-only`); `identify` says so.
+
 `--format` (`-f`) also takes:
 
 - `human`: a table of every play: the span in the mix, the part of the
@@ -185,6 +206,11 @@ shows it, marked `shares material with`, and JSON keeps it.
 - `csv`: one row per play, times in seconds.
 - `cue`: a cue sheet of the confident tracks, for players and splitters.
   CSV and the cue sheet have no rows for gaps.
+
+With `--under`, the table shows each find in time order, marked `under
+<file> (play N)`; JSON holds them in `under`, each with `under: {play,
+asset}`; CSV gains a column `under_play` and a row per find. The cue
+sheet and the timeline leave them out.
 
 ### Other commands
 
