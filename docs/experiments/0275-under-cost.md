@@ -14,9 +14,9 @@ JSON, and the plays of a and b are identical.
 
 | Mix, scale | Default; `--under` | Times | Added per entry; per hour of mix | CPU | Peak memory |
 |---|--:|--:|--:|--:|--:|
-| Stakka, 262 | 5.8; 29.2 s | 5.05 | 2.1 s; 25 s | 96; 212 s | 0.19; 0.53 GB |
-| razorjack, 262 | 4.3; 16.6 s | 3.83 | 1.8 s; 16 s | 79; 138 s | 0.17; 0.44 GB |
-| Nocny, 262 | 6.0; 19.1 s | 3.19 | 1.5 s; 12 s | 115; 183 s | 0.22; 0.49 GB |
+| Stakka, 262 | 5.8; 29.2 s | 5.05 | 2.1 s; 25 s | 96; 212 s | 0.18; 0.53 GB |
+| razorjack, 262 | 4.3; 16.6 s | 3.83 | 1.8 s; 16 s | 79; 138 s | 0.17; 0.43 GB |
+| Nocny, 262 | 6.0; 19.1 s | 3.19 | 1.5 s; 12 s | 115; 183 s | 0.21; 0.49 GB |
 | Stakka, NAS | 17.8; 49.7 s | 2.79 | 2.9 s; 34 s | 372; 737 s | 4.8; 5.0 GB |
 | razorjack, NAS | 15.5; 45.0 s | 2.90 | 2.5 s; 38 s | 301; 577 s | 4.7; 4.9 GB |
 | Nocny, NAS | 20.9; 61.1 s | 2.92 | 2.4 s; 36 s | 472; 969 s | 4.7; 4.9 GB |
@@ -31,10 +31,10 @@ JSON, and the plays of a and b are identical.
 - Budgets on the drops mixes (38 right entries gained, step 488 s): span
   of at least 60 s keeps 38 for 98% of the time; 120 s keeps 33 for 82%;
   180 s keeps 4 for 32%; the 8 longest entries per mix keep 22 for 68%.
-  No length or cap reaches J3 (the step must lose about half its time)
-  while keeping 90% of the finds.
+  On D at NAS scale lengths keep 94-100% of the step, the 8 longest
+  57-79%. No budget reaches J3 (about half the step) at 90% of the finds.
 
 **Conclusion.** J3 fails: at NAS scale the option takes 2.8-2.9 times
-the default's time (about 35 s more per hour of mix), with 0.2 GB more
-memory, and no budget meets J3. The mask, on one thread, is the largest
+the default's time (about 35 s more per hour of mix), with 0.1-0.2 GB
+(GiB) more memory, and no budget meets J3. The mask, on one thread, is the largest
 part (an inference that a faster step is the way, not measured).

@@ -24,5 +24,5 @@ for scope and rules.
   cost and budget (0275)
 - [x] 4. ADR 0025's open points, proposals note §4, roadmap; the
   tracklist sample in the notes
-- [~] 5. Read-only review by a subagent; findings fixed
-- [ ] 6. Wrap-up: notes "Session 73", status, checklist; final checks
+- [x] 5. Read-only review by a subagent; findings fixed
+- [x] 6. Wrap-up: notes "Session 73", status, checklist; final checks

@@ -6033,4 +6033,7 @@ open points. The product did not change.
   default's time, not met) the proposal is to keep the step off by
   default until the mask is faster; turning it on as it is costs about
   35 s per hour of mix. The decision is ours (ADR 0025).
-- Final checks: FINAL_STATUS
+- Final checks with `work/bin/s73-final/` (= `s72-final`): both
+  regressions identical; `scripts/check.sh` green; the analysis tests
+  green after the review's fixes; `docs/pair-verdicts.txt` and the NAS
+  clusters file (`c4d3da2e7e37...`) unchanged.

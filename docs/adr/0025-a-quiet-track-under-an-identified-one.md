@@ -150,8 +150,8 @@ default's time at NAS scale, J4 reliability).
 1. **Precision (J1 met).** No new wrong line and no wrong confident find:
    the three development mixes at both scales and Stakka's 14 leave-out
    patterns at both scales gain no tracklist entry (one possible find
-   on the razorjack mix at NAS scale, the next track 75 s before its own
-   entry, stays out of the tracklist); 36 generated mixes at NAS scale
+   on the razorjack mix at NAS scale, of the next track 75 s before its
+   own entry, stays out of the tracklist); 36 generated mixes at NAS scale
    gain 38 entries, all right, and none of 56 confident finds is wrong
    (0273, 0274). No entry is lost and no gap line changes anywhere.
 2. **Benefit (J2 met).** On 32 generated double-drop mixes the tracklist
@@ -173,9 +173,11 @@ default's time at NAS scale, J4 reliability).
 5. **The printing.** One gained entry repeated a track the default
    prints over the same passage (another upload, 6.7 s apart in line and
    tagged differently, so ADR 0017 keeps it apart). The fourth drop
-   rule's start test, without the overlap condition, dropped one right
-   partner whose line happened to start within 0.5 s of another track's
-   confident play 36 s earlier. Both are open for us; neither printed a
+   rule's start test, without the overlap condition, dropped two right
+   partners (one confident, which would have been printed, one possible):
+   each one's line put its file's start within 0.5 and 3.5 s of where
+   the line of another track's confident play, ending 33-36 s before the
+   find, puts that file's start. Both are open for us; neither printed a
    wrong title.
 6. **For our decision.** By the registered criteria the step would stay
    off by default until it is faster (J3), the cost being the mask's

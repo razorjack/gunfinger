@@ -26,6 +26,7 @@ Refuses any path naming the held-out test set.
 
 import json
 import re
+from collections import Counter
 import sys
 import tomllib
 from pathlib import Path
@@ -147,8 +148,8 @@ def diff(default, option):
     with open(option) as file:
         shown = file.read()
     new, new_gaps = comparable(shown)
-    lost = [line for line in old if line not in new]
-    gained = [line for line in new if line not in old]
+    lost = list((Counter(old) - Counter(new)).elements())
+    gained = list((Counter(new) - Counter(old)).elements())
     print(json.dumps({"default": default, "entries": [len(old), len(new)], "lost": lost,
                       "gained": gained, "gaps_changed": old_gaps != new_gaps,
                       "under_marks": [line for line in shown.splitlines() if MARK.search(line)]},
@@ -254,8 +255,17 @@ def fates(*arguments):
     for recording in recordings:
         shared = set(recording["shared"])
         for detection in recording["detections"]:
-            if detection["fate"] == "candidate" and (detection["taken_out"], detection["asset"]) in shared:
+            if detection["fate"] != "candidate":
+                continue
+            if (detection["taken_out"], detection["asset"]) in shared:
                 detection["fate"] = "shared-material"
+            elif any(dropped["taken_out"] == detection["taken_out"]
+                     and float(dropped["start"]) < float(detection["end"])
+                     and float(detection["start"]) < float(dropped["end"])
+                     for dropped in recording["one_track"]):
+                # Grouped into a play dropped as one track with a confident
+                # play; the play may be named by another of its files.
+                detection["fate"] = "one-track"
     print(json.dumps(recordings, ensure_ascii=False))
 
 

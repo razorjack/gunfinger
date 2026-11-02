@@ -122,6 +122,32 @@ class Cost(Files):
         self.assertIn("under", report)
 
 
+class Fates(Files):
+    def test_detections_of_a_play_dropped_as_one_track_keep_their_level(self):
+        stderr = os.path.join(self.dir, "variant.err")
+        write(stderr, "s73-recording\t/mixes/mix-00.mp3\n"
+                      "s73-detection\tloud.mp3\tquiet.mp3\t10.0\t50.0\tPossible\t90\tcandidate\n"
+                      "s73-detection\tloud.mp3\tother.mp3\t10.0\t50.0\tConfident\t300\tcandidate\n"
+                      "s73-shared\tloud.mp3\tother.mp3\n"
+                      "s73-one-track\tloud.mp3\tquiet.mp3\t10.0\t50.0\t90\n"
+                      "s73-entry\tloud.mp3\t0.000\t100.000\t1\t1\t1\t1\t0\t0\n"
+                      "s73-entry-total\tloud.mp3\t3.000\n")
+        recording = json.loads(self.printed(under_score.fates, stderr))[0]
+        self.assertEqual([(d["asset"], d["level"], d["fate"]) for d in recording["detections"]],
+                         [("quiet.mp3", "Possible", "one-track"),
+                          ("other.mp3", "Confident", "shared-material")])
+
+
+class Diff2(Files):
+    def test_a_line_printed_twice_counts_twice(self):
+        default = os.path.join(self.dir, "a.txt")
+        option = os.path.join(self.dir, "b.txt")
+        write(default, " 1.    0:00  A - a\n")
+        write(option, " 1.    0:00  A - a\n 2.    0:00  A - a (under 1.)\n")
+        result = json.loads(self.printed(under_score.diff, default, option))
+        self.assertEqual(result["gained"], ["0:00  A - a"])
+
+
 class Budget(Files):
     def test_finds_of_entries_left_out_are_lost_and_their_time_saved(self):
         stderr = os.path.join(self.dir, "variant.err")

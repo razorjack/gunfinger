@@ -615,9 +615,7 @@ def under_fates(fates_path, mixes_path, clusters, panel, store_copy, excluded=No
         mix = mixes[os.path.splitext(recording["recording"])[0]]
         for play in mix["plays"]:
             play["recording"] = library.recording(play["asset"])
-        detections = list(recording["detections"]) + [
-            dict(found, fate="one-track", level="(grouped)") for found in recording["one_track"]]
-        for detection in detections:
+        for detection in recording["detections"]:
             span = {"start_seconds": float(detection["start"]), "end_seconds": float(detection["end"])}
             key = library.key(detection["asset"])
             playing = [play for play in mix["plays"]

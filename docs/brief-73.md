@@ -295,12 +295,14 @@ In this order: the NAS-scale leave-outs, then the long mixes, then seed
 - **(06:25) A partner lost by the fourth drop rule** (seed 2050,
   mix-14): Chris SU & SKC - Black Out, quiet under Aphrodite - Cool Rock
   Stuff, was found confidently (333 hits, three files) and dropped as
-  "one track with a confident play" because its line puts the file's
-  start at 325.3 s in the mix and the confident Tee Bee - Two Faced play,
-  ending 36 s before the find, starts at 325.8 s: the start test alone
-  (5 s, without the overlap condition the review removed in session 72)
-  matched two different tracks by chance. A miss, not a wrong line;
-  recorded for ADR 0025's open points, not changed (measurement only).
+  "one track with a confident play": its line puts the file's start at
+  325.3 s in the mix, and the line of the confident Tee Bee - Two Faced
+  play (421-553 s, ending 36 s before the find) puts that file's start at
+  325.8 s. The start test alone (5 s, without the overlap condition the
+  review removed in session 72) matched two different tracks. A miss,
+  not a wrong line; recorded for ADR 0025's open points, not changed
+  (measurement only). The review found a second such partner (seed
+  2053, below).
 - **(06:25) Repeated entry** (seed 2050, mix-10): a YouTube upload of
   Jo-S - Afterburner was found confidently under Aphrodite - Wikki Wikki
   Plate while the default prints the rip of the same track over the same
@@ -323,3 +325,41 @@ In this order: the NAS-scale leave-outs, then the long mixes, then seed
   registered rule the proposal is that the step stays off by default
   until it is faster; ADR 0025's open points give the numbers for our
   decision. No budget variant was built.
+- **(06:55-07:12) The review's findings** (a separate agent,
+  read-only). Taken: the fourth drop rule dropped two right partners,
+  not one (also seed 2053 mix-00's quiet partner, found only as
+  possible, 111 hits, 3.5 s from Into Music's file start); the start
+  test is described as the lines' file starts, not the plays' starts;
+  the long mixes are 72-84 min; the shared-material rule held back 11
+  partners (22 detections), the default leaving 9 of them out; 0273's
+  find is of the same file as the confident Into Music play, kept
+  because that play starts 92 s after it; the proposals note no longer
+  states that find is the next track in the blend; 0275's memory in GiB
+  and "0.1-0.2 GB" everywhere; the notes no longer quote the user's
+  decision; `under-fates` counted one-track drops twice and without
+  their level (fixed, tested: `fates` marks the detections of a play
+  dropped as one track); `diff` counted a repeated line once (fixed,
+  tested). Recorded deviations from the pre-registration: the budget on
+  D was first reported for G only (now one line in 0275: on D at NAS
+  scale the length budgets keep 94-100% of the step's time, the 8
+  longest 57-79%); seed 2053's default run shared the machine with the
+  scoring of seed 2050, and the variant's NAS run of Nocny was slowed by
+  something else (neither enters 0275; noted in the times table); the
+  NAS leave-outs' default reports (`work/s73/leave/out/nas-*-a.json`)
+  are the option's reports less `under`, not runs, which the plays'
+  identity in all 42 paired runs of D and G allowed; experiments 0274
+  and 0275 were written while 0273's leave-out runs went on (the queue
+  ran every pre-registered run at once). Not taken: tests for
+  `under_summary`, `manifest_score` and `cost`'s aggregation beyond its
+  parsing (time); `Truth.judge` reading the library map's copies (no
+  effect here: no find needed it). Also noted: the default itself has
+  one wrong confident play in the drops mixes (seed 2053 mix-08, Cool
+  Rock Shook Ones) and one in the long mixes (seed 2052 mix-00, The
+  Nine (Evol Intent VIP)); out of this session's scope, unchanged by the
+  option.
+- **(06:54-07:07) Final checks** (`work/s73/final.sh`, tmux
+  `s73final`, beside the review): `work/bin/s73-final/` byte-identical
+  to `s72-final`; both regressions identical (0:51; 3:55);
+  `scripts/check.sh` green (7:37); the digests unchanged. The review's
+  fixes touched only the analysis scripts and documents; the analysis
+  tests pass after them (68).

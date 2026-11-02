@@ -23,16 +23,15 @@ plays identical). `under_score.py diff`, `manifest`, `fates`.
 | L, NAS scale | 14 | 0; 0 | 0 | none |
 
 - The one find: Carlito & Addiction - Into Music (vinyl rip), possible,
-  88 hits, 22:14-22:52, under Omni Trio - Kinetic, 75 s before the
-  tracklist's own Into Music entry (24:07, another upload; manifest slot
-  7 at 24:24, a start Gunfinger gave). By the manifest it lies in slot 6
-  and is not right; whether the next track is already in the blend there
-  only listening can tell. Possible: not a wrong answer (ADR 0006), and
-  out of the tracklist.
-- What the step dropped (timing variant): on D and L every detection at
-  possible or above in a residual was of the entry's own files
-  (`taken-out`) or of a track confident within 90 s (`named-nearby`);
-  the shared-material check held back nothing. Plays of D and gaps are
+  88 hits, 22:14-22:52, under Omni Trio - Kinetic; kept because the
+  same file's confident play starts at 24:25, 92 s after it (90 s
+  drops). By the manifest (slot 7 at 24:24, a start Gunfinger gave) it
+  lies in slot 6 and is not right; whether the next track is already in
+  the blend only listening can tell. Possible: not wrong (ADR 0006).
+- What the step dropped (timing variant): apart from that find, every
+  detection at possible or above was of the entry's own files or of a
+  file with a confident play within 90 s; the shared-material check
+  held back nothing. Plays of D and gaps are
   identical with and without the option.
 
 **Conclusion.** On the development mixes and Stakka's leave-outs the

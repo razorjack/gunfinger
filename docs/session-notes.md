@@ -14479,7 +14479,7 @@ not, and no budget meets it.
 | 0273, D: three development mixes, 262 tracks and NAS scale | no entry gained or lost, no gap line changed; one possible find (razorjack, NAS: Into Music under Kinetic, 75 s before its own entry), out of the tracklist |
 | 0273, L: Stakka's 14 leave-out patterns, both scales | nothing found under a confident play; tracklists unchanged |
 | 0274, G: drops seeds 2050 and 2053 (32 mixes), NAS scale | 38 entries gained, all right; quiet partners printed 18 of 32 (default 2), brief 18 of 32 (6), unrelated inside 29 of 32 (20); 0 of 56 confident finds wrong; start a median 1.6 s late |
-| 0274, G: long seed 2052 (4 mixes, 83 min each) | nothing found; tracklists unchanged |
+| 0274, G: long seed 2052 (4 mixes, 72-84 min) | nothing found; tracklists unchanged |
 | 0275, cost, A B B A | NAS scale 2.8-2.9 times (+29-40 s a mix, about 35 s per hour of mix, +0.1-0.2 GB); 262 tracks 3.2-5.1 times (+12-25 s per hour, +0.3 GB) |
 | 0275, budgets | span of at least 120 s: 82% of the time, 33 of 38 entries; the 8 longest per mix: 68%, 22 of 38; none halves the step at 90% of the gains |
 
@@ -14487,15 +14487,21 @@ not, and no budget meets it.
   measure's eight phases) 40-70%, the residual's search 14-42%, the
   decode 12-23%, the shared-material check under 1%.
 - The shared-material rule held back only the pair drops' related
-  versions (9 partners with confident evidence), as decided.
+  versions (22 confident detections of 11 partners; the default leaves 9
+  of them out and prints 2 as possible), as decided.
 - One gained entry repeats a track already printed (another upload of
   Jo-S - Afterburner, 6.7 s apart in line and tagged differently, so ADR
   0017's rule keeps it apart).
-- The fourth drop rule (one track with a confident play) lost one right
-  partner, Chris SU & SKC - Black Out (333 hits): its line starts the
-  file 0.5 s from where Tee Bee - Two Faced's confident play, ending 36
-  s before the find, starts. The start test without the overlap
-  condition matched two different tracks by chance.
+- The fourth drop rule (one track with a confident play) dropped two
+  right partners that no other play names: Chris SU & SKC - Black Out
+  (seed 2050, 333 hits, confident), whose line puts its file's start
+  0.5 s from where the line of Tee Bee - Two Faced's confident play
+  (ending 36 s before the find) puts that file's start; and a quiet
+  partner of seed 2053 found only as possible (111 hits), 3.5 s from
+  Into Music's, ending 33 s before. Without the overlap condition the
+  start test matches different tracks; in the generator's truth 7 second
+  records of the 32 drops mixes have a file start within 5 s of a nearby
+  play's, so this is not rare there.
 
 ### What the tracklist looks like
 
@@ -14560,8 +14566,8 @@ near J3 (an inference: with the mask at a tenth of its time the NAS
 ratio would be about 2.0-2.2); that would be a product change with its
 own measurement. Speed comes last in the product's order (AGENTS.md),
 so turning the step on as it is would also be consistent with the
-user's "on by default subject to its cost", if we judge 35 s per hour
-acceptable.
+user's decision to have it on by default subject to its cost, if we
+judge 35 s per hour acceptable.
 
 ### Decided this session, open to change
 
@@ -14586,7 +14592,8 @@ acceptable.
   about 35 s per hour of mix at NAS scale.
 - Whether the fourth drop rule should keep the overlap condition, or
   ask for tags alike, so that a chance alignment with a nearby track
-  cannot drop a partner (one of 37 partners lost here).
+  cannot drop a partner (two right partners dropped here, one of which
+  would have been printed).
 - Whether a find that repeats a track printed over the same passage
   through another upload should join that entry (ADR 0017's 5 s line
   test kept the Afterburner uploads apart).
@@ -14609,9 +14616,26 @@ acceptable.
 | The same, seed 2053; long mixes 2052 | 2:25; 6:28; 1:35; 2:53 | 5.5-5.6 GB |
 | Stakka leave-out, NAS scale, `--under` (index built each time) | 0:45-1:00 | 5.2 GB |
 
+Peak memory in this table is `/usr/bin/time`'s kilobytes over 10^6;
+0275 gives GiB (5.4 GB here is 5.2 GiB there). Seed 2053's default run
+(06:22-06:25) shared the machine with the scoring of seed 2050
+(`tracklist_score.py`, reading the NAS store's tags), and the timing
+variant's NAS run of the Nocny mix (06:12-06:13) took 1:31 against the
+product's 1:01 with a step of the same length (42.0 s against 40.3 s),
+so something else probably ran then; neither enters 0275, whose times
+are the A B B A runs and seed 2050.
+
 ### Final checks
 
-FINAL_CHECKS
+`work/s73/final.sh` with `work/bin/s73-final/` (master at `ea6f739`;
+cargo had nothing to rebuild, so it is byte-identical to `s72-final`):
+`regress session-54-linux` (0:51) and `regress session-64-linux-nas`
+(3:55) identical, every report equal to its baseline's;
+`scripts/check.sh` green (7:37, 723 Rust tests, 66 analysis tests); the
+analysis tests run again after the review's fixes to the scripts (68,
+OK); `docs/pair-verdicts.txt`, the NAS clusters file
+(`c4d3da2e7e37...`) and the answer log at their start digests
+(`work/s73/listening-digests-end.txt`).
 
 ### Handoff for the next session
 
