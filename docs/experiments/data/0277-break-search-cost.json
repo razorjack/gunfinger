@@ -1,0 +1,844 @@
+{
+ "note": "session 74, break-search; summaries by scripts/analysis/break_search.py, exploratory readings by work/s74/posthoc.py",
+ "nas": {
+  "index_files": 40696,
+  "index_seconds": 2.653594261,
+  "modes": {
+   "all": {
+    "errors": [
+     "t-minus-2"
+    ],
+    "groups": {
+     "A": {
+      "queries": 21,
+      "others_20_median": 3,
+      "others_60_median": 2,
+      "others_20_max": 11,
+      "share_of_index_20_max": 0.0004177314723805779,
+      "share_of_index_60_max": 0.00027029683506978573,
+      "set_aside_share_median": 0.0,
+      "search_seconds_median": 5.377485852,
+      "search_seconds_max": 8.074737665,
+      "reach_seconds_median": 0.077914299,
+      "others_reached": 74,
+      "others_reaching_60s": 44,
+      "no_expected_indexed": [
+       "t-minus-1"
+      ],
+      "scored": 20,
+      "found": 18,
+      "first": 11,
+      "top5": 16,
+      "above_median": 0.0,
+      "missed": [
+       "watermelon-1",
+       "watermelon-2"
+      ],
+      "ranks": {
+       "clockwork-1": 1,
+       "clockwork-2": 1,
+       "dozer-1": 1,
+       "dozer-2": 1,
+       "fire-1": 6,
+       "fire-2": 7,
+       "fire-3": 2,
+       "fire-4": 4,
+       "mind-overload-1": 2,
+       "mind-overload-2": 1,
+       "pyro-1": 1,
+       "pyro-2": 1,
+       "sonar-1": 1,
+       "sonar-2": 1,
+       "the-nine-1": 2,
+       "the-nine-2": 2,
+       "the-nine-3": 1,
+       "the-nine-4": 1,
+       "watermelon-1": null,
+       "watermelon-2": null
+      },
+      "at_or_above_null": 0
+     },
+     "B": {
+      "queries": 7,
+      "others_20_median": 1,
+      "others_60_median": 0,
+      "others_20_max": 2,
+      "share_of_index_20_max": 9.828975820719482e-05,
+      "share_of_index_60_max": 7.371731865539611e-05,
+      "set_aside_share_median": 0.0,
+      "search_seconds_median": 8.122698551,
+      "search_seconds_max": 13.656943612,
+      "reach_seconds_median": 0.03133188,
+      "others_reached": 8,
+      "others_reaching_60s": 4,
+      "no_expected_indexed": [],
+      "scored": 7,
+      "found": 5,
+      "first": 4,
+      "top5": 5,
+      "above_median": 0,
+      "missed": [
+       "drum-loop-5",
+       "drum-loop-7"
+      ],
+      "ranks": {
+       "drum-loop-1": 1,
+       "drum-loop-2": 1,
+       "drum-loop-3": 1,
+       "drum-loop-4": 1,
+       "drum-loop-5": null,
+       "drum-loop-6": 2,
+       "drum-loop-7": null
+      },
+      "at_or_above_null": 0
+     },
+     "C": {
+      "queries": 6,
+      "others_20_median": 124.0,
+      "others_60_median": 4.0,
+      "others_20_max": 232,
+      "share_of_index_20_max": 0.005725378415569098,
+      "share_of_index_60_max": 0.00019657951641438963,
+      "set_aside_share_median": 0.0,
+      "search_seconds_median": 12.417006843,
+      "search_seconds_max": 18.594523311,
+      "reach_seconds_median": 0.421159751,
+      "others_reached": 58,
+      "others_reaching_60s": 6,
+      "no_expected_indexed": [],
+      "scored": 6,
+      "found": 6,
+      "first": 6,
+      "top5": 6,
+      "above_median": 0.0,
+      "missed": [],
+      "ranks": {
+       "special-branch-0": 1,
+       "special-branch-30": 1,
+       "special-branch-65": 1,
+       "special-branch-190": 1,
+       "special-branch-250": 1,
+       "special-branch-305": 1
+      },
+      "at_or_above_null": 0
+     },
+     "D": {
+      "queries": 32,
+      "others_20_median": 18.0,
+      "others_60_median": 3.0,
+      "others_20_max": 403,
+      "share_of_index_20_max": 0.009927265578926675,
+      "share_of_index_60_max": 0.0007371731865539611,
+      "set_aside_share_median": 0.0,
+      "search_seconds_median": 10.181755184,
+      "search_seconds_max": 21.401049567,
+      "reach_seconds_median": 0.34174191200000004,
+      "others_reached": 260,
+      "others_reaching_60s": 34,
+      "no_expected_indexed": [
+       "parts-alex-reece-&-utah-jazz---ski-mask"
+      ],
+      "scored": 31,
+      "found": 30,
+      "first": 4,
+      "top5": 24,
+      "above_median": 2.0,
+      "missed": [
+       "parts-01---omni-trio---nu-birth"
+      ],
+      "ranks": {
+       "parts-subnation-scottie_(ray_keith_remix)": 1,
+       "parts-aa-j_majik-your_sound_(remix)": 4,
+       "parts-207-system_x-got_to_believe": 4,
+       "parts-aa-bigger_star-raid": 2,
+       "parts-03-omni_trio-rollin_heights": 2,
+       "parts-09-matrix-sleepwalk": 2,
+       "parts-ed-rush-&-nico---technology": 10,
+       "parts-107-renegade-terrorist": 4,
+       "parts-d-genotype-toxic": 4,
+       "parts-heist---sentinels-warning": 3,
+       "parts-a-dieselboy-invid": 3,
+       "parts-209-ed_rush-comatone": 3,
+       "parts-105-krome_and_time-license": 28,
+       "parts-native-minds---heatwave": 3,
+       "parts-ray-keith---something-out-there": 3,
+       "parts-04-parallax-watercolors": 8,
+       "parts-fire_(urban": 11,
+       "parts-05-dj_pulse-true_romance": 8,
+       "parts-05-swift-the_sound": 2,
+       "parts-a_-_polar_-_out_of_the_blue": 2,
+       "parts-knowledge_and_wisdom-kill_a_sound": 4,
+       "parts-214-kid_jay-soundbwoy": 17,
+       "parts-aa_global_thang-bubberlin": 2,
+       "parts-01---total-science---make-me-feel": 3,
+       "parts-photek---baltimore": 2,
+       "parts-unda-kover---crush-on-you": 1,
+       "parts-03-klute-leo_9": 3,
+       "parts-sniper---roulette": 1,
+       "parts-robot-death-squad---escape-pod": 1,
+       "parts-a-dj_slip-man_of_steal": 2,
+       "parts-01---omni-trio---nu-birth": null
+      },
+      "at_or_above_null": 0
+     },
+     "N1": {
+      "queries": 40,
+      "others_20_median": 0.0,
+      "others_60_median": 0.0,
+      "others_20_max": 207,
+      "share_of_index_20_max": 0.00511106742677413,
+      "share_of_index_60_max": 0.00039315903282877927,
+      "set_aside_share_median": 0.0,
+      "search_seconds_median": 8.959333828,
+      "search_seconds_max": 15.516189807,
+      "reach_seconds_median": 4.21e-07,
+      "others_reached": 70,
+      "others_reaching_60s": 18,
+      "strongest_other_hits_median": 0.0,
+      "strongest_other_hits_max": 1112,
+      "with_another_file_at_20": 18
+     },
+     "N2": {
+      "queries": 40,
+      "others_20_median": 0.0,
+      "others_60_median": 0.0,
+      "others_20_max": 11,
+      "share_of_index_20_max": 0.00029486927462158444,
+      "share_of_index_60_max": 9.828975820719482e-05,
+      "set_aside_share_median": 0.0,
+      "search_seconds_median": 5.731987965,
+      "search_seconds_max": 12.505033506,
+      "reach_seconds_median": 2.71e-07,
+      "others_reached": 29,
+      "others_reaching_60s": 12,
+      "strongest_other_hits_median": 0.0,
+      "strongest_other_hits_max": 649,
+      "with_another_file_at_20": 17
+     }
+    },
+    "null_95th_hits": 726,
+    "positives": {
+     "scored": 64,
+     "found": 59,
+     "first": 25,
+     "top5": 51,
+     "found_hits_median": 72
+    }
+   },
+   "filtered": {
+    "errors": [
+     "t-minus-2"
+    ],
+    "groups": {
+     "A": {
+      "queries": 21,
+      "others_20_median": 3,
+      "others_60_median": 1,
+      "others_20_max": 11,
+      "share_of_index_20_max": 0.00034401415372518185,
+      "share_of_index_60_max": 0.00027029683506978573,
+      "set_aside_share_median": 0.1601123595505618,
+      "search_seconds_median": 1.364591768,
+      "search_seconds_max": 1.775167967,
+      "reach_seconds_median": 0.040193651,
+      "others_reached": 71,
+      "others_reaching_60s": 42,
+      "no_expected_indexed": [
+       "t-minus-1"
+      ],
+      "scored": 20,
+      "found": 18,
+      "first": 11,
+      "top5": 16,
+      "above_median": 0.0,
+      "missed": [
+       "watermelon-1",
+       "watermelon-2"
+      ],
+      "ranks": {
+       "clockwork-1": 1,
+       "clockwork-2": 1,
+       "dozer-1": 1,
+       "dozer-2": 1,
+       "fire-1": 6,
+       "fire-2": 7,
+       "fire-3": 2,
+       "fire-4": 3,
+       "mind-overload-1": 2,
+       "mind-overload-2": 1,
+       "pyro-1": 1,
+       "pyro-2": 1,
+       "sonar-1": 1,
+       "sonar-2": 1,
+       "the-nine-1": 2,
+       "the-nine-2": 2,
+       "the-nine-3": 1,
+       "the-nine-4": 1,
+       "watermelon-1": null,
+       "watermelon-2": null
+      },
+      "at_or_above_null": 0
+     },
+     "B": {
+      "queries": 7,
+      "others_20_median": 1,
+      "others_60_median": 0,
+      "others_20_max": 2,
+      "share_of_index_20_max": 9.828975820719482e-05,
+      "share_of_index_60_max": 4.914487910359741e-05,
+      "set_aside_share_median": 0.18929503916449086,
+      "search_seconds_median": 1.421100357,
+      "search_seconds_max": 1.893311875,
+      "reach_seconds_median": 0.016846941,
+      "others_reached": 8,
+      "others_reaching_60s": 5,
+      "no_expected_indexed": [],
+      "scored": 7,
+      "found": 5,
+      "first": 4,
+      "top5": 5,
+      "above_median": 0,
+      "missed": [
+       "drum-loop-5",
+       "drum-loop-7"
+      ],
+      "ranks": {
+       "drum-loop-1": 1,
+       "drum-loop-2": 1,
+       "drum-loop-3": 1,
+       "drum-loop-4": 1,
+       "drum-loop-5": null,
+       "drum-loop-6": 2,
+       "drum-loop-7": null
+      },
+      "at_or_above_null": 0
+     },
+     "C": {
+      "queries": 6,
+      "others_20_median": 25.0,
+      "others_60_median": 1.0,
+      "others_20_max": 58,
+      "share_of_index_20_max": 0.0014497739335561234,
+      "share_of_index_60_max": 4.914487910359741e-05,
+      "set_aside_share_median": 0.2069284485041038,
+      "search_seconds_median": 1.9212842965,
+      "search_seconds_max": 2.228291102,
+      "reach_seconds_median": 0.2073171165,
+      "others_reached": 43,
+      "others_reaching_60s": 7,
+      "no_expected_indexed": [],
+      "scored": 6,
+      "found": 6,
+      "first": 6,
+      "top5": 6,
+      "above_median": 0.0,
+      "missed": [],
+      "ranks": {
+       "special-branch-0": 1,
+       "special-branch-30": 1,
+       "special-branch-65": 1,
+       "special-branch-190": 1,
+       "special-branch-250": 1,
+       "special-branch-305": 1
+      },
+      "at_or_above_null": 0
+     },
+     "D": {
+      "queries": 32,
+      "others_20_median": 9.0,
+      "others_60_median": 2.0,
+      "others_20_max": 139,
+      "share_of_index_20_max": 0.0034401415372518184,
+      "share_of_index_60_max": 0.000245724395517987,
+      "set_aside_share_median": 0.17536637121195375,
+      "search_seconds_median": 1.9903796005,
+      "search_seconds_max": 2.82981731,
+      "reach_seconds_median": 0.2353706325,
+      "others_reached": 193,
+      "others_reaching_60s": 33,
+      "no_expected_indexed": [
+       "parts-alex-reece-&-utah-jazz---ski-mask"
+      ],
+      "scored": 31,
+      "found": 27,
+      "first": 3,
+      "top5": 22,
+      "above_median": 2,
+      "missed": [
+       "parts-d-genotype-toxic",
+       "parts-heist---sentinels-warning",
+       "parts-04-parallax-watercolors",
+       "parts-01---omni-trio---nu-birth"
+      ],
+      "ranks": {
+       "parts-subnation-scottie_(ray_keith_remix)": 1,
+       "parts-aa-j_majik-your_sound_(remix)": 4,
+       "parts-207-system_x-got_to_believe": 6,
+       "parts-aa-bigger_star-raid": 2,
+       "parts-03-omni_trio-rollin_heights": 2,
+       "parts-09-matrix-sleepwalk": 2,
+       "parts-ed-rush-&-nico---technology": 4,
+       "parts-107-renegade-terrorist": 7,
+       "parts-d-genotype-toxic": null,
+       "parts-heist---sentinels-warning": null,
+       "parts-a-dieselboy-invid": 3,
+       "parts-209-ed_rush-comatone": 3,
+       "parts-105-krome_and_time-license": 4,
+       "parts-native-minds---heatwave": 3,
+       "parts-ray-keith---something-out-there": 3,
+       "parts-04-parallax-watercolors": null,
+       "parts-fire_(urban": 2,
+       "parts-05-dj_pulse-true_romance": 7,
+       "parts-05-swift-the_sound": 2,
+       "parts-a_-_polar_-_out_of_the_blue": 3,
+       "parts-knowledge_and_wisdom-kill_a_sound": 9,
+       "parts-214-kid_jay-soundbwoy": 44,
+       "parts-aa_global_thang-bubberlin": 2,
+       "parts-01---total-science---make-me-feel": 3,
+       "parts-photek---baltimore": 2,
+       "parts-unda-kover---crush-on-you": 1,
+       "parts-03-klute-leo_9": 3,
+       "parts-sniper---roulette": 2,
+       "parts-robot-death-squad---escape-pod": 1,
+       "parts-a-dj_slip-man_of_steal": 3,
+       "parts-01---omni-trio---nu-birth": null
+      },
+      "at_or_above_null": 0
+     },
+     "N1": {
+      "queries": 40,
+      "others_20_median": 0.0,
+      "others_60_median": 0.0,
+      "others_20_max": 61,
+      "share_of_index_20_max": 0.0015234912522115195,
+      "share_of_index_60_max": 9.828975820719482e-05,
+      "set_aside_share_median": 0.17482847374682803,
+      "search_seconds_median": 1.665137308,
+      "search_seconds_max": 2.517005155,
+      "reach_seconds_median": 1.605e-07,
+      "others_reached": 48,
+      "others_reaching_60s": 18,
+      "strongest_other_hits_median": 0.0,
+      "strongest_other_hits_max": 994,
+      "with_another_file_at_20": 16
+     },
+     "N2": {
+      "queries": 40,
+      "others_20_median": 0.0,
+      "others_60_median": 0.0,
+      "others_20_max": 4,
+      "share_of_index_20_max": 0.0001228621977589935,
+      "share_of_index_60_max": 9.828975820719482e-05,
+      "set_aside_share_median": 0.15140206041219012,
+      "search_seconds_median": 1.4808928940000001,
+      "search_seconds_max": 2.217673124,
+      "reach_seconds_median": 1.3e-07,
+      "others_reached": 17,
+      "others_reaching_60s": 11,
+      "strongest_other_hits_median": 0.0,
+      "strongest_other_hits_max": 578,
+      "with_another_file_at_20": 11
+     }
+    },
+    "null_95th_hits": 577,
+    "positives": {
+     "scored": 64,
+     "found": 56,
+     "first": 24,
+     "top5": 49,
+     "found_hits_median": 50.0
+    }
+   }
+  }
+ },
+ "262": {
+  "index_files": 265,
+  "index_seconds": 0.798668171,
+  "modes": {
+   "all": {
+    "errors": [],
+    "groups": {
+     "A": {
+      "queries": 4,
+      "others_20_median": 2.5,
+      "others_60_median": 0.5,
+      "others_20_max": 3,
+      "share_of_index_20_max": 0.022641509433962263,
+      "share_of_index_60_max": 0.011320754716981131,
+      "set_aside_share_median": 0.0,
+      "search_seconds_median": 0.0555314155,
+      "search_seconds_max": 0.08414282,
+      "reach_seconds_median": 0.050765241,
+      "others_reached": 7,
+      "others_reaching_60s": 0,
+      "no_expected_indexed": [],
+      "scored": 4,
+      "found": 4,
+      "first": 4,
+      "top5": 4,
+      "above_median": 0.0,
+      "missed": [],
+      "ranks": {
+       "clockwork-1": 1,
+       "clockwork-2": 1,
+       "the-nine-1": 1,
+       "the-nine-2": 1
+      },
+      "at_or_above_null": 4
+     },
+     "B": {
+      "queries": 1,
+      "others_20_median": 0,
+      "others_60_median": 0,
+      "others_20_max": 0,
+      "share_of_index_20_max": 0.0037735849056603774,
+      "share_of_index_60_max": 0.0037735849056603774,
+      "set_aside_share_median": 0.0,
+      "search_seconds_median": 0.113224161,
+      "search_seconds_max": 0.113224161,
+      "reach_seconds_median": 6e-08,
+      "others_reached": 0,
+      "others_reaching_60s": 0,
+      "no_expected_indexed": [],
+      "scored": 1,
+      "found": 0,
+      "first": 0,
+      "top5": 0,
+      "above_median": null,
+      "missed": [
+       "drum-loop-7"
+      ],
+      "ranks": {
+       "drum-loop-7": null
+      },
+      "at_or_above_null": 0
+     },
+     "N1": {
+      "queries": 40,
+      "others_20_median": 0.0,
+      "others_60_median": 0.0,
+      "others_20_max": 2,
+      "share_of_index_20_max": 0.011320754716981131,
+      "share_of_index_60_max": 0.011320754716981131,
+      "set_aside_share_median": 0.0,
+      "search_seconds_median": 0.086794675,
+      "search_seconds_max": 0.17361598,
+      "reach_seconds_median": 7e-08,
+      "others_reached": 2,
+      "others_reaching_60s": 0,
+      "strongest_other_hits_median": 0.0,
+      "strongest_other_hits_max": 91,
+      "with_another_file_at_20": 2
+     },
+     "N2": {
+      "queries": 40,
+      "others_20_median": 0.0,
+      "others_60_median": 0.0,
+      "others_20_max": 0,
+      "share_of_index_20_max": 0.011320754716981131,
+      "share_of_index_60_max": 0.011320754716981131,
+      "set_aside_share_median": 0.0,
+      "search_seconds_median": 0.034970855999999995,
+      "search_seconds_max": 0.10701192,
+      "reach_seconds_median": 5e-08,
+      "others_reached": 0,
+      "others_reaching_60s": 0,
+      "strongest_other_hits_median": 0.0,
+      "strongest_other_hits_max": 0,
+      "with_another_file_at_20": 0
+     }
+    },
+    "null_95th_hits": 0,
+    "positives": {
+     "scored": 5,
+     "found": 4,
+     "first": 4,
+     "top5": 4,
+     "found_hits_median": 77.0
+    }
+   },
+   "filtered": {
+    "errors": [],
+    "groups": {
+     "A": {
+      "queries": 4,
+      "others_20_median": 2.5,
+      "others_60_median": 0.5,
+      "others_20_max": 3,
+      "share_of_index_20_max": 0.022641509433962263,
+      "share_of_index_60_max": 0.011320754716981131,
+      "set_aside_share_median": 0.12734985993944203,
+      "search_seconds_median": 0.019896174,
+      "search_seconds_max": 0.023075703,
+      "reach_seconds_median": 0.048686759499999996,
+      "others_reached": 9,
+      "others_reaching_60s": 0,
+      "no_expected_indexed": [],
+      "scored": 4,
+      "found": 4,
+      "first": 4,
+      "top5": 4,
+      "above_median": 0.0,
+      "missed": [],
+      "ranks": {
+       "clockwork-1": 1,
+       "clockwork-2": 1,
+       "the-nine-1": 1,
+       "the-nine-2": 1
+      },
+      "at_or_above_null": 4
+     },
+     "B": {
+      "queries": 1,
+      "others_20_median": 0,
+      "others_60_median": 0,
+      "others_20_max": 0,
+      "share_of_index_20_max": 0.0037735849056603774,
+      "share_of_index_60_max": 0.0037735849056603774,
+      "set_aside_share_median": 0.19300361881785283,
+      "search_seconds_median": 0.024286361,
+      "search_seconds_max": 0.024286361,
+      "reach_seconds_median": 6e-08,
+      "others_reached": 0,
+      "others_reaching_60s": 0,
+      "no_expected_indexed": [],
+      "scored": 1,
+      "found": 0,
+      "first": 0,
+      "top5": 0,
+      "above_median": null,
+      "missed": [
+       "drum-loop-7"
+      ],
+      "ranks": {
+       "drum-loop-7": null
+      },
+      "at_or_above_null": 0
+     },
+     "N1": {
+      "queries": 40,
+      "others_20_median": 0.0,
+      "others_60_median": 0.0,
+      "others_20_max": 2,
+      "share_of_index_20_max": 0.011320754716981131,
+      "share_of_index_60_max": 0.011320754716981131,
+      "set_aside_share_median": 0.13775152099608656,
+      "search_seconds_median": 0.024640757,
+      "search_seconds_max": 0.036266646,
+      "reach_seconds_median": 6e-08,
+      "others_reached": 2,
+      "others_reaching_60s": 0,
+      "strongest_other_hits_median": 0.0,
+      "strongest_other_hits_max": 67,
+      "with_another_file_at_20": 1
+     },
+     "N2": {
+      "queries": 40,
+      "others_20_median": 0.0,
+      "others_60_median": 0.0,
+      "others_20_max": 2,
+      "share_of_index_20_max": 0.01509433962264151,
+      "share_of_index_60_max": 0.011320754716981131,
+      "set_aside_share_median": 0.09320805902008139,
+      "search_seconds_median": 0.0171448235,
+      "search_seconds_max": 0.02557639,
+      "reach_seconds_median": 5.55e-08,
+      "others_reached": 0,
+      "others_reaching_60s": 0,
+      "strongest_other_hits_median": 0.0,
+      "strongest_other_hits_max": 26,
+      "with_another_file_at_20": 2
+     }
+    },
+    "null_95th_hits": 0,
+    "positives": {
+     "scored": 5,
+     "found": 4,
+     "first": 4,
+     "top5": 4,
+     "found_hits_median": 56.5
+    }
+   }
+  }
+ },
+ "nas_exploratory": {
+  "all N1 passage-only strongest": {
+   "median": 0.0,
+   "p90": 29,
+   "max": 111,
+   "at20": 7,
+   "at40": 3,
+   "at60": 2,
+   "queries with a 60 s reach": 13,
+   "n": 40
+  },
+  "all N2 passage-only strongest": {
+   "median": 0.0,
+   "p90": 30,
+   "max": 105,
+   "at20": 12,
+   "at40": 2,
+   "at60": 1,
+   "queries with a 60 s reach": 8,
+   "n": 40
+  },
+  "all positives, rips by reach apart": {
+   "n": 64,
+   "found": 59,
+   "first": 39,
+   "top5": 53,
+   "by group first": {
+    "A": 16,
+    "B": 4,
+    "C": 6,
+    "D": 13
+   }
+  },
+  "filtered N1 passage-only strongest": {
+   "median": 0.0,
+   "p90": 20,
+   "max": 62,
+   "at20": 5,
+   "at40": 2,
+   "at60": 2,
+   "queries with a 60 s reach": 13,
+   "n": 40
+  },
+  "filtered N2 passage-only strongest": {
+   "median": 0.0,
+   "p90": 20,
+   "max": 65,
+   "at20": 5,
+   "at40": 1,
+   "at60": 1,
+   "queries with a 60 s reach": 8,
+   "n": 40
+  },
+  "filtered positives, rips by reach apart": {
+   "n": 64,
+   "found": 56,
+   "first": 37,
+   "top5": 53,
+   "by group first": {
+    "A": 16,
+    "B": 4,
+    "C": 6,
+    "D": 11
+   }
+  },
+  "hits kept by the filter A": {
+   "expected median": 0.8170124481327801,
+   "n expected": 18,
+   "own median": 0.8105726872246696,
+   "n own": 21
+  },
+  "hits kept by the filter B": {
+   "expected median": 0.7428571428571429,
+   "n expected": 5,
+   "own median": 0.7987421383647799,
+   "n own": 7
+  },
+  "hits kept by the filter C": {
+   "expected median": 0.4947635135135135,
+   "n expected": 6,
+   "own median": 0.7534022710761552,
+   "n own": 6
+  },
+  "hits kept by the filter D": {
+   "expected median": 0.6421052631578947,
+   "n expected": 27,
+   "own median": 0.7804392258919858,
+   "n own": 32
+  },
+  "hits kept by the filter N": {
+   "expected median": null,
+   "n expected": 0,
+   "own median": 0.8104110837106202,
+   "n own": 80
+  },
+  "largest listings": [
+   [
+    403,
+    "parts-knowledge_and_wisdom-kill_a_sound",
+    "all"
+   ],
+   [
+    390,
+    "parts-aa-bigger_star-raid",
+    "all"
+   ],
+   [
+    348,
+    "parts-aa-j_majik-your_sound_(remix)",
+    "all"
+   ],
+   [
+    347,
+    "parts-105-krome_and_time-license",
+    "all"
+   ],
+   [
+    232,
+    "special-branch-305",
+    "all"
+   ],
+   [
+    224,
+    "parts-05-swift-the_sound",
+    "all"
+   ],
+   [
+    221,
+    "parts-03-omni_trio-rollin_heights",
+    "all"
+   ],
+   [
+    213,
+    "special-branch-190",
+    "all"
+   ]
+  ]
+ },
+ "nas_cost_alone": {
+  "queries": [
+   "n1-nas-00",
+   "n1-nas-01",
+   "n1-nas-02",
+   "n1-nas-03",
+   "special-branch-0",
+   "special-branch-190",
+   "special-branch-250",
+   "special-branch-30",
+   "special-branch-305",
+   "special-branch-65"
+  ],
+  "search_seconds": {
+   "all": [
+    5.796,
+    4.99,
+    5.127,
+    9.37,
+    8.583,
+    7.081,
+    2.978,
+    4.2,
+    5.273,
+    7.011
+   ],
+   "filtered": [
+    0.925,
+    0.856,
+    0.827,
+    1.213,
+    1.205,
+    1.233,
+    0.9,
+    1.099,
+    0.879,
+    0.773
+   ]
+  },
+  "wall": "1:14.94",
+  "peak_kb": 4670828
+ }
+}

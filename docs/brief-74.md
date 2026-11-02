@@ -300,3 +300,24 @@ The decision is ours; nothing in the product changes in this session.
   regressions. `scripts/analysis/break_search.py` scores the reports
   (tested, `test_break_search.py`); counting other files at 20 and 60
   hits counts the other files only (own apart), as registered.
+- **(07:58) A cost run alone** (`work/s74/cost.sh`, tmux `s74cost`,
+  after the queue): ten NAS-scale queries (the six Special Branch spans,
+  N1's first four) with `--jobs 1`, so that each query's thread seconds
+  are measured without 31 others running; decided after the main run,
+  reported in 0277 beside the registered figures. Its listings equal the
+  main run's.
+- **(08:00) Both regressions identical** with the run build (0:51;
+  3:48), every report equal to its baseline's apart from
+  `wall_seconds`.
+- **(08:02) Results.** By the registered bar the query is not worth a
+  design note and an ADR: (1) found 59 of 64 positives (92%) and 51 in
+  the first five (80%), but first only 25 (39%, bar 50%); (2) the
+  median random passage lists no other file, but *T* (726 hits) lies
+  above the found expected files' median (72), because random passages
+  list other rips of their own recording outside the NAS clusters; (3)
+  holds (a median 8 thread seconds with every list). Exploratory
+  readings (`work/s74/posthoc.py`, not registered): with files reaching
+  60 s of the query set apart, 39 first and 53 in the first five.
+  Experiments 0276 (`32b486e`) and 0277.
+- **(08:05) The research note** `docs/research/2026-11-02-break-search.md`
+  and the roadmap's "The filter and famous breaks" (a pointer).

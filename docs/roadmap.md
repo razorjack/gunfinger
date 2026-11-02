@@ -893,6 +893,19 @@ cases. None is an adopted decision or an experiment result.
   short chain's speed hinges on one hit, and whether fitting the speed
   in the second pass, or weighing both rungs' lines, would make it
   steadier.
+  *(session 74, experiments 0276-0277,
+  `docs/research/2026-11-02-break-search.md`)* A famous break is held by
+  hundreds of files: a 20 s passage of one (`gunfinger-eval
+  break-search`) lines up with up to 403 of the NAS library's 40,696
+  files at 20 hits or more, each with 40-110 hits. Its holders lose more
+  of their hits to the filter than the query's own file does (a median
+  49-64% kept against 75-81%), and Special Branch's spans list a median
+  124 other files with every list against 25 with the filter. For
+  `identify` this changes nothing measured: a candidate's evidence is
+  still counted again in every list. The passage query itself, the
+  user's question "which tracks use this break?", would search every
+  list (about 8 thread seconds per query at NAS scale); the research
+  note records what it finds and what is open before a command.
 - **A confidence statistic for shared material.** *(larger library;
   session 50: the first pass's filter does not hide the drum-loop
   pairs' shared hashes more than chance ones, 0225, so their evidence
