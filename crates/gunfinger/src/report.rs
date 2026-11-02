@@ -356,7 +356,7 @@ impl Report {
         }
     }
 
-    fn validate(&self) -> Result<(), String> {
+    pub(crate) fn validate(&self) -> Result<(), String> {
         let time = |value: f64| Duration::try_from_secs_f64(value).is_ok();
         if !time(self.query.start_seconds)
             || !time(self.query.duration_seconds)
@@ -397,12 +397,21 @@ impl Report {
             {
                 return Err(invalid());
             }
-            if play
-                .under
-                .as_ref()
-                .is_some_and(|under| under.play == 0 || under.play > self.plays.len())
-            {
-                return Err(invalid());
+            let under_valid = match &play.under {
+                None => index < self.plays.len(),
+                Some(under) => {
+                    index >= self.plays.len() && (1..=self.plays.len()).contains(&under.play)
+                }
+            };
+            if !under_valid {
+                return Err(if index < self.plays.len() {
+                    format!("play {} is marked as found under another", index + 1)
+                } else {
+                    format!(
+                        "play {} found under another needs the number of a play of the report",
+                        index - self.plays.len() + 1
+                    )
+                });
             }
             for segment in &play.segments {
                 if !time(segment.start_seconds)
@@ -598,12 +607,12 @@ impl FoundPlay {
     }
 
     /// Whether the track would have started at the same mix time.
-    fn lines_up_with(&self, other: &FoundPlay) -> bool {
+    pub(crate) fn lines_up_with(&self, other: &FoundPlay) -> bool {
         (self.track_started_at() - other.track_started_at()).abs() <= SAME_RECORDING_SECONDS
     }
 
     /// Whether both files' tags give the same artist and title.
-    fn tagged_alike(&self, other: &FoundPlay) -> bool {
+    pub(crate) fn tagged_alike(&self, other: &FoundPlay) -> bool {
         self.compared_name()
             .is_some_and(|name| other.compared_name() == Some(name))
     }

@@ -82,12 +82,13 @@ the louder track as the reference.
    overlaps it or lies within 90 s of it (the tracklist names the track
    there already). The kept detections are grouped into plays, and a
    play is dropped when it is one track with a confident play of the
-   recording by ADR 0017's entry rule (another upload lining up with it,
-   or tagged alike over the same passage). The shared-material rule is
-   the product's reading of "related versions not printed at first": a
-   related version of the quieter track cannot be told from the right
-   recording, while one of the louder track can be found in the
-   library's own audio.
+   recording that overlaps it or lies within 90 s of it, by the tests of
+   ADR 0017's entry rule (the two line up, or their files are tagged
+   alike): another upload of a track the tracklist names there. The
+   shared-material rule is the product's reading of the user's answer
+   that related versions are not printed at first: a related version of
+   the quieter track cannot be told from the right recording, while one
+   of the louder track can be found in the library's own audio.
 9. **`--store-only`.** The step needs the library's audio; when the
    store's own records are searched (`--store-only`, no library, or a
    library that cannot be read), it does not run, and `identify` says so
@@ -99,8 +100,9 @@ the louder track as the reference.
     of the louder track's entry. One found
     only as possible stays out of the tracklist, as ADR 0019 leaves such
     plays out. The table shows every such play in time order, marked
-    `under <file> (play N)`; CSV gains a last column `under_play` and a
-    row per play, only when the step ran; JSON holds them in `under`,
+    `under <file> (play N)`; CSV gains a row per such play and two last
+    columns, `play` (a play's number in the report, empty for a found
+    play) and `under_play`, only when the step ran; JSON holds them in `under`,
     each with `under: {play, asset}`, and `search.under` records the
     step's setting, so `--save-dir` searches again when it changes. The
     cue sheet and the timeline leave them out (a cue sheet cannot hold
@@ -122,11 +124,14 @@ the louder track as the reference.
 - A related version of the louder track, or a track built on the same
   sampled break, is held back by the shared-material rule even when it
   was played; a related version of the quieter track can still be
-  printed as that track (the user accepts this: a listener who learns a
-  title finds the right version by ear).
+  printed as that track. On 2026-10-31 the user found that acceptable,
+  since a listener who learns a title can find the right version by ear
+  (`docs/status.md`, "the last answer, and the user's decisions and
+  views").
 - When the quieter track goes on alone after the louder one is cut, the
-  tracklist already names it, and its earlier start under the louder
-  track is not shown.
+  tracklist already names it (through the same file or another that
+  lines up with it or is tagged alike), and its earlier start under the
+  louder track is not shown.
 - A quieter track found as possible in the plain search and confidently
   under the louder track appears twice in the table: the possible row
   marked `shares material with`, and the row marked `under`.

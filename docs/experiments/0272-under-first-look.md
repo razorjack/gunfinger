@@ -4,10 +4,8 @@
 it should on a real and a generated mix, and what does it add to the
 time? Session 73 measures cost and recall; this only looks.
 
-**Commands.** `work/s72/look.sh` (build `work/bin/s72-run2/`):
-`gunfinger [--config nas-dnb.toml] identify MIX [--under] --verbose
---format json`, then `show` as tracklist, table and CSV
-(`work/s72/look2/`). Mixes: the Stakka & Skynet mix (development) and
+**Commands.** `work/s72/look.sh` (build `work/bin/s72-run2/`): `identify
+MIX [--under] --verbose --format json`, then `show` (`work/s72/look2/`). Mixes: the Stakka & Skynet mix (development) and
 generated `drops-seed-2026/mix-00` (session 39's render, a development
 seed), at 262 tracks and NAS scale; one run each, the machine otherwise
 idle, 32 workers.
@@ -23,11 +21,13 @@ idle, 32 workers.
 
 - Stakka: nothing found under a confident play at either scale.
 - mix-00: one new entry at both scales, `6. 11:08 Muffler - Nutcracker
-  (Original Mix) (under 5.)` (confident, 541 hits, 11:09-12:28): the
+  (Original Mix) (under 5.)` (confident, 541 hits, 11:08-12:27): the
   quiet partner of the generator's block (11:05-12:33, 9 dB down) under
-  Rascal & Klone - Snake Eyes, of which the plain search had no play. At
-  NAS scale an `Extended Mix` upload lines up with it (424 hits) and
-  joins the entry under `titles disagree:`. No other line changes.
+  Rascal & Klone - Snake Eyes, which the plain search had as possible
+  only (207 hits; at NAS scale 221 and 138), left out of the tracklist.
+  At NAS scale an `Extended Mix` upload lines up with it (424 hits) and
+  joins the entry (`6. 11:07 ...`, `titles disagree:`). No other line
+  changes.
 - A first pass, before two fixes (brief 72, 05:00), printed the two NAS
   files as two entries and also found two right partners as possible
   through other uploads of tracks already confident there (Echo Chamber,

@@ -56,13 +56,17 @@ pub fn render(report: &Report, format: ReportFormat, style: Style) -> miette::Re
     // Names are asked for several times per entry; a file is read once.
     let read = RefCell::new(HashMap::new());
     let name = |asset: &str| {
-        let stored = report.plays_and_under().into_iter().find_map(|play| {
-            if play.asset == asset {
-                play.tags.as_ref()
-            } else {
-                play.same_audio_tags.get(asset)
-            }
-        });
+        let stored = report
+            .plays
+            .iter()
+            .chain(report.under.iter().flatten())
+            .find_map(|play| {
+                if play.asset == asset {
+                    play.tags.as_ref()
+                } else {
+                    play.same_audio_tags.get(asset)
+                }
+            });
         match stored {
             Some(tags) => TrackName::named(tags.artist.as_deref(), tags.title.as_deref(), asset),
             None => read

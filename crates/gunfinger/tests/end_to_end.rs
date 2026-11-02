@@ -1421,7 +1421,8 @@ fn a_quiet_track_under_a_confident_one_is_found_once_the_louder_is_taken_out() {
     let stored: Value = serde_json::from_slice(&store_only.stdout).unwrap();
     assert!(stored.get("under").is_none(), "{stored}");
     assert!(
-        String::from_utf8_lossy(&store_only.stderr).contains("--under needs the library's audio"),
+        String::from_utf8_lossy(&store_only.stderr)
+            .contains("--under does not run: it needs the library's audio"),
         "{}",
         String::from_utf8_lossy(&store_only.stderr)
     );

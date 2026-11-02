@@ -19,17 +19,20 @@ use crate::report::{FoundPlay, Level, Playback, Report};
 const CUE_FRAMES_PER_SECOND: f64 = 75.0;
 
 /// One row per play, times in seconds. When `identify --under` ran, the
-/// plays found under confident plays are rows too, in time order, and a
-/// last column `under_play` gives the number of the play each lay under
-/// (ADR 0025); without it the columns are as before.
+/// plays found under confident plays are rows too, in time order, so two
+/// last columns keep the plays' numbers apart from row positions: `play`,
+/// a play's number in the report (empty for a found play), and
+/// `under_play`, the number of the play a found play lay under (ADR 0025);
+/// without the step the columns are as before.
 pub fn csv(report: &Report) -> String {
     let mut header = String::from(
         "start_seconds,end_seconds,track_start_seconds,track_end_seconds,speed_percent,confidence,hits,windows,segments,playback,asset,same_audio,shares_material_with_play",
     );
     if report.under.is_some() {
-        header.push_str(",under_play");
+        header.push_str(",play,under_play");
     }
     let mut lines = vec![header];
+    let mut number = 0;
     for play in report.plays_and_under() {
         let mut line = format!(
             "{:.1},{:.1},{:.1},{:.1},{:.2},{},{},{},{},{},{},{},{}",
@@ -53,9 +56,12 @@ pub fn csv(report: &Report) -> String {
                 .map_or_else(String::new, |shared| shared.play.to_string())
         );
         if report.under.is_some() {
-            line.push(',');
-            if let Some(under) = &play.under {
-                line.push_str(&under.play.to_string());
+            match &play.under {
+                Some(under) => line.push_str(&format!(",,{}", under.play)),
+                None => {
+                    number += 1;
+                    line.push_str(&format!(",{number},"));
+                }
             }
         }
         lines.push(line);

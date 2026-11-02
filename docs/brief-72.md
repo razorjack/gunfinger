@@ -305,3 +305,28 @@ binary if a level can be found at which the plain search misses B.
   (Muffler - Nutcracker) found confidently under entry 5 at both scales,
   one entry (two files at NAS scale, `titles disagree:`). The step took
   15.9-32.9 s for 11-17 confident entries.
+- **(05:18) `scripts/check.sh` green** on `09014c6` (7:59).
+- **(05:25) The review's findings** (a separate agent, read-only,
+  05:11-05:17). It found no path that changes output with the option
+  off, the moved residual code equal in arithmetic, `Decoder::render`'s
+  arguments and the time map right, and the `(under N.)` number right.
+  Taken: CSV rows no longer give play numbers once found plays are rows,
+  so with the step CSV gains a `play` column beside `under_play`; the
+  third and fourth drop rules compared files and overlapping passages,
+  so a quieter track found through one file and going on alone through
+  another upload would have been listed twice: the fourth rule now drops
+  a found play that lines up with or is tagged like a confident play
+  overlapping it or within 90 s (ADR 0017's tests without the overlap
+  condition); validation rejects a play of `plays` marked `under` and a
+  found play without a valid `under`, with its own messages; the
+  shared-material check is built only when a detection needs it, and
+  the warning says that nothing is reported under the play; the
+  name lookup chains the two lists instead of collecting them; the
+  store-only line reads plainly; 0272's facts (the plain search had the
+  partner as possible, 207 hits; its span 11:08-12:27; the NAS entry
+  starts at 11:07); ADR 0025 no longer quotes the user and cites the
+  status entry of 2026-10-31 for the user's view on related versions;
+  the proposals note names the fourth rule. Not taken: AGENTS.md's module
+  map (it names neither the core's `residual` nor the CLI's `under`; left
+  for the user, as session 70 left the harness's `residual`); a test of
+  `--under` with `--start` (the arithmetic was checked by reading).

@@ -64,7 +64,7 @@ pub fn run(request: &Request) -> miette::Result<()> {
     let under = request.under && indexable.reads_library();
     if request.under && !under {
         request.console.info(
-            "--under needs the library's audio to take a track out of the recording; searching the peak store's own records, it does not run",
+            "--under does not run: it needs the library's audio to take a track out of the recording, and the peak store's own records are searched",
         );
     }
     let jobs = plan(request, &indexable, under)?;

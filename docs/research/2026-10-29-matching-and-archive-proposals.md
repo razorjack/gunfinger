@@ -348,7 +348,9 @@ and masked with the core's `residual` (`Mask::UNDER`: *Align*, `over`
 2), and the residual is searched under today's rule. A detection is not
 reported when its file is one of the entry's, shares material with the
 file taken out by their stored peaks (possible tier or above), or is
-confident within 90 s in the recording. The harness's residual now
+confident within 90 s in the recording; a found play is dropped when it
+is one track with a confident play within 90 s (lining up or tagged
+alike, ADR 0017's tests). The harness's residual now
 calls the core's code (its session 70 report is reproduced exactly). The
 default and the cost are session 73's to measure; the printing is to be
 judged in use.

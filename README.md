@@ -182,8 +182,8 @@ the entry it was under:
 A find only as possible stays out of the tracklist, as above. Finds of
 the louder track's own files, of files that share material with it in
 their stored peaks (other rips, related versions) and of tracks already
-listed confidently there (within 90 s, or another upload of a track
-listed over the same passage) are not reported. The step needs the
+listed confidently within 90 s (the same file, or another that lines up
+with it or is tagged alike) are not reported. The step needs the
 library's audio, so it does not run on the peak store's own records
 (`--store-only`); `identify` says so.
 
@@ -209,7 +209,8 @@ library's audio, so it does not run on the peak store's own records
 
 With `--under`, the table shows each find in time order, marked `under
 <file> (play N)`; JSON holds them in `under`, each with `under: {play,
-asset}`; CSV gains a column `under_play` and a row per find. The cue
+asset}`; CSV gains a row per find and two columns, `play` (a play's
+number in the report, empty for a find) and `under_play`. The cue
 sheet and the timeline leave them out.
 
 ### Other commands

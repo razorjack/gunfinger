@@ -59,7 +59,7 @@ pub fn find(
         match under_entry(report, catalog, samples, &taken_out, ladder, jobs) {
             Ok(plays) => found.extend(plays),
             Err(error) => console.warning(format_args!(
-                "--under: {} is not taken out of the recording, so nothing is searched under it: {error}",
+                "--under: nothing is reported under {}: {error}",
                 taken_out.play.asset
             )),
         }
@@ -144,20 +144,28 @@ fn under_entry(
         jobs,
         catalog.matcher.options(),
     );
-    let shared = SharedMaterial::new(catalog, &taken_out.play.asset, ladder, jobs)?;
-    let mut verdicts: BTreeMap<AssetId, bool> = BTreeMap::new();
-    let kept: Vec<Detection> = detections
+    let candidates: Vec<Detection> = detections
         .into_iter()
         .filter(|detection| detection.evidence.confidence() >= Confidence::Possible)
         .filter(|detection| {
             let path = &catalog.index.asset(detection.asset).path;
             let start = offset + detection.start_seconds;
             let end = offset + detection.end_seconds;
-            let dropped = Dropped::of(path, start, end, taken_out, &report.plays).is_some()
-                || *verdicts
-                    .entry(detection.asset)
-                    .or_insert_with(|| shared.with(catalog, path));
-            !dropped
+            Dropped::of(path, start, end, taken_out, &report.plays).is_none()
+        })
+        .collect();
+    if candidates.is_empty() {
+        return Ok(Vec::new());
+    }
+    let shared = SharedMaterial::new(catalog, &taken_out.play.asset, ladder, jobs)?;
+    let mut verdicts: BTreeMap<AssetId, bool> = BTreeMap::new();
+    let kept: Vec<Detection> = candidates
+        .into_iter()
+        .filter(|detection| {
+            let path = &catalog.index.asset(detection.asset).path;
+            !*verdicts
+                .entry(detection.asset)
+                .or_insert_with(|| shared.with(catalog, path))
         })
         .collect();
     Ok(plays::merge_same_audio(plays::group(&kept))
@@ -174,13 +182,16 @@ fn under_entry(
 }
 
 /// Whether a play found under another is one track with a confident play
-/// of the recording by the tracklist's rule (ADR 0017): another upload of
-/// a track the tracklist names there already, lining up with it or tagged
-/// alike.
+/// of the recording overlapping it or within `MAX_GAP_SECONDS` of it, by
+/// the tests of the tracklist's entry rule (ADR 0017): the two line up, or
+/// their files are tagged alike. Another upload of a track the tracklist
+/// names there already, over the same passage or going on alone after it.
 fn named_as_one_track(found: &FoundPlay, plays: &[FoundPlay]) -> bool {
     plays.iter().any(|play| {
         play.confidence == Level::Confident
-            && (found.same_recording(play) || found.same_tagged_track(play))
+            && play.start_seconds - MAX_GAP_SECONDS <= found.end_seconds
+            && found.start_seconds <= play.end_seconds + MAX_GAP_SECONDS
+            && (found.lines_up_with(play) || found.tagged_alike(play))
     })
 }
 
@@ -267,8 +278,8 @@ impl Dropped {
 /// file alone give a detection at the possible tier or above, which ADR
 /// 0006 reads as "this recording, or one sharing material with it". Other
 /// rips of the track and related versions with a passage in common are
-/// held back this way (the user's "related versions not printed at
-/// first"), and so may tracks built on the same sampled break.
+/// held back this way, as the user decided that related versions are not
+/// printed at first, and so may tracks built on the same sampled break.
 struct SharedMaterial<'a> {
     taken_out: Index,
     ladder: &'a [Rung],
@@ -498,6 +509,24 @@ mod tests {
         });
         // Tagged alike over the same passage, however it lines up.
         assert!(named_as_one_track(&upload(25.0, "Artist"), &tagged));
+        // Under a.wav before b.wav comes in, lining up with b.wav's play:
+        // the track goes on alone, and the tracklist names it there.
+        let earlier = FoundPlay {
+            start_seconds: 10.0,
+            end_seconds: 30.0,
+            track_start_seconds: 5.0 - 28.0 * 0.95,
+            ..upload(0.0, "Other")
+        };
+        assert!(named_as_one_track(&earlier, &report.plays));
+        // The same 100 s before b.wav's play: too far to be that play.
+        let far = FoundPlay {
+            start_seconds: earlier.start_seconds - 100.0,
+            end_seconds: earlier.end_seconds - 100.0,
+            track_start_seconds: earlier.track_start_seconds - 100.0 * 0.95,
+            ..earlier.clone()
+        };
+        assert!(far.lines_up_with(&report.plays[1]));
+        assert!(!named_as_one_track(&far, &report.plays));
     }
 
     #[test]
@@ -612,23 +641,22 @@ mod tests {
     }
 
     #[test]
-    fn csv_gets_a_column_for_the_play_under_which_a_play_was_found_only_when_searched() {
+    fn csv_gets_columns_for_play_numbers_only_when_searched_under() {
         let csv = rendered(&with_plays_under(), ReportFormat::Csv);
         let lines: Vec<&str> = csv.lines().collect();
-        assert!(lines[0].ends_with(",shares_material_with_play,under_play"));
+        assert!(lines[0].ends_with(",shares_material_with_play,play,under_play"));
         assert_eq!(lines.len(), 7);
-        assert!(
-            lines[1].contains(",a.wav,") && lines[1].ends_with(","),
-            "{csv}"
-        );
-        assert!(
-            lines[2].contains(",x.wav,") && lines[2].ends_with(",1"),
-            "{csv}"
-        );
-        assert!(
-            lines[6].contains(",y.wav,") && lines[6].ends_with(",4"),
-            "{csv}"
-        );
+        let row = |line: usize, asset: &str, end: &str| {
+            assert!(
+                lines[line].contains(&format!(",{asset},")) && lines[line].ends_with(end),
+                "{csv}"
+            );
+        };
+        row(1, "a.wav", ",1,");
+        row(2, "x.wav", ",,1");
+        row(3, "b.wav", ",2,");
+        row(5, "c.wav", ",4,");
+        row(6, "y.wav", ",,4");
 
         let mut searched = report();
         searched.under = Some(Vec::new());
@@ -642,11 +670,9 @@ mod tests {
         );
         let empty = rendered(&searched, ReportFormat::Csv);
         assert_eq!(empty.lines().count(), plain.lines().count());
-        assert!(
-            empty
-                .lines()
-                .all(|line| line.ends_with(',') || line.ends_with("under_play"))
-        );
+        for (number, line) in empty.lines().skip(1).enumerate() {
+            assert!(line.ends_with(&format!(",{},", number + 1)), "{empty}");
+        }
     }
 
     #[test]
@@ -689,22 +715,26 @@ mod tests {
     }
 
     #[test]
-    fn a_play_found_under_a_play_the_report_does_not_hold_is_rejected() {
-        let mut report = with_plays_under();
-        if let Some(under) = report.under.as_mut() {
+    fn a_report_whose_plays_found_under_others_do_not_fit_its_plays_is_rejected() {
+        let mut beyond = with_plays_under();
+        if let Some(under) = beyond.under.as_mut() {
             under[0].under = Some(SharedWith {
                 play: 9,
                 asset: String::from("a.wav"),
             });
         }
-        let json = rendered(&report, ReportFormat::Json);
-        let dir = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-            .join("../../work/tests/under-invalid");
-        std::fs::create_dir_all(&dir).unwrap();
-        let saved = dir.join("mix.json");
-        std::fs::write(&saved, &json).unwrap();
-        let read = Report::read(&saved);
-        std::fs::remove_dir_all(&dir).unwrap();
-        assert!(read.is_err());
+        let mut unmarked = with_plays_under();
+        if let Some(under) = unmarked.under.as_mut() {
+            under[0].under = None;
+        }
+        let mut marked_play = report();
+        marked_play.plays[1].under = Some(SharedWith {
+            play: 1,
+            asset: String::from("a.wav"),
+        });
+        assert!(with_plays_under().validate().is_ok());
+        for report in [beyond, unmarked, marked_play] {
+            assert!(report.validate().is_err());
+        }
     }
 }
