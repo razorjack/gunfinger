@@ -8,7 +8,10 @@ subject to its cost, and that the cost is measured before that is
 decided (session 73). Until then nothing changes without the option:
 the search, the confidence rule (ADR 0006, ADR 0013), plays, the entries
 (ADR 0017, ADR 0019), the gaps (ADR 0023, ADR 0024), every output and
-both regressions are byte-identical.
+both regressions are byte-identical. Session 73 measured the cost and
+the effect (experiments 0273-0275; "Open points, measured in session
+73" below). The status stays Proposed: whether the step is on by default
+is our decision.
 
 ## Context
 
@@ -119,8 +122,7 @@ the louder track as the reference.
   span and a peaks search per file found there. Session 72's first look
   (experiment 0272): 1.0-3.0 s per confident entry, 5-6.5 times
   `identify`'s time at 262 tracks and 2.4-2.8 times at NAS scale on the
-  Linux machine (32 workers). Session 73 measures the cost that decides
-  the default.
+  Linux machine (32 workers). Session 73's measure is below.
 - A related version of the louder track, or a track built on the same
   sampled break, is held back by the shared-material rule even when it
   was played; a related version of the quieter track can still be
@@ -136,6 +138,49 @@ the louder track as the reference.
   under the louder track appears twice in the table: the possible row
   marked `shares material with`, and the row marked `under`.
 - Not measured: real mixes' double drops (no truth beyond listening),
-  broadcast processing, pitch rides under the louder track, and the
-  step's effect on the development mixes' tracklists beyond session 72's
-  first look.
+  broadcast processing and pitch rides under the louder track.
+
+## Open points, measured in session 73
+
+Session 73 measured the option as shipped against the default on the
+same inputs, under criteria registered before the runs
+(`docs/brief-73.md`: J1 precision, J2 benefit, J3 cost at most twice the
+default's time at NAS scale, J4 reliability).
+
+1. **Precision (J1 met).** No new wrong line and no wrong confident find:
+   the three development mixes at both scales and Stakka's 14 leave-out
+   patterns at both scales gain no tracklist entry (one possible find
+   on the razorjack mix at NAS scale, the next track 75 s before its own
+   entry, stays out of the tracklist); 36 generated mixes at NAS scale
+   gain 38 entries, all right, and none of 56 confident finds is wrong
+   (0273, 0274). No entry is lost and no gap line changes anywhere.
+2. **Benefit (J2 met).** On 32 generated double-drop mixes the tracklist
+   names 18 of 32 quiet partners (default 2), 18 of 32 brief ones
+   (default 6) and 29 of 32 unrelated partners inside the louder record
+   (default 20); a gained entry starts a median 1.6 s after the
+   partner (0274). Related versions (pair drops) are held back, as
+   decided.
+3. **Cost (J3 not met).** At NAS scale `identify` takes 2.8-2.9 times
+   as long (the step adds 29-40 s to a mix of 46-67 min, about 35 s per
+   hour of mix, 2.4-2.9 s per confident entry) and 0.1-0.2 GB more peak
+   memory; at 262 tracks 3.2-5.1 times (12-25 s per hour of mix). The
+   mask, on one thread, takes 40-70% of the step, the residual's search
+   14-42%, the decode 12-23%. No budget by the louder play's length or a
+   cap per mix halves the step's time while keeping 90% of the gained
+   entries (0275).
+4. **Reliability (J4 met).** Every run ended with status 0; no reference
+   failed to decode.
+5. **The printing.** One gained entry repeated a track the default
+   prints over the same passage (another upload, 6.7 s apart in line and
+   tagged differently, so ADR 0017 keeps it apart). The fourth drop
+   rule's start test, without the overlap condition, dropped one right
+   partner whose line happened to start within 0.5 s of another track's
+   confident play 36 s earlier. Both are open for us; neither printed a
+   wrong title.
+6. **For our decision.** By the registered criteria the step would stay
+   off by default until it is faster (J3), the cost being the mask's
+   single thread above all. Turning it on as it is would cost about 35 s
+   per hour of mix at NAS scale on the Linux machine for the gains in 2;
+   speed comes last in the product's order, so that is a choice we can
+   make with these numbers.
+

@@ -264,3 +264,62 @@ In this order: the NAS-scale leave-outs, then the long mixes, then seed
   pair of the shared-material panel has both files indexed. The next
   unused seed, 2053 (named nowhere), takes its place; nothing else
   changes.
+- **(05:54-05:58) Seed 2053's render run again.** A waiting script
+  (`gen2.sh`, tmux `s73gen2`) tested for the session `s73gen`, which
+  tmux matched as a prefix of its own name, and started beside a second
+  start of the same render; both were stopped, the half-written
+  `drops-seed-2053` renders and sweep panel deleted, and the render run
+  once alone (tmux `s73gen4`, 1:12). Renders: `work/s73/gen/mixes/`
+  (drops 2050 and 2053, 16 mixes each; long 2052, 4 mixes of about 83
+  min).
+- **(05:58) Exclusion lists.** G: `tracklist_score.py exclude` with each
+  seed's sweep panel and the NAS clusters (136, 128 and 130 NAS files for
+  2050, 2053, 2052); the held-out files' NAS copies in the library map
+  were checked and are all in those lists already
+  (`work/s73/exclude_copies.py`). L: `under_score.py exclude` for each
+  of the 14 patterns, corpus clusters at 262 tracks, NAS clusters and the
+  library map at NAS scale (`work/s73/leave/`).
+- **(05:59) The queue** (`work/s73/queue.sh`, tmux `s73queue`):
+  `cost.sh` (A B B A on D, both scales), then `effect.sh` (the timing
+  variant on D; G default with the product and `--under` with the
+  timing variant; L at 262 tracks, default with the product and
+  `--under` with the variant), one run at a time. The option's runs on
+  G and L use the timing variant instead of a second run of the product,
+  to save about 40 minutes; this holds only if the variant's JSON equals
+  the product's on D at both scales (checked when D is done; otherwise
+  G's and L's option runs are made again with the product). The NAS
+  leave-outs (`leave-nas.sh`) run after the queue if time allows.
+- **(06:13) The timing variant's JSON equals the product's** on all six
+  D runs (`cmp`), so G's and L's option runs with the variant stand for
+  the product's, as planned at 05:59.
+- **(06:25) A partner lost by the fourth drop rule** (seed 2050,
+  mix-14): Chris SU & SKC - Black Out, quiet under Aphrodite - Cool Rock
+  Stuff, was found confidently (333 hits, three files) and dropped as
+  "one track with a confident play" because its line puts the file's
+  start at 325.3 s in the mix and the confident Tee Bee - Two Faced play,
+  ending 36 s before the find, starts at 325.8 s: the start test alone
+  (5 s, without the overlap condition the review removed in session 72)
+  matched two different tracks by chance. A miss, not a wrong line;
+  recorded for ADR 0025's open points, not changed (measurement only).
+- **(06:25) Repeated entry** (seed 2050, mix-10): a YouTube upload of
+  Jo-S - Afterburner was found confidently under Aphrodite - Wikki Wikki
+  Plate while the default prints the rip of the same track over the same
+  passage; the two lines are 6.7 s apart in start and tagged differently,
+  so ADR 0017's rule keeps them apart and the tracklist lists the track
+  twice, a second apart. Counted as right and as a repeated entry.
+- **(06:27) The NAS leave-outs run** (`work/s73/after.sh`, tmux
+  `s73after`, after the queue): with `--exclude-from` the NAS index is
+  built in about 18 s, not a minute, so the 14 patterns take about 15
+  minutes and fit the time box.
+- **(06:09-06:53) The runs** (logs `work/s73/logs/`, every exit status 0
+  apart from seed 2051's render): A B B A on D (06:00-06:09); the
+  variant on D (06:09-06:13); G (06:13-06:36); L at 262 tracks
+  (06:36-06:42) and at NAS scale (06:42-06:53). Nothing was scaled down.
+  Results in experiments 0273 (D, L), 0274 (G) and 0275 (cost, budget).
+- **(06:50) Verdict against the criteria**: J1 met (no wrong line, no
+  wrong confident find), J2 met (37 partners printed that the default
+  leaves out), J3 not met (2.8-2.9 times at NAS scale; no budget
+  reaches it while keeping 90% of the gains), J4 met. By the
+  registered rule the proposal is that the step stays off by default
+  until it is faster; ADR 0025's open points give the numbers for our
+  decision. No budget variant was built.

@@ -355,6 +355,26 @@ calls the core's code (its session 70 report is reproduced exactly). The
 default and the cost are session 73's to measure; the printing is to be
 judged in use.
 
+**Measured, the cost and the effect (session 73, experiments
+0273-0275).** The option as shipped against the default on the same
+inputs, under criteria registered before the runs. The three development
+mixes at both scales and Stakka's 14 leave-out patterns gain no
+tracklist entry and nothing wrong (one possible find, the next track
+under a blend, stays in the table). On 32 fresh generated double-drop
+mixes at NAS scale the tracklist gains 38 entries, all right: quiet
+partners printed 18 of 32 (default 2), brief 18 of 32 (6), unrelated
+partners inside the louder record 29 of 32 (20); none of 56 confident
+finds is wrong, no entry is lost and no gap line changes. The cost: at
+NAS scale `identify` takes 2.8-2.9 times as long (about 35 s more per
+hour of mix on the Linux machine, 0.2 GB more memory), the mask on one
+thread being 40-70% of the step; no budget by play length or a cap per
+mix keeps 90% of the gains for half the time. Two printing details are
+open: another upload of a track printed over the same passage can be
+listed again, and the rule for another upload of a named track, by its
+start test alone, dropped one right partner by a chance alignment. The
+default is ours to decide (ADR 0025, "Open points, measured in session
+73").
+
 ## 5. Measure evidence outside the dominant drum texture
 
 **Evidence.** Related versions gain alongside true plays under tolerant

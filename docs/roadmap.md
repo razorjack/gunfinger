@@ -301,8 +301,15 @@ cases. None is an adopted decision or an experiment result.
   Session 72 built it behind `identify --under` (ADR 0025, proposed),
   off by default after the user's answers of 2026-11-02: a confident
   find under a confident track gets its own tracklist entry marked
-  "(under N.)"; possible finds stay in the table, CSV and JSON. Whether
-  it is on by default waits for session 73's measure of its cost.
+  "(under N.)"; possible finds stay in the table, CSV and JSON.
+  Session 73 (experiments 0273-0275) measured it against the default: no
+  tracklist change and nothing wrong on the development mixes and
+  Stakka's leave-outs; 38 right entries gained on 32 generated
+  double-drop mixes (quiet partners 2 to 18 of 32, brief 6 to 18), none
+  wrong; at NAS scale 2.8-2.9 times `identify`'s time (about 35 s per
+  hour of mix), most of it the mask on one thread. The default is ours
+  to decide (ADR 0025); a faster mask is the next step if the cost
+  decides it.
 - **Report edits.** *(out of scope for the product, ADR 0017, 2026-10-13;
   kept as the history of the listening tools, which stay development
   tools for evaluation ground truth)* Confirming, rejecting or renaming

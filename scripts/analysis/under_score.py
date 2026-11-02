@@ -10,6 +10,10 @@ docs/brief-73.md.
     python3 -I scripts/analysis/under_score.py manifest REPORT.json MANIFEST CLUSTERS [--nas] [--left-out SLOTS]
     # the timing variant's lines (work/bin/s73-timing): per entry and per detection
     python3 -I scripts/analysis/under_score.py fates STDERR... [--manifest MANIFEST CLUSTERS [--nas]]
+    # A B B A timings: LOGS/cost-NAME-{a1,b1,b2,a2}.err and REPORTS/NAME-*.json
+    python3 -I scripts/analysis/under_score.py cost LOGS REPORTS NAME...
+    # budget variants from the timing variant's entries and the gained entries
+    python3 -I scripts/analysis/under_score.py budget FATES.json GAINED.json REPORTS [--manifest]
 
 SLOTS is as `scan --leave-out-slots` takes it (`2-4,6`). CLUSTERS is a
 duplicate clusters file; at NAS scale (`--nas`, or a LIBRARY_MAP given)
@@ -223,13 +227,17 @@ def fates(*arguments):
             kind = fields[0]
             if kind == "s73-recording":
                 recordings.append({"recording": Path(fields[1]).name, "entries": [],
-                                   "detections": [], "shared": [], "one_track": [], "totals": []})
+                                   "detections": [], "shared": [], "one_track": []})
             elif kind == "s73-entry":
                 recordings[-1]["entries"].append(dict(zip(
                     ["taken_out", "start", "span", "segments", "decode", "mask", "search",
                      "shared", "kept"], [fields[1]] + [float(x) for x in fields[2:]])))
             elif kind == "s73-entry-total":
-                recordings[-1]["totals"].append(float(fields[2]))
+                entries = recordings[-1]["entries"]
+                if not entries or entries[-1]["taken_out"] != fields[1] or "total" in entries[-1]:
+                    # The entry stopped before its own line (a decode that failed).
+                    entries.append({"taken_out": fields[1], "failed": True})
+                entries[-1]["total"] = float(fields[2])
             elif kind == "s73-detection":
                 detection = dict(zip(["taken_out", "asset", "start", "end", "level", "hits",
                                       "fate"], fields[1:]))
@@ -241,7 +249,8 @@ def fates(*arguments):
             elif kind == "s73-shared":
                 recordings[-1]["shared"].append((fields[1], fields[2]))
             elif kind == "s73-one-track":
-                recordings[-1]["one_track"].append(fields[2])
+                recordings[-1]["one_track"].append(dict(zip(
+                    ["taken_out", "asset", "start", "end", "hits"], fields[1:])))
     for recording in recordings:
         shared = set(recording["shared"])
         for detection in recording["detections"]:
@@ -250,6 +259,143 @@ def fates(*arguments):
     print(json.dumps(recordings, ensure_ascii=False))
 
 
+def budget(fates_path, gained_path, reports, *flags):
+    """Budget variants computed from the timing variant's entries (`fates`
+    output) and the gained entries: the step only for entries whose
+    taken-out play spans at least L seconds, or for the K longest entries
+    of each mix. GAINED is `tracklist_score.py score` output (rows with
+    `under_entries`) or, with `--manifest`, a JSON list of `manifest`
+    outputs; REPORTS holds `<recording stem>.json`, the option's reports,
+    to number the plays taken out."""
+    with open(fates_path) as file:
+        recordings = json.load(file)
+    with open(gained_path) as file:
+        gained_file = json.load(file)
+    gained = {}
+    if "--manifest" in flags:
+        for result in gained_file:
+            stem = Path(result["report"]).stem
+            gained[stem] = [(row["under_play"], row["right"]) for row in result["under"]
+                            if row["confidence"] == "confident"]
+    else:
+        for row in gained_file["rows"]:
+            gained[row["mix"]] = [(entry["under_play"], entry["right"])
+                                  for entry in row["under_entries"]]
+    variants = [("all", None, None)] + [(f"span >= {length} s", length, None)
+                                        for length in (60, 120, 180)] + [
+        (f"{count} longest", None, count) for count in (8, 16)]
+    totals = {name: {"seconds": 0.0, "right": 0, "wrong": 0, "entries": 0}
+              for name, _, _ in variants}
+    for recording in recordings:
+        stem = Path(recording["recording"]).stem
+        with open(Path(reports) / f"{stem}.json") as file:
+            plays = json.load(file)["plays"]
+        number = {(play["asset"], round(play["start_seconds"], 3)): index + 1
+                  for index, play in enumerate(plays)}
+        entries = recording["entries"]
+        for entry in entries:
+            entry["number"] = number.get((entry["taken_out"], round(entry.get("start", -1), 3)))
+        longest = sorted(entries, key=lambda entry: -entry.get("span", 0.0))
+        for name, length, count in variants:
+            if length is not None:
+                kept = [entry for entry in entries if entry.get("span", 0.0) >= length]
+            elif count is not None:
+                kept = longest[:count]
+            else:
+                kept = entries
+            numbers = {entry["number"] for entry in kept}
+            totals[name]["seconds"] += sum(entry["total"] for entry in kept)
+            totals[name]["entries"] += len(kept)
+            for play, right in gained.get(stem, []):
+                if play in numbers:
+                    totals[name]["right" if right else "wrong"] += 1
+    print("| Variant | Entries searched under | Step time (s) | Gained entries right | Wrong |")
+    print("|---|--:|--:|--:|--:|")
+    for name, _, _ in variants:
+        row = totals[name]
+        print(f"| {name} | {row['entries']} | {row['seconds']:.1f} | {row['right']} | {row['wrong']} |")
+
+
+TIME_FIELDS = {
+    "wall": "Elapsed (wall clock) time (h:mm:ss or m:ss)",
+    "user": "User time (seconds)",
+    "system": "System time (seconds)",
+    "rss_kb": "Maximum resident set size (kbytes)",
+}
+UNDER_LINE = re.compile(r"searched under (\d+) confident tracks in ([\d.]+) s")
+
+
+def clock(text):
+    total = 0.0
+    for part in text.split(":"):
+        total = 60 * total + float(part)
+    return total
+
+
+def timed(stderr):
+    """`/usr/bin/time -v`'s figures and the step's own line (`--verbose`)."""
+    with open(stderr) as file:
+        lines = file.read().splitlines()
+    found = {}
+    for line in lines:
+        for key, label in TIME_FIELDS.items():
+            if line.strip().startswith(label + ":"):
+                value = line.split(": ")[-1].strip()
+                found[key] = clock(value) if key == "wall" else float(value)
+        match = UNDER_LINE.search(line)
+        if match:
+            found["under_entries"] = int(match.group(1))
+            found["under_seconds"] = float(match.group(2))
+    return found
+
+
+def without_under(report):
+    report = json.loads(json.dumps(report))
+    report.pop("under", None)
+    report.get("search", {}).pop("under", None)
+    return report
+
+
+def cost(logs, reports, *names):
+    """Each NAME's runs `<logs>/cost-NAME-{a1,b1,b2,a2}.err` (time -v) and
+    `<reports>/NAME-{a1,b1,b2,a2}.json`: the means of the default's (a) and
+    the option's (b) runs, the added time per confident entry searched
+    under, per confident play and per hour of mix; whether the two runs of
+    each kind gave the same JSON and the two kinds the same plays."""
+    rows = []
+    for name in names:
+        runs = {run: timed(f"{logs}/cost-{name}-{run}.err") for run in ("a1", "b1", "b2", "a2")}
+        loaded = {}
+        for run in runs:
+            with open(f"{reports}/{name}-{run}.json") as file:
+                loaded[run] = json.load(file)
+        mean = lambda kind, key: sum(runs[kind + n][key] for n in "12") / 2  # noqa: E731
+        a, b = mean("a", "wall"), mean("b", "wall")
+        cpu_a = mean("a", "user") + mean("a", "system")
+        cpu_b = mean("b", "user") + mean("b", "system")
+        report = loaded["b1"]
+        confident = sum(play["confidence"] == "confident" for play in report["plays"])
+        entries = runs["b1"].get("under_entries")
+        hours = report["query"]["duration_seconds"] / 3600
+        rows.append({
+            "name": name, "wall_a": round(a, 2), "wall_b": round(b, 2),
+            "added": round(b - a, 2), "ratio": round(b / a, 2),
+            "cpu_a": round(cpu_a, 1), "cpu_b": round(cpu_b, 1),
+            "rss_a_mb": round(max(runs[r]["rss_kb"] for r in ("a1", "a2")) / 1024),
+            "rss_b_mb": round(max(runs[r]["rss_kb"] for r in ("b1", "b2")) / 1024),
+            "step_seconds": [runs[r].get("under_seconds") for r in ("b1", "b2")],
+            "entries": entries, "confident_plays": confident,
+            "added_per_entry": round((b - a) / entries, 2) if entries else None,
+            "added_per_play": round((b - a) / confident, 2) if confident else None,
+            "added_per_hour": round((b - a) / hours, 1),
+            "same_a": loaded["a1"] == loaded["a2"], "same_b": loaded["b1"] == loaded["b2"],
+            "same_plays": without_under(loaded["b1"]) == loaded["a1"],
+            "found_under": len(report.get("under") or []),
+        })
+    print(json.dumps(rows, ensure_ascii=False, indent=1))
+
+
 if __name__ == "__main__":
     command, *rest = sys.argv[1:]
-    {"exclude": exclude, "diff": diff, "manifest": manifest_score, "fates": fates}[command](*rest)
+    {"exclude": exclude, "diff": diff, "manifest": manifest_score, "fates": fates,
+     "cost": cost, "budget": budget}[command](*rest)

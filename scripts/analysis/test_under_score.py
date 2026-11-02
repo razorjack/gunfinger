@@ -102,5 +102,51 @@ class Diff(Files):
                          ([], ["1:00  Q - q"], False))
 
 
+class Cost(Files):
+    def test_time_and_the_steps_line_are_read(self):
+        stderr = os.path.join(self.dir, "run.err")
+        write(stderr, "searched 56:09 of audio in 6.0 s (decoding 2.9 s)\n"
+                      "searched under 11 confident tracks in 23.5 s\n"
+                      "\tUser time (seconds): 40.50\n"
+                      "\tSystem time (seconds): 2.25\n"
+                      "\tElapsed (wall clock) time (h:mm:ss or m:ss): 1:02.50\n"
+                      "\tMaximum resident set size (kbytes): 536000\n")
+        self.assertEqual(under_score.timed(stderr), {
+            "under_entries": 11, "under_seconds": 23.5, "user": 40.5, "system": 2.25,
+            "wall": 62.5, "rss_kb": 536000.0})
+
+    def test_a_report_without_the_step_is_the_report_less_its_finds(self):
+        report = {"plays": [1], "search": {"ladder": "x", "under": "mask"}, "under": []}
+        self.assertEqual(under_score.without_under(report),
+                         {"plays": [1], "search": {"ladder": "x"}})
+        self.assertIn("under", report)
+
+
+class Budget(Files):
+    def test_finds_of_entries_left_out_are_lost_and_their_time_saved(self):
+        stderr = os.path.join(self.dir, "variant.err")
+        write(stderr, "s73-recording\t/mixes/mix-00.mp3\n"
+                      "s73-entry\tlong.mp3\t0.000\t200.000\t1\t1\t1\t1\t0\t1\n"
+                      "s73-entry-total\tlong.mp3\t3.000\n"
+                      "s73-entry\tshort.mp3\t300.000\t50.000\t1\t1\t1\t1\t0\t1\n"
+                      "s73-entry-total\tshort.mp3\t1.000\n")
+        fates = os.path.join(self.dir, "fates.json")
+        write(fates, self.printed(under_score.fates, stderr))
+        reports = os.path.join(self.dir, "reports")
+        os.mkdir(reports)
+        write(os.path.join(reports, "mix-00.json"), json.dumps({"plays": [
+            {"asset": "long.mp3", "start_seconds": 0.0},
+            {"asset": "short.mp3", "start_seconds": 300.0}]}))
+        gained = os.path.join(self.dir, "gained.json")
+        write(gained, json.dumps({"rows": [{"mix": "mix-00", "under_entries": [
+            {"under_play": 1, "right": True}, {"under_play": 2, "right": True}]}]}))
+
+        table = self.printed(under_score.budget, fates, gained, reports)
+
+        self.assertIn("| all | 2 | 4.0 | 2 | 0 |", table)
+        self.assertIn("| span >= 60 s | 1 | 3.0 | 1 | 0 |", table)
+        self.assertIn("| 8 longest | 2 | 4.0 | 2 | 0 |", table)
+
+
 if __name__ == "__main__":
     unittest.main()

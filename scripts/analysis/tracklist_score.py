@@ -13,6 +13,9 @@ docs/brief-39.md (step 1).
     python3 -I scripts/analysis/tracklist_score.py summary OUT.json...
     # reports made with `identify --under`: the option against the default
     python3 -I scripts/analysis/tracklist_score.py under-summary OUT.json...
+    # the timing variant's dropped detections against the truth
+    python3 -I scripts/analysis/tracklist_score.py under-fates FATES.json MIXES.json \\
+        CLUSTERS.json SHARED_PANEL.json STORE [EXCLUDED.txt]
     # the harness's own detection-level scores of the same mixes
     python3 -I scripts/analysis/tracklist_score.py detections MIXES.json...
 
@@ -460,6 +463,7 @@ def score_mix(mix, report, shown, library):
         playing = [play for play in truth if play["indexed"]
                    and holds(found, play["recording"]) and overlap(found, play)]
         under_found.append({"asset": found["asset"], "confidence": found["confidence"],
+                            "under_play": found["under"]["play"],
                             "hits": found["hits"], "right": bool(playing),
                             "related": not playing and any(
                                 play["indexed"] and play["family"] == library.family_of(found["asset"])
@@ -582,6 +586,9 @@ def under_summary(*paths):
     print(f"\nentries gained {len(entries)}: right {sum(e['right'] for e in entries)}; extra "
           f"related {sum(e['extra'] == 'related' for e in entries)}, unrelated "
           f"{sum(e['extra'] == 'unrelated' for e in entries)}")
+    repeated = [play["asset"] for play in truth
+                if play["under_printed"] and play["outcome"].startswith("printed")]
+    print(f"gained entries naming a play the default prints already: {len(repeated)} {repeated}")
     errors = sorted(round(play["under_start_error"], 1) for play in truth
                     if play["under_start_error"] is not None)
     print(f"start of a gained entry minus the truth play's start (s): {errors}")
@@ -593,6 +600,46 @@ def under_summary(*paths):
               f"{sum(not p['right'] and not p['related'] for p in here)}")
     print(f"wrong confident plays of the default: {sum(len(row['wrong_confident']) for row in rows)}; "
           f"mixes {len(rows)}")
+
+
+def under_fates(fates_path, mixes_path, clusters, panel, store_copy, excluded=None):
+    """The timing variant's detections under each entry (`under_score.py
+    fates` output), by fate and level, and whether a truth play of the
+    detection's recording overlapped it: which rule dropped partners that
+    were playing."""
+    library = Library(clusters, panel, store_copy, excluded)
+    mixes = {result["mix"]["name"]: result["mix"] for result in json.load(open(mixes_path))["mixes"]}
+    counts = {}
+    dropped_playing = []
+    for recording in json.load(open(fates_path)):
+        mix = mixes[os.path.splitext(recording["recording"])[0]]
+        for play in mix["plays"]:
+            play["recording"] = library.recording(play["asset"])
+        detections = list(recording["detections"]) + [
+            dict(found, fate="one-track", level="(grouped)") for found in recording["one_track"]]
+        for detection in detections:
+            span = {"start_seconds": float(detection["start"]), "end_seconds": float(detection["end"])}
+            key = library.key(detection["asset"])
+            playing = [play for play in mix["plays"]
+                       if key in play["recording"] and overlap(span, play)]
+            name = (detection["fate"], detection["level"], bool(playing))
+            counts[name] = counts.get(name, 0) + 1
+            if playing and detection["fate"] in ("shared-material", "one-track"):
+                dropped_playing.append((mix["name"], detection["fate"], detection["level"],
+                                        detection["hits"], detection["asset"],
+                                        [(p.get("scenario"), p.get("side")) for p in playing]))
+    print("| Fate | Level | Playing then | Detections |")
+    print("|---|---|---|--:|")
+    for (fate, level, playing), count in sorted(counts.items()):
+        print(f"| {fate} | {level} | {'yes' if playing else 'no'} | {count} |")
+    tally = {}
+    for _, fate, level, _, _, scenarios in dropped_playing:
+        for scenario, side in scenarios:
+            key = (fate, level, f"{scenario} {side}")
+            tally[key] = tally.get(key, 0) + 1
+    print("\nplaying, dropped as sharing material or as one track, by scenario:")
+    for key, count in sorted(tally.items()):
+        print(f"  {key}: {count}")
 
 
 def detections(*paths):
@@ -627,4 +674,5 @@ def detections(*paths):
 if __name__ == "__main__":
     command, *arguments = sys.argv[1:]
     {"store": store, "exclude": exclude, "score": score, "summary": summary,
-     "under-summary": under_summary, "detections": detections}[command](*arguments)
+     "under-summary": under_summary, "under-fates": under_fates,
+     "detections": detections}[command](*arguments)
