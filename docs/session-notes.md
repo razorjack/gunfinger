@@ -14845,3 +14845,143 @@ holders for three of these four queries.
   (brief 74, 08:17).
 - `docs/pair-verdicts.txt` and the answer log unchanged; no question
   was asked or answered.
+
+## Session 75
+
+### What changed
+
+The product did not change: no code changed, and the `gunfinger` and
+`gunfinger-eval` binaries are byte-identical to `s74-final`'s. With the
+user's approval of 2026-10-31, the NAS store lost the 8 peak records, 99
+skip notes and 8 tag notes (107 files) that the three ignore entries of
+2026-10-31 leave out: `/sety/` (every file there is a DJ set), the folder
+of the Virus on Kiss FM show of 3 May 2000 and the folder of the Lowdown
+Vol 6 track fix. The 8 records were both Lowdown Vol 6 fix tracks
+(Plastic, Outa Orbit), part 1 of the Kiss FM show and five sets in
+`sety/`; the other files were too long for a record and had skip notes
+only, among them experiment 0065's `sety/vertical.mp3`. Store-only runs
+and the harness's `--other-peaks-dir` no longer search them.
+
+In short: the prune changed nothing that is scored. Nine weak
+candidates of two pruned files (6-8 hits) are gone; no cluster, pair
+entry, panel or verdict named any of the 8, and the clusters file is
+byte-identical. 25 other sweep queries changed in weak candidates or in
+a confident detection's fitted speed (by at most 4e-4 percentage
+points; one detection 14 hits stronger), because lists crossed the
+set-aside cut (0242's mechanism): under the old index's lists all 720
+sweep queries equal the old baseline less the pruned files' candidates.
+The leave-out-3 Stakka scan's three Clockwork detections moved in speed
+by less than 1e-5 percentage points, by inference for the same reason.
+`session-75-linux-nas` is the NAS-scale baseline from now on.
+
+### Experiment 0278
+
+| | Before (session 64's baseline) | After |
+|---|--:|--:|
+| NAS store records, revision; skip notes | 40,674, `7210fc479da58376`; 1,926 | 40,666, `0bd3f0c23fabc698`; 1,827 |
+| Sweep 2026: indexed assets; queries with identical detections | 40,571 | 40,563; 689 of 720 |
+| Stakka scan; leave-outs 3, 11 | 11/11; 8/11; 0/11, 0 wrong | the same; 1 weak detection fewer each |
+| Calibrate: weakest identifying, strongest false, false accepted; at 30+ hits | 704, 282, 7; 95 | the same |
+| Clusters; pair entries; file | 284; 2,875; `c4d3da2e7e37...` | the same, byte for byte |
+
+- Of the pruned files: SKC - Recharger (Black Sun Empire Remix) at -1%,
+  0% and +1% each lose a candidate of the Lowdown Vol 6 fix's Plastic;
+  Ed Rush & Optical - Sicknote at -3%, -1% and +1% one of
+  `sety/Weekenders_1_-_Nocny_Trans.mp3`; each Stakka scan loses the
+  Plastic at 51:33-51:44 (6 hits).
+- Through the lists set aside (traced for the sweep): refits of
+  confident right detections in 21 queries (Abduction, The Time The
+  Place, Come Closer, The Pulse, Dominion; Dominion's dfect-dnb upload
+  at -5% gains 14 hits, 303 to 317); Decoy at +3% and Magnetics at -5%
+  and +5% lose a weak candidate, and in Konflict - RoadBlock at +1% a
+  weak one gains a hit. In the sweep's index four lists lost 3-15
+  postings of the 8 files and left the set aside, and one entered.
+- By inference, the leave-out-3 scan's Clockwork speeds: hash 1141698,
+  which holds 11-14 postings of each Clockwork file, lost 6 postings of
+  the pruned files (9,938 to 9,932) and fell below the leave-out index's
+  own cut, as it left the whole index's set aside in session 64. The
+  three detections now have the full scan's speeds.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux` (start; step 4) | 0:51; 0:52 | 0.4 GiB |
+| `regress session-64-linux-nas` (start) | 3:47 | 5.3 GiB |
+| `doctor` with the NAS configuration (before, beside the corpus regression; after) | 0:06; 0:04 | |
+| `prune`; `prune --yes` | 0:04; 0:04 | |
+| `clusters --from-peaks --reuse-pairs` | 0.2 s | |
+| `regress session-64-linux-nas` on the pruned store (the saved index built again) | 5:41 | 5.3 GiB |
+| `sweep --set-aside-like` (both indexes in memory) | 2:31 | 8.6 GiB |
+| `regress session-64-linux-nas`, final build, the saved index loaded | 3:49 | 5.3 GiB |
+
+### Decided this session, open to change
+
+- `doctor` and `prune` without `--yes` ran beside the start regressions
+  (all only read), as in sessions 52 and 64.
+- `prune` prints 20 paths per group, so the 107 files were checked by a
+  separate count of the store's records and notes under the three
+  entries (`work/s75/ignored_in_store.py`), equal to `prune`'s only
+  group (115 items).
+- The leave-out-3 scan's change is explained by inference, as session
+  64's full-scan change was: `scan` has no `--set-aside-like`, and adding
+  one was not needed to trace a speed move of less than 1e-5 percentage
+  points with hits unchanged.
+- `baseline session-75-linux-nas` copies the reports of the final
+  build's `regress session-64-linux-nas`, identical to step 3's.
+
+### Questions this leaves for us
+
+- None new from the prune. The Clockwork chain's fitted speed has now
+  flipped twice between the same two values as one list crosses a cut
+  (sessions 64 and 75); harmless (hits unchanged, both right), and
+  0242's note covers it.
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: the Planet Dust (DC Breaks Remix) cut (`unsure`);
+  session 74's four break lists.
+
+### Handoff for the next session
+
+1. Baselines: `session-54-linux` (262 tracks, unchanged) and
+   `session-75-linux-nas` (NAS scale, the pruned store); compare
+   NAS-scale runs with `session-75-linux-nas`, not
+   `session-64-linux-nas`.
+2. The NAS store: 40,666 records, revision `0bd3f0c23fabc698`; 1,827
+   skip notes; no records or notes of ignored files. The harness's saved
+   index `work/indexes/library-nas-dnb-peaks.index` is current for it;
+   the CLI's in `~/.cache/gunfinger/indexes/` is built again by the next
+   `identify` with the NAS configuration. The pre-prune index (40,674
+   records) survives as a hard link, `work/s75/indexes/pre-prune.index`,
+   for `--set-aside-like`.
+3. The NAS clusters file `work/reports/library-nas-dnb-peaks/duplicate-clusters.json`:
+   SHA-256 `c4d3da2e7e3720cbf4e79e4f7cf86d71493fc6349af639b323d814656a8b9e4f`
+   (unchanged), 284 clusters, 2,875 pair entries.
+4. Builds: `work/bin/s75-start/` and `s75-final/` (master), both equal to
+   `s74-final`.
+5. Data: `work/s75/` (listings and logs in `logs/`,
+   `ignored-in-store-before.tsv`, `where-before.tsv`, `diff-pruned.txt`,
+   `pruned-reports/`, `cut-moved-whole.txt`, the clusters file before and
+   after, the store's revisions, the sweep under the old lists in
+   `wlike/`, `like-check.txt`); scripts `run.sh`, `start.sh`,
+   `step1-list.sh`, `step2.sh`, `step3.sh`, `step23.sh`, `like.sh`,
+   `step4.sh`, `final.sh`, `ignored_in_store.py`, `where.py`, `diff.py`,
+   `same.py`, `cut_moved.py`, `list_holders.py`, `like_check.py`,
+   `data.py`.
+6. Reports outside the baseline that predate this prune may name the 8
+   files; they change when run again.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. The only mix searched was the
+  Stakka development mix, through `regress`. Nothing ran on the
+  candidate mixes of 0065 or on the NAS root's broadcast file; the
+  prune deleted `sety/vertical.mp3`'s skip note and nothing else touched
+  it. The NAS was only read; `prune --yes` ran once with the NAS
+  configuration, after the listing of exactly the 107 files;
+  `work/peaks` was only read.
+- `docs/pair-verdicts.txt` and the answer log are at their start digests
+  (`work/s75/listening-digests-start.txt`); no answer log was written; no
+  manifest, committed panel or `docs/same-titles.txt` changed.
