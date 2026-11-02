@@ -321,3 +321,54 @@ The decision is ours; nothing in the product changes in this session.
   Experiments 0276 (`32b486e`) and 0277.
 - **(08:05) The research note** `docs/research/2026-11-02-break-search.md`
   and the roadmap's "The filter and famous breaks" (a pointer).
+- **(08:17) The review** (a read-only subagent, 08:04-08:17) confirmed
+  that the product did not change, the regressions, the digests and
+  most figures (recomputed), and found:
+  (1) group D's expected files include every part of the candidate
+  whose found file matches the titles read, not only edge parts as
+  registered (13 files in 11 cases come only through other parts).
+  Not rescored; with edge-only expected files D gives 3 first and 21 in
+  the first five (24 and 48 pooled), which does not change the bar's
+  outcome (first still fails; first five 75%, still above 70%);
+  (2) "40-110 hits each" held only for the first 30 holders of the
+  famous-break listings (most have 20-39): corrected in 0276, the note
+  and the roadmap;
+  (3) "the exceptions are breaks" was unheard: marked as an inference;
+  (4) the reach is measured at the detection's fitted speed, not a rung
+  of the ladder as registered, and 238 of 737 measured files (every
+  list) have none, because the search keeps one alignment per moment;
+  stated in 0276 and the code, and failures to load a record or build
+  its index are now printed instead of passing silently;
+  (5) "another rip" was read from reach and titles (one of the 13
+  random passages' files carries another title): reworded;
+  (6) registered figures not reported (reach counts, *T* reached by no
+  expected file, the share at 60 hits, set-aside ranges): added to 0276
+  and 0277;
+  (7) the note did not say where the ranking fails: it now names group
+  D (4 of 31 first). The note's "What a command would print" sketches a
+  print-out, which the prompt asks for; the registration said no design
+  is proposed when (1) fails. The note proposes no design: it lists
+  what a command would need and asks the ear first;
+  (8)-(9) `CLAUDE.md`'s "unless brief 74" and the checklist: fixed;
+  (10)-(14) wording in 0277 and the note (set-aside shares "only
+  slightly more", the filter hides "about half" for Special Branch and
+  hits kept count only files still listed, 1.83-1.94 times with the
+  cause marked an inference, "usually" removed, "about 2 minutes");
+  (15) the N1 and N2 draws are from the stores' record lists
+  (`nas-paths.tsv`, `corpus-paths.tsv`) of files of 60-1,200 s, also
+  leaving out the folders of the Virus on Kiss FM show and the Lowdown
+  Vol 6 track fix (ignored since 2026-10-31), not from the index's
+  asset list; every drawn file was in the index;
+  (16) `detections` is nearly always 1 (one detection per moment of the
+  query), so whether a looped break lines up at several offsets was not
+  measured; documented on the field;
+  (17) house style: the passage reuses `shared_mixes::passage`, the
+  helpers are private, `SpeedRatio` imported, load problems printed;
+  `Records` stays beside `pair::Records` (different sources);
+  (18) the tie test cannot fail on order alone (kept as a statement of
+  intent); the two-mode loop of `run` has no unit test;
+  (19) `AGENTS.md`'s module map names `break_search`; the query file's
+  `expected` documented. `cases.py` and `posthoc.py` stay in
+  `work/s74/` (session scripts).
+  The code changes leave every listing and number unchanged: the final
+  build runs the NAS-scale queries again for comparison.

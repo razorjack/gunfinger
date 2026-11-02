@@ -9,15 +9,15 @@
 | Found expected files' hits, median | 72 | 50 |
 | Other files at 20 hits, median (max): C Special Branch; D `parts` edges | 124 (232); 18 (403) | 25 (58); 9 (139) |
 | Random passages: other files at 20 hits, max | 207 | 61 |
-| Passage hashes in the lists set aside, median: A; C; D; N1; N2 | (none set aside) | 16.0%; 20.7%; 17.5%; 17.5%; 15.1% |
+| Passage hashes in the lists set aside, median (range): A; C; D; N1; N2 | (none set aside) | 16.0% (12-24); 20.7% (16-22); 17.5% (10-24); 17.5% (10-29); 15.1% (6-24) |
 | Hits kept by the filter, median: expected file A; B; C; D | | 82%; 74%; 49%; 64% |
 | Hits kept by the filter, median: the query's own file | | 75-81% by group |
 | Thread seconds per query, 32 at once: median (max) | 7.96 (21.4) | 1.55 (2.83) |
 | Ten queries alone: median (max) | 5.53 (9.37) | 0.91 (1.23) |
 
 - Found only with every list: Genotype - Toxic, Heist - Sentinels Warning Revisited, Parallax - Watercolors (D). With the filter, fewer break holders compete: Krome & Time - License's expected file moves from rank 28 to 4, Kid Jay - Soundbwoy's from 17 to 44.
-- A famous break's passage does not hold more set-aside hashes than a random passage (17-21% against 15-18%), but its holders' hits lie there more often: the shared break is made of the common hashes the filter removes.
+- A famous break's passage holds only slightly more set-aside hashes than a random passage (a median 20.7% for Special Branch against 17.5% and 15.1%), but its holders' hits lie there more often: by inference, the shared break is made of the common hashes the filter removes. The hits kept count only expected files the filtered search still lists (the three found only with every list are left out), so they overstate what the filter keeps.
 - Other costs: the reach of the 20 strongest files, a median 0.03 s (at most 0.8 s); loading the saved NAS index 2.6 s; 147 queries in both modes 55 s wall and 6.2 GiB peak (one index; the filtered mode sets lists aside in place). The ten queries alone: 1:15 wall, 4.5 GiB. At 262 tracks: medians 0.063 s (all) and 0.021 s (filtered) per query, 85 queries in 1.2 s.
-- Every list costs a median 5.1 times the filtered search's thread seconds. Thread seconds measured with 32 queries at once are 1.8-1.9 times those of a query alone (memory bandwidth shared on the Linux machine, a Ryzen 9 5950X with DDR4-3600); the listings are identical either way.
+- Every list costs a median 5.1 times the filtered search's thread seconds. Thread seconds measured with 32 queries at once are a median 1.83 (filtered) and 1.94 (every list) times those of a query alone, 1.78-2.01 per query (by inference, memory bandwidth shared on the Linux machine, a Ryzen 9 5950X with DDR4-3600); the listings are identical either way.
 **By the registered bar**, (3) holds in both modes: a median 8 thread seconds at most (bar 60).
-**What it shows.** For a passage query the filter is a loss: it hides more than half of a famous break's evidence and most of its holders, and saves seconds that a single query can afford. A command would search every list; spread over 32 threads a query would take well under a second after loading the index (an inference: each query here ran on one thread).
+**What it shows.** For a passage query the filter is a loss: it hides about half of Special Branch's evidence (a third for the `parts` edges) and most of a famous break's holders, and saves seconds that a single query can afford. A command would search every list; spread over 32 threads a query would take well under a second after loading the index (an inference: each query here ran on one thread).

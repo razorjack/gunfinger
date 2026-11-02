@@ -897,7 +897,7 @@ cases. None is an adopted decision or an experiment result.
   `docs/research/2026-11-02-break-search.md`)* A famous break is held by
   hundreds of files: a 20 s passage of one (`gunfinger-eval
   break-search`) lines up with up to 403 of the NAS library's 40,696
-  files at 20 hits or more, each with 40-110 hits. Its holders lose more
+  files at 20 hits or more, the first 30 with 40-110 hits. Its holders lose more
   of their hits to the filter than the query's own file does (a median
   49-64% kept against 75-81%), and Special Branch's spans list a median
   124 other files with every list against 25 with the filter. For

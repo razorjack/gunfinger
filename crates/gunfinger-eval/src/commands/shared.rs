@@ -45,8 +45,9 @@ pub struct HoldersArgs {
 #[derive(clap::Args)]
 pub struct BreakSearchArgs {
     /// JSON: a list of `name`, `file` (a corpus library path, or
-    /// `second-library/<path>` with --other-peaks-dir), `start_seconds`
-    /// and `end_seconds`.
+    /// `second-library/<path>` with --other-peaks-dir), `start_seconds`,
+    /// `end_seconds` and optionally `expected` (files the report lists
+    /// when the index does not hold them).
     pub queries: PathBuf,
     /// The report.
     #[arg(long)]

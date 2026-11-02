@@ -7,8 +7,8 @@ the cost). The product did not change.
 ## The question
 
 Listening to session 58's `parts` candidates, the user heard that where
-several different titles line up with a file's edges, they usually share
-a classic jungle break (Amen, Think, Hot Pants), sometimes as differently
+several different titles line up with a file's edges (other than a
+remix of the same track), they share a classic jungle break (Amen, Think, Hot Pants), sometimes as differently
 sampled variants; Special Branch (UFO, UFOLP001) is built on such
 variants. The user asked whether Gunfinger could answer "I like this
 break and have heard it before: which tracks use it?". That is a
@@ -32,15 +32,15 @@ NAS scale (40,696 files):
   one `parts` edge.
 - The expected file ranks first for 25 of 64 positives and in the first
   five for 51. What ranks above it is mostly not chance: other rips of
-  the query's recording (the NAS clusters hold only the corpus
+  the query's recording (by title; the NAS clusters hold only the corpus
   recordings' rips), other versions of its tune, and other holders of
   the same break. Setting apart the files whose alignment goes on for
   60 s or more of the query (rips and versions, by audio), 39 rank first
   and 53 in the first five (exploratory).
 - A random passage lists no other file at 20 hits in the median case;
   apart from rips, the strongest other file has 29 hits at the 90th
-  percentile. The exceptions are themselves breaks: a random passage of
-  John B - Double-J lists 207 files.
+  percentile. The exceptions are probably breaks themselves (unheard): a
+  random passage of John B - Double-J lists 207 files.
 
 ## How famous breaks behave
 
@@ -48,18 +48,20 @@ A famous break's passage lines up with hundreds of files at similar
 strength: 403 files (1.0% of the index) for a passage of Knowledge &
 Wisdom - Kill A Sound, 390 for Bigger Star - Raid, 348 for J Majik -
 Your Sound (Remix), 347 for Krome & Time - License, 232 for Special
-Branch at 305-325 s. Each holder has 40-110 hits, at relative speeds
-spread over the ladder (a break sampled at another pitch, or a record
+Branch at 305-325 s. The first 30 holders of each have 40-110 hits
+(most of the rest 20-39), at relative speeds spread over the ladder (a break sampled at another pitch, or a record
 at another tempo). In such a list the file `parts` named is one holder
 among many (License's at rank 28). Hits cannot rank these holders by
 whether a listener would hear the same break; only the ear can.
 
 The lists the first pass sets aside matter for these passages. Only
-15-21% of a passage's distinct hashes lie in them, for famous breaks and
-random passages alike, but they carry more of a break holder's hits:
+15-21% of a passage's distinct hashes lie in them (a median 20.7% for
+Special Branch, 17.5% for random passages), but they carry more of a
+break holder's hits:
 with the filter, the expected file keeps a median 49% of its hits for
 Special Branch and 64% for the `parts` edges, against 75-81% for the
-query's own file. Special Branch's spans list a median 124 other files
+query's own file (counting only expected files the filter still
+lists). Special Branch's spans list a median 124 other files
 with every list and 25 with the filter, and three `parts` edges are
 found only with every list. ADR 0014's filter therefore hides most of a
 famous break's holders, as the roadmap expected; for this query, which
@@ -101,7 +103,11 @@ rip      U.F.O - Special Branch.m4a              715  1.000  4:10   matches 348 
 By the registered bar the query is not ready for a design note and an
 ADR: it finds 92% of the judged shared material and puts it in the first
 five 80% of the time, but first only 39% of the time, and the
-registered null was dominated by unclustered rips. The failures are of
+registered null was dominated by unclustered rips. The ranking fails in
+group D, the `parts` edges heard as one recording: first for 4 of 31,
+against 11 of 20 for the panel's shared material, 4 of 7 drum loops and
+all six Special Branch spans; there a famous break's other holders
+rank above the file `parts` named. The failures are of
 ranking and labelling, not of retrieval: a famous break has hundreds of
 holders that hits do not order, and rips and versions crowd the top of
 the list. Our recommendation:

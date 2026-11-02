@@ -151,7 +151,9 @@ a panel's played files whole among drawn tracks (`mixes::draw_around`),
 searches them with the played recording indexed and left out, and
 measures each detection for session 21's candidate statistics;
 `holders` runs its lookup in the library's map of shared passages for
-a list of files and spans.
+a list of files and spans; `break_search` lists every file holding a
+passage of one file, with every posting list and with the fullest set
+aside (session 74).
 `seconds` scores saved `mixes`, `shared-mixes` and `scan` reports
 second by second (Sonnleitner et al. 2016, §5), under today's rule or a
 minimum span; `gaps` lists the stretches of the same reports that no

@@ -439,7 +439,7 @@ pub fn lookup(
 }
 
 /// The file's peaks within a span of the file.
-fn passage(
+pub(crate) fn passage(
     peaks: &[Peak],
     track_start_seconds: f64,
     track_end_seconds: f64,

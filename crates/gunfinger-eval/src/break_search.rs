@@ -24,12 +24,13 @@ use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::peaks::Peak;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, SKIPPED_SHARE, search_peaks};
-use gunfinger_core::speed::{Rung, ladder};
+use gunfinger_core::speed::{Rung, SpeedRatio, ladder};
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
 use crate::padding::Padding;
+use crate::shared_mixes::passage;
 
 /// A file is listed when one of its detections has at least this many
 /// hits: below `shared_mixes::LISTED_HOLDER_HITS` (30), because a passage
@@ -118,7 +119,9 @@ pub struct Holder {
     pub found_end_seconds: f64,
     /// The found file's speed relative to the query file's.
     pub speed: f64,
-    /// The file's detections of `FLOOR_HITS` or more.
+    /// The file's detections of `FLOOR_HITS` or more. The search keeps
+    /// one detection of a file per moment of the query, so for a passage
+    /// of 20 s this is nearly always 1.
     pub detections: usize,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub reach: Option<Reach>,
@@ -194,17 +197,6 @@ fn holder(file: &str, detection: &Detection, passage_seconds: f64) -> Holder {
     }
 }
 
-/// The file's peaks within the span, in the file's own time.
-pub fn passage(peaks: &[Peak], start_seconds: f64, end_seconds: f64) -> Vec<Peak> {
-    let profile = Profile::CURRENT;
-    let span = profile.frames(start_seconds)..=profile.frames(end_seconds);
-    peaks
-        .iter()
-        .filter(|peak| span.contains(&peak.frame))
-        .copied()
-        .collect()
-}
-
 /// The passage's distinct hashes at speed 1.0.
 fn hashes(passage: &[Peak]) -> BTreeSet<PairHash> {
     let points: Vec<Point> = passage
@@ -223,21 +215,23 @@ fn hashes(passage: &[Peak]) -> BTreeSet<PairHash> {
 
 /// Of `hashes`, those with postings in `index`, and those of them whose
 /// lists the index's search leaves out.
-pub fn held_and_set_aside(index: &Index, hashes: &BTreeSet<PairHash>) -> (usize, usize) {
-    let held: Vec<&PairHash> = hashes
+fn held_and_set_aside(index: &Index, hashes: &BTreeSet<PairHash>) -> (usize, usize) {
+    let held = hashes
         .iter()
         .filter(|&&hash| !index.postings(hash).is_empty())
-        .collect();
-    let set_aside = held
-        .iter()
-        .filter(|&&&hash| index.scanned_postings(hash).is_empty())
         .count();
-    (held.len(), set_aside)
+    let set_aside = hashes
+        .iter()
+        .filter(|&&hash| {
+            !index.postings(hash).is_empty() && index.scanned_postings(hash).is_empty()
+        })
+        .count();
+    (held, set_aside)
 }
 
 /// The index the passage is searched against for `lists`, from the index
 /// as built.
-pub fn searched_index(index: Index, lists: Lists) -> Index {
+fn searched_index(index: Index, lists: Lists) -> Index {
     match lists {
         Lists::All => index,
         Lists::Filtered => index.skipping_fullest(SKIPPED_SHARE),
@@ -256,7 +250,11 @@ pub struct Sources<'a> {
 /// each on one thread.
 pub fn run(queries: &[Query], sources: &Sources, jobs: usize) -> Result<Report, String> {
     let profile = Profile::CURRENT;
-    let (corpus, _) = load_records(sources.library, sources.store, &profile, &BTreeSet::new());
+    let (corpus, problems) =
+        load_records(sources.library, sources.store, &profile, &BTreeSet::new());
+    for problem in &problems {
+        eprintln!("left out of the index: {problem}");
+    }
     let started = Instant::now();
     // In library order, as the saved index's header names the files.
     let built = sources.padding.index(&corpus, &profile, &BTreeSet::new())?;
@@ -380,7 +378,12 @@ fn search_query(
         }
     };
     let profile = Profile::CURRENT;
-    let passage = passage(&record.peaks, query.start_seconds, query.end_seconds);
+    let passage = passage(
+        &record.peaks,
+        query.start_seconds,
+        query.end_seconds,
+        &profile,
+    );
     let hashes = hashes(&passage);
     (searched.held_hashes, searched.set_aside_hashes) = held_and_set_aside(index, &hashes);
     searched.passage_hashes = hashes.len();
@@ -409,10 +412,13 @@ fn search_query(
         .collect();
     let started = Instant::now();
     for holder in others.iter_mut().take(REACHED_FILES) {
-        holder.reach = records
-            .record(&holder.file)
-            .ok()
-            .and_then(|found| reach(&record.peaks, &found, holder));
+        holder.reach = match records.record(&holder.file) {
+            Ok(found) => reach(&record.peaks, &found, holder),
+            Err(error) => {
+                eprintln!("reach not measured: {error}");
+                None
+            }
+        };
     }
     searched.reach_seconds = started.elapsed().as_secs_f64();
     searched.own = own_listed;
@@ -420,14 +426,21 @@ fn search_query(
     searched
 }
 
-/// The whole query against `found` alone, every list, on the rung of
-/// `holder`'s detection: the strongest alignment overlapping it in the
-/// query.
+/// The whole query against `found` alone, every list, at the speed of
+/// `holder`'s detection (the chain's fitted speed, not necessarily a
+/// rung of the ladder): the strongest alignment overlapping it in the
+/// query. `None` when no alignment kept overlaps it: the search keeps one
+/// alignment per moment of the query, so a stronger one elsewhere in the
+/// found file can take the passage's place.
 fn reach(query: &[Peak], found: &PeakRecord, holder: &Holder) -> Option<Reach> {
-    let index = Index::build(std::slice::from_ref(found)).ok()?;
-    let rung = [Rung::Turntable(gunfinger_core::speed::SpeedRatio(
-        holder.speed,
-    ))];
+    let index = match Index::build(std::slice::from_ref(found)) {
+        Ok(index) => index,
+        Err(error) => {
+            eprintln!("reach not measured for {}: {error}", holder.file);
+            return None;
+        }
+    };
+    let rung = [Rung::Turntable(SpeedRatio(holder.speed))];
     search_peaks(&index, query, &Profile::CURRENT, &rung, 1)
         .into_iter()
         .filter(|aligned| {
@@ -468,7 +481,7 @@ mod tests {
     use gunfinger_core::confidence::{Evidence, Pass};
     use gunfinger_core::index::AssetId;
     use gunfinger_core::library::{Asset, Timestamp};
-    use gunfinger_core::speed::{Playback, SpeedRatio};
+    use gunfinger_core::speed::Playback;
     use gunfinger_core::store::RecordHeader;
 
     use super::*;
@@ -601,7 +614,7 @@ mod tests {
             record("other.mp3", scattered(20_000)),
         ];
         let profile = Profile::CURRENT;
-        let passage = passage(&loop_peaks, 10.0, 30.0);
+        let passage = passage(&loop_peaks, 10.0, 30.0, &profile);
         let hashes = hashes(&passage);
         let found = |index: &Index| -> Vec<String> {
             search_peaks(index, &passage, &profile, &ladder(), 1)
@@ -629,6 +642,9 @@ mod tests {
         let at = |seconds: f64| peak(profile.frames(seconds), 100.0);
         let peaks = vec![at(1.0), at(10.0), at(15.0), at(30.0), at(31.0)];
 
-        assert_eq!(passage(&peaks, 10.0, 30.0), [at(10.0), at(15.0), at(30.0)]);
+        assert_eq!(
+            passage(&peaks, 10.0, 30.0, &profile),
+            [at(10.0), at(15.0), at(30.0)]
+        );
     }
 }
