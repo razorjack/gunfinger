@@ -10,19 +10,19 @@ for scope and rules.
 - [x] Brief, checklist and `CLAUDE.md` committed
 - [x] Digests of `docs/pair-verdicts.txt` and the NAS clusters file in
   `work/s73/listening-digests-start.txt`
-- [~] Start build `work/bin/s73-start/`; `regress session-54-linux` and
+- [x] Start build `work/bin/s73-start/`; `regress session-54-linux` and
   `regress session-64-linux-nas` identical
 
 ## Steps
 
 - [x] 1. Pre-registration in `docs/brief-73.md`, committed before any
   run with the option
-- [ ] 2. Runs: tools (scoring of plays found under others, the timing
+- [x] 2. Runs: tools (scoring of plays found under others, the timing
   variant); renders; A B B A cost; development mixes; generated mixes;
   Stakka leave-outs
-- [ ] 3. Experiments: development mixes (0273), generated mixes (0274),
+- [x] 3. Experiments: development mixes (0273), generated mixes (0274),
   cost and budget (0275)
-- [ ] 4. ADR 0025's open points, proposals note §4, roadmap; the
+- [x] 4. ADR 0025's open points, proposals note §4, roadmap; the
   tracklist sample in the notes
-- [ ] 5. Read-only review by a subagent; findings fixed
+- [~] 5. Read-only review by a subagent; findings fixed
 - [ ] 6. Wrap-up: notes "Session 73", status, checklist; final checks

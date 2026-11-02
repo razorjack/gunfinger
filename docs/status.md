@@ -6009,3 +6009,28 @@ unchanged, byte for byte.
   identical to `s70-final`'s on the three development mixes at both
   scales; `docs/pair-verdicts.txt` and the NAS clusters file
   (`c4d3da2e7e37...`) unchanged.
+
+## 2026-11-02: session 73, the cost and the effect of `identify --under`, measured
+
+Brief `docs/brief-73.md` (its pre-registration committed before the
+first run), checklist `docs/session-73-checklist.md`; notes "Session
+73"; experiments 0273-0275; ADR 0025 stays Proposed, with its measured
+open points. The product did not change.
+
+- 05:44 start at `31ff279`, clean. Start build `work/bin/s73-start/`
+  (= `s72-final`); both regressions identical (0:50; 4:35).
+- Development mixes at 262 tracks and NAS scale, and Stakka's 14
+  leave-out patterns at both scales: with `--under` no tracklist entry
+  is gained or lost, no gap line changes, nothing wrong (0273).
+- Generated mixes at NAS scale (drops seeds 2050 and 2053, long 2052):
+  38 entries gained, all right; quiet partners printed 18 of 32 (default
+  2), brief 18 of 32 (6), unrelated partners inside the louder record 29
+  of 32 (20); none of 56 confident finds wrong (0274).
+- Cost: at NAS scale `identify` takes 2.8-2.9 times as long (about 35 s
+  more per hour of mix, 0.1-0.2 GB more memory); the mask on one thread
+  is 40-70% of the step; no budget halves it at 90% of the gains (0275).
+- By the registered criteria (J1, J2, J4 met; J3, at most twice the
+  default's time, not met) the proposal is to keep the step off by
+  default until the mask is faster; turning it on as it is costs about
+  35 s per hour of mix. The decision is ours (ADR 0025).
+- Final checks: FINAL_STATUS

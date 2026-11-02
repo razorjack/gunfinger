@@ -14438,3 +14438,215 @@ start digests (`work/s72/listening-digests-end.txt`).
   saved NAS index to `$XDG_CACHE_HOME` on its first NAS run.
 - `docs/pair-verdicts.txt` and the answer log unchanged; no question
   was asked or answered.
+
+## Session 73
+
+### What changed
+
+The product did not change: `work/bin/s73-start/` is `s72-final`, and
+`identify --under` stays off by default (ADR 0025, Proposed). This
+session measured the option as shipped against the default on the same
+inputs, under criteria registered in `docs/brief-73.md` before the
+first run (J1 precision, J2 benefit, J3 cost at most twice the
+default's time at NAS scale, J4 reliability). The harness's analysis
+scripts gained, tested:
+
+- `tracklist_score.py` reads plays found under others: it rebuilds their
+  entries, checks each `(under N.)` line against the report, and scores
+  the outcome with them (`under-summary`); `under-fates` judges the
+  timing variant's dropped detections against the generator's truth.
+- `under_score.py`: exclusion lists for manifest slots (`exclude`), the
+  two tracklists compared (`diff`), finds against a manifest
+  (`manifest`), the timing variant's lines (`fates`), A B B A timings
+  (`cost`) and budget variants (`budget`).
+
+A timing variant (`work/s73/wt-timing/`, a worktree, never merged;
+diff in `work/s73/timing-variant.diff`) prints each entry's phases and
+each detection's fate; its JSON equals the product's on all six
+development runs.
+
+In short: the option prints nothing new and nothing wrong on the
+development mixes and Stakka's leave-outs, and 37 right partners on 32
+generated double-drop mixes that the default leaves out; at NAS scale
+it makes `identify` 2.8-2.9 times as slow (about 35 s more per hour of
+mix), most of it the mask on one thread. J1, J2 and J4 are met; J3 is
+not, and no budget meets it.
+
+### Experiments 0273-0275
+
+| Run | Result |
+|---|---|
+| 0273, D: three development mixes, 262 tracks and NAS scale | no entry gained or lost, no gap line changed; one possible find (razorjack, NAS: Into Music under Kinetic, 75 s before its own entry), out of the tracklist |
+| 0273, L: Stakka's 14 leave-out patterns, both scales | nothing found under a confident play; tracklists unchanged |
+| 0274, G: drops seeds 2050 and 2053 (32 mixes), NAS scale | 38 entries gained, all right; quiet partners printed 18 of 32 (default 2), brief 18 of 32 (6), unrelated inside 29 of 32 (20); 0 of 56 confident finds wrong; start a median 1.6 s late |
+| 0274, G: long seed 2052 (4 mixes, 83 min each) | nothing found; tracklists unchanged |
+| 0275, cost, A B B A | NAS scale 2.8-2.9 times (+29-40 s a mix, about 35 s per hour of mix, +0.1-0.2 GB); 262 tracks 3.2-5.1 times (+12-25 s per hour, +0.3 GB) |
+| 0275, budgets | span of at least 120 s: 82% of the time, 33 of 38 entries; the 8 longest per mix: 68%, 22 of 38; none halves the step at 90% of the gains |
+
+- Where the step's time goes: the mask (one thread: STFTs and the lag
+  measure's eight phases) 40-70%, the residual's search 14-42%, the
+  decode 12-23%, the shared-material check under 1%.
+- The shared-material rule held back only the pair drops' related
+  versions (9 partners with confident evidence), as decided.
+- One gained entry repeats a track already printed (another upload of
+  Jo-S - Afterburner, 6.7 s apart in line and tagged differently, so ADR
+  0017's rule keeps it apart).
+- The fourth drop rule (one track with a confident play) lost one right
+  partner, Chris SU & SKC - Black Out (333 hits): its line starts the
+  file 0.5 s from where Tee Bee - Two Faced's confident play, ending 36
+  s before the find, starts. The start test without the overlap
+  condition matched two different tracks by chance.
+
+### What the tracklist looks like
+
+The development mixes print the same tracklist with and without the
+option. The razorjack mix at NAS scale, both ways:
+
+```text
+ 1.    0:01  Kemal and Rob Data - Konspiracy  (also: A-Konspiracy-Kemal_and_Rob_Data-sour, Kemal + Rob Data - Konspiracy)
+ 2.    2:10  Future Cut - Sex Drive  (titles disagree: Future Cut - The Specialist)
+ 3.    6:12  Narcosis - Escape Route  (also: AA-Escape_Route-Narcosis-sour)
+ 4.   10:48  Digital and Spirit - Phantom Force  (also: Digital & Spirit - Phantom Force)
+ 5.   14:40  Tee Bee - Two Faced (Drum&BassArena, React REACTCD201 disc 2 track 7) 2001  (titles disagree: Tee Bee - Two Faced)
+ 6.   17:23  Omni Trio - Kinetic
+ 7.   24:07  Carlito & DJ Addiction - Into Music (Drum&BassArena, React REACTCD201 disc 2 track 8) 2001  (titles disagree: Carlito & Addiction - Into Music)
+ 8.   29:13  Omni Trio - Artificial Life (Harp Tune)
+ 9.   31:04  Total Science - Yvon Is On  (titles disagree: Total Science - Yvon Is On (Drum&BassArena, React REACTCD201 disc 2 track 4) 2001)
+10.   34:50  Marcus Intalex & ST Files - Balderdash (Drum&BassArena, React REACTCD201 disc 2 track 5) 2001  (titles disagree: Marcus Intalex & ST Files - Balderdash, Marcus Intalex & S.T.Files - Balderdash)
+11.   39:06  Spirit - Out Of Control (Drum&BassArena, React REACTCD201 disc 2 track 3) 2001  (titles disagree: Spirit - Out Of Control)
+12.   42:13  Dj Hidden - Skektics
+```
+
+With the option, the table (`-f human`) gains one row, the possible
+find, in time order before Into Music's own row:
+
+```text
+22:14-22:52         0:45-1:25      +4.12%  possible       88  va-drum_n_bass_arena_lp-reactlp201-2001-sour/h-carlito_and_addiction-into_music-sour.mp3  under Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/10-Omni_Trio-Kinetic-XTC.mp3 (play 17)
+```
+
+Where the option changes a tracklist, generated mix-00 of seed 2050 at
+NAS scale: three entries are added, marked with the louder track's
+number, and the entries after them are numbered on.
+
+```text
+ 6.    9:15  Noisia & Phace - Outsource (Misanthrop Remix)  (titles disagree: MINDSCAPE - new deal)
+ 7.    9:46  Aphrodite - Acid Life  (also: Aphrodite - Acid Life (Aphrodite Recordings APH37 B) 2001) (under 6.)
+ 8.   11:31  Stakka & Skynet - Decoy  (titles disagree: Stakka & Skynet - Decoy (Remastered))
+ 9.   14:38  Stakka And Skynet - Clockwork (Stakka Rmx)
+10.   16:54  Kemal - Animation
+11.   18:52  Gridlok - Struggle (under 10.)
+      19:51  ID - ID (2:16 without a confident match; about 1-2 tracks)
+12.   22:07  Gridlok - Dilusion
+13.   22:34  Bassrk - My Failure (under 12.)
+```
+
+Without the option the same stretch reads `6. 9:15 Noisia & Phace`,
+`7. 11:31 Stakka & Skynet - Decoy`, `8. 14:38`, `9. 16:54`, the gap
+line, `10. 22:07 Gridlok - Dilusion`: Acid Life (quiet, 9 dB down),
+Gridlok - Struggle (brief) and Bassrk - My Failure (the second record
+of an unrelated double drop) are missing.
+
+### A proposal for our decision on the default
+
+By the registered criteria the step stays off by default until it is
+faster: J3 fails (2.8-2.9 times at NAS scale), and no budget by the
+louder play's length or a cap per mix meets it while keeping 90% of the
+gains. The step's precision and benefit pass (J1, J2), so the default is
+a choice of cost: about 35 s per hour of mix at NAS scale on the Linux
+machine for the partners in 0274. Since the mask on one thread is 40-70%
+of the step, a mask that uses the workers (each entry's mask in
+parallel, or the lag measure's phases) would probably bring the step
+near J3 (an inference: with the mask at a tenth of its time the NAS
+ratio would be about 2.0-2.2); that would be a product change with its
+own measurement. Speed comes last in the product's order (AGENTS.md),
+so turning the step on as it is would also be consistent with the
+user's "on by default subject to its cost", if we judge 35 s per hour
+acceptable.
+
+### Decided this session, open to change
+
+- Seed 2051 replaced by 2053 (2051's held-out recordings leave no
+  playable pair for the drops kind).
+- The option's runs on G and L used the timing variant, whose JSON
+  equals the product's on all six development runs; the NAS leave-outs
+  ran with the option only, the default being the same report without
+  `under` (the plays were identical in all 42 paired runs of D and G).
+- Scoring of D and L against manifests counts a find right only inside
+  a slot's span (its start to the next start); razorjack's starts are
+  Gunfinger's, so the one possible find there is "not right" by rule,
+  not by ear.
+- No budget variant was built; the budgets in 0275 are computed from the
+  timing variant's per-entry times and the gained entries.
+- The rule "one track with a confident play" and the repeated Afterburner
+  entry are recorded as open points, not changed.
+
+### Questions this leaves for us
+
+- The default (ADR 0025): off until the mask is faster, or on now at
+  about 35 s per hour of mix at NAS scale.
+- Whether the fourth drop rule should keep the overlap condition, or
+  ask for tags alike, so that a chance alignment with a nearby track
+  cannot drop a partner (one of 37 partners lost here).
+- Whether a find that repeats a track printed over the same passage
+  through another upload should join that entry (ADR 0017's 5 s line
+  test kept the Afterburner uploads apart).
+
+### Questions for listening (none answered by agents)
+
+- New, optional: razorjack mix, 22:14-22:52 (NAS scale): is Carlito &
+  Addiction - Into Music already audible under Omni Trio - Kinetic there,
+  two minutes before the manifest's slot 7? Not needed for any decision.
+- Pending from before: the Planet Dust (DC Breaks Remix) cut (unsure).
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux`; `regress session-64-linux-nas` (start build; the second beside the first render) | 0:50; 4:35 | 0.4; 5.6 GB |
+| Renders (`mixes`, 262 tracks): drops 2050; drops 2053; long 2052 | 2:11; 1:12; 1:58 | 7.3; 7.3; 4.0 GB |
+| A B B A, development mixes (24 runs and two warm-ups) | 10 min | |
+| `identify`, 16 drops mixes, NAS scale, `--exclude-from`: default; `--under` (seed 2050) | 2:29; 6:44 | 5.4; 5.5 GB |
+| The same, seed 2053; long mixes 2052 | 2:25; 6:28; 1:35; 2:53 | 5.5-5.6 GB |
+| Stakka leave-out, NAS scale, `--under` (index built each time) | 0:45-1:00 | 5.2 GB |
+
+### Final checks
+
+FINAL_CHECKS
+
+### Handoff for the next session
+
+1. ADR 0025 stays Proposed; its "Open points, measured in session 73"
+   hold the numbers for the default. Nothing in the product changed.
+2. Builds: `work/bin/s73-start/` (= `s72-final`), `s73-timing/` (the
+   timing variant, worktree `work/s73/wt-timing/`, never merged),
+   `s73-final/` (master).
+3. Data: `work/s73/` (scripts `run.sh`, `start.sh`, `gen.sh`,
+   `cost.sh`, `effect.sh`, `leave-nas.sh`, `queue.sh`, `after.sh`,
+   `final.sh`; logs in `logs/`). D's reports `dev/<scale>-<mix>-<a1|b1|b2|a2|t>.json`
+   and `fates-*.json`; G's renders `gen/mixes/` (1.3 GB) and
+   reports `g/<set>/<default|under>/mix-NN.{json,txt}`, scores
+   `scores-<seed>-<default|under>.json`, `fates-<seed>.json`; L's
+   exclusion lists and reports `leave/`; `cost.json`.
+4. To run it again:
+   ```sh
+   G=work/bin/s73-final/gunfinger
+   $G --config ~/.config/gunfinger/nas-dnb.toml identify MIX --under --verbose -f json
+   python3 -I scripts/analysis/under_score.py cost work/s73/logs work/s73/dev nas-stakka
+   python3 -I scripts/analysis/tracklist_score.py under-summary work/s73/scores-2050-under.json
+   ```
+5. If the step is to be made faster: the mask (`residual::residual`,
+   `lags`) runs on one thread once per confident entry; the residual's
+   search already uses the workers.
+6. Baselines unchanged: `session-54-linux` and `session-64-linux-nas`.
+   The NAS store: 40,674 records, revision `7210fc479da58376`; the
+   clusters file unchanged.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. Searched: the three development
+  mixes (and Stakka's leave-outs), generated drops seeds 2050 and 2053
+  and long seed 2052, and Stakka through `regress`. The NAS and
+  `work/peaks` were only read.
+- `docs/pair-verdicts.txt` and the answer log unchanged; no question
+  was asked or answered.
