@@ -21,6 +21,7 @@ mod style;
 mod survey;
 mod table;
 mod timeline;
+mod under;
 
 use std::num::NonZeroUsize;
 use std::path::{Path, PathBuf};
@@ -152,6 +153,15 @@ enum Command {
         /// Search recordings again that already have a report in --save-dir.
         #[arg(long, requires = "save_dir")]
         again: bool,
+        /// Also look for a quieter track under each confident one: take the
+        /// confident track's audio, decoded from the library, out of the
+        /// recording and search what is left. A confident find is listed
+        /// as "(under N.)", N being the louder track's entry. Needs the
+        /// library's audio, so it does not run on the peak store's own
+        /// records (ADR 0025, proposed; off by default while its cost is
+        /// measured).
+        #[arg(long)]
+        under: bool,
     },
     /// List every candidate around a moment of a recording, weak ones
     /// included, with what each lacks for the next level.
@@ -353,6 +363,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             format,
             save_dir,
             again,
+            under,
         } => identify::run(&identify::Request {
             audio: &audio,
             source: source(
@@ -368,6 +379,7 @@ fn run(command: Command, settings: &Settings, console: &Console) -> miette::Resu
             format,
             save_dir: save_dir.as_deref(),
             again,
+            under,
             style: stdout_style,
             jobs,
             console,

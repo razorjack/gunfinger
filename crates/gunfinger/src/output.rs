@@ -56,7 +56,7 @@ pub fn render(report: &Report, format: ReportFormat, style: Style) -> miette::Re
     // Names are asked for several times per entry; a file is read once.
     let read = RefCell::new(HashMap::new());
     let name = |asset: &str| {
-        let stored = report.plays.iter().find_map(|play| {
+        let stored = report.plays_and_under().into_iter().find_map(|play| {
             if play.asset == asset {
                 play.tags.as_ref()
             } else {

@@ -11,7 +11,10 @@
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-use gunfinger_core::decode::{Audio, Container, DecodeError, Excerpt, decode, probe};
+use gunfinger_core::decode::{
+    Audio, Container, DecodeError, Decoder, Excerpt, Played, decode, probe,
+};
+use gunfinger_core::speed::Playback;
 
 const RATE: u32 = 8000;
 const TONE_SECONDS: f64 = 2.0;
@@ -334,5 +337,85 @@ fn an_ordinary_tagged_mp3_opens_as_it_is() {
     assert_eq!(
         probe(&path).unwrap().tags.title.as_deref(),
         Some("Thin Air")
+    );
+}
+
+/// The tone's frequency in `samples` at `RATE`, from its upward zero
+/// crossings.
+fn frequency(samples: &[f32]) -> f64 {
+    let crossings = samples
+        .windows(2)
+        .filter(|pair| pair[0] < 0.0 && pair[1] >= 0.0)
+        .count();
+    crossings as f64 * f64::from(RATE) / samples.len() as f64
+}
+
+#[test]
+fn a_stretch_renders_as_a_turntable_or_key_lock_played_it() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = fixture_dir("played");
+    let path = dir.join("long-tone.flac");
+    ffmpeg(&[
+        "-f",
+        "lavfi",
+        "-i",
+        "sine=frequency=440:sample_rate=44100:duration=6",
+        path.to_str().unwrap(),
+    ]);
+    let render = |playback| {
+        Decoder::default()
+            .render(
+                &path,
+                RATE,
+                Played {
+                    start_seconds: 1.0,
+                    seconds: 2.0,
+                    speed: 1.05,
+                    playback,
+                },
+            )
+            .unwrap()
+    };
+    let turntable = render(Playback::Turntable);
+    let key_locked = render(Playback::KeyLocked);
+    for audio in [&turntable, &key_locked] {
+        assert_eq!(audio.sample_rate, RATE);
+        let seconds = audio.duration().as_secs_f64();
+        assert!((seconds - 2.0).abs() < 0.01, "rendered {seconds} s");
+    }
+    let raised = frequency(&turntable.samples);
+    assert!(
+        (raised - 462.0).abs() < 3.0,
+        "a turntable at +5%: {raised} Hz"
+    );
+    let kept = frequency(&key_locked.samples);
+    assert!(
+        (kept - 440.0).abs() < 3.0,
+        "key lock keeps the pitch: {kept} Hz"
+    );
+}
+
+#[test]
+fn a_stretch_past_the_end_of_the_file_has_no_audio() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = fixture_dir("played-past-end");
+    let path = tone(&dir, "tone.wav", &[]);
+    let rendered = Decoder::default().render(
+        &path,
+        RATE,
+        Played {
+            start_seconds: 10.0,
+            seconds: 2.0,
+            speed: 1.0,
+            playback: Playback::Turntable,
+        },
+    );
+    assert!(
+        matches!(rendered, Err(DecodeError::NoAudio { .. })),
+        "{rendered:?}"
     );
 }

@@ -15,7 +15,7 @@ use crate::speed::{Playback, SpeedRatio};
 /// Longest gap between two segments of one play: room for a station ident,
 /// a cut or a skip, short enough that a later return of the record is a new
 /// play.
-const MAX_GAP_SECONDS: f64 = 90.0;
+pub const MAX_GAP_SECONDS: f64 = 90.0;
 
 /// One appearance of an asset in the query.
 #[derive(Debug, Clone, PartialEq)]

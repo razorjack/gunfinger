@@ -10,13 +10,13 @@ for scope and rules.
 - [x] Brief, checklist and `CLAUDE.md` committed
 - [x] Digests of `docs/pair-verdicts.txt` and the NAS clusters file in
   `work/s72/listening-digests-start.txt`
-- [~] Start build `work/bin/s72-start/`; `regress session-54-linux` and
+- [x] Start build `work/bin/s72-start/`; `regress session-54-linux` and
   `regress session-64-linux-nas` identical
 
 ## Steps
 
 - [x] 1. Design in `docs/brief-72.md`, committed before code
-- [ ] 2. Implementation: core `residual` and `render`, CLI `--under`,
+- [x] 2. Implementation: core `residual` and `render`, CLI `--under`,
   printing, tests; harness on the core's code; option off identical
   (outputs, both regressions, the harness's residual report)
 - [ ] 3. First look: one development mix at 262 tracks and NAS scale,

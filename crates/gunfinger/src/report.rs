@@ -20,6 +20,7 @@ use serde::{Deserialize, Serialize};
 use crate::catalog::{Catalog, absolute};
 use crate::names::TrackName;
 use crate::playback::PlaybackChoice;
+use crate::under;
 
 /// Version 3 merged plays of the same audio; fields may be added without a
 /// new version.
@@ -45,6 +46,12 @@ pub struct Report {
     /// written before it was recorded, which print no estimate.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub gap_repeats: Option<Vec<Stretch>>,
+    /// The plays found under confident plays once their audio was taken
+    /// out of the recording (`identify --under`, ADR 0025), in order of
+    /// start time, each with `under` set. Absent when the step did not run;
+    /// empty when it ran and found nothing.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub under: Option<Vec<FoundPlay>>,
 }
 
 /// A stretch of the recording, in its own time.
@@ -107,6 +114,10 @@ pub struct SearchSettings {
     /// it changes when files are added, changed, indexed, removed or
     /// excluded.
     pub library_revision: String,
+    /// How confident plays were taken out of the recording to search under
+    /// them (`identify --under`); absent when that step did not run.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub under: Option<String>,
 }
 
 impl SearchSettings {
@@ -117,6 +128,15 @@ impl SearchSettings {
             matching: search::design(matcher),
             confidence: format!("{}; play=max-segment", matcher.pass().rule()),
             library_revision: library_revision.to_owned(),
+            under: None,
+        }
+    }
+
+    /// The settings with the step of `identify --under` (ADR 0025).
+    pub fn with_under(self) -> SearchSettings {
+        SearchSettings {
+            under: Some(under::design()),
+            ..self
         }
     }
 
@@ -134,6 +154,8 @@ impl SearchSettings {
             Some(
                 "another revision of the library (files added, changed, indexed or excluded since)",
             )
+        } else if self.under != other.under {
+            Some("another setting of --under")
         } else {
             None
         }
@@ -181,6 +203,11 @@ pub struct FoundPlay {
     /// derived from the plays whenever a report is made or read.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub other_titles: Vec<OtherTitle>,
+    /// Set on a play found under a confident play once that play's audio
+    /// was taken out of the recording (`identify --under`, ADR 0025): the
+    /// confident play taken out. Only `Report::under` holds such plays.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub under: Option<SharedWith>,
     /// The asset's tags as the peak store held them. Absent in older
     /// reports and for files indexed before tags were stored; their names
     /// are read from the files.
@@ -219,7 +246,8 @@ pub struct OtherTitle {
     pub title: String,
 }
 
-/// The confident play a possible play lies inside.
+/// The confident play a possible play lies inside, or a play found under
+/// it lay under.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SharedWith {
     /// Its number, counted from 1 in the report's order (as `review`
@@ -324,6 +352,7 @@ impl Report {
             search: Some(SearchSettings::current(catalog.matcher, &catalog.revision)),
             plays,
             gap_repeats: None,
+            under: None,
         }
     }
 
@@ -341,12 +370,20 @@ impl Report {
         }
         // CUE output may advance coincident entries by one frame each.
         let cue_limit = u64::MAX.saturating_sub(self.plays.len() as u64) as f64;
-        for (index, play) in self.plays.iter().enumerate() {
+        let under = self.under.iter().flatten();
+        for (index, play) in self.plays.iter().chain(under).enumerate() {
             let invalid = || {
-                format!(
-                    "play {} needs nonempty segments, ordered nonnegative times and positive finite speeds",
-                    index + 1
-                )
+                if index < self.plays.len() {
+                    format!(
+                        "play {} needs nonempty segments, ordered nonnegative times and positive finite speeds",
+                        index + 1
+                    )
+                } else {
+                    format!(
+                        "play {} found under another needs nonempty segments, ordered nonnegative times and positive finite speeds",
+                        index - self.plays.len() + 1
+                    )
+                }
             };
             if play.segments.is_empty()
                 || !time(play.start_seconds)
@@ -357,6 +394,13 @@ impl Report {
                 || play.speed <= 0.0
                 || !time(play.track_start_seconds)
                 || !time(play.track_end_seconds)
+            {
+                return Err(invalid());
+            }
+            if play
+                .under
+                .as_ref()
+                .is_some_and(|under| under.play == 0 || under.play > self.plays.len())
             {
                 return Err(invalid());
             }
@@ -384,6 +428,23 @@ impl Report {
             }
         }
         Ok(())
+    }
+
+    /// The plays and the plays found under them (`under`), in order of
+    /// start time: each play found under another comes before the first
+    /// play starting after it, and the plays keep their own order.
+    pub fn plays_and_under(&self) -> Vec<&FoundPlay> {
+        let mut under = self.under.iter().flatten().peekable();
+        let mut rows = Vec::with_capacity(self.plays.len());
+        for play in &self.plays {
+            while let Some(found) = under.next_if(|found| found.start_seconds < play.start_seconds)
+            {
+                rows.push(found);
+            }
+            rows.push(play);
+        }
+        rows.extend(under);
+        rows
     }
 
     pub fn read(path: &Path) -> miette::Result<Report> {
@@ -638,7 +699,7 @@ impl FoundPlay {
         Some(TrackName::named(tags.artist.as_deref(), Some(title), &self.asset).full())
     }
 
-    fn new(catalog: &Catalog, same: &SameAudio, offset: f64) -> FoundPlay {
+    pub(crate) fn new(catalog: &Catalog, same: &SameAudio, offset: f64) -> FoundPlay {
         let path = |asset| catalog.index.asset(asset).path.clone();
         let play = &same.play;
         let total = play.total_evidence();
@@ -683,6 +744,7 @@ impl FoundPlay {
                 .collect(),
             shares_material_with: None,
             other_titles: Vec::new(),
+            under: None,
         }
     }
 }

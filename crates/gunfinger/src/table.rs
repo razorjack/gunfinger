@@ -12,14 +12,15 @@ const ASSET_COLUMN: usize = 62;
 /// One row per play; assets with the same audio and a play's segments are
 /// listed underneath. `in track` is the part of the track that was heard.
 /// Each gap is a row in time order, before a play starting with it (ADR
-/// 0023).
+/// 0023). A play found under a confident play (`identify --under`) is a row
+/// in time order, saying which (ADR 0025).
 pub fn table(report: &Report, style: Style) -> String {
     let mut lines = vec![style.bold(&format!(
         "{:<19} {:<13} {:>7}  {:<10} {:>6}  asset",
         "time", "in track", "speed", "confidence", "hits"
     ))];
     let mut gaps = gaps(report).into_iter().peekable();
-    for play in &report.plays {
+    for play in report.plays_and_under() {
         while let Some(gap) = gaps.next_if(|gap| gap.start_seconds <= play.start_seconds) {
             lines.push(gap_row(&gap));
         }
@@ -30,9 +31,10 @@ pub fn table(report: &Report, style: Style) -> String {
             &paint(play.confidence, style),
             play.hits,
             &format!(
-                "{}{}",
+                "{}{}{}",
                 named(&play.asset, play.playback),
-                shared_material(play, str::to_owned)
+                shared_material(play, str::to_owned),
+                under(play, str::to_owned)
             ),
         ));
         for asset in &play.same_audio {
@@ -88,6 +90,14 @@ pub fn shared_material(play: &FoundPlay, name: impl Fn(&str) -> String) -> Strin
                 shared.play
             )
         })
+}
+
+/// "  under <name> (play N)" for a play found under a confident play once
+/// its audio was taken out (ADR 0025), else nothing.
+pub fn under(play: &FoundPlay, name: impl Fn(&str) -> String) -> String {
+    play.under.as_ref().map_or_else(String::new, |under| {
+        format!("  under {} (play {})", name(&under.asset), under.play)
+    })
 }
 
 /// "titled X; other files here: Y (play 3), Z (plays 4, 5)" for a play
@@ -198,6 +208,7 @@ pub mod tests {
             }],
             shares_material_with: None,
             other_titles: Vec::new(),
+            under: None,
             tags: None,
         };
         Report {
@@ -229,6 +240,7 @@ pub mod tests {
                 },
             ],
             gap_repeats: None,
+            under: None,
         }
     }
 

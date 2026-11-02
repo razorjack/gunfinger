@@ -237,3 +237,49 @@ binary if a level can be found at which the plain search misses B.
 
 ## Decisions
 
+- **(04:25-04:35) Start build and regressions** (`work/s72/start.sh`,
+  tmux `s72start`, logs in `work/s72/logs/`; `run.sh` and `same.py` are
+  session 70's with the paths changed). Cargo had nothing to rebuild:
+  the start build is byte-identical to `work/bin/s70-final/`; `regress
+  session-54-linux` (0:51) and `regress session-64-linux-nas` (4:10)
+  identical, every report equal to its baseline's.
+- **(04:36) The core's `Mask` instead of the harness's `Rule` and
+  `Fix`.** The core has no serde or clap, so it takes a plain `Mask`
+  (`over`, `Alignment::{AsPlaced, Aligned}`, `block_frames`) and the
+  harness maps its `Fix` onto it (`Fix::mask`, tested: `Align` is
+  `Mask::UNDER`). `FINE_BLOCK_FRAMES` (32) stays in the harness, the only
+  user. The harness keeps a serde mirror of `Lags` and `BlockLag`
+  (`From` the core's). `Report`'s JSON layout is unchanged.
+- **(04:39) The harness on the core's code gives session 70's report
+  exactly**: `work/s72/smoke-harness.sh` (seed 2026, one mix, both
+  timings, three fixes, 262 tracks; 3:57) against
+  `work/s70/smoke/reports/...-fix-off-align-align-fine.json`: identical
+  apart from `wall_seconds` (`same.py`).
+- **(04:40) Store fallback.** The step needs the library's files, so it
+  does not run whenever the catalog lists the store's own records:
+  `--store-only`, no library given, or a library that cannot be read
+  (`Indexable::reads_library`). The line on stderr is an info line, as
+  the store fallback's own line is.
+- **(04:41) `plays::MAX_GAP_SECONDS` made public** for the drop rule that
+  a confident play of the same file within 90 s names the track already;
+  its value and use in `plays::group` are unchanged.
+- **(04:45) Names of plays found under others come from their stored
+  tags**: `output::render`'s name lookup reads `plays_and_under()`, the
+  plays and the found plays in time order (the plays keep their order,
+  so without the step nothing changes).
+- **(04:50) The end-to-end test** (`a_quiet_track_under_a_confident_one_is_found_once_the_louder_is_taken_out`):
+  a probe at -6, -9, -12, -15 and -18 dB found the quiet track only as
+  possible in the plain search (181 to 98 hits, left out of the
+  tracklist by ADR 0019) and confident under the louder one (798 to 536
+  hits). The test uses -12 dB and checks the tracklist with and without
+  the option, the JSON, `show` of the saved report and `--store-only`.
+  It takes about 40 s in a debug build. The probe file was deleted.
+- **(04:53-05:00) With `--under` off, every output is byte-identical**
+  (`work/s72/off.sh`, build `work/bin/s72-run/`): `identify --format
+  json` by `s70-final` and by the run build, on the three development
+  mixes at 262 tracks and NAS scale, give the same bytes; `show` of each
+  report in every format (tracklist, human, timeline, CSV, cue, JSON) by
+  both builds gives the same bytes: 42 of 42 identical. `regress
+  session-54-linux` (1:06) and `regress session-64-linux-nas` (5:22,
+  beside `off.sh`) with the run build identical, every report equal to
+  its baseline's. `scripts/check.sh` is run at the end.

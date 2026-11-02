@@ -14,6 +14,7 @@ use std::path::{Path, PathBuf};
 use std::process::{Command, ExitStatus};
 use std::time::Duration;
 
+use crate::speed::Playback;
 use crate::tags::Tags;
 use watch::Run;
 
@@ -39,6 +40,41 @@ pub const INSTALL_FFMPEG: &str = "`brew install ffmpeg` on macOS, `sudo apt inst
 pub struct Excerpt {
     pub start: Option<Duration>,
     pub duration: Option<Duration>,
+}
+
+/// A stretch of a file as a mix played it: from `start_seconds` into the
+/// file, `seconds` long in the mix, at `speed` times the file's own speed,
+/// pitch and tempo together (a turntable) or tempo only (key lock). Mix
+/// time `t` from the stretch's start holds file time
+/// `start_seconds + speed * t`.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Played {
+    pub start_seconds: f64,
+    pub seconds: f64,
+    pub speed: f64,
+    pub playback: Playback,
+}
+
+/// `Decoder::render` changes speed at this rate, as the harness renders
+/// its generated mixes, before resampling to the rate asked for.
+const RENDER_RATE: u32 = 44_100;
+
+impl Played {
+    /// FFmpeg's filters for the speed, ending at `sample_rate`: a turntable
+    /// relabels the stream as faster or slower and resamples it, so pitch
+    /// and tempo move together; key lock stretches time only.
+    fn filter(self, sample_rate: u32) -> String {
+        match self.playback {
+            Playback::Turntable => format!(
+                "aresample={RENDER_RATE},asetrate={:.0},aresample={sample_rate}",
+                f64::from(RENDER_RATE) * self.speed
+            ),
+            Playback::KeyLocked => format!(
+                "aresample={RENDER_RATE},atempo={:.4},aresample={sample_rate}",
+                self.speed
+            ),
+        }
+    }
 }
 
 /// Mono samples at a known rate.
@@ -154,16 +190,63 @@ impl Decoder {
     ) -> Result<Audio, DecodeError> {
         let container = self.container(path)?;
         let mut command = self.ffmpeg_command(path, container, sample_rate, excerpt);
-        let run =
-            watch::run(&mut command, self.stall, read_samples).map_err(|source| {
-                match source.kind() {
-                    io::ErrorKind::NotFound => DecodeError::FfmpegMissing,
-                    _ => DecodeError::Spawn {
-                        path: path.to_owned(),
-                        source,
-                    },
-                }
-            })?;
+        let (samples, diagnostics) = self.run_ffmpeg(path, &mut command)?;
+        let audio = Audio {
+            sample_rate,
+            samples,
+        };
+        if !diagnostics.trim().is_empty() {
+            self.reject_if_truncated(path, &audio, excerpt, &diagnostics)?;
+        }
+        Ok(audio)
+    }
+
+    /// Decodes a stretch of `path` as a mix played it (`Played`), mono at
+    /// `sample_rate`: the audio of a library file placed where a search
+    /// found it, to be taken out of the mix (ADR 0025). FFmpeg seeks to
+    /// the stretch's start; the stretch may end early with the file.
+    pub fn render(
+        &self,
+        path: &Path,
+        sample_rate: u32,
+        played: Played,
+    ) -> Result<Audio, DecodeError> {
+        let container = self.container(path)?;
+        let mut command = Command::new(&self.ffmpeg);
+        command
+            .args(["-nostdin", "-v", "error", "-threads", "1", "-ss"])
+            .arg(format!("{:.6}", played.start_seconds.max(0.0)))
+            .args(container.input_args())
+            .arg("-i")
+            .arg(path)
+            .args(["-map", "0:a:0", "-vn", "-sn", "-dn", "-ac", "1", "-af"])
+            .arg(played.filter(sample_rate))
+            .arg("-t")
+            .arg(format!("{:.6}", played.seconds.max(0.0)))
+            .args(["-f", "f32le", "pipe:1"]);
+        let (samples, _) = self.run_ffmpeg(path, &mut command)?;
+        Ok(Audio {
+            sample_rate,
+            samples,
+        })
+    }
+
+    /// Runs `command` under the stall timeout and reads its samples, with
+    /// what FFmpeg wrote on stderr; no audio at all is an error.
+    fn run_ffmpeg(
+        &self,
+        path: &Path,
+        command: &mut Command,
+    ) -> Result<(Vec<f32>, String), DecodeError> {
+        let run = watch::run(command, self.stall, read_samples).map_err(|source| {
+            match source.kind() {
+                io::ErrorKind::NotFound => DecodeError::FfmpegMissing,
+                _ => DecodeError::Spawn {
+                    path: path.to_owned(),
+                    source,
+                },
+            }
+        })?;
         let Run::Finished {
             output,
             status,
@@ -188,14 +271,7 @@ impl Decoder {
                 path: path.to_owned(),
             });
         }
-        let audio = Audio {
-            sample_rate,
-            samples,
-        };
-        if !diagnostics.trim().is_empty() {
-            self.reject_if_truncated(path, &audio, excerpt, &diagnostics)?;
-        }
-        Ok(audio)
+        Ok((samples, diagnostics))
     }
 
     /// How FFmpeg must open `path`, from its first bytes: read on a thread

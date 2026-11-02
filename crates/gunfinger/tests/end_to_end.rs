@@ -1342,3 +1342,87 @@ fn the_saved_index_is_used_while_current_and_rebuilt_when_not() {
         "{ignored}"
     );
 }
+
+#[test]
+fn a_quiet_track_under_a_confident_one_is_found_once_the_louder_is_taken_out() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("under");
+    let library = dir.join("library");
+    let loud = Track::random(11, 80.0);
+    let quiet = Track::random(12, 80.0);
+    let never = Track::random(13, 60.0);
+    for (name, track) in [("a.wav", &loud), ("b.wav", &quiet), ("c.wav", &never)] {
+        write_wav(&library.join(name), &track.play(0.0, track.seconds, 1.0));
+    }
+    // A double drop: b.wav 12 dB down under a.wav for 40 s, never alone.
+    // The plain search finds b.wav only as possible, inside a.wav's play,
+    // so the tracklist leaves it out (ADR 0019).
+    let mut mix = Mix::new(80.0);
+    mix.add(0.0, &loud.play(5.0, 75.0, 1.02), 1.0);
+    let gain = 10_f32.powf(-12.0 / 20.0);
+    let under: Vec<f32> = quiet
+        .play(10.0, 40.0, 0.98)
+        .iter()
+        .map(|sample| sample * gain)
+        .collect();
+    mix.add(20.0, &under, 2.0);
+    let recording = dir.join("mix.wav");
+    write_wav(&recording, mix.samples());
+    let library_arg = library.to_str().unwrap();
+    let recording_arg = recording.to_str().unwrap();
+    gunfinger(&dir, &["index", library_arg]);
+
+    let plain = gunfinger(&dir, &["identify", recording_arg, "--library", library_arg]);
+    let found = gunfinger(
+        &dir,
+        &[
+            "identify",
+            recording_arg,
+            "--library",
+            library_arg,
+            "--under",
+            "--format",
+            "json",
+        ],
+    );
+    let saved = dir.join("mix.json");
+    std::fs::write(&saved, &found.stdout).unwrap();
+    let shown = gunfinger(&dir, &["show", saved.to_str().unwrap()]);
+    let store_only = gunfinger(
+        &dir,
+        &[
+            "identify",
+            recording_arg,
+            "--store-only",
+            "--under",
+            "--format",
+            "json",
+        ],
+    );
+
+    assert_eq!(String::from_utf8_lossy(&plain.stdout), " 1.    0:00  a\n");
+    assert_eq!(
+        String::from_utf8_lossy(&shown.stdout),
+        " 1.    0:00  a\n 2.    0:20  b (under 1.)\n"
+    );
+    let report: Value = serde_json::from_slice(&found.stdout).unwrap();
+    let under = report["under"].as_array().unwrap();
+    assert_eq!(under.len(), 1, "{report}");
+    assert_eq!(under[0]["asset"], "b.wav");
+    assert_eq!(under[0]["confidence"], "confident");
+    assert_eq!(
+        under[0]["under"],
+        serde_json::json!({ "play": 1, "asset": "a.wav" })
+    );
+    assert_track_position(&under[0], 20.0, 10.0, 0.98);
+    assert!(report["search"]["under"].is_string(), "{report}");
+    let stored: Value = serde_json::from_slice(&store_only.stdout).unwrap();
+    assert!(stored.get("under").is_none(), "{stored}");
+    assert!(
+        String::from_utf8_lossy(&store_only.stderr).contains("--under needs the library's audio"),
+        "{}",
+        String::from_utf8_lossy(&store_only.stderr)
+    );
+}

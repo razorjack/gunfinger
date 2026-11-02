@@ -179,6 +179,12 @@ impl Indexable {
     pub fn revision(&self) -> String {
         library_revision(&self.plan.sources)
     }
+    /// Whether the files are the library's, read from its root, so that
+    /// their audio can be decoded; not when the store's own records are
+    /// searched.
+    pub fn reads_library(&self) -> bool {
+        !self.store_only
+    }
 }
 
 /// The files of a store's current records, and the records whose header

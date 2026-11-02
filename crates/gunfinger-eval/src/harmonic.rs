@@ -20,13 +20,13 @@ use std::path::Path;
 
 use gunfinger_core::peaks::{Peak, extract_peaks};
 use gunfinger_core::profile::Profile;
+use gunfinger_core::residual::{overlap_add, spectra};
 use gunfinger_core::search::Detection;
 use gunfinger_core::speed;
 use serde::Serialize;
 
 use crate::matching::Matching;
 use crate::render::{Encoding, Playback, encode, limited, render_samples_as_indexed};
-use crate::residual::{overlap_add, spectra};
 use crate::verifier::{CHANCE_SHIFTS_SECONDS, TOLERANCE};
 
 /// The median across time spans this many frames (400 ms at the

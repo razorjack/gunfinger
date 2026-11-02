@@ -24,6 +24,7 @@ use crate::output::{ReportFormat, render};
 use crate::playback::PlaybackChoice;
 use crate::report::{QuerySource, Report, SearchSettings};
 use crate::style::Style;
+use crate::under;
 
 pub struct Request<'a> {
     pub audio: &'a [PathBuf],
@@ -36,6 +37,9 @@ pub struct Request<'a> {
     pub save_dir: Option<&'a Path>,
     /// Search recordings again that already have a report in `save_dir`.
     pub again: bool,
+    /// Search under each confident track once its audio is taken out
+    /// (`--under`, ADR 0025).
+    pub under: bool,
     pub style: Style,
     pub jobs: usize,
     pub console: &'a Console,
@@ -57,7 +61,13 @@ pub fn run(request: &Request) -> miette::Result<()> {
             .wrap_err_with(|| format!("cannot read {}", audio.display()))?;
     }
     let indexable = Indexable::find(&request.source, request.console)?;
-    let jobs = plan(request, &indexable)?;
+    let under = request.under && indexable.reads_library();
+    if request.under && !under {
+        request.console.info(
+            "--under needs the library's audio to take a track out of the recording; searching the peak store's own records, it does not run",
+        );
+    }
+    let jobs = plan(request, &indexable, under)?;
     if jobs.is_empty() {
         request
             .console
@@ -75,7 +85,7 @@ pub fn run(request: &Request) -> miette::Result<()> {
         let decoded = first
             .take()
             .unwrap_or_else(|| decode_recording(request, audio));
-        match decoded.map(|decoded| identify(request, &catalog, audio, decoded)) {
+        match decoded.map(|decoded| identify(request, &catalog, audio, decoded, under)) {
             Ok(report) => {
                 if let Some(saved) = saved {
                     let json = render(&report, ReportFormat::Json, request.style)?;
@@ -110,6 +120,7 @@ pub fn run(request: &Request) -> miette::Result<()> {
 fn plan(
     request: &Request,
     indexable: &Indexable,
+    under: bool,
 ) -> miette::Result<Vec<(PathBuf, Option<PathBuf>)>> {
     let Some(dir) = request.save_dir else {
         return Ok(request
@@ -128,10 +139,12 @@ fn plan(
         .iter()
         .any(|audio| report_path(dir, audio).exists());
     let current = if any_saved && !request.again {
-        Some(SearchSettings::current(
-            request.matcher,
-            &indexable.revision(),
-        ))
+        let settings = SearchSettings::current(request.matcher, &indexable.revision());
+        Some(if under {
+            settings.with_under()
+        } else {
+            settings
+        })
     } else {
         None
     };
@@ -309,7 +322,13 @@ fn decode_recording(request: &Request, audio_path: &Path) -> miette::Result<Deco
     })
 }
 
-fn identify(request: &Request, catalog: &Catalog, audio_path: &Path, decoded: Decoded) -> Report {
+fn identify(
+    request: &Request,
+    catalog: &Catalog,
+    audio_path: &Path,
+    decoded: Decoded,
+    under: bool,
+) -> Report {
     let profile = Profile::CURRENT;
     let started = Instant::now();
     let Decoded {
@@ -347,6 +366,17 @@ fn identify(request: &Request, catalog: &Catalog, audio_path: &Path, decoded: De
         &detections,
     );
     report.query.source = Some(source);
+    if under {
+        report.under = Some(under::find(
+            &report,
+            catalog,
+            &audio.samples,
+            &ladder,
+            request.jobs,
+            request.console,
+        ));
+        report.search = report.search.take().map(SearchSettings::with_under);
+    }
     // Each gap's repeats come from the samples already decoded, so the
     // estimate needs no second decode (ADR 0024).
     let matching = Instant::now();
@@ -414,6 +444,7 @@ mod tests {
             format: ReportFormat::Json,
             save_dir: None,
             again: false,
+            under: false,
             style: Style::for_stdout(ColorChoice::Never),
             jobs: 1,
             console: &console,

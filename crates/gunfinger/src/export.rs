@@ -18,13 +18,20 @@ use crate::report::{FoundPlay, Level, Playback, Report};
 /// Cue sheet times count frames of 1/75 s.
 const CUE_FRAMES_PER_SECOND: f64 = 75.0;
 
-/// One row per play, times in seconds.
+/// One row per play, times in seconds. When `identify --under` ran, the
+/// plays found under confident plays are rows too, in time order, and a
+/// last column `under_play` gives the number of the play each lay under
+/// (ADR 0025); without it the columns are as before.
 pub fn csv(report: &Report) -> String {
-    let mut lines = vec![String::from(
+    let mut header = String::from(
         "start_seconds,end_seconds,track_start_seconds,track_end_seconds,speed_percent,confidence,hits,windows,segments,playback,asset,same_audio,shares_material_with_play",
-    )];
-    for play in &report.plays {
-        lines.push(format!(
+    );
+    if report.under.is_some() {
+        header.push_str(",under_play");
+    }
+    let mut lines = vec![header];
+    for play in report.plays_and_under() {
+        let mut line = format!(
             "{:.1},{:.1},{:.1},{:.1},{:.2},{},{},{},{},{},{},{},{}",
             play.start_seconds,
             play.end_seconds,
@@ -44,7 +51,14 @@ pub fn csv(report: &Report) -> String {
             play.shares_material_with
                 .as_ref()
                 .map_or_else(String::new, |shared| shared.play.to_string())
-        ));
+        );
+        if report.under.is_some() {
+            line.push(',');
+            if let Some(under) = &play.under {
+                line.push_str(&under.play.to_string());
+            }
+        }
+        lines.push(line);
     }
     lines.push(String::new());
     lines.join("\n")
@@ -182,9 +196,12 @@ fn first_plays(plays: &[FoundPlay]) -> Vec<usize> {
 /// table and JSON keep it (ADR 0019). Such a play is never grouped, so it
 /// is an entry of its own. Each gap (`gaps`) gets an unnumbered "ID - ID"
 /// line at its start, before an entry starting at the same moment: a number
-/// would count it as one track (ADR 0023). As the default output it says
-/// when nothing was found, so that an empty result does not look like a run
-/// that printed nothing.
+/// would count it as one track (ADR 0023). A confident play found under a
+/// confident play (`identify --under`) is an entry of its own at its start,
+/// marked "(under N.)" with the number of the louder track's entry; one
+/// found only as possible is left out, as above (ADR 0025). As the default
+/// output it says when nothing was found, so that an empty result does not
+/// look like a run that printed nothing.
 pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
     let entries: Vec<Entry> = entries(report)
         .into_iter()
@@ -196,7 +213,14 @@ pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
                     .any(|play| play.shares_material_with.is_none())
         })
         .collect();
-    if entries.is_empty() {
+    let under: Vec<Entry> = report
+        .under
+        .iter()
+        .flatten()
+        .filter(|play| play.confidence == Level::Confident)
+        .map(|play| Entry { plays: vec![play] })
+        .collect();
+    if entries.is_empty() && under.is_empty() {
         return String::from("no tracks found\n");
     }
     let mut lines: Vec<(f64, String)> = gaps(report)
@@ -212,10 +236,27 @@ pub fn tracklist(report: &Report, name: impl Fn(&str) -> TrackName) -> String {
             )
         })
         .collect();
-    for (number, entry) in entries.iter().enumerate() {
+    // Entries first on a tie, so a play found under another keeps its
+    // place after the entries starting with it; entries are in time order
+    // already, so a stable sort keeps theirs.
+    let mut numbered: Vec<&Entry> = entries.iter().chain(&under).collect();
+    numbered.sort_by(|a, b| a.start_seconds().total_cmp(&b.start_seconds()));
+    let number_of = |play: &FoundPlay| {
+        numbered
+            .iter()
+            .position(|entry| entry.plays.iter().any(|other| std::ptr::eq(*other, play)))
+            .map(|index| index + 1)
+    };
+    for (number, entry) in numbered.iter().enumerate() {
+        let under_mark = entry.plays[0]
+            .under
+            .as_ref()
+            .and_then(|under| report.plays.get(under.play.checked_sub(1)?))
+            .and_then(number_of)
+            .map_or_else(String::new, |louder| format!(" (under {louder}.)"));
         let mark = match entry.confidence() {
-            Level::Confident => "",
-            Level::Possible | Level::Weak => " (possible)",
+            Level::Confident => under_mark,
+            Level::Possible | Level::Weak => String::from(" (possible)"),
         };
         let others = entry.other_names(&name);
         let also = if others.is_empty() {
