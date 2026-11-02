@@ -239,3 +239,28 @@ In this order: the NAS-scale leave-outs, then the long mixes, then seed
 
 ## Decisions
 
+- **(05:47-05:53) Start build and regressions** (`work/s73/start.sh`,
+  tmux `s73start`, logs in `work/s73/logs/`; `run.sh` and `same.py` are
+  session 72's with the paths changed). Cargo had nothing to rebuild:
+  `work/bin/s73-start/` is byte-identical to `s72-final`. `regress
+  session-54-linux` (0:50) and `regress session-64-linux-nas` (4:35,
+  beside the first render) identical, every report equal to its
+  baseline's.
+- **(05:51) Renders** (`work/s73/gen.sh`, tmux `s73gen`): the harness's
+  `mixes` at 262 tracks in `work/s73/gen/` with its own copy of
+  `work/s65/panels`, drops seeds 2050 and 2051 (16 mixes each), long seed
+  2052 (4 mixes).
+- **(05:52) The timing variant** (`work/s73/wt-timing/`, a detached
+  worktree of `7653694`, never merged; `work/bin/s73-timing/gunfinger`):
+  `under.rs` prints on stderr, per recording, per entry (`s73-entry`:
+  file taken out, start, span, segments, decode, mask, search and
+  shared-material seconds, finds kept; `s73-entry-total`), per detection
+  at possible or above (`s73-detection`: its file, span, level, hits,
+  `taken-out`, `named-nearby` or `candidate`), the files held back as
+  sharing material (`s73-shared`) and the found plays dropped as one
+  track with a confident play (`s73-one-track`). No other change.
+- **(05:53) Seed 2051 replaced by 2053.** `mixes --kind drops --seed
+  2051` stopped before drawing: with that seed's held-out recordings no
+  pair of the shared-material panel has both files indexed. The next
+  unused seed, 2053 (named nowhere), takes its place; nothing else
+  changes.

@@ -11,6 +11,8 @@ docs/brief-39.md (step 1).
     python3 -I scripts/analysis/tracklist_score.py score MIXES.json CLI_DIR \\
         CLUSTERS.json SHARED_PANEL.json STORE OUT.json [EXCLUDED.txt]
     python3 -I scripts/analysis/tracklist_score.py summary OUT.json...
+    # reports made with `identify --under`: the option against the default
+    python3 -I scripts/analysis/tracklist_score.py under-summary OUT.json...
     # the harness's own detection-level scores of the same mixes
     python3 -I scripts/analysis/tracklist_score.py detections MIXES.json...
 
@@ -20,6 +22,12 @@ leaves out a possible entry whose plays all carry `shares_material_with`),
 and every line `show` printed is checked against them: number, start,
 name, other names and marks; the unnumbered "ID - ID" lines of gaps (ADR
 0023) are passed over. A mismatch stops the script.
+
+With `identify --under` (ADR 0025, session 73) the report's `under` holds
+plays found under confident ones; they are grouped into entries as plays
+are, a confident one is a tracklist entry marked "(under N.)", and the
+scores gain the outcome with them (`under_*` keys); `under-summary`
+prints those beside the default's.
 """
 import json
 import os
@@ -183,7 +191,8 @@ def timecode_seconds(text):
     return seconds
 
 
-LINE = re.compile(r"^ *(\d+)\. +(\S+)  (.*?)(?:  \((also|titles disagree): (.*?)\))?( \(possible\))?$")
+LINE = re.compile(r"^ *(\d+)\. +(\S+)  (.*?)(?:  \((also|titles disagree): (.*?)\))?"
+                  r"(?: \(under (\d+)\.\))?( \(possible\))?$")
 # An unnumbered gap line (ADR 0023), with its estimate (ADR 0024) or not; it
 # names no entry.
 GAP_LINE = re.compile(
@@ -191,25 +200,48 @@ GAP_LINE = re.compile(
 )
 
 
-def check_lines(shown, report_entries, plays, label):
+def numbered(report_entries, under_entries):
+    """The tracklist's entries in order: by start, entries before plays
+    found under others on a tie (a stable sort, as export.rs sorts)."""
+    return sorted(list(report_entries) + list(under_entries),
+                  key=lambda entry: min(play["start_seconds"] for play in entry))
+
+
+def under_number(entry, plays, ordered):
+    """The number of the entry holding the play `entry` was found under."""
+    under = entry[0].get("under")
+    if under is None or entry[0]["confidence"] != "confident":
+        return None
+    louder = plays[under["play"] - 1]
+    for number, other in enumerate(ordered, 1):
+        if any(play is louder for play in other):
+            return number
+    return None
+
+
+def check_lines(shown, report_entries, plays, label, under_entries=(), under=()):
     """Checks every entry line; gap lines are passed over."""
     lines = [line for line in shown.splitlines() if line and not GAP_LINE.match(line)]
     if lines == ["no tracks found"]:
         lines = []
-    if len(lines) != len(report_entries):
-        raise SystemExit(f"{label}: {len(lines)} lines printed, {len(report_entries)} entries rebuilt")
-    for number, (line, entry) in enumerate(zip(lines, report_entries), 1):
+    ordered = numbered(report_entries, under_entries)
+    named = list(plays) + list(under)
+    if len(lines) != len(ordered):
+        raise SystemExit(f"{label}: {len(lines)} lines printed, {len(ordered)} entries rebuilt")
+    for number, (line, entry) in enumerate(zip(lines, ordered), 1):
         match = LINE.match(line)
         if not match:
             raise SystemExit(f"{label}: cannot read line {line!r}")
         start = min(play["start_seconds"] for play in entry)
-        others = other_names(entry, plays)
+        others = other_names(entry, named)
         flag = ("titles disagree" if titles_disagree(entry) else "also") if others else None
-        expected = (number, int(start), name_of(entry[0]["asset"], plays), flag,
-                    ", ".join(others) if others else None,
+        louder = under_number(entry, plays, ordered)
+        expected = (number, int(start), name_of(entry[0]["asset"], named), flag,
+                    ", ".join(others) if others else None, louder,
                     entry[0]["confidence"] != "confident")
         found = (int(match.group(1)), timecode_seconds(match.group(2)), match.group(3),
-                 match.group(4), match.group(5), match.group(6) is not None)
+                 match.group(4), match.group(5),
+                 int(match.group(6)) if match.group(6) else None, match.group(7) is not None)
         if expected != found:
             raise SystemExit(f"{label}: line {line!r} does not match {expected}")
 
@@ -269,10 +301,12 @@ def holds(play, recording):
 
 def score_mix(mix, report, shown, library):
     plays = report["plays"]
+    under = report.get("under") or []
     all_entries = entries(plays)
     shown_entries = [entry for entry in all_entries if printed(entry)]
-    check_lines(shown, shown_entries, plays, mix["name"])
-    for play in plays:
+    under_entries = [entry for entry in entries(under) if entry[0]["confidence"] == "confident"]
+    check_lines(shown, shown_entries, plays, mix["name"], under_entries, under)
+    for play in plays + under:
         play["asset"] = library.key(play["asset"])
         play["same_audio"] = [library.key(path) for path in play.get("same_audio", [])]
     truth = mix["plays"]
@@ -315,7 +349,18 @@ def score_mix(mix, report, shown, library):
             outcome = "found, not printed"
         else:
             outcome = "not found"
+        own_under = [found for found in under if holds(found, recording) and overlap(found, play)]
+        naming_under = [entry for entry in under_entries if named(entry) == recording and any(
+            holds(found, recording) and overlap(found, play) for found in entry)]
+        under_start = (min(found["start_seconds"] for found in naming_under[0])
+                       if naming_under else None)
         truth_rows.append({
+            "under_in_json": [found["confidence"] for found in own_under],
+            "under_printed": bool(naming_under),
+            "under_start_error": (under_start - play["start_seconds"]
+                                  if under_start is not None else None),
+            "outcome_with_under": (outcome if outcome.startswith("printed") or not naming_under
+                                   else "printed under"),
             "play": index,
             "scenario": play.get("scenario"),
             "side": play.get("side"),
@@ -398,9 +443,31 @@ def score_mix(mix, report, shown, library):
     wrong_confident = [found["asset"] for found in plays if found["confidence"] == "confident"
                        and not any(holds(found, play["recording"]) and overlap(found, play)
                                    for play in truth if play["indexed"])]
+    under_rows = []
+    for entry in under_entries:
+        recording = named(entry)
+        right = [play for play in truth if play["indexed"] and play["recording"] == recording
+                 and any(holds(found, recording) and overlap(found, play) for found in entry)]
+        related = any(play["family"] == library.family_of(entry[0]["asset"])
+                      and any(overlap(found, play) for found in entry) for play in truth)
+        under_rows.append({
+            "start_seconds": min(found["start_seconds"] for found in entry),
+            "name": recording[0], "under_play": entry[0]["under"]["play"],
+            "right": bool(right),
+            "extra": None if right else ("related" if related else "unrelated")})
+    under_found = []
+    for found in under:
+        playing = [play for play in truth if play["indexed"]
+                   and holds(found, play["recording"]) and overlap(found, play)]
+        under_found.append({"asset": found["asset"], "confidence": found["confidence"],
+                            "hits": found["hits"], "right": bool(playing),
+                            "related": not playing and any(
+                                play["indexed"] and play["family"] == library.family_of(found["asset"])
+                                and overlap(found, play) for play in truth)})
     return {"mix": mix["name"], "truth": truth_rows, "entries": entry_rows,
             "wrong_confident": wrong_confident, "marked": marked,
-            "entries_printed": len(shown_entries)}
+            "entries_printed": len(shown_entries), "searched_under": "under" in report,
+            "under_entries": under_rows, "under_found": under_found}
 
 
 def inside_of(play, truth):
@@ -484,6 +551,50 @@ def summary(*paths):
           f"mixes {len(rows)}")
 
 
+def under_summary(*paths):
+    """The option against the default on the same mixes: each scenario's
+    plays printed by default and with the plays found under others, the
+    entries gained and the found plays, right or not."""
+    rows = [row for path in paths for row in json.load(open(path))["rows"]]
+    missing = [row["mix"] for row in rows if not row.get("searched_under")]
+    if missing:
+        raise SystemExit(f"not searched with --under: {missing}")
+    truth = [play for row in rows for play in row["truth"]]
+
+    def group(play):
+        scenario = play["scenario"] or "-"
+        if play["side"] == "second":
+            return f"{scenario} second ({'inside' if play['inside'] else 'through'})"
+        return f"{scenario} {play['side']}" if play["side"] else scenario
+
+    print("| Scenario | Plays | Printed by default (confident) | With --under | Gained | "
+          "Found under, possible only |")
+    print("|---|--:|--:|--:|--:|--:|")
+    for name in sorted({group(play) for play in truth}):
+        here = [play for play in truth if group(play) == name]
+        default = sum(play["outcome"].startswith("printed") for play in here)
+        confident = sum(play["outcome"] == "printed confident" for play in here)
+        option = sum(play["outcome_with_under"].startswith("printed") for play in here)
+        gained = sum(play["outcome_with_under"] == "printed under" for play in here)
+        possible = sum(not play["under_printed"] and bool(play["under_in_json"]) for play in here)
+        print(f"| {name} | {len(here)} | {default} ({confident}) | {option} | {gained} | {possible} |")
+    entries = [entry for row in rows for entry in row["under_entries"]]
+    print(f"\nentries gained {len(entries)}: right {sum(e['right'] for e in entries)}; extra "
+          f"related {sum(e['extra'] == 'related' for e in entries)}, unrelated "
+          f"{sum(e['extra'] == 'unrelated' for e in entries)}")
+    errors = sorted(round(play["under_start_error"], 1) for play in truth
+                    if play["under_start_error"] is not None)
+    print(f"start of a gained entry minus the truth play's start (s): {errors}")
+    found = [play for row in rows for play in row["under_found"]]
+    for level in ("confident", "possible"):
+        here = [play for play in found if play["confidence"] == level]
+        print(f"found under others, {level}: {len(here)}; right {sum(p['right'] for p in here)}, "
+              f"related {sum(p['related'] for p in here)}, unrelated "
+              f"{sum(not p['right'] and not p['related'] for p in here)}")
+    print(f"wrong confident plays of the default: {sum(len(row['wrong_confident']) for row in rows)}; "
+          f"mixes {len(rows)}")
+
+
 def detections(*paths):
     """The harness's own scores of the same mixes (`mixes`'s `level` per
     play: its strongest detection of the play's cluster), by scenario."""
@@ -516,4 +627,4 @@ def detections(*paths):
 if __name__ == "__main__":
     command, *arguments = sys.argv[1:]
     {"store": store, "exclude": exclude, "score": score, "summary": summary,
-     "detections": detections}[command](*arguments)
+     "under-summary": under_summary, "detections": detections}[command](*arguments)
