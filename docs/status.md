@@ -6037,3 +6037,36 @@ open points. The product did not change.
   regressions identical; `scripts/check.sh` green; the analysis tests
   green after the review's fixes; `docs/pair-verdicts.txt` and the NAS
   clusters file (`c4d3da2e7e37...`) unchanged.
+
+## 2026-11-02: session 74, which tracks use this break? A passage query, measured
+
+Brief `docs/brief-74.md` (its pre-registration committed before the
+first scored run), checklist `docs/session-74-checklist.md`; notes
+"Session 74"; experiments 0276-0277; research note
+`docs/research/2026-11-02-break-search.md`. The product did not change.
+
+- 07:40 start at `8c404d1`, clean. Start build `work/bin/s74-start/`
+  (= `s73-final`); both regressions identical (0:51; 3:57).
+- `gunfinger-eval break-search` (harness only, tested): a file and a
+  span of 20 s, searched against the whole index on the turntable
+  ladder with every posting list and with the fullest 1% set aside;
+  each file once at its strongest detection of 20 hits or more, the
+  query's own cluster apart, the reach of the strongest files.
+- At NAS scale it finds 59 of 64 judged shared passages, Special
+  Branch's partners and `parts` edges (51 in the first five, 25 first);
+  random passages list a median 0 other files (0276).
+- Famous breaks line up with up to 403 files (1% of the index) at
+  similar strength; the files above an expected one are mostly other
+  rips, versions and holders of the same break. The filter hides most
+  of them (Special Branch: 124 other files with every list, 25 with
+  it); every list costs a median 5.5 thread seconds per query alone
+  (0277).
+- By the registered bar, not yet worth a design note and an ADR
+  (ranking first 39%, bar 50%; the null was dominated by rips outside
+  the NAS clusters). The note proposes listening to the lists of three
+  famous breaks first; the decision is ours.
+- Final checks with `work/bin/s74-final/` (= `s73-final` for
+  `gunfinger`): both regressions identical (0:51; 3:47); the NAS-scale
+  queries give the same report again; `scripts/check.sh` green (726
+  Rust tests); `docs/pair-verdicts.txt` and the NAS clusters file
+  (`c4d3da2e7e37...`) unchanged.

@@ -24,5 +24,5 @@ for scope and rules.
   the cost (0277)
 - [x] 5. Research note `docs/research/2026-11-02-break-search.md`;
   roadmap pointer
-- [~] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 74", status, checklist; final checks
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 74", status, checklist; final checks

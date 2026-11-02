@@ -372,3 +372,9 @@ The decision is ours; nothing in the product changes in this session.
   `work/s74/` (session scripts).
   The code changes leave every listing and number unchanged: the final
   build runs the NAS-scale queries again for comparison.
+- **(08:33) Final checks** (`work/s74/final.sh`, tmux `s74final`):
+  `work/bin/s74-final/` from `e80cc26`, its `gunfinger` byte-identical
+  to `s73-final`'s; both regressions identical (0:51; 3:47); the 147
+  NAS-scale queries give the run build's report apart from timings;
+  `scripts/check.sh` green (7:43); the three digests unchanged
+  (`work/s74/listening-digests-end.txt`). Session closed.

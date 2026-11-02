@@ -14674,3 +14674,174 @@ OK); `docs/pair-verdicts.txt`, the NAS clusters file
   `work/peaks` were only read.
 - `docs/pair-verdicts.txt` and the answer log unchanged; no question
   was asked or answered.
+
+## Session 74
+
+### What changed
+
+The product did not change: the `gunfinger` binary of the run build is
+byte-identical to `s73-final`'s. The harness gained `gunfinger-eval
+break-search` (`break_search.rs`, wired in `commands/shared.rs`),
+opt-in and tested, a pilot of the user's question "I like this break
+and have heard it before: which tracks use it?" (docs/status.md,
+2026-10-31). A query names a file and a span of 20 s; the span's stored
+peaks are searched against the whole index the harness builds, on the
+turntable ladder (±8%), once with every posting list and once with the
+fullest 1% set aside as the first pass sets them aside (ADR 0014). Each
+file is listed once at its strongest detection of 20 hits or more,
+strongest first, with its relative speed and where the passage lies in
+it; the query's own duplicate cluster is listed apart; for the 20
+strongest other files the whole query is measured against that file
+alone (the *reach*: a rip or version goes on matching beyond the
+passage). `scripts/analysis/break_search.py` scores the reports
+(tested). Pre-registered in `56a2ec0` (brief 74), the cases committed
+in `46e441c` (`docs/experiments/data/0276-cases.json`) before any
+scored run.
+
+In short: the passage query finds the judged shared material and the
+user's Special Branch partners (59 of 64 positives at NAS scale, 51 in
+the first five), but ranks the expected file first only 25 times. A
+famous break's passage lines up with hundreds of files at similar
+strength (up to 403, 1% of the index), and the files above an expected
+one are mostly other rips, other versions and other holders of the same
+break, not chance. The filter hides most of a famous break's holders
+(Special Branch: 124 other files with every list, 25 with it); searching
+every list costs a median 5.5 thread seconds per query alone at NAS
+scale. By the registered bar it is not yet worth a design note and an
+ADR.
+
+### Experiments 0276-0277
+
+| Run | Result |
+|---|---|
+| 0276, NAS scale (40,696 files), every list | positives found 59 of 64 (A panel 18/20, B drum loops 5/7, C Special Branch 6/6, D `parts` edges 30/31), first 25, first five 51; missed: Watermelon both ways (key-locked passage, turntable ladder searched), drum loops 5 and 7, Omni Trio - Nu Birth |
+| 0276, noise | random passages and intros: a median 0 other files at 20 hits; 13 of 40 random passages list another file reaching 60 s of the query, by title mostly another rip outside the NAS clusters, so the registered null *T* (726 hits) exceeds the expected files' median (72); passages of famous breaks list 120-403 files (Kill A Sound, Raid, Your Sound (Remix), License, Special Branch, and the random Double-J and Renegade - Terrorist) |
+| 0276, exploratory | with files reaching 60 s of the query set apart (rips and versions by audio): 39 first, 53 in the first five; on random passages the strongest passage-only file has 29 hits at the 90th percentile |
+| 0276, 262 tracks | 4 of 5 positives found, all first; random passages list at most 2 other files |
+| 0277, the lists set aside | found 59 with every list, 56 filtered (three `parts` edges need every list); expected files keep a median 49% (C) and 64% (D) of their hits under the filter, the query's own file 75-81%; passage hashes set aside 15-21% for every group |
+| 0277, cost | thread seconds per query, 32 at once: 7.96 (every list) and 1.55 (filtered) median; ten queries alone: 5.53 and 0.91; index load 2.6 s; 147 queries in both modes 55 s, 6.2 GiB |
+| Registered bar | (1) fails on first (39%, bar 50%; group D 4 of 31), found 92% and first five 80% hold; (2) fails on *T*; (3) holds |
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux`; `regress session-64-linux-nas` (start build) | 0:51; 3:57 | 0.4; 5.3 GiB |
+| `pair`, the seven drum-loop pairs (NAS scale) | 0:21 | 0.2 GiB |
+| `break-search`, 85 queries at 262 tracks, both modes | 0:01.2 | 0.27 GiB |
+| `break-search`, 147 queries at NAS scale, both modes | 0:55 | 6.2 GiB |
+| `break-search --jobs 1`, ten NAS-scale queries | 1:15 | 4.5 GiB |
+| `regress session-54-linux`; `regress session-64-linux-nas` (run build) | 0:51; 3:48 | 0.4; 5.4 GiB |
+| `scripts/check.sh` (before the review's fixes) | 7:55 | 1.5 GiB |
+| `regress session-54-linux`; `regress session-64-linux-nas` (final build) | 0:51; 3:47 | 0.4; 5.3 GiB |
+| `break-search`, the 147 NAS-scale queries again (final build) | 0:55 | 6.2 GiB |
+| `scripts/check.sh` (final build) | 7:43 | 1.0 GiB |
+
+### Final checks
+
+`work/s74/final.sh` with `work/bin/s74-final/` (master at `e80cc26`):
+its `gunfinger` byte-identical to `s73-final`'s; `regress
+session-54-linux` (0:51) and `regress session-64-linux-nas` (3:47)
+identical, every report equal to its baseline's apart from
+`wall_seconds`; the 147 NAS-scale queries give the run build's report
+again apart from timings (the review's code changes moved nothing);
+`scripts/check.sh` green (7:43, 726 Rust tests and the analysis tests);
+`docs/pair-verdicts.txt`, the NAS clusters file (`c4d3da2e7e37...`)
+and the answer log at their start digests
+(`work/s74/listening-digests-end.txt`).
+
+### Decided this session, open to change
+
+- The passage is 20 s, the upper end of the prompt's 10-20 s, so that a
+  break holds enough hits; files are listed from 20 hits (below
+  `holders`' 30) for the same reason.
+- Only the turntable ladder was searched (a break sampled at another
+  pitch is a resampling); the Watermelon pair's passage plays key-locked
+  and was missed.
+- Group D's cases were chosen by reading titles: `parts` candidates
+  answered `one` whose edge part is another title and not another
+  version of the same tune (32, one per recording). They come from the
+  filtered stored-peak search, so they favour the filtered mode.
+- The registered null (the 95th percentile of random passages'
+  strongest other file) counts other rips outside the NAS clusters; the
+  reach-based reading that sets them apart is exploratory.
+- A cost run of ten queries alone (`--jobs 1`) was added after the main
+  run, to measure thread seconds without 31 other queries running.
+
+### Questions this leaves for us
+
+- Whether a command is wanted at all, and in what form: it would search
+  every list, mark files that match beyond the passage as rips or
+  versions, and print holders with their speeds, never a title claim.
+- How to order hundreds of holders of one famous break; hits do not
+  order them for a listener.
+- Whether to search the key-locked ladder as well (Watermelon), and a
+  range wider than ±8% (breaks sampled at other pitches).
+- Whether the reach should replace the clusters file for listing rips
+  apart: the NAS clusters hold only the corpus recordings' rips, so
+  another rip of any other recording is listed as an "other" file.
+
+### Questions for listening (none answered by agents)
+
+For each passage, do these files play the same break as the query's
+span? From 0276's lists with every list, the strongest files that do not
+match beyond the passage:
+
+1. Special Branch (UFOLP001 rip) at 4:10-4:30: Ray Keith - Dark
+   Soldier (VIP Mix) at 5:16, Cyba Space - I Bless The Day (Ray Keith
+   Remix) at 5:45, Ray Keith - I Bless The Day at 5:40, Ray Keith -
+   Dark Soldier (Back In The Day Mix) at 5:48, The Pressure Crew - Ready
+   On The Left at 2:19, Dom & Roland - Analysis at 3:45 (204 files in
+   all).
+2. Krome & Time - License (Jungle Massive 2) at 5:00-5:20: Ray Keith -
+   I Bless The Day at 5:43, Kratos - Options at 5:11, Brainkillers -
+   Press The Buzzer at 1:45, Native Minds - Soulfire at 0:18, Ned Ryder
+   - U As 1 (VIP Remix) at 0:54 (347 files).
+3. Bigger Star - Raid at 6:00-6:20: Swift & Zinc - Rockin' With The
+   Best at 5:28, DJ Tamsin & Monk - A Better Place (DJ Trace Remix) at
+   4:33, Terry Tee - Kill A Sound at 4:49, Vorte-x - Self Destruct at
+   1:18 (390 files).
+4. A random passage, John B vs MC Justiyc - Double-J (Club Mix) at
+   5:08-5:28: is it a break, and do Ray Keith - I Bless The Day at 5:41
+   and Undercover Business - Opera at 3:02 hold it (207 files)?
+
+Ray Keith - I Bless The Day's passage near 5:40 is among the strongest
+holders for three of these four queries.
+
+### Handoff
+
+1. State: master clean after the final commit; builds
+   `work/bin/s74-final/` (master), `s74-run` (the reported runs) and
+   `s74-start`.
+2. Data: `work/s74/out/` (the reports: `break-262.json`,
+   `break-nas.json`, `break-nas-cost.json`, `break-nas-final.json`),
+   the summaries `work/s74/summary-*.json` and `posthoc-nas.json`, the
+   query files, `cases.py` (writes the cases file) and `posthoc.py`
+   (the exploratory readings), logs in `work/s74/logs/`; about 13 MB. No
+   renders were made.
+3. To run it again:
+   ```sh
+   E=work/bin/s74-final/gunfinger-eval
+   $E --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks break-search QUERIES.json --out OUT.json
+   python3 -I scripts/analysis/break_search.py docs/experiments/data/0276-cases.json OUT.json SUMMARY.json
+   ```
+   A query is `{"name", "file", "start_seconds", "end_seconds"}` with an
+   optional `expected` list; `file` is a corpus path or
+   `second-library/<path>`.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. No mix was searched apart from
+  Stakka through `regress`; the queries were library files' passages.
+  The NAS and `work/peaks` were only read; `pair` wrote its report to
+  `work/reports/library-nas-dnb-peaks/pairs-s74-drum-loops.json`, a new
+  name that `regress` does not read.
+- A read-only review by a separate agent (08:04-08:17) found no product
+  change and confirmed most figures; it found group D's expected files
+  wider than registered (not rescored; the bar's outcome is the same),
+  overstated hit ranges, an unheard claim, the reach's gaps, unreported
+  registered figures, and wording and style points; all fixed or stated
+  (brief 74, 08:17).
+- `docs/pair-verdicts.txt` and the answer log unchanged; no question
+  was asked or answered.
