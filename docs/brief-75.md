@@ -136,7 +136,7 @@ Rules for this session:
   of 107 files that .gunfingerignore leaves out", no group of gone files
   or temporary files; its first 20 lines equal the dry run of 2026-10-31
   (`work/listening-2026-10-31/prune-dry-run.txt`). `prune` prints only
-  20 paths per group, so the rest were checked apart:
+  20 paths per group, so the rest were checked separately:
   `work/s75/ignored_in_store.py` reads the source path of every record
   and note in the store and finds 115 under the three entries (8 peak
   records, 99 skip notes, 8 tag notes, 107 files; listed in
@@ -153,12 +153,17 @@ Rules for this session:
   `Weekenders_1_-_Nocny_Trans.mp3` and `base_club_-__all_4_one.mp3`. Experiment 0065's `sety/vertical.mp3` has a
   skip note only (too long for a record), which the prune deletes.
 
-  Where they appear (`work/s75/where.py`, which matches any path under
-  the three entries; output `work/s75/where-before.tsv`):
+  Where they appear. `work/s75/where.py` matches any path under the
+  three entries in JSON files; it was given the NAS clusters file, the
+  library map, the four reports of `session-64-linux-nas` and the 24
+  JSON files of `work/s33/panels` and `docs/panels/` (output
+  `work/s75/where-before.tsv`). A `grep -E` for the same paths searched
+  those panel folders, `docs/same-titles.txt` and
+  `docs/pair-verdicts.txt`.
   - the NAS clusters file and the library map: none (no cluster or pair
     entry);
   - session 33's panels, `docs/panels/`, `docs/same-titles.txt` and
-    `docs/pair-verdicts.txt`: none;
+    `docs/pair-verdicts.txt`: none (both searches);
   - the baseline `session-64-linux-nas`: six sub-threshold candidates in
     `sweep-seed-2026.json`, 2 windows each (queries 345-347, SKC -
     Recharger (Black Sun Empire Remix) at -1%, 0% and +1%: the Plastic,
@@ -166,7 +171,8 @@ Rules for this session:
     Sicknote at -3%, -1% and +1%: Weekenders 1 - Nocny Trans, 7, 7 and 6
     hits); and one sub-threshold detection of the Plastic in each of the
     three Stakka scans (51:33-51:44, 6 hits, 2 windows);
-  - the corpus store (`work/peaks`, read only, the same script): none.
+  - the corpus store (`work/peaks`, read only, `ignored_in_store.py`):
+    none.
 - **(08:41) Both start regressions identical** (`work/bin/s75-start`):
   `regress session-54-linux` (0:51) and `regress session-64-linux-nas`
   (3:47, 5.3 GiB peak), every report identical to its baseline's apart
@@ -256,11 +262,12 @@ Rules for this session:
   (0:52); `regress session-64-linux-nas` (3:49, the saved index loaded)
   gives step 3's reports again, every one identical; `baseline
   session-75-linux-nas` copies them (identical to
-  `work/s75/pruned-reports/`). `scripts/check.sh` runs in the final
+  `work/s75/pruned-reports/` apart from `wall_seconds`, as `same.py`
+  compares). `scripts/check.sh` runs in the final
   checks, since no code changed. Experiment 0278, data
   `docs/experiments/data/0278-prune-ignored-sets.json`
   (`work/s75/data.py`).
-- **(08:58) Step 5.** The roadmap's "Library ignore file" gains the
+- **(08:55) Step 5.** The roadmap's "Library ignore file" gains the
   three entries of 2026-10-31, the user's decision that uploads cut from
   DJ sets stay in the library, and this prune's record count and
   baseline (session 64's sentence now in the past tense). The other
@@ -270,3 +277,38 @@ Rules for this session:
   note's cost estimate (2026-10-30); they stay as written. The clusters
   file's digest did not change. The places for the next sessions:
   `docs/status.md` (a session 75 entry) and the handoff.
+- **(09:06) The review's findings** (a separate agent, read-only,
+  08:57-09:06). Every number checked matches the evidence (counts,
+  revisions, digests, hits, speeds, list hashes and lengths, times);
+  every difference has its cause, and the rules were followed. Taken:
+  1. `CLAUDE.md` still said "unless brief 74 changes them": now brief 75.
+  2. 0278 listed "Come Closer" beside "The Pulse at three", readable as
+     both at three speeds: now "Come Closer at -3%".
+  3. The notes stated the Clockwork speed's cause as fact and as one
+     value flipping twice: now each scan's move is stated, by inference.
+  4. Step 5's entry was stamped 08:58, after the commit holding it
+     (08:55): corrected.
+  5. 0278's title and the status heading called the Kiss FM show a
+     mixed release, the roadmap a DJ set: both now say "DJ sets and a
+     mixed CD's track fix".
+  6. Step 1's entry credited `where.py` with the verdicts file and
+     `docs/same-titles.txt` (it reads JSON only; a `grep -E` searched
+     them) and the corpus store to "the same script"
+     (`ignored_in_store.py`); the files given to `where.py` are now
+     listed.
+  7. Prose: "apart" for "separately" (here and in 0278); the status
+     entry's ambiguous "of the pruned files" and its one sentence for a
+     traced and an inferred cause, now two; the baseline's identity
+     "apart from `wall_seconds`".
+- **(08:56) Final checks** (`work/s75/final.sh`, tmux `s75final`, which
+  stops at the first failed step): `scripts/check.sh`, the build again
+  (compared with `s75-final`), `regress session-54-linux` and `regress
+  session-75-linux-nas`, the digests. Started before the review, since
+  the review changes documents only.
+- **(09:08) Final checks** (every run exit 0): `scripts/check.sh` green
+  (7:34, 726 Rust tests); the build again byte-identical to
+  `work/bin/s75-final`; `regress session-54-linux` (0:51) and `regress
+  session-75-linux-nas` (3:48) identical, every report equal to its
+  baseline's apart from `wall_seconds`; `docs/pair-verdicts.txt`, the
+  NAS clusters file and the answer log at their start digests
+  (`work/s75/listening-digests-end.txt`).

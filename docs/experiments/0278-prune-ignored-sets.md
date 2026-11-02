@@ -1,9 +1,9 @@
-# 0278: the records of DJ sets and two mixed releases pruned, against session 64's baseline
+# 0278: the records of DJ sets and a mixed CD's track fix pruned, against session 64's baseline
 
 **Question** (brief 75). Three NAS ignore entries of 2026-10-31 leave out `sety/` (DJ sets), the Virus
 on Kiss FM show of 3 May 2000 and the Lowdown Vol 6 track fix (status, 2026-10-31). The store held 8
 peak records, 99 skip notes and 8 tag notes of 107 of those files. What does pruning them change?
-**Method.** `doctor` and `prune` listed exactly those (counted apart by `work/s75/ignored_in_store.py`,
+**Method.** `doctor` and `prune` listed exactly those (counted separately by `work/s75/ignored_in_store.py`,
 since `prune` prints 20 paths per group); `prune --yes`; `clusters --from-peaks --reuse-pairs`; `regress
 session-64-linux-nas` (`work/bin/s75-start` = `s74-final`); `work/s75/diff.py`; `sweep --set-aside-like`
 with the pre-prune saved index (a hard link, only read). `data/0278-prune-ignored-sets.json`.
@@ -23,7 +23,7 @@ with the pre-prune saved index (a hard link, only read). `data/0278-prune-ignore
   entry, panel or verdict named any of the 8.
 - Through the lists set aside (0242's mechanism; traced for the sweep): 21 queries refit a confident
   right detection by at most 4e-4 percentage points, hits unchanged (Abduction at all nine speeds,
-  The Time The Place at four, Come Closer, The Pulse at three, Dominion at four) apart from Dominion's
+  The Time The Place at four, Come Closer at -3%, The Pulse at three, Dominion at four) apart from Dominion's
   dfect-dnb upload at -5% (303 to 317 hits); Decoy at +3% and Magnetics at -5% and +5% lose a weak
   candidate (6-7 hits); in Konflict - RoadBlock at +1% a weak one gains a hit (6 to 7). Under the old lists all
   720 queries and `per_speed` equal the baseline less the pruned files' candidates. In the sweep's index

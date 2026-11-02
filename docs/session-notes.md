@@ -14914,6 +14914,8 @@ by less than 1e-5 percentage points, by inference for the same reason.
 | `regress session-64-linux-nas` on the pruned store (the saved index built again) | 5:41 | 5.3 GiB |
 | `sweep --set-aside-like` (both indexes in memory) | 2:31 | 8.6 GiB |
 | `regress session-64-linux-nas`, final build, the saved index loaded | 3:49 | 5.3 GiB |
+| `scripts/check.sh` (final) | 7:34 | 0.5 GiB |
+| `regress session-54-linux`; `regress session-75-linux-nas` (final) | 0:51; 3:48 | 0.4; 5.4 GiB |
 
 ### Decided this session, open to change
 
@@ -14932,10 +14934,11 @@ by less than 1e-5 percentage points, by inference for the same reason.
 
 ### Questions this leaves for us
 
-- None new from the prune. The Clockwork chain's fitted speed has now
-  flipped twice between the same two values as one list crosses a cut
-  (sessions 64 and 75); harmless (hits unchanged, both right), and
-  0242's note covers it.
+- None new from the prune. The Clockwork detections' fitted speed
+  moved from 1.0140502625 to 1.0140503276 in the full scan after session
+  64's prune and in the leave-out-3 scan after this one, by inference
+  each time because hash 1141698 left that index's set aside; harmless
+  (hits unchanged, both right), and 0242 covers the mechanism.
 
 ### Questions for listening (none answered by agents)
 
@@ -14985,3 +14988,16 @@ by less than 1e-5 percentage points, by inference for the same reason.
 - `docs/pair-verdicts.txt` and the answer log are at their start digests
   (`work/s75/listening-digests-start.txt`); no answer log was written; no
   manifest, committed panel or `docs/same-titles.txt` changed.
+- A read-only review by a separate agent (08:57-09:06) confirmed every
+  number and the rules; it found `CLAUDE.md`'s "unless brief 74", an
+  ambiguous list of refits in 0278, the Clockwork cause stated as fact
+  in these notes, a wrong time stamp, the Kiss FM show named two ways
+  and the brief's account of which script searched what. All were fixed
+  (brief 75, 09:06).
+- Final checks with `work/bin/s75-final/` (08:56-09:08):
+  `scripts/check.sh` green (7:34, 726 Rust tests); `regress
+  session-54-linux` (0:51) and `regress session-75-linux-nas` (3:48)
+  identical, every report equal to its baseline's apart from
+  `wall_seconds`; `docs/pair-verdicts.txt`, the answer log and the NAS
+  clusters file (`c4d3da2e7e37...`) at their start digests
+  (`work/s75/listening-digests-end.txt`).

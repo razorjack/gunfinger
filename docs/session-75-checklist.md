@@ -26,7 +26,7 @@ for scope and rules.
   inference)
 - [x] 4. `baseline session-75-linux-nas`; `regress session-54-linux`
   identical; experiment 0278
-- [~] 5. The places that name the NAS baseline, the record count and the
+- [x] 5. The places that name the NAS baseline, the record count and the
   clusters digest; the roadmap's "Library ignore file"
-- [ ] 6. Read-only review by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 75", status, checklist; final checks
+- [x] 6. Read-only review by a subagent; findings fixed
+- [x] 7. Wrap-up: notes "Session 75", status, checklist; final checks
