@@ -6070,3 +6070,37 @@ first scored run), checklist `docs/session-74-checklist.md`; notes
   queries give the same report again; `scripts/check.sh` green (726
   Rust tests); `docs/pair-verdicts.txt` and the NAS clusters file
   (`c4d3da2e7e37...`) unchanged.
+
+## 2026-11-02: session 75, the records of DJ sets and two mixed releases pruned from the NAS store, new NAS-scale baseline
+
+Brief `docs/brief-75.md`, checklist `docs/session-75-checklist.md`;
+notes "Session 75"; experiment 0278. The product did not change.
+
+- 08:35 start at `793d413`, clean. Start build `work/bin/s75-start/`
+  (= `s74-final`); both regressions identical (0:51; 3:47).
+- With the user's approval of 2026-10-31, `prune --yes` with the NAS
+  configuration deleted the 8 peak records, 99 skip notes and 8 tag
+  notes (107 files) that the three ignore entries of 2026-10-31 leave
+  out (`/sety/`, the Virus on Kiss FM show of 3 May 2000, the Lowdown
+  Vol 6 track fix), after `doctor` and `prune` listed exactly those. The
+  NAS store: 40,666 records, revision `0bd3f0c23fabc698` (was 40,674,
+  `7210fc479da58376`); 1,827 skip notes; no records of ignored files.
+- `clusters --from-peaks --reuse-pairs`: nothing dropped; the NAS
+  clusters file is unchanged, SHA-256 `c4d3da2e7e37...`, 284 clusters,
+  2,875 pair entries.
+- At NAS scale no scored result changed (0278): the sweep, the Stakka
+  scan and its leave-outs, and calibrate score as before. Six weak sweep
+  candidates and one weak detection per Stakka scan of the pruned files
+  are gone. 25 other sweep queries changed (21 refits of confident
+  right detections by at most 4e-4 percentage points, one of them 14
+  hits stronger; four weak candidates), and the leave-out-3 scan's
+  Clockwork speeds moved by less than 1e-5 percentage points, because
+  lists crossed the set-aside cut (0242's mechanism): under the old
+  index's lists all 720 sweep queries equal the old baseline less the
+  pruned files' candidates; the scan's move is inferred.
+- Baselines: `session-54-linux` (262 tracks, unchanged) and
+  `session-75-linux-nas` (NAS scale); compare NAS-scale runs with
+  `session-75-linux-nas`, not `session-64-linux-nas`.
+- The roadmap's "Library ignore file" records that DJ sets indexed as
+  tracks are now left out, while uploads cut from DJ sets stay in the
+  library by the user's decision.
