@@ -1,5 +1,5 @@
 //! The shared-material commands: `shared`, `shared-mixes`, `holders`,
-//! `identifiability` and `versions`.
+//! `break-search`, `identifiability` and `versions`.
 
 use std::collections::BTreeMap;
 use std::path::PathBuf;
@@ -10,7 +10,7 @@ use crate::files::{read_json, stem_or, write_json};
 use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::library_map::LibraryMap;
 use crate::padding::OTHER_LIBRARY_PREFIX;
-use crate::{holders, identifiability, pair, shared, shared_mixes, versions};
+use crate::{break_search, holders, identifiability, pair, shared, shared_mixes, versions};
 
 #[derive(clap::Args)]
 pub struct SharedArgs {
@@ -40,6 +40,17 @@ pub struct HoldersArgs {
     /// JSON: a list of `name`, `asset`, `track_start_seconds`,
     /// `track_end_seconds` and optionally `left_out`.
     pub lookups: PathBuf,
+}
+
+#[derive(clap::Args)]
+pub struct BreakSearchArgs {
+    /// JSON: a list of `name`, `file` (a corpus library path, or
+    /// `second-library/<path>` with --other-peaks-dir), `start_seconds`
+    /// and `end_seconds`.
+    pub queries: PathBuf,
+    /// The report.
+    #[arg(long)]
+    pub out: PathBuf,
 }
 
 #[derive(clap::Args)]
@@ -184,6 +195,26 @@ pub fn holders(harness: &Harness, jobs: usize, args: HoldersArgs) -> Result<(), 
             .filter(|looked| looked.error.is_some())
             .count()
     );
+    Ok(())
+}
+
+/// The holders of each query's passage, with every list and filtered.
+pub fn break_search(harness: &Harness, jobs: usize, args: BreakSearchArgs) -> Result<(), String> {
+    let BreakSearchArgs { queries, out } = args;
+    let queries: Vec<break_search::Query> = read_json(&queries)?;
+    let report = break_search::run(
+        &queries,
+        &break_search::Sources {
+            library: &harness.library()?,
+            store: &harness.store()?,
+            padding: &harness.padding(&UNCHANGED_INDEX)?,
+            clusters: &harness.clusters()?,
+        },
+        jobs,
+    )?;
+    write_json(&out, &report)?;
+    break_search::print_summary(&report);
+    println!("wrote {}", out.display());
     Ok(())
 }
 

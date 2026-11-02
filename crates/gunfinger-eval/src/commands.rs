@@ -81,6 +81,13 @@ pub enum Command {
     /// index without the files its lookup names, listing every file found
     /// with 30 hits or more. The report is `holders-<file stem>.json`.
     Holders(shared::HoldersArgs),
+    /// Which files hold a passage of one file, such as a break (session
+    /// 74, a measurement): each query's span of stored peaks searched on
+    /// the turntable ladder against the whole index, with every posting
+    /// list and with the fullest 1% set aside, each file listed once at
+    /// its strongest detection of 20 hits or more, the query's own
+    /// cluster apart.
+    BreakSearch(shared::BreakSearchArgs),
     /// How identifiable shared material is (proposal 5's diagnostic): for
     /// each direction of one half of a shared-material panel, how closely the related file and the played
     /// recording's other rips reproduce the shared passage, in pair hashes,
@@ -198,7 +205,7 @@ pub enum Command {
 }
 
 /// The commands that take --other-peaks-dir, by `Command::name`.
-const OTHER_LIBRARY_COMMANDS: [&str; 26] = [
+const OTHER_LIBRARY_COMMANDS: [&str; 27] = [
     "validate",
     "map-library",
     "clusters --from-peaks",
@@ -220,6 +227,7 @@ const OTHER_LIBRARY_COMMANDS: [&str; 26] = [
     "shared",
     "shared-mixes",
     "holders",
+    "break-search",
     "identifiability",
     "versions",
     "seconds",
@@ -267,6 +275,7 @@ impl Command {
             Command::Shared(_) => "shared",
             Command::SharedMixes(_) => "shared-mixes",
             Command::Holders(_) => "holders",
+            Command::BreakSearch(_) => "break-search",
             Command::Identifiability(_) => "identifiability",
             Command::Versions(_) => "versions",
             Command::Recall(_) => "recall",
@@ -354,6 +363,7 @@ pub fn run(harness: &Harness, jobs: usize, command: Command) -> Result<(), Strin
         Command::Shared(args) => shared::shared(harness, jobs, args),
         Command::SharedMixes(args) => shared::shared_mixes(harness, jobs, args),
         Command::Holders(args) => shared::holders(harness, jobs, args),
+        Command::BreakSearch(args) => shared::break_search(harness, jobs, args),
         Command::Identifiability(args) => shared::identifiability(harness, args),
         Command::Versions(args) => shared::versions(harness, jobs, args),
         Command::Recall(args) => recall::recall(harness, jobs, args),

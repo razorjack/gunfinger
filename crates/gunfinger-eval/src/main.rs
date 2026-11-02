@@ -4,6 +4,7 @@
 //! never see a manifest.
 
 mod audition;
+mod break_search;
 mod calibrate;
 mod clusters;
 mod commands;
