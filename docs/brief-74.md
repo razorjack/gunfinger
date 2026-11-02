@@ -268,3 +268,28 @@ The decision is ours; nothing in the product changes in this session.
   `s74start`, logs in `work/s74/logs/`; `run.sh` and `same.py` are
   session 73's with the paths changed). The start build is
   byte-identical to `s73-final`.
+- **(07:49) Both regressions identical** with the start build (0:51;
+  3:57), every report equal to its baseline's apart from
+  `wall_seconds`.
+- **(07:48) `pair` for group B** (`work/s74/s74-drum-loops.txt`, the
+  seven pairs of 0225's NAS data, `s73-final`; 0:21): case data, not a
+  scored run.
+- **(08:00) The cases file** (`docs/experiments/data/0276-cases.json`,
+  written by `work/s74/cases.py` from the panels, the `pair` report,
+  session 58's parts reports and the answer log; query files
+  `work/s74/queries-262.json` and `queries-nas.json`). Corrections to
+  the registration's text before any scored run: group A's rule (every
+  non-control direction, Fire's first four) gives 22 directions, not
+  20, because The Nine has four; the 262-track run holds A and B cases
+  whose query file is a corpus file and whose expected files include a
+  corpus file (4 of A, 1 of B), with N1 and N2 drawn from the corpus
+  records: 85 queries; NAS scale 147 (A 22, B 7, C 6, D 32, N1 40, N2
+  40). Group D's selection is the 32 fragments in `cases.py` (one per
+  recording; the Planet Dust, Blind, Reece and other same-tune
+  candidates left out). Special Branch's spans at 0-20 and 30-50 s
+  expect only Judgement Day; at 305-325 s, 32 files.
+- **(08:00) The report lists a query's expected files the index does
+  not hold** (`expected_not_indexed`; an ignored file, such as `OMR -
+  Bad Vibes`, or a copy a corpus file stands for); the scoring counts a
+  positive only against expected files the index holds, and a positive
+  with none is reported apart.

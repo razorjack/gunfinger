@@ -1,0 +1,2544 @@
+[
+ {
+  "name": "clockwork-1",
+  "group": "A",
+  "file": "Skynet & Stakka - Clockwork.mp3",
+  "start_seconds": 205.4,
+  "end_seconds": 224.1,
+  "expected": [
+   "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "second-library/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+  ],
+  "own_extra": [
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3"
+  ]
+ },
+ {
+  "name": "clockwork-2",
+  "group": "A",
+  "file": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+  "start_seconds": 399.5,
+  "end_seconds": 418.2,
+  "expected": [
+   "Skynet & Stakka - Clockwork.mp3",
+   "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3",
+   "second-library/__youtube_archivists/i-witness-dnb/Stakka & Skynet - Clockwork (Remastered).m4a",
+   "second-library/stakka_and_skynet-clockwork-udfr04cd-2002-sour/103-stakka_and_skynet-clockwork-sour.mp3"
+  ],
+  "own_extra": [
+   "second-library/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+   "second-library/various_artists-clockwork_remix_ep-udfr019-2003-sour/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3"
+  ]
+ },
+ {
+  "name": "dozer-1",
+  "group": "A",
+  "file": "Ed Rush & Optical - Dozer.mp3",
+  "start_seconds": 14.9,
+  "end_seconds": 34.9,
+  "expected": [
+   "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus"
+  ],
+  "own_extra": [
+   "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Dozer (Wormhole, Virus Recordings VRS 001 LP track J) RSD 2023.m4a"
+  ]
+ },
+ {
+  "name": "dozer-2",
+  "group": "A",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Optical - Dozer (2025 Notjamie Bootleg).opus",
+  "start_seconds": 14.9,
+  "end_seconds": 34.9,
+  "expected": [
+   "Ed Rush & Optical - Dozer.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ed Rush & Optical - Dozer (Wormhole, Virus Recordings VRS 001 LP track J) RSD 2023.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "fire-1",
+  "group": "A",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+  "start_seconds": 53.05,
+  "end_seconds": 73.05,
+  "expected": [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3"
+  ],
+  "own_extra": [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+  ]
+ },
+ {
+  "name": "fire-2",
+  "group": "A",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/04-prizna_feat_demolition_man-fire_(rogue_unit_remix)-sour.mp3",
+  "start_seconds": 77.65,
+  "end_seconds": 97.65,
+  "expected": [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "fire-3",
+  "group": "A",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+  "start_seconds": 71.15,
+  "end_seconds": 91.15,
+  "expected": [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3"
+  ],
+  "own_extra": [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+  ]
+ },
+ {
+  "name": "fire-4",
+  "group": "A",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/05-prizna_feat_demolition_man-fire_(nasty_jungle_remix)-sour.mp3",
+  "start_seconds": 87.65,
+  "end_seconds": 107.65,
+  "expected": [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/02-prizna_feat_demolition_man-fire_(original_mix)-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/108-demolition_man-fire-sour.mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "mind-overload-1",
+  "group": "A",
+  "file": "second-library/__full_scene/1999/1999-11/1999-11-29/ram-ram_trilogy_chapter_2-ramm23-1998-sour/01-ram_trilogy-mind_overload.mp3",
+  "start_seconds": 170.1,
+  "end_seconds": 190.1,
+  "expected": [
+   "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3"
+  ],
+  "own_extra": [
+   "second-library/__youtube_archivists/the-hifi-junglist/Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a"
+  ]
+ },
+ {
+  "name": "mind-overload-2",
+  "group": "A",
+  "file": "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3",
+  "start_seconds": 155.7,
+  "end_seconds": 175.7,
+  "expected": [
+   "second-library/__full_scene/1999/1999-11/1999-11-29/ram-ram_trilogy_chapter_2-ramm23-1998-sour/01-ram_trilogy-mind_overload.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "pyro-1",
+  "group": "A",
+  "file": "extra/A. Pyro -- Time Is Broken.mp3",
+  "start_seconds": 85.75,
+  "end_seconds": 105.75,
+  "expected": [
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a"
+  ],
+  "own_extra": [
+   "second-library/[NERVE 022] - [2007] - Pyro -- Time Is Broken # Resolve/A. Pyro -- Time Is Broken.mp3",
+   "second-library/__youtube_archivists/butch-french/Pyro - Time Is Broken.m4a"
+  ]
+ },
+ {
+  "name": "pyro-2",
+  "group": "A",
+  "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Pyro - Ignorance.m4a",
+  "start_seconds": 15.05,
+  "end_seconds": 35.05,
+  "expected": [
+   "extra/A. Pyro -- Time Is Broken.mp3",
+   "second-library/[NERVE 022] - [2007] - Pyro -- Time Is Broken # Resolve/A. Pyro -- Time Is Broken.mp3",
+   "second-library/__youtube_archivists/butch-french/Pyro - Time Is Broken.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "sonar-1",
+  "group": "A",
+  "file": "DJ Trace - Sonar.m4a",
+  "start_seconds": 68.2,
+  "end_seconds": 88.2,
+  "expected": [
+   "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus"
+  ],
+  "own_extra": [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a"
+  ]
+ },
+ {
+  "name": "sonar-2",
+  "group": "A",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/DJ Trace - Sonar (Mark System Revision).opus",
+  "start_seconds": 25.2,
+  "end_seconds": 45.2,
+  "expected": [
+   "DJ Trace - Sonar.m4a",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/trace-sonar-pro012-2000-sour/a-trace-sonar-pro012-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Trace - Sonar.m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/Trace - Sonar (Prototype Recordings PRO 012 A) 1998.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "t-minus-1",
+  "group": "A",
+  "file": "extra/01 - Ryme Tyme - T-Minus.mp3",
+  "start_seconds": 254.9,
+  "end_seconds": 274.9,
+  "expected": [
+   "second-library/__youtube_archivists/cryptic-jungle/Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a"
+  ],
+  "own_extra": [
+   "second-library/[SHADOW 145] - [2000] - Ryme Tyme - T-Minus/01 - Ryme Tyme - T-Minus.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/moving_shadow-ryme_tyme-shadow145-2000-sour/x-ryme_tyme-t_minus-sour.mp3"
+  ]
+ },
+ {
+  "name": "t-minus-2",
+  "group": "A",
+  "file": "second-library/__youtube_archivists/cryptic-jungle/Ryme Tyme - T-Minus (Unreleased Vocal Mix).m4a",
+  "start_seconds": 150.3,
+  "end_seconds": 170.3,
+  "expected": [
+   "extra/01 - Ryme Tyme - T-Minus.mp3",
+   "second-library/[SHADOW 145] - [2000] - Ryme Tyme - T-Minus/01 - Ryme Tyme - T-Minus.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/moving_shadow-ryme_tyme-shadow145-2000-sour/x-ryme_tyme-t_minus-sour.mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "the-nine-1",
+  "group": "A",
+  "file": "Bad Company - China Cup.mp3",
+  "start_seconds": 47.2,
+  "end_seconds": 67.2,
+  "expected": [
+   "Bad Company - The Nine.mp3",
+   "extra/A- The_Nine.mp3",
+   "extra/A-Bad_Company-The_Nine-dmz.mp3",
+   "second-library/(2001) The Nine & Dogfight (BCRUK001)/A- The_Nine.mp3",
+   "second-library/(2007) Bad Company Classics (BCUK001LP)/A-Bad_Company-The_Nine-dmz.mp3",
+   "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/210-bad_company-the_nine-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 ： BAD COMPANY - the nine - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/Bad Company - The Nine (BC Recordings BCR01 A) 1998.m4a",
+   "second-library/bad_company-fear_lp/02 bad company-the nine.mp3"
+  ],
+  "own_extra": [
+   "extra/02. Bad Company - China Cup.mp3",
+   "extra/b-bad_company-china_cup.mp3",
+   "second-library/(1999) The Pulse & China Cup (PRO001UK)/02. Bad Company - China Cup.mp3",
+   "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus",
+   "second-library/bad_company-fear_lp/07 bad company-china cup.mp3",
+   "second-library/prototype_uk_001-bad_company-sour/b-bad_company-china_cup.mp3"
+  ]
+ },
+ {
+  "name": "the-nine-2",
+  "group": "A",
+  "file": "Bad Company - The Nine.mp3",
+  "start_seconds": 32.2,
+  "end_seconds": 52.2,
+  "expected": [
+   "Bad Company - China Cup.mp3",
+   "extra/02. Bad Company - China Cup.mp3",
+   "extra/b-bad_company-china_cup.mp3",
+   "second-library/(1999) The Pulse & China Cup (PRO001UK)/02. Bad Company - China Cup.mp3",
+   "second-library/__youtube_archivists/alien5ive/PROTOTYPE RECORDINGS [ PRO 001 UK ： BAD COMPANY - china cup - ] drum and bass.opus",
+   "second-library/bad_company-fear_lp/07 bad company-china cup.mp3",
+   "second-library/prototype_uk_001-bad_company-sour/b-bad_company-china_cup.mp3"
+  ],
+  "own_extra": [
+   "extra/A- The_Nine.mp3",
+   "extra/A-Bad_Company-The_Nine-dmz.mp3",
+   "second-library/(2001) The Nine & Dogfight (BCRUK001)/A- The_Nine.mp3",
+   "second-library/(2007) Bad Company Classics (BCUK001LP)/A-Bad_Company-The_Nine-dmz.mp3",
+   "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/210-bad_company-the_nine-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 ： BAD COMPANY - the nine - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/Bad Company - The Nine (BC Recordings BCR01 A) 1998.m4a",
+   "second-library/bad_company-fear_lp/02 bad company-the nine.mp3"
+  ]
+ },
+ {
+  "name": "the-nine-3",
+  "group": "A",
+  "file": "Bad Company - The Nine.mp3",
+  "start_seconds": 97.85,
+  "end_seconds": 117.85,
+  "expected": [
+   "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a"
+  ],
+  "own_extra": [
+   "extra/A- The_Nine.mp3",
+   "extra/A-Bad_Company-The_Nine-dmz.mp3",
+   "second-library/(2001) The Nine & Dogfight (BCRUK001)/A- The_Nine.mp3",
+   "second-library/(2007) Bad Company Classics (BCUK001LP)/A-Bad_Company-The_Nine-dmz.mp3",
+   "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/210-bad_company-the_nine-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 ： BAD COMPANY - the nine - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/Bad Company - The Nine (BC Recordings BCR01 A) 1998.m4a",
+   "second-library/bad_company-fear_lp/02 bad company-the nine.mp3"
+  ]
+ },
+ {
+  "name": "the-nine-4",
+  "group": "A",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+  "start_seconds": 97.15,
+  "end_seconds": 117.15,
+  "expected": [
+   "Bad Company - The Nine.mp3",
+   "extra/A- The_Nine.mp3",
+   "extra/A-Bad_Company-The_Nine-dmz.mp3",
+   "second-library/(2001) The Nine & Dogfight (BCRUK001)/A- The_Nine.mp3",
+   "second-library/(2007) Bad Company Classics (BCUK001LP)/A-Bad_Company-The_Nine-dmz.mp3",
+   "second-library/BC_Recordings-Bad_Company-BCRUK001-2001-sour/A-Bad_Company-The_Nine-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/210-bad_company-the_nine-sour.mp3",
+   "second-library/__youtube_archivists/alien5ive/BC RECORDINGS [ BCRUK 001 ： BAD COMPANY - the nine - ] drum and bass.m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/Bad Company - The Nine (BC Recordings BCR01 A) 1998.m4a",
+   "second-library/bad_company-fear_lp/02 bad company-the nine.mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "watermelon-1",
+  "group": "A",
+  "file": "Ed Rush & Optical - Watermelon.mp3",
+  "start_seconds": 125.25,
+  "end_seconds": 145.25,
+  "expected": [
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus"
+  ],
+  "own_extra": [
+   "second-library/virus-ed_rush_and_optical-vrs004-1999-sour/aa-ed_rush_and_optical-watermelon-sour.mp3"
+  ]
+ },
+ {
+  "name": "watermelon-2",
+  "group": "A",
+  "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/300 Baud - Monotone (Mobiuz & Cycom Remix).opus",
+  "start_seconds": 45.75,
+  "end_seconds": 65.75,
+  "expected": [
+   "Ed Rush & Optical - Watermelon.mp3",
+   "second-library/virus-ed_rush_and_optical-vrs004-1999-sour/aa-ed_rush_and_optical-watermelon-sour.mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "drum-loop-1",
+  "group": "B",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+  "start_seconds": 359.38,
+  "end_seconds": 379.38,
+  "expected": [
+   "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones (Klute Remix).opus"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "drum-loop-2",
+  "group": "B",
+  "file": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Aphrodite Recordings APH029 B) 1999.opus",
+  "start_seconds": 184.96,
+  "end_seconds": 204.96,
+  "expected": [
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Stalker (Album Version) (Aphrodite Recordings - V2 VVR1006951 G) 1999.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "drum-loop-3",
+  "group": "B",
+  "file": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Dark Dark Side (Aphrodite Recordings APH-28 B1) 1998.m4a",
+  "start_seconds": 200.38,
+  "end_seconds": 220.38,
+  "expected": [
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Style From The Dark Side '99 (Aphrodite Recordings - V2 VVR1006951 C) 1999.opus"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "drum-loop-4",
+  "group": "B",
+  "file": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus",
+  "start_seconds": 139.65,
+  "end_seconds": 159.65,
+  "expected": [
+   "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (JumpUpThrowDown, Lacerba CERBAL6 D2) 1997.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "drum-loop-5",
+  "group": "B",
+  "file": "second-library/__youtube_archivists/the-hifi-junglist/Aphrodite - Tower Bass (Millennium Mix) (Aphrodite Recordings APH31 B) 1999.opus",
+  "start_seconds": 139.82,
+  "end_seconds": 159.82,
+  "expected": [
+   "second-library/a - aphrodite - tower bass.mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "drum-loop-6",
+  "group": "B",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Klute - We R The Ones VIP.m4a",
+  "start_seconds": 362.27,
+  "end_seconds": 382.27,
+  "expected": [
+   "second-library/__full_scene/Certificate 18/CERT1853 - Klute - We R The Ones + Chicks (Remixes) (2001)/01-klute-we_r_the_ones_(klute_remix).mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "drum-loop-7",
+  "group": "B",
+  "file": "extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3",
+  "start_seconds": 155.43,
+  "end_seconds": 175.43,
+  "expected": [
+   "extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "special-branch-0",
+  "group": "C",
+  "file": "second-library/__full_scene/1999/1999-10/1999-10-17/ufo_presents_contact-ray_keith-ufolp001-1999-sour/i-special_branch-ufolp001-1999-sour.mp3",
+  "start_seconds": 0.0,
+  "end_seconds": 20.0,
+  "expected": [
+   "second-library/__full_scene/1999/1999-10/1999-10-17/ufo_presents_contact-ray_keith-ufolp001-1999-sour/f-judgement_day-ufolp001-1999-sour.mp3"
+  ],
+  "own_extra": [
+   "second-library/__youtube_archivists/dfect-dnb/U.F.O - Special Branch.m4a"
+  ]
+ },
+ {
+  "name": "special-branch-30",
+  "group": "C",
+  "file": "second-library/__full_scene/1999/1999-10/1999-10-17/ufo_presents_contact-ray_keith-ufolp001-1999-sour/i-special_branch-ufolp001-1999-sour.mp3",
+  "start_seconds": 30.0,
+  "end_seconds": 50.0,
+  "expected": [
+   "second-library/__full_scene/1999/1999-10/1999-10-17/ufo_presents_contact-ray_keith-ufolp001-1999-sour/f-judgement_day-ufolp001-1999-sour.mp3"
+  ],
+  "own_extra": [
+   "second-library/__youtube_archivists/dfect-dnb/U.F.O - Special Branch.m4a"
+  ]
+ },
+ {
+  "name": "special-branch-65",
+  "group": "C",
+  "file": "second-library/__full_scene/1999/1999-10/1999-10-17/ufo_presents_contact-ray_keith-ufolp001-1999-sour/i-special_branch-ufolp001-1999-sour.mp3",
+  "start_seconds": 65.0,
+  "end_seconds": 85.0,
+  "expected": [
+   "second-library/__full_scene/1999/1999-10/1999-10-17/ufo_presents_contact-ray_keith-ufolp001-1999-sour/f-judgement_day-ufolp001-1999-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Zigril - Demon Again.m4a",
+   "second-library/__youtube_archivists/unxplored-dnb/Undercover Business - Opera.m4a"
+  ],
+  "own_extra": [
+   "second-library/__youtube_archivists/dfect-dnb/U.F.O - Special Branch.m4a"
+  ]
+ },
+ {
+  "name": "special-branch-190",
+  "group": "C",
+  "file": "second-library/__full_scene/1999/1999-10/1999-10-17/ufo_presents_contact-ray_keith-ufolp001-1999-sour/i-special_branch-ufolp001-1999-sour.mp3",
+  "start_seconds": 190.0,
+  "end_seconds": 210.0,
+  "expected": [
+   "second-library/__full_scene/1999/1999-08/1999-08-13/cyba_space_feat._shanie_-_the_abstract-1999-sour/07_-_ray_keith_-_i_bless_the_day-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/ray_keith_presents_vintage_dread_2000-2000-sour/109-ray_keith-dark_soldier_(back_in_the_day_mix)-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/razors_edge-goldie_vs_j_majik-razors004-1997-sour/aa-j_majik-your_sound_(remix)-sour.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Cyba Space Featuring Shanie - I Bless The Day (Ray Keith Remix).m4a",
+   "second-library/__youtube_archivists/abstract-math/UFO (Ray Keith) - Untitled (Volume 3 - B side).m4a",
+   "second-library/__youtube_archivists/abstract-math/UFO (Ray Keith) - Untitled (Volume 4 - B side).opus",
+   "second-library/__youtube_archivists/butch-french/C14 - Cypher.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Dom & Roland - Analysis.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Interrogator - Awareness.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Jonny L - Wa-oh.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Relapse - Friday 39th.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Technical Itch feat. Don Davis - The Real.opus",
+   "second-library/__youtube_archivists/old-skool-jungle-dnb/Fallen Angels - Oh Yeah (Back 2 Basics Remix).m4a",
+   "second-library/__youtube_archivists/unxplored-dnb/G Squad - Shit's Real.m4a",
+   "second-library/__youtube_archivists/unxplored-dnb/Mampi Swift - Decoy.opus",
+   "second-library/__youtube_archivists/unxplored-dnb/The Source - Juicy.opus"
+  ],
+  "own_extra": [
+   "second-library/__youtube_archivists/dfect-dnb/U.F.O - Special Branch.m4a"
+  ]
+ },
+ {
+  "name": "special-branch-250",
+  "group": "C",
+  "file": "second-library/__full_scene/1999/1999-10/1999-10-17/ufo_presents_contact-ray_keith-ufolp001-1999-sour/i-special_branch-ufolp001-1999-sour.mp3",
+  "start_seconds": 250.0,
+  "end_seconds": 270.0,
+  "expected": [
+   "second-library/Moveing Shadow - Bring Back The Bongos EP [MSX010] - 2001/XX-Perfect_Combination[MSX010]-Bring_Back_The_Bongos.mp3",
+   "second-library/__full_scene/1999/1999-08/1999-08-13/cyba_space_feat._shanie_-_the_abstract-1999-sour/07_-_ray_keith_-_i_bless_the_day-sour.mp3",
+   "second-library/__full_scene/1999/1999-10/1999-10-17/ufo_presents_contact-ray_keith-ufolp001-1999-sour/b1-sliders-ufolp001-1999-sour.mp3",
+   "second-library/__full_scene/1999/1999-10/1999-10-27/labello_blanco-scottie_part2-nlb37-1999-sour/a-subnation-scottie_(ray_keith_remix)-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/va-blackmarket_presents_drum_and_bass-azlp07-2000-sour/c1-ray_keith-dark_soldier_(vip_mix)-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/souljah-urbanology-hlcd3-1997-sour/09-souljah-rollin-sour.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Cyba Space Featuring Shanie - I Bless The Day (Ray Keith Remix).m4a",
+   "second-library/__youtube_archivists/abstract-math/UFO (Ray Keith) - Untitled (Volume 4 - B side).opus",
+   "second-library/__youtube_archivists/cryptic-jungle/Special K & Ruffcut - Chopsticks.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Dom & Roland - The Storm.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/MartianMan - Rhythm.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Technical Itch feat. Don Davis - The Real.opus",
+   "second-library/__youtube_archivists/hld77777/Teebone - Hardsteppin (Rinsin Recordings).m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Muffler - Last Straw.opus",
+   "second-library/__youtube_archivists/i-witness-dnb/Psychosis - Crossfire.m4a",
+   "second-library/__youtube_archivists/just-another-archivist/J Majik – Silicon Valley [Infrared – INFRA CD 001 (12 Tracks) ⧸ 09] 1997.m4a",
+   "second-library/__youtube_archivists/old-skool-jungle-dnb/Elisabeth Troy - 4 Vini (Forever Young) (Ray Keith Mix).m4a",
+   "second-library/__youtube_archivists/old-skool-jungle-dnb/Fallen Angels - Oh Yeah (Back 2 Basics Remix).m4a",
+   "second-library/__youtube_archivists/old-skool-jungle-dnb/Xclusive - Exclusive (Exclusive Dub Plate Remix).m4a",
+   "second-library/__youtube_archivists/rootzdnb/Jonny L - She's Mine.m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/Dom & Roland - Analysis (Blueprint CD1, Moving Shadow 828 952-2 track 6) 1997.m4a",
+   "second-library/__youtube_archivists/unxplored-dnb/Undercover Business - Opera.m4a"
+  ],
+  "own_extra": [
+   "second-library/__youtube_archivists/dfect-dnb/U.F.O - Special Branch.m4a"
+  ]
+ },
+ {
+  "name": "special-branch-305",
+  "group": "C",
+  "file": "second-library/__full_scene/1999/1999-10/1999-10-17/ufo_presents_contact-ray_keith-ufolp001-1999-sour/i-special_branch-ufolp001-1999-sour.mp3",
+  "start_seconds": 305.0,
+  "end_seconds": 325.0,
+  "expected": [
+   "second-library/02-muffler-last_straw_(original_mix).mp3",
+   "second-library/VA-Urban_Takeover_Presents_Early_Classics_Vol_6-WEB-2006-uC/02-muffler-last_straw_(original_mix).mp3",
+   "second-library/__full_scene/1999/1999-08/1999-08-13/cyba_space_feat._shanie_-_the_abstract-1999-sour/07_-_ray_keith_-_i_bless_the_day-sour.mp3",
+   "second-library/__full_scene/1999/1999-10/1999-10-17/ufo_presents_contact-ray_keith-ufolp001-1999-sour/b1-sliders-ufolp001-1999-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/105-krome_and_time-license-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/ray_keith_presents_vintage_dread_2000-2000-sour/106-ray_keith-chopper_(original_mix)-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/ray_keith_presents_vintage_dread_2000-2000-sour/109-ray_keith-dark_soldier_(back_in_the_day_mix)-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/lowkey-special_k_and_ruff_cut-lkr01-1995-sour/aa-special_k_and_ruff_cut-chopsticks_track_(vip_mix)-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/va-blackmarket_presents_drum_and_bass-azlp07-2000-sour/c1-ray_keith-dark_soldier_(vip_mix)-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/dope_dragon-mask_vs_bigger_star-ddrag08-1996-sour/aa-bigger_star-raid-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/razors_edge-goldie_vs_j_majik-razors004-1997-sour/aa-j_majik-your_sound_(remix)-sour.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Tobestar - Sunflowa.m4a",
+   "second-library/__youtube_archivists/butch-french/C14 - Cypher.m4a",
+   "second-library/__youtube_archivists/cryptic-jungle/Marvellous Cain - Creep.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/B.L.I.M - Jeamland (DJ Trace RMX).m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Dead Calm - Identity (Dom & Roland RMX).m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Jonny L - Wa-oh.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Lemon D - Rhythmic Trip.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Undercover Business - Opera.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Zigril - Demon Again.m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/808 State - Azura (Dillinja Remix).m4a",
+   "second-library/__youtube_archivists/just-another-archivist/J Majik – Silicon Valley [Infrared – INFRA CD 001 (12 Tracks) ⧸ 09] 1997.m4a",
+   "second-library/__youtube_archivists/old-skool-jungle-dnb/Xclusive - Exclusive (Exclusive Dub Plate Remix).m4a",
+   "second-library/__youtube_archivists/rootzdnb/Doc Scott - Machines (Full-Length Unreleased Mix).m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/Dom & Roland - Analysis (Blueprint CD1, Moving Shadow 828 952-2 track 6) 1997.m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/J Majik - Your Sound (Remix) (Platinum Breakz II CD2, Metalheadz 828 986-2 track 5) 1997.m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ray Keith - Now Is The Time (Planet V - V Recordings VELP02 D) 1999.m4a",
+   "second-library/__youtube_archivists/unxplored-dnb/Dred Bass - World Of Music (Apollo 13 Remix).opus",
+   "second-library/__youtube_archivists/unxplored-dnb/G Squad - Shit's Real.m4a",
+   "second-library/__youtube_archivists/unxplored-dnb/Lion Of Judah - Set It (Ray Keith Remix).m4a",
+   "second-library/__youtube_archivists/unxplored-dnb/Native Minds - Soulfire.m4a",
+   "second-library/__youtube_archivists/unxplored-dnb/Undercover Business - Opera.m4a"
+  ],
+  "own_extra": [
+   "second-library/__youtube_archivists/dfect-dnb/U.F.O - Special Branch.m4a"
+  ]
+ },
+ {
+  "name": "parts-subnation-scottie_(ray_keith_remix)",
+  "group": "D",
+  "file": "second-library/__full_scene/1999/1999-10/1999-10-27/labello_blanco-scottie_part2-nlb37-1999-sour/a-subnation-scottie_(ray_keith_remix)-sour.mp3",
+  "start_seconds": 340.82,
+  "end_seconds": 360.82,
+  "expected": [
+   "second-library/__youtube_archivists/dfect-dnb/Lemon D - Rhythmic Trip.m4a",
+   "second-library/__youtube_archivists/unxplored-dnb/Lemon D - Rhythmic Trip.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-aa-j_majik-your_sound_(remix)",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/razors_edge-goldie_vs_j_majik-razors004-1997-sour/aa-j_majik-your_sound_(remix)-sour.mp3",
+  "start_seconds": 395.7,
+  "end_seconds": 415.7,
+  "expected": [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/ray_keith_presents_vintage_dread_2000-2000-sour/101-ray_keith-renegade_terrorist_(pa_mix)-sour.mp3",
+   "second-library/__youtube_archivists/cryptic-jungle/Ned Ryder - U As 1 (VIP Remix).m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Dom & Roland - Analysis.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/J Majik - Killa.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Kosh & ST Files - Soundtrack.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/MLO - New Generation (Boymerang Mix).m4a",
+   "second-library/__youtube_archivists/rootzdnb/ASC - Shadow Of The Beast.m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/Dom & Roland - Analysis (Blueprint CD1, Moving Shadow 828 952-2 track 6) 1997.m4a",
+   "second-library/__youtube_archivists/unxplored-dnb/Pressure Krew - ‘96 Live (Part 2).m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-207-system_x-got_to_believe",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/207-system_x-got_to_believe-sour.mp3",
+  "start_seconds": 290.23,
+  "end_seconds": 310.23,
+  "expected": [
+   "second-library/__youtube_archivists/cryptic-jungle/MC Det - Elevate.m4a",
+   "second-library/__youtube_archivists/cryptic-jungle/The Terrorist - Sing Time (Exclusive Remix).m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-aa-bigger_star-raid",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/dope_dragon-mask_vs_bigger_star-ddrag08-1996-sour/aa-bigger_star-raid-sour.mp3",
+  "start_seconds": 359.54,
+  "end_seconds": 379.54,
+  "expected": [
+   "second-library/__youtube_archivists/cryptic-jungle/DJ Tamsin & The Monk - A Better Place (DJ Trace Remix).m4a",
+   "second-library/__youtube_archivists/cryptic-jungle/Ned Ryder - U As 1 (VIP Remix).m4a",
+   "second-library/__youtube_archivists/old-skool-jungle-dnb/DJ Tamsin The Monk - A Better Place (DJ Trace Mix).m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/DJ Tamsin & Monk - A Better Place (DJ Trace Rmx) (Who Say Reload,Velocity Press VELOCITY001 A1) 1993.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-03-omni_trio-rollin_heights",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/omni_trio-the_deepest_cut_(volume_1)-ashadow1cd-1995-sour/03-omni_trio-rollin_heights_(more_strings_attached_mix)-sour.mp3",
+  "start_seconds": 293.83,
+  "end_seconds": 313.83,
+  "expected": [
+   "second-library/__full_scene/1999/1999-12/1999-12-05/kemet_crew-champion_jungle_sound-1995-sour/02-brainkillers_remarc_et_al-press_the_buzzer-1995-sour.mp3",
+   "second-library/__youtube_archivists/cryptic-jungle/Renegade - Terrorist.m4a",
+   "second-library/__youtube_archivists/the-hifi-junglist/Renegade - Terrorist (Moving Shadow SHADOW1006 X) 1994.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-09-matrix-sleepwalk",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-02/matrix-sleepwalk-vrs002cd-2000-sour/09-matrix-sleepwalk-sour.mp3",
+  "start_seconds": 332.29,
+  "end_seconds": 352.29,
+  "expected": [
+   "second-library/cyanide-konflict_rmx-cyanide001-2001-sour/aa-bulletproof-nephelim-sour.mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-ed-rush-&-nico---technology",
+  "group": "D",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Ed Rush & Nico - Technology (Boymerang Remix) (2024 Remaster).m4a",
+  "start_seconds": 498.27,
+  "end_seconds": 518.27,
+  "expected": [
+   "second-library/__youtube_archivists/abstract-math/Titan - Nightbreed.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Titan - Nightbreed.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-alex-reece-&-utah-jazz---ski-mask",
+  "group": "D",
+  "file": "second-library/FA004 - Utah Jazz & Alex Reece - Ski Mask , Tomorrow's World , Bassline/A - Alex Reece & Utah Jazz - Ski Mask.mp3",
+  "start_seconds": 372.62,
+  "end_seconds": 392.62,
+  "expected": [
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/OMR - Bad Vibes.opus"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-107-renegade-terrorist",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-04/va-drum_and_bass_assassins-dbascd01-2000-sour/107-renegade-terrorist-sour.mp3",
+  "start_seconds": 252.1,
+  "end_seconds": 272.1,
+  "expected": [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/omni_trio-the_deepest_cut_(volume_1)-ashadow1cd-1995-sour/08-omni_trio-shadowplay-sour.mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-d-genotype-toxic",
+  "group": "D",
+  "file": "second-library/va-distorted_reality_ep-rh08-1997-sour/d-genotype-toxic-sour.mp3",
+  "start_seconds": 9.39,
+  "end_seconds": 29.39,
+  "expected": [
+   "second-library/__youtube_archivists/cryptic-jungle/Monochrome - Natural Auras.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-heist---sentinels-warning",
+  "group": "D",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Heist - Sentinels Warning Revisited.m4a",
+  "start_seconds": 15.03,
+  "end_seconds": 35.03,
+  "expected": [
+   "second-library/__youtube_archivists/i-witness-dnb/Silver - Hardcore Heaven.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-a-dieselboy-invid",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/palm_pictures-dieselboy-invid-pp12-2000-sour/a-dieselboy-invid-sour.mp3",
+  "start_seconds": 13.16,
+  "end_seconds": 33.16,
+  "expected": [
+   "second-library/__youtube_archivists/rootzdnb/Perpetuum - Beige.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-209-ed_rush-comatone",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-breakbeat_science-scincd001-1996-sour/209-ed_rush-comatone-sour.mp3",
+  "start_seconds": 29.74,
+  "end_seconds": 49.74,
+  "expected": [
+   "second-library/__youtube_archivists/abstract-math/UFO (Ray Keith) - Untitled (B side - Penny Black 014).m4a",
+   "second-library/__youtube_archivists/cryptic-jungle/Night Watch - Behind You.m4a",
+   "second-library/__youtube_archivists/unxplored-dnb/Night Watch - Behind You.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-105-krome_and_time-license",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_2-hfcd43-2cd-1994-sour/105-krome_and_time-license-sour.mp3",
+  "start_seconds": 300.47,
+  "end_seconds": 320.47,
+  "expected": [
+   "second-library/__youtube_archivists/butch-french/C14 - Cypher.m4a",
+   "second-library/__youtube_archivists/cryptic-jungle/Mystical Influence - Dub Plate Pressure (Original Mix).m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Jon Tetly - Fernstead.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Jonny L - Wa-oh.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-native-minds---heatwave",
+  "group": "D",
+  "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Native Minds - Heatwave.m4a",
+  "start_seconds": 344.93,
+  "end_seconds": 364.93,
+  "expected": [
+   "second-library/__youtube_archivists/rootzdnb/Kiljoy - Sputnik 2.m4a",
+   "second-library/__youtube_archivists/rootzdnb/Kiljoy - Sputnik.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-ray-keith---something-out-there",
+  "group": "D",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Ray Keith - Something Out There (Bad Company Remix).m4a",
+  "start_seconds": 15.27,
+  "end_seconds": 35.27,
+  "expected": [
+   "second-library/__youtube_archivists/dfect-dnb/Twisted Anger - Locked On.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-04-parallax-watercolors",
+  "group": "D",
+  "file": "second-library/__full_scene/1999/1999-11/1999-11-24/va-emotional_ambience-intelligent_drum_n_bass-1999-sour/04-parallax-watercolors-1999-sour.mp3",
+  "start_seconds": 10.01,
+  "end_seconds": 30.01,
+  "expected": [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/107-coda-crisis-sour.mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-fire_(urban",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/pwl_int-prizna_feat_demolition_man-nlbcdx18-1995-sour/03-prizna_feat_demolition_man-fire_(urban_shkedown_rmx)-sour.mp3",
+  "start_seconds": 325.6,
+  "end_seconds": 345.6,
+  "expected": [
+   "second-library/__youtube_archivists/dfect-dnb/Krust - DJ.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-05-dj_pulse-true_romance",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/moving_shadow-the_revolutionary_generation-1996-sour/05-dj_pulse-true_romance-1996-sour.mp3",
+  "start_seconds": 300.0,
+  "end_seconds": 320.0,
+  "expected": [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/moving_shadow-dead_dred-shadow50cd-1994-sour/05-dead_dred-dred_bass_(pa_mix)-sour.mp3",
+   "second-library/__youtube_archivists/old-skool-jungle-dnb/Koda - Crisis.m4a",
+   "second-library/__youtube_archivists/old-skool-jungle-dnb/Koda – Crisis ⧸⧸ Old Skool Jungle & Drum N Bass.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-05-swift-the_sound",
+  "group": "D",
+  "file": "second-library/__full_scene/1999/1999-11/1999-11-26/swift-long_life_ep-chrg008-1999-sour/05-swift-the_sound-sour.mp3",
+  "start_seconds": 472.98,
+  "end_seconds": 492.98,
+  "expected": [
+   "second-library/__youtube_archivists/dfect-dnb/B.L.I.M - Jeamland (DJ Trace RMX).m4a",
+   "second-library/__youtube_archivists/rootzdnb/B.L.I.M. - Jeamland '96 (DJ Trace's World).m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-a_-_polar_-_out_of_the_blue",
+  "group": "D",
+  "file": "second-library/__full_scene/Certificate 18/CERT1864 - Polar - Out Of The Blue + The Other Side (2002)/A_-_Polar_-_Out_Of_The_Blue.mp3",
+  "start_seconds": 9.89,
+  "end_seconds": 29.89,
+  "expected": [
+   "second-library/(2000) Inside The Machine (VDBCRLP001)/02 - Bad Company - Colonies.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-03/bad_company-inside_the_machine-vdbcd01lp-vinyl-2000-sour/02-bad_company-colonies-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/bad_company-inside_the_machine-vdbcrcd001-2000-sour/101-bad_company-colonies-sour.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Bad Company - Colonies (Inside The Machine - BC Recordings VDBCRLP001 B) 2000.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-knowledge_and_wisdom-kill_a_sound",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/knowledge_and_wisdom-kill_a_sound-phil94-1994-sour/a-knowledge_and_wisdom-kill_a_sound-sour.mp3",
+  "start_seconds": 291.39,
+  "end_seconds": 311.39,
+  "expected": [
+   "second-library/__youtube_archivists/hld77777/Northern Connexion - Bounce (Pugwash & Asend Remix).m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-214-kid_jay-soundbwoy",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_4-hfcd46-2cd-1995-sour/214-kid_jay-soundbwoy_(vip_special)-sour.mp3",
+  "start_seconds": 12.78,
+  "end_seconds": 32.78,
+  "expected": [
+   "second-library/__youtube_archivists/cryptic-jungle/Nookie - Only You.m4a",
+   "second-library/__youtube_archivists/old-skool-jungle-dnb/Nookie - Only You ⧸⧸ Old Skool Jungle & Drum N Bass.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-aa_global_thang-bubberlin",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-03/global_thang_vol_9--gtr009-2000-sour/aa_global_thang-bubberlin-2000-sour.mp3",
+  "start_seconds": 10.28,
+  "end_seconds": 30.28,
+  "expected": [
+   "second-library/__youtube_archivists/dfect-dnb/Hype & Zinc - Naughty.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-01---total-science---make-me-feel",
+  "group": "D",
+  "file": "second-library/[CIALTD 002] - [2002] - Total Science # Simon ''Bassline'' Smith - Make Me Feel # Music And Life (Remixes)/01 - Total Science - Make Me Feel (The Feel Good Remix).mp3",
+  "start_seconds": 35.19,
+  "end_seconds": 55.19,
+  "expected": [
+   "second-library/__youtube_archivists/unxplored-dnb/Danny The Wildchild & DJ Flux - Mind Games.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-photek---baltimore",
+  "group": "D",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Photek - Baltimore.m4a",
+  "start_seconds": 99.89,
+  "end_seconds": 119.89,
+  "expected": [
+   "second-library/__youtube_archivists/dfect-dnb/Photek, Tech Itch & Teebee - Man Down.m4a"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-unda-kover---crush-on-you",
+  "group": "D",
+  "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Unda Kover - Crush On You.m4a",
+  "start_seconds": 4.54,
+  "end_seconds": 24.54,
+  "expected": [
+   "second-library/__youtube_archivists/abstract-math/Megashira - Static (Makai Remix).opus"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-03-klute-leo_9",
+  "group": "D",
+  "file": "second-library/__full_scene/Certificate 18/CERT18CD004 - VA - Hidden Rooms Vol.2 (1999)/03-Klute-Leo_9-sho.mp3",
+  "start_seconds": 8.47,
+  "end_seconds": 28.47,
+  "expected": [
+   "second-library/__youtube_archivists/rootzdnb/Subreachers - Exclusive.opus"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-sniper---roulette",
+  "group": "D",
+  "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Sniper - Roulette.m4a",
+  "start_seconds": 9.86,
+  "end_seconds": 29.86,
+  "expected": [
+   "second-library/__full_scene/1999/1999-11/1999-11-07/good_looking-glr037-rantoul_and_intersperse-1999-sour/b-intersperse-haunting_winds-glr037-sour.mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-robot-death-squad---escape-pod",
+  "group": "D",
+  "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Robot Death Squad - Escape Pod.m4a",
+  "start_seconds": 20.07,
+  "end_seconds": 40.07,
+  "expected": [
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Robot Death Squad • Wraith.opus"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-a-dj_slip-man_of_steal",
+  "group": "D",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/urban_takeover-vinyl_dyndicate-urbtake08-1998-sour/a-dj_slip-man_of_steal-sour.mp3",
+  "start_seconds": 255.34,
+  "end_seconds": 275.34,
+  "expected": [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/urban_takeover-vinyl_dyndicate-urbtake08-1998-sour/b2-dj_slip-breaker_1-sour.mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "parts-01---omni-trio---nu-birth",
+  "group": "D",
+  "file": "second-library/[SHADOW 143] - [2000] - Omni Trio - Nu Birth # Breakbeat Etiquette/01 - Omni Trio - Nu Birth.mp3",
+  "start_seconds": 22.98,
+  "end_seconds": 42.98,
+  "expected": [
+   "second-library/Omni_Trio-Even_Angels_Cast_Shadows-ASHADOW26CD-2001-XTC/01-Omni_Trio-Breakbeat_Etiquette_(London_Steppers_Remix)-XTC.mp3"
+  ],
+  "own_extra": []
+ },
+ {
+  "name": "n1-262-00",
+  "group": "N1",
+  "file": "extra/J-Technical_Itch_and_Decoder-Abduction-sour.mp3",
+  "start_seconds": 418.88,
+  "end_seconds": 438.88,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-01",
+  "group": "N1",
+  "file": "extra/[A]_-_Tribal_Warfare.mp3",
+  "start_seconds": 64.03,
+  "end_seconds": 84.03,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-02",
+  "group": "N1",
+  "file": "extra/e-cause_4_concern-blindside-sour.mp3",
+  "start_seconds": 195.81,
+  "end_seconds": 215.81,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-03",
+  "group": "N1",
+  "file": "extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+  "start_seconds": 244.65,
+  "end_seconds": 264.65,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-04",
+  "group": "N1",
+  "file": "extra/A. falcon - new frontier.mp3",
+  "start_seconds": 440.29,
+  "end_seconds": 460.29,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-05",
+  "group": "N1",
+  "file": "extra/a-mo_funk-slipstream-sour.mp3",
+  "start_seconds": 302.85,
+  "end_seconds": 322.85,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-06",
+  "group": "N1",
+  "file": "Bad Company - The Nine.mp3",
+  "start_seconds": 346.32,
+  "end_seconds": 366.32,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-07",
+  "group": "N1",
+  "file": "extra/a-bullet_proof-anthrax-sour.mp3",
+  "start_seconds": 349.2,
+  "end_seconds": 369.2,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-08",
+  "group": "N1",
+  "file": "extra/10-muffler-nutcracker_(original_mix).mp3",
+  "start_seconds": 44.01,
+  "end_seconds": 64.01,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-09",
+  "group": "N1",
+  "file": "extra/AA. Pyro -- Spaced.mp3",
+  "start_seconds": 99.47,
+  "end_seconds": 119.47,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-10",
+  "group": "N1",
+  "file": "extra/A. Pyro -- Tension.mp3",
+  "start_seconds": 207.03,
+  "end_seconds": 227.03,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-11",
+  "group": "N1",
+  "file": "extra/b-stakka_and_skynet-global_report-sour.mp3",
+  "start_seconds": 227.17,
+  "end_seconds": 247.17,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-12",
+  "group": "N1",
+  "file": "extra/APH39B-Aphrodite-2001-sour/b-aphrodite-siren_bass-sour.mp3",
+  "start_seconds": 268.71,
+  "end_seconds": 288.71,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-13",
+  "group": "N1",
+  "file": "extra/a-bullet_proof-anthrax-sour.mp3",
+  "start_seconds": 313.78,
+  "end_seconds": 333.78,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-14",
+  "group": "N1",
+  "file": "Ed Rush & Optical - Fixation.mp3",
+  "start_seconds": 240.01,
+  "end_seconds": 260.01,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-15",
+  "group": "N1",
+  "file": "extra/Cyb Orc - People From South.mp3",
+  "start_seconds": 50.54,
+  "end_seconds": 70.54,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-16",
+  "group": "N1",
+  "file": "extra/03-Profound_Noize-Dropzone-sour.mp3",
+  "start_seconds": 224.94,
+  "end_seconds": 244.94,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-17",
+  "group": "N1",
+  "file": "extra/aph031 - aphrodite - private plates vol. 4_1999/A. aphrodite - wobble.mp3",
+  "start_seconds": 290.39,
+  "end_seconds": 310.39,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-18",
+  "group": "N1",
+  "file": "extra/A. D-Struct -- Merkaba.mp3",
+  "start_seconds": 271.1,
+  "end_seconds": 291.1,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-19",
+  "group": "N1",
+  "file": "extra/1.Kemal & Rob Data - The Mummy.mp3",
+  "start_seconds": 123.96,
+  "end_seconds": 143.96,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-20",
+  "group": "N1",
+  "file": "extra/03-Profound_Noize-Dropzone-sour.mp3",
+  "start_seconds": 330.78,
+  "end_seconds": 350.78,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-21",
+  "group": "N1",
+  "file": "extra/01-future_cut-the_specialist-trt.mp3",
+  "start_seconds": 211.86,
+  "end_seconds": 231.86,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-22",
+  "group": "N1",
+  "file": "extra/b-silent_witness_and_break-again_and_again-sour.mp3",
+  "start_seconds": 144.37,
+  "end_seconds": 164.37,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-23",
+  "group": "N1",
+  "file": "extra/APH28-Aphrodite-VINYL-1998-LAME/b2-aphrodite-sweet_mind-lame.mp3",
+  "start_seconds": 169.22,
+  "end_seconds": 189.22,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-24",
+  "group": "N1",
+  "file": "Skynet & Stakka - Logistics.mp3",
+  "start_seconds": 180.8,
+  "end_seconds": 200.8,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-25",
+  "group": "N1",
+  "file": "extra/01 - Ryme Tyme - T-Minus.mp3",
+  "start_seconds": 194.75,
+  "end_seconds": 214.75,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-26",
+  "group": "N1",
+  "file": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/107-stakka_and_skynet_feat_dj_friction-altitude-sour.mp3",
+  "start_seconds": 106.96,
+  "end_seconds": 126.96,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-27",
+  "group": "N1",
+  "file": "extra/b-extreme_force-everytime_(2001_mix)-sour.mp3",
+  "start_seconds": 252.59,
+  "end_seconds": 272.59,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-28",
+  "group": "N1",
+  "file": "Skynet & Stakka - Pathogen.mp3",
+  "start_seconds": 323.72,
+  "end_seconds": 343.72,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-29",
+  "group": "N1",
+  "file": "extra/03-aquasky-structure.mp3",
+  "start_seconds": 306.41,
+  "end_seconds": 326.41,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-30",
+  "group": "N1",
+  "file": "Kraken - Dominion.opus",
+  "start_seconds": 229.32,
+  "end_seconds": 249.32,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-31",
+  "group": "N1",
+  "file": "extra/c-black_sun_empire-1800_contact-sour.mp3",
+  "start_seconds": 220.69,
+  "end_seconds": 240.69,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-32",
+  "group": "N1",
+  "file": "Ed Rush & Optical - Bacteria.mp3",
+  "start_seconds": 373.32,
+  "end_seconds": 393.32,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-33",
+  "group": "N1",
+  "file": "extra/aa-cause_4_concern-synergy-sour.mp3",
+  "start_seconds": 162.11,
+  "end_seconds": 182.11,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-34",
+  "group": "N1",
+  "file": "extra/Cyb Orc - Endorphine.mp3",
+  "start_seconds": 230.67,
+  "end_seconds": 250.67,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-35",
+  "group": "N1",
+  "file": "extra/[A]_-_Drumsound_&_Simon_Bassline_Smith_-_Dirty_Dancing.mp3",
+  "start_seconds": 113.35,
+  "end_seconds": 133.35,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-36",
+  "group": "N1",
+  "file": "extra/05-item.code-protection_(ibs_faction_vip_rmx)-whoa.mp3",
+  "start_seconds": 381.76,
+  "end_seconds": 401.76,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-37",
+  "group": "N1",
+  "file": "extra/A-Origin_Unknown-Equinox-sour.mp3",
+  "start_seconds": 203.69,
+  "end_seconds": 223.69,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-38",
+  "group": "N1",
+  "file": "extra/A. SKC & Cord -- Swarm.mp3",
+  "start_seconds": 142.6,
+  "end_seconds": 162.6,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-262-39",
+  "group": "N1",
+  "file": "extra/Illuminati - The Rust.mp3",
+  "start_seconds": 218.23,
+  "end_seconds": 238.23,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-00",
+  "group": "N2",
+  "file": "extra/07 - Bad Company - Oxygen.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-01",
+  "group": "N2",
+  "file": "extra/APH28-Aphrodite-VINYL-1998-LAME/b1-aphrodite-dark_dark_side-lame.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-02",
+  "group": "N2",
+  "file": "Skynet & Stakka - Logistics.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-03",
+  "group": "N2",
+  "file": "Ed Rush & Optical - Lithosphere.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-04",
+  "group": "N2",
+  "file": "extra/Cyb Orc - Agressor.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-05",
+  "group": "N2",
+  "file": "Fibre Optix - Sin.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-06",
+  "group": "N2",
+  "file": "extra/AA. SKC -- Recharger (Black Sun Empire remix).mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-07",
+  "group": "N2",
+  "file": "extra/A-Bad_Company-The_Nine-dmz.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-08",
+  "group": "N2",
+  "file": "extra/b-bulletproof-scarred-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-09",
+  "group": "N2",
+  "file": "extra/rawkuts-gridlok-rkt337-2001-sour/a-gridlok-dilusion-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-10",
+  "group": "N2",
+  "file": "extra/d-dj_friction_and_nu_balancemovement_(stakka_and_tee_remix)-rfl.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-11",
+  "group": "N2",
+  "file": "extra/[A]_-_Mudslide.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-12",
+  "group": "N2",
+  "file": "extra/aa-paul_b_and_subwave-break_through-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-13",
+  "group": "N2",
+  "file": "extra/203-moving_fusion_and_andy_c-foul_mouth-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-14",
+  "group": "N2",
+  "file": "extra/01. Krot - Great Escape.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-15",
+  "group": "N2",
+  "file": "extra/201-origin_unknown-equinox-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-16",
+  "group": "N2",
+  "file": "extra/Cyb Orc - Looter.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-17",
+  "group": "N2",
+  "file": "extra/1. Noisia & Phace - Outsource (Misanthrop Remix).mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-18",
+  "group": "N2",
+  "file": "extra/B. falcon - reality.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-19",
+  "group": "N2",
+  "file": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-20",
+  "group": "N2",
+  "file": "extra/d-the_militia-you_and_i_know-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-21",
+  "group": "N2",
+  "file": "extra/APH37-Aphrodite-2001-sour/aa-aphrodite-acid_life-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-22",
+  "group": "N2",
+  "file": "extra/b-bad_company-china_cup.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-23",
+  "group": "N2",
+  "file": "extra/[A]_-_Mudslide.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-24",
+  "group": "N2",
+  "file": "extra/APH37-Aphrodite-2001-sour/aa-aphrodite-acid_life-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-25",
+  "group": "N2",
+  "file": "extra/aa-cause_4_concern-psyke-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-26",
+  "group": "N2",
+  "file": "extra/a-black_sun_empire-voltage-2000-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-27",
+  "group": "N2",
+  "file": "extra/a-black_sun_empire-voltage-2000-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-28",
+  "group": "N2",
+  "file": "extra/a-ed_rush_and_optical-sicknote-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-29",
+  "group": "N2",
+  "file": "extra/stakka_and_skynet-clockwork-udfr04cd-2002-sour/110-stakka_and_skynet_feat_k_tee-so_confused-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-30",
+  "group": "N2",
+  "file": "extra/b-spirit-out_of_control-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-31",
+  "group": "N2",
+  "file": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-32",
+  "group": "N2",
+  "file": "extra/a. falcon - fractles.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-33",
+  "group": "N2",
+  "file": "extra/b-skc-eclipse-gdn.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-34",
+  "group": "N2",
+  "file": "extra/A. Pyro -- Time Is Broken.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-35",
+  "group": "N2",
+  "file": "extra/09-Decoder-Bountyhunter-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-36",
+  "group": "N2",
+  "file": "extra/a-stakka_and_skynet-nightlore-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-37",
+  "group": "N2",
+  "file": "extra/A. D-Struct -- Merkaba.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-38",
+  "group": "N2",
+  "file": "extra/Cyb Orc - Agressor.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n2-262-39",
+  "group": "N2",
+  "file": "extra/a1-skynet-acid_drops-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "262"
+ },
+ {
+  "name": "n1-nas-00",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Technical Itch - Scope.m4a",
+  "start_seconds": 338.92,
+  "end_seconds": 358.92,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-01",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/dnbfreak0/Taajuus - Desire.m4a",
+  "start_seconds": 77.53,
+  "end_seconds": 97.53,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-02",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/rootzdnb/Arcon 2 - Prions.m4a",
+  "start_seconds": 155.74,
+  "end_seconds": 175.74,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-03",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Distorted Minds - Loaded Jump.m4a",
+  "start_seconds": 216.71,
+  "end_seconds": 236.71,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-04",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/butch-french/The Green Man - Infinity (Giana Brotherz Rmx).opus",
+  "start_seconds": 391.44,
+  "end_seconds": 411.44,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-05",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Concord Dawn & Optiv - Zulu.opus",
+  "start_seconds": 345.32,
+  "end_seconds": 365.32,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-06",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/unxplored-dnb/CSFO - Movin In The Shadows.m4a",
+  "start_seconds": 10.65,
+  "end_seconds": 30.65,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-07",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/hld77777/Stretch - The Spesh (Kartoons).m4a",
+  "start_seconds": 282.75,
+  "end_seconds": 302.75,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-08",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/abstract-math/L Plus - Amazon.opus",
+  "start_seconds": 44.07,
+  "end_seconds": 64.07,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-09",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/cryptic-jungle/Renegade - Terrorist.m4a",
+  "start_seconds": 70.64,
+  "end_seconds": 90.64,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-10",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/butch-french/Noetic - Drill Sergeant.m4a",
+  "start_seconds": 122.57,
+  "end_seconds": 142.57,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-11",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) RCA Wyl - Untitled (Drum'n'Bass) (Drum'n'Bass).opus",
+  "start_seconds": 214.73,
+  "end_seconds": 234.73,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-12",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Ink & J Dub - Mind State.m4a",
+  "start_seconds": 347.68,
+  "end_seconds": 367.68,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-13",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/hld77777/Shock C & DJ Ellis The Menace - Crazy Feelings (Back2Basics).m4a",
+  "start_seconds": 279.76,
+  "end_seconds": 299.76,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-14",
+  "group": "N1",
+  "file": "second-library/Cybernetika - Atropos/07 - Cybernetika - Unleash.mp3",
+  "start_seconds": 306.4,
+  "end_seconds": 326.4,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-15",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Replicator - Beast Control.m4a",
+  "start_seconds": 43.02,
+  "end_seconds": 63.02,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-16",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Fury, DJ：Ecco And Sabotage - Corrupted.opus",
+  "start_seconds": 212.27,
+  "end_seconds": 232.27,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-17",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Raiden & Ras - Weed.opus",
+  "start_seconds": 312.54,
+  "end_seconds": 332.54,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-18",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/butch-french/Monkey & Large - 241.m4a",
+  "start_seconds": 317.61,
+  "end_seconds": 337.61,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-19",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/abstract-math/Ibogain - Futuristic.opus",
+  "start_seconds": 114.44,
+  "end_seconds": 134.44,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-20",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Gridlok - Below The Threshold.m4a",
+  "start_seconds": 313.7,
+  "end_seconds": 333.7,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-21",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/weedsurfer/Mindscape - Detected (Gamma and Snatch Remix).m4a",
+  "start_seconds": 303.87,
+  "end_seconds": 323.87,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-22",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/unxplored-dnb/Dirge - Elastic.m4a",
+  "start_seconds": 176.76,
+  "end_seconds": 196.76,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-23",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Usual Suspects & Universal Project - The Craft.m4a",
+  "start_seconds": 155.15,
+  "end_seconds": 175.15,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-24",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Facs - Schmalla.m4a",
+  "start_seconds": 179.82,
+  "end_seconds": 199.82,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-25",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/the-hifi-junglist/Ram Trilogy - Funkstation (Chapter Three - RAM Records RAMM 24 D) 1998.m4a",
+  "start_seconds": 319.5,
+  "end_seconds": 339.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-26",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/unxplored-dnb/Heliy - Genofront.opus",
+  "start_seconds": 24.69,
+  "end_seconds": 44.69,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-27",
+  "group": "N1",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-11/bad_company-digital_nation-bcruk001-vinyl-2000-sour/c-bad_company-hysteria-sour.mp3",
+  "start_seconds": 208.86,
+  "end_seconds": 228.86,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-28",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/the-hifi-junglist/John B vs MC Justiyc - Double-J (Club Mix) (Beta Recordings BETA 004 X) 2000.m4a",
+  "start_seconds": 307.83,
+  "end_seconds": 327.83,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-29",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Nolige - The Influence.m4a",
+  "start_seconds": 216.29,
+  "end_seconds": 236.29,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-30",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/the-hifi-junglist/Blocks & Escher - Madness (Platinum Breakz 4, Metalheadz METACD002 track 9) 2014.m4a",
+  "start_seconds": 32.96,
+  "end_seconds": 52.96,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-31",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/rootzdnb/Monty - Blood Stream.opus",
+  "start_seconds": 39.5,
+  "end_seconds": 59.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-32",
+  "group": "N1",
+  "file": "second-library/__full_scene/Ammunition Recordings/ARDIG013 - Chaotic Pulse - Nautilus EP - 2009/01-chaotic_pulse-atlantis.mp3",
+  "start_seconds": 175.73,
+  "end_seconds": 195.73,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-33",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/michal-slabosz/Cyb Orc - Crying Orc.opus",
+  "start_seconds": 313.59,
+  "end_seconds": 333.59,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-34",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/the-hifi-junglist/Jungle Brothers - Jungle Brother (Urban Takeover Mix) (JumpUpThrowDown, Lacerba CERBAL6 A1) 1997.m4a",
+  "start_seconds": 364.54,
+  "end_seconds": 384.54,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-35",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/DJ Tek feat. Vexed - Knuckledusted (Sensibility Edit).m4a",
+  "start_seconds": 148.47,
+  "end_seconds": 168.47,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-36",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Peeb - Hidden Persuaders.m4a",
+  "start_seconds": 228.45,
+  "end_seconds": 248.45,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-37",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Zinc - What Is It.m4a",
+  "start_seconds": 99.68,
+  "end_seconds": 119.68,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-38",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Scinetyc - Untitled.opus",
+  "start_seconds": 352.06,
+  "end_seconds": 372.06,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n1-nas-39",
+  "group": "N1",
+  "file": "second-library/__youtube_archivists/butch-french/Ges-E & Osmani Soundz - The Calling.m4a",
+  "start_seconds": 189.01,
+  "end_seconds": 209.01,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-00",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Stuntman - Abonded.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-01",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/the-hifi-junglist/Joe Armon-Jones feat. Liam Bailey - Sorrow (Aquarii Records AQU010LP A1) 2024.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-02",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Elementz Of Noize - Ricochet.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-03",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/the-hifi-junglist/Hidden Agenda - Dispatch #2 (Platinum Breakz II CD1, Metalheadz 828 986-2 track 7) 1996.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-04",
+  "group": "N2",
+  "file": "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/virus-ed_rush_optical_trace-vrs007-2000-sour/c-trace_and_optical-mercury_switch-vrs007-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-05",
+  "group": "N2",
+  "file": "second-library/Trouble On Vinyl TOV049 - Friction_and_Nu_Balance-Final_Judgement_EP-2002-sour/c-friction_and_nu_balance-sancutary-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-06",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Paradox - 66-32°N.opus",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-07",
+  "group": "N2",
+  "file": "second-library/__full_scene/1999/1999-10/1999-10-27/metro_breaks--selected_drum_n_bass_from_toronto_(1998)-sour/01-visionary-dangerous-sour.mp3",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-08",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/cryptic-jungle/Traces Of Guilt (Nookie) - Expresso.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-09",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/butch-french/Barbitura - Pump me Up.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-10",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Taxman - Block.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-11",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/rootzdnb/Fracture & Neptune - The Ice Planet.opus",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-12",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/old-skool-jungle-dnb/Fresh & Vegus - Otto's Way.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-13",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/dnbfreak0/Mendelayev - Fields.opus",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-14",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Nurve - Virtue [Premiere].opus",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-15",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/alien5ive/CITRUS RECORDINGS [ CITRUS042 ： DOSE + TEKNIK - intruder - ] drum and bass.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-16",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Aquasky - Nightvision.opus",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-17",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/alien5ive/BREAK THE HOUSE [ BREAK R1 ： CELL OUT & SLEEPER CELL - where love lives - ] breakbeat house.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-18",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/the-hifi-junglist/Death In Vegas - Dirt (Slayer Edit) (Concrete HARD 27CD track 1) 1997.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-19",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Polarity - Final Heaven.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-20",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/the-hifi-junglist/Drumsound - Keyshot (Tribe Recordings tribe 006 A) 1998.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-21",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/abstract-math/DJ Rap - Collision.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-22",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Nebula - Iron Flex.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-23",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Kyam - Name & Shame.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-24",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/old-skool-jungle-dnb/The Dream Team - Gimme ⧸⧸ Old Skool Jungle & Drum N Bass.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-25",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Heist - Over Again.opus",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-26",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/unxplored-dnb/The Dream Team - Survival Of There Fit.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-27",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Sunchase & Nickbee - Proper Things.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-28",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/dnbfreak0/Orion - Isolation cut.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-29",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/weedsurfer/WeedSurfer - Solution.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-30",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Heist - Ghetto Ghost.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-31",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/unxplored-dnb/Timestretch - Slow Speed.opus",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-32",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Konquest - Eye Of Horus.opus",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-33",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/error-bat/The Panacea - An Ounce of Leniency.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-34",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/hld77777/Ant To Be - Done At Midnight (Burelom Music).opus",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-35",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Black Barrel - Zero Tolerance.opus",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-36",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/rootzdnb/Total Science, Digital & Spirit - Salvation.opus",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-37",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/klaudia-kowol/(Drum'n'Bass) (Drum'n'Bass) ID3 - Good Shit (Unreleased Exclusive) (Drum'n'Bass) (Drum'n'Bass).m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-38",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/dfect-dnb/Champa B - Dread Conquer.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ },
+ {
+  "name": "n2-nas-39",
+  "group": "N2",
+  "file": "second-library/__youtube_archivists/i-witness-dnb/Gray - London Sound.m4a",
+  "start_seconds": 0.5,
+  "end_seconds": 20.5,
+  "expected": [],
+  "own_extra": [],
+  "scale": "nas"
+ }
+]
