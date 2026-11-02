@@ -167,3 +167,106 @@ Rules for this session:
     hits); and one sub-threshold detection of the Plastic in each of the
     three Stakka scans (51:33-51:44, 6 hits, 2 windows);
   - the corpus store (`work/peaks`, read only, the same script): none.
+- **(08:41) Both start regressions identical** (`work/bin/s75-start`):
+  `regress session-54-linux` (0:51) and `regress session-64-linux-nas`
+  (3:47, 5.3 GiB peak), every report identical to its baseline's apart
+  from `wall_seconds`.
+- **(08:41) Step 2, the prune** (`work/s75/step2.sh`, tmux `s75prune`,
+  `work/bin/s75-start`), queued with step 3 after the NAS regression had
+  finished reading the store. `prune --yes` deleted 115 files (0.8 MB).
+  `doctor` after it: 40,666 current records, no warning of ignored
+  records; lines 80, 85 and 91 still leave out 101, 4 and 2 audio files.
+  The store went from 40,674 records, revision `7210fc479da58376`, to
+  40,666, revision `0bd3f0c23fabc698` (`scripts/analysis/store_revision.py`);
+  40,666 tag notes and 1,827 skip notes (1,926 before); no record or
+  note under the three entries is left (`ignored_in_store.py`). Both
+  saved NAS indexes (the CLI's in `~/.cache`, the harness's in
+  `work/indexes/`) are out of date and are built again by the next
+  search.
+- **(08:41) `clusters --from-peaks --reuse-pairs`** (with `--panels
+  work/s33/panels`, 0.2 s): 2,875 pairs clustered again, 0 dropped; the
+  clusters file is byte-identical, `c4d3da2e7e37...` before and after
+  (both copies in `work/s75/`), 284 clusters, 2,875 pair entries. No
+  pair entry named a pruned file. The same four verdict lines as in
+  sessions 52 and 64 name an ignored file and add nothing (lines 26, 45,
+  67 and 93); no verdict line names a file under the three entries.
+- **(08:47) Step 3, the standard evaluation on the pruned store**
+  (`work/s75/step3.sh`, tmux `s75prune`, `work/bin/s75-start`): `regress
+  session-64-linux-nas` (5:41 with the saved index built again; 5.3 GiB
+  peak). Scores and calibrate unchanged (11/11, 8/11, 0/11, 0 wrong;
+  weakest identifying 704, strongest false 282, 7 false accepted, 95
+  false candidates at 30 hits or more). Differences
+  (`work/s75/diff.py`, output `work/s75/diff-pruned.txt`; the reports
+  copied to `work/s75/pruned-reports/`):
+  - the pruned files: the six sweep candidates and the three scan
+    detections of step 1 are gone, nothing takes their place;
+  - not of a pruned file, in the sweep (indexed assets 40,571 to
+    40,563): 25 more queries change. 21 are refits of confident, right
+    detections whose hits stay the same (Cause 4 Concern - Abduction at
+    all nine speeds, Aphrodite - The Time The Place at four, K-Sta and
+    Paul B - Come Closer at -3%, Bad Company - The Pulse at three,
+    Kraken - Dominion at four), apart from one: in Dominion at -5% the
+    dfect-dnb upload, a confident right detection, gains 14 hits (303 to
+    317). Four change in weak candidates (6-7 hits): Decoy at +3% and
+    Item.Code - Magnetics at -5% and +5% each lose one, and in
+    Konflict - RoadBlock at +1% one gains a hit (6 to 7). `per_speed`'s
+    mean speed errors move with the refits; recall and wrong answers do
+    not change at any speed;
+  - in the leave-out-3 Stakka scan (not in the full scan or leave-out
+    11), the three confident Clockwork detections' speed, by less than
+    1e-5 percentage points (hits unchanged). The fitted speed takes the
+    same two values as in session 64: 1.0140502625 and 1.0140503276 for
+    the two corpus files (the full scan moved from the first to the
+    second in session 64, and leave-out 3 now does the same).
+- **(08:49) Tracing the second group to the lists set aside.** Whole
+  index (`work/s75/cut_moved.py` on the pre-prune link and the new
+  index, output `cut-moved-whole.txt`): 1,086,463 lists before and
+  1,086,456 after, 10,865 dropped in both; the longest list kept fell
+  from 9,938 to 9,932 postings, so two lists of 9,938 postings in both
+  (hashes 1212162 and 1338307, none of a pruned file) entered the set
+  aside. Hash 1141698, which session 64 traced to the Clockwork speeds,
+  had 9,938 postings, 6 of them of pruned files (2 each of the Kiss FM
+  part 1, Mr. Orange - Classical Mix and BASE CLUB - ( unity )), and has
+  9,932 now; it holds 11 postings of each corpus Clockwork file and 14
+  of the Remastered upload (`work/s75/list_holders.py`). It stays out of
+  the whole index's set aside, so the full scan keeps its speeds; the
+  leave-out-3 scan has a cut of its own (its left-out files removed),
+  and by inference the list fell below that cut, so the scan's first
+  pass now reads it, as the full scan did after session 64. The scan was
+  not run under the old lists (`scan` has no `--set-aside-like`).
+- **(08:50) The sweep under the old lists** (`work/s75/like.sh`, tmux
+  `s75like`, `work/bin/s75-start`, scratch `work/s75/wlike`; 2:31, 8.6
+  GiB): `work/s75/like_check.py` finds all 720 queries and `per_speed`
+  equal to the baseline less the pruned files' candidates
+  (`work/s75/like-check.txt`); only `indexed_assets` and
+  `set_aside_like` differ. The old index less the 8 files has the same
+  postings as the new one. In the sweep's index four lists left the set
+  aside (hashes 69523, 1188930, 1243842 and 1254102: 9,911, 9,912, 9,919
+  and 9,911 postings to 9,908, 9,902, 9,904 and 9,908, losing 3, 10, 15
+  and 3 postings of the pruned files), and one entered (1290256, 9,910
+  in both, as the shortest list set aside fell from 9,911 to 9,910
+  postings); 10,863 lists set aside before, 10,860 after. So every
+  sweep difference traces to the 8 files or to the lists set aside, and
+  the scan's Clockwork speeds to the lists by inference; nothing to stop
+  on.
+- **(08:55) Step 4** (`work/s75/step4.sh`, tmux `s75base`, every run
+  exit 0): the final build `work/bin/s75-final` (cargo had nothing to
+  rebuild; both binaries byte-identical to the start build's, since no
+  code changed this session); `regress session-54-linux` identical
+  (0:52); `regress session-64-linux-nas` (3:49, the saved index loaded)
+  gives step 3's reports again, every one identical; `baseline
+  session-75-linux-nas` copies them (identical to
+  `work/s75/pruned-reports/`). `scripts/check.sh` runs in the final
+  checks, since no code changed. Experiment 0278, data
+  `docs/experiments/data/0278-prune-ignored-sets.json`
+  (`work/s75/data.py`).
+- **(08:58) Step 5.** The roadmap's "Library ignore file" gains the
+  three entries of 2026-10-31, the user's decision that uploads cut from
+  DJ sets stay in the library, and this prune's record count and
+  baseline (session 64's sentence now in the past tense). The other
+  tracked files that name `session-64-linux-nas`, 40,674 records or the
+  old revision are briefs, checklists, experiments, their data, session
+  notes and status entries of earlier sessions, and the stereo decision
+  note's cost estimate (2026-10-30); they stay as written. The clusters
+  file's digest did not change. The places for the next sessions:
+  `docs/status.md` (a session 75 entry) and the handoff.

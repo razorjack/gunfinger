@@ -158,8 +158,16 @@ cases. None is an adopted decision or an experiment result.
   the NAS-scale baseline was `session-52-linux-nas` (experiment 0231: no
   scored result changed). Session 64 pruned the four uploads added on
   2026-10-30 (each heard to hold more than one recording): the NAS store
-  holds 40,674 records, and the NAS-scale baseline is
+  then held 40,674 records, and the NAS-scale baseline was
   `session-64-linux-nas` (experiment 0254: no scored result changed).
+  Since 2026-10-31 the NAS ignore file also leaves out DJ sets that
+  were in the library as tracks (`sety/`, the Virus on Kiss FM show of 3
+  May 2000) and the Lowdown Vol 6 track fix; uploads cut from DJ sets
+  stay in the library by the user's decision, since such a cut may be
+  the only file that carries a track's title (status, 2026-10-31).
+  Session 75 pruned their 8 peak records, 99 skip notes and 8 tag notes:
+  the NAS store holds 40,666 records, and the NAS-scale baseline is
+  `session-75-linux-nas` (experiment 0278: no scored result changed).
 - **Database.** Not needed so far: the peak store is one file per asset and
   the index is rebuilt from it in 0.5 s. Revisit if detections need to be
   stored; report edits and the Track/AudioAsset model, the other reasons
