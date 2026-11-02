@@ -182,8 +182,8 @@ file:
    ADR 0006 defines that tier as "this recording, or one sharing
    material with it", so this covers other rips of A (its duplicate
    cluster) and related versions with a passage in common. This is the
-   product's reading of the user's "related versions not printed at
-   first": a related version of the quieter track cannot be told from the
+   product's reading of the user's answer that related versions are not
+   printed at first: a related version of the quieter track cannot be told from the
    right recording, and one of A is held back by this rule; tracks that
    share only a sampled break may be held back too (precision first);
 3. has a confident play in the whole-mix report that overlaps the
@@ -306,7 +306,7 @@ binary if a level can be found at which the plain search misses B.
   one entry (two files at NAS scale, `titles disagree:`). The step took
   15.9-32.9 s for 11-17 confident entries.
 - **(05:18) `scripts/check.sh` green** on `09014c6` (7:59).
-- **(05:25) The review's findings** (a separate agent, read-only,
+- **(05:20) The review's findings** (a separate agent, read-only,
   05:11-05:17). It found no path that changes output with the option
   off, the moved residual code equal in arithmetic, `Decoder::render`'s
   arguments and the time map right, and the `(under N.)` number right.
@@ -330,3 +330,10 @@ binary if a level can be found at which the plain search misses B.
   map (it names neither the core's `residual` nor the CLI's `under`; left
   for the user, as session 70 left the harness's `residual`); a test of
   `--under` with `--start` (the arithmetic was checked by reading).
+- **(05:21-05:42) Final checks** (`work/s72/final.sh`, tmux `s72final`,
+  `work/bin/s72-final/`): option off, 42 of 42 outputs identical to
+  `s70-final`'s; both regressions identical (0:51; 3:54); the harness
+  smoke equal to session 70's report; the first look again gives the
+  same tracklists, its CSVs with `--under` differing only by the new
+  `play` column; `scripts/check.sh` green (7:38, 723 tests); the digests
+  unchanged.

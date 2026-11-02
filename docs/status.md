@@ -5972,3 +5972,40 @@ The user answered the six questions an ADR on proposal 4 needs
 5. The cost: measure it first, then decide whether the step is on by
    default.
 6. The reference: the best-aligned rip of the louder track.
+
+## 2026-11-02: session 72, `identify --under`, a quiet track under an identified one, off by default
+
+Brief `docs/brief-72.md` (its design written before code), checklist
+`docs/session-72-checklist.md`; notes "Session 72"; ADR 0025
+(Proposed); experiment 0272. Without the option Gunfinger's output is
+unchanged, byte for byte.
+
+- 04:25 start at `2701507`, clean. Start build `work/bin/s72-start/`
+  (= `s70-final`); both regressions identical (0:51; 4:10).
+- `gunfinger identify --under`: for each confident tracklist entry, the
+  strongest play's file is decoded from the library at each segment's
+  line (`decode::Decoder::render`), aligned on the recording and masked
+  with the core's `residual` (moved from the harness; session 70's
+  *Align*, `over` 2); what is left is searched under today's rule. Not
+  reported: finds of the entry's files, of files sharing material with
+  the file taken out by stored peaks, and of tracks confident within
+  90 s (the same file, or one lining up or tagged alike). A confident
+  find is a tracklist entry marked `(under N.)`; the table, CSV (`play`,
+  `under_play`) and JSON (`under`) list every find; cue sheet and
+  timeline leave them out. Not run on the peak store's own records.
+- The user's answers of 2026-11-02 are followed: today's acceptance
+  rule, the best-aligned rip as the reference, related versions held
+  back, the printing to be judged in use; the default waits for the
+  cost (session 73).
+- First look (0272): the Stakka mix gains nothing at either scale;
+  generated mix-00 gains its quiet partner, right, under entry 5. The
+  step takes 1-3 s per confident entry: `identify` 5.8 s becomes 29.3 s
+  at 262 tracks, 18.4 s becomes 51.4 s at NAS scale (Stakka).
+- The harness's residual calls the core's code and reproduces session
+  70's report exactly.
+- Final checks with `work/bin/s72-final/`: `scripts/check.sh` green (723
+  tests); `regress session-54-linux` and `regress session-64-linux-nas`
+  identical; with `--under` off every output of `identify` and `show`
+  identical to `s70-final`'s on the three development mixes at both
+  scales; `docs/pair-verdicts.txt` and the NAS clusters file
+  (`c4d3da2e7e37...`) unchanged.

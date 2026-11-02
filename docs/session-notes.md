@@ -14250,3 +14250,191 @@ Breaks Remix) cut, the Paragliders file against Konflict - Pendulum
   searched (and Stakka through `regress`). The NAS was only read;
   `work/peaks` only read. `docs/pair-verdicts.txt` and the answer log
   unchanged.
+
+## Session 72
+
+### What changed
+
+`gunfinger identify --under` (ADR 0025, status Proposed), off by
+default: a quieter track under a confident one, proposal 4 of
+`docs/research/2026-10-29-matching-and-archive-proposals.md` built into
+the product after the user's answers of 2026-11-02. Without the option
+nothing changes: every output of `identify` and `show` and both
+regressions are byte-identical.
+
+- The core gains `residual` (moved from the harness, unchanged in
+  arithmetic: the mask, the lags, *Align*, the gain fit; `Mask::UNDER` is
+  session 70's frozen setting, *Align* and `over` 2) and
+  `decode::Decoder::render` (a stretch of a file as a mix played it:
+  FFmpeg's seek, then the harness's speed filters, to the profile's
+  rate). The harness's residual maps its `Fix` onto the core's `Mask`
+  and reproduces session 70's smoke report exactly.
+- The CLI's `under` runs the step after the report is built, once per
+  confident tracklist entry: the entry's strongest play's file (the
+  best-aligned rip) is decoded from the library at each segment's line,
+  aligned and masked; the residual is searched with the same index,
+  ladder and rule. Dropped: finds of the entry's files; of files that
+  share material with the file taken out by their stored peaks
+  (possible tier or above, `search_peaks` against that file alone); of
+  files confident within 90 s; and found plays that are one track with a
+  confident play within 90 s (ADR 0017's tests: lining up or tagged
+  alike).
+- The printing: a confident find is a tracklist entry at its start,
+  marked `(under N.)` with the louder track's entry number; finds are
+  grouped into entries as plays are; possible finds stay out of the
+  tracklist. The table marks finds `under <file> (play N)` in time
+  order; CSV gains a row per find and the columns `play` and
+  `under_play` only when the step ran; JSON holds `under` (each find with `under: {play, asset}`) and
+  `search.under`, so `--save-dir` searches again when the setting
+  changes. Cue sheet and timeline leave finds out.
+- `--store-only`, no library, or an unreadable library: the step does
+  not run, with one line on stderr.
+
+In short: the option finds the quiet partner the measured residual
+finds, prints it as its own tracklist entry under the louder one, and
+adds nothing to the Stakka mix's output at either scale. It costs about
+1-3 s per confident entry (experiment 0272); session 73 decides whether
+that is acceptable by default.
+
+### Tests
+
+- Core: the residual's tests moved with it (A over B: the mask removes
+  A's peaks and keeps B's; the lags find a reference placed 125 ms
+  early; *Align* takes out a record whose reference is off in time; the
+  gain, the Theil-Sen line, the bands); `Decoder::render` at +5% on a
+  turntable (pitch up) and with key lock (pitch kept), and past the end
+  of a file (no audio).
+- Harness: each `Fix` is the core `Mask` it was measured as.
+- CLI (`under.rs`): the file taken out is the entry's strongest confident
+  play; each drop rule; shared material by stored peaks (a remix holding
+  half of A shares, an unrelated track does not); finds kept once across
+  entries; finds that are one track grouped into one entry; the printing
+  in every format (tracklist, table, CSV with and without the step, cue
+  sheet and timeline unchanged, JSON saved and read back by `show`);
+  validation of misplaced `under` marks.
+- End to end (`a_quiet_track_under_a_confident_one_is_found_once_the_louder_is_taken_out`):
+  a synthetic double drop, the quiet track 12 dB down and never alone;
+  without the option the tracklist lists only the loud track, with it
+  `2. 0:20 b (under 1.)`; `show` of the saved report; `--store-only`
+  says the step does not run.
+- With the option off: `identify --format json` and `show` in all six
+  formats by `s70-final` and by this session's builds give the same bytes
+  on the three development mixes at both scales (42 of 42); both
+  regressions identical; the harness's residual smoke report equal to
+  session 70's.
+
+### First look (experiment 0272)
+
+| Mix, scale | Confident entries | `identify` without; with `--under` | Found |
+|---|--:|--:|---|
+| Stakka, 262 tracks | 11 | 5.8 s; 29.3 s | nothing |
+| Stakka, NAS scale | 11 | 18.4 s; 51.4 s | nothing |
+| generated mix-00 (seed 2026), 262 tracks | 16 | 2.9 s; 18.8 s | `6. 11:08 Muffler - Nutcracker (Original Mix) (under 5.)`, right |
+| the same, NAS scale | 17 | 13.8 s; 33.3 s | the same entry, with an `Extended Mix` upload under `titles disagree:` |
+
+Peak memory at 262 tracks rose from 0.15-0.19 GB to 0.37-0.54 GB; at
+NAS scale from 4.9-5.0 to 5.0-5.2 GB. The plain search had the partner
+only as possible (207 hits), left out of the tracklist by ADR 0019.
+
+### Decided this session, open to change
+
+- The option's name `--under`; no configuration key yet.
+- The reference is the strongest confident play of each confident
+  tracklist entry (the product has no duplicate clusters); each segment
+  places it by its own line, and the excerpt is the play's span.
+- The product renders the reference straight to the profile's rate
+  (`Decoder::render`); the harness renders at 44.1 kHz through a WAV.
+  The gains are fitted from the mixture, so levels do not matter; the
+  two renders were not compared sample by sample.
+- Four drop rules (the entry's files; shared material by stored peaks;
+  the same file confident within 90 s; one track with a confident play
+  within 90 s), the second being the product's reading of the user's
+  answer that related versions are not printed at first.
+- The printing as in ADR 0025, item 10; the timeline and the cue sheet
+  leave finds out.
+- The step does not run whenever the catalog lists the store's own
+  records (not only with `--store-only`).
+- AGENTS.md's module map is not updated (it names neither the core's
+  `residual` nor the CLI's `under`); left for the user.
+
+### Questions this leaves for us
+
+- Whether the cost (1-3 s per confident entry; the lag measure's eight
+  phases and a search per entry) is acceptable by default, or needs
+  work first (session 73).
+- Whether the printing reads well in use: an entry `(under N.)` among
+  the others, and the table's two rows when the plain search had the
+  same track as possible.
+- Whether the shared-material rule holds back played tracks that share
+  only a sampled break with the louder one (not measured).
+
+### Questions for listening (none answered by agents)
+
+None new. Pending from before: the Planet Dust (DC Breaks Remix) cut
+(unsure).
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-54-linux`; `regress session-64-linux-nas` (start build) | 0:51; 4:10 | 0.4; 5.6 GB |
+| Harness residual smoke (seed 2026, one mix, two timings, three fixes, 262 tracks) | 3:57 | 0.9 GB |
+| `identify` of a development mix, `--under` off: 262 tracks; NAS scale | 4-6 s; 36-41 s (first NAS run 77 s, building the CLI's saved index) | 0.2; 5.0 GB |
+| End-to-end test of `--under` (debug build) | 38 s | |
+| `scripts/check.sh` (mid-session; final) | 7:59; 7:38 | |
+
+### Final checks
+
+`work/s72/final.sh` with `work/bin/s72-final/` (master at `8a372e4`):
+with `--under` off, `identify --format json` and `show` in all six
+formats on the three development mixes at both scales are
+byte-identical to `s70-final`'s (42 of 42); `regress session-54-linux`
+(0:51) and `regress session-64-linux-nas` (3:54) identical, every report
+equal to its baseline's; the harness's residual smoke report equal to
+session 70's; the first look run again gives the same tracklists (the
+CSVs with `--under` differ only by the added `play` column);
+`scripts/check.sh` green (7:38, 723 tests); `docs/pair-verdicts.txt`,
+the NAS clusters file (`c4d3da2e7e37...`) and the answer log at their
+start digests (`work/s72/listening-digests-end.txt`).
+
+### Handoff for session 73
+
+1. The option: `gunfinger [--config ~/.config/gunfinger/nas-dnb.toml]
+   identify MIX --under [--verbose]`. `--verbose` prints "searched under
+   N confident tracks in X s" beside the search's own time; `/usr/bin/time
+   -v` gives the total and peak memory. Builds: `work/bin/s72-final/`
+   (master); `s72-run2/` was the first look's.
+2. The code: `crates/gunfinger/src/under.rs` (the step: `find`,
+   `under_entry`, `placed`, the drop rules `Dropped`, `SharedMaterial`,
+   `named_as_one_track`, `once_each`); `crates/gunfinger-core/src/residual.rs`
+   (`Mask::UNDER`, `residual`, `lags`); `decode::Decoder::render`. Where
+   the time goes is not yet measured apart: per entry, the FFmpeg decode
+   of each segment from the library (the NAS over Ethernet at NAS
+   scale), the mask (STFTs, `lags` on eight phases), the search of the
+   residual (`jobs` threads) and a `search_peaks` per remaining file.
+3. The first look (experiment 0272, `work/s72/look2/`,
+   `work/s72/look-final/`): Stakka 5.8 s to 29.3 s at 262 tracks, 18.4 s
+   to 51.4 s at NAS scale, nothing found; generated mix-00 2.9 s to
+   18.8 s and 13.8 s to 33.3 s, the quiet partner found, right.
+4. ADR 0025 is Proposed: the default and the cost are decided after
+   session 73; the printing is to be judged in use. Measuring the
+   recall of the product's step on generated mixes needs the truth
+   beside `identify`'s reports (the harness's `mixes --residual` runs
+   the same mask but chooses its reference and drops nothing).
+5. Baselines unchanged: `session-54-linux` and `session-64-linux-nas`.
+   The NAS store: 40,674 records, revision `7210fc479da58376`; the
+   clusters file unchanged.
+6. Data: `work/s72/` (scripts `run.sh`, `start.sh`, `smoke-harness.sh`,
+   `off.sh`, `regress-run.sh`, `look.sh`, `check.sh`, `final.sh`,
+   `same.py`; logs in `logs/`; option-off outputs in `off/` and
+   `off-final/`). No renders were made.
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened. Searched: the three development
+  mixes and generated `drops-seed-2026/mix-00` (and Stakka through
+  `regress`). The NAS and `work/peaks` were only read; the CLI wrote its
+  saved NAS index to `$XDG_CACHE_HOME` on its first NAS run.
+- `docs/pair-verdicts.txt` and the answer log unchanged; no question
+  was asked or answered.
