@@ -6108,3 +6108,29 @@ notes "Session 75"; experiment 0278. The product did not change.
   `scripts/check.sh` green (726 Rust tests); `regress session-54-linux`
   and `regress session-75-linux-nas` identical (0:51; 3:48);
   `docs/pair-verdicts.txt` and the NAS clusters file unchanged.
+
+## 2026-11-05: an external review, the standing rules and a decisions queue
+
+- Two independent read-only reviewers (one GPT model, one Claude model)
+  reviewed the roadmap, the experiments and the harness. What we
+  checked and adopted is in
+  `docs/research/2026-11-05-external-review.md`; the reports are under
+  `work/review-2026-11-05/`.
+- New: `docs/session-rules.md` collects the standing rules that briefs
+  2-75 and the prompts repeated, and `CLAUDE.md` no longer names the
+  older briefs as live rules. `docs/decisions-queue.md` lists nine open
+  decisions with evidence and a recommendation (the minimum span,
+  `--under`'s default, the inverted-channel repair, break search, the
+  zero-wrong bar against the seven Cool Rock detections at NAS scale,
+  real mixes with roles and a new held-out set, presentation of related
+  versions, kept diagnostics, smaller ones). The roadmap starts with an
+  ordered active queue.
+- Harness defects confirmed in the code, first on the queue: generated
+  mixes score a play at the level of its strongest detection by hits
+  (`mixes.rs`, `score_play`), not at its highest confidence; `regress`
+  compares queries by position without checking counts or identity;
+  render caches are keyed by name and size; harness FFmpeg calls run
+  without the stall watchdog; `regress` covers only the Stakka mix.
+- Stale counts corrected: the test set has one evaluation left
+  (`docs/calibration.md`, the roadmap's "More development mixes").
+  Nothing was run; no code changed.

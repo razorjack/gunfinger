@@ -6,33 +6,15 @@ At session start, and after any context compaction, read these before doing
 anything else:
 
 1. `docs/brief.md` (the brief; never edit it)
-2. `docs/brief-75.md` (the current session's brief) and
-   `docs/session-75-checklist.md` (its progress), with `docs/brief-64.md`
-   (the last prune: its procedure), ADR 0009 and 0022, experiments 0231,
-   0242 and 0254, the newest four entries of `docs/status.md` (the
-   listening of 2026-10-31 and the user's decisions after it above all),
-   notes "Session 52", "Session 64" and "Session 74", and this session's
-   experiment (0278);
-   `docs/brief-2.md`,
-   `docs/brief-3.md`, `docs/brief-4.md`, `docs/brief-5.md`,
-   `docs/brief-6.md`, `docs/brief-7.md`, `docs/brief-8.md`,
-   `docs/brief-9.md`, `docs/brief-10.md`, `docs/brief-11.md`,
-   `docs/brief-12.md`, `docs/brief-13.md`, `docs/brief-14.md`,
-   `docs/brief-15.md`, `docs/brief-16.md`, `docs/brief-17.md`,
-   `docs/brief-18.md`, `docs/brief-19.md`, `docs/brief-20.md`,
-   `docs/brief-21.md`, `docs/brief-22.md`, `docs/brief-23.md`,
-   `docs/brief-24.md`, `docs/brief-24b.md` (session 24b, Panako, run
-   beside session 24), `docs/brief-25.md`, `docs/brief-26.md`,
-   `docs/brief-27.md`, `docs/brief-28.md`, `docs/brief-29.md`,
-   `docs/brief-30.md`, `docs/brief-32.md`, `docs/brief-33.md`,
-   `docs/brief-34.md`, `docs/brief-35.md`, `docs/brief-36.md`, `docs/brief-37.md`,
-   `docs/brief-38.md`, `docs/brief-39.md`, `docs/brief-40.md`,
-   `docs/brief-41.md`, `docs/brief-42.md`, `docs/brief-43.md`,
-   `docs/brief-44.md`, `docs/brief-45.md`, `docs/brief-46.md`,
-   `docs/brief-47.md`, `docs/brief-48.md`, `docs/brief-49.md`,
-   `docs/brief-50.md`, `docs/brief-51.md`, `docs/brief-52.md`,
-   `docs/brief-53.md`, `docs/brief-54.md`, `docs/brief-55.md`, `docs/brief-56.md`, `docs/brief-57.md`, `docs/brief-58.md`, `docs/brief-59.md`, `docs/brief-60.md`, `docs/brief-61.md`, `docs/brief-62.md`, `docs/brief-63.md`, `docs/brief-64.md`, `docs/brief-65.md`, `docs/brief-66.md`, `docs/brief-67.md`, `docs/brief-68.md`, `docs/brief-69.md`, `docs/brief-70.md`, `docs/brief-72.md`, `docs/brief-73.md` and `docs/brief-74.md` hold
-   rules that still apply unless brief 75 changes them
+2. `docs/session-rules.md` (the standing rules), `docs/decisions-queue.md`
+   (decisions waiting for the user) and the roadmap's "The active queue";
+   then the current session's brief and checklist (the newest
+   `docs/brief-NN.md` and `docs/session-NN-checklist.md`; each session
+   names them here, with what else it needs read). The older briefs are
+   history, not live rules: the standing rules are collected in
+   `docs/session-rules.md` (2026-11-05). Read an older brief only when a
+   document points to it for a procedure, for example `docs/brief-64.md`
+   for a prune.
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
@@ -40,8 +22,9 @@ anything else:
    (never edit it)
 6. for work on the NAS collection: `docs/brief-nas.md`,
    `docs/nas-checklist.md` and `docs/nas-plan.md` (the code is merged;
-   session 34 reads the NAS, never writes it, and does not rebuild the
-   NAS clusters session 33 built on the Linux machine)
+   sessions read the NAS and never write it, and do not rebuild the NAS
+   clusters session 33 built on the Linux machine, apart from prunes the
+   user approves by name: `docs/session-rules.md`)
 7. for the listening tool (`gunfinger-eval audition`):
    `docs/adr/0016-listening-tool.md`, `docs/audition-questions.md` and
    every file in `crates/gunfinger-eval/src/audition/web/`

@@ -8,13 +8,82 @@ marked as inferences were derived, not measured.
 
 **Research proposals, 2026-10-29.** The
 [matching and archive note](research/2026-10-29-matching-and-archive-proposals.md)
-records six unmeasured ideas: stereo power fingerprints, filtering before
-hit grouping, correcting the second pass's initial alignment, recovering
-quiet tracks using an identified foreground track, a harmonic/percussive
-verification view, and recurring unidentified passages across mixes. It
-also proposes automated counterexample search. Each item relates the idea
-to earlier results, describes a first experiment and names its failure
-cases. None is an adopted decision or an experiment result.
+records six ideas with their first experiments and failure cases. All six
+have since been measured: stereo power fingerprints (0245-0250, not
+adopted; the inverted-channel repair 0262-0263 is open), filtering before
+hit grouping (0243-0244, not adopted), correcting the second pass's
+initial alignment (0251-0253, not adopted; the short-chain variant is not
+measured), quiet tracks under an identified one (0255-0258, 0269-0275;
+`identify --under`, ADR 0025, Proposed), a harmonic/percussive view
+(0259-0261, not adopted) and recurring passages across mixes (0267-0268,
+a pilot). Automated counterexample search was piloted in 0264-0266.
+
+## The active queue (2026-11-05)
+
+The order of work agreed after the external review of 2026-11-05
+(`docs/research/2026-11-05-external-review.md`). The sections below hold
+each item's history; open decisions are in `docs/decisions-queue.md`.
+Each session takes the first item it can do without a pending decision.
+
+1. **The harness measures what it says.** Generated-mix scoring takes
+   the highest confidence among a play's matching detections, and the
+   saved reports are rescored offline; `regress` checks query identity
+   and counts, records provenance and gains a strict mode; render caches
+   are keyed by a recipe fingerprint; harness FFmpeg calls run under the
+   core's watchdog (ADR 0018); `regress` covers the 2003 and Nocny scans
+   at both scales. One session, with both regressions identical or every
+   difference explained.
+2. **`--under` before its default.** Fix the fourth drop rule
+   (`named_as_one_track` matches non-overlapping plays within 90 s;
+   0274), run the mask's entries in parallel, measure 0275's table
+   again, then the decision (queue item 2).
+3. **The user's decisions** in `docs/decisions-queue.md`, then one
+   session that adopts the accepted ones together and reruns the
+   protocol once.
+4. **Real mixes with roles.** New development mixes with tracklists
+   written by ear, and a new held-out set committed before any search
+   (queue item 6). Then a field trial: `identify` over sets outside both
+   roles, with about 20 printed entries a week checked by ear through
+   `audition`.
+5. **The minimum span**, once decided (queue item 1): errors scored per
+   passage and as a probability over placement, the rule frozen, one
+   confirmation on the shared panels' validation halves, an ADR. Before
+   it, short-chain fit stability under library perturbations (the
+   second-pass fit note's short-chain follow-up), since brief plays
+   depend on short chains.
+6. **Two records for a flagged inverted file**, the user's idea of
+   2026-10-31 (queue item 3): a harness pilot that scores the two forms
+   apart and never sums or chains their evidence; as-ripped and repaired
+   queries, genuine wide stereo, the shared-material negatives.
+7. **The band profile of 0034** under the default matcher at 262 tracks
+   (shared panels' development halves, `recall`, `robust`), criteria
+   first; a NAS re-extraction only if it passes.
+8. **A second-chance search over the gaps**: the costly searches
+   (targeted extra rungs first, estimated at under 1% more CPU in
+   0251-0252; then key lock) only over the stretches `gaps::uncovered`
+   finds without a confident match.
+9. **Hash-rarity weighting** as a diagnostic score beside the hit count
+   (hits weighted by the inverse log of their posting-list length), on
+   the shared panels' development halves and 0276's break lists.
+10. **Break search, measured as retrieval** (queue item 4): judged
+    holders as relevant, a listening pack across ranks, both playback
+    ladders; a library-wide clustering first, so that a null of random
+    passages is not contaminated by unclustered rips.
+11. **Process.** A `gunfinger-eval protocol --variants ...` runner (one
+    set of renders, one loaded index, one table against the baseline);
+    the roadmap rewritten as open items with state and next step; the
+    diagnostics cleanup (queue item 8); FFmpeg's version in the record
+    header and perhaps an explicit resampler (a profile bump, an ADR); a
+    posting-count set-aside threshold stored in the saved index instead
+    of the share-based cut, so that a small prune moves nothing (an ADR
+    superseding part of ADR 0014).
+
+Demoted until new evidence addresses their recorded failures: another
+general harmonic or band-dynamics verifier, a global stereo-power front
+end, wider fan-out, a large Panako run, and further search-speed work
+("Where search time goes": 24 s per hour-long mix at NAS scale is far
+inside the brief's bound; reopen only if `--under`'s default needs it).
+"A confidence statistic for shared material" waits on queue item 7.
 
 ## Library and storage
 
@@ -1539,7 +1608,8 @@ cases. None is an adopted decision or an experiment result.
 - **More development mixes.** Mixes of existing library tracks, especially
   with brief plays and long blends, would test what the single development
   mix cannot. Agree each mix's role before looking at its results. The
-  held-out test mix has two evaluations left (ADR 0004). *(larger
+  held-out test mix has one evaluation left (ADR 0004); its replacement
+  is in the decisions queue, item 6. *(larger
   library)* Each new genre needs its own development and held-out mixes;
   check the speed range those DJs used. My 2003 mix is the second
   development set (`razorjack-2003-03-29`, experiment 0060: 12/12 at NAS

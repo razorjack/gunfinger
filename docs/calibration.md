@@ -176,7 +176,7 @@ Overload's Molten Beats edit and The Nine's VIP) is not an input here.
    apply the "If it moves" column.
 5. `gunfinger stats`, and query time as in experiment 0005.
 6. Record the run as an experiment. A test-set scan counts as an evaluation
-   in the ledger (two of five used so far).
+   in the ledger (four of five used so far).
 
 ## Changes since `poc-freeze-1`
 
