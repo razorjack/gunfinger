@@ -150,3 +150,67 @@ Rules for this session:
   `docs/experiments/data/` is a whole report with detections. A
   read-only subagent maps each report to the experiments that cite it
   (`work/s77/report-map.tsv`); the list goes into the registration.
+
+## Pre-registration (step 1), before the fix is committed and before any rescoring
+
+Registered at 13:40, before `rescore` has read any saved report.
+
+- **The rule.** A truth play of a generated mix takes the highest
+  confidence among its matching detections (ADR 0013's rule for plays):
+  confident when any matching detection is confident, else possible
+  when any is possible, else weak when any matches, else none. A
+  detection matches a play as today: its file is in the play's cluster
+  or judged to carry its title, and it overlaps the play's audible span.
+  The representative detection (`best`: position error, speed, the
+  residual pilot's placement) stays the matching detection with the
+  most hits, because it holds the most aligned evidence. The report
+  keeps both: `best`, and `at_level`, the detection with the most hits
+  at the play's level, written only when it is not `best`. The old
+  level stays readable as `best`'s confidence.
+- **Where.** `mixes::score_play`, which `mixes`, `grid`, the residual
+  pilot and `counterexamples` share. `counterexamples`' override in
+  `Outcome::of` becomes redundant (its accepted files are the scorer's
+  cluster and title files, and its overlap test is the scorer's) and is
+  removed; its test is kept, rewritten to score through `mixes::score`.
+  `grid`'s `GridQuery::level` and the residual pilot's case selection
+  (confident indexed plays) follow the scorer. The scan scorer already
+  counts a track identified when any detection in its slot is confident
+  and does not change.
+- **Reports rescored.** Every report in `work/s77/report-inventory.txt`
+  (202 `mixes` reports) and the three `grid` reports of `work/s57/`
+  (`wgrid32/reports/grid-seed-2026.json`,
+  `wrobust/reports/grid-seed-2026.json`,
+  `wrobust/reports/variant-spans/grid-seed-2026.json`), with
+  `gunfinger-eval rescore`, which reads the saved detections and
+  searches nothing. Clusters and same-title judgments are today's
+  (`work/reports/duplicate-clusters.json` for reports of the corpus
+  index, with `--other-peaks-dir` the NAS clusters for reports of an
+  index of more than 1,000 assets). The experiments that cite each
+  report are mapped in `work/s77/report-map.tsv` (a read-only
+  subagent's map, checked against the experiments' commands); the
+  tables cover the reports mapped to a committed experiment, 0255-0275
+  first. Not rescorable without searching again, and listed as such:
+  the residual pilot's arms (they keep each play's strongest detection
+  only), its choice of cases, `counterexamples` reports (their
+  outcomes were scored with the override, which gave the registered
+  definition; nothing to rescore), `shared-mixes` and `passages`
+  reports (their own scorers, which do not read `PlayScore`), and
+  `identify` reports of rendered mixes (scored by
+  `scripts/analysis/tracklist_score.py` from the product's plays, which
+  take the highest confidence already).
+- **Two effects kept apart.** `rescore` counts, per report, the plays
+  whose level changed against the saved report, the plays whose
+  rescored level is above their strongest detection's (the rule's own
+  effect) and the plays or mixes that drifted for another reason (a
+  different strongest detection, boundaries, wrong answers or credits
+  under today's clusters, judgments or thresholds). Only the rule's
+  effect is attributed to the fix; drift is reported beside it.
+- **A changed conclusion.** Any figure that a committed experiment or an
+  ADR states and that the rescoring moves, by any amount. Each is
+  recorded in experiment 0279's table, by experiment, before and after.
+  Where the figure was one an ADR or a registered bar used, 0279 and
+  this brief say whether the decision's reading changes. An amendment
+  line goes into the experiment file only where a figure it states is
+  wrong under the registered rule it measured (it counted "confident"
+  plays that had a confident detection as possible); registered bars
+  and verdicts are never changed.
