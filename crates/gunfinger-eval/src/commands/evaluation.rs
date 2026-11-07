@@ -5,6 +5,7 @@ use super::sweep::{NO_FILTER_STUDY, run_sweep};
 use crate::files::write_json;
 use crate::harness::{Harness, IndexVariant, UNCHANGED_INDEX};
 use crate::padding::Padding;
+use crate::provenance::Provenance;
 use crate::scan::{LeaveOut, SlotRun};
 use crate::{calibrate, loss, memory, regress, robust, scan, stereo, sweep};
 
@@ -71,6 +72,12 @@ pub struct BaselineArgs {
     pub set: String,
     #[arg(long, default_value_t = 2026)]
     pub seed: u64,
+    /// Write only `provenance.json` beside an existing baseline saved
+    /// without one, leaving its reports as they are; refused unless every
+    /// current report equals the baseline's apart from timing (run
+    /// `regress` first).
+    #[arg(long)]
+    pub provenance_only: bool,
 }
 
 #[derive(clap::Args)]
@@ -102,6 +109,12 @@ pub struct RegressArgs {
     pub set: String,
     #[arg(long, default_value_t = 2026)]
     pub seed: u64,
+    /// Exit with an error on any difference from the baseline's reports
+    /// apart from timing, any incomparable pair and any input that differs
+    /// from the baseline's provenance: for changes meant to keep every
+    /// result, such as a refactor.
+    #[arg(long)]
+    pub strict: bool,
 }
 
 pub fn scan(harness: &Harness, jobs: usize, args: ScanArgs) -> Result<(), String> {
@@ -188,9 +201,20 @@ pub fn loss(harness: &Harness, jobs: usize, args: LossArgs) -> Result<(), String
     Ok(())
 }
 
-pub fn baseline(harness: &Harness, args: BaselineArgs) -> Result<(), String> {
-    let BaselineArgs { name, set, seed } = args;
-    regress::save(&harness.reports(), &harness.baseline(&name), &set, seed)
+pub fn baseline(harness: &Harness, jobs: usize, args: BaselineArgs) -> Result<(), String> {
+    let BaselineArgs {
+        name,
+        set,
+        seed,
+        provenance_only,
+    } = args;
+    let provenance = Provenance::now(harness, &set, seed, jobs)?;
+    let (reports, baseline) = (harness.reports(), harness.baseline(&name));
+    if provenance_only {
+        regress::save_provenance_only(&reports, &baseline, &set, seed, &provenance)
+    } else {
+        regress::save(&reports, &baseline, &set, seed, &provenance)
+    }
 }
 
 pub fn memory(harness: &Harness, jobs: usize, args: MemoryArgs) -> Result<(), String> {
@@ -245,11 +269,25 @@ pub fn regress(harness: &Harness, jobs: usize, args: RegressArgs) -> Result<(), 
         no_rerun,
         set,
         seed,
+        strict,
     } = args;
     if !no_rerun {
         run_standard_evaluation(harness, &set, seed, jobs)?;
     }
-    regress::compare(&harness.baseline(&name), &harness.reports(), &set, seed)
+    let now = Provenance::now(harness, &set, seed, jobs)?;
+    let verdict = regress::compare(
+        &harness.baseline(&name),
+        &harness.reports(),
+        &set,
+        seed,
+        &now,
+    )?;
+    if strict && !verdict.identical() {
+        return Err(String::from(
+            "regress --strict: the reports or inputs differ from the baseline's",
+        ));
+    }
+    Ok(())
 }
 
 /// The sweep, the development scan and its leave-outs.

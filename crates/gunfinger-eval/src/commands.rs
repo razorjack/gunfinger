@@ -194,7 +194,11 @@ pub enum Command {
     /// stretch. For the development set only.
     Loss(evaluation::LossArgs),
     /// Save the reports of the standard evaluation (sweep, development scan
-    /// and leave-outs) as a named baseline under `work/baselines/`.
+    /// and leave-outs) as a named baseline under `work/baselines/`, with
+    /// `provenance.json` beside them: the build, the peak stores'
+    /// revisions, the digests of the clusters, pair verdicts, same-title
+    /// judgments and panels, the profile and the matcher's settings, which
+    /// `regress` compares. Save it with the build that wrote the reports.
     Baseline(evaluation::BaselineArgs),
     /// Measure resident memory after loading the peak records, building the
     /// index and searching a set's audio, the way `identify` does; with
@@ -206,7 +210,10 @@ pub enum Command {
     /// the lists `--skip-fullest` sets aside when looking for candidates.
     Fullest(library::FullestArgs),
     /// Rerun the standard evaluation and report what changed against a
-    /// saved baseline.
+    /// saved baseline: reports that are identical, changed, or
+    /// incomparable (other queries, another scan or leave-out, or other
+    /// inputs in the baseline's provenance). It returns success either way
+    /// unless --strict is given.
     Regress(evaluation::RegressArgs),
 }
 
@@ -390,7 +397,7 @@ pub fn run(harness: &Harness, jobs: usize, command: Command) -> Result<(), Strin
         Command::Gaps(args) => saved_reports::gaps(harness, args),
         Command::SelfMatch(args) => saved_reports::self_match(harness, jobs, args),
         Command::Loss(args) => evaluation::loss(harness, jobs, args),
-        Command::Baseline(args) => evaluation::baseline(harness, args),
+        Command::Baseline(args) => evaluation::baseline(harness, jobs, args),
         Command::Memory(args) => evaluation::memory(harness, jobs, args),
         Command::Fullest(args) => library::fullest(harness, args),
         Command::Regress(args) => evaluation::regress(harness, jobs, args),
