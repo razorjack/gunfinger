@@ -211,6 +211,20 @@ changed in this session in response.
   families other than the mix's own, so they run without `--tagged`
   (every indexed corpus file may play; titles are scored by recording as
   before, and an untagged file prints its file name).
+- 18:20. The left-out cases failed to render at first: of the panel's
+  pairs only Clockwork's and The Nine's have both records in the corpus,
+  so no two pairs of other families were left. The panel's played
+  records are mostly corpus files whose related versions are NAS files,
+  and these runs search the NAS library, so the two cases draw from
+  their own list: pairs whose played record is indexed and not held
+  out, the related record in the corpus or only in the NAS library
+  (`drops::with_played_record_indexed`, commit `69dd9f5`, build
+  `s80-run2`, `gunfinger-eval` `27fdbf19...`; the other cases' draws do
+  not read the list). One exclusion list per case leaves its left-out
+  recordings out of the library for all 12 mixes, so a block of another
+  mix that plays one of them (the mix's own pair) is a mistaken
+  foreground too; scoring counts every play by whether the library
+  searched holds its recording.
 - 17:55. "Dropped by rule" cannot be counted from the CLI's report
   without a product or output change, which this session may not make;
   partners found and not found are reported instead.
