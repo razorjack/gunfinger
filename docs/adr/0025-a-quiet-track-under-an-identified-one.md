@@ -12,7 +12,8 @@ both regressions are byte-identical. Session 73 measured the cost and
 the effect (experiments 0273-0275; "Open points, measured in session
 73" below). Session 79 fixed the fourth drop rule and put each entry's
 mask on its own worker (experiments 0281-0282; "Open points, measured in
-session 79"). The status stays Proposed: whether the step is on by
+session 79"). Session 80 measured its precision on harder generated
+cases (experiments 0283-0284; "Open points, measured in session 80"). The status stays Proposed: whether the step is on by
 default is our decision.
 
 ## Context
@@ -148,8 +149,10 @@ the louder track as the reference.
   marked `shares material with`, and the row marked `under`.
 - Since session 79 up to one mask per worker is in flight, about 0.2 GiB
   each, so peak memory grows with the worker count and the entries.
-- Not measured: real mixes' double drops (no truth beyond listening),
-  broadcast processing and pitch rides under the louder track.
+- Not measured: real mixes' double drops (no truth beyond listening).
+  Broadcast processing, key lock, pitch rides of the louder track, three
+  records at once and a mistaken louder track were measured on generated
+  mixes in session 80 (below).
 
 ## Open points, measured in session 73
 
@@ -235,3 +238,35 @@ today's NAS store against the option as session 73 shipped it.
    remains is a cost of about 17 s per hour of mix and about 2.4 GiB of
    peak memory at NAS scale on the Linux machine, and the check on a
    real double drop that decisions queue item 2 recommends.
+
+## Open points, measured in session 80
+
+Session 80 measured the option as session 79 left it on generated drops
+mixes made harder by construction (`mixes --kind drops --case`, brief
+80, registered before the runs), 12 mixes per case at NAS scale, with
+`identify` and without the option on the same renders (experiments
+0283-0284).
+
+1. **Broadcast processing, key lock, rides, three records, no partner
+   (0283).** 86 entries gained, all right; 145 confident finds under
+   others, none wrong; no default line lost and no gap line changed.
+   Broadcast processing (a compressor, a limiter and MP3 at 96 kbit/s)
+   lowers what both print by about 40%; a key-locked record under or
+   over a turntable one, and a ride of 1-3% of the louder record, cost
+   no precision. A quiet record under two loud ones is never printed.
+   Long mixes without a partner gain nothing.
+2. **A mistaken louder track (0284).** When the louder record's files
+   are out of the library, the default prints a related version or
+   another upload over 9 of 24 such records; taking that out gave no
+   wrong partner. The registered precision bar failed through 3 entries
+   in a pair drop of two records sharing material, both out of the
+   library: one prints the right title through another upload, two print
+   a related version (a VIP) of the partner that plays, the kind the
+   user found acceptable (Consequences).
+3. **A left-out quieter track (0284).** With the quiet partner's files
+   out and its related version in the library, no related version was
+   printed; five were found only as possible.
+4. **Still unmeasured.** Real annotated double drops, and DJ-specific
+   processing beyond the stated broadcast chain. Every case rests on the
+   262-track corpus and a few shared-material families (one per case,
+   seven in the left-out cases).

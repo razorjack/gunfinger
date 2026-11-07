@@ -49,10 +49,20 @@ external review (`docs/research/2026-11-05-external-review.md`).
   GiB per worker). The registered bar of twice holds on two development
   mixes and fails on Nocny by 0.3 s (0281). The registration asked for
   the step's remaining time by phase; no phase timings were taken.
-- **Still unmeasured.** Real annotated double drops, key lock under the
-  louder track, broadcast compression, and a mistaken foreground (a
-  wrong confident entry taken out). The precision evidence rests on
-  generated mixes drawn from the 262-track corpus.
+- **Session 80 (0283-0284).** On generated mixes made harder by
+  construction (broadcast processing, key lock under and over, a ride
+  of the louder record, three records at once, long mixes with no
+  partner), 86 gained entries are all right and 145 confident finds
+  under others none wrong. With the louder record's files out of the
+  library (a mistaken foreground), the registered bar failed through 3
+  entries in one pair drop of two records sharing material, both out:
+  one prints the right title through another upload, two a related
+  version (a VIP) of the partner that plays, the kind accepted on
+  2026-10-31. With a quiet partner's files out, no related version was
+  printed.
+- **Still unmeasured.** Real annotated double drops. The precision
+  evidence rests on generated mixes drawn from the 262-track corpus and
+  a few shared-material families.
 - **Recommendation.** Decide the acceptable added seconds per hour of
   mix (now about 17) and peak memory (about 2.4 GiB more). Keep the
   option off until at least one real double drop with a known tracklist

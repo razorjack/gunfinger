@@ -68,8 +68,13 @@ Each session takes the first item it can do without a pending decision.
    *Session 79 (0281, 0282):* both fixes made and measured. Both lost
    partners are kept, with no new wrong find; the option takes
    1.85-2.01 times the default at NAS scale (Nocny 0.3 s over twice),
-   with about 2.4 GiB more peak memory. Next: the decision (queue item
-   2), after one real double drop with a known tracklist.
+   with about 2.4 GiB more peak memory. *Session 80 (0283, 0284):*
+   harder generated cases (broadcast, key lock, rides, three records,
+   a mistaken foreground, a left-out partner): no wrong unrelated
+   partner; 3 entries in one pair drop with both records out of the
+   library print another upload or a related version of a record
+   playing. Next: the decision (queue item 2), after one real double
+   drop with a known tracklist.
 3. **The user's decisions** in `docs/decisions-queue.md`, then one
    session that adopts the accepted ones together and reruns the
    protocol once.
@@ -219,7 +224,8 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   version needed a rule for related versions (session 70). Next:
   decisions queue item 2, after one real double drop with a known
   tracklist. Evidence: 0107, 0215-0218, 0255-0258, 0269-0275,
-  0281-0282; notes "Session 72", "Session 73", "Session 79".
+  0281-0284; notes "Session 72", "Session 73", "Session 79", "Session 80".
+  Session 80's harder generated cases left no wrong unrelated partner.
 
 ## Matching
 

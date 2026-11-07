@@ -37,4 +37,4 @@ mixes. Build `s80-run2`.
 - P3 not hit: no default line lost, no gap line changed.
 
 **Conclusion.** A related version taken out as the louder record left no
-wrong partner; the wrong titles are related versions of a record playing.
+wrong partner; the 3 entries print a record playing or its related version.
