@@ -107,3 +107,80 @@ Rules for this session:
 
 ## Decisions
 
+- **(12:55) Step 1, the inventory of the documents read.** `CLAUDE.md`'s
+  list, `AGENTS.md` ("Before changing a decision") and
+  `docs/session-rules.md` send a session to these at every start (bytes
+  at `009fe55`):
+  - `docs/brief.md` 19,918 (all current; never edited);
+    `docs/session-rules.md` 5,565 and `docs/decisions-queue.md` 8,337
+    (current state, written on 2026-11-05).
+  - `docs/roadmap.md` 118,978: the preface's research paragraph and
+    "The active queue" (lines 1-86, about 6 KB) are current; the 40
+    items below them are about 10% current state and next step, the
+    rest session-by-session history (each item gained one italic
+    paragraph per session that touched it).
+  - `docs/session-notes.md` 840,449: sessions 2-75 in order; only the
+    newest session's handoff is read at a start (sessions 70-75 are
+    53,508 bytes; sessions 2-39 511,844; sessions 40-69 274,845).
+  - `docs/status.md` 373,487: one entry per session or event since
+    2026-10-05; the entries from 2026-11-02 on are 10,238 bytes.
+    The user's answers to the listening questions are in the entries of
+    2026-10-31 (in the part that moves) and 2026-11-02 (kept).
+  - `AGENTS.md` 18,789: rules (all current) and a module map (descriptive,
+    partly stale: step 4). `CLAUDE.md` 3,675 (the reading list).
+  - `docs/calibration.md` 25,941: the library-dependent table, "Baseline
+    to compare against", "After indexing more tracks" and "Measured, not
+    adopted" describe today's values; "Measured at NAS scale (session
+    5)" with the session 6-11 paragraphs after it, and "Changes since
+    `poc-freeze-1`" (a change log), are history.
+  - Topic documents named in `CLAUDE.md` items 5-15 (read only for that
+    work): the newest experiment, the Nocny manifest, `docs/brief-nas.md`,
+    `docs/nas-checklist.md`, `docs/nas-plan.md`, ADR 0016,
+    `docs/audition-questions.md`, the research notes, panels and
+    experiment ranges they list. None of them changes in this session;
+    only their pointers into the roadmap and the notes are checked.
+- **(13:05) Step 1, the references into the documents that change**
+  (`work/s76/inventory.py`, `work/s76/inventory2.py`, over every tracked
+  text file, lines joined so that wrapped quotes are found):
+  - Path-and-line references: none in any tracked file apart from this
+    brief's copy of the prompt, whose three are examples
+    (`docs/session-notes.md:14678` is the "## Session 74" heading,
+    `docs/status.md:5951` a line of "2026-10-31: the last answer, and
+    the user's decisions and views", `docs/roadmap.md:375` a line of
+    "Possible plays inside a confident play of another recording"). The
+    upcoming prompts under `work/orchestrator/` (untracked) hold none
+    either.
+  - Quoted roadmap headings: 405 references to 54 distinct strings; every
+    one that names an item resolves to one of the 40 bold item names or
+    the six section headings. The rest quote phrases from inside items
+    ("the main open accuracy question", "the old reports exactly") or
+    old names ("More than 32,768 assets", brief 9; "Memory by phase",
+    in the notes); those phrases stay findable in
+    `docs/roadmap-history.md`, which holds the text verbatim.
+  - Quoted notes sections ("notes 'Session NN'" and quoted `###`
+    headings): 301 references to 100 distinct strings, 277 of them a
+    heading of the notes. The prompts of sessions 77-80 name notes
+    "Session 65", "Session 68", "Session 70", "Session 72", "Session 73"
+    and "Session 76".
+  - Quoted status entries: 163 references to 92 strings, most of them a
+    shortened heading ("after session 38", "2026-10-31"); 18 match a
+    heading whole.
+  - Quoted calibration sections: 19 references, among them "Measured,
+    not adopted" and "Changes since `poc-freeze-1`".
+  - Relative Markdown links: `docs/roadmap.md` line 10 and
+    `docs/status.md` line 5405 link `research/...`; README.md links
+    `AGENTS.md`; the 2026-10-29 research note links `../roadmap.md` and
+    `../calibration.md`. No tracked file links an anchor inside the
+    notes, status or roadmap.
+  - No code or test reads these documents (`include_str!` reads only
+    two panels), so moving them needs no code change and no regression.
+- **(13:05) How the moves keep references resolvable.** Every bold item
+  name stays in the new roadmap, so quoted item names still find their
+  item; the history keeps the same headings and names. Notes and status
+  sections move verbatim with their headings, so `grep` across `docs/`
+  finds each one; the index at the top of each file names the file that
+  holds every session. Calibration sections that move keep a heading of
+  the same name in `docs/calibration.md` with a pointer. The one
+  relative link in a moved status entry (`research/...`) becomes
+  `../research/...` in its history file, the only line changed in a
+  move; the verification lists it.

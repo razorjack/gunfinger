@@ -13,7 +13,7 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 1. Inventory of the documents read every session and of every
+- [x] 1. Inventory of the documents read every session and of every
   reference into the documents that change, in the brief
 - [ ] 2. `docs/roadmap.md` rewritten (preface, active queue, open items,
   "Done and closed"); the previous text verbatim in
