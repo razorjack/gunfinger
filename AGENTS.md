@@ -177,7 +177,10 @@ with a recording other than the rest (a cut from a mix, a mixed CD's
 track), with every part, for `questions parts` to ask by ear.
 `stereo` decodes a query's two channels for `robust`'s stereo faults
 (`--query-channels`, a diagnostic) and measures how wide a source is
-(`stereo-width`).
+(`stereo-width`). `second_records` indexes a second record beside some
+of the other library's files (`--second-records`, such as the repaired
+form of a rip with an inverted channel) and keeps, at the file, only the
+stronger of its two records' plays (brief 82).
 `scan --leave-out-slots` leaves runs of named manifest slots out of the
 index, so that each run leaves a gap of known tracks.
 `mixes` generates mixes of library tracks with exact truth (`mixes

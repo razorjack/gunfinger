@@ -67,6 +67,10 @@ pub struct VariantStoreArgs {
     /// reversed; every other record is today's.
     #[arg(long)]
     pub repair_inverted: bool,
+    /// With --repair-inverted: write only the repaired records, as second
+    /// records for `--second-records` (brief 82).
+    #[arg(long, requires = "repair_inverted")]
+    pub repaired_only: bool,
 }
 
 #[derive(clap::Args)]
@@ -217,6 +221,7 @@ pub fn variant_store(harness: &Harness, jobs: usize, args: VariantStoreArgs) -> 
         out,
         replace,
         repair_inverted,
+        repaired_only,
     } = args;
     let replacements = match replace {
         Some(list) => read_replacements(&list)?,
@@ -228,10 +233,10 @@ pub fn variant_store(harness: &Harness, jobs: usize, args: VariantStoreArgs) -> 
         &harness.store()?,
         &out,
         harness.search.matching.front_end,
-        if repair_inverted {
-            stereo::Polarity::RepairInverted
-        } else {
-            stereo::Polarity::AsDecoded
+        match (repair_inverted, repaired_only) {
+            (true, true) => stereo::Polarity::RepairedOnly,
+            (true, false) => stereo::Polarity::RepairInverted,
+            (false, _) => stereo::Polarity::AsDecoded,
         },
         &replacements,
         jobs,

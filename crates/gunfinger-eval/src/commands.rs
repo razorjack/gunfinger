@@ -127,6 +127,12 @@ pub enum Command {
     /// (downmix or power-sum), some decoded from replacement files, for
     /// the front-end variant's experiments; never the library's store.
     VariantStore(library::VariantStoreArgs),
+    /// Search audio files against the index with a second record of some
+    /// of the other library's files (--second-records; brief 82), and
+    /// report every play per record and at the file, where of a file's
+    /// two records only the stronger play is kept and hits are never
+    /// added. The report is `second-records-<name>-<records>.json`.
+    SecondRecords(evaluation::SecondRecordsArgs),
     /// Render seeded mixes of library tracks with exact truth (speeds,
     /// bass swaps, crossfades, cuts, plays of 20-60 s, a returning track,
     /// held-out tracks), search them and score them against the truth.
@@ -218,8 +224,9 @@ pub enum Command {
 }
 
 /// The commands that take --other-peaks-dir, by `Command::name`.
-const OTHER_LIBRARY_COMMANDS: [&str; 29] = [
+const OTHER_LIBRARY_COMMANDS: [&str; 30] = [
     "validate",
+    "second-records",
     "map-library",
     "clusters --from-peaks",
     "sweep",
@@ -261,6 +268,9 @@ const FRONT_END_COMMANDS: [&str; 6] = [
 ];
 
 /// The commands that take --other-sample.
+/// The commands whose index takes --second-records.
+const SECOND_RECORDS_COMMANDS: [&str; 3] = ["second-records", "sweep", "shared"];
+
 const OTHER_SAMPLE_COMMANDS: [&str; 7] = [
     "sweep",
     "grid",
@@ -301,6 +311,7 @@ impl Command {
             Command::Robust(_) => "robust",
             Command::StereoWidth(_) => "stereo-width",
             Command::VariantStore(_) => "variant-store",
+            Command::SecondRecords(_) => "second-records",
             Command::Mixes(_) => "mixes",
             Command::Counterexamples(_) => "counterexamples",
             Command::Passages(_) => "passages",
@@ -343,6 +354,12 @@ fn check_global_options(harness: &Harness, command: &Command) -> Result<(), Stri
     if front_end != FrontEnd::Downmix && harness.search.verify {
         return Err(String::from(
             "the peak verifier analyses one channel: --verify takes the downmix front end only",
+        ));
+    }
+    if harness.other.second_records.is_some() && !SECOND_RECORDS_COMMANDS.contains(&name) {
+        return Err(format!(
+            "this command does not take --second-records; {} do",
+            listed(&SECOND_RECORDS_COMMANDS)
         ));
     }
     if harness.other.other_peaks_dir.is_some() && !OTHER_LIBRARY_COMMANDS.contains(&name) {
@@ -390,6 +407,7 @@ pub fn run(harness: &Harness, jobs: usize, command: Command) -> Result<(), Strin
         Command::Robust(args) => evaluation::robust(harness, jobs, args),
         Command::StereoWidth(args) => library::stereo_width(harness, jobs, args),
         Command::VariantStore(args) => library::variant_store(harness, jobs, args),
+        Command::SecondRecords(args) => evaluation::second_records(harness, jobs, args),
         Command::Mixes(args) => mixes::mixes(harness, jobs, args),
         Command::Counterexamples(args) => mixes::counterexamples(harness, jobs, args),
         Command::Passages(args) => mixes::passages(harness, jobs, args),
@@ -424,6 +442,29 @@ mod tests {
         let cli = Cli::try_parse_from([&["gunfinger-eval"], arguments].concat())
             .map_err(|error| error.to_string())?;
         check_global_options(&cli.harness, &cli.command)
+    }
+
+    #[test]
+    fn second_records_go_only_to_the_commands_whose_index_holds_them() {
+        let other = [
+            "--other-peaks-dir",
+            "/nonexistent",
+            "--second-records",
+            "/x",
+        ];
+        assert_eq!(
+            checked(&[&other[..], &["second-records", "q.mp3", "--name", "n"]].concat()),
+            Ok(())
+        );
+        assert_eq!(checked(&[&other[..], &["sweep"]].concat()), Ok(()));
+        assert_eq!(
+            checked(&[&other[..], &["shared", "plan.json"]].concat()),
+            Ok(())
+        );
+        assert!(
+            checked(&[&other[..], &["scan", "stakka"]].concat())
+                .is_err_and(|message| message.contains("does not take --second-records"))
+        );
     }
 
     #[test]

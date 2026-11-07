@@ -7,7 +7,7 @@ use crate::harness::{Harness, IndexVariant, UNCHANGED_INDEX};
 use crate::padding::Padding;
 use crate::provenance::Provenance;
 use crate::scan::{LeaveOut, SlotRun};
-use crate::{calibrate, loss, memory, regress, robust, scan, stereo, sweep};
+use crate::{calibrate, loss, memory, regress, robust, scan, second_records, stereo, sweep};
 
 #[derive(clap::Args)]
 pub struct ScanArgs {
@@ -371,5 +371,76 @@ fn run_scan(
     };
     write_json(&harness.reports().join(name), &report)?;
     scan::print_summary(&report);
+    Ok(())
+}
+
+#[derive(clap::Args)]
+pub struct SecondRecordsArgs {
+    /// The audio files to search (rendered queries, never a mix the
+    /// session rules leave out).
+    #[arg(required = true)]
+    pub queries: Vec<std::path::PathBuf>,
+    /// Which records to index when --second-records is given; without it,
+    /// today's index.
+    #[arg(long, value_enum, default_value_t = second_records::Records::Both)]
+    pub records: second_records::Records,
+    /// The report is `second-records-<name>-<records>.json`.
+    #[arg(long)]
+    pub name: String,
+}
+
+/// Searches audio files against the index, with or without second records
+/// (brief 82), and reports every play per record and at the file.
+pub fn second_records(
+    harness: &Harness,
+    jobs: usize,
+    args: SecondRecordsArgs,
+) -> Result<(), String> {
+    let SecondRecordsArgs {
+        queries,
+        records,
+        name,
+    } = args;
+    let padding = harness.padding(&UNCHANGED_INDEX)?;
+    let matching = harness.search.matching;
+    let profile = matching.profile();
+    let started = std::time::Instant::now();
+    let (library_records, _) = gunfinger_core::indexing::load_records(
+        &harness.library()?,
+        &harness.store()?,
+        &profile,
+        &std::collections::BTreeSet::new(),
+    );
+    let index = padding.index(
+        &library_records,
+        &profile,
+        &std::collections::BTreeSet::new(),
+    )?;
+    drop(library_records);
+    let index_seconds = started.elapsed().as_secs_f64();
+    let report = second_records::Report {
+        index_seconds,
+        ..second_records::search(
+            index,
+            padding.second.as_ref(),
+            records,
+            &queries,
+            &matching,
+            &harness.rungs(),
+            jobs,
+        )?
+    };
+    let path = harness
+        .reports()
+        .join(format!("second-records-{name}-{}.json", report.records));
+    write_json(&path, &report)?;
+    println!(
+        "{} queries, {} assets, {} postings ({} of second records); wrote {}",
+        report.queries.len(),
+        report.assets,
+        report.postings,
+        report.second_record_postings,
+        path.display()
+    );
     Ok(())
 }

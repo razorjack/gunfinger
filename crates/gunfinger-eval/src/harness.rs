@@ -14,6 +14,7 @@ use crate::library_map::LibraryMap;
 use crate::manifest::Referable;
 use crate::matching::Matching;
 use crate::padding::{OtherLibrary, Padding, SavedIndex, current_sources};
+use crate::second_records::SecondRecords;
 use crate::{available_parallelism, synthetic, titles};
 
 /// The harness's global options: where it reads and writes, how it
@@ -105,6 +106,14 @@ pub struct OtherLibraryOptions {
     /// synthetic copies or `memory`.
     #[arg(long, global = true, value_enum, default_value_t = SavedIndexUse::Use)]
     pub saved_index: SavedIndexUse,
+    /// With --other-peaks-dir: a peak store whose records are second
+    /// records of the other library's files at the same paths, such as
+    /// `variant-store --repair-inverted --repaired-only` writes (brief 82).
+    /// Each is indexed as its own asset, `second-record/second-library/<path>`,
+    /// and scored as its file. Reports go to `second-records/` below the
+    /// usual directory, and the saved index has its own file.
+    #[arg(long, global = true, requires = "other_peaks_dir")]
+    pub second_records: Option<PathBuf>,
 }
 
 /// Whether runs with --other-peaks-dir use the saved index, as
@@ -185,6 +194,7 @@ impl IndexVariant {
             other,
             saved: None,
             exact: None,
+            second: None,
         })
     }
 
@@ -321,6 +331,9 @@ impl Harness {
         if self.search.verify {
             reports.push("verified");
         }
+        if self.other.second_records.is_some() {
+            reports.push("second-records");
+        }
         reports
     }
 
@@ -402,10 +415,15 @@ impl Harness {
         }
         let map = LibraryMap::load(&map_file)?;
         let second = OtherLibrary::from_store(store, &map.stood_for())?;
-        padding.other = Some(match self.other.other_sample {
+        let second = match self.other.other_sample {
             Some(count) => second.sampled(count, OTHER_SAMPLE_SEED),
             None => second,
-        });
+        };
+        padding.second = match &self.other.second_records {
+            Some(dir) => Some(SecondRecords::load(dir, &second)?),
+            None => None,
+        };
+        padding.other = Some(second);
         padding.saved = self.saved_index();
         Ok(padding)
     }
@@ -416,11 +434,15 @@ impl Harness {
         if self.other.other_sample.is_some() {
             return None;
         }
+        let name = self.other_name()?;
         let file = self
             .paths
             .work
             .join("indexes")
-            .join(format!("library-{}.index", self.other_name()?));
+            .join(match self.other.second_records {
+                Some(_) => format!("library-{name}-second-records.index"),
+                None => format!("library-{name}.index"),
+            });
         match self.other.saved_index {
             SavedIndexUse::Use => Some(SavedIndex::Use(file)),
             SavedIndexUse::Rebuild => Some(SavedIndex::Rebuild(file)),

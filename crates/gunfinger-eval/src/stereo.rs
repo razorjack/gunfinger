@@ -163,7 +163,8 @@ pub struct StoreBuilt {
 /// Writes to `out` a record under `front_end`'s profile for each library
 /// file with a current record in `store` (today's profile), decoding it, or
 /// its replacement in `replacements` (by library path), whole at the
-/// profile's rate, with its polarity checked as `polarity` says. `out` must
+/// profile's rate, with its polarity checked as `polarity` says (with
+/// `Polarity::RepairedOnly`, only for the files it repairs). `out` must
 /// not be `store`: the records of a variant or of a replaced file never go
 /// to the library's own store.
 pub fn build_store(
@@ -180,7 +181,7 @@ pub fn build_store(
             "a store is built for --front-end downmix or power-sum",
         ));
     }
-    if polarity == Polarity::RepairInverted && front_end != FrontEnd::Downmix {
+    if polarity != Polarity::AsDecoded && front_end != FrontEnd::Downmix {
         return Err(String::from(
             "inverted channels are repaired only under --front-end downmix",
         ));
@@ -211,11 +212,14 @@ pub fn build_store(
                 front_end.decode_query(&file, profile.sample_rate)?,
                 Checked::Unchanged,
             ),
-            Polarity::RepairInverted => {
+            Polarity::RepairInverted | Polarity::RepairedOnly => {
                 let (samples, checked) = decode_repairing(&file, profile.sample_rate)?;
                 (QueryAudio::Mono(samples), checked)
             }
         };
+        if polarity == Polarity::RepairedOnly && checked == Checked::Unchanged {
+            return Ok(None);
+        }
         let signal = audio.signal();
         let record = PeakRecord {
             header: RecordHeader {
@@ -226,9 +230,10 @@ pub fn build_store(
             peaks: extract_signal_peaks(signal, &profile),
         };
         out.save(&record).map_err(|error| error.to_string())?;
-        Ok((record, checked))
+        Ok(Some((record, checked)))
     })
     .into_iter()
+    .filter_map(Result::transpose)
     .collect::<Result<Vec<(PeakRecord, Checked)>, String>>()?;
     let repaired = records
         .iter()
@@ -265,6 +270,9 @@ pub enum Polarity {
     /// A file whose channels are inverted (`inverted`) gets the downmix with
     /// one channel's polarity reversed; every other file today's downmix.
     RepairInverted,
+    /// As `RepairInverted`, but only the repaired records are written: the
+    /// second records of brief 82, beside the files' records as ripped.
+    RepairedOnly,
 }
 
 /// What the check did to one file.
@@ -1177,6 +1185,70 @@ mod tests {
             panic!("the downmix front end decodes one channel");
         };
         assert_eq!(today, core(&flipped));
+        std::fs::remove_dir_all(&dir).ok();
+    }
+
+    #[test]
+    fn repaired_only_writes_the_records_of_inverted_files_alone() {
+        let dir =
+            std::env::temp_dir().join(format!("gunfinger-repaired-only-{}", std::process::id()));
+        let root = dir.join("library");
+        std::fs::create_dir_all(&root).unwrap();
+        let (Some(_), Some(_)) = (
+            generated(&root, "narrow.wav", "pan=stereo|c0=c0|c1=0.8*c0+0.3*c1", 2),
+            generated(
+                &root,
+                "inverted.wav",
+                "pan=stereo|c0=c0|c1=-0.8*c0-0.3*c1",
+                2,
+            ),
+        ) else {
+            eprintln!("skipped: ffmpeg cannot generate audio here");
+            return;
+        };
+        let profile = Profile::CURRENT;
+        let library = Library::scan(&root).unwrap();
+        let store = PeakStore::open(&dir.join("today")).unwrap();
+        store.claim_library(&root).unwrap();
+        for asset in &library.assets {
+            let samples = decode(
+                &root.join(&asset.path),
+                profile.sample_rate,
+                Excerpt::default(),
+            )
+            .unwrap()
+            .samples;
+            let record = PeakRecord {
+                header: RecordHeader {
+                    profile: profile.id(),
+                    source: asset.clone(),
+                    duration_seconds: samples.len() as f64 / f64::from(profile.sample_rate),
+                },
+                peaks: extract_signal_peaks(Signal::Mono(&samples), &profile),
+            };
+            store.save(&record).unwrap();
+        }
+        let out = PeakStore::open(&dir.join("second")).unwrap();
+
+        let built = build_store(
+            &library,
+            &store,
+            &out,
+            FrontEnd::Downmix,
+            Polarity::RepairedOnly,
+            &BTreeMap::new(),
+            2,
+        )
+        .unwrap();
+
+        assert_eq!(built.records, 1);
+        assert_eq!(built.repaired, vec![String::from("inverted.wav")]);
+        let (written, _) = load_records(&library, &out, &profile, &BTreeSet::new());
+        let paths: Vec<&str> = written
+            .iter()
+            .map(|record| record.header.source.path.as_str())
+            .collect();
+        assert_eq!(paths, ["inverted.wav"]);
         std::fs::remove_dir_all(&dir).ok();
     }
 

@@ -42,6 +42,7 @@ mod rng;
 mod robust;
 mod scan;
 mod scoring;
+mod second_records;
 mod seconds;
 mod shared;
 mod shared_mixes;

@@ -1,7 +1,8 @@
 //! A larger index for scale experiments: the library's records, then the
 //! current records of a second library (a larger real library, when one
 //! exists), then reversed copies of the library's records (`synthetic`),
-//! then exact copies of chosen records (`ExactCopies`).
+//! then exact copies of chosen records (`ExactCopies`), then second records
+//! of some of the second library's files (`SecondRecords`, brief 82).
 //! The second library is either scanned (`--second-library`) or known from
 //! its store alone (`--other-peaks-dir`, less the copies corpus files
 //! stand for).
@@ -14,6 +15,7 @@
 //! library may be saved and loaded instead of built (ADR 0014); a run that
 //! leaves files out removes them from it.
 
+use std::borrow::Cow;
 use std::collections::BTreeSet;
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -28,6 +30,7 @@ use gunfinger_core::profile::Profile;
 use gunfinger_core::store::{PeakRecord, PeakStore};
 
 use crate::rng::Rng;
+use crate::second_records::{SECOND_RECORD_PREFIX, SecondRecords};
 use crate::synthetic;
 
 /// What is added to the library's records.
@@ -40,6 +43,8 @@ pub struct Padding {
     /// saved. Used only with a second library and no copies.
     pub saved: Option<SavedIndex>,
     pub exact: Option<ExactCopies>,
+    /// A second record of some of the second library's files.
+    pub second: Option<SecondRecords>,
 }
 
 /// Exact copies of chosen records, as a library holding many files of the
@@ -73,9 +78,12 @@ fn copy_path(copy: usize, path: &str) -> String {
     format!("{COPY_PREFIX}{copy}/{path}")
 }
 
-/// The path of the record an exact copy was made from; any other path as
-/// it is.
+/// The path of the record an exact copy was made from, or of the file a
+/// second record belongs to; any other path as it is.
 pub fn original_path(path: &str) -> &str {
+    if let Some(file) = path.strip_prefix(SECOND_RECORD_PREFIX) {
+        return file;
+    }
     path.strip_prefix(COPY_PREFIX)
         .and_then(|rest| rest.split_once('/'))
         .map_or(path, |(_, original)| original)
@@ -251,8 +259,8 @@ impl Padding {
 
     /// The index of `records` followed by the padding, leaving out the
     /// files `excluded` names (the library's paths, and the second
-    /// library's with their prefix): asset `i` is the `i`-th record not
-    /// left out.
+    /// library's with their prefix) and their second records: asset `i` is
+    /// the `i`-th record not left out.
     ///
     /// With a saved index, a second library and no copies, the index of
     /// every record and the whole second library is loaded, or built and
@@ -264,6 +272,11 @@ impl Padding {
         profile: &Profile,
         excluded: &BTreeSet<String>,
     ) -> Result<Index, String> {
+        let excluded = match &self.second {
+            Some(second) => Cow::Owned(second.with_second_records(excluded)),
+            None => Cow::Borrowed(excluded),
+        };
+        let excluded = excluded.as_ref();
         match (&self.saved, &self.other) {
             (Some(saved), Some(second)) if self.copies == 0 && self.exact.is_none() => Ok(self
                 .whole_index(saved, second, records, profile)?
@@ -291,6 +304,7 @@ impl Padding {
                 .iter()
                 .map(|record| record.header.source.clone())
                 .chain(second.prefixed_assets())
+                .chain(self.second.iter().flat_map(SecondRecords::sources))
                 .collect(),
         };
         if let SavedIndex::Use(path) = saved {
@@ -367,6 +381,9 @@ impl Padding {
         for copy in self.exact_copies(&indexed, profile, excluded) {
             counting.count(&copy?).map_err(|error| error.to_string())?;
         }
+        for record in self.second_records(excluded) {
+            counting.count(record).map_err(|error| error.to_string())?;
+        }
         let mut filling = counting.into_filling();
         for record in &indexed {
             filling.fill(record).map_err(|error| error.to_string())?;
@@ -382,7 +399,21 @@ impl Padding {
         for copy in self.exact_copies(&indexed, profile, excluded) {
             filling.fill(&copy?).map_err(|error| error.to_string())?;
         }
+        for record in self.second_records(excluded) {
+            filling.fill(record).map_err(|error| error.to_string())?;
+        }
         filling.finish().map_err(|error| error.to_string())
+    }
+
+    /// The second records the index holds.
+    fn second_records<'a>(
+        &'a self,
+        excluded: &'a BTreeSet<String>,
+    ) -> impl Iterator<Item = &'a PeakRecord> + 'a {
+        self.second
+            .iter()
+            .flat_map(SecondRecords::records)
+            .filter(move |record| !excluded.contains(&record.header.source.path))
     }
 
     /// The exact copies of the chosen records the index holds, each
@@ -467,6 +498,7 @@ mod tests {
             other: Some(OtherLibrary::open(&root, &dir.join("peaks")).unwrap()),
             saved: None,
             exact: None,
+            second: None,
         };
         let index = padding
             .index(
@@ -531,6 +563,108 @@ mod tests {
 
     fn excluded(paths: &[&str]) -> BTreeSet<String> {
         paths.iter().map(|path| (*path).to_owned()).collect()
+    }
+
+    /// The second records in a store at `dir/second-records`: a record of
+    /// each named file with these bins.
+    fn second_records(dir: &Path, other: &OtherLibrary, files: &[(&str, &[f32])]) -> SecondRecords {
+        let store = PeakStore::open(&dir.join("second-records")).unwrap();
+        for (path, bins) in files {
+            let asset = Asset {
+                path: (*path).to_owned(),
+                size: 1,
+                modified: gunfinger_core::library::Timestamp {
+                    seconds: 1,
+                    nanos: 0,
+                },
+            };
+            store.save(&record(asset, bins)).unwrap();
+        }
+        SecondRecords::load(&dir.join("second-records"), other).unwrap()
+    }
+
+    #[test]
+    fn second_records_follow_every_record_and_leave_with_their_file() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-second-{}", std::process::id()));
+        let files: &[(&str, &[f32])] = &[
+            ("b.mp3", &[100.0, 120.0, 90.0]),
+            ("c.mp3", &[150.0, 130.0, 160.0]),
+        ];
+        let repaired: &[(&str, &[f32])] = &[("b.mp3", &[300.0, 320.0, 290.0])];
+        let padding = |saved: Option<SavedIndex>| {
+            let other = other_library(&dir, files);
+            Padding {
+                second: Some(second_records(&dir, &other, repaired)),
+                other: Some(other),
+                saved,
+                ..Padding::default()
+            }
+        };
+        let built = padding(None);
+        let saved = padding(Some(SavedIndex::Use(
+            dir.join("indexes")
+                .join("library-peaks-second-records.index"),
+        )));
+        let records = corpus();
+        let profile = Profile::CURRENT;
+
+        let whole = built.index(&records, &profile, &excluded(&[])).unwrap();
+        let paths: Vec<&str> = whole
+            .assets()
+            .iter()
+            .map(|asset| asset.path.as_str())
+            .collect();
+        assert_eq!(
+            paths,
+            [
+                "a.mp3",
+                "d.mp3",
+                "second-library/b.mp3",
+                "second-library/c.mp3",
+                "second-record/second-library/b.mp3"
+            ]
+        );
+        for left_out in [excluded(&[]), excluded(&["second-library/b.mp3"])] {
+            let expected = built.index(&records, &profile, &left_out).unwrap();
+            assert!(same_index(
+                &saved.index(&records, &profile, &left_out).unwrap(),
+                &expected
+            ));
+            assert!(same_index(
+                &saved.index(&records, &profile, &left_out).unwrap(),
+                &expected
+            ));
+        }
+        let without_b = built
+            .index(&records, &profile, &excluded(&["second-library/b.mp3"]))
+            .unwrap();
+        assert!(
+            without_b
+                .assets()
+                .iter()
+                .all(|asset| !asset.path.ends_with("b.mp3")),
+            "leaving the file out leaves out both its records"
+        );
+        fs::remove_dir_all(&dir).unwrap();
+    }
+
+    #[test]
+    fn a_second_record_of_a_file_outside_the_other_library_is_refused() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-second-out-{}", std::process::id()));
+        let other = other_library(&dir, &[("b.mp3", &[100.0, 120.0, 90.0])]);
+        let store = PeakStore::open(&dir.join("second-records")).unwrap();
+        let asset = Asset {
+            path: String::from("elsewhere.mp3"),
+            size: 1,
+            modified: gunfinger_core::library::Timestamp {
+                seconds: 1,
+                nanos: 0,
+            },
+        };
+        store.save(&record(asset, &[100.0, 120.0, 90.0])).unwrap();
+        let loaded = SecondRecords::load(&dir.join("second-records"), &other);
+        fs::remove_dir_all(&dir).unwrap();
+        assert!(loaded.is_err());
     }
 
     #[test]
