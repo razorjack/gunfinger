@@ -306,8 +306,8 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   development mixes' true hits (a: 9% fewer postings, Stakka +32%; b: 6%
   more, +39%), but neither gains the registered 2 points on recall's
   damaged sets (a +0.38, b +1.21); a loses `robust`'s equal-level
-  blends (1,932 confident against 1,938), and b strengthens shared
-  material on the second shared panel. Next: the user's choice between
+  blends (31 → 23 and 28 → 21 confident; 1,932 overall against 1,938),
+  and b strengthens shared material on the second shared panel. Next: the user's choice between
   closing it and a revised registration (variant b at NAS scale in a
   scratch store); no NAS re-extraction without that. Evidence: 0034,
   0207, 0290, 0291; brief 83.

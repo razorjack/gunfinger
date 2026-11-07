@@ -224,10 +224,13 @@ external review (`docs/research/2026-11-05-external-review.md`).
   `robust` with no wrong confident answer, and raise the development
   mixes' true hits by 16-32% (a) and 24-39% (b). Neither passes: the
   registered gain under damage (+2 points on recall's damaged sets) is
-  +0.38 points for a and +1.21 for b, a loses `robust`'s equal-level
-  blends (1,932 confident against 1,938), and b strengthens shared
-  material on the second panel (flagged queries 8 → 16 with everything
-  indexed; Phantom 2018 confident as an unrelated file). Variant a moves
+  +0.38 points for a and +1.21 for b; a loses `robust`'s equal-level
+  blends (31 → 23 and 28 → 21 confident; 1,932 confident overall
+  against 1,938); b strengthens shared material on the second panel
+  (flagged queries 8 → 16 with everything indexed; Phantom 2018, a
+  remake of the played track, confident with role other in 10 more
+  results than T's 5). B4's "unrelated" is not shown for either: two
+  tracks of Aphrodite's APH33 EP, never heard, reach 83 hits. Variant a moves
   related detections from confident to possible on both panels.
 - **The choice.** Close the item (today's profile stays; the roadmap
   demotes it), or register a revised test with data the first run did
@@ -236,8 +239,9 @@ external review (`docs/research/2026-11-05-external-review.md`).
   variant records of every NAS file.
 - **Recommendation.** Close it. The gain is in evidence the confident
   answers already have; under combined damage, where recall is lost
-  (0207), neither variant recovers the missing peaks, and the variant
-  that comes closest strengthens shared material.
+  (0207), neither variant reaches the bar (that they do not restore the
+  missing peaks is an inference from 0207; no peak count ran), and the
+  variant that comes closest strengthens shared material.
 
 ## Decided
 

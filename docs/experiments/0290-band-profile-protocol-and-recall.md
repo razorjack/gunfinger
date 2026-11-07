@@ -27,14 +27,14 @@ Data: `data/0290-band-profile-protocol-and-recall.json`.
 
 No arm has a wrong confident answer here (recall's held-out queries included). Damaged recall rests on few recordings: T finds 1 source, a 1 other, b 4.
 The strongest audio not in the index is China Cup on The Nine under a and b (shared drums,
-judged by ear in session 4); calibrate's pairs of 30 hits or more are read in 0291.
+judged by ear after session 4); calibrate's pairs of 30 hits or more are read in 0291.
 
-**Bars.** B1 and B3 hold for a and b. B4 holds on its figures (margins 6.94× and 6.76× against
-6.75×; 51 and 52 hits under 60), subject to 0291's reading of the pairs. B5 fails for both:
+**Bars.** B1 and B3 hold for a and b. B4's figures hold (margins 6.94× and 6.76× against
+6.75×; 51 and 52 hits under 60), but its "unrelated" is not shown (0291). B5 fails for both:
 pooled damaged and brief-damaged recall gains +0.38 points (a) and +1.21 (b), under the
 registered +2; robust falls under a (1,932, with equal-level blends 31 → 23 and 28 → 21, as
 in 0034) and rises under b (1,969). **Conclusion.** Under the default matcher both profiles
 keep every answer and raise the evidence of real mixes by 16-39%, but neither shows the
-registered gain under combined damage: a peak placement change that helps clean and mixed
-audio does not recover the peaks that recall's combined damage removes (0207). b is the
-stronger variant on every damage figure here.
+registered gain under combined damage; by inference from 0207 (no peak count ran here), the
+change does not restore the peaks that damage removes. b is the stronger variant on damage
+(robust's pitch ride aside: 23 against a's 25).

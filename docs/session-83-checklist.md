@@ -17,8 +17,8 @@ for scope and rules.
 
 - [x] 1. Registration committed (in `docs/brief-83.md`)
 - [x] 2. Harness change: none needed (variant builds, brief 83's plan)
-- [ ] 3. Runs (arms T and a; b if time allows)
-- [ ] 4. Experiments 0290, 0291
-- [ ] 5. Roadmap's item; calibration register if contradicted; decisions queue
-- [ ] 6. Review by a subagent; fixes
-- [ ] 7. Wrap-up: notes, status, final checks, commit
+- [x] 3. Runs (arms T, a and b; 56 runs, every exit 0)
+- [x] 4. Experiments 0290, 0291
+- [x] 5. Roadmap's item; calibration register unchanged (nothing contradicted); decisions queue item 10
+- [x] 6. Review by a subagent; fixes
+- [~] 7. Wrap-up: notes, status, final checks, commit

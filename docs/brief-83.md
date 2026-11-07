@@ -128,10 +128,12 @@ conservative option, write it down here and continue.
      `112-future_cut-stealth_(domination)`, mixed-CD tracks) have no NAS
      record because the NAS's `.gunfingerignore` leaves them out; they
      are removed from the scratch library and its stores, so that, as at
-     NAS scale, the panels leave them out. One recall source is named
+     NAS scale, the panels leave them out. Both removed files are `recall` sources, so the
+     reports hold 78 of the panel's 80. One recall source is named
      decomposed in the panel and listed precomposed on the Linux mount
-     (ADR 0020); it is copied under its listed name and so is left out of
-     the panel in every arm, as at NAS scale.
+     (ADR 0020); it is copied under its listed name. (Correction after
+     the review: it is searched under that name in every arm, as at NAS
+     scale, and not left out as first written here.)
    - Decision: the other library is these 109 files, not the NAS store:
      a variant record of every NAS file is the re-extraction the prompt
      excludes. The NAS map and clusters files are copied into each arm's
@@ -244,7 +246,9 @@ what a further test would need.
 - *(00:09)* Slip: `arm.sh` runs every registered evaluation in one
   queue, so the shared panels' searches (experiment 0291) started before
   0290 was written. 0290 holds the protocol, `recall`, `grid` and
-  `robust`; it is written and committed before 0291's analysis.
+  `robust`. (After the review: 0290 was committed 91 s before 0291, and
+  the shared panels had been summarised before it, so only the order of
+  the commits holds.)
 - *(00:48)* Slips: 0290 and 0291 were each first committed over 40 lines
   (41 and 43) and corrected in the next commit.
 - *(00:52)* `docs/calibration.md` is left unchanged: its row "Peak
@@ -253,3 +257,15 @@ what a further test would need.
   0290 or 0291 (the "To adopt" column still holds). The decisions queue
   gains item 10 (close the item or register a revised test), since
   neither variant passed.
+- *(01:05)* A read-only review by a subagent recomputed the figures and
+  found no figure error in the tables. It found: panel 1 described as 12
+  scenarios of 4 families (it has 16 of 6; flags occur in 12 of 4); the
+  00:00 reading of B4's "unrelated" was written after T's and a's
+  calibrate had finished (23:59), so B4 is now reported as not shown for
+  either variant, since the APH33 pair (two titles, unheard) reaches 83
+  hits; Phantom 2018 described as unrelated (it is a remake of the played
+  track, with role other in phantom-force-5, where T has it 5 times); the
+  robust figure beside "equal-level blends"; the recall source with a
+  decomposed name (searched, not left out); claims that read as
+  measurements but are inferences from 0207; the checklist. All fixed in
+  0290, 0291, the roadmap, the decisions queue and this brief.
