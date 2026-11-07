@@ -182,14 +182,17 @@ changed in this session in response.
 
 ## Decisions
 
-- 17:55. Cases at 8 mixes each (12 since 18:02, below), one seed per case (the time box: 9 cases,
-  two NAS-scale `identify` runs each). The 262-track scale only if time
-  is left after the NAS runs.
+- 17:55. Cases at 8 mixes each (12 since 18:02, below), one seed per
+  case (the time box: 9 cases, two NAS-scale `identify` runs each). The
+  262-track scale only if time is left after the NAS runs.
 - 17:55. The key-locked cases are searched with `--playback both`: with
   the NAS configuration's `turntable` ladder a key-locked record can only
   be missed, which measures nothing about wrong partners.
 - 17:55. Broadcast processing as a post-process of plain's renders, not
   a harness option: it changes no time, so the truth stays the plan's.
+- 17:55. "Dropped by rule" cannot be counted from the CLI's report
+  without a product or output change, which this session may not make;
+  partners found and not found are reported instead.
 - 18:02. Before any scored run: 12 mixes per drops case instead of 8
   (the harness change took less time than planned; 36 quiet, brief and
   inside partners per case instead of 24). The controls stay 4 long
@@ -228,6 +231,13 @@ changed in this session in response.
 - 18:40. The 262-track scale is not run: the left-out cases need the
   NAS library's related versions (only two pair families have both
   records in the corpus), and the time box goes to the final checks.
-- 17:55. "Dropped by rule" cannot be counted from the CLI's report
-  without a product or output change, which this session may not make;
-  partners found and not found are reported instead.
+- 19:40. The review (a read-only subagent) found no change to the
+  default draws, renders or reports, and corrected the documents: P1
+  failed in mistaken-over through 2 entries (the third has the right
+  title by our same-title judgment, which the script does not read);
+  the script's 3 lie in the pair drops of three mixes, not one; the related-under and
+  Spider Monkey readings; the default's own wrong plays. It also found
+  two limits of the left-out cases' generator: left-out records are not
+  beatmatched, and two left-out pairs may share a family. The runs were
+  made with that code, so the limits are written into 0284 and the
+  notes, and the code is not changed after the runs.

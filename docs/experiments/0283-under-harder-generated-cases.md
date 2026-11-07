@@ -23,18 +23,18 @@ mixes, one unused seed per case; controls `--kind long`, 4 mixes),
 | three (8007) | 105 | 16; 27 of 48 | 11 (11) | 17 (0) | 18 (0) |
 | controls (8011) | 71 | none | 0 | 0 | 0 |
 
-- P1 not hit: 86 entries gained, all right; 145 confident finds, none
-  wrong (one gained entry repeats a nearby track through another upload).
-  P2 not hit: at most 5 of 28 possible finds (18%) match nothing playing.
-  P3 not hit: no default line lost, no gap line changed.
+- P1, P2, P3 not hit: 86 entries gained, all right (one, key-locked-over,
+  repeats a printed partner through another file of its cluster); 145
+  confident finds, none wrong; at most 5 of 28 possible finds (18%) match
+  nothing playing; no default line lost, no gap line changed.
 - three: the quiet record under two loud ones is never printed (0 of 12,
   3 possible); the third loud record goes from 4 to 8 of 12.
 - Default's own wrong plays: key-locked-under 2 (Cool Rock; a held-out
-  Konflict - Pendulum named as a remix sharing its material, 0038), controls
-  3 (a held-out China Cup through an upload of its title, outside its cluster).
+  Konflict - Pendulum named as a remix sharing its material, 0038); the
+  controls' 3 are a held-out China Cup named, with the right title, through
+  an upload outside its cluster (the exclusion follows clusters only).
 - One panel family (Clockwork) per drops case; 82-105 recordings each, of
   the 208 tagged corpus files, overlapping between cases and earlier seeds.
 
-**Conclusion.** No wrong confident partner on these constructions.
-Broadcast processing cuts what both print by about 40%; key lock and
-rides cost no precision. Generated audio only.
+**Conclusion.** No wrong confident partner on these constructions; key
+lock and rides cost no precision, broadcast processing about 40% of finds.

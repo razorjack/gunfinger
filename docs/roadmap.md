@@ -70,10 +70,10 @@ Each session takes the first item it can do without a pending decision.
    1.85-2.01 times the default at NAS scale (Nocny 0.3 s over twice),
    with about 2.4 GiB more peak memory. *Session 80 (0283, 0284):*
    harder generated cases (broadcast, key lock, rides, three records,
-   a mistaken foreground, a left-out partner): no wrong unrelated
-   partner; 3 entries in one pair drop with both records out of the
-   library print another upload or a related version of a record
-   playing. Next: the decision (queue item 2), after one real double
+   a mistaken foreground, a left-out partner): no unrelated title
+   printed; the registered bar failed in the mistaken-foreground case
+   through 2 related versions of a partner that plays, in pair drops
+   with both records out of the library. Next: the decision (queue item 2), after one real double
    drop with a known tracklist.
 3. **The user's decisions** in `docs/decisions-queue.md`, then one
    session that adopts the accepted ones together and reruns the
@@ -225,7 +225,8 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   decisions queue item 2, after one real double drop with a known
   tracklist. Evidence: 0107, 0215-0218, 0255-0258, 0269-0275,
   0281-0284; notes "Session 72", "Session 73", "Session 79", "Session 80".
-  Session 80's harder generated cases left no wrong unrelated partner.
+  Session 80's harder generated cases printed no unrelated title; the
+  bar failed with a mistaken foreground through 2 related versions (0284).
 
 ## Matching
 

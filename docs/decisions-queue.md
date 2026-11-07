@@ -54,12 +54,12 @@ external review (`docs/research/2026-11-05-external-review.md`).
   of the louder record, three records at once, long mixes with no
   partner), 86 gained entries are all right and 145 confident finds
   under others none wrong. With the louder record's files out of the
-  library (a mistaken foreground), the registered bar failed through 3
-  entries in one pair drop of two records sharing material, both out:
-  one prints the right title through another upload, two a related
-  version (a VIP) of the partner that plays, the kind accepted on
-  2026-10-31. With a quiet partner's files out, no related version was
-  printed.
+  library (a mistaken foreground), the registered bar failed through 2
+  entries, in the pair drops of two mixes whose two records share
+  material (The Nine and China Cup), both out of the library: each
+  prints a related version (a VIP) of the partner that plays, the kind
+  accepted on 2026-10-31. With a quiet partner's files out, no related
+  version was printed.
 - **Still unmeasured.** Real annotated double drops. The precision
   evidence rests on generated mixes drawn from the 262-track corpus and
   a few shared-material families.

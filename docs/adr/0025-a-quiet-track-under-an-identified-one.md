@@ -13,8 +13,9 @@ the effect (experiments 0273-0275; "Open points, measured in session
 73" below). Session 79 fixed the fourth drop rule and put each entry's
 mask on its own worker (experiments 0281-0282; "Open points, measured in
 session 79"). Session 80 measured its precision on harder generated
-cases (experiments 0283-0284; "Open points, measured in session 80"). The status stays Proposed: whether the step is on by
-default is our decision.
+cases (experiments 0283-0284; "Open points, measured in session 80").
+The status stays Proposed: whether the step is on by default is our
+decision.
 
 ## Context
 
@@ -256,17 +257,21 @@ mixes made harder by construction (`mixes --kind drops --case`, brief
    no precision. A quiet record under two loud ones is never printed.
    Long mixes without a partner gain nothing.
 2. **A mistaken louder track (0284).** When the louder record's files
-   are out of the library, the default prints a related version or
-   another upload over 9 of 24 such records; taking that out gave no
-   wrong partner. The registered precision bar failed through 3 entries
-   in a pair drop of two records sharing material, both out of the
-   library: one prints the right title through another upload, two print
-   a related version (a VIP) of the partner that plays, the kind the
-   user found acceptable (Consequences).
+   are out of the library, the default prints over 9 of 24 such records
+   (6 related versions, 2 uploads of the same title, once the quiet
+   partner); taking those out gave no wrong partner under them. The
+   registered precision bar failed in that case through 2 entries, in
+   the pair drops of two mixes of two records sharing material (The Nine
+   and China Cup), both out of the library: each prints a related
+   version (a VIP) of the partner that plays, the kind the user found
+   acceptable (Consequences). A third entry there, counted wrong by the
+   script, prints the right title through another upload. Why the
+   shared-material drop (item 8) kept the VIP is not measured.
 3. **A left-out quieter track (0284).** With the quiet partner's files
    out and its related version in the library, no related version was
-   printed; five were found only as possible.
-4. **Still unmeasured.** Real annotated double drops, and DJ-specific
-   processing beyond the stated broadcast chain. Every case rests on the
-   262-track corpus and a few shared-material families (one per case,
-   seven in the left-out cases).
+   printed; six were found only as possible.
+4. **Still unmeasured.** Real annotated double drops, and processing
+   beyond the stated broadcast chain. Every case rests on the 262-track
+   corpus and a few shared-material families (one per case in 0283; 7
+   and 5 in the two cases of 0284). Left-out records were not
+   beatmatched.
