@@ -103,6 +103,7 @@ that holds it.
 - "Session 77" (2026-11-07): generated-mix scoring and `regress` measure what they say. `this file`
 - "Session 78" (2026-11-07): render receipts, the harness's FFmpeg watchdog and `regress` over all three development mixes. `this file`
 - "Session 79" (2026-11-07): the fourth drop rule of `identify --under` and its masks on the workers. `this file`
+- "Session 80" (2026-11-07): the precision of `identify --under` on harder generated cases. `this file`
 
 
 ## Session 70
@@ -1532,3 +1533,136 @@ at their start digests (`work/s79/listening-digests-end.txt`).
 - The first queue's render of the fresh seeds failed for want of the
   corpus clusters file in the scratch work directory; it was copied and
   the render run again (brief 79, 16:45).
+
+## Session 80
+
+Brief `docs/brief-80.md` (the registration and every decision),
+checklist `docs/session-80-checklist.md`, experiments 0283-0284. A
+measurement session: `identify --under` and every product output are
+unchanged (`gunfinger` `5829ad77...` throughout, = `s79-final`); ADR
+0025 stays Proposed and the option off by default.
+
+### What changed
+
+- Harness: `mixes --kind drops --case <case>` (`mixes::drops::Case`):
+  `key-locked-under`, `key-locked-over` (`PlannedPlay::key_locked`,
+  rendered with `atempo`), `ride-over` (a ride of 1-3% over 5-15 s of the
+  louder record, starting while the other plays at full level), `three`
+  (`Scenario::Third`, a loud record over the quiet one's span),
+  `mistaken-over` and `related-under` (a pair's played record as the
+  louder or quieter record, marked `PlannedPlay::left_out`; its pairs
+  come from `drops::with_played_record_indexed`). Without `--case`
+  nothing changes (the seed tests); report and renders are named
+  `drops-<case>-seed-<seed>`.
+- `tracklist_score.py exclude-left-out`: adds the NAS files of every
+  left-out recording to an exclusion list; `inside_of` reads `third`
+  as inside the quiet block's first record.
+
+### Results
+
+| Case | Gained (right) | Confident finds under others (wrong) |
+|---|--:|--:|
+| plain, broadcast, key-locked-under, key-locked-over, ride-over, three (0283) | 86 (86) | 145 (0) |
+| controls, 4 long mixes (0283) | 0 | 0 |
+| mistaken-over (0284) | 11 (8) | 22 (3) |
+| related-under (0284) | 3 (3) | 8 (0) |
+
+The 3 of mistaken-over (by the script) are in the pair drops of mixes
+01, 04 and 05, all of The Nine and China Cup, both out of the library
+because other mixes of the case leave them out. One prints `ƆƐI3C -
+China Cup` while China Cup plays (the same title by our judgment); two
+print `The Nine (Evol Intent VIP)` while The Nine plays. By the
+registration P1 failed in that case through those 2.
+
+### Decided this session, open to change
+
+- 12 mixes per case, one unused seed per case, chosen by probing seeds
+  8001-8020 for a playable pair (only Clockwork's pair has both files
+  tagged); the left-out cases without `--tagged`, drawing pairs whose
+  related record may be NAS-only; key lock searched with `--playback
+  both`; broadcast as a post-process of plain's renders; one exclusion
+  list per case for all its mixes; no 262-track runs.
+- "Dropped by rule" was not counted: the CLI's report holds only kept
+  plays, and an output change was out of scope.
+
+### Questions this leaves for us
+
+- Decisions queue item 2: whether a related version (a VIP) of a
+  partner that plays, printed when both records of a pair drop are out
+  of the library, counts against the default.
+- The scoring script reads no same-title judgments, and its `related`
+  test needs the played record indexed, so a left-out record's family
+  never counts; 0284's "unrelated" counts are read by hand.
+- Why the shared-material drop kept The Nine VIP under the China Cup
+  upload (`gunfinger-eval pair` on the two files would show it).
+- The left-out cases' generator limits: left-out records are not
+  beatmatched (their beat periods are not measured), and two left-out
+  pairs may share a family (mistaken-over `mix-11` leaves out two
+  Clockwork records); the exclusion follows clusters, not same-title
+  judgments.
+
+### Questions for listening (none answered by agents)
+
+- Optional, generated: `work/s80/gen/mixes/drops-mistaken-over-seed-8008/`
+  `mix-04.mp3` at 14:08-15:35 (The Nine VIP printed under a China Cup
+  upload while The Nine plays) and `mix-01.mp3` at 15:31-16:27 (China
+  Cup printed under The Nine VIP); `drops-key-locked-under-seed-8003/`
+  `mix-01.mp3` at 21:14-22:49 (the default's Share Of Bitterness (Konflict
+  Remix) over Konflict - Pendulum). These renders are kept; the others
+  were deleted.
+- Pending as before: the Planet Dust (DC Breaks Remix) cut, session 74's
+  break lists, session 73's optional razorjack question.
+
+### Times on the Linux machine (32 workers, renders running alongside)
+
+| Run (12 mixes, NAS scale) | Default | `--under` |
+|---|--:|--:|
+| plain; broadcast | 1:59; 2:37 | 3:58; 4:12 |
+| key-locked-under; -over (`--playback both`) | 3:51; 3:01 | 5:53; 4:41 |
+| ride-over; three | 1:55; 1:55 | 3:07; 3:05 |
+| mistaken-over; related-under | 1:51; 1:55 | 2:48; 3:05 |
+| controls (4 long mixes) | 1:30 | 1:58 |
+
+Renders (`mixes`, 262 tracks): 1:07-2:22 per case of 12 mixes; the
+controls' 4 long mixes 3:49.
+
+### Handoff for the next session
+
+1. ADR 0025 Proposed; "Open points, measured in session 80" and
+   decisions queue item 2 hold the evidence.
+2. Builds: `work/bin/s80-final/` (master; `gunfinger` `5829ad77...`,
+   `gunfinger-eval` `27fdbf19...`) and `s79-final`. The runs used
+   `s80-run` (renders of the first six cases, `gunfinger-eval`
+   `41bf0d3d...`) and `s80-run2` (the rest); `s80-start`, `s80-run` and
+   `s80-run2` deleted.
+3. Baselines unchanged: `session-78-linux` and `session-78-linux-nas`.
+4. Data: `work/s80/` (scripts `gen.sh`, `broadcast.sh`, `id.sh`,
+   `score.sh`, `analyse.py`, `possible.py`, `cases.txt`; logs `logs/`;
+   reports `id/<case>/<default|under>/`; scores `scores/`; exclusion
+   lists `excl/`; truth `gen/reports/`; `summary.json`).
+5. To score again: `sh work/s80/score.sh <case>`, then
+   `python3 -I work/s80/analyse.py <case>...`.
+6. The NAS store: 40,666 records, revision `0bd3f0c23fabc698`; corpus
+   265 records; the clusters file unchanged.
+
+### Final checks
+
+`work/s80/final.sh` (tmux `s80final`) with `s80-final`, built from
+`69dd9f5` (the last code commit; later commits change documents only):
+`scripts/check.sh` green (12:41); `regress session-78-linux --strict`
+(720 of 720 sweep queries, every report equal to its baseline's) and
+`regress session-78-linux-nas --strict` (4:51) identical.
+`docs/pair-verdicts.txt`, the NAS clusters file and the answer log are
+at their start digests (`work/s80/listening-digests-end.txt`). A
+read-only review by a subagent found no change to the default draws,
+renders or reports and corrected several readings in the documents
+(brief 80, 19:40).
+
+### What else to know
+
+- The held-out test set was not touched; the mixes searched were
+  generated ones only (seeds 8002-8011). Nothing ran on the candidate
+  mixes of 0065 or the NAS root's broadcast file. The NAS and
+  `work/peaks` were only read.
+- The first render queue failed on seed 8001 (no playable pair) and
+  then on mistaken-over (too few pairs); brief 80 records both.

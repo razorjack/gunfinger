@@ -302,3 +302,32 @@ every output is unchanged.
   identical with `--strict`; `docs/pair-verdicts.txt` and the NAS
   clusters file unchanged. A review by a subagent found no bug in the
   code and corrected several figures in the documents.
+
+## 2026-11-07: session 80, the precision of `identify --under` on harder generated cases
+
+Brief `docs/brief-80.md`, checklist `docs/session-80-checklist.md`;
+notes "Session 80"; experiments 0283-0284. A measurement session: the
+product is unchanged, the option stays off by default and ADR 0025
+stays Proposed.
+
+- The harness's drops kind gained `--case` (key lock under or over, a
+  ride of the louder record, a third record, a pair's record left out of
+  the library as the louder or the quieter one); broadcast processing
+  was applied to finished renders. 12 mixes per case at NAS scale, with
+  and without the option.
+- Broadcast, key lock, rides, three records and long mixes with no
+  partner: 86 entries gained, all right, and no wrong confident find
+  among 145 (0283).
+- A mistaken foreground: the registered bar failed through 2 entries,
+  in the pair drops of two mixes whose records share material and are
+  both out of the library; each prints a related version (a VIP) of the
+  partner that plays. A left-out quiet partner: no related version
+  printed (0284).
+- Decisions queue item 2 and ADR 0025's open points hold the evidence;
+  real annotated double drops remain unmeasured.
+- Final checks with `work/bin/s80-final/`: `scripts/check.sh` green;
+  `regress session-78-linux` and `regress session-78-linux-nas`
+  identical with `--strict`; `docs/pair-verdicts.txt` and the NAS
+  clusters file unchanged. A review by a subagent found no change to the
+  default path and corrected the documents' readings of 0284.
+
