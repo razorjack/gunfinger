@@ -99,6 +99,7 @@ that holds it.
 - "Session 73" (2026-11-02): the cost and the effect of `identify --under`, measured. `this file`
 - "Session 74" (2026-11-02): which tracks use this break? A passage query, measured. `this file`
 - "Session 75" (2026-11-02): the records of DJ sets and a mixed CD's track fix pruned from the NAS store, new NAS-scale baseline. `this file`
+- "Session 76" (2026-11-07): the documents every session reads, made small and current. `this file`
 
 
 ## Session 70
@@ -1050,3 +1051,86 @@ by less than 1e-5 percentage points, by inference for the same reason.
   `wall_seconds`; `docs/pair-verdicts.txt`, the answer log and the NAS
   clusters file (`c4d3da2e7e37...`) at their start digests
   (`work/s75/listening-digests-end.txt`).
+
+## Session 76
+
+Brief `docs/brief-76.md`, checklist `docs/session-76-checklist.md`. A
+documents session: no code, test, configuration or measurement changed,
+so `regress` was not run and no experiment was written (the next number
+stays 0279).
+
+### What moved where
+
+- `docs/roadmap.md` is 33,003 bytes (was 118,978): a preface that says
+  how sessions update it, "The active queue" (item 11 marks the rewrite
+  done), 32 items with a state, one next step, evidence numbers and the
+  current facts, and "Done and closed" with 7 items. All 39 bold item
+  names are kept, so quoted names still find their item. The old text
+  is in `docs/roadmap-history.md` verbatim, from commit `009fe55`.
+- `docs/session-notes.md` keeps sessions 70-76 and an index with one
+  line per section heading (session, date, headline, file). Sessions
+  2-39 are in `docs/history/session-notes-01-39.md`, sessions 40-69 in
+  `docs/history/session-notes-40-69.md`, with their headings.
+- `docs/status.md` keeps the entries from 2026-11-02 on, with an index
+  naming the two history files and the 20 older entries that hold the
+  user's answers, verdicts and decisions:
+  `docs/history/status-2026-10-05-to-10-23.md` (to session 39) and
+  `docs/history/status-2026-10-23-to-10-31.md` (sessions 40-70). The
+  user's decisions of 2026-10-31 are in the second file.
+- `docs/calibration.md` is 15,044 bytes (was 25,941): "Measured at NAS
+  scale (session 5)" with its session 6-11 paragraphs, and "Changes
+  since `poc-freeze-1`", are in `docs/history/calibration-history.md`;
+  both headings stay with a pointer.
+- `CLAUDE.md` items 3 and 4 name the notes' index and newest section and
+  the newest status entries; `AGENTS.md`'s module map gained the core's
+  `residual` and `decode::Decoder::render`, the CLI's `under` and eight
+  harness modules (no rule changed); `docs/session-rules.md` gained the
+  roadmap rule and the index lines; `README.md`'s list of documents
+  names the history files.
+
+### How to read and update the documents now
+
+- At a start: `CLAUDE.md`'s list, which now means the roadmap's active
+  queue and item lines, the newest notes section, the newest status
+  entries and the decisions queue. Go to `docs/roadmap-history.md` or
+  `docs/history/` only when an item line or a prompt points there;
+  `grep -rn '"Session 52"' docs/session-notes.md` finds the file of an
+  old section, and `grep -rn '^## Session 52$' docs/` the section.
+- When a session touches a roadmap item, it changes the item's state,
+  next step, evidence and current numbers in place and keeps its bold
+  name; results go into the experiment file, the notes and status. A
+  finished item becomes one line in "Done and closed".
+- A session adds its notes section at the end with an index line, and
+  one short status entry. When the kept notes grow past about ten
+  sessions, a later documents session can move the oldest to
+  `docs/history/` the same way (`work/s76/split.py` is the procedure;
+  not a rule).
+
+### Checks and findings
+
+- `work/s76/verify.py` (not committed): every non-blank line of the old
+  roadmap (1,766), notes (13,117), status (5,778) and calibration (187)
+  is in the new files as a multiset, apart from one status line whose
+  link became `../research/...` in its history file; 18 relative links,
+  none broken; all 374 notes headings and 134 status headings kept,
+  every `##` heading of the notes indexed. No tracked file held a
+  path-and-line reference apart from the prompt's examples.
+- A read-only review of the new roadmap against the old found one
+  contradiction (the worker count, now corrected from 0167 and 0169) and
+  dropped caveats, all restored (brief 76, 13:02).
+- Added to `docs/decisions-queue.md`, item 9: `AGENTS.md` names two
+  development sets, not three; `AGENTS.md` describes `docs/status.md` as
+  holding exact commands and numbers. Item 9's worker-count question
+  gained the later evidence.
+- Unclear item states written as such rather than guessed: "Library
+  identity and relocation" (whether session 32's Linux run closes the
+  two risks) and the CPT003 mixed-CD point of "Library ignore file".
+- Nothing needs listening. Baselines, builds and the NAS store are as
+  session 75 left them: `session-54-linux`, `session-75-linux-nas`,
+  `work/bin/s75-final/`, 40,666 records at `0bd3f0c23fabc698`, clusters
+  `c4d3da2e7e37...`.
+- Final checks (13:06): `scripts/check.sh` green (7:33);
+  `docs/pair-verdicts.txt`, the answer log and the NAS clusters file at
+  their start digests (`work/s76/listening-digests-end.txt`); no file
+  under `crates/`, `scripts/`, `docs/panels/` or `corpus/` changed since
+  `009fe55`; `git status` clean.

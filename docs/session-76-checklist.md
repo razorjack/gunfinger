@@ -26,5 +26,5 @@ for scope and rules.
 - [x] 5. Verification script (multiset of lines, links, path-and-line
   references); counts in the brief
 - [x] 6. Read-only review of the new roadmap by a subagent; findings fixed
-- [ ] 7. Wrap-up: notes "Session 76", status, checklist; final checks
+- [x] 7. Wrap-up: notes "Session 76", status, checklist; final checks
   (`scripts/check.sh`, digests, `git status`)

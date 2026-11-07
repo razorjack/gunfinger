@@ -212,3 +212,18 @@ notes "Session 75"; experiment 0278. The product did not change.
 - Stale counts corrected: the test set has one evaluation left
   (`docs/calibration.md`, the roadmap's "More development mixes").
   Nothing was run; no code changed.
+
+## 2026-11-07: session 76, the documents every session reads, made small and current
+
+Brief `docs/brief-76.md`, checklist `docs/session-76-checklist.md`;
+notes "Session 76". No code changed and nothing was measured.
+
+- The roadmap is rewritten as items with state, next step and evidence
+  (33 KB, was 119 KB); its old text is in `docs/roadmap-history.md`.
+- The notes keep sessions 70-76 and the status the entries from
+  2026-11-02 on, each with an index; older sections are verbatim in
+  `docs/history/`. The calibration register's history sections moved
+  there too.
+- `CLAUDE.md`, `AGENTS.md`'s module map, `docs/session-rules.md` and
+  `README.md` follow the moves; two points about `AGENTS.md` went to the
+  decisions queue (item 9).

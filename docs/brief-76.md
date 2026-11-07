@@ -107,7 +107,7 @@ Rules for this session:
 
 ## Decisions
 
-- **(12:55) Step 1, the inventory of the documents read.** `CLAUDE.md`'s
+- **(12:49) Step 1, the inventory of the documents read.** `CLAUDE.md`'s
   list, `AGENTS.md` ("Before changing a decision") and
   `docs/session-rules.md` send a session to these at every start (bytes
   at `009fe55`):
@@ -139,7 +139,7 @@ Rules for this session:
     `docs/audition-questions.md`, the research notes, panels and
     experiment ranges they list. None of them changes in this session;
     only their pointers into the roadmap and the notes are checked.
-- **(13:05) Step 1, the references into the documents that change**
+- **(12:49) Step 1, the references into the documents that change**
   (`work/s76/inventory.py`, `work/s76/inventory2.py`, over every tracked
   text file, lines joined so that wrapped quotes are found):
   - Path-and-line references: none in any tracked file apart from this
@@ -174,7 +174,7 @@ Rules for this session:
     notes, status or roadmap.
   - No code or test reads these documents (`include_str!` reads only
     two panels), so moving them needs no code change and no regression.
-- **(13:05) How the moves keep references resolvable.** Every bold item
+- **(12:49) How the moves keep references resolvable.** Every bold item
   name stays in the new roadmap, so quoted item names still find their
   item; the history keeps the same headings and names. Notes and status
   sections move verbatim with their headings, so `grep` across `docs/`
@@ -184,7 +184,7 @@ Rules for this session:
   relative link in a moved status entry (`research/...`) becomes
   `../research/...` in its history file, the only line changed in a
   move; the verification lists it.
-- **(13:40) Step 2, the roadmap.** The roadmap at `009fe55` holds 39
+- **(12:53) Step 2, the roadmap.** The roadmap at `009fe55` holds 39
   bold items, not 40 (the prompt's count); all 39 names and the six
   section headings are kept. The old text, from its second line on, is
   in `docs/roadmap-history.md` verbatim under a new title and a
@@ -208,7 +208,7 @@ Rules for this session:
   notes, but not whether it closes the two risks; Library ignore file:
   two open points from session 8 not rechecked). Size: 27,900 bytes,
   against the target of about 35 KB.
-- **(13:55) Step 3, notes and status** (`work/s76/split.py`, reading
+- **(12:54) Step 3, notes and status** (`work/s76/split.py`, reading
   both files from `009fe55`). `docs/session-notes.md` keeps sessions 70,
   72, 73, 74 and 75 (and gains session 76's section at the wrap-up); the
   sections before "## Session 40" (sessions 2-39 and the notes between
@@ -235,7 +235,7 @@ Rules for this session:
   archive research proposals" is `](../research/...)` in its history
   file. Path-and-line references to update: none (step 1). Sizes:
   notes 63,796 bytes (was 840,449), status 13,150 (was 373,487).
-- **(14:15) Step 4, the other documents.**
+- **(12:57) Step 4, the other documents.**
   - `CLAUDE.md`: items 3 and 4 now name the notes' index and newest
     section and the newest status entries, with `docs/history/` for the
     rest, and point at `docs/roadmap-history.md`; item 13 names the
@@ -275,7 +275,7 @@ Rules for this session:
   - `README.md`'s list of documents names the history files (a
     descriptive line; not in the prompt's list, changed because it
     described the moved documents).
-- **(14:25) Step 5, verification** (`work/s76/verify.py`, not committed;
+- **(12:58) Step 5, verification** (`work/s76/verify.py`, not committed;
   the old files read from `009fe55`). All checks pass:
   - Every non-blank line of the old files appears in the union of the
     new ones, counted as a multiset: roadmap 1,766 of 1,766 (in
@@ -299,7 +299,7 @@ Rules for this session:
     374 headings of the old notes and all 134 of the old status are in
     the new files, and every `##` heading of the old notes has an index
     line.
-- **(14:45) Step 6, the review.** A read-only subagent (no further
+- **(13:02) Step 6, the review.** A read-only subagent (no further
   agents) compared the old roadmap (from `009fe55`), the new one and the
   history file item by item, against the decisions queue and the active
   queue. It found one contradiction: "Where search time goes" cited only
@@ -329,3 +329,13 @@ Rules for this session:
   the printed tracklist's 64 of 105 and 40 s bound. Not taken: nothing.
   The roadmap is 33,003 bytes after the fixes; `work/s76/verify.py`
   still passes.
+- **(13:03) Time stamps.** The decisions above first carried estimated
+  times (12:55 to 14:45); they now carry the times of their commits by
+  the Linux machine's clock. The plan's "Expected" column is the plan
+  as written at the start.
+- **(13:06) Step 7, wrap-up.** Notes "Session 76" (with its index line),
+  a status entry, the checklist. `scripts/check.sh` green (7:33,
+  `work/s76/check.log`); `docs/pair-verdicts.txt`, the answer log and
+  the NAS clusters file at their start digests
+  (`work/s76/listening-digests-end.txt`); no code, script, panel or
+  manifest changed since `009fe55`, so `regress` was not run.
