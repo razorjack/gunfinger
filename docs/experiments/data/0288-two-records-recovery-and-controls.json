@@ -1,0 +1,1333 @@
+{
+ "plan": {
+  "files": [
+   {
+    "group": "F",
+    "tag": "f00",
+    "asset": "Paradox - Filmscape (off004)/a-paradox-filmscape-sour.mp3",
+    "seconds": 400.831361
+   },
+   {
+    "group": "F",
+    "tag": "f01",
+    "asset": "__full_scene/1999/1999-11/1999-11-16/renegade--soundscapes_vol_2--(1999)-sour/07-usual_suspects-advent-sour.mp3",
+    "seconds": 356.943625
+   },
+   {
+    "group": "F",
+    "tag": "f02",
+    "asset": "__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus",
+    "seconds": 439.16
+   },
+   {
+    "group": "F",
+    "tag": "f03",
+    "asset": "__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a",
+    "seconds": 471.08644
+   },
+   {
+    "group": "F",
+    "tag": "f04",
+    "asset": "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/10-we-hello_world-sour.mp3",
+    "seconds": 136.547333
+   },
+   {
+    "group": "P",
+    "tag": "p00",
+    "asset": "__full_scene/dnb_scene - 2000 - Part 2/2000-08/we-decentertainment-he136-2000-sour/14-we-polynesian_inventor-sour.mp3",
+    "seconds": 194.983292,
+    "windows": [
+     {
+      "start": 0.0,
+      "correlation": 0.837653553946323
+     },
+     {
+      "start": 30.0,
+      "correlation": 0.1830923089292478
+     },
+     {
+      "start": 60.0,
+      "correlation": -0.1249680166585111
+     },
+     {
+      "start": 90.0,
+      "correlation": 0.19179523307727528
+     },
+     {
+      "start": 120.0,
+      "correlation": 0.8974393403723917
+     },
+     {
+      "start": 150.0,
+      "correlation": -0.9785141826724811
+     },
+     {
+      "start": 180.0,
+      "correlation": -0.980554609313305
+     }
+    ]
+   },
+   {
+    "group": "W",
+    "tag": "w00",
+    "asset": "__full_scene/1999/1999-11/1999-11-13/formation-world_of_drum_and_bass_ep2-form12082-1999-sour/e-conrad_black-programme_4-sour.mp3",
+    "seconds": 424.146417
+   },
+   {
+    "group": "W",
+    "tag": "w01",
+    "asset": "__full_scene/Ammunition Recordings/ARDIG058 - Int Company - Xero EP - 2011/01-int_company-uppi_(original_mix).mp3",
+    "seconds": 330.951383
+   },
+   {
+    "group": "W",
+    "tag": "w02",
+    "asset": "__youtube_archivists/i-witness-dnb/S9 - Caught Up.m4a",
+    "seconds": 255.071202
+   },
+   {
+    "group": "W",
+    "tag": "w03",
+    "asset": "Fanu-Daylightless-LIGHTLESSCD001-2CD-2007-sour/213-fanu-outro_(i_dream_too_much)-sour.mp3",
+    "seconds": 131.506667
+   },
+   {
+    "group": "W",
+    "tag": "w04",
+    "asset": "__youtube_archivists/rootzdnb/DJ Trax - Sunlight (LM1 Remix).opus",
+    "seconds": 368.02
+   },
+   {
+    "group": "W",
+    "tag": "w05",
+    "asset": "__full_scene/1999/1999-11/1999-11-17/va-the_ultimate_drum_n_bass_experience-1998-sour/10-dj_tyrone-funkster_dub-1998-sour.mp3",
+    "seconds": 160.261333
+   },
+   {
+    "group": "W",
+    "tag": "w06",
+    "asset": "DJ Hidden - The Later After/07-DJ Hidden-Chrono.m4a",
+    "seconds": 320.16
+   },
+   {
+    "group": "W",
+    "tag": "w07",
+    "asset": "__youtube_archivists/i-witness-dnb/Demented - No Way Out [Premiere].opus",
+    "seconds": 396.06
+   },
+   {
+    "group": "W",
+    "tag": "w08",
+    "asset": "DJ Hidden - The Later After/12-DJ Hidden-StraightJacket.m4a",
+    "seconds": 531.613333
+   },
+   {
+    "group": "W",
+    "tag": "w09",
+    "asset": "__youtube_archivists/rootzdnb/QZB & Amoss - Tigra.opus",
+    "seconds": 299.02
+   },
+   {
+    "group": "W",
+    "tag": "w10",
+    "asset": "__youtube_archivists/i-witness-dnb/Mampi Swift - Origin.opus",
+    "seconds": 312.06
+   },
+   {
+    "group": "W",
+    "tag": "w11",
+    "asset": "Eye-D & Dj Hidden - Peer To Peer Pressure/10-Eye-D & Dj Hidden-Battlefield.m4a",
+    "seconds": 312.309116
+   }
+  ]
+ },
+ "nas": {
+  "T": {
+   "records": "first",
+   "assets": 40688,
+   "postings": 1140812725,
+   "second_record_postings": 0,
+   "index_seconds": 2.816445573,
+   "search_seconds": 120.681838306,
+   "rows": {
+    "F-plain as-ripped mix": {
+     "queries": 4,
+     "confident": 4,
+     "possible": 0,
+     "first_confident": 4,
+     "second_confident": 0,
+     "median_hits": 5704
+    },
+    "F-plain as-ripped excerpt": {
+     "queries": 48,
+     "confident": 48,
+     "possible": 0,
+     "first_confident": 48,
+     "second_confident": 0,
+     "median_hits": 1154
+    },
+    "F-plain correct mix": {
+     "queries": 4,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "F-plain correct excerpt": {
+     "queries": 48,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "F-hello-world as-ripped mix": {
+     "queries": 1,
+     "confident": 1,
+     "possible": 0,
+     "first_confident": 1,
+     "second_confident": 0,
+     "median_hits": 4270
+    },
+    "F-hello-world as-ripped excerpt": {
+     "queries": 12,
+     "confident": 12,
+     "possible": 0,
+     "first_confident": 12,
+     "second_confident": 0,
+     "median_hits": 1333
+    },
+    "F-hello-world correct mix": {
+     "queries": 1,
+     "confident": 1,
+     "possible": 0,
+     "first_confident": 1,
+     "second_confident": 0,
+     "median_hits": 1067
+    },
+    "F-hello-world correct excerpt": {
+     "queries": 12,
+     "confident": 12,
+     "possible": 0,
+     "first_confident": 12,
+     "second_confident": 0,
+     "median_hits": 316
+    },
+    "P-other-window as-ripped excerpt": {
+     "queries": 5,
+     "confident": 5,
+     "possible": 0,
+     "first_confident": 5,
+     "second_confident": 0,
+     "median_hits": 1610
+    },
+    "P-inverted-window as-ripped excerpt": {
+     "queries": 2,
+     "confident": 2,
+     "possible": 0,
+     "first_confident": 2,
+     "second_confident": 0,
+     "median_hits": 1079
+    },
+    "P-other-window negated excerpt": {
+     "queries": 5,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "P-inverted-window negated excerpt": {
+     "queries": 2,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "W as-ripped excerpt": {
+     "queries": 48,
+     "confident": 47,
+     "possible": 0,
+     "first_confident": 47,
+     "second_confident": 0,
+     "median_hits": 1352
+    },
+    "W negated excerpt": {
+     "queries": 48,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    }
+   },
+   "wrong_confident": [
+    {
+     "query": "f02-correct-mix.mp3",
+     "file": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "record": "first",
+     "hits": 881
+    },
+    {
+     "query": "w00-as-ripped-x20.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Conrad Black - Programme Four.opus",
+     "record": "first",
+     "hits": 721
+    },
+    {
+     "query": "w00-as-ripped-x40.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Conrad Black - Programme Four.opus",
+     "record": "first",
+     "hits": 657
+    },
+    {
+     "query": "w00-as-ripped-x60.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Conrad Black - Programme Four.opus",
+     "record": "first",
+     "hits": 692
+    },
+    {
+     "query": "w00-as-ripped-x80.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Conrad Black - Programme Four.opus",
+     "record": "first",
+     "hits": 796
+    },
+    {
+     "query": "w10-as-ripped-x20.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Mampi Swift - Origin.opus",
+     "record": "first",
+     "hits": 713
+    },
+    {
+     "query": "w10-as-ripped-x40.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Mampi Swift - Origin.opus",
+     "record": "first",
+     "hits": 870
+    },
+    {
+     "query": "w10-as-ripped-x60.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Mampi Swift - Origin.opus",
+     "record": "first",
+     "hits": 729
+    },
+    {
+     "query": "w10-as-ripped-x80.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Mampi Swift - Origin.opus",
+     "record": "first",
+     "hits": 679
+    }
+   ],
+   "possible_false": [
+    {
+     "query": "f01-as-ripped-mix.mp3",
+     "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Blah - Space Trap.opus",
+     "record": "first",
+     "hits": 60
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 102
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 102
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 102
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Hazard - Active.m4a",
+     "record": "first",
+     "hits": 64
+    },
+    {
+     "query": "f02-as-ripped-mix.mp3",
+     "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Item Code - Protection.opus",
+     "record": "first",
+     "hits": 62
+    },
+    {
+     "query": "f02-correct-mix.mp3",
+     "file": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus",
+     "record": "first",
+     "hits": 145
+    },
+    {
+     "query": "f04-as-ripped-mix.mp3",
+     "file": "second-library/__youtube_archivists/i-witness-dnb/Pyro - Mechanize.opus",
+     "record": "first",
+     "hits": 87
+    },
+    {
+     "query": "f04-as-ripped-mix.mp3",
+     "file": "second-library/outbreak-pyro-outb008-2001-sour/A-Pyro-Mechanize-sour.mp3",
+     "record": "first",
+     "hits": 82
+    },
+    {
+     "query": "f04-as-ripped-mix.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Acrylic - Philadelphia.m4a",
+     "record": "first",
+     "hits": 60
+    },
+    {
+     "query": "w00-as-ripped-x20.mp3",
+     "file": "second-library/__youtube_archivists/the-hifi-junglist/Conrad Black - Programme 4 (The World of Drum & Bass CD2 - Formation Records FORMCD07 track 12) 1999.m4a",
+     "record": "first",
+     "hits": 238
+    },
+    {
+     "query": "w00-as-ripped-x40.mp3",
+     "file": "second-library/__youtube_archivists/the-hifi-junglist/Conrad Black - Programme 4 (The World of Drum & Bass CD2 - Formation Records FORMCD07 track 12) 1999.m4a",
+     "record": "first",
+     "hits": 238
+    },
+    {
+     "query": "w00-as-ripped-x60.mp3",
+     "file": "second-library/__youtube_archivists/the-hifi-junglist/Conrad Black - Programme 4 (The World of Drum & Bass CD2 - Formation Records FORMCD07 track 12) 1999.m4a",
+     "record": "first",
+     "hits": 188
+    }
+   ]
+  },
+  "B": {
+   "records": "both",
+   "assets": 40693,
+   "postings": 1140935885,
+   "second_record_postings": 123160,
+   "index_seconds": 125.538487784,
+   "search_seconds": 130.337726872,
+   "rows": {
+    "F-plain as-ripped mix": {
+     "queries": 4,
+     "confident": 4,
+     "possible": 0,
+     "first_confident": 4,
+     "second_confident": 0,
+     "median_hits": 5704
+    },
+    "F-plain as-ripped excerpt": {
+     "queries": 48,
+     "confident": 48,
+     "possible": 0,
+     "first_confident": 48,
+     "second_confident": 0,
+     "median_hits": 1154
+    },
+    "F-plain correct mix": {
+     "queries": 4,
+     "confident": 4,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 4,
+     "median_hits": 6308
+    },
+    "F-plain correct excerpt": {
+     "queries": 48,
+     "confident": 48,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 48,
+     "median_hits": 1225
+    },
+    "F-hello-world as-ripped mix": {
+     "queries": 1,
+     "confident": 1,
+     "possible": 0,
+     "first_confident": 1,
+     "second_confident": 1,
+     "median_hits": 4270
+    },
+    "F-hello-world as-ripped excerpt": {
+     "queries": 12,
+     "confident": 12,
+     "possible": 0,
+     "first_confident": 12,
+     "second_confident": 12,
+     "median_hits": 1333
+    },
+    "F-hello-world correct mix": {
+     "queries": 1,
+     "confident": 1,
+     "possible": 0,
+     "first_confident": 1,
+     "second_confident": 1,
+     "median_hits": 4821
+    },
+    "F-hello-world correct excerpt": {
+     "queries": 12,
+     "confident": 12,
+     "possible": 0,
+     "first_confident": 12,
+     "second_confident": 12,
+     "median_hits": 1454
+    },
+    "P-other-window as-ripped excerpt": {
+     "queries": 5,
+     "confident": 5,
+     "possible": 0,
+     "first_confident": 5,
+     "second_confident": 0,
+     "median_hits": 1610
+    },
+    "P-inverted-window as-ripped excerpt": {
+     "queries": 2,
+     "confident": 2,
+     "possible": 0,
+     "first_confident": 2,
+     "second_confident": 0,
+     "median_hits": 1079
+    },
+    "P-other-window negated excerpt": {
+     "queries": 5,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "P-inverted-window negated excerpt": {
+     "queries": 2,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "W as-ripped excerpt": {
+     "queries": 48,
+     "confident": 47,
+     "possible": 0,
+     "first_confident": 47,
+     "second_confident": 0,
+     "median_hits": 1352
+    },
+    "W negated excerpt": {
+     "queries": 48,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    }
+   },
+   "wrong_confident": [
+    {
+     "query": "f02-correct-mix.mp3",
+     "file": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "record": "first",
+     "hits": 881
+    },
+    {
+     "query": "w00-as-ripped-x20.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Conrad Black - Programme Four.opus",
+     "record": "first",
+     "hits": 721
+    },
+    {
+     "query": "w00-as-ripped-x40.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Conrad Black - Programme Four.opus",
+     "record": "first",
+     "hits": 657
+    },
+    {
+     "query": "w00-as-ripped-x60.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Conrad Black - Programme Four.opus",
+     "record": "first",
+     "hits": 692
+    },
+    {
+     "query": "w00-as-ripped-x80.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Conrad Black - Programme Four.opus",
+     "record": "first",
+     "hits": 796
+    },
+    {
+     "query": "w10-as-ripped-x20.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Mampi Swift - Origin.opus",
+     "record": "first",
+     "hits": 713
+    },
+    {
+     "query": "w10-as-ripped-x40.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Mampi Swift - Origin.opus",
+     "record": "first",
+     "hits": 870
+    },
+    {
+     "query": "w10-as-ripped-x60.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Mampi Swift - Origin.opus",
+     "record": "first",
+     "hits": 729
+    },
+    {
+     "query": "w10-as-ripped-x80.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Mampi Swift - Origin.opus",
+     "record": "first",
+     "hits": 679
+    }
+   ],
+   "possible_false": [
+    {
+     "query": "f01-as-ripped-mix.mp3",
+     "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Blah - Space Trap.opus",
+     "record": "first",
+     "hits": 60
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 102
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 102
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 102
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Hazard - Active.m4a",
+     "record": "first",
+     "hits": 64
+    },
+    {
+     "query": "f02-as-ripped-mix.mp3",
+     "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Item Code - Protection.opus",
+     "record": "first",
+     "hits": 62
+    },
+    {
+     "query": "f02-correct-mix.mp3",
+     "file": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus",
+     "record": "first",
+     "hits": 145
+    },
+    {
+     "query": "f04-as-ripped-mix.mp3",
+     "file": "second-library/__youtube_archivists/i-witness-dnb/Pyro - Mechanize.opus",
+     "record": "first",
+     "hits": 87
+    },
+    {
+     "query": "f04-as-ripped-mix.mp3",
+     "file": "second-library/outbreak-pyro-outb008-2001-sour/A-Pyro-Mechanize-sour.mp3",
+     "record": "first",
+     "hits": 82
+    },
+    {
+     "query": "f04-as-ripped-mix.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Acrylic - Philadelphia.m4a",
+     "record": "first",
+     "hits": 60
+    },
+    {
+     "query": "w00-as-ripped-x20.mp3",
+     "file": "second-library/__youtube_archivists/the-hifi-junglist/Conrad Black - Programme 4 (The World of Drum & Bass CD2 - Formation Records FORMCD07 track 12) 1999.m4a",
+     "record": "first",
+     "hits": 238
+    },
+    {
+     "query": "w00-as-ripped-x40.mp3",
+     "file": "second-library/__youtube_archivists/the-hifi-junglist/Conrad Black - Programme 4 (The World of Drum & Bass CD2 - Formation Records FORMCD07 track 12) 1999.m4a",
+     "record": "first",
+     "hits": 238
+    },
+    {
+     "query": "w00-as-ripped-x60.mp3",
+     "file": "second-library/__youtube_archivists/the-hifi-junglist/Conrad Black - Programme 4 (The World of Drum & Bass CD2 - Formation Records FORMCD07 track 12) 1999.m4a",
+     "record": "first",
+     "hits": 188
+    }
+   ]
+  },
+  "R": {
+   "records": "second",
+   "assets": 40688,
+   "postings": 1140824455,
+   "second_record_postings": 123160,
+   "index_seconds": 2.878506634,
+   "search_seconds": 124.47240039,
+   "rows": {
+    "F-plain as-ripped mix": {
+     "queries": 4,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "F-plain as-ripped excerpt": {
+     "queries": 48,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "F-plain correct mix": {
+     "queries": 4,
+     "confident": 4,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 4,
+     "median_hits": 6308
+    },
+    "F-plain correct excerpt": {
+     "queries": 48,
+     "confident": 48,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 48,
+     "median_hits": 1225
+    },
+    "F-hello-world as-ripped mix": {
+     "queries": 1,
+     "confident": 1,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 1,
+     "median_hits": 975
+    },
+    "F-hello-world as-ripped excerpt": {
+     "queries": 12,
+     "confident": 12,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 12,
+     "median_hits": 309
+    },
+    "F-hello-world correct mix": {
+     "queries": 1,
+     "confident": 1,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 1,
+     "median_hits": 4821
+    },
+    "F-hello-world correct excerpt": {
+     "queries": 12,
+     "confident": 12,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 12,
+     "median_hits": 1454
+    },
+    "P-other-window as-ripped excerpt": {
+     "queries": 5,
+     "confident": 5,
+     "possible": 0,
+     "first_confident": 5,
+     "second_confident": 0,
+     "median_hits": 1610
+    },
+    "P-inverted-window as-ripped excerpt": {
+     "queries": 2,
+     "confident": 2,
+     "possible": 0,
+     "first_confident": 2,
+     "second_confident": 0,
+     "median_hits": 1079
+    },
+    "P-other-window negated excerpt": {
+     "queries": 5,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "P-inverted-window negated excerpt": {
+     "queries": 2,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "W as-ripped excerpt": {
+     "queries": 48,
+     "confident": 47,
+     "possible": 0,
+     "first_confident": 47,
+     "second_confident": 0,
+     "median_hits": 1352
+    },
+    "W negated excerpt": {
+     "queries": 48,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    }
+   },
+   "wrong_confident": [
+    {
+     "query": "f02-correct-mix.mp3",
+     "file": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     "record": "first",
+     "hits": 881
+    },
+    {
+     "query": "w00-as-ripped-x20.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Conrad Black - Programme Four.opus",
+     "record": "first",
+     "hits": 721
+    },
+    {
+     "query": "w00-as-ripped-x40.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Conrad Black - Programme Four.opus",
+     "record": "first",
+     "hits": 657
+    },
+    {
+     "query": "w00-as-ripped-x60.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Conrad Black - Programme Four.opus",
+     "record": "first",
+     "hits": 692
+    },
+    {
+     "query": "w00-as-ripped-x80.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Conrad Black - Programme Four.opus",
+     "record": "first",
+     "hits": 796
+    },
+    {
+     "query": "w10-as-ripped-x20.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Mampi Swift - Origin.opus",
+     "record": "first",
+     "hits": 713
+    },
+    {
+     "query": "w10-as-ripped-x40.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Mampi Swift - Origin.opus",
+     "record": "first",
+     "hits": 870
+    },
+    {
+     "query": "w10-as-ripped-x60.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Mampi Swift - Origin.opus",
+     "record": "first",
+     "hits": 729
+    },
+    {
+     "query": "w10-as-ripped-x80.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Mampi Swift - Origin.opus",
+     "record": "first",
+     "hits": 679
+    }
+   ],
+   "possible_false": [
+    {
+     "query": "f01-as-ripped-mix.mp3",
+     "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Blah - Space Trap.opus",
+     "record": "first",
+     "hits": 60
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 102
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 102
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/aphrodite-fanfare-aph35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 102
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "second-library/__youtube_archivists/dfect-dnb/Hazard - Active.m4a",
+     "record": "first",
+     "hits": 64
+    },
+    {
+     "query": "f02-as-ripped-mix.mp3",
+     "file": "second-library/__youtube_archivists/3zb-gangstep-dnb/Item Code - Protection.opus",
+     "record": "first",
+     "hits": 62
+    },
+    {
+     "query": "f02-correct-mix.mp3",
+     "file": "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (ChaseR Bootleg).opus",
+     "record": "first",
+     "hits": 145
+    },
+    {
+     "query": "f04-as-ripped-mix.mp3",
+     "file": "second-library/__youtube_archivists/i-witness-dnb/Pyro - Mechanize.opus",
+     "record": "first",
+     "hits": 87
+    },
+    {
+     "query": "f04-as-ripped-mix.mp3",
+     "file": "second-library/outbreak-pyro-outb008-2001-sour/A-Pyro-Mechanize-sour.mp3",
+     "record": "first",
+     "hits": 82
+    },
+    {
+     "query": "f04-as-ripped-mix.mp3",
+     "file": "second-library/__youtube_archivists/unxplored-dnb/Acrylic - Philadelphia.m4a",
+     "record": "first",
+     "hits": 60
+    },
+    {
+     "query": "w00-as-ripped-x20.mp3",
+     "file": "second-library/__youtube_archivists/the-hifi-junglist/Conrad Black - Programme 4 (The World of Drum & Bass CD2 - Formation Records FORMCD07 track 12) 1999.m4a",
+     "record": "first",
+     "hits": 238
+    },
+    {
+     "query": "w00-as-ripped-x40.mp3",
+     "file": "second-library/__youtube_archivists/the-hifi-junglist/Conrad Black - Programme 4 (The World of Drum & Bass CD2 - Formation Records FORMCD07 track 12) 1999.m4a",
+     "record": "first",
+     "hits": 238
+    },
+    {
+     "query": "w00-as-ripped-x60.mp3",
+     "file": "second-library/__youtube_archivists/the-hifi-junglist/Conrad Black - Programme 4 (The World of Drum & Bass CD2 - Formation Records FORMCD07 track 12) 1999.m4a",
+     "record": "first",
+     "hits": 188
+    }
+   ]
+  }
+ },
+ "262": {
+  "T": {
+   "records": "first",
+   "assets": 283,
+   "postings": 8319081,
+   "second_record_postings": 0,
+   "index_seconds": 1.03885474,
+   "search_seconds": 63.884462111,
+   "rows": {
+    "F-plain as-ripped mix": {
+     "queries": 4,
+     "confident": 4,
+     "possible": 0,
+     "first_confident": 4,
+     "second_confident": 0,
+     "median_hits": 5704
+    },
+    "F-plain as-ripped excerpt": {
+     "queries": 48,
+     "confident": 48,
+     "possible": 0,
+     "first_confident": 48,
+     "second_confident": 0,
+     "median_hits": 1155
+    },
+    "F-plain correct mix": {
+     "queries": 4,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "F-plain correct excerpt": {
+     "queries": 48,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "F-hello-world as-ripped mix": {
+     "queries": 1,
+     "confident": 1,
+     "possible": 0,
+     "first_confident": 1,
+     "second_confident": 0,
+     "median_hits": 4270
+    },
+    "F-hello-world as-ripped excerpt": {
+     "queries": 12,
+     "confident": 12,
+     "possible": 0,
+     "first_confident": 12,
+     "second_confident": 0,
+     "median_hits": 1333
+    },
+    "F-hello-world correct mix": {
+     "queries": 1,
+     "confident": 1,
+     "possible": 0,
+     "first_confident": 1,
+     "second_confident": 0,
+     "median_hits": 1069
+    },
+    "F-hello-world correct excerpt": {
+     "queries": 12,
+     "confident": 12,
+     "possible": 0,
+     "first_confident": 12,
+     "second_confident": 0,
+     "median_hits": 313
+    },
+    "P-other-window as-ripped excerpt": {
+     "queries": 5,
+     "confident": 5,
+     "possible": 0,
+     "first_confident": 5,
+     "second_confident": 0,
+     "median_hits": 1610
+    },
+    "P-inverted-window as-ripped excerpt": {
+     "queries": 2,
+     "confident": 2,
+     "possible": 0,
+     "first_confident": 2,
+     "second_confident": 0,
+     "median_hits": 1079
+    },
+    "P-other-window negated excerpt": {
+     "queries": 5,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "P-inverted-window negated excerpt": {
+     "queries": 2,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "W as-ripped excerpt": {
+     "queries": 48,
+     "confident": 47,
+     "possible": 0,
+     "first_confident": 47,
+     "second_confident": 0,
+     "median_hits": 1352
+    },
+    "W negated excerpt": {
+     "queries": 48,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    }
+   },
+   "wrong_confident": [],
+   "possible_false": [
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 97
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 97
+    }
+   ]
+  },
+  "B": {
+   "records": "both",
+   "assets": 288,
+   "postings": 8442241,
+   "second_record_postings": 123160,
+   "index_seconds": 1.7893395010000002,
+   "search_seconds": 79.394527951,
+   "rows": {
+    "F-plain as-ripped mix": {
+     "queries": 4,
+     "confident": 4,
+     "possible": 0,
+     "first_confident": 4,
+     "second_confident": 0,
+     "median_hits": 5704
+    },
+    "F-plain as-ripped excerpt": {
+     "queries": 48,
+     "confident": 48,
+     "possible": 0,
+     "first_confident": 48,
+     "second_confident": 0,
+     "median_hits": 1155
+    },
+    "F-plain correct mix": {
+     "queries": 4,
+     "confident": 4,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 4,
+     "median_hits": 6308
+    },
+    "F-plain correct excerpt": {
+     "queries": 48,
+     "confident": 48,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 48,
+     "median_hits": 1224
+    },
+    "F-hello-world as-ripped mix": {
+     "queries": 1,
+     "confident": 1,
+     "possible": 0,
+     "first_confident": 1,
+     "second_confident": 1,
+     "median_hits": 4270
+    },
+    "F-hello-world as-ripped excerpt": {
+     "queries": 12,
+     "confident": 12,
+     "possible": 0,
+     "first_confident": 12,
+     "second_confident": 12,
+     "median_hits": 1333
+    },
+    "F-hello-world correct mix": {
+     "queries": 1,
+     "confident": 1,
+     "possible": 0,
+     "first_confident": 1,
+     "second_confident": 1,
+     "median_hits": 4821
+    },
+    "F-hello-world correct excerpt": {
+     "queries": 12,
+     "confident": 12,
+     "possible": 0,
+     "first_confident": 12,
+     "second_confident": 12,
+     "median_hits": 1455
+    },
+    "P-other-window as-ripped excerpt": {
+     "queries": 5,
+     "confident": 5,
+     "possible": 0,
+     "first_confident": 5,
+     "second_confident": 0,
+     "median_hits": 1610
+    },
+    "P-inverted-window as-ripped excerpt": {
+     "queries": 2,
+     "confident": 2,
+     "possible": 0,
+     "first_confident": 2,
+     "second_confident": 0,
+     "median_hits": 1079
+    },
+    "P-other-window negated excerpt": {
+     "queries": 5,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "P-inverted-window negated excerpt": {
+     "queries": 2,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "W as-ripped excerpt": {
+     "queries": 48,
+     "confident": 47,
+     "possible": 0,
+     "first_confident": 47,
+     "second_confident": 0,
+     "median_hits": 1352
+    },
+    "W negated excerpt": {
+     "queries": 48,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    }
+   },
+   "wrong_confident": [],
+   "possible_false": [
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 97
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 97
+    }
+   ]
+  },
+  "R": {
+   "records": "second",
+   "assets": 283,
+   "postings": 8330811,
+   "second_record_postings": 123160,
+   "index_seconds": 0.163243462,
+   "search_seconds": 72.596553837,
+   "rows": {
+    "F-plain as-ripped mix": {
+     "queries": 4,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "F-plain as-ripped excerpt": {
+     "queries": 48,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "F-plain correct mix": {
+     "queries": 4,
+     "confident": 4,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 4,
+     "median_hits": 6308
+    },
+    "F-plain correct excerpt": {
+     "queries": 48,
+     "confident": 48,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 48,
+     "median_hits": 1224
+    },
+    "F-hello-world as-ripped mix": {
+     "queries": 1,
+     "confident": 1,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 1,
+     "median_hits": 975
+    },
+    "F-hello-world as-ripped excerpt": {
+     "queries": 12,
+     "confident": 12,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 12,
+     "median_hits": 310
+    },
+    "F-hello-world correct mix": {
+     "queries": 1,
+     "confident": 1,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 1,
+     "median_hits": 4821
+    },
+    "F-hello-world correct excerpt": {
+     "queries": 12,
+     "confident": 12,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 12,
+     "median_hits": 1455
+    },
+    "P-other-window as-ripped excerpt": {
+     "queries": 5,
+     "confident": 5,
+     "possible": 0,
+     "first_confident": 5,
+     "second_confident": 0,
+     "median_hits": 1610
+    },
+    "P-inverted-window as-ripped excerpt": {
+     "queries": 2,
+     "confident": 2,
+     "possible": 0,
+     "first_confident": 2,
+     "second_confident": 0,
+     "median_hits": 1079
+    },
+    "P-other-window negated excerpt": {
+     "queries": 5,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "P-inverted-window negated excerpt": {
+     "queries": 2,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    },
+    "W as-ripped excerpt": {
+     "queries": 48,
+     "confident": 47,
+     "possible": 0,
+     "first_confident": 47,
+     "second_confident": 0,
+     "median_hits": 1352
+    },
+    "W negated excerpt": {
+     "queries": 48,
+     "confident": 0,
+     "possible": 0,
+     "first_confident": 0,
+     "second_confident": 0,
+     "median_hits": 0
+    }
+   },
+   "wrong_confident": [],
+   "possible_false": [
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 97
+    },
+    {
+     "query": "f01-correct-mix.mp3",
+     "file": "extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-sour.mp3",
+     "record": "first",
+     "hits": 97
+    }
+   ]
+  }
+ }
+}

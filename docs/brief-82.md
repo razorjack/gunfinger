@@ -232,3 +232,24 @@ the first run did not use. Hello World, P and W decide nothing alone.
   its reports are not read until the registration is committed.
 - *(21:55)* The flag is applied to the scratch library only (F, P, W),
   not to every NAS file (above).
+- *(22:02)* The 262-track `regress --strict` (identical) ran with
+  `s82-run`; a clippy fix that moves the index's time to the caller of
+  `second_records::search` followed, and the runs use `s82-run2`. The
+  final regressions run with the final build.
+- *(22:02)* The queries are rendered from the scratch library's copies of
+  the NAS files (`cp -p`; their records today's way equal the NAS
+  store's), not from the NAS itself.
+- *(22:05)* At 262 tracks the scratch store (`work/s82/c/today`, 18
+  records) is the other library; the NAS map and clusters files stand in
+  for its own, since none of its files is a copy of a corpus file.
+- *(22:05)* `shared` and `scan` score a second record by its own name (not
+  in any cluster), so a confident second record would count against the
+  arm: the conservative reading.
+- *(22:18)* Added `second-records --set-aside-like` (`b574f95`, build
+  `s82-run3`): the registered check covers the sweep only, but at 262
+  tracks 98 of 240 plan queries move between T and B, so the same one
+  check is run for them and for the 262-track sweep. No bar item depends
+  on it beyond A4's reading.
+- *(22:20)* A slip: the NAS queue started the sweep (0289's run) at 22:13,
+  before 0288 was written (22:24); the sweep's results were not read
+  until 0288 was committed.
