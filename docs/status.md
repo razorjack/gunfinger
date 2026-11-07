@@ -358,3 +358,30 @@ product and its defaults are unchanged.
   identical with `--strict`; `docs/pair-verdicts.txt` and the NAS
   clusters file unchanged. A review by a subagent found no code error
   and corrected several readings in the documents.
+
+## 2026-11-07: session 82, two records for a file with an inverted channel, a harness pilot
+
+Brief `docs/brief-82.md`, checklist `docs/session-82-checklist.md`;
+notes "Session 82"; experiments 0288-0289. A measurement session: the
+product and its defaults are unchanged.
+
+- The user's idea of 2026-10-31, piloted in the harness
+  (`--second-records`): a flagged file keeps its record as ripped and
+  gains the repaired one as a second asset; at the file only the
+  stronger play is kept, and hits are never added.
+- Both kinds of query now find the four plainly inverted recordings in
+  full (48 of 48 excerpts and 4 of 4 mixes each), where today's index
+  misses the correct-polarity kind and replaced records (0263) the
+  as-ripped kind; nothing new is named on the plan's queries, the sweeps
+  or the shared panels' development halves (0288, 0289).
+- Every move checked is the set-aside cut's; the second records add
+  0.011% of the NAS index's postings. The registered bar holds; the ADR
+  is the user's decision (decisions queue item 3).
+- We - Polynesian Inventor, heard inverted in part, is not flagged and
+  stays unrecovered in its inverted windows.
+- Final checks with `work/bin/s82-final/`: `scripts/check.sh` green;
+  `regress session-78-linux` and `regress session-78-linux-nas`
+  identical with `--strict`; `docs/pair-verdicts.txt` and the NAS
+  clusters file unchanged. A review by a subagent found one code error
+  in the file-level merge (no effect on this session's reports) and
+  smaller points; all fixed.

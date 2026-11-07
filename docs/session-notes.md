@@ -105,6 +105,7 @@ that holds it.
 - "Session 79" (2026-11-07): the fourth drop rule of `identify --under` and its masks on the workers. `this file`
 - "Session 80" (2026-11-07): the precision of `identify --under` on harder generated cases. `this file`
 - "Session 81" (2026-11-07): short chains under library perturbations, and a bounded fit for short chains only. `this file`
+- "Session 82" (2026-11-07): two records for a file with an inverted channel, a harness pilot. `this file`
 
 
 ## Session 70
@@ -1778,3 +1779,130 @@ documents (brief 81, 21:00; commits `ae03fb8`, `8f177b0`).
   the three development mixes (by `regress`); the grid and the sweep
   search excerpts. Nothing ran on the candidate mixes of 0065 or the NAS
   root's broadcast file. The NAS and `work/peaks` were only read.
+
+## Session 82
+
+Brief `docs/brief-82.md` (the registration and every decision),
+checklist `docs/session-82-checklist.md`, experiments 0288-0289. A
+measurement session: the product's behaviour and every default are
+unchanged.
+
+### What changed
+
+- Harness, opt-in: `--second-records DIR` (with `--other-peaks-dir`;
+  `sweep`, `shared` and `second-records` only): every current record of
+  the store DIR is a second record of the other library's file at the
+  same path, indexed as its own asset `second-record/second-library/<path>`
+  after every other record and scored as its file (`padding::original_path`).
+  Leaving a file out leaves out both records. A saved index with second
+  records is `indexes/library-<store>-second-records-<DIR name>.index`
+  (its provenance holds sources, not peaks: rebuild after DIR changes);
+  reports go to `second-records/` below the usual directory.
+- `second_records::strongest`: of a file's two records' overlapping plays,
+  only the stronger (level, then hits, then the first record) is kept,
+  taken strongest first; hits are never added (tested).
+- `variant-store --repair-inverted --repaired-only` writes only the
+  records the polarity check repairs.
+- `second-records QUERIES... --name N [--records both|second]
+  [--set-aside-like INDEX]`: each query's plays per record and at the
+  file (`second-records-<name>-<arm>.json`).
+
+### Results
+
+- 0288: with both records, the four plainly inverted recordings are
+  confident in 48 of 48 excerpts and 4 of 4 mixes of each kind (correct
+  polarity and as ripped); today's index finds only the second kind, the
+  replaced records (R) only the first. No new file is named; no second
+  record is named on another file's query. We - Polynesian Inventor
+  (heard inverted in 2 of 7 windows, not flagged) loses its inverted
+  windows' correct-polarity queries in every arm.
+- 0289: every NAS-scale difference is the set-aside cut's (one check:
+  `--set-aside-like`); at 262 tracks all but 2 sub-threshold candidates
+  of a second record. The panels' confident and possible counts are
+  unchanged. The second records add 0.011% of the NAS index's postings
+  and no search time beyond noise (A B B A).
+- The registered bar holds (A1-A6): worth an ADR proposal; the decision
+  is the user's (decisions queue item 3, rewritten with what an ADR
+  would decide).
+
+### Decided this session, open to change
+
+- The flag runs over a scratch library of 18 NAS files (the five 0262
+  flagged, Polynesian Inventor, 12 wide unflagged census files), not
+  over the whole NAS store (about 66 minutes).
+- At 262 tracks the scratch store is the other library, with the NAS map
+  and clusters files standing in for its own.
+- `shared` scores a second record by its own name, so a confident one
+  would count against the arm (`scan` refuses the option).
+- `second-records --set-aside-like` was added during the session to
+  attribute the plan queries' moves (not registered; no bar item rests
+  on it).
+
+### Questions this leaves for us
+
+- Decisions queue item 3: adopt two records per flagged file by an ADR?
+- Whether a check per window (for files inverted in part, such as
+  Polynesian Inventor) is worth a registration.
+
+### Questions for listening (none answered by agents)
+
+- None new. We - Hello World stays unsure (the repair costs nothing
+  either way under two records). The Planet Dust (DC Breaks Remix) cut
+  stays unsure.
+
+### Handoff for the next session
+
+1. Builds: `work/bin/s82-final/` (master, `4abc92d`, the last code
+   commit; `gunfinger` `f3ad06283ce8...`, unchanged since `s81-final`,
+   `gunfinger-eval` `f4e86de4b796...`) and `s81-final`. The runs used
+   `s82-run2` (the arms, the sweeps, the panels' B) and `s82-run3`
+   (`--set-aside-like`, the timing), built before the review's code
+   corrections; `s82-start` (= `s81-final`) ran the panels' T arm. All
+   three are deleted.
+2. Baselines unchanged: `session-78-linux` and `session-78-linux-nas`.
+   NAS store 40,666 records, revision `0bd3f0c23fabc698`; corpus store
+   `526a3b978eb3e411`; the clusters file unchanged.
+3. Data in `work/s82/`: queues `qnas.sh`, `q262.sh`, `qattr.sh`,
+   `qpanels-off.sh`, `qtime.sh`, `setup-stores.sh`; logs `logs/`
+   (`queue.log` has every exit line); the scratch library `c/library`
+   (byte copies of 18 NAS files), its records `c/today`, the second
+   records `stores/second`; the queries `q/` and `q/plan.json`; reports
+   in `woff/` (T), `won/` (B, R; with B's saved index, 4.6 GB, named
+   before `4abc92d`'s naming) and
+   `w262/`; scores `score-nas.json`, `score-262.json`; scripts
+   `queries.py`, `picks.py`, `score.py`, `samefirst.py`, `moves.py`,
+   `sweepcmp.py`, `panelcmp.py`, `compare.py`. The panels' renders are
+   deleted; all of `work/s82/` is safe to delete.
+4. Commands:
+
+   ```sh
+   E=work/bin/s82-final/gunfinger-eval; N=~/.local/share/gunfinger/nas-dnb-peaks
+   $E --corpus work/s82/c --peaks-dir work/s82/c/today variant-store --out STORE --repair-inverted --repaired-only
+   $E --work W --other-peaks-dir $N --second-records STORE second-records --name NAME QUERIES...
+   $E --work W --other-peaks-dir $N --second-records STORE sweep --set-aside-like work/indexes/library-nas-dnb-peaks.index
+   python3 -I work/s82/score.py work/s82/q/plan.json CLUSTERS OUT.json T=REPORT B=REPORT
+   ```
+
+### Final checks
+
+`work/s82/final.sh` (tmux) with `s82-final`: `scripts/check.sh` green
+(12:33, on its first run); `regress session-78-linux --strict` (1:04)
+and `regress session-78-linux-nas --strict` (4:42) identical, 720 of
+720 sweep queries and every report equal apart from timing.
+`docs/pair-verdicts.txt`, the NAS clusters file and the answer log are
+at their start digests (`work/s82/listening-digests-end.txt`). A
+read-only review by a subagent found 24 points: one code error in
+`strongest` (a chain of three overlapping plays could drop both of the
+first two; it occurs in none of this session's reports) and smaller
+code and document points; all fixed (brief 82, 22:55; `4abc92d`,
+`8a3bb51`).
+
+### What else to know
+
+- The held-out test set was not touched; no mix was searched (the
+  development mixes only by the final `regress`); the queries are
+  excerpts and generated mixes. Nothing ran on the candidate mixes of
+  0065 or the NAS root's broadcast file. The NAS was only read (18 files
+  copied with `cp -p`); `work/peaks` only read.
+- Slips, in brief 82: 0289's sweeps started before 0288 was committed;
+  0288 was first committed over 40 lines.

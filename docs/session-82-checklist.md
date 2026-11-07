@@ -24,4 +24,4 @@ for scope and rules.
 - [x] 4. Experiments 0288, 0289
 - [x] 5. Note, roadmap, decisions queue item 3
 - [x] 6. Review by a subagent; fixes (`4abc92d` and the documents)
-- [ ] 7. Wrap-up: notes, status, final checks, commit
+- [x] 7. Wrap-up: notes, status, final checks (check.sh green; both regressions strict-identical; digests unchanged), commit
