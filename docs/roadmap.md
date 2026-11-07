@@ -27,8 +27,8 @@ records six ideas with their first experiments and failure cases. All six
 have since been measured: stereo power fingerprints (0245-0250, not
 adopted; the inverted-channel repair 0262-0263 is open), filtering before
 hit grouping (0243-0244, not adopted), correcting the second pass's
-initial alignment (0251-0253, not adopted; the short-chain variant is not
-measured), quiet tracks under an identified one (0255-0258, 0269-0275;
+initial alignment (0251-0253, not adopted; the short-chain variant
+0286, not adopted), quiet tracks under an identified one (0255-0258, 0269-0275;
 `identify --under`, ADR 0025, Proposed), a harmonic/percussive view
 (0259-0261, not adopted) and recurring passages across mixes (0267-0268,
 a pilot). Automated counterexample search was piloted in 0264-0266.
@@ -85,10 +85,11 @@ Each session takes the first item it can do without a pending decision.
    `audition`.
 5. **The minimum span**, once decided (queue item 1): errors scored per
    passage and as a probability over placement, the rule frozen, one
-   confirmation on the shared panels' validation halves, an ADR. Before
-   it, short-chain fit stability under library perturbations (the
-   second-pass fit note's short-chain follow-up), since brief plays
-   depend on short chains.
+   confirmation on the shared panels' validation halves, an ADR.
+   *Session 81 (0285-0287):* short-chain stability under library
+   perturbations measured: no confident answer changed; short plays'
+   hits and speeds move far more than long ones'; the bounded fit for
+   short chains only is not a candidate (0286).
 6. **Two records for a flagged inverted file**, the user's idea of
    2026-10-31 (queue item 3): a harness pilot that scores the two forms
    apart and never sums or chains their evidence; as-ripped and repaired
@@ -237,16 +238,19 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   Facts: on session 28's
   brief plays at NAS scale, 15 s plays are confident 504 of 522 times
   under B(15) (200 hits over at least 15 s of supported time), 519 under
-  A(10) and B(10), against 228 today. On the fair shared-material test
-  (0146-0148) B(15) fails F1 by 6 of 168 wrong answers, all from three
+  A(10) and B(10), against 228 today. Under library perturbations
+  (0285, 0287) no confident answer changes today, because short plays
+  near the rule fail on windows; a 10-20 s play's true detection moves
+    by 5% or more 6-7 times as often as a longer play's. On the fair
+  shared-material test (0146-0148) B(15) fails F1 by 6 of 168 wrong answers, all from three
   20 s passages placed exactly on a window border, where today's rule
   names the same wrong files at 8-9 of their other positions; A(20) and
   B(20) meet F but name fewer brief plays; A(10) fails F1 by 9. Next:
   active queue item 5 (placement-aware scoring, the rule frozen, one
   confirmation on the shared panels' validation halves, a new ADR); the
   hit threshold stays fixed to isolate the change. Evidence: 0020, 0047,
-  0057, 0136-0142, 0146-0148; the variant worktree `s29-span` (never
-  merged).
+  0057, 0136-0142, 0146-0148, 0285-0287; the variant worktree `s29-span`
+  (never merged).
 - **Speed that wanders within a play.** *Done for pitch rides (ADR 0021,
   0232); open: wander within one side and rides inside short plays.*
   `SpansAtSpeed(0.006)` (the harness's opt-in was `--apart-in-speed
@@ -261,12 +265,15 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   of a 30 s excerpt costs recall); `--overlap-by-chains` (0178) is not
   adopted and would need an ADR superseding ADR 0008's consequence for
   overlapping parts. The second pass's fits (`--second-pass-fit`,
-  0251-0253) were not adopted; a bounded fit for short chains only is
-  the candidate to measure (active queue item 5,
-  `docs/research/2026-10-30-second-pass-fit-decision.md`). `pair
+  0251-0253) were not adopted; the bounded fit for short chains only
+  (`--second-pass-fit iterated-short`, 0286) removes most of a short
+  chain's speed movement under perturbations but changes no confident
+  answer there and lifts calibrate's strongest false at 262 tracks from
+  100 to 107: not adopted
+  (`docs/research/2026-10-30-second-pass-fit-decision.md`). `pair
   --fine-rungs` follows copies that drift against each other (0219,
   0220). Evidence: 0022, 0024, 0032, 0166, 0175-0180, 0209-0211, 0219,
-  0232, 0236-0240, 0251-0253;
+  0232, 0236-0240, 0251-0253, 0285-0286;
   `docs/research/2026-10-22-pitch-rides-decision.md`.
 - **The edge of the ladder.** *Measured and undecided; a targeted
   variant to build (active queue item 8).* Facts: recall holds to about
@@ -334,9 +341,10 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   (0222-0225); a candidate's evidence depends on the filter through the
   speed and span the second pass starts from (0242, expected under ADR
   0014); a famous break lines up with up to 403 of the NAS library's
-  files, and its holders lose more hits to the filter (0276-0277). Open:
-  how often a short chain's speed hinges on one hit (active queue item
-  5); break search as a command (decisions queue item 4; active queue
+  files, and its holders lose more hits to the filter (0276-0277). How
+  often a short chain's speed hinges on the lists set aside: 0285 (up to
+  a rung for 10-20 s plays, no confident answer changed). Open: break
+  search as a command (decisions queue item 4; active queue
   item 10); a posting-count set-aside threshold (active queue item 11);
   if candidates go missing, rank hashes by distinct files or weight hits
   by rarity (active queue item 9); a real collection's duplicates beyond

@@ -1,0 +1,425 @@
+{
+ "note": "session 81: the NAS-scale grid's perturbed runs against their base under the default matcher, from scripts/analysis/perturbation.py compare",
+ "compare": {
+  "grid removed-nas default": {
+   "indexed_assets": [
+    40563,
+    40143
+   ],
+   "detections_of_files_apart": {
+    "base": 1180,
+    "perturbed": 1180
+   },
+   "survival": {
+    "all: all": {
+     "survived": 1182,
+     "of": 1182
+    },
+    "hits: 120-239": {
+     "survived": 24,
+     "of": 24
+    },
+    "hits: 240-479": {
+     "survived": 254,
+     "of": 254
+    },
+    "hits: <120": {
+     "survived": 1,
+     "of": 1
+    },
+    "hits: >=480": {
+     "survived": 903,
+     "of": 903
+    },
+    "length: 10-20 s": {
+     "survived": 582,
+     "of": 582
+    },
+    "length: 25-40 s": {
+     "survived": 600,
+     "of": 600
+    },
+    "length x hits: 10-20 s, 120-239": {
+     "survived": 24,
+     "of": 24
+    },
+    "length x hits: 10-20 s, 240-479": {
+     "survived": 254,
+     "of": 254
+    },
+    "length x hits: 10-20 s, <120": {
+     "survived": 1,
+     "of": 1
+    },
+    "length x hits: 10-20 s, >=480": {
+     "survived": 303,
+     "of": 303
+    },
+    "length x hits: 25-40 s, >=480": {
+     "survived": 600,
+     "of": 600
+    },
+    "windows: <3 windows": {
+     "survived": 321,
+     "of": 321
+    },
+    "windows: >=3 windows": {
+     "survived": 861,
+     "of": 861
+    }
+   },
+   "moves": {
+    "all: all": {
+     "n": 1182,
+     "speed_moved": 137,
+     "speed_median": 0.0,
+     "speed_largest": 0.09600000000001785,
+     "hits_moved": 27,
+     "hits_moved_5pct": 1,
+     "hits_largest_change": 137
+    },
+    "hits: 120-239": {
+     "n": 24,
+     "speed_moved": 3,
+     "speed_median": 0.0,
+     "speed_largest": 0.0005780346820785098,
+     "hits_moved": 1,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": 1
+    },
+    "hits: 240-479": {
+     "n": 254,
+     "speed_moved": 7,
+     "speed_median": 0.0,
+     "speed_largest": 0.000938706191149663,
+     "hits_moved": 1,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": -1
+    },
+    "hits: <120": {
+     "n": 1,
+     "speed_moved": 0,
+     "speed_median": 0.0,
+     "speed_largest": 0.0,
+     "hits_moved": 0,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": 0
+    },
+    "hits: >=480": {
+     "n": 903,
+     "speed_moved": 127,
+     "speed_median": 0.0,
+     "speed_largest": 0.09600000000001785,
+     "hits_moved": 25,
+     "hits_moved_5pct": 1,
+     "hits_largest_change": 137
+    },
+    "length: 10-20 s": {
+     "n": 582,
+     "speed_moved": 22,
+     "speed_median": 0.0,
+     "speed_largest": 0.09600000000001785,
+     "hits_moved": 7,
+     "hits_moved_5pct": 1,
+     "hits_largest_change": 137
+    },
+    "length: 25-40 s": {
+     "n": 600,
+     "speed_moved": 115,
+     "speed_median": 7.011267236123331e-06,
+     "speed_largest": 0.005438303380145726,
+     "hits_moved": 20,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": 4
+    },
+    "length x hits: 10-20 s, 120-239": {
+     "n": 24,
+     "speed_moved": 3,
+     "speed_median": 0.0,
+     "speed_largest": 0.0005780346820785098,
+     "hits_moved": 1,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": 1
+    },
+    "length x hits: 10-20 s, 240-479": {
+     "n": 254,
+     "speed_moved": 7,
+     "speed_median": 0.0,
+     "speed_largest": 0.000938706191149663,
+     "hits_moved": 1,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": -1
+    },
+    "length x hits: 10-20 s, <120": {
+     "n": 1,
+     "speed_moved": 0,
+     "speed_median": 0.0,
+     "speed_largest": 0.0,
+     "hits_moved": 0,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": 0
+    },
+    "length x hits: 10-20 s, >=480": {
+     "n": 303,
+     "speed_moved": 12,
+     "speed_median": 0.0,
+     "speed_largest": 0.09600000000001785,
+     "hits_moved": 5,
+     "hits_moved_5pct": 1,
+     "hits_largest_change": 137
+    },
+    "length x hits: 25-40 s, >=480": {
+     "n": 600,
+     "speed_moved": 115,
+     "speed_median": 7.011267236123331e-06,
+     "speed_largest": 0.005438303380145726,
+     "hits_moved": 20,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": 4
+    },
+    "windows: <3 windows": {
+     "n": 321,
+     "speed_moved": 12,
+     "speed_median": 0.0,
+     "speed_largest": 0.000938706191149663,
+     "hits_moved": 4,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": -2
+    },
+    "windows: >=3 windows": {
+     "n": 861,
+     "speed_moved": 125,
+     "speed_median": 0.0,
+     "speed_largest": 0.09600000000001785,
+     "hits_moved": 23,
+     "hits_moved_5pct": 1,
+     "hits_largest_change": 137
+    }
+   },
+   "identity": {
+    "10-20 s": {
+     "queries": 480,
+     "wrong_added": 0,
+     "wrong_removed": 0
+    },
+    "25-40 s": {
+     "queries": 480,
+     "wrong_added": 0,
+     "wrong_removed": 0
+    }
+   },
+   "identity_changes": 0,
+   "changed_queries": []
+  },
+  "grid cut-up-nas default": {
+   "indexed_assets": [
+    40563,
+    40563
+   ],
+   "detections_of_files_apart": {
+    "base": 1180,
+    "perturbed": 1180
+   },
+   "survival": {
+    "all: all": {
+     "survived": 1182,
+     "of": 1182
+    },
+    "hits: 120-239": {
+     "survived": 24,
+     "of": 24
+    },
+    "hits: 240-479": {
+     "survived": 254,
+     "of": 254
+    },
+    "hits: <120": {
+     "survived": 1,
+     "of": 1
+    },
+    "hits: >=480": {
+     "survived": 903,
+     "of": 903
+    },
+    "length: 10-20 s": {
+     "survived": 582,
+     "of": 582
+    },
+    "length: 25-40 s": {
+     "survived": 600,
+     "of": 600
+    },
+    "length x hits: 10-20 s, 120-239": {
+     "survived": 24,
+     "of": 24
+    },
+    "length x hits: 10-20 s, 240-479": {
+     "survived": 254,
+     "of": 254
+    },
+    "length x hits: 10-20 s, <120": {
+     "survived": 1,
+     "of": 1
+    },
+    "length x hits: 10-20 s, >=480": {
+     "survived": 303,
+     "of": 303
+    },
+    "length x hits: 25-40 s, >=480": {
+     "survived": 600,
+     "of": 600
+    },
+    "windows: <3 windows": {
+     "survived": 321,
+     "of": 321
+    },
+    "windows: >=3 windows": {
+     "survived": 861,
+     "of": 861
+    }
+   },
+   "moves": {
+    "all: all": {
+     "n": 1182,
+     "speed_moved": 167,
+     "speed_median": 0.0,
+     "speed_largest": 0.3297071129707092,
+     "hits_moved": 35,
+     "hits_moved_5pct": 4,
+     "hits_largest_change": 135
+    },
+    "hits: 120-239": {
+     "n": 24,
+     "speed_moved": 3,
+     "speed_median": 0.0,
+     "speed_largest": 0.0005780346820785098,
+     "hits_moved": 1,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": 1
+    },
+    "hits: 240-479": {
+     "n": 254,
+     "speed_moved": 14,
+     "speed_median": 0.0,
+     "speed_largest": 0.3297071129707092,
+     "hits_moved": 4,
+     "hits_moved_5pct": 3,
+     "hits_largest_change": 135
+    },
+    "hits: <120": {
+     "n": 1,
+     "speed_moved": 0,
+     "speed_median": 0.0,
+     "speed_largest": 0.0,
+     "hits_moved": 0,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": 0
+    },
+    "hits: >=480": {
+     "n": 903,
+     "speed_moved": 150,
+     "speed_median": 1.4210854715202004e-14,
+     "speed_largest": 0.005438303380145726,
+     "hits_moved": 30,
+     "hits_moved_5pct": 1,
+     "hits_largest_change": -106
+    },
+    "length: 10-20 s": {
+     "n": 582,
+     "speed_moved": 29,
+     "speed_median": 0.0,
+     "speed_largest": 0.3297071129707092,
+     "hits_moved": 10,
+     "hits_moved_5pct": 4,
+     "hits_largest_change": 135
+    },
+    "length: 25-40 s": {
+     "n": 600,
+     "speed_moved": 138,
+     "speed_median": 2.161439524428488e-05,
+     "speed_largest": 0.005438303380145726,
+     "hits_moved": 25,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": 4
+    },
+    "length x hits: 10-20 s, 120-239": {
+     "n": 24,
+     "speed_moved": 3,
+     "speed_median": 0.0,
+     "speed_largest": 0.0005780346820785098,
+     "hits_moved": 1,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": 1
+    },
+    "length x hits: 10-20 s, 240-479": {
+     "n": 254,
+     "speed_moved": 14,
+     "speed_median": 0.0,
+     "speed_largest": 0.3297071129707092,
+     "hits_moved": 4,
+     "hits_moved_5pct": 3,
+     "hits_largest_change": 135
+    },
+    "length x hits: 10-20 s, <120": {
+     "n": 1,
+     "speed_moved": 0,
+     "speed_median": 0.0,
+     "speed_largest": 0.0,
+     "hits_moved": 0,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": 0
+    },
+    "length x hits: 10-20 s, >=480": {
+     "n": 303,
+     "speed_moved": 12,
+     "speed_median": 0.0,
+     "speed_largest": 0.0009198774100411811,
+     "hits_moved": 5,
+     "hits_moved_5pct": 1,
+     "hits_largest_change": -106
+    },
+    "length x hits: 25-40 s, >=480": {
+     "n": 600,
+     "speed_moved": 138,
+     "speed_median": 2.161439524428488e-05,
+     "speed_largest": 0.005438303380145726,
+     "hits_moved": 25,
+     "hits_moved_5pct": 0,
+     "hits_largest_change": 4
+    },
+    "windows: <3 windows": {
+     "n": 321,
+     "speed_moved": 16,
+     "speed_median": 0.0,
+     "speed_largest": 0.3297071129707092,
+     "hits_moved": 5,
+     "hits_moved_5pct": 2,
+     "hits_largest_change": -111
+    },
+    "windows: >=3 windows": {
+     "n": 861,
+     "speed_moved": 151,
+     "speed_median": 1.4210854715202004e-14,
+     "speed_largest": 0.0428954423592387,
+     "hits_moved": 30,
+     "hits_moved_5pct": 2,
+     "hits_largest_change": 135
+    }
+   },
+   "identity": {
+    "10-20 s": {
+     "queries": 480,
+     "wrong_added": 0,
+     "wrong_removed": 0
+    },
+    "25-40 s": {
+     "queries": 480,
+     "wrong_added": 0,
+     "wrong_removed": 0
+    }
+   },
+   "identity_changes": 0,
+   "changed_queries": []
+  }
+ }
+}

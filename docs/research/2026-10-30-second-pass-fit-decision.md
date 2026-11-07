@@ -1,6 +1,7 @@
 # The second pass's speed estimate: what a better fit gains (2026-10-30)
 
-**Status: measured (session 63, experiments 0251-0253); not adopted.**
+**Status: measured (session 63, experiments 0251-0253; session 81, the
+short-chain variant, 0285-0286); not adopted.**
 The second pass, its default and the product are unchanged. The fits
 are opt-in in the core's options and set only by the harness
 (`--second-pass-fit`); this note gives our recommendation for whether
@@ -145,3 +146,31 @@ calibrate at both scales; it belongs beside the minimum-span question
 (the roadmap's "A minimum span instead of 3 windows"), since 15-20 s
 plays are where both act.
 
+## Session 81: the bounded fit for short chains only
+
+Session 81 measured that candidate (`--second-pass-fit iterated-short`:
+the bounded fit where `chain_speed` gives the mean of the rungs, the
+chain's speed elsewhere) with a perturbation panel instead of one
+example: 400 NAS records added to the 262 tracks, 100 of them removed,
+the set-aside cut at 0.99% and 1.01%, duplicate copies, and at NAS
+scale 1% of the records removed and the cut at 1.01% (0285, 0286).
+
+Under the default, a 10-20 s play's true detection moves by 5% or more
+6-7 times as often as a 25-40 s play's, and its speed by up to a rung
+(0.25-0.40 percentage points), as 0242 found for Echos; no confident
+answer changes, because at 262 tracks short plays near the rule fail on
+windows, not hits (0285). The short-chain fit removes most of that
+movement (a third as many speeds move when files are added or removed,
+1 of 53 when the cut moves) and raises the short plays' hits by about a
+fifth, with no confident answer changed under any perturbation either.
+At the base it makes one 20 s play confident and lifts the Clockwork
+remix's shared passage from 94 to 107 hits, so calibrate's strongest
+false rises from 100 to 107 at 262 tracks, as the bounded fit did
+everywhere in 0252 (0286).
+
+By the registration it is not a candidate for an ADR proposal: it
+cannot reduce confident changes that the default does not make (A1),
+and it raises the strongest false (A3). The fits stay opt-in. Whether to
+take the short-chain fit up with the minimum span, where 15-20 s plays
+become confident on hits and the movement would reach the threshold,
+is a question for that decision (`docs/decisions-queue.md`, item 1).

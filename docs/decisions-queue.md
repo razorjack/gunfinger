@@ -28,8 +28,22 @@ external review (`docs/research/2026-11-05-external-review.md`).
   the other warns that dismissing it as "the same wrong file" weakens
   the precision requirement, and asks for errors to be scored both per
   passage and as a probability over placement before a new test.
+- **Short chains under library changes (session 81, 0285-0287).** No
+  confident answer changed under any perturbation (files added and
+  removed, copies, the set-aside cut moved; 262 tracks and NAS scale).
+  But a 10-20 s play's true detection moves by 5% or more 6-7 times as
+  often as a longer play's, and its speed by up to a rung, which cost
+  one 20 s play a third of its hits (0285). Today short plays near the
+  rule fail on windows, so hits do not decide them; under B(15) hits
+  would. On the
+  grid's 15-20 s plays the movement stays far from B(15)'s 200 hits
+  (the weakest holds 355); recall's brief plays, the B(15) evidence
+  above, were not perturbed. The bounded fit for short chains only
+  removes most of the movement but lifts shared material (0286; not a
+  candidate as registered).
 - **Recommendation.** Decide between B(15) and A(20). Then a session
-  registers the placement-aware scoring, freezes the rule and confirms
+  registers the placement-aware scoring and 0285's perturbation panel
+  on recall's brief plays near 200 hits, freezes the rule and confirms
   it once on the shared panels' validation halves, which were kept
   unsearched for this purpose, and writes the ADR.
 

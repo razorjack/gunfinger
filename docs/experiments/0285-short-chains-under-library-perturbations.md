@@ -8,7 +8,7 @@ and a moved set-aside cut, how far do detections move, by play length, and do co
 `--other-sample 300`), `cut-down`/`cut-up` (`--set-aside-share 0.0099`/`0.0101`; whole index: 62 fewer,
 78 more lists of 6,029), `copies` (2 exact copies of 50 drawn files, sweep only). NAS scale, sweep only:
 `removed-nas` (420 fewer records, `--other-sample 40000`), `cut-up-nas` (107 more lists of 10,865).
-`grid` seed 2026 (960 plays, 10-40 s), `sweep` seed 2026 (720 of 30 s); `data/0285-short-chains-under-library-perturbations.json`.
+`grid` seed 2026 (960 queries of 16 plays of 8 files, 10-40 s), `sweep` seed 2026 (720 of 30 s); `data/0285-short-chains-under-library-perturbations.json`.
 
 | Grid, strongest matching detections | 10-20 s plays (582) | 25-40 s plays (600) |
 |---|--:|--:|
