@@ -251,5 +251,5 @@ the first run did not use. Hello World, P and W decide nothing alone.
   check is run for them and for the 262-track sweep. No bar item depends
   on it beyond A4's reading.
 - *(22:20)* A slip: the NAS queue started the sweep (0289's run) at 22:13,
-  before 0288 was written (22:24); the sweep's results were not read
+  before 0288 was committed (22:21); the sweep's results were not read
   until 0288 was committed.
