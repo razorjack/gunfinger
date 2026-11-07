@@ -352,3 +352,9 @@ product and its defaults are unchanged.
 - For the minimum span (decisions queue item 1): under B(15) hits would
   decide 15-20 s plays; recall's brief plays near 200 hits were not
   perturbed and are the check to run before the rule is frozen.
+- Final checks with `work/bin/s81-final/`: `scripts/check.sh` green
+  after a test-only fix of `decode::watch`'s "Text file busy" race;
+  `regress session-78-linux` and `regress session-78-linux-nas`
+  identical with `--strict`; `docs/pair-verdicts.txt` and the NAS
+  clusters file unchanged. A review by a subagent found no code error
+  and corrected several readings in the documents.

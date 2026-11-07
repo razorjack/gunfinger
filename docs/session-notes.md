@@ -1737,21 +1737,40 @@ unchanged.
 
 ### Handoff for the next session
 
-1. Builds: `work/bin/s81-final/` (master) and `s80-final`. The runs
+1. Builds: `work/bin/s81-final/` (master, `94d1daf`; `gunfinger`
+   `f3ad0628...`, `gunfinger-eval` `7db22b90...`) and `s80-final`. The runs
    used `s81-run` (the default's bases, the variant's `regress`),
    `s81-run3` (the rest; the same search code); `s81-start`,
-   `s81-run`, `s81-run2` and `s81-run3` are deleted at the end.
+   `s81-run`, `s81-run2` and `s81-run3` are deleted.
 2. Baselines unchanged: `session-78-linux` and `session-78-linux-nas`.
 3. Data: `work/s81/` (queues `q262.sh`, `q262b.sh`, `qnas.sh`,
    `qgridnas.sh`, `qoff.sh`; logs `logs/`; reports in `w/reports/`
    (262 tracks), `wnas/reports/` (NAS scale), `wreg/reports/` (the
    variant's `regress`); `summarise.py`, `summary.json`, `movers.py`,
-   `windows.py`, `copied.txt`). Renders in the scratch directories are
-   deleted at the end; the sweep's are reflink copies of `work/sweep`.
+   `windows.py`, `copied.txt`). The renders in the scratch directories
+   are deleted (the grid's 960 renders with them; `grid` renders them
+   again in about a minute).
 4. To compare again: `python3 -I scripts/analysis/perturbation.py
    compare grid|sweep BASE.json PERTURBED.json`.
 5. The NAS store: 40,666 records, revision `0bd3f0c23fabc698`; corpus
    store revision `526a3b978eb3e411`; the clusters file unchanged.
+
+### Final checks
+
+`work/s81/final.sh` and `final2.sh` (tmux) with `s81-final`, built from
+`94d1daf` (the last code commit; later commits change documents only):
+`scripts/check.sh` green on its fourth run (12:20). The first three
+failed on `decode::watch`'s "Text file busy" race (session 78's note):
+a fork on another test thread held the stand-in script open for
+writing. `94d1daf` makes the tests' `stand_in` return the script only
+once a probe run of it starts (test code only). `regress
+session-78-linux --strict` (720 of 720 sweep queries, every report
+equal) and `regress session-78-linux-nas --strict` identical, as they
+were with the two earlier final builds. `docs/pair-verdicts.txt`, the
+NAS clusters file and the answer log are at their start digests
+(`work/s81/listening-digests-end.txt`). A read-only review by a
+subagent found no code error and corrected several readings in the
+documents (brief 81, 21:00; commits `ae03fb8`, `8f177b0`).
 
 ### What else to know
 

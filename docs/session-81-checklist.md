@@ -22,5 +22,5 @@ for scope and rules.
 - [x] 3. Runs (262 tracks; NAS-scale sweep; the NAS-scale grid added)
 - [x] 4. Experiments 0285, 0286, 0287
 - [x] 5. Note, roadmap, decisions queue item 1
-- [~] 6. Review by a subagent; fixes
-- [~] 7. Wrap-up: notes, status, final checks, commit
+- [x] 6. Review by a subagent; fixes (`ae03fb8`, `8f177b0`)
+- [x] 7. Wrap-up: notes, status, final checks (check.sh green after `94d1daf`; both regressions strict-identical), commit
