@@ -213,3 +213,9 @@ new registration and data the first run did not use.
   0285 is written and committed from the default's runs before any of
   0286's comparisons is read (its A3 figure above came from `regress`,
   before the perturbations).
+- *(20:11)* Time allows more than the registration's NAS rows: the
+  grid at NAS scale under the default, with the registered NAS
+  perturbations (`removed-nas`, `cut-up-nas`), the same measures, for
+  0285's question (short plays at the scale of the minimum span's
+  evidence). Decided before the runs; the variant is not run there,
+  since it has already failed A1 and A3 at 262 tracks.
