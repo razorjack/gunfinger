@@ -1,0 +1,1923 @@
+{
+ "arms": {
+  "T": "s83-start, work/peaks",
+  "a": "spread 0.094:4..24",
+  "b": "spread 0.094:4..16"
+ },
+ "by_arm": {
+  "T": {
+   "sweeps": {
+    "2026": {
+     "queries": 720,
+     "per_speed": {
+      "-8.0": [
+       60,
+       60,
+       0
+      ],
+      "-5.0": [
+       60,
+       60,
+       0
+      ],
+      "-3.0": [
+       60,
+       60,
+       0
+      ],
+      "-1.0": [
+       60,
+       60,
+       0
+      ],
+      "0.0": [
+       60,
+       60,
+       0
+      ],
+      "1.0": [
+       60,
+       60,
+       0
+      ],
+      "3.0": [
+       60,
+       60,
+       0
+      ],
+      "5.0": [
+       60,
+       60,
+       0
+      ],
+      "8.0": [
+       60,
+       60,
+       0
+      ]
+     },
+     "recalled": 540,
+     "indexed": 540,
+     "wrong": 0,
+     "true_hits": 645914
+    },
+    "2027": {
+     "queries": 720,
+     "per_speed": {
+      "-8.0": [
+       60,
+       60,
+       0
+      ],
+      "-5.0": [
+       60,
+       60,
+       0
+      ],
+      "-3.0": [
+       60,
+       60,
+       0
+      ],
+      "-1.0": [
+       60,
+       60,
+       0
+      ],
+      "0.0": [
+       60,
+       60,
+       0
+      ],
+      "1.0": [
+       60,
+       60,
+       0
+      ],
+      "3.0": [
+       60,
+       60,
+       0
+      ],
+      "5.0": [
+       60,
+       60,
+       0
+      ],
+      "8.0": [
+       60,
+       60,
+       0
+      ]
+     },
+     "recalled": 540,
+     "indexed": 540,
+     "wrong": 0,
+     "true_hits": 678950
+    },
+    "2028": {
+     "queries": 720,
+     "per_speed": {
+      "-8.0": [
+       60,
+       60,
+       0
+      ],
+      "-5.0": [
+       60,
+       60,
+       0
+      ],
+      "-3.0": [
+       60,
+       60,
+       0
+      ],
+      "-1.0": [
+       60,
+       60,
+       0
+      ],
+      "0.0": [
+       60,
+       60,
+       0
+      ],
+      "1.0": [
+       60,
+       60,
+       0
+      ],
+      "3.0": [
+       60,
+       60,
+       0
+      ],
+      "5.0": [
+       60,
+       60,
+       0
+      ],
+      "8.0": [
+       60,
+       60,
+       0
+      ]
+     },
+     "recalled": 540,
+     "indexed": 540,
+     "wrong": 0,
+     "true_hits": 624668
+    },
+    "2029": {
+     "queries": 720,
+     "per_speed": {
+      "-8.0": [
+       60,
+       60,
+       0
+      ],
+      "-5.0": [
+       60,
+       60,
+       0
+      ],
+      "-3.0": [
+       60,
+       60,
+       0
+      ],
+      "-1.0": [
+       60,
+       60,
+       0
+      ],
+      "0.0": [
+       60,
+       60,
+       0
+      ],
+      "1.0": [
+       60,
+       60,
+       0
+      ],
+      "3.0": [
+       60,
+       60,
+       0
+      ],
+      "5.0": [
+       60,
+       60,
+       0
+      ],
+      "8.0": [
+       60,
+       60,
+       0
+      ]
+     },
+     "recalled": 540,
+     "indexed": 540,
+     "wrong": 0,
+     "true_hits": 630875
+    }
+   },
+   "scans": {
+    "stakka-skynet-knowledge": {
+     "referenced": 11,
+     "identified": 11,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 69885
+    },
+    "stakka-skynet-knowledge-leave-out-3-seed-2026": {
+     "referenced": 11,
+     "identified": 8,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 55497
+    },
+    "stakka-skynet-knowledge-leave-out-11-seed-2026": {
+     "referenced": 11,
+     "identified": 0,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 0
+    },
+    "razorjack-2003-03-29": {
+     "referenced": 7,
+     "identified": 7,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 21906
+    },
+    "nocny-trans-vertical-2002-08-23": {
+     "referenced": 9,
+     "identified": 9,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 13407
+    }
+   },
+   "calibrate": [
+    "strongest false candidate under 30 hits: 29 hits, 3 windows (sweep extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3 at +5%: extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3)"
+   ],
+   "stats": {
+    "peaks": 3972772,
+    "band_shares": [
+     {
+      "up_to_hz": 125.0,
+      "share": 0.04537260129702887
+     },
+     {
+      "up_to_hz": 250.0,
+      "share": 0.0201921982937858
+     },
+     {
+      "up_to_hz": 500.0,
+      "share": 0.05341509656229957
+     },
+     {
+      "up_to_hz": 1000.0,
+      "share": 0.13513461129911306
+     },
+     {
+      "up_to_hz": 2000.0,
+      "share": 0.26662869150306134
+     },
+     {
+      "up_to_hz": 4000.0,
+      "share": 0.47925680104471136
+     }
+    ],
+    "postings": 7927686,
+    "index_bytes": 40099356
+   },
+   "loss_kept": "all      of reference hashes kept: mix 13.0% on the rung, 13.7% at the fitted speed, 14.5% at the local speed; clean 47.6% on the rung, 63.0% at the fitted speed",
+   "loss": {
+    "true_hits_rung": 38770,
+    "true_hits_fitted": 41026,
+    "postings_looked_up": 19647950
+   },
+   "recall": {
+    "clean": {
+     "indexed_queries": 522,
+     "held_out_queries": 180,
+     "identified": 522,
+     "wrong": 0,
+     "held_out_confident": 0,
+     "median_best_true_hits": 1021.5,
+     "true_at_60_or_more": 522
+    },
+    "damaged": {
+     "indexed_queries": 522,
+     "held_out_queries": 180,
+     "identified": 3,
+     "wrong": 0,
+     "held_out_confident": 0,
+     "median_best_true_hits": 97.0,
+     "true_at_60_or_more": 430
+    },
+    "brief": {
+     "indexed_queries": 1044,
+     "held_out_queries": 360,
+     "identified": 722,
+     "wrong": 0,
+     "held_out_confident": 0,
+     "median_best_true_hits": 509.5,
+     "true_at_60_or_more": 1044
+    },
+    "brief-damaged": {
+     "indexed_queries": 1044,
+     "held_out_queries": 360,
+     "identified": 0,
+     "wrong": 0,
+     "held_out_confident": 0,
+     "median_best_true_hits": 57.0,
+     "true_at_60_or_more": 485
+    }
+   },
+   "robust": {
+    "total_indexed_confident_possible_wrong": [
+     2600,
+     1938,
+     2242,
+     0
+    ],
+    "by_condition": {
+     "aac-48k": [
+      80,
+      80,
+      80,
+      0,
+      70
+     ],
+     "bass-boost-12db": [
+      80,
+      80,
+      80,
+      0,
+      95
+     ],
+     "bass-cut-250hz": [
+      80,
+      80,
+      80,
+      0,
+      93
+     ],
+     "beatmatched--6db": [
+      80,
+      69,
+      80,
+      0,
+      70
+     ],
+     "beatmatched-0db": [
+      80,
+      28,
+      66,
+      0,
+      43
+     ],
+     "blend--6db": [
+      80,
+      72,
+      80,
+      0,
+      52
+     ],
+     "blend-0db": [
+      80,
+      31,
+      65,
+      0,
+      32
+     ],
+     "broadcast": [
+      80,
+      66,
+      80,
+      0,
+      66
+     ],
+     "clipping-12db": [
+      80,
+      64,
+      80,
+      0,
+      73
+     ],
+     "combined": [
+      80,
+      4,
+      65,
+      0,
+      30
+     ],
+     "control": [
+      80,
+      80,
+      80,
+      0,
+      99
+     ],
+     "echo": [
+      80,
+      75,
+      80,
+      0,
+      68
+     ],
+     "high-pass-1khz": [
+      80,
+      80,
+      80,
+      0,
+      75
+     ],
+     "key-lock+2pct": [
+      40,
+      40,
+      40,
+      0,
+      102
+     ],
+     "key-lock+5pct": [
+      40,
+      40,
+      40,
+      0,
+      69
+     ],
+     "key-lock+8pct": [
+      40,
+      40,
+      40,
+      0,
+      8
+     ],
+     "key-lock-2pct": [
+      40,
+      40,
+      40,
+      0,
+      75
+     ],
+     "key-lock-5pct": [
+      40,
+      40,
+      40,
+      0,
+      89
+     ],
+     "low-pass-2khz": [
+      80,
+      80,
+      80,
+      0,
+      91
+     ],
+     "low-pass-800hz": [
+      80,
+      80,
+      80,
+      0,
+      37
+     ],
+     "mp3-32k": [
+      80,
+      80,
+      80,
+      0,
+      77
+     ],
+     "mp3-64k": [
+      80,
+      80,
+      80,
+      0,
+      94
+     ],
+     "needle-skip-2s": [
+      80,
+      31,
+      80,
+      0,
+      104
+     ],
+     "opus-24k": [
+      80,
+      79,
+      80,
+      0,
+      50
+     ],
+     "pink-noise-snr-0db": [
+      80,
+      0,
+      32,
+      0,
+      18
+     ],
+     "pink-noise-snr-10db": [
+      80,
+      75,
+      80,
+      0,
+      67
+     ],
+     "pitch-ride-2pct": [
+      80,
+      24,
+      54,
+      0,
+      90
+     ],
+     "speech-insert-8s": [
+      80,
+      80,
+      80,
+      0,
+      82
+     ],
+     "speed+10pct": [
+      40,
+      0,
+      0,
+      0,
+      9
+     ],
+     "speed+12pct": [
+      40,
+      0,
+      0,
+      0,
+      0
+     ],
+     "speed+16pct": [
+      40,
+      0,
+      0,
+      0,
+      6
+     ],
+     "speed-10pct": [
+      40,
+      0,
+      0,
+      0,
+      9
+     ],
+     "speed-12pct": [
+      40,
+      0,
+      0,
+      0,
+      0
+     ],
+     "speed-16pct": [
+      40,
+      0,
+      0,
+      0,
+      0
+     ],
+     "telephone": [
+      80,
+      80,
+      80,
+      0,
+      86
+     ],
+     "voice-over": [
+      80,
+      80,
+      80,
+      0,
+      46
+     ],
+     "wow-0.55hz": [
+      80,
+      80,
+      80,
+      0,
+      103
+     ],
+     "wow-0.75hz": [
+      80,
+      80,
+      80,
+      0,
+      93
+     ]
+    }
+   },
+   "grid": {
+    "levels": {
+     "10.0": {
+      "none": 14,
+      "possible": 146
+     },
+     "15.0": {
+      "possible": 95,
+      "confident": 65
+     },
+     "20.0": {
+      "possible": 16,
+      "confident": 144
+     },
+     "25.0": {
+      "confident": 160
+     },
+     "30.0": {
+      "confident": 160
+     },
+     "40.0": {
+      "confident": 160
+     }
+    },
+    "wrong": 0,
+    "strongest_false": 69
+   }
+  },
+  "a": {
+   "sweeps": {
+    "2026": {
+     "queries": 720,
+     "per_speed": {
+      "-8.0": [
+       60,
+       60,
+       0
+      ],
+      "-5.0": [
+       60,
+       60,
+       0
+      ],
+      "-3.0": [
+       60,
+       60,
+       0
+      ],
+      "-1.0": [
+       60,
+       60,
+       0
+      ],
+      "0.0": [
+       60,
+       60,
+       0
+      ],
+      "1.0": [
+       60,
+       60,
+       0
+      ],
+      "3.0": [
+       60,
+       60,
+       0
+      ],
+      "5.0": [
+       60,
+       60,
+       0
+      ],
+      "8.0": [
+       60,
+       60,
+       0
+      ]
+     },
+     "recalled": 540,
+     "indexed": 540,
+     "wrong": 0,
+     "true_hits": 707686
+    },
+    "2027": {
+     "queries": 720,
+     "per_speed": {
+      "-8.0": [
+       60,
+       60,
+       0
+      ],
+      "-5.0": [
+       60,
+       60,
+       0
+      ],
+      "-3.0": [
+       60,
+       60,
+       0
+      ],
+      "-1.0": [
+       60,
+       60,
+       0
+      ],
+      "0.0": [
+       60,
+       60,
+       0
+      ],
+      "1.0": [
+       60,
+       60,
+       0
+      ],
+      "3.0": [
+       60,
+       60,
+       0
+      ],
+      "5.0": [
+       60,
+       60,
+       0
+      ],
+      "8.0": [
+       60,
+       60,
+       0
+      ]
+     },
+     "recalled": 540,
+     "indexed": 540,
+     "wrong": 0,
+     "true_hits": 741930
+    },
+    "2028": {
+     "queries": 720,
+     "per_speed": {
+      "-8.0": [
+       60,
+       60,
+       0
+      ],
+      "-5.0": [
+       60,
+       60,
+       0
+      ],
+      "-3.0": [
+       60,
+       60,
+       0
+      ],
+      "-1.0": [
+       60,
+       60,
+       0
+      ],
+      "0.0": [
+       60,
+       60,
+       0
+      ],
+      "1.0": [
+       60,
+       60,
+       0
+      ],
+      "3.0": [
+       60,
+       60,
+       0
+      ],
+      "5.0": [
+       60,
+       60,
+       0
+      ],
+      "8.0": [
+       60,
+       60,
+       0
+      ]
+     },
+     "recalled": 540,
+     "indexed": 540,
+     "wrong": 0,
+     "true_hits": 687955
+    },
+    "2029": {
+     "queries": 720,
+     "per_speed": {
+      "-8.0": [
+       60,
+       60,
+       0
+      ],
+      "-5.0": [
+       60,
+       60,
+       0
+      ],
+      "-3.0": [
+       60,
+       60,
+       0
+      ],
+      "-1.0": [
+       60,
+       60,
+       0
+      ],
+      "0.0": [
+       60,
+       60,
+       0
+      ],
+      "1.0": [
+       60,
+       60,
+       0
+      ],
+      "3.0": [
+       60,
+       60,
+       0
+      ],
+      "5.0": [
+       60,
+       60,
+       0
+      ],
+      "8.0": [
+       60,
+       60,
+       0
+      ]
+     },
+     "recalled": 540,
+     "indexed": 540,
+     "wrong": 0,
+     "true_hits": 684380
+    }
+   },
+   "scans": {
+    "stakka-skynet-knowledge": {
+     "referenced": 11,
+     "identified": 11,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 92224
+    },
+    "stakka-skynet-knowledge-leave-out-3-seed-2026": {
+     "referenced": 11,
+     "identified": 8,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 73617
+    },
+    "stakka-skynet-knowledge-leave-out-11-seed-2026": {
+     "referenced": 11,
+     "identified": 0,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 0
+    },
+    "razorjack-2003-03-29": {
+     "referenced": 7,
+     "identified": 7,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 27746
+    },
+    "nocny-trans-vertical-2002-08-23": {
+     "referenced": 9,
+     "identified": 9,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 15601
+    }
+   },
+   "calibrate": [
+    "strongest false candidate under 30 hits: 29 hits, 2 windows (scan-stakka-skynet-knowledge.json: extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3 at 1175 s)"
+   ],
+   "stats": {
+    "peaks": 3641818,
+    "band_shares": [
+     {
+      "up_to_hz": 125.0,
+      "share": 0.07572673867831946
+     },
+     {
+      "up_to_hz": 250.0,
+      "share": 0.08535681903928202
+     },
+     {
+      "up_to_hz": 500.0,
+      "share": 0.16639848559153697
+     },
+     {
+      "up_to_hz": 1000.0,
+      "share": 0.20052017975637443
+     },
+     {
+      "up_to_hz": 2000.0,
+      "share": 0.20708640574570172
+     },
+     {
+      "up_to_hz": 4000.0,
+      "share": 0.2649113711887854
+     }
+    ],
+    "postings": 7231636,
+    "index_bytes": 37315156
+   },
+   "loss_kept": "all      of reference hashes kept: mix 19.0% on the rung, 19.8% at the fitted speed, 20.8% at the local speed; clean 56.4% on the rung, 69.5% at the fitted speed",
+   "loss": {
+    "true_hits_rung": 52069,
+    "true_hits_fitted": 54476,
+    "postings_looked_up": 12681025
+   },
+   "recall": {
+    "clean": {
+     "indexed_queries": 522,
+     "held_out_queries": 180,
+     "identified": 522,
+     "wrong": 0,
+     "held_out_confident": 0,
+     "median_best_true_hits": 1092.5,
+     "true_at_60_or_more": 522
+    },
+    "damaged": {
+     "indexed_queries": 522,
+     "held_out_queries": 180,
+     "identified": 9,
+     "wrong": 0,
+     "held_out_confident": 0,
+     "median_best_true_hits": 97.5,
+     "true_at_60_or_more": 407
+    },
+    "brief": {
+     "indexed_queries": 1044,
+     "held_out_queries": 360,
+     "identified": 732,
+     "wrong": 0,
+     "held_out_confident": 0,
+     "median_best_true_hits": 557.5,
+     "true_at_60_or_more": 1044
+    },
+    "brief-damaged": {
+     "indexed_queries": 1044,
+     "held_out_queries": 360,
+     "identified": 0,
+     "wrong": 0,
+     "held_out_confident": 0,
+     "median_best_true_hits": 54.0,
+     "true_at_60_or_more": 449
+    }
+   },
+   "robust": {
+    "total_indexed_confident_possible_wrong": [
+     2600,
+     1932,
+     2253,
+     0
+    ],
+    "by_condition": {
+     "aac-48k": [
+      80,
+      80,
+      80,
+      0,
+      64
+     ],
+     "bass-boost-12db": [
+      80,
+      80,
+      80,
+      0,
+      73
+     ],
+     "bass-cut-250hz": [
+      80,
+      80,
+      80,
+      0,
+      67
+     ],
+     "beatmatched--6db": [
+      80,
+      71,
+      80,
+      0,
+      68
+     ],
+     "beatmatched-0db": [
+      80,
+      21,
+      69,
+      0,
+      30
+     ],
+     "blend--6db": [
+      80,
+      71,
+      80,
+      0,
+      46
+     ],
+     "blend-0db": [
+      80,
+      23,
+      69,
+      0,
+      29
+     ],
+     "broadcast": [
+      80,
+      65,
+      80,
+      0,
+      68
+     ],
+     "clipping-12db": [
+      80,
+      66,
+      80,
+      0,
+      76
+     ],
+     "combined": [
+      80,
+      4,
+      66,
+      0,
+      39
+     ],
+     "control": [
+      80,
+      80,
+      80,
+      0,
+      69
+     ],
+     "echo": [
+      80,
+      74,
+      80,
+      0,
+      48
+     ],
+     "high-pass-1khz": [
+      80,
+      80,
+      80,
+      0,
+      61
+     ],
+     "key-lock+2pct": [
+      40,
+      40,
+      40,
+      0,
+      77
+     ],
+     "key-lock+5pct": [
+      40,
+      40,
+      40,
+      0,
+      56
+     ],
+     "key-lock+8pct": [
+      40,
+      40,
+      40,
+      0,
+      59
+     ],
+     "key-lock-2pct": [
+      40,
+      40,
+      40,
+      0,
+      69
+     ],
+     "key-lock-5pct": [
+      40,
+      40,
+      40,
+      0,
+      9
+     ],
+     "low-pass-2khz": [
+      80,
+      80,
+      80,
+      0,
+      64
+     ],
+     "low-pass-800hz": [
+      80,
+      80,
+      80,
+      0,
+      58
+     ],
+     "mp3-32k": [
+      80,
+      80,
+      80,
+      0,
+      60
+     ],
+     "mp3-64k": [
+      80,
+      80,
+      80,
+      0,
+      80
+     ],
+     "needle-skip-2s": [
+      80,
+      32,
+      80,
+      0,
+      100
+     ],
+     "opus-24k": [
+      80,
+      80,
+      80,
+      0,
+      77
+     ],
+     "pink-noise-snr-0db": [
+      80,
+      0,
+      34,
+      0,
+      19
+     ],
+     "pink-noise-snr-10db": [
+      80,
+      80,
+      80,
+      0,
+      62
+     ],
+     "pitch-ride-2pct": [
+      80,
+      25,
+      55,
+      0,
+      80
+     ],
+     "speech-insert-8s": [
+      80,
+      80,
+      80,
+      0,
+      48
+     ],
+     "speed+10pct": [
+      40,
+      0,
+      0,
+      0,
+      8
+     ],
+     "speed+12pct": [
+      40,
+      0,
+      0,
+      0,
+      8
+     ],
+     "speed+16pct": [
+      40,
+      0,
+      0,
+      0,
+      6
+     ],
+     "speed-10pct": [
+      40,
+      0,
+      0,
+      0,
+      16
+     ],
+     "speed-12pct": [
+      40,
+      0,
+      0,
+      0,
+      7
+     ],
+     "speed-16pct": [
+      40,
+      0,
+      0,
+      0,
+      0
+     ],
+     "telephone": [
+      80,
+      80,
+      80,
+      0,
+      65
+     ],
+     "voice-over": [
+      80,
+      80,
+      80,
+      0,
+      53
+     ],
+     "wow-0.55hz": [
+      80,
+      80,
+      80,
+      0,
+      82
+     ],
+     "wow-0.75hz": [
+      80,
+      80,
+      80,
+      0,
+      77
+     ]
+    }
+   },
+   "grid": {
+    "levels": {
+     "10.0": {
+      "none": 14,
+      "possible": 146
+     },
+     "15.0": {
+      "possible": 94,
+      "confident": 66
+     },
+     "20.0": {
+      "possible": 14,
+      "confident": 146
+     },
+     "25.0": {
+      "confident": 160
+     },
+     "30.0": {
+      "confident": 160
+     },
+     "40.0": {
+      "confident": 160
+     }
+    },
+    "wrong": 0,
+    "strongest_false": 55
+   }
+  },
+  "b": {
+   "sweeps": {
+    "2026": {
+     "queries": 720,
+     "per_speed": {
+      "-8.0": [
+       60,
+       60,
+       0
+      ],
+      "-5.0": [
+       60,
+       60,
+       0
+      ],
+      "-3.0": [
+       60,
+       60,
+       0
+      ],
+      "-1.0": [
+       60,
+       60,
+       0
+      ],
+      "0.0": [
+       60,
+       60,
+       0
+      ],
+      "1.0": [
+       60,
+       60,
+       0
+      ],
+      "3.0": [
+       60,
+       60,
+       0
+      ],
+      "5.0": [
+       60,
+       60,
+       0
+      ],
+      "8.0": [
+       60,
+       60,
+       0
+      ]
+     },
+     "recalled": 540,
+     "indexed": 540,
+     "wrong": 0,
+     "true_hits": 771960
+    },
+    "2027": {
+     "queries": 720,
+     "per_speed": {
+      "-8.0": [
+       60,
+       60,
+       0
+      ],
+      "-5.0": [
+       60,
+       60,
+       0
+      ],
+      "-3.0": [
+       60,
+       60,
+       0
+      ],
+      "-1.0": [
+       60,
+       60,
+       0
+      ],
+      "0.0": [
+       60,
+       60,
+       0
+      ],
+      "1.0": [
+       60,
+       60,
+       0
+      ],
+      "3.0": [
+       60,
+       60,
+       0
+      ],
+      "5.0": [
+       60,
+       60,
+       0
+      ],
+      "8.0": [
+       60,
+       60,
+       0
+      ]
+     },
+     "recalled": 540,
+     "indexed": 540,
+     "wrong": 0,
+     "true_hits": 807838
+    },
+    "2028": {
+     "queries": 720,
+     "per_speed": {
+      "-8.0": [
+       60,
+       60,
+       0
+      ],
+      "-5.0": [
+       60,
+       60,
+       0
+      ],
+      "-3.0": [
+       60,
+       60,
+       0
+      ],
+      "-1.0": [
+       60,
+       60,
+       0
+      ],
+      "0.0": [
+       60,
+       60,
+       0
+      ],
+      "1.0": [
+       60,
+       60,
+       0
+      ],
+      "3.0": [
+       60,
+       60,
+       0
+      ],
+      "5.0": [
+       60,
+       60,
+       0
+      ],
+      "8.0": [
+       60,
+       60,
+       0
+      ]
+     },
+     "recalled": 540,
+     "indexed": 540,
+     "wrong": 0,
+     "true_hits": 750679
+    },
+    "2029": {
+     "queries": 720,
+     "per_speed": {
+      "-8.0": [
+       60,
+       60,
+       0
+      ],
+      "-5.0": [
+       60,
+       60,
+       0
+      ],
+      "-3.0": [
+       60,
+       60,
+       0
+      ],
+      "-1.0": [
+       60,
+       60,
+       0
+      ],
+      "0.0": [
+       60,
+       60,
+       0
+      ],
+      "1.0": [
+       60,
+       60,
+       0
+      ],
+      "3.0": [
+       60,
+       60,
+       0
+      ],
+      "5.0": [
+       60,
+       60,
+       0
+      ],
+      "8.0": [
+       60,
+       60,
+       0
+      ]
+     },
+     "recalled": 540,
+     "indexed": 540,
+     "wrong": 0,
+     "true_hits": 747136
+    }
+   },
+   "scans": {
+    "stakka-skynet-knowledge": {
+     "referenced": 11,
+     "identified": 11,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 96973
+    },
+    "stakka-skynet-knowledge-leave-out-3-seed-2026": {
+     "referenced": 11,
+     "identified": 8,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 77398
+    },
+    "stakka-skynet-knowledge-leave-out-11-seed-2026": {
+     "referenced": 11,
+     "identified": 0,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 0
+    },
+    "razorjack-2003-03-29": {
+     "referenced": 7,
+     "identified": 7,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 30081
+    },
+    "nocny-trans-vertical-2002-08-23": {
+     "referenced": 9,
+     "identified": 9,
+     "wrong": 0,
+     "possible": 0,
+     "true_hits": 16679
+    }
+   },
+   "calibrate": [
+    "strongest false candidate under 30 hits: 29 hits, 3 windows (sweep extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/01-aphrodite-defjammer-bpm.mp3 at +8%: extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-lame.mp3)"
+   ],
+   "stats": {
+    "peaks": 4206460,
+    "band_shares": [
+     {
+      "up_to_hz": 125.0,
+      "share": 0.06556177878786439
+     },
+     {
+      "up_to_hz": 250.0,
+      "share": 0.07389919314578054
+     },
+     {
+      "up_to_hz": 500.0,
+      "share": 0.1440624658263718
+     },
+     {
+      "up_to_hz": 1000.0,
+      "share": 0.1736039329982931
+     },
+     {
+      "up_to_hz": 2000.0,
+      "share": 0.2014865231096932
+     },
+     {
+      "up_to_hz": 4000.0,
+      "share": 0.341386106131997
+     }
+    ],
+    "postings": 8391161,
+    "index_bytes": 41953256
+   },
+   "loss_kept": "all      of reference hashes kept: mix 17.1% on the rung, 17.9% at the fitted speed, 18.7% at the local speed; clean 53.5% on the rung, 67.0% at the fitted speed",
+   "loss": {
+    "true_hits_rung": 54775,
+    "true_hits_fitted": 57358,
+    "postings_looked_up": 16842421
+   },
+   "recall": {
+    "clean": {
+     "indexed_queries": 522,
+     "held_out_queries": 180,
+     "identified": 522,
+     "wrong": 0,
+     "held_out_confident": 0,
+     "median_best_true_hits": 1212.0,
+     "true_at_60_or_more": 522
+    },
+    "damaged": {
+     "indexed_queries": 522,
+     "held_out_queries": 180,
+     "identified": 22,
+     "wrong": 0,
+     "held_out_confident": 0,
+     "median_best_true_hits": 110.5,
+     "true_at_60_or_more": 438
+    },
+    "brief": {
+     "indexed_queries": 1044,
+     "held_out_queries": 360,
+     "identified": 735,
+     "wrong": 0,
+     "held_out_confident": 0,
+     "median_best_true_hits": 612.0,
+     "true_at_60_or_more": 1044
+    },
+    "brief-damaged": {
+     "indexed_queries": 1044,
+     "held_out_queries": 360,
+     "identified": 0,
+     "wrong": 0,
+     "held_out_confident": 0,
+     "median_best_true_hits": 61.5,
+     "true_at_60_or_more": 550
+    }
+   },
+   "robust": {
+    "total_indexed_confident_possible_wrong": [
+     2600,
+     1969,
+     2271,
+     0
+    ],
+    "by_condition": {
+     "aac-48k": [
+      80,
+      80,
+      80,
+      0,
+      60
+     ],
+     "bass-boost-12db": [
+      80,
+      80,
+      80,
+      0,
+      107
+     ],
+     "bass-cut-250hz": [
+      80,
+      80,
+      80,
+      0,
+      81
+     ],
+     "beatmatched--6db": [
+      80,
+      74,
+      80,
+      0,
+      83
+     ],
+     "beatmatched-0db": [
+      80,
+      28,
+      73,
+      0,
+      33
+     ],
+     "blend--6db": [
+      80,
+      74,
+      80,
+      0,
+      73
+     ],
+     "blend-0db": [
+      80,
+      31,
+      71,
+      0,
+      36
+     ],
+     "broadcast": [
+      80,
+      72,
+      80,
+      0,
+      72
+     ],
+     "clipping-12db": [
+      80,
+      66,
+      80,
+      0,
+      92
+     ],
+     "combined": [
+      80,
+      5,
+      74,
+      0,
+      48
+     ],
+     "control": [
+      80,
+      80,
+      80,
+      0,
+      89
+     ],
+     "echo": [
+      80,
+      76,
+      80,
+      0,
+      56
+     ],
+     "high-pass-1khz": [
+      80,
+      80,
+      80,
+      0,
+      74
+     ],
+     "key-lock+2pct": [
+      40,
+      40,
+      40,
+      0,
+      93
+     ],
+     "key-lock+5pct": [
+      40,
+      40,
+      40,
+      0,
+      64
+     ],
+     "key-lock+8pct": [
+      40,
+      40,
+      40,
+      0,
+      75
+     ],
+     "key-lock-2pct": [
+      40,
+      40,
+      40,
+      0,
+      107
+     ],
+     "key-lock-5pct": [
+      40,
+      40,
+      40,
+      0,
+      69
+     ],
+     "low-pass-2khz": [
+      80,
+      80,
+      80,
+      0,
+      99
+     ],
+     "low-pass-800hz": [
+      80,
+      80,
+      80,
+      0,
+      50
+     ],
+     "mp3-32k": [
+      80,
+      80,
+      80,
+      0,
+      79
+     ],
+     "mp3-64k": [
+      80,
+      80,
+      80,
+      0,
+      91
+     ],
+     "needle-skip-2s": [
+      80,
+      40,
+      80,
+      0,
+      119
+     ],
+     "opus-24k": [
+      80,
+      80,
+      80,
+      0,
+      85
+     ],
+     "pink-noise-snr-0db": [
+      80,
+      0,
+      35,
+      0,
+      13
+     ],
+     "pink-noise-snr-10db": [
+      80,
+      80,
+      80,
+      0,
+      80
+     ],
+     "pitch-ride-2pct": [
+      80,
+      23,
+      58,
+      0,
+      93
+     ],
+     "speech-insert-8s": [
+      80,
+      80,
+      80,
+      0,
+      19
+     ],
+     "speed+10pct": [
+      40,
+      0,
+      0,
+      0,
+      9
+     ],
+     "speed+12pct": [
+      40,
+      0,
+      0,
+      0,
+      8
+     ],
+     "speed+16pct": [
+      40,
+      0,
+      0,
+      0,
+      6
+     ],
+     "speed-10pct": [
+      40,
+      0,
+      0,
+      0,
+      9
+     ],
+     "speed-12pct": [
+      40,
+      0,
+      0,
+      0,
+      11
+     ],
+     "speed-16pct": [
+      40,
+      0,
+      0,
+      0,
+      0
+     ],
+     "telephone": [
+      80,
+      80,
+      80,
+      0,
+      72
+     ],
+     "voice-over": [
+      80,
+      80,
+      80,
+      0,
+      28
+     ],
+     "wow-0.55hz": [
+      80,
+      80,
+      80,
+      0,
+      89
+     ],
+     "wow-0.75hz": [
+      80,
+      80,
+      80,
+      0,
+      83
+     ]
+    }
+   },
+   "grid": {
+    "levels": {
+     "10.0": {
+      "none": 14,
+      "possible": 146
+     },
+     "15.0": {
+      "possible": 94,
+      "confident": 66
+     },
+     "20.0": {
+      "possible": 14,
+      "confident": 146
+     },
+     "25.0": {
+      "confident": 160
+     },
+     "30.0": {
+      "confident": 160
+     },
+     "40.0": {
+      "confident": 160
+     }
+    },
+    "wrong": 0,
+    "strongest_false": 67
+   }
+  }
+ }
+}

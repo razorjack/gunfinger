@@ -225,3 +225,23 @@ failure is recorded with the bars it failed, and the roadmap's item says
 what a further test would need.
 
 ## Decisions during the session
+
+- *(23:51)* Arms T and a started side by side (`arm.sh`, tmux `armT`,
+  `arma`, 16 jobs each). Arm T's sweep 2026 equals `session-78-linux`'s
+  query for query (720 of 720), so the scratch work directories
+  reproduce the baseline.
+- *(00:00)* B4's "unrelated" is not decided by the harness: calibrate
+  lists every false candidate of 30 hits or more, and we read each
+  (query recording, file) pair by name. A pair counts as related when it
+  is a remix or version, a judgment by ear names it shared material, or
+  T already lists it; a pair of different titles that none of these
+  covers is reported as unconfirmed and listed for listening, not
+  counted as unrelated.
+- *(00:09)* Arm b started (tmux `armb`, 16 jobs) while T and a run
+  `shared`, `grid` and `robust`: the protocol and recall took about 16
+  minutes per arm, so b fits the time box. No time from these runs is
+  reported.
+- *(00:09)* Slip: `arm.sh` runs every registered evaluation in one
+  queue, so the shared panels' searches (experiment 0291) started before
+  0290 was written. 0290 holds the protocol, `recall`, `grid` and
+  `robust`; it is written and committed before 0291's analysis.
