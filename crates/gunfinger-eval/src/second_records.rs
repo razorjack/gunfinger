@@ -239,25 +239,34 @@ pub enum Records {
     Second,
 }
 
-/// Searches each of `queries` against `index` (whose second records are
-/// `second`), as `records` says, and reports every play per record and at
-/// the file; the caller fills in the index's time.
-pub fn search(
+/// The index of one arm: `index` (whose second records are `second`) as
+/// `records` says, with the arm's name for reports. Without second records
+/// it is today's index, `first`.
+pub fn arm(
     index: Index,
     second: Option<&SecondRecords>,
     records: Records,
+) -> (Index, &'static str) {
+    match (second, records) {
+        (None, _) => (index, "first"),
+        (Some(_), Records::Both) => (index, "both"),
+        (Some(second), Records::Second) => (index.without_assets(&second.files()), "second"),
+    }
+}
+
+/// Searches each of `queries` against `index`, an arm's index named
+/// `name` with its lists set aside, and reports every play per record and
+/// at the file; the caller fills in the index's time.
+pub fn search(
+    index: &Index,
+    name: &'static str,
+    second: Option<&SecondRecords>,
     queries: &[std::path::PathBuf],
     matching: &Matching,
     ladder: &[Rung],
     jobs: usize,
 ) -> Result<Report, String> {
     let files = second.map(SecondRecords::files).unwrap_or_default();
-    let (index, name) = match (second, records) {
-        (None, _) => (index, "first"),
-        (Some(_), Records::Both) => (index, "both"),
-        (Some(_), Records::Second) => (index.without_assets(&files), "second"),
-    };
-    let index = matching.index(index);
     let second_record_postings = match second {
         Some(second) => Index::build(second.records())
             .map_err(|error| error.to_string())?
@@ -270,10 +279,10 @@ pub fn search(
         .map(|path| {
             let started = Instant::now();
             let audio = matching.decode_query(path)?;
-            let detections = matching.search_audio(&index, &audio, ladder, jobs);
+            let detections = matching.search_audio(index, &audio, ladder, jobs);
             let plays: Vec<RecordPlay> = plays::group(&detections)
                 .iter()
-                .map(|play| RecordPlay::of(&index, play))
+                .map(|play| RecordPlay::of(index, play))
                 .collect();
             Ok(Query {
                 file: path

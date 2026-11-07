@@ -7,7 +7,9 @@ use crate::harness::{Harness, IndexVariant, UNCHANGED_INDEX};
 use crate::padding::Padding;
 use crate::provenance::Provenance;
 use crate::scan::{LeaveOut, SlotRun};
-use crate::{calibrate, loss, memory, regress, robust, scan, second_records, stereo, sweep};
+use crate::{
+    calibrate, fullest, loss, memory, regress, robust, scan, second_records, stereo, sweep,
+};
 
 #[derive(clap::Args)]
 pub struct ScanArgs {
@@ -387,6 +389,12 @@ pub struct SecondRecordsArgs {
     /// The report is `second-records-<name>-<records>.json`.
     #[arg(long)]
     pub name: String,
+    /// Set aside the lists the index saved here sets aside instead of the
+    /// arm's own fullest (as `sweep --set-aside-like`): the one check that
+    /// tells a move of the set-aside cut from the second records' own
+    /// effect. The report's name gains `-set-aside-like`.
+    #[arg(long)]
+    pub set_aside_like: Option<std::path::PathBuf>,
 }
 
 /// Searches audio files against the index, with or without second records
@@ -400,6 +408,7 @@ pub fn second_records(
         queries,
         records,
         name,
+        set_aside_like,
     } = args;
     let padding = harness.padding(&UNCHANGED_INDEX)?;
     let matching = harness.search.matching;
@@ -418,12 +427,26 @@ pub fn second_records(
     )?;
     drop(library_records);
     let index_seconds = started.elapsed().as_secs_f64();
+    let (index, arm) = second_records::arm(index, padding.second.as_ref(), records);
+    let (index, like) = match &set_aside_like {
+        Some(saved) => {
+            let (index, like) = fullest::setting_aside_like(
+                index,
+                saved,
+                &std::collections::BTreeSet::new(),
+                gunfinger_core::search::SKIPPED_SHARE,
+            )?;
+            fullest::print_like(&like);
+            (index, "-set-aside-like")
+        }
+        None => (matching.index(index), ""),
+    };
     let report = second_records::Report {
         index_seconds,
         ..second_records::search(
-            index,
+            &index,
+            arm,
             padding.second.as_ref(),
-            records,
             &queries,
             &matching,
             &harness.rungs(),
@@ -432,7 +455,7 @@ pub fn second_records(
     };
     let path = harness
         .reports()
-        .join(format!("second-records-{name}-{}.json", report.records));
+        .join(format!("second-records-{name}-{arm}{like}.json"));
     write_json(&path, &report)?;
     println!(
         "{} queries, {} assets, {} postings ({} of second records); wrote {}",
