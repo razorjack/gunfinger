@@ -1656,7 +1656,7 @@ controls' 4 long mixes 3:49.
 at their start digests (`work/s80/listening-digests-end.txt`). A
 read-only review by a subagent found no change to the default draws,
 renders or reports and corrected several readings in the documents
-(brief 80, 19:40).
+(brief 80, 19:15).
 
 ### What else to know
 

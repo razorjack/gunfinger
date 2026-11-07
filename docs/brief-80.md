@@ -231,7 +231,7 @@ changed in this session in response.
 - 18:40. The 262-track scale is not run: the left-out cases need the
   NAS library's related versions (only two pair families have both
   records in the corpus), and the time box goes to the final checks.
-- 19:40. The review (a read-only subagent) found no change to the
+- 19:15. The review (a read-only subagent) found no change to the
   default draws, renders or reports, and corrected the documents: P1
   failed in mistaken-over through 2 entries (the third has the right
   title by our same-title judgment, which the script does not read);
