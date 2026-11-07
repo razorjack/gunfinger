@@ -116,7 +116,7 @@ conservative option, write it down here and continue.
 
 ### The matrix
 
-Each case is 8 mixes of the drops kind (12 blocks each: per mix one quiet
+Each case is 12 mixes of the drops kind (12 blocks each: per mix one quiet
 partner, one brief partner, two unrelated double drops, one pair drop and
 plays alone), drawn from the 208 tagged corpus files (`work/s39/tags-262.json`)
 with a seed no session has used, one seed per case. The number of distinct
@@ -181,7 +181,7 @@ changed in this session in response.
 
 ## Decisions
 
-- 17:55. Cases at 8 mixes each, one seed per case (the time box: 9 cases,
+- 17:55. Cases at 8 mixes each (12 since 18:02, below), one seed per case (the time box: 9 cases,
   two NAS-scale `identify` runs each). The 262-track scale only if time
   is left after the NAS runs.
 - 17:55. The key-locked cases are searched with `--playback both`: with
@@ -189,6 +189,14 @@ changed in this session in response.
   be missed, which measures nothing about wrong partners.
 - 17:55. Broadcast processing as a post-process of plain's renders, not
   a harness option: it changes no time, so the truth stays the plan's.
+- 18:02. Before any scored run: 12 mixes per drops case instead of 8
+  (the harness change took less time than planned; 36 quiet, brief and
+  inside partners per case instead of 24). The controls stay 4 long
+  mixes. The start regressions are skipped (`docs/session-rules.md`):
+  `s80-start` is byte-identical to `s79-final` (`gunfinger` `5829ad77...`,
+  `gunfinger-eval` `8e01bb7a...`), and neither store changed (40,666 and
+  265 records, no file newer than brief 79). `s80-run` (from `cf05900`)
+  has the same `gunfinger`; only `gunfinger-eval` changed (`41bf0d3d...`).
 - 17:55. "Dropped by rule" cannot be counted from the CLI's report
   without a product or output change, which this session may not make;
   partners found and not found are reported instead.
