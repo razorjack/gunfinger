@@ -101,6 +101,9 @@ Each session takes the first item it can do without a pending decision.
 7. **The band profile of 0034** under the default matcher at 262 tracks
    (shared panels' development halves, `recall`, `robust`), criteria
    first; a NAS re-extraction only if it passes.
+   *Session 83 (0290, 0291):* measured; neither variant passes (no
+   gain under combined damage; a loses equal-level blends, b
+   strengthens shared material). Next: the decision (queue item 10).
 8. **A second-chance search over the gaps**: the costly searches
    (targeted extra rungs first, estimated at under 1% more CPU in
    0251-0252; then key lock) only over the stretches `gaps::uncovered`
@@ -296,15 +299,18 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   1% more CPU), which with one extra rung pair passes the registration.
   Evidence: 0033, 0059, 0219, 0226-0230, 0251, 0252;
   `docs/research/2026-10-25-ladder-edge-decision.md`.
-- **Peaks across frequency bands.** *Open (active queue item 7).* The
-  band profile (variant a, 0034) has 9% fewer postings and gives the
-  development mix 34% more true hits, but related records reach the
-  possible tier more easily (up to 50 hits from audio not in the
-  index). Adoption is ours to decide. Next: test it under the default matcher at
-  262 tracks on the shared panels' development halves, `recall` and
-  `robust`, criteria first; a NAS re-extraction only if it passes; its
-  search cost at scale is unmeasured. Adopting it means extracting every
-  peak record again, and one test evaluation should confirm it.
+- **Peaks across frequency bands.** *Measured and undecided: neither
+  variant passed its registration (session 83; decisions queue item
+  10).* Under the default matcher at 262 tracks both of 0034's variants
+  keep every answer with no wrong confident answer and raise the
+  development mixes' true hits (a: 9% fewer postings, Stakka +32%; b: 6%
+  more, +39%), but neither gains the registered 2 points on recall's
+  damaged sets (a +0.38, b +1.21); a loses `robust`'s equal-level
+  blends (1,932 confident against 1,938), and b strengthens shared
+  material on the second shared panel. Next: the user's choice between
+  closing it and a revised registration (variant b at NAS scale in a
+  scratch store); no NAS re-extraction without that. Evidence: 0034,
+  0207, 0290, 0291; brief 83.
 - **Detection boundaries.** *Open; not in the active queue.* Facts:
   boundaries are the first and last aligned hit; crossfade edges lie a
   median 2.7 s inside the truth (0020); `--trim-ends` cost 2.6 s of true

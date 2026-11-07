@@ -216,6 +216,29 @@ external review (`docs/research/2026-11-05-external-review.md`).
   `docs/history/`. Should the reading order point at the experiments,
   the roadmap's item lines and the newest handoff instead?
 
+### 10. The band profile after its retest (since 2026-11-08)
+
+- **Evidence.** Experiments 0290 and 0291 (session 83, 262 tracks, the
+  default matcher, registration in `docs/brief-83.md`). Both of 0034's
+  variants keep every answer of the protocol, `recall`, `grid` and
+  `robust` with no wrong confident answer, and raise the development
+  mixes' true hits by 16-32% (a) and 24-39% (b). Neither passes: the
+  registered gain under damage (+2 points on recall's damaged sets) is
+  +0.38 points for a and +1.21 for b, a loses `robust`'s equal-level
+  blends (1,932 confident against 1,938), and b strengthens shared
+  material on the second panel (flagged queries 8 → 16 with everything
+  indexed; Phantom 2018 confident as an unrelated file). Variant a moves
+  related detections from confident to possible on both panels.
+- **The choice.** Close the item (today's profile stays; the roadmap
+  demotes it), or register a revised test with data the first run did
+  not use (for example variant b at NAS scale, in a scratch store, with
+  a precision bar on the shared panels), at the cost of extracting
+  variant records of every NAS file.
+- **Recommendation.** Close it. The gain is in evidence the confident
+  answers already have; under combined damage, where recall is lost
+  (0207), neither variant recovers the missing peaks, and the variant
+  that comes closest strengthens shared material.
+
 ## Decided
 
 (none yet)

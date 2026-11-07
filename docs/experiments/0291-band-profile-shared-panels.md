@@ -21,8 +21,8 @@ when it holds a confident detection of role related or other. The validation hal
 On panel 1 the flagged queries fall under a in 6 of 12 scenarios and rise in none; under b
 they fall only in Sonar 1 and 2. Panel 2's flags are all in the Phantom Force family: Digital &
 Spirit's Phantom 2018 (a remake), and in phantom-force-2 the Phantom Force upload. In
-phantom-force-1 Phantom 2018 sits at the rule in every arm (243-280 hits); a flags 3 queries T
-does not and drops 12; b flags 45 queries against T's 19, in 3 scenarios, and in phantom-force-5 (whose related file is Meltdown) names Phantom 2018 as an other file 10 times.
+phantom-force-1 Phantom 2018 sits at the rule in every arm (243-280 hits); a flags 3 queries there that T
+does not and over the panel drops 12; b flags 45 queries against T's 19, in 3 scenarios, and in phantom-force-5 (whose related file is Meltdown) names Phantom 2018 as an other file 10 times.
 
 **False candidates of 30 hits or more** (calibrate over the 4 sweeps and the Stakka scans, per
 query recording and file; T, a, b): the Clockwork remix 100, 94, 111; Aphrodite - Fanfare on

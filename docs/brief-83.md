@@ -247,3 +247,9 @@ what a further test would need.
   `robust`; it is written and committed before 0291's analysis.
 - *(00:48)* Slips: 0290 and 0291 were each first committed over 40 lines
   (41 and 43) and corrected in the next commit.
+- *(00:52)* `docs/calibration.md` is left unchanged: its row "Peak
+  neighbourhoods that widen with frequency" states 0034's figures under
+  the matchers of session 4, and no figure it states is contradicted by
+  0290 or 0291 (the "To adopt" column still holds). The decisions queue
+  gains item 10 (close the item or register a revised test), since
+  neither variant passed.
