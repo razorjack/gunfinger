@@ -14,10 +14,10 @@ anything else:
    history, not live rules: the standing rules are collected in
    `docs/session-rules.md` (2026-11-05). Read an older brief only when a
    document points to it for a procedure, for example `docs/brief-64.md`
-   for a prune. The current session is 77: `docs/brief-77.md` and
-   `docs/session-77-checklist.md`, with the external review note
+   for a prune. The current session is 78: `docs/brief-78.md` and
+   `docs/session-78-checklist.md`, with the external review note
    `docs/research/2026-11-05-external-review.md` (its "Harness
-   findings", items 1 and 2).
+   findings", items 3-5) and ADR 0018.
 3. `docs/session-notes.md`: its index and the newest session's section
    (the handoff: baselines, store revision, builds, open questions);
    older sessions are in `docs/history/`, named in the index
