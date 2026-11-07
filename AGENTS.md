@@ -139,7 +139,8 @@ default): each confident entry's file is taken out of the recording
 with the core's `residual`, and what is left is searched for a quieter
 track.
 
-The harness adds `sweep`, `scan`, `calibrate`, `regress` (with
+The harness adds `sweep`, `scan`, `calibrate`, `regress` (the sweep,
+the three development mixes' scans and Stakka's leave-outs, with
 `provenance`, what a baseline was made from, and `digest`, SHA-256),
 `robust` (transformed excerpts), `synthetic` (the scale proxy), `clusters` and
 `related` (self-match of the library), `pair` (two files' alignments and
@@ -182,7 +183,9 @@ index, so that each run leaves a gap of known tracks.
 `mixes` generates mixes of library tracks with exact truth (`mixes
 --kind drops` for double drops) and `render` renders test audio with
 FFmpeg (excerpts at another speed, turntable or key-locked, filtered
-and encoded); `grid` places brief plays across the window grid;
+and encoded) under the core's stall timeout, and reuses a render only
+when its receipt holds the same recipe (sources, steps, renderer);
+`grid` places brief plays across the window grid;
 `loss` counts where a real mix loses evidence; `versions` is the
 diagnostic version verifier; `residual` holds the harness's names for
 the core's mask; `counterexamples` searches small generated mixes under

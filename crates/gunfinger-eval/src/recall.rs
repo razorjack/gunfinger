@@ -32,7 +32,7 @@ use crate::files::{read_json, write_json};
 use crate::fullest::{self, SetAsideLike};
 use crate::matching::Matching;
 use crate::padding::{OTHER_LIBRARY_PREFIX, Padding};
-use crate::render::{Stereo, is_complete};
+use crate::render::{Recipe, Stereo, once};
 use crate::rng::Rng;
 use crate::robust::{COMBINED_ENCODING, render_combined};
 use crate::stereo::QueryAudio;
@@ -408,9 +408,13 @@ pub fn render_damaged(
     let work = damaged_renders(panel, dir);
     let failures: Vec<String> = map_in_order(&work, jobs, |rendered| {
         let partner = rendered.partner.as_ref()?;
-        if is_complete(&rendered.path) {
-            return None;
-        }
+        let source = audio_file(root, &rendered.source.asset);
+        let partner_file = audio_file(root, &partner.asset);
+        let speed = 1.0 + rendered.speed_percent / 100.0;
+        let steps = format!(
+            "robust::render_combined from {:?} s at speed {speed:?}, partner from {:?} s",
+            rendered.source.start_seconds, partner.start_seconds
+        );
         let label = format!(
             "recall, damaged {}",
             rendered
@@ -419,15 +423,20 @@ pub fn render_damaged(
                 .unwrap_or_default()
                 .to_string_lossy()
         );
-        render_combined(
-            &audio_file(root, &rendered.source.asset),
-            rendered.source.start_seconds,
-            1.0 + rendered.speed_percent / 100.0,
-            (&audio_file(root, &partner.asset), partner.start_seconds),
-            &label,
-            &rendered.path,
-        )
-        .err()
+        Recipe::new(&[&source, &partner_file], steps)
+            .and_then(|recipe| {
+                once(&rendered.path, &recipe, || {
+                    render_combined(
+                        &source,
+                        rendered.source.start_seconds,
+                        speed,
+                        (&partner_file, partner.start_seconds),
+                        &label,
+                        &rendered.path,
+                    )
+                })
+            })
+            .err()
     })
     .into_iter()
     .flatten()
@@ -1217,19 +1226,30 @@ mod tests {
         fs::create_dir_all(&dir).unwrap();
         // Cached kept sources retain their original draw numbers. The
         // removed source has neither audio nor cached excerpts.
+        let library = dir.join("missing-library");
         for (number, source) in panel.development.sources.iter().enumerate() {
             if !panel.is_left_out(source) {
+                let file = audio_file(&library, &source.asset);
+                fs::create_dir_all(file.parent().unwrap()).unwrap();
+                fs::write(&file, b"audio").unwrap();
                 for speed in SPEEDS_PERCENT {
-                    fs::write(dir.join(format!("{number:03}-{speed:+.0}.mp3")), b"cached").unwrap();
-                    fs::write(
-                        dir.join(format!("{number:03}-{speed:+.0}.mp3.complete")),
-                        "6",
+                    let path = dir.join(format!("{number:03}-{speed:+.0}.mp3"));
+                    let recipe = crate::render::excerpt_recipe(
+                        &file,
+                        source.start_seconds,
+                        crate::sweep::EXCERPT_SECONDS,
+                        1.0 + speed / 100.0,
+                        crate::render::Encoding::Mp3(128),
                     )
+                    .unwrap();
+                    once(&path, &recipe, || {
+                        fs::write(&path, b"cached").map_err(|error| error.to_string())
+                    })
                     .unwrap();
                 }
             }
         }
-        let rendered = render(&panel, &dir.join("missing-library"), &dir, 1).unwrap();
+        let rendered = render(&panel, &library, &dir, 1).unwrap();
         assert_eq!(rendered.len(), 79 * SPEEDS_PERCENT.len());
         assert_eq!(rendered[SPEEDS_PERCENT.len()].source.asset, drawn[2]);
         assert!(

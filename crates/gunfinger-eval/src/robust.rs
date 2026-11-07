@@ -505,12 +505,11 @@ pub fn run(
     let draws = searched_draws(&plan);
     let dir = work.join("robust").join(format!("seed-{seed}"));
     let speech = speech_samples(&dir)?;
+    let speech_file = speech_synthesis(Platform::CURRENT, &dir).1;
     let conditions = chosen(only);
     let work_items = queries_to_search(&conditions, &draws, &dir);
     let results: Vec<Result<QueryResult, String>> = map_in_order(&work_items, jobs, |job| {
-        if !crate::render::is_complete(&job.path) {
-            render_query(job, library, &speech, seed)?;
-        }
+        render_query_once(job, library, (&speech, &speech_file), seed)?;
         let audio = match query_channels {
             QueryChannels::Downmix => matching.decode_query(&job.path)?,
             choice => QueryAudio::Mono(choice.decode(&job.path, profile.sample_rate)?),
@@ -730,6 +729,26 @@ fn chosen(only: &[String]) -> Vec<Condition> {
                 .filter(|condition| only.contains(&condition.name())),
         )
         .collect()
+}
+
+/// Renders `job`'s query unless an earlier run made the same render
+/// (`render::once`); `speech` is the speech conditions' audio and its file.
+fn render_query_once(
+    job: &Job,
+    library: &Library,
+    speech: (&[f32], &Path),
+    seed: u64,
+) -> Result<(), String> {
+    let source = library.root.join(&job.draw.asset);
+    let partner = library.root.join(&job.partner.asset);
+    let steps = format!(
+        "robust {:?} at speed {:?}, query {} from {:?} s, partner from {:?} s, seed {seed}",
+        job.condition, job.speed, job.number, job.draw.start_seconds, job.partner.start_seconds
+    );
+    let recipe = crate::render::Recipe::new(&[&source, &partner, speech.1], steps)?;
+    crate::render::once(&job.path, &recipe, || {
+        render_query(job, library, speech.0, seed)
+    })
 }
 
 fn render_query(job: &Job, library: &Library, speech: &[f32], seed: u64) -> Result<(), String> {

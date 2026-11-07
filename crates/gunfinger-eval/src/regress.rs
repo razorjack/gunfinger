@@ -9,7 +9,8 @@
 //! the manifest's tracks); a pair that does not is printed as
 //! "incomparable", apart from "changed" and "identical". The baseline's
 //! `provenance.json`, where it has one, is compared with the current
-//! inputs.
+//! inputs. A baseline saved before a report joined the evaluation is
+//! "incomplete": what it holds is compared, and the rest is named.
 
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -33,8 +34,30 @@ const MISMATCHES_SHOWN: usize = 3;
 /// Fields that differ between runs of the same build on the same inputs.
 const TIMING_FIELDS: [&str; 1] = ["wall_seconds"];
 
-/// Report files of the standard evaluation, by name.
+/// The development sets scanned whole besides `--set` (brief 78): with
+/// Stakka's, they hold every development track and the only real version
+/// plays.
+const OTHER_DEVELOPMENT_SETS: [&str; 2] =
+    ["razorjack-2003-03-29", "nocny-trans-vertical-2002-08-23"];
+
+/// The development sets scanned whole besides `set`.
+pub fn other_sets(set: &str) -> impl Iterator<Item = &'static str> {
+    OTHER_DEVELOPMENT_SETS
+        .into_iter()
+        .filter(move |other| *other != set)
+}
+
+/// Report files of the standard evaluation, by name: `set`'s (as
+/// `set_report_names`), then the other development sets' scans.
 pub fn report_names(set: &str, seed: u64) -> Vec<String> {
+    let mut names = set_report_names(set, seed);
+    names.extend(other_sets(set).map(|other| format!("scan-{other}.json")));
+    names
+}
+
+/// The sweep, `set`'s scan and its leave-outs: the reports calibrate
+/// reads for `set`.
+fn set_report_names(set: &str, seed: u64) -> Vec<String> {
     let mut names = vec![
         format!("sweep-seed-{seed}.json"),
         format!("scan-{set}.json"),
@@ -88,6 +111,10 @@ pub fn save_provenance_only(
     }
     let build = std::env::current_exe().map_err(|error| error.to_string())?;
     for name in report_names(set, seed) {
+        // A report the baseline was saved without is not described.
+        if !baseline.join(&name).exists() {
+            continue;
+        }
         if modified(&reports.join(&name))? < modified(&build)? {
             return Err(format!(
                 "{name} is older than this build; run regress with it first"
@@ -127,11 +154,19 @@ pub struct Verdict {
     /// Pairs of reports that do not describe the same queries or scan, and
     /// inputs of the provenance that differ.
     pub incomparable: Vec<String>,
+    /// Reports the baseline does not hold.
+    pub incomplete: Vec<String>,
 }
 
 impl Verdict {
+    /// Whether every report the baseline holds is equal to the current one.
     pub fn identical(&self) -> bool {
         self.changed.is_empty() && self.incomparable.is_empty()
+    }
+
+    /// Whether the baseline holds every report of the evaluation.
+    pub fn complete(&self) -> bool {
+        self.incomplete.is_empty()
     }
 }
 
@@ -148,26 +183,34 @@ pub fn compare(
     let mut verdict = Verdict::default();
     compare_provenance(baseline, now, &mut verdict)?;
     let names = report_names(set, seed);
-    let (sweep_name, scan_names) = names.split_first().ok_or("no reports")?;
-    compare_sweeps(
-        sweep_name,
-        &read_json(&baseline.join(sweep_name))?,
-        &read_json(&reports.join(sweep_name))?,
-        &mut verdict,
-    );
-    for name in scan_names {
-        compare_scans(
-            name,
-            &read_json(&baseline.join(name))?,
-            &read_json(&reports.join(name))?,
-            &mut verdict,
-        );
+    let (held, missing): (Vec<&String>, Vec<&String>) =
+        names.iter().partition(|name| baseline.join(name).exists());
+    for name in missing {
+        println!("{name}: incomplete: the baseline has no such report");
+        verdict.incomplete.push(name.clone());
+    }
+    for name in &held {
+        if name.starts_with("sweep-") {
+            compare_sweeps(
+                name,
+                &read_json(&baseline.join(name))?,
+                &read_json(&reports.join(name))?,
+                &mut verdict,
+            );
+        } else {
+            compare_scans(
+                name,
+                &read_json(&baseline.join(name))?,
+                &read_json(&reports.join(name))?,
+                &mut verdict,
+            );
+        }
     }
     compare_calibrations(
         &standard_calibration(baseline, set, seed)?,
         &standard_calibration(reports, set, seed)?,
     );
-    for name in &names {
+    for name in held {
         if !same_apart_from_timing(&baseline.join(name), &reports.join(name))?
             && !verdict.changed.contains(name)
             && !verdict.incomparable.contains(name)
@@ -176,11 +219,23 @@ pub fn compare(
             verdict.changed.push(name.clone());
         }
     }
-    if verdict.identical() {
+    let incomplete = if verdict.complete() {
+        String::new()
+    } else {
+        format!(
+            "; incomplete: the baseline has no {}",
+            verdict.incomplete.join(", ")
+        )
+    };
+    if verdict.identical() && verdict.complete() {
         println!("regress: every report equal to its baseline's apart from timing");
+    } else if verdict.identical() {
+        println!(
+            "regress: every report the baseline holds equal to its baseline's apart from timing{incomplete}"
+        );
     } else {
         println!(
-            "regress: {} changed, {} incomparable",
+            "regress: {} changed, {} incomparable{incomplete}",
             listed(&verdict.changed),
             listed(&verdict.incomparable)
         );
@@ -250,11 +305,12 @@ fn strip_timing(value: &mut Value) {
     }
 }
 
-/// The calibration evidence of the standard reports in `dir`. Other sweeps
-/// and scans there (other seeds, other leave-outs) are left out, because
-/// the baseline holds only the standard reports.
+/// The calibration evidence of `set`'s standard reports in `dir`. Other
+/// sweeps and scans there (other seeds, other leave-outs) are left out,
+/// because the baseline holds only the standard reports, and so are the
+/// other development sets' scans, as `calibrate --set` leaves them out.
 fn standard_calibration(dir: &Path, set: &str, seed: u64) -> Result<Calibration, String> {
-    let names = report_names(set, seed);
+    let names = set_report_names(set, seed);
     let (sweep_name, scan_names) = names.split_first().ok_or("no reports")?;
     let scans: Vec<PathBuf> = scan_names.iter().map(|name| dir.join(name)).collect();
     Calibration::from_files(&[dir.join(sweep_name)], &scans)
@@ -798,6 +854,62 @@ mod tests {
         assert!(same.identical(), "{same:?}");
         assert_eq!(changed.changed, [names[0].clone()]);
         assert!(changed.incomparable.is_empty());
+    }
+
+    #[test]
+    fn the_evaluation_names_every_development_set_once() {
+        let stakka = report_names("stakka-skynet-knowledge", 2026);
+        let razorjack = report_names("razorjack-2003-03-29", 2026);
+
+        assert_eq!(
+            stakka,
+            [
+                "sweep-seed-2026.json",
+                "scan-stakka-skynet-knowledge.json",
+                "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json",
+                "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json",
+                "scan-razorjack-2003-03-29.json",
+                "scan-nocny-trans-vertical-2002-08-23.json",
+            ]
+        );
+        assert_eq!(
+            razorjack
+                .iter()
+                .filter(|name| *name == "scan-razorjack-2003-03-29.json")
+                .count(),
+            1
+        );
+        assert!(razorjack.contains(&"scan-nocny-trans-vertical-2002-08-23.json".to_owned()));
+    }
+
+    #[test]
+    fn a_baseline_without_the_other_sets_scans_is_incomplete_not_changed() {
+        let root =
+            std::env::temp_dir().join(format!("gunfinger-incomplete-{}", std::process::id()));
+        let (reports, baseline) = (root.join("reports"), root.join("baseline"));
+        let names = report_names("set", 1);
+        let held = set_report_names("set", 1);
+        for (dir, names) in [(&reports, &names), (&baseline, &held)] {
+            write_json(&dir.join(&names[0]), &sweep(1, 300)).unwrap();
+            for name in &names[1..] {
+                write_text(&dir.join(name), EMPTY_SCAN).unwrap();
+            }
+        }
+        let now = crate::provenance::tests::provenance();
+
+        let verdict = compare(&baseline, &reports, "set", 1, &now).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+
+        assert!(verdict.identical(), "{verdict:?}");
+        assert!(!verdict.complete());
+        assert_eq!(
+            verdict.incomplete,
+            [
+                "scan-razorjack-2003-03-29.json",
+                "scan-nocny-trans-vertical-2002-08-23.json"
+            ]
+        );
+        assert!(verdict.changed.is_empty() && verdict.incomparable.is_empty());
     }
 
     #[test]

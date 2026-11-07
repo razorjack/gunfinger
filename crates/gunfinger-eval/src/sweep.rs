@@ -28,7 +28,7 @@ use crate::fullest::{self, FullestReport, Ranking, SetAsideLike};
 use crate::library_map::LibraryMap;
 use crate::matching::Matching;
 use crate::padding::{OTHER_LIBRARY_PREFIX, Padding, original_path};
-use crate::render::{Encoding, render_excerpt};
+use crate::render::{Encoding, excerpt_once};
 use crate::rng::Rng;
 use crate::titles::SameTitles;
 use crate::verifier::{Verification, Verifier};
@@ -524,8 +524,8 @@ fn draw_excerpts(records: &[PeakRecord], held_out: &BTreeSet<String>, rng: &mut 
 }
 
 /// Renders every excerpt at every speed of `speeds` on `jobs` threads,
-/// from the file `source` gives each draw, reusing files from an earlier
-/// run with the same seed.
+/// from the file `source` gives each draw, reusing an earlier run's
+/// renders where their receipts hold the same recipe.
 pub fn render_all<'d>(
     source: impl Fn(&Draw) -> PathBuf + Sync,
     draws: impl Iterator<Item = (usize, &'d Draw)>,
@@ -546,11 +546,8 @@ pub fn render_all<'d>(
         })
         .collect();
     let failures: Vec<String> = map_in_order(&work, jobs, |(draw, speed, path)| {
-        if crate::render::is_complete(path) {
-            return None;
-        }
         let speed_ratio = 1.0 + speed / 100.0;
-        render_excerpt(
+        excerpt_once(
             &source(draw),
             draw.start_seconds,
             EXCERPT_SECONDS,

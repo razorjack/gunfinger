@@ -8,6 +8,11 @@
 //! threads of their own and the child is reaped on another, none of which
 //! the caller waits for once the run has stalled. They end when the child
 //! does.
+//!
+//! A child that reports its progress on stdout instead of writing data
+//! there (FFmpeg's `-progress`, for an encode to a file) runs under
+//! `run_reporting`, whose reader decides what counts: FFmpeg repeats the
+//! same report while its input stalls.
 
 use std::io::{self, Read};
 use std::process::{Child, ChildStdout, Command, ExitStatus, Stdio};
@@ -30,21 +35,39 @@ pub enum Run<T> {
 }
 
 /// Stdout (or stderr) of a watched child: every read that returns data
-/// tells the watcher that the child is still writing.
+/// tells the watcher that the child is still writing, unless the run is
+/// `run_reporting`'s, whose reader calls `beat` itself.
 pub struct Heartbeat<T, R = ChildStdout> {
     pipe: R,
     events: Sender<Event<T>>,
+    beats: Beats,
+}
+
+impl<T, R> Heartbeat<T, R> {
+    /// Tells the watcher that the child is still making progress.
+    pub fn beat(&self) {
+        // The watcher stops listening only after a stall.
+        let _ = self.events.send(Event::Beat);
+    }
 }
 
 impl<T, R: Read> Read for Heartbeat<T, R> {
     fn read(&mut self, buffer: &mut [u8]) -> io::Result<usize> {
         let read = self.pipe.read(buffer)?;
-        if read > 0 {
-            // The watcher stops listening only after a stall.
-            let _ = self.events.send(Event::Beat);
+        if read > 0 && self.beats == Beats::OnData {
+            self.beat();
         }
         Ok(read)
     }
+}
+
+/// What counts as a sign of life on stdout.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum Beats {
+    /// Any data.
+    OnData,
+    /// Only the reader's calls of `Heartbeat::beat`.
+    WhenTold,
 }
 
 enum Event<T> {
@@ -61,13 +84,33 @@ pub fn run<T: Send + 'static>(
     stall: Duration,
     read: impl FnOnce(Heartbeat<T>) -> io::Result<T> + Send + 'static,
 ) -> io::Result<Run<T>> {
+    watched(command, stall, Beats::OnData, read)
+}
+
+/// Like `run`, for a child that reports its progress on stdout: what it
+/// writes there counts only when `read` calls `Heartbeat::beat`, as when
+/// the reported position has advanced. Stderr still counts on any data.
+pub fn run_reporting<T: Send + 'static>(
+    command: &mut Command,
+    stall: Duration,
+    read: impl FnOnce(Heartbeat<T>) -> io::Result<T> + Send + 'static,
+) -> io::Result<Run<T>> {
+    watched(command, stall, Beats::WhenTold, read)
+}
+
+fn watched<T: Send + 'static>(
+    command: &mut Command,
+    stall: Duration,
+    beats: Beats,
+    read: impl FnOnce(Heartbeat<T>) -> io::Result<T> + Send + 'static,
+) -> io::Result<Run<T>> {
     let mut child = command
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
         .spawn()?;
     let (events, watched) = mpsc::channel();
-    if let Err(error) = start_readers(&mut child, read, events) {
+    if let Err(error) = start_readers(&mut child, beats, read, events) {
         give_up(child);
         return Err(error);
     }
@@ -105,6 +148,7 @@ pub fn run<T: Send + 'static>(
 
 fn start_readers<T: Send + 'static>(
     child: &mut Child,
+    beats: Beats,
     read: impl FnOnce(Heartbeat<T>) -> io::Result<T> + Send + 'static,
     events: Sender<Event<T>>,
 ) -> io::Result<()> {
@@ -114,6 +158,7 @@ fn start_readers<T: Send + 'static>(
             let output = read(Heartbeat {
                 pipe: stdout,
                 events: events.clone(),
+                beats,
             });
             let _ = events.send(Event::Output(output));
         })?;
@@ -125,6 +170,7 @@ fn start_readers<T: Send + 'static>(
             let _ = Heartbeat {
                 pipe: stderr,
                 events: events.clone(),
+                beats: Beats::OnData,
             }
             .read_to_end(&mut bytes);
             let text = String::from_utf8_lossy(&bytes).into_owned();
@@ -349,6 +395,39 @@ mod tests {
         assert!(status.success());
         assert_eq!(diagnostics.lines().count(), 40, "{diagnostics}");
         assert!(started.elapsed() > stall, "{:?}", started.elapsed());
+        let _ = fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn a_reporting_child_is_alive_only_while_its_reader_beats() {
+        let dir = scratch("reporting");
+        // The same report every 0.1 s, 40 in all: at least 4 s, longer than
+        // either stall timeout.
+        let script =
+            "i=0; while [ $i -lt 40 ]; do echo 'out_time_us=0'; sleep 0.1; i=$((i + 1)); done";
+        let repeats = stand_in(&dir, "repeats", script);
+        let beating = |mut heartbeat: Heartbeat<Vec<u8>>| {
+            let mut reports = Vec::new();
+            let mut buffer = [0; 64];
+            loop {
+                let read = heartbeat.read(&mut buffer)?;
+                if read == 0 {
+                    return Ok(reports);
+                }
+                heartbeat.beat();
+                reports.extend(&buffer[..read]);
+            }
+        };
+
+        let unheard = run_reporting(&mut Command::new(&repeats), STALL, read_all).unwrap();
+        let heard = run_reporting(&mut Command::new(&repeats), Duration::from_secs(3), beating);
+
+        assert!(matches!(unheard, Run::Stalled), "{unheard:?}");
+        let Ok(Run::Finished { output, status, .. }) = heard else {
+            panic!("{heard:?}")
+        };
+        assert!(status.success());
+        assert_eq!(output.unwrap().len(), 40 * "out_time_us=0\n".len());
         let _ = fs::remove_dir_all(&dir);
     }
 

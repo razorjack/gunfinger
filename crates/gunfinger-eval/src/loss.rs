@@ -31,7 +31,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
 use crate::manifest::{Referable, load_set};
-use crate::render::{Encoding, render_excerpt};
+use crate::render::{Encoding, excerpt_once};
 
 /// Octave bands of anchor frequency, as `gunfinger stats` counts peaks.
 const BAND_EDGES_HZ: [f64; 6] = [125.0, 250.0, 500.0, 1000.0, 2000.0, 4000.0];
@@ -274,19 +274,17 @@ fn analyse_play(
     // the play unless the track starts there.
     let clean_offset = detection.start_seconds
         - MARGIN_SECONDS.min(detection.track_start_seconds / alignment.speed);
-    if !crate::render::is_complete(clean_path) {
-        if let Some(dir) = clean_path.parent() {
-            std::fs::create_dir_all(dir).map_err(|error| error.to_string())?;
-        }
-        render_excerpt(
-            &library.root.join(&record.header.source.path),
-            alignment.track_at(clean_offset),
-            detection.end_seconds + MARGIN_SECONDS - clean_offset,
-            alignment.speed,
-            Encoding::Lossless,
-            clean_path,
-        )?;
+    if let Some(dir) = clean_path.parent() {
+        std::fs::create_dir_all(dir).map_err(|error| error.to_string())?;
     }
+    excerpt_once(
+        &library.root.join(&record.header.source.path),
+        alignment.track_at(clean_offset),
+        detection.end_seconds + MARGIN_SECONDS - clean_offset,
+        alignment.speed,
+        Encoding::Lossless,
+        clean_path,
+    )?;
     let clean = decode(clean_path, profile.sample_rate, Excerpt::default())
         .map_err(|error| error.to_string())?
         .samples;

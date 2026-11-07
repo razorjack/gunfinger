@@ -10,9 +10,9 @@
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
-use std::process::{Command, Stdio};
+use std::process::Command;
 
-use gunfinger_core::decode::{Container, Excerpt, decode};
+use gunfinger_core::decode::{Excerpt, STALL, decode};
 use gunfinger_core::index::Index;
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::ignore::{Pattern, leaving_out};
@@ -25,7 +25,7 @@ use gunfinger_core::store::{PeakRecord, PeakStore, RecordHeader};
 use serde::Serialize;
 
 use crate::recall::{KINDS, Kind};
-use crate::render::Stereo;
+use crate::render::{self, Stereo};
 use crate::rng::Rng;
 
 /// What `robust` searches of each query.
@@ -359,26 +359,21 @@ fn side(stereo: &Stereo) -> Vec<f32> {
 /// first audio stream, the same container handling) but with `-ac 2`: a
 /// one-channel file gives two identical channels.
 pub fn decode_stereo(path: &Path, sample_rate: u32) -> Result<Stereo, String> {
-    let output = Command::new("ffmpeg")
+    let mut command = Command::new("ffmpeg");
+    command
         .args(["-nostdin", "-v", "error", "-threads", "1"])
-        .args(Container::of(path).input_args())
+        .args(render::container(path)?.input_args())
         .arg("-i")
         .arg(path)
         .args(["-map", "0:a:0", "-vn", "-sn", "-dn", "-ac", "2", "-ar"])
         .arg(sample_rate.to_string())
-        .args(["-f", "f32le", "pipe:1"])
-        .stdin(Stdio::null())
-        .output()
-        .map_err(|error| format!("cannot run ffmpeg: {error}"))?;
-    if !output.status.success() {
-        return Err(format!(
-            "ffmpeg could not decode {} as two channels: {}",
-            path.display(),
-            String::from_utf8_lossy(&output.stderr).trim()
-        ));
-    }
+        .args(["-f", "f32le", "pipe:1"]);
+    let output = render::pipe_watched(
+        &mut command,
+        STALL,
+        &format!("decode {} as two channels", path.display()),
+    )?;
     let samples: Vec<f32> = output
-        .stdout
         .as_chunks::<4>()
         .0
         .iter()

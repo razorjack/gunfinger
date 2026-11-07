@@ -26,7 +26,8 @@ use crate::files::read_json;
 use crate::matching::Matching;
 use crate::padding::Padding;
 use crate::render::{
-    Encoding, Playback, RENDER_RATE, Stereo, encode, encode_stereo, limited, render_samples, rms,
+    Encoding, Playback, RENDER_RATE, Recipe, Stereo, encode, encode_stereo, limited,
+    render_samples, rms,
 };
 use crate::rng::Rng;
 use crate::robust::{Fault, faulted};
@@ -1696,23 +1697,41 @@ pub struct Searcher<'a> {
     pub fault: Option<Fault>,
 }
 
-/// Renders `mix` to `path` unless an earlier run left it there with the
-/// same plan (`<path stem>.truth.json`).
+/// Renders `mix` to `path` unless an earlier run made the same render
+/// there (`render::once`: the same plan, fault and source files), and
+/// writes the plan beside it (`<path stem>.truth.json`).
 pub fn render_once(
     mix: &PlannedMix,
     roots: &Roots,
     fault: Option<Fault>,
     path: &Path,
 ) -> Result<(), String> {
-    let truth_path = path.with_extension("truth.json");
     let plan = serde_json::to_string_pretty(mix).map_err(|error| error.to_string())?;
-    let rendered = crate::render::is_complete(path)
-        && fs::read_to_string(&truth_path).is_ok_and(|saved| saved == plan);
-    if !rendered {
-        render(mix, roots, fault, path)?;
-        fs::write(&truth_path, &plan).map_err(|error| error.to_string())?;
+    crate::render::once(path, &recipe(mix, &plan, roots, fault)?, || {
+        render(mix, roots, fault, path)
+    })?;
+    let truth_path = path.with_extension("truth.json");
+    if fs::read_to_string(&truth_path).is_ok_and(|saved| saved == plan) {
+        return Ok(());
     }
-    Ok(())
+    fs::write(&truth_path, &plan).map_err(|error| error.to_string())
+}
+
+/// The recipe of `mix`'s render, whose serialized plan is `plan`: every
+/// played file, the plan and the fault.
+fn recipe(
+    mix: &PlannedMix,
+    plan: &str,
+    roots: &Roots,
+    fault: Option<Fault>,
+) -> Result<Recipe, String> {
+    let files = mix
+        .plays
+        .iter()
+        .map(|play| roots.path(&play.asset))
+        .collect::<Result<Vec<_>, _>>()?;
+    let sources: Vec<&Path> = files.iter().map(PathBuf::as_path).collect();
+    Recipe::new(&sources, format!("generated mix {plan}, fault {fault:?}"))
 }
 
 /// Renders `mix` unless an earlier run left it at `path` with the same
@@ -1910,6 +1929,49 @@ mod tests {
             "stereo-inverted-seed-2026"
         );
         assert!(crate::robust::stereo_fault("inverted").is_err());
+        fs::remove_dir_all(&dir).ok();
+    }
+
+    #[test]
+    fn a_generated_mix_is_rendered_again_for_another_fault() {
+        let dir =
+            std::env::temp_dir().join(format!("gunfinger-mixes-recipe-{}", std::process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        let generated = std::process::Command::new("ffmpeg")
+            .args(["-nostdin", "-v", "error", "-y", "-f", "lavfi", "-i"])
+            .arg("aevalsrc=0.5*sin(440*2*PI*t)|0.5*sin(440*2*PI*t):s=44100:d=30")
+            .arg(dir.join("a.mp3"))
+            .status()
+            .is_ok_and(|status| status.success());
+        if !generated {
+            eprintln!("skipped: ffmpeg cannot generate audio here");
+            return;
+        }
+        let roots = Roots {
+            library: &dir,
+            other: None,
+        };
+        let mut tone = play(0.0, 8.0);
+        tone.source_start_seconds = 1.0;
+        let mix = PlannedMix {
+            name: String::from("mix-00"),
+            seconds: 8.0,
+            plays: vec![tone],
+        };
+        let path = dir.join("mix-00.mp3");
+        let inverted = crate::robust::stereo_fault("stereo-inverted").unwrap();
+
+        render_once(&mix, &roots, None, &path).unwrap();
+        let unfaulted = fs::read(&path).unwrap();
+        render_once(&mix, &roots, Some(inverted), &path).unwrap();
+        let faulted = fs::read(&path).unwrap();
+        render_once(&mix, &roots, Some(inverted), &path).unwrap();
+
+        // The same plan with another fault is another render.
+        assert_ne!(faulted, unfaulted);
+        assert_eq!(fs::read(&path).unwrap(), faulted);
+        let truth = fs::read_to_string(path.with_extension("truth.json")).unwrap();
+        assert_eq!(truth, serde_json::to_string_pretty(&mix).unwrap());
         fs::remove_dir_all(&dir).ok();
     }
 

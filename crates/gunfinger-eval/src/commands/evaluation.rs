@@ -110,9 +110,9 @@ pub struct RegressArgs {
     #[arg(long, default_value_t = 2026)]
     pub seed: u64,
     /// Exit with an error on any difference from the baseline's reports
-    /// apart from timing, any incomparable pair and any input that differs
-    /// from the baseline's provenance: for changes meant to keep every
-    /// result, such as a refactor.
+    /// apart from timing, any incomparable pair, any input that differs
+    /// from the baseline's provenance and any report the baseline lacks:
+    /// for changes meant to keep every result, such as a refactor.
     #[arg(long)]
     pub strict: bool,
 }
@@ -282,7 +282,7 @@ pub fn regress(harness: &Harness, jobs: usize, args: RegressArgs) -> Result<(), 
         seed,
         &now,
     )?;
-    if strict && !verdict.identical() {
+    if strict && !(verdict.identical() && verdict.complete()) {
         return Err(String::from(
             "regress --strict: the reports or inputs differ from the baseline's",
         ));
@@ -290,7 +290,8 @@ pub fn regress(harness: &Harness, jobs: usize, args: RegressArgs) -> Result<(), 
     Ok(())
 }
 
-/// The sweep, the development scan and its leave-outs.
+/// The sweep, the development scan and its leave-outs, and the other
+/// development sets' scans.
 fn run_standard_evaluation(
     harness: &Harness,
     set: &str,
@@ -314,6 +315,9 @@ fn run_standard_evaluation(
             &UNCHANGED_INDEX,
             jobs,
         )?;
+    }
+    for other in regress::other_sets(set) {
+        run_scan(harness, other, None, &UNCHANGED_INDEX, jobs)?;
     }
     Ok(())
 }

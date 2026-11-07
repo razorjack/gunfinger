@@ -56,7 +56,7 @@ use crate::harmonic::{self, Analysed, Measured, Placement};
 use crate::matching::Matching;
 use crate::padding::{OTHER_LIBRARY_PREFIX, Padding};
 use crate::render::{
-    Encoding, Playback, RENDER_RATE, encode, limited, render_excerpt, render_samples, rms,
+    Encoding, Playback, RENDER_RATE, Recipe, encode, limited, render_excerpt, render_samples, rms,
 };
 use crate::robust::{COMBINED_ENCODING, render_combined};
 use crate::scoring::Level;
@@ -216,6 +216,7 @@ impl Kind {
 }
 
 /// A query to render: where in the played file, how long, looped or not.
+#[derive(Debug)]
 struct Query {
     kind: Kind,
     name: String,
@@ -572,7 +573,8 @@ fn queries(scenario: &Scenario, with_partner: bool, views: Views) -> Vec<Query> 
     queries
 }
 
-/// Renders `query` from the played file unless an earlier run did.
+/// Renders `query` from the played file unless an earlier run made the
+/// same render (`render::once`).
 fn render(
     roots: &Roots,
     scenario: &Scenario,
@@ -581,23 +583,47 @@ fn render(
     dir: &Path,
 ) -> Result<(), String> {
     let path = query_path(dir, query);
-    if crate::render::is_complete(&path) {
-        return Ok(());
-    }
     let source = roots.path(&scenario.played)?;
+    // Only these kinds play the partner.
+    let partner = match query.kind {
+        Kind::Damaged | Kind::Blend => partner,
+        _ => None,
+    };
+    let partner_file = partner
+        .map(|partner| roots.path(&partner.file))
+        .transpose()?;
+    let sources: Vec<&Path> = std::iter::once(source.as_path())
+        .chain(partner_file.as_deref())
+        .collect();
+    let steps = format!(
+        "shared query {query:?}, partner from {:?} s",
+        partner.map(|partner| partner.start_seconds)
+    );
+    crate::render::once(&path, &Recipe::new(&sources, steps)?, || {
+        render_query(roots, &source, query, partner, &path)
+    })
+}
+
+fn render_query(
+    roots: &Roots,
+    source: &Path,
+    query: &Query,
+    partner: Option<&Partner>,
+    path: &Path,
+) -> Result<(), String> {
     let native = Playback::Turntable(1.0);
     match query.kind {
         Kind::Alone | Kind::Beyond | Kind::Before => render_excerpt(
-            &source,
+            source,
             query.start_seconds,
             query.seconds,
             1.0,
             Encoding::Mp3(128),
-            &path,
+            path,
         ),
         Kind::Looped | Kind::Break => {
             let piece = render_samples(
-                &source,
+                source,
                 query.start_seconds,
                 query.source_seconds,
                 native,
@@ -607,44 +633,43 @@ fn render(
                 &looped(&piece, query.seconds / query.source_seconds),
                 None,
                 Encoding::Mp3(128),
-                &path,
+                path,
             )
         }
         Kind::Weak => {
             let samples = render_samples(
-                &source,
+                source,
                 query.start_seconds,
                 query.seconds,
                 native,
                 Some(WEAK_RIP_FILTER),
             )?;
-            encode(&samples, None, WEAK_RIP_ENCODING, &path)
+            encode(&samples, None, WEAK_RIP_ENCODING, path)
         }
         Kind::Killed => {
             let samples = render_samples(
-                &source,
+                source,
                 query.start_seconds,
                 query.seconds,
                 native,
                 Some(BASS_KILL_FILTER),
             )?;
-            encode(&samples, None, Encoding::Mp3(128), &path)
+            encode(&samples, None, Encoding::Mp3(128), path)
         }
         Kind::Damaged => {
             let partner = partner.ok_or("a damaged query needs the plan's blend_partner")?;
             render_combined(
-                &source,
+                source,
                 query.start_seconds,
                 DAMAGED_SPEED,
                 (&roots.path(&partner.file)?, partner.start_seconds),
                 &query.name,
-                &path,
+                path,
             )
         }
         Kind::Blend => {
             let partner = partner.ok_or("a blend query needs the plan's blend_partner")?;
-            let samples =
-                render_samples(&source, query.start_seconds, query.seconds, native, None)?;
+            let samples = render_samples(source, query.start_seconds, query.seconds, native, None)?;
             let partner = render_samples(
                 &roots.path(&partner.file)?,
                 partner.start_seconds,
@@ -658,7 +683,7 @@ fn render(
                 &limited(blended(&samples, &partner, from)),
                 None,
                 Encoding::Mp3(128),
-                &path,
+                path,
             )
         }
     }
