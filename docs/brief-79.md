@@ -271,3 +271,21 @@ them): they test repeatability on new draws, not other recordings.
 - (15:20) Confirmation seeds 2091 and 2092: no document or work
   directory uses them as seeds (the numbers occur only inside unrelated
   data files).
+- (15:45) The end-to-end test of the workers (two double drops,
+  `--jobs 1` against `--jobs 4`) searches with `--playback turntable`:
+  in a debug build it took 6.5 minutes with both ladders and about 5.7
+  with the turntable ladder alone. A shorter mix (110 s, 30 s partners)
+  did not find both partners. The step is the same with either ladder.
+- (15:54) The build is frozen: `work/bin/s79-run/` from `5a988da`
+  (`gunfinger` `6807f46e...`; `gunfinger-eval` unchanged,
+  `8e01bb7a...`). Without the option the Stakka mix's JSON at 262 tracks
+  is byte-identical to the start build's; fmt and clippy clean. The
+  queue (`work/s79/queue.sh`, tmux `s79queue`) started at 15:54:
+  `cost.sh`, `g.sh 2050 2053`, `gen.sh 2091 2092`, `g.sh 2091 2092`.
+- (15:55) Session 73's scores reproduce byte for byte with
+  `tracklist_score.py score MIXES work/s73/g/<set>/under
+  work/reports/library-nas-dnb-peaks/duplicate-clusters.json
+  work/s73/gen/panels/shared-material-seed-2026.json
+  ~/.local/share/gunfinger/nas-dnb-peaks OUT
+  work/s73/nas-exclude-<seed>.txt`; G and the confirmation seeds are
+  scored the same way.

@@ -15,12 +15,12 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 1. Pre-registration committed (brief 79): the fix, the parallel
+- [x] 1. Pre-registration committed (brief 79): the fix, the parallel
   design, the scores, the fresh seeds, what the numbers would mean
-- [ ] 2. Implementation, tested: the saved failures kept; a repeated
+- [x] 2. Implementation, tested: the saved failures kept; a repeated
   upload and an aligned unrelated drop still dropped; identical output
   with 1 and many workers; option off byte-identical
-- [ ] 3. Runs: cost A B C C B A (both scales); G seeds 2050 and 2053 at
+- [~] 3. Runs: cost A B C C B A (both scales); G seeds 2050 and 2053 at
   NAS scale; confirmation seeds 2091 and 2092
 - [ ] 4. Experiments 0281 (the drop rule) and 0282 (the cost)
 - [ ] 5. ADR 0025's open points, decisions queue item 2, roadmap item
