@@ -360,7 +360,7 @@ mod tests {
     }
 
     #[test]
-    fn a_chain_under_3_lines_or_16_s_between_centres_gives_the_mean_of_its_rungs() {
+    fn a_chain_under_3_lines_or_16_s_between_centres_is_estimated_by_the_mean_of_its_rungs() {
         let estimate = |windows: &[u32]| {
             let lines: Vec<Line> = windows
                 .iter()

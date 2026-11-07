@@ -31,7 +31,9 @@ pub struct Matching {
     /// Set aside this share of the fullest posting lists from the first
     /// pass instead of the default 1% (0.01), so that only the cut moves:
     /// lists cross it as a change of the library makes them (ADR 0014,
-    /// experiment 0242). Session 81's perturbation.
+    /// experiment 0242). Session 81's perturbation. Not used with
+    /// `--set-aside-like` or `--rank-fullest-by`, which choose the lists
+    /// themselves.
     #[arg(long, global = true, value_name = "SHARE", conflicts_with_all = ["single_pass", "drop_fullest"])]
     pub set_aside_share: Option<f64>,
     /// The second pass measures each stretch of a few windows again at its
@@ -111,21 +113,34 @@ impl Fit {
 /// baselines written before it existed still compare.
 impl fmt::Debug for Matching {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        // Destructured, so that a field added later must be written here.
+        let Matching {
+            single_pass,
+            drop_fullest,
+            set_aside_share,
+            speed_per_stretch,
+            trim_ends,
+            overlap_by_spans,
+            overlap_by_chains,
+            apart_in_speed,
+            front_end,
+            second_pass_fit,
+        } = self;
         let mut fields = formatter.debug_struct("Matching");
         fields
-            .field("single_pass", &self.single_pass)
-            .field("drop_fullest", &self.drop_fullest);
-        if let Some(share) = self.set_aside_share {
-            fields.field("set_aside_share", &share);
+            .field("single_pass", single_pass)
+            .field("drop_fullest", drop_fullest);
+        if let Some(share) = set_aside_share {
+            fields.field("set_aside_share", share);
         }
         fields
-            .field("speed_per_stretch", &self.speed_per_stretch)
-            .field("trim_ends", &self.trim_ends)
-            .field("overlap_by_spans", &self.overlap_by_spans)
-            .field("overlap_by_chains", &self.overlap_by_chains)
-            .field("apart_in_speed", &self.apart_in_speed)
-            .field("front_end", &self.front_end)
-            .field("second_pass_fit", &self.second_pass_fit)
+            .field("speed_per_stretch", speed_per_stretch)
+            .field("trim_ends", trim_ends)
+            .field("overlap_by_spans", overlap_by_spans)
+            .field("overlap_by_chains", overlap_by_chains)
+            .field("apart_in_speed", apart_in_speed)
+            .field("front_end", front_end)
+            .field("second_pass_fit", second_pass_fit)
             .finish()
     }
 }
@@ -452,7 +467,7 @@ mod tests {
 
     #[test]
     fn another_set_aside_share_moves_only_the_cut_in_its_own_reports() {
-        // One pair of peaks in six files, the others in one each.
+        // One pair of peaks in five files, the others in one each.
         let mut records = vec![
             record("a.mp3", &[100.0, 120.0, 0.0, 300.0, 340.0]),
             record("b.mp3", &[200.0, 230.0]),
