@@ -58,6 +58,12 @@ pub struct MixesArgs {
     /// (`mixes-drops-aligned-drops-seed-<seed>.json`).
     #[arg(long, conflicts_with = "other_pairs")]
     pub aligned_drops: bool,
+    /// With `--kind drops`: a harder case made on each mix as drawn
+    /// (brief 80; `mixes-drops-<case>-seed-<seed>.json`). The cases that
+    /// leave a played file out mark its plays `left_out`, for
+    /// `identify --exclude-from`; the harness's own search still indexes it.
+    #[arg(long, value_enum, conflicts_with_all = ["other_pairs", "aligned_drops"])]
+    pub case: Option<crate::mixes::drops::Case>,
     /// Short mixes only: render them in stereo with the right channel
     /// under this `robust` stereo fault (such as `stereo-inverted`) over
     /// the second half of each mix, into their own renders and report
@@ -268,15 +274,16 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
         tagged,
         other_pairs,
         aligned_drops,
+        case,
         stereo_fault,
         residual,
         residual_over,
         residual_timing,
         residual_fix,
     } = args;
-    if residual && (kind != MixKind::Drops || other_pairs || aligned_drops) {
+    if residual && (kind != MixKind::Drops || other_pairs || aligned_drops || case.is_some()) {
         return Err(String::from(
-            "--residual applies to --kind drops without --other-pairs or --aligned-drops",
+            "--residual applies to --kind drops without --other-pairs, --aligned-drops or --case",
         ));
     }
     if residual_over <= 0.0 {
@@ -291,6 +298,9 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
     });
     if aligned_drops && kind != MixKind::Drops {
         return Err(String::from("--aligned-drops applies to --kind drops only"));
+    }
+    if case.is_some() && kind != MixKind::Drops {
+        return Err(String::from("--case applies to --kind drops only"));
     }
     let rides = ride_draw(kind, &ride_change, &ride_seconds, ride_direction)?;
     let stereo_fault = stereo_fault
@@ -310,6 +320,7 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
             tagged: tagged.as_ref(),
             other_pairs,
             aligned_drops,
+            case,
         }),
     };
     // Only the drops kind draws with the corpus clusters.

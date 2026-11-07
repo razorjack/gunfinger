@@ -225,6 +225,8 @@ impl Recipe {
             scenario: None,
             side: None,
             drop_seconds: None,
+            key_locked: false,
+            left_out: false,
         };
         let target_play = PlannedPlay {
             speed,

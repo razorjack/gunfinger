@@ -38,7 +38,7 @@ use crate::tempo::{Structure, beat_period, onset_envelope};
 use crate::titles::SameTitles;
 use crate::verifier::{Verification, Verifier};
 
-mod drops;
+pub mod drops;
 pub mod residual;
 
 /// Plays per generated mix, and the length of each, fades included.
@@ -193,6 +193,15 @@ pub struct PlannedPlay {
     /// drop plays, with its partner's.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub drop_seconds: Option<f64>,
+    /// Played key-locked (tempo only, `drops::Case::KeyLockedUnder` and
+    /// `KeyLockedOver`), not on a turntable.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub key_locked: bool,
+    /// The case leaves this play's recording out of the library searched
+    /// (`drops::Case::MistakenOver` and `RelatedUnder`), which the harness's
+    /// index still holds: `identify --exclude-from` takes it out.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub left_out: bool,
 }
 
 // serde's `skip_serializing_if` passes a reference.
@@ -224,6 +233,9 @@ pub enum Scenario {
     Rips,
     /// A record of a held-out cluster alone.
     HeldOut,
+    /// `drops::Case::Three`'s record at full level over the quiet one,
+    /// inside the same stronger one.
+    Third,
 }
 
 /// Of two records played together: the one playing when the other comes
@@ -363,12 +375,17 @@ fn play_audio<const N: usize>(
 ) -> Result<[Vec<f32>; N], String> {
     let source = roots.path(&play.asset)?;
     let seconds = play.end_seconds - play.start_seconds;
+    let playback = if play.key_locked {
+        Playback::KeyLocked(play.speed)
+    } else {
+        Playback::Turntable(play.speed)
+    };
     let render = |filter: Option<&str>| match play.ride {
         None => render_samples(
             &source,
             play.source_start_seconds,
             seconds,
-            Playback::Turntable(play.speed),
+            playback,
             filter,
         ),
         Some(_) => ridden(play, &source, filter),
@@ -770,6 +787,8 @@ fn drawn_play(record: &PeakRecord, held_out: bool, start: f64, rng: &mut Rng) ->
         scenario: None,
         side: None,
         drop_seconds: None,
+        key_locked: false,
+        left_out: false,
     }
 }
 
@@ -788,6 +807,8 @@ pub struct LongExtras {
     pub structures: BTreeMap<String, Structure>,
     pub pairs: Vec<SharedPair>,
     pub rides: RideDraw,
+    /// The drops kind's harder case (`DropsOptions::case`).
+    pub case: Option<drops::Case>,
 }
 
 /// Two records of one family of the shared-material panel, in the order
@@ -816,6 +837,8 @@ struct Pick<'a> {
     held_out: bool,
     /// Where the play must be heard, in the track: a shared passage.
     passage: Option<(f64, f64)>,
+    /// Left out of the library searched (`PlannedPlay::left_out`).
+    left_out: bool,
 }
 
 impl<'a> Pick<'a> {
@@ -825,6 +848,7 @@ impl<'a> Pick<'a> {
             duration_seconds: record.header.duration_seconds,
             held_out,
             passage: None,
+            left_out: false,
         }
     }
 }
@@ -879,6 +903,7 @@ pub fn draw_long_mix(
                         duration_seconds: record.duration_seconds,
                         held_out: true,
                         passage: Some(record.passage),
+                        left_out: false,
                     });
                 }
             }
@@ -1005,6 +1030,8 @@ fn placed(pick: &Pick, start: f64, seconds: f64, speed: f64, rng: &mut Rng) -> P
         scenario: None,
         side: None,
         drop_seconds: None,
+        key_locked: false,
+        left_out: pick.left_out,
     }
 }
 
@@ -1177,6 +1204,8 @@ pub fn draw_around(
                 scenario: None,
                 side: None,
                 drop_seconds: None,
+                key_locked: false,
+                left_out: false,
             },
             std::cmp::Ordering::Less => drawn_play(drawn[position], false, start, rng),
             std::cmp::Ordering::Greater => drawn_play(drawn[position - 1], false, start, rng),
@@ -1235,6 +1264,9 @@ pub struct MixesReport {
     /// The drops kind with `DropsOptions::aligned_drops`.
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub aligned_drops: bool,
+    /// The drops kind's `DropsOptions::case`, by name.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub case: Option<String>,
     /// The name of the short kind's stereo fault.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub stereo_fault: Option<String>,
@@ -1310,6 +1342,8 @@ pub struct DropsOptions<'a> {
     /// Line up the drops of the two records of each unrelated double drop,
     /// in beat phase (`drops::line_up_drops`).
     pub aligned_drops: bool,
+    /// A harder case made on each mix as drawn (brief 80).
+    pub case: Option<drops::Case>,
 }
 
 /// The label of the drops kind's mixes with other pairs.
@@ -1338,14 +1372,15 @@ impl KindOptions<'_> {
     }
 
     /// What tells these mixes' report and renders from the kind's default
-    /// ones: `rides_label`, `OTHER_PAIRS`, `ALIGNED_DROPS`, or the stereo
-    /// fault's name.
+    /// ones: `rides_label`, `OTHER_PAIRS`, `ALIGNED_DROPS`, the drops case's
+    /// name, or the stereo fault's name.
     fn label(&self) -> Option<String> {
         match self {
             KindOptions::Short { stereo_fault } => stereo_fault.map(Fault::name),
             KindOptions::Rides(_) => self.rides_label(),
             KindOptions::Drops(drops) if drops.other_pairs => Some(OTHER_PAIRS.to_owned()),
             KindOptions::Drops(drops) if drops.aligned_drops => Some(ALIGNED_DROPS.to_owned()),
+            KindOptions::Drops(drops) => drops.case.map(|case| case.name().to_owned()),
             _ => None,
         }
     }
@@ -1373,6 +1408,7 @@ impl MixesReport {
             .clone()
             .or_else(|| self.other_pairs.then(|| OTHER_PAIRS.to_owned()))
             .or_else(|| self.aligned_drops.then(|| ALIGNED_DROPS.to_owned()))
+            .or_else(|| self.case.clone())
             .or_else(|| self.stereo_fault.clone())
     }
 }
@@ -1607,6 +1643,7 @@ pub fn run(
             KindOptions::Rides(draw) => draw,
             _ => RideDraw::default(),
         },
+        case: drops.and_then(|drops| drops.case),
     };
     let rides = options.kind.rides_label();
     let mut rng = Rng::new(options.seed);
@@ -1678,6 +1715,9 @@ pub fn run(
         rides,
         other_pairs: drops.is_some_and(|drops| drops.other_pairs),
         aligned_drops: drops.is_some_and(|drops| drops.aligned_drops),
+        case: drops
+            .and_then(|drops| drops.case)
+            .map(|case| case.name().to_owned()),
         stereo_fault: options.kind.stereo_fault().map(Fault::name),
         ladder: options.ladder_name.to_owned(),
         indexed_assets: index.assets().len(),
@@ -1992,6 +2032,8 @@ mod tests {
             scenario: None,
             side: None,
             drop_seconds: None,
+            key_locked: false,
+            left_out: false,
         }
     }
 

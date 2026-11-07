@@ -8,7 +8,8 @@
 //! transitions, and every play is beatmatched (tempo, not beat phase) to
 //! the play it is mixed with. With `DropsOptions::aligned_drops`, the two
 //! records of each unrelated double drop also reach their drops at one
-//! mix time, on the beat (`line_up_drops`).
+//! mix time, on the beat (`line_up_drops`). With `DropsOptions::case`,
+//! each mix is made harder as `Case` says (brief 80).
 
 use std::collections::{BTreeMap, BTreeSet};
 
@@ -16,8 +17,8 @@ use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::store::PeakRecord;
 
 use super::{
-    LongExtras, Pick, PlannedMix, PlannedPlay, Pools, Scenario, SharedPair, Side,
-    beatmatched_speed, draw_unused, drawn_speed, join, placed,
+    LongExtras, Pick, PlannedMix, PlannedPlay, Pools, RIDE_CHANGE, RIDE_LIMIT, RIDE_SECONDS, Ride,
+    Scenario, SharedPair, Side, beatmatched_speed, draw_unused, drawn_speed, join, placed,
 };
 use crate::clusters::Clusters;
 use crate::render::{Playback, RENDER_RATE, render_samples};
@@ -47,6 +48,57 @@ const SOLO_SECONDS: f64 = 30.0;
 const TOGETHER_MIN_SECONDS: f64 = 240.0;
 /// A play ends before this share of its track (`in_track`).
 const TRACK_END: f64 = 0.97;
+
+/// A harder case of the drops kind, made on each mix as it is drawn
+/// (brief 80). The blocks it changes are the quiet, brief and unrelated
+/// ones, where a record plays under or over another; pair drops, which
+/// `identify --under` holds back, and plays alone are left as drawn.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, clap::ValueEnum)]
+pub enum Case {
+    /// The second record of each quiet, brief and unrelated block plays
+    /// key-locked (tempo only), the first on a turntable.
+    KeyLockedUnder,
+    /// The first record of those blocks plays key-locked, the second on a
+    /// turntable.
+    KeyLockedOver,
+    /// The first record of each block it plays on through (quiet, brief,
+    /// a double drop inside it) rides its pitch while the second plays at
+    /// full level.
+    RideOver,
+    /// The quiet block gains a third record at full level over the quiet
+    /// one's span: two loud records and a quiet one at once.
+    Three,
+    /// The first record of the quiet and brief blocks is a shared-material
+    /// pair's played record over its passage, left out of the library
+    /// searched, so that its related version is the best match there.
+    MistakenOver,
+    /// The second record of the quiet and brief blocks is a pair's played
+    /// record over its passage, left out of the library searched while its
+    /// related version stays in it.
+    RelatedUnder,
+}
+
+impl Case {
+    /// The label of the case's report and renders.
+    pub fn name(self) -> &'static str {
+        match self {
+            Case::KeyLockedUnder => "key-locked-under",
+            Case::KeyLockedOver => "key-locked-over",
+            Case::RideOver => "ride-over",
+            Case::Three => "three",
+            Case::MistakenOver => "mistaken-over",
+            Case::RelatedUnder => "related-under",
+        }
+    }
+}
+
+/// The scenarios whose records a case plays otherwise.
+fn cased(scenario: Scenario) -> bool {
+    matches!(
+        scenario,
+        Scenario::Quiet | Scenario::Brief | Scenario::UnrelatedDrop
+    )
+}
 
 /// How the second of two records joins the first: its fades, how long both
 /// play between them, its level, and which record plays on.
@@ -113,6 +165,8 @@ enum Block<'a> {
         first: Pick<'a>,
         second: Pick<'a>,
         overlay: Overlay,
+        /// `Case::Three`'s record over the second one's span.
+        third: Option<Pick<'a>>,
     },
 }
 
@@ -157,7 +211,7 @@ pub(super) fn draw(
     clusters: &Clusters,
     rng: &mut Rng,
 ) -> Result<PlannedMix, String> {
-    let blocks = draw_blocks(pools, &extras.pairs, clusters, rng)?;
+    let blocks = draw_blocks(pools, &extras.pairs, extras.case, clusters, rng)?;
     let mut plays: Vec<PlannedPlay> = Vec::new();
     // The play the next block is joined to.
     let mut current: Option<usize> = None;
@@ -176,6 +230,7 @@ pub(super) fn draw(
                 first,
                 second,
                 overlay,
+                third,
             } => {
                 let mut plays_of_two =
                     together((first, second), overlay, previous, &extras.periods, rng);
@@ -183,6 +238,13 @@ pub(super) fn draw(
                     let (outer, inner) = &mut plays_of_two;
                     line_up_drops((outer, inner), (first, second), overlay, &extras.structures);
                 }
+                if let Some(case) = extras.case.filter(|_| cased(*scenario)) {
+                    let (outer, inner) = &mut plays_of_two;
+                    play_otherwise(case, (outer, inner), first, overlay, rng);
+                }
+                let third = third
+                    .as_ref()
+                    .map(|third| over_the_second(third, &plays_of_two, &extras.periods, rng));
                 let (first, second) = plays_of_two;
                 for (mut play, side) in [(first, Side::First), (second, Side::Second)] {
                     play.scenario = Some(*scenario);
@@ -193,6 +255,7 @@ pub(super) fn draw(
                     Side::First => plays.len() - 2,
                     Side::Second => plays.len() - 1,
                 });
+                plays.extend(third);
             }
         }
     }
@@ -212,6 +275,7 @@ pub(super) fn draw(
 fn draw_blocks<'a>(
     pools: &Pools<'a>,
     pairs: &'a [SharedPair],
+    case: Option<Case>,
     clusters: &Clusters,
     rng: &mut Rng,
 ) -> Result<Vec<Block<'a>>, String> {
@@ -255,8 +319,9 @@ fn draw_blocks<'a>(
         first,
         second,
         overlay,
+        third: None,
     };
-    Ok(vec![
+    let mut blocks = vec![
         Block::Alone(of_pair(apart, 0), Scenario::Original),
         two_records(
             Scenario::UnrelatedDrop,
@@ -281,7 +346,127 @@ fn draw_blocks<'a>(
         Block::Alone(of_pair(apart, 1), Scenario::Remix),
         Block::Alone(returning, Scenario::Returning),
         Block::Alone(rips.1, Scenario::Rips),
-    ])
+    ];
+    match case {
+        Some(Case::Three) => {
+            let record = pick(&long, &mut used, clusters, rng)?;
+            for block in &mut blocks {
+                if let Block::Together {
+                    scenario: Scenario::Quiet,
+                    third,
+                    ..
+                } = block
+                {
+                    *third = Some(record.clone());
+                }
+            }
+        }
+        Some(case @ (Case::MistakenOver | Case::RelatedUnder)) => {
+            let (one, other) = two_other_pairs(pairs, [apart, paired], rng)?;
+            let mut left_out = [one, other].into_iter().map(|pair| Pick {
+                left_out: true,
+                ..of_pair(pair, 0)
+            });
+            for block in &mut blocks {
+                if let Block::Together {
+                    scenario: Scenario::Quiet | Scenario::Brief,
+                    first,
+                    second,
+                    ..
+                } = block
+                {
+                    let record = left_out.next().ok_or_else(too_few)?;
+                    match case {
+                        Case::MistakenOver => *first = record,
+                        _ => *second = record,
+                    }
+                }
+            }
+        }
+        _ => {}
+    }
+    Ok(blocks)
+}
+
+/// Two pairs of families other than the mix's own pairs' (`taken`), drawn
+/// at random.
+fn two_other_pairs<'a>(
+    pairs: &'a [SharedPair],
+    taken: [&SharedPair; 2],
+    rng: &mut Rng,
+) -> Result<(&'a SharedPair, &'a SharedPair), String> {
+    let others: Vec<&SharedPair> = pairs
+        .iter()
+        .filter(|pair| taken.iter().all(|taken| taken.family != pair.family))
+        .collect();
+    if others.len() < 2 {
+        return Err(String::from(
+            "the drops case needs two pairs of families other than the mix's own pairs",
+        ));
+    }
+    let one = rng.below(others.len());
+    let other = (one + 1 + rng.below(others.len() - 1)) % others.len();
+    Ok((others[one], others[other]))
+}
+
+/// `Case::KeyLockedUnder`, `KeyLockedOver` and `RideOver` on the two plays
+/// of a block: which one plays key-locked, or the first's ride, from a
+/// moment drawn in the first half of the time both play at full level, by
+/// `RIDE_CHANGE` over `RIDE_SECONDS`, up or down. A ride is given only
+/// where the first plays on after the second.
+fn play_otherwise(
+    case: Case,
+    (outer, inner): (&mut PlannedPlay, &mut PlannedPlay),
+    first: &Pick,
+    overlay: &Overlay,
+    rng: &mut Rng,
+) {
+    match case {
+        Case::KeyLockedUnder => inner.key_locked = true,
+        Case::KeyLockedOver => outer.key_locked = true,
+        Case::RideOver if overlay.stays == Side::First => {
+            let full_from = inner.start_seconds + inner.fade_in_seconds;
+            let full_seconds = (inner.end_seconds - inner.fade_out_seconds - full_from).max(0.0);
+            let at = full_from + rng.unit() * full_seconds / 2.0;
+            let seconds = within(RIDE_SECONDS, rng).min(outer.end_seconds - at);
+            let size = within(RIDE_CHANGE, rng);
+            let up = rng.unit() < 0.5;
+            let mut to_speed = outer.speed * if up { 1.0 + size } else { 1.0 - size };
+            if (to_speed - 1.0).abs() > RIDE_LIMIT {
+                to_speed = outer.speed * if up { 1.0 - size } else { 1.0 + size };
+            }
+            outer.ride = Some(Ride {
+                start_seconds: at,
+                seconds,
+                to_speed,
+            });
+            let overrun = outer.source_at(outer.end_seconds) - TRACK_END * first.duration_seconds;
+            if overrun > 0.0 {
+                outer.source_start_seconds = (outer.source_start_seconds - overrun).max(0.0);
+            }
+        }
+        _ => {}
+    }
+}
+
+/// `Case::Three`'s third record: at full level over the second play's
+/// span, with its fades, beatmatched to the first.
+fn over_the_second(
+    third: &Pick,
+    (outer, inner): &(PlannedPlay, PlannedPlay),
+    periods: &BTreeMap<String, f64>,
+    rng: &mut Rng,
+) -> PlannedPlay {
+    let drawn = drawn_speed(rng);
+    let speed = beatmatched_speed(outer, third.asset, periods).unwrap_or(drawn);
+    let seconds =
+        (inner.end_seconds - inner.start_seconds).min(0.85 * third.duration_seconds / speed);
+    let mut play = placed(third, inner.start_seconds, seconds, speed, rng);
+    play.fade_in_seconds = inner.fade_in_seconds;
+    play.fade_out_seconds = inner.fade_out_seconds.min(seconds / 2.0);
+    play.scenario = Some(Scenario::Third);
+    play.side = Some(Side::Second);
+    play
 }
 
 fn too_few() -> String {
@@ -309,6 +494,7 @@ fn of_pair(pair: &SharedPair, which: usize) -> Pick<'_> {
         duration_seconds: record.duration_seconds,
         held_out: !record.indexed,
         passage: Some(record.passage),
+        left_out: false,
     }
 }
 
@@ -413,12 +599,16 @@ fn together(
         Side::First => inner.fade_out_seconds = overlay.fade_out,
         Side::Second => outer.fade_out_seconds = overlay.fade_out,
     }
-    if let (Some(outer_passage), Some(inner_passage)) = (first.passage, second.passage) {
+    // A pair drop places both records; `Case::MistakenOver` and
+    // `RelatedUnder` one of them.
+    if let Some(outer_passage) = first.passage {
         outer.source_start_seconds = in_track(
             outer_passage.0 - (full - outer.start_seconds) * outer.speed,
             first.duration_seconds,
             length * outer.speed,
         );
+    }
+    if let Some(inner_passage) = second.passage {
         inner.source_start_seconds = in_track(
             inner_passage.0 - overlay.fade_in * inner.speed,
             second.duration_seconds,
@@ -609,6 +799,7 @@ mod tests {
             structures: BTreeMap::new(),
             pairs: vec![pair()],
             rides: super::super::RideDraw::default(),
+            case: None,
         };
         (records, held_out, clusters, extras)
     }
@@ -861,6 +1052,161 @@ mod tests {
         }
     }
 
+    /// The library with four pairs of four families, for the cases that
+    /// play a pair's record in a quiet or brief block.
+    fn with_four_pairs() -> (Vec<PeakRecord>, BTreeSet<String>, Clusters, LongExtras) {
+        let (records, held_out, clusters, mut extras) = library();
+        extras.pairs = ["f1", "f2", "f3", "f4"]
+            .into_iter()
+            .map(|family| SharedPair {
+                family: family.to_owned(),
+                records: [
+                    PairRecord {
+                        asset: format!("{family}-played.mp3"),
+                        duration_seconds: 420.0,
+                        passage: (205.4, 224.1),
+                        indexed: true,
+                    },
+                    PairRecord {
+                        asset: format!("{family}-related.mp3"),
+                        duration_seconds: 520.0,
+                        passage: (399.5, 418.2),
+                        indexed: true,
+                    },
+                ],
+            })
+            .collect();
+        (records, held_out, clusters, extras)
+    }
+
+    fn drawn_with(case: Case, seed: u64) -> (PlannedMix, PlannedMix) {
+        let (records, held_out, clusters, mut extras) = with_four_pairs();
+        let pools = Pools::new(&records, &held_out);
+        let plain = draw("mix-00", &pools, &extras, &clusters, &mut Rng::new(seed)).unwrap();
+        extras.case = Some(case);
+        let cased = draw("mix-00", &pools, &extras, &clusters, &mut Rng::new(seed)).unwrap();
+        (plain, cased)
+    }
+
+    #[test]
+    fn key_lock_takes_the_second_or_the_first_record_of_each_quiet_brief_and_unrelated_block() {
+        for seed in 0..10 {
+            for (case, locked) in [
+                (Case::KeyLockedUnder, [2, 5, 10, 13]),
+                (Case::KeyLockedOver, [1, 4, 9, 12]),
+            ] {
+                let (plain, cased) = drawn_with(case, seed);
+                let indices: Vec<usize> = (0..cased.plays.len())
+                    .filter(|&index| cased.plays[index].key_locked)
+                    .collect();
+                assert_eq!(indices, locked);
+                // Nothing else changes: key lock is the render's.
+                for (old, new) in plain.plays.iter().zip(&cased.plays) {
+                    assert_eq!(
+                        PlannedPlay {
+                            key_locked: false,
+                            ..new.clone()
+                        },
+                        *old
+                    );
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn a_ride_over_starts_while_the_second_plays_at_full_level_and_stays_in_the_track() {
+        for seed in 0..10 {
+            let (_, cased) = drawn_with(Case::RideOver, seed);
+            let plays = &cased.plays;
+            let ridden: Vec<usize> = (0..plays.len())
+                .filter(|&index| plays[index].ride.is_some())
+                .collect();
+            assert_eq!(ridden, [4, 9, 12]);
+            for (outer, inner) in [(4, 5), (9, 10), (12, 13)] {
+                let (outer, inner) = (&plays[outer], &plays[inner]);
+                let ride = outer.ride.unwrap();
+                let full_from = inner.start_seconds + inner.fade_in_seconds;
+                let full_to = inner.end_seconds - inner.fade_out_seconds;
+                assert!(ride.start_seconds >= full_from - 1e-9, "{ride:?}");
+                assert!(ride.start_seconds <= (full_from + full_to) / 2.0 + 1e-9);
+                let change = (ride.to_speed / outer.speed - 1.0).abs();
+                assert!((0.01 - 1e-9..=0.03 + 1e-9).contains(&change), "{change}");
+                assert!(outer.source_start_seconds >= 0.0);
+                let duration = 160.0 + 10.0 * outer.asset[1..3].parse::<f64>().unwrap();
+                assert!(outer.source_at(outer.end_seconds) <= TRACK_END * duration + 1e-9);
+            }
+        }
+    }
+
+    #[test]
+    fn three_adds_a_record_at_full_level_over_the_quiet_ones_span() {
+        let clusters = library().2;
+        for seed in 0..10 {
+            let (_, cased) = drawn_with(Case::Three, seed);
+            let plays = &cased.plays;
+            assert_eq!(plays.len(), 18);
+            let (outer, quiet, third) = (&plays[4], &plays[5], &plays[6]);
+            assert_eq!(
+                (third.scenario, third.side),
+                (Some(Scenario::Third), Some(Side::Second))
+            );
+            assert_eq!(quiet.scenario, Some(Scenario::Quiet));
+            assert_eq!((third.gain_db, quiet.gain_db), (0.0, QUIET_DB));
+            assert!((third.start_seconds - quiet.start_seconds).abs() < 1e-9);
+            assert!(third.end_seconds <= quiet.end_seconds + 1e-9);
+            assert!(inside(outer, third));
+            assert_eq!(plays[7].scenario, Some(Scenario::Rips));
+            // The third is a recording of its own.
+            let recording = clusters.cluster_of(&third.asset);
+            let playing = plays
+                .iter()
+                .filter(|play| clusters.cluster_of(&play.asset) == recording)
+                .count();
+            assert_eq!(playing, 1);
+        }
+    }
+
+    #[test]
+    fn a_left_out_pair_record_plays_first_or_second_in_the_quiet_and_brief_blocks() {
+        for seed in 0..10 {
+            for (case, left_out) in [(Case::MistakenOver, [4, 9]), (Case::RelatedUnder, [5, 10])] {
+                let (_, cased) = drawn_with(case, seed);
+                let plays = &cased.plays;
+                let marked: Vec<usize> = (0..plays.len())
+                    .filter(|&index| plays[index].left_out)
+                    .collect();
+                assert_eq!(marked, left_out);
+                let family = |asset: &str| asset.split('-').next().unwrap().to_owned();
+                let own: BTreeSet<String> = [&plays[0], &plays[7], &plays[8]]
+                    .iter()
+                    .map(|play| family(&play.asset))
+                    .collect();
+                let mut families = BTreeSet::new();
+                for index in left_out {
+                    let play = &plays[index];
+                    assert!(play.asset.ends_with("-played.mp3"), "{play:?}");
+                    assert!(!own.contains(&family(&play.asset)));
+                    families.insert(family(&play.asset));
+                    assert!(!play.held_out);
+                    // Over its passage: from where both play at full level,
+                    // or moved to the track's start.
+                    let inner = match case {
+                        Case::MistakenOver => &plays[index + 1],
+                        _ => play,
+                    };
+                    let at = inner.start_seconds + inner.fade_in_seconds;
+                    assert!(
+                        (play.source_at(at) - 205.4).abs() < 1e-6
+                            || play.source_start_seconds == 0.0,
+                        "{play:?}"
+                    );
+                }
+                assert_eq!(families.len(), 2);
+            }
+        }
+    }
+
     #[test]
     fn a_quiet_play_is_nine_decibels_down_and_a_plain_play_keeps_its_old_form() {
         let mut play = PlannedPlay {
@@ -879,10 +1225,16 @@ mod tests {
             scenario: None,
             side: None,
             drop_seconds: None,
+            key_locked: false,
+            left_out: false,
         };
         let plain = serde_json::to_string(&play).unwrap();
         assert!(
             !plain.contains("gain_db") && !plain.contains("scenario"),
+            "{plain}"
+        );
+        assert!(
+            !plain.contains("key_locked") && !plain.contains("left_out"),
             "{plain}"
         );
 

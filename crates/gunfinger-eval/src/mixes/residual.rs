@@ -788,6 +788,8 @@ mod tests {
             scenario: Some(scenario),
             side,
             drop_seconds: None,
+            key_locked: false,
+            left_out: false,
         }
     }
 

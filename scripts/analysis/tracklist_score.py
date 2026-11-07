@@ -6,6 +6,9 @@ docs/brief-39.md (step 1).
     python3 -I scripts/analysis/tracklist_score.py store PANEL STORE OUT_DIR
     # NAS scale: the NAS files of the held-out recordings, to leave out
     python3 -I scripts/analysis/tracklist_score.py exclude PANEL NAS_CLUSTERS OUT.txt
+    # brief 80's cases: add the recordings of plays marked `left_out`
+    python3 -I scripts/analysis/tracklist_score.py exclude-left-out MIXES.json \
+        CORPUS_CLUSTERS LIBRARY_MAP NAS_CLUSTERS OUT.txt
     # scores; CLI_DIR holds `<mix>.json` (identify) and `<mix>.txt` (show);
     # at NAS scale STORE is the NAS store and EXCLUDED the list above
     python3 -I scripts/analysis/tracklist_score.py score MIXES.json CLI_DIR \\
@@ -75,6 +78,32 @@ def exclude(panel, nas_clusters, out):
                        for member in members if member.startswith(NAS_PREFIX)})
     open(out, "w").write("".join(path + "\n" for path in excluded))
     print(f"{len(excluded)} NAS files of held-out recordings")
+
+
+def exclude_left_out(mixes_path, corpus_clusters, library_map, nas_clusters, out):
+    """Adds to OUT (an exclusion list, created if missing) the NAS files of
+    every recording a play marked `left_out` plays (brief 80's
+    `mistaken-over` and `related-under`): the NAS copies of its corpus
+    cluster's files (library map) and the NAS members of every NAS cluster
+    holding one of them."""
+    cluster = {}
+    for members in json.load(open(corpus_clusters))["duplicates"]:
+        for member in members:
+            cluster[member] = members
+    left_out = {play["asset"] for result in json.load(open(mixes_path))["mixes"]
+                for play in result["mix"]["plays"] if play.get("left_out")}
+    files = {path for asset in left_out for path in cluster.get(asset, [asset])}
+    copies = {copy["stands_for"] for copy in json.load(open(library_map))["copies"]
+              if copy["corpus"] in files}
+    members = {member[len(NAS_PREFIX):]
+               for nas in json.load(open(nas_clusters))["duplicates"]
+               if files & set(nas) or {NAS_PREFIX + copy for copy in copies} & set(nas)
+               for member in nas if member.startswith(NAS_PREFIX)}
+    listed = {line.strip() for line in open(out) if line.strip()} if os.path.exists(out) else set()
+    added = (copies | members) - listed
+    open(out, "w").write("".join(path + "\n" for path in sorted(listed | copies | members)))
+    print(f"{len(left_out)} left-out files, {len(files)} corpus files of their recordings, "
+          f"{len(added)} NAS files added to {len(listed)}")
 
 
 # --- entries, as export.rs and report.rs build them -------------------------
@@ -477,7 +506,9 @@ def score_mix(mix, report, shown, library):
 def inside_of(play, truth):
     if play.get("side") != "second":
         return None
-    first = [other for other in truth if other.get("scenario") == play.get("scenario")
+    # Brief 80's `three`: the third record plays inside the quiet block's first.
+    scenario = "quiet" if play.get("scenario") == "third" else play.get("scenario")
+    first = [other for other in truth if other.get("scenario") == scenario
              and other.get("side") == "first" and overlap(other, play)]
     return bool(first) and play["end_seconds"] < first[0]["end_seconds"]
 
@@ -671,6 +702,7 @@ def detections(*paths):
 
 if __name__ == "__main__":
     command, *arguments = sys.argv[1:]
-    {"store": store, "exclude": exclude, "score": score, "summary": summary,
+    {"store": store, "exclude": exclude, "exclude-left-out": exclude_left_out,
+     "score": score, "summary": summary,
      "under-summary": under_summary, "under-fates": under_fates,
      "detections": detections}[command](*arguments)

@@ -640,6 +640,8 @@ mod tests {
             scenario: None,
             side: None,
             drop_seconds: None,
+            key_locked: false,
+            left_out: false,
         };
         let mix = PlannedMix {
             name: String::from("m"),
@@ -829,6 +831,8 @@ mod tests {
             scenario: None,
             side: None,
             drop_seconds: None,
+            key_locked: false,
+            left_out: false,
         };
         let mix = PlannedMix {
             name: String::from("m"),

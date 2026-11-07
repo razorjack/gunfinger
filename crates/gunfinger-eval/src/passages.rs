@@ -356,6 +356,8 @@ fn play(asset: &str, source_start: f64, speed: f64, start: f64, seconds: f64) ->
         scenario: None,
         side: None,
         drop_seconds: None,
+        key_locked: false,
+        left_out: false,
     }
 }
 
