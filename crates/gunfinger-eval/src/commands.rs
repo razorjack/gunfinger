@@ -267,10 +267,10 @@ const FRONT_END_COMMANDS: [&str; 6] = [
     "variant-store",
 ];
 
-/// The commands that take --other-sample.
 /// The commands whose index takes --second-records.
 const SECOND_RECORDS_COMMANDS: [&str; 3] = ["second-records", "sweep", "shared"];
 
+/// The commands that take --other-sample.
 const OTHER_SAMPLE_COMMANDS: [&str; 7] = [
     "sweep",
     "grid",

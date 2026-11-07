@@ -109,9 +109,12 @@ pub struct OtherLibraryOptions {
     /// With --other-peaks-dir: a peak store whose records are second
     /// records of the other library's files at the same paths, such as
     /// `variant-store --repair-inverted --repaired-only` writes (brief 82).
-    /// Each is indexed as its own asset, `second-record/second-library/<path>`,
-    /// and scored as its file. Reports go to `second-records/` below the
-    /// usual directory, and the saved index has its own file.
+    /// Each is indexed as its own asset, `second-record/second-library/<path>`;
+    /// `sweep` scores it as its file, `shared` by its own name. Reports go
+    /// to `second-records/` below the usual directory, and the saved index
+    /// is `library-<store>-second-records-<DIR's name>.index`. Its
+    /// provenance holds the records' sources, not their peaks: after DIR's
+    /// records change, run once with --saved-index rebuild.
     #[arg(long, global = true, requires = "other_peaks_dir")]
     pub second_records: Option<PathBuf>,
 }
@@ -194,7 +197,7 @@ impl IndexVariant {
             other,
             saved: None,
             exact: None,
-            second: None,
+            second_records: None,
         })
     }
 
@@ -419,7 +422,7 @@ impl Harness {
             Some(count) => second.sampled(count, OTHER_SAMPLE_SEED),
             None => second,
         };
-        padding.second = match &self.other.second_records {
+        padding.second_records = match &self.other.second_records {
             Some(dir) => Some(SecondRecords::load(dir, &second)?),
             None => None,
         };
@@ -439,8 +442,11 @@ impl Harness {
             .paths
             .work
             .join("indexes")
-            .join(match self.other.second_records {
-                Some(_) => format!("library-{name}-second-records.index"),
+            .join(match &self.other.second_records {
+                Some(dir) => format!(
+                    "library-{name}-second-records-{}.index",
+                    dir.file_name()?.to_string_lossy()
+                ),
                 None => format!("library-{name}.index"),
             });
         match self.other.saved_index {

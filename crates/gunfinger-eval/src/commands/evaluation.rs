@@ -7,6 +7,7 @@ use crate::harness::{Harness, IndexVariant, UNCHANGED_INDEX};
 use crate::padding::Padding;
 use crate::provenance::Provenance;
 use crate::scan::{LeaveOut, SlotRun};
+use crate::second_records::SecondRecords;
 use crate::{
     calibrate, fullest, loss, memory, regress, robust, scan, second_records, stereo, sweep,
 };
@@ -410,6 +411,9 @@ pub fn second_records(
         name,
         set_aside_like,
     } = args;
+    if records == second_records::Records::Second && harness.other.second_records.is_none() {
+        return Err(String::from("--records second needs --second-records"));
+    }
     let padding = harness.padding(&UNCHANGED_INDEX)?;
     let matching = harness.search.matching;
     let profile = matching.profile();
@@ -427,13 +431,19 @@ pub fn second_records(
     )?;
     drop(library_records);
     let index_seconds = started.elapsed().as_secs_f64();
-    let (index, arm) = second_records::arm(index, padding.second.as_ref(), records);
+    let second = padding.second_records.as_ref();
+    let (index, arm) = second_records::arm(index, second, records);
+    // The other index's cut is taken with the same files left out.
+    let left_out = match arm {
+        second_records::Arm::Second => second.map(SecondRecords::files).unwrap_or_default(),
+        _ => std::collections::BTreeSet::new(),
+    };
     let (index, like) = match &set_aside_like {
         Some(saved) => {
             let (index, like) = fullest::setting_aside_like(
                 index,
                 saved,
-                &std::collections::BTreeSet::new(),
+                &left_out,
                 gunfinger_core::search::SKIPPED_SHARE,
             )?;
             fullest::print_like(&like);
@@ -446,7 +456,7 @@ pub fn second_records(
         ..second_records::search(
             &index,
             arm,
-            padding.second.as_ref(),
+            padding.second_records.as_ref(),
             &queries,
             &matching,
             &harness.rungs(),
@@ -455,7 +465,7 @@ pub fn second_records(
     };
     let path = harness
         .reports()
-        .join(format!("second-records-{name}-{arm}{like}.json"));
+        .join(format!("second-records-{name}-{}{like}.json", arm.name()));
     write_json(&path, &report)?;
     println!(
         "{} queries, {} assets, {} postings ({} of second records); wrote {}",

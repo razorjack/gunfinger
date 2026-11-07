@@ -44,7 +44,7 @@ pub struct Padding {
     pub saved: Option<SavedIndex>,
     pub exact: Option<ExactCopies>,
     /// A second record of some of the second library's files.
-    pub second: Option<SecondRecords>,
+    pub second_records: Option<SecondRecords>,
 }
 
 /// Exact copies of chosen records, as a library holding many files of the
@@ -272,7 +272,7 @@ impl Padding {
         profile: &Profile,
         excluded: &BTreeSet<String>,
     ) -> Result<Index, String> {
-        let excluded = match &self.second {
+        let excluded = match &self.second_records {
             Some(second) => Cow::Owned(second.with_second_records(excluded)),
             None => Cow::Borrowed(excluded),
         };
@@ -304,7 +304,7 @@ impl Padding {
                 .iter()
                 .map(|record| record.header.source.clone())
                 .chain(second.prefixed_assets())
-                .chain(self.second.iter().flat_map(SecondRecords::sources))
+                .chain(self.second_records.iter().flat_map(SecondRecords::sources))
                 .collect(),
         };
         if let SavedIndex::Use(path) = saved {
@@ -381,7 +381,7 @@ impl Padding {
         for copy in self.exact_copies(&indexed, profile, excluded) {
             counting.count(&copy?).map_err(|error| error.to_string())?;
         }
-        for record in self.second_records(excluded) {
+        for record in self.indexed_second_records(excluded) {
             counting.count(record).map_err(|error| error.to_string())?;
         }
         let mut filling = counting.into_filling();
@@ -399,18 +399,18 @@ impl Padding {
         for copy in self.exact_copies(&indexed, profile, excluded) {
             filling.fill(&copy?).map_err(|error| error.to_string())?;
         }
-        for record in self.second_records(excluded) {
+        for record in self.indexed_second_records(excluded) {
             filling.fill(record).map_err(|error| error.to_string())?;
         }
         filling.finish().map_err(|error| error.to_string())
     }
 
     /// The second records the index holds.
-    fn second_records<'a>(
+    fn indexed_second_records<'a>(
         &'a self,
         excluded: &'a BTreeSet<String>,
     ) -> impl Iterator<Item = &'a PeakRecord> + 'a {
-        self.second
+        self.second_records
             .iter()
             .flat_map(SecondRecords::records)
             .filter(move |record| !excluded.contains(&record.header.source.path))
@@ -498,7 +498,7 @@ mod tests {
             other: Some(OtherLibrary::open(&root, &dir.join("peaks")).unwrap()),
             saved: None,
             exact: None,
-            second: None,
+            second_records: None,
         };
         let index = padding
             .index(
@@ -594,7 +594,7 @@ mod tests {
         let padding = |saved: Option<SavedIndex>| {
             let other = other_library(&dir, files);
             Padding {
-                second: Some(second_records(&dir, &other, repaired)),
+                second_records: Some(second_records(&dir, &other, repaired)),
                 other: Some(other),
                 saved,
                 ..Padding::default()
@@ -626,10 +626,17 @@ mod tests {
         );
         for left_out in [excluded(&[]), excluded(&["second-library/b.mp3"])] {
             let expected = built.index(&records, &profile, &left_out).unwrap();
+            // The first call builds the whole index and saves it; the
+            // second loads the saved file.
             assert!(same_index(
                 &saved.index(&records, &profile, &left_out).unwrap(),
                 &expected
             ));
+            assert!(
+                dir.join("indexes")
+                    .join("library-peaks-second-records.index")
+                    .exists()
+            );
             assert!(same_index(
                 &saved.index(&records, &profile, &left_out).unwrap(),
                 &expected

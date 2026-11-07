@@ -186,30 +186,58 @@ impl RecordPlay {
 }
 
 /// The plays at the file: of a file's plays from its two records that
-/// overlap in query time, only the stronger is kept. Plays of one record
-/// never remove each other, and nothing is added: a file is confident
-/// only where one of its records is.
+/// overlap in query time, only the stronger is kept. Plays are taken
+/// strongest first, and one is dropped only when a kept play of the
+/// file's other record overlaps it, so a play beaten by a play that is
+/// itself dropped stays. Plays of one record never remove each other, and
+/// nothing is added: a file is confident only where one of its records is.
 pub fn strongest(plays: &[RecordPlay]) -> Vec<RecordPlay> {
+    let mut order: Vec<usize> = (0..plays.len()).collect();
+    order.sort_by(|&a, &b| plays[b].strength().cmp(&plays[a].strength()));
+    let mut kept = vec![false; plays.len()];
+    for &candidate in &order {
+        let play = &plays[candidate];
+        kept[candidate] = !order.iter().any(|&other| {
+            kept[other]
+                && plays[other].file == play.file
+                && plays[other].record != play.record
+                && plays[other].overlaps(play)
+        });
+    }
     plays
         .iter()
-        .filter(|play| {
-            !plays.iter().any(|other| {
-                other.file == play.file
-                    && other.record != play.record
-                    && other.overlaps(play)
-                    && other.strength() > play.strength()
-            })
-        })
-        .cloned()
+        .zip(kept)
+        .filter(|(_, kept)| *kept)
+        .map(|(play, _)| play.clone())
         .collect()
+}
+
+/// Which records an arm's index holds.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum Arm {
+    /// Today's index: no second records.
+    First,
+    /// Every first record and every second one.
+    Both,
+    /// The second records in place of their files' first ones.
+    Second,
+}
+
+impl Arm {
+    pub fn name(self) -> &'static str {
+        match self {
+            Arm::First => "first",
+            Arm::Both => "both",
+            Arm::Second => "second",
+        }
+    }
 }
 
 /// What `second-records` writes.
 #[derive(Serialize)]
 pub struct Report {
-    /// `first` (today's index), `both`, or `second` (without the first
-    /// records of the files that have a second).
-    pub records: &'static str,
+    pub records: Arm,
     pub assets: usize,
     pub postings: usize,
     /// The files with a second record, and those records' postings.
@@ -240,26 +268,21 @@ pub enum Records {
 }
 
 /// The index of one arm: `index` (whose second records are `second`) as
-/// `records` says, with the arm's name for reports. Without second records
-/// it is today's index, `first`.
-pub fn arm(
-    index: Index,
-    second: Option<&SecondRecords>,
-    records: Records,
-) -> (Index, &'static str) {
+/// `records` says. Without second records it is today's index.
+pub fn arm(index: Index, second: Option<&SecondRecords>, records: Records) -> (Index, Arm) {
     match (second, records) {
-        (None, _) => (index, "first"),
-        (Some(_), Records::Both) => (index, "both"),
-        (Some(second), Records::Second) => (index.without_assets(&second.files()), "second"),
+        (None, _) => (index, Arm::First),
+        (Some(_), Records::Both) => (index, Arm::Both),
+        (Some(second), Records::Second) => (index.without_assets(&second.files()), Arm::Second),
     }
 }
 
-/// Searches each of `queries` against `index`, an arm's index named
+/// Searches each of `queries` against `index`, the index of the arm
 /// `name` with its lists set aside, and reports every play per record and
 /// at the file; the caller fills in the index's time.
 pub fn search(
     index: &Index,
-    name: &'static str,
+    name: Arm,
     second: Option<&SecondRecords>,
     queries: &[std::path::PathBuf],
     matching: &Matching,
@@ -328,6 +351,24 @@ mod tests {
 
     const FILE: &str = "second-library/a.mp3";
 
+    fn record(path: &str) -> PeakRecord {
+        PeakRecord {
+            header: gunfinger_core::store::RecordHeader {
+                profile: Profile::CURRENT.id(),
+                source: Asset {
+                    path: path.to_owned(),
+                    size: 1,
+                    modified: gunfinger_core::library::Timestamp {
+                        seconds: 0,
+                        nanos: 0,
+                    },
+                },
+                duration_seconds: 10.0,
+            },
+            peaks: Vec::new(),
+        }
+    }
+
     fn second() -> String {
         second_record_path(FILE)
     }
@@ -388,23 +429,50 @@ mod tests {
     }
 
     #[test]
+    fn a_play_beaten_only_by_a_dropped_play_is_kept() {
+        // The second record's play beats the first record's play at 0-30 s
+        // but loses to its play at 25-60 s, which does not overlap 0-30 s.
+        let plays = [
+            play(FILE, 0.0, 30.0, Level::Possible, 150),
+            play(&second(), 20.0, 40.0, Level::Possible, 200),
+            play(FILE, 25.0, 60.0, Level::Confident, 600),
+        ];
+        assert_eq!(strongest(&plays), vec![plays[0].clone(), plays[2].clone()]);
+    }
+
+    #[test]
+    fn the_arms_index_both_records_or_the_second_alone() {
+        let records = SecondRecords {
+            records: vec![record(&second())],
+        };
+        let index = || {
+            Index::build(&[
+                record(FILE),
+                record("second-library/b.mp3"),
+                record(&second()),
+            ])
+            .unwrap()
+        };
+        let paths = |index: &Index| -> Vec<String> {
+            index
+                .assets()
+                .iter()
+                .map(|asset| asset.path.clone())
+                .collect()
+        };
+        let (both, name) = arm(index(), Some(&records), Records::Both);
+        assert_eq!((paths(&both).len(), name), (3, Arm::Both));
+        let (alone, name) = arm(index(), Some(&records), Records::Second);
+        assert_eq!(name, Arm::Second);
+        assert_eq!(paths(&alone), ["second-library/b.mp3", second().as_str()]);
+        let (today, name) = arm(index(), None, Records::Both);
+        assert_eq!((paths(&today).len(), name), (3, Arm::First));
+    }
+
+    #[test]
     fn leaving_a_file_out_leaves_out_its_second_record() {
         let records = SecondRecords {
-            records: vec![PeakRecord {
-                header: gunfinger_core::store::RecordHeader {
-                    profile: Profile::CURRENT.id(),
-                    source: Asset {
-                        path: second(),
-                        size: 1,
-                        modified: gunfinger_core::library::Timestamp {
-                            seconds: 0,
-                            nanos: 0,
-                        },
-                    },
-                    duration_seconds: 10.0,
-                },
-                peaks: Vec::new(),
-            }],
+            records: vec![record(&second())],
         };
         let excluded = BTreeSet::from([FILE.to_owned(), String::from("other.mp3")]);
         assert_eq!(
