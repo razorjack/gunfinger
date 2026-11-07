@@ -102,6 +102,7 @@ that holds it.
 - "Session 76" (2026-11-07): the documents every session reads, made small and current. `this file`
 - "Session 77" (2026-11-07): generated-mix scoring and `regress` measure what they say. `this file`
 - "Session 78" (2026-11-07): render receipts, the harness's FFmpeg watchdog and `regress` over all three development mixes. `this file`
+- "Session 79" (2026-11-07): the fourth drop rule of `identify --under` and its masks on the workers. `this file`
 
 
 ## Session 70
@@ -1392,3 +1393,142 @@ beat mode); `watch::run` behaves as before.
   script another test thread's fork held open); the rerun was green. The
   session's new stand-in tests make the race a little more likely; a
   retry on `ExecutableFileBusy` in the tests' spawns would remove it.
+
+## Session 79
+
+Brief `docs/brief-79.md`, checklist `docs/session-79-checklist.md`,
+experiments 0281-0282. `identify --under` changed (still off by
+default, ADR 0025 still Proposed); without the option every output is
+byte-identical and both regressions are identical.
+
+### What changed
+
+- The fourth drop rule (`under::named_as_one_track`): a play found
+  under an entry is dropped for lining up with a confident play only
+  when the two are one passage of the mix (they overlap, or at most
+  `PASSAGE_GAP_SECONDS`, 10 s, lie between them); the tag test keeps
+  `MAX_GAP_SECONDS` (90 s). Rules 1-3 are unchanged.
+- The step's two phases (`under::find`): each confident entry's
+  reference is decoded and masked on its own worker
+  (`parallel::map_in_order`, `Left::of`); then the residuals are
+  searched in entry order, each search on the workers, with the drop
+  rules and the shared-material check as before. No nested parallelism.
+- Tests: the two saved failures of 0274 rebuilt from their geometry
+  (kept), a repeated upload, an aligned unrelated drop inside the same
+  passage and an upload tagged alike 60 s away (still dropped), and an
+  end-to-end test of two double drops with `--jobs 1` and `--jobs 4`
+  (identical JSON; 5-6 minutes in a debug build, with
+  `--playback turntable`).
+
+### Results
+
+| Run | Result |
+|---|---|
+| 0281, A B C C B A, development mixes | NAS scale 1.85-2.01 times the default (before 2.85-2.94); +16-19 s per hour of mix; +2.0-2.8 GiB peak memory; J3 fails on Nocny by 0.3 s |
+| 0281, identity | after = before byte for byte on all six runs; `--jobs 1` = 32 on Stakka at 262 tracks |
+| 0282, G (2050, 2053) | the fix releases 5 plays, all Blackout and Splinter uploads; 39 entries gained, all right (38 before); 58 confident finds, 0 wrong |
+| 0282, confirmation (2091, 2092) | the fix releases 4 plays, all right partners (Firewire, Spectre printed; Blindside possible); 45 entries gained, all right (43 before); 73 confident finds, 0 wrong |
+
+### Decided this session, open to change
+
+- The fix's window for lining up is `PASSAGE_GAP_SECONDS` (10 s), the
+  gap that already joins a play's segments into one passage; the tag
+  test keeps 90 s, since tags alike are evidence of one track at any
+  distance within the neighbourhood.
+- An aligned unrelated drop inside the same passage, lining up within
+  5 s, is still dropped: the line test cannot tell it from an upload,
+  as ADR 0017's entry rule cannot.
+- ADR 0025's decision items 2 and 8 were edited in place to describe the
+  option as it now is (the ADR is Proposed, so no superseding ADR).
+- No cap on masks in flight: the memory is reported, not bounded.
+- Experiment numbers follow the order the runs finished (0281 the
+  cost, 0282 the drop rule).
+
+### Questions this leaves for us
+
+- The default (decisions queue item 2): about 17 s per hour of mix and
+  about 2.4 GiB more peak memory at NAS scale on the Linux machine, with
+  Nocny 0.3 s over the bar of twice.
+- Whether a cap on masks in flight is wanted (memory against time).
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: the Planet Dust (DC Breaks Remix) cut (`unsure`);
+  session 74's four break lists; session 73's optional razorjack
+  question (Into Music under Kinetic at 22:14-22:52, NAS scale), still
+  the one possible find on the development mixes.
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| A B C C B A, development mixes, both scales (36 runs, 2 warm-ups) | 22 min | |
+| `identify`, 16 drops mixes at NAS scale, seed 2050: default; before; after | 2:29; 6:39; 4:05 | 5.2; 5.2; 6.8 GiB |
+| The same, seed 2053 | 2:25; 6:19; 3:56 | 5.1; 5.2; 7.0 GiB |
+| The same, seed 2091; seed 2092 | 2:29, 6:30, 4:00; 2:30, 6:37, 4:06 | 5.1, 5.2, 6.7; 5.1, 5.2, 6.7 GiB |
+| Renders (`mixes`, 262 tracks): drops 2091; 2092 | 1:15; 1:17 | 7.5; 7.7 GiB |
+
+### Handoff for the next session
+
+1. ADR 0025 stays Proposed; "Open points, measured in session 79" and
+   decisions queue item 2 hold the evidence for the default.
+2. Builds: `work/bin/s79-final/` (master, `gunfinger` `5829ad77...`,
+   `gunfinger-eval` `8e01bb7a...`). The runs used `s79-run` (from
+   `5a988da`, `gunfinger` `6807f46e...`); the review's fixes changed only
+   comments and test code in `under.rs`, which changes the binary through
+   the source checksums in its line tables. `s78-final` is the other kept
+   final build.
+   `s79-start` (= `s78-final`), `s79-run` and `s77-final` were deleted.
+   The fresh renders (`work/s79/gen/mixes/`) are kept for the decision
+   session.
+3. Baselines unchanged: `session-78-linux` and `session-78-linux-nas`.
+   `regress` runs `gunfinger-eval`, which this session did not change
+   (`8e01bb7a...` throughout); the CLI's option-off output was checked
+   by the development runs (plays and gaps equal to the default's).
+4. Data: `work/s79/` (scripts `run.sh`, `build.sh`, `cost.sh`,
+   `cost.py`, `g.sh`, `gen.sh`, `score.sh`, `compare.py`, `queue.sh`,
+   `queue2.sh`, `final.sh`, `regress.sh`; logs in `logs/`); D's reports
+   `dev/<scale>-<mix>-<a|b|c><n>.json`; G's reports
+   `g/drops-seed-<seed>/<default|before|after>/`, scores
+   `scores-<seed>-<kind>.json`; the fresh renders `gen/mixes/` and
+   exclusion lists `nas-exclude-209[12].txt`; `cost.json`.
+5. To score again:
+   ```sh
+   sh work/s79/score.sh 2050
+   python3 -I scripts/analysis/tracklist_score.py under-summary work/s79/scores-2050-after.json work/s79/scores-2053-after.json
+   python3 -I work/s79/compare.py work/s79/g/drops-seed-2050/before work/s79/g/drops-seed-2050/after
+   python3 -I work/s79/cost.py work/s79/logs work/s79/dev
+   ```
+6. The NAS store: 40,666 records, revision `0bd3f0c23fabc698`; corpus
+   265, `526a3b978eb3e411`; the clusters file unchanged.
+
+### Final checks
+
+`work/s79/final.sh` (tmux `s79final`): `scripts/check.sh` green (12:20;
+the new end-to-end test of the workers takes about 8 minutes of it in a
+debug build); `regress session-78-linux --strict` (1:05) and `regress
+session-78-linux-nas --strict` (4:57) identical, every report equal to
+its baseline's. After the review's fixes (comments and test code in
+`under.rs`, documents), `scripts/check.sh` green again (12:19) on the
+final tree, and the final `gunfinger` gives the run build's bytes on
+the Stakka mix at 262 tracks with and without `--under`.
+`docs/pair-verdicts.txt`, the NAS clusters file and the answer log are
+at their start digests (`work/s79/listening-digests-end.txt`).
+
+### What else to know
+
+- The held-out test set was not touched: no command named it and no
+  manifest or report of it was opened. The mixes searched were the three
+  development mixes and generated mixes (seeds 2050, 2053, 2091, 2092).
+  Nothing ran on the candidate mixes of 0065 or on the NAS root's
+  broadcast file. The NAS and `work/peaks` were only read.
+- A read-only review by a subagent found no bug in the Rust change. It
+  corrected figures: the memory rise stated against both the default
+  and the option before, 16-19 s per hour (not 17-19), "up to one mask
+  per worker" (a long mix on 32 workers could add about 6 GiB), and the
+  saved failures' offsets (0.9 s and 1.5 s in the reports; 0274 gave
+  0.5 s and 3.5 s). It also noted that the registration's phase
+  breakdown was not measured; brief 79 records that as a deviation.
+- The first queue's render of the fresh seeds failed for want of the
+  corpus clusters file in the scratch work directory; it was copied and
+  the render run again (brief 79, 16:45).

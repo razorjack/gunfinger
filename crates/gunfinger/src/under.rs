@@ -8,9 +8,9 @@
 //! confident nearby in the recording (`Dropped`); a play found there is
 //! dropped when it is one track with a confident play of the recording
 //! (`named_as_one_track`). The entries' decodes and masks run on the
-//! workers, one entry each; their residuals are then searched in entry
-//! order, each search on the workers, so the output does not depend on
-//! the number of workers.
+//! workers, one entry each, and come back in entry order; the residuals
+//! are then searched in that order, so the output does not depend on the
+//! number of workers.
 
 use std::collections::BTreeMap;
 use std::path::Path;
@@ -612,15 +612,15 @@ mod tests {
 
     #[test]
     fn a_find_lining_up_with_another_tracks_play_across_a_long_stretch_is_kept() {
-        // Experiment 0274, drops seed 2050, mix-14: Tee Bee - Two Faced is
-        // confident from 421.2 to 553.3 s at +2.02%, its file starting at
-        // 325.8 s by its line. Chris SU & SKC - Blackout is found
-        // confidently under the next entry from 589.8 s, 36 s after Two
-        // Faced ends, its line putting its file's start 0.5 s later.
+        // Experiment 0274, drops seed 2050, mix-14: an upload of Tee Bee -
+        // Two Faced is confident from 421.2 to 553.3 s at +2.02%, its file
+        // starting at 325.8 s by its line. Chris SU & SKC - Blackout is
+        // found confidently under the next entry from 589.8 s, 36 s after
+        // Two Faced ends, its line putting its file's start 0.9 s earlier.
         let two_faced = FoundPlay {
             track_start_seconds: 97.330,
             ..lined_up(
-                "two-faced.mp3",
+                "two-faced.opus",
                 421.218,
                 553.336,
                 1.020_215,
@@ -636,7 +636,7 @@ mod tests {
                 start,
                 end,
                 1.0,
-                started + 0.5,
+                started - 0.92,
                 Level::Confident,
                 tagged("Chris SU & SKC", "Blackout"),
             )
@@ -654,7 +654,7 @@ mod tests {
         // Experiment 0274, drops seed 2053, mix-00: Carlito & Addiction -
         // Into Music is confident from 461.0 to 611.1 s at -1.64%; Ed Rush &
         // Optical - Splinter is found as possible from 646.2 s, its line
-        // putting its file's start 3.5 s from Into Music's.
+        // putting its file's start 1.5 s after Into Music's.
         let into_music = FoundPlay {
             track_start_seconds: 133.367,
             ..lined_up(
@@ -673,7 +673,7 @@ mod tests {
             646.201,
             686.229,
             1.0,
-            started - 3.5,
+            started + 1.49,
             Level::Possible,
             tagged("Ed Rush & Optical", "Splinter"),
         );

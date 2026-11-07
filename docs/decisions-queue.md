@@ -37,21 +37,24 @@ external review (`docs/research/2026-11-05-external-review.md`).
 
 - **Evidence.** Experiments 0272-0275 and 0281-0282. On the three
   development mixes no entry is gained or lost. On generated double
-  drops (32 mixes) the option gains 39 right entries with 0 wrong, and
-  on two fresh seeds (32 mixes) 45, also with 0 wrong. Session 79 fixed the fourth drop rule, which had dropped two
-  right partners whose lines happened to put their files' starts near
-  another track's (0274, 0282), and put each entry's mask on its own
-  worker: at NAS scale the option now takes 1.85-2.01 times the
-  default's time (about 17-19 s more per hour of mix; before 2.85-2.94
-  times, 35-39 s), with 2.0-2.8 GiB more peak memory. The registered bar
-  of twice holds on two development mixes and fails on Nocny by 0.3 s
-  (0281).
+  drops (32 mixes) the option gains 39 right entries with 0 wrong (one
+  repeats a track printed nearby through another upload), and on two
+  fresh seeds (32 mixes) 45, also with 0 wrong. Session 79 fixed the
+  fourth drop rule, which had dropped two right partners whose lines
+  happened to put their files' starts near another track's (0274,
+  0282), and put each entry's mask on its own worker: at NAS scale the
+  option now takes 1.85-2.01 times the default's time (about 16-19 s
+  more per hour of mix; before 2.85-2.94 times, 35-39 s), with 2.0-2.8
+  GiB more peak memory than the default (up to one mask of about 0.2
+  GiB per worker). The registered bar of twice holds on two development
+  mixes and fails on Nocny by 0.3 s (0281). The registration asked for
+  the step's remaining time by phase; no phase timings were taken.
 - **Still unmeasured.** Real annotated double drops, key lock under the
   louder track, broadcast compression, and a mistaken foreground (a
   wrong confident entry taken out). The precision evidence rests on
   generated mixes drawn from the 262-track corpus.
 - **Recommendation.** Decide the acceptable added seconds per hour of
-  mix (now about 18) and peak memory (about 2.5 GiB more). Keep the
+  mix (now about 17) and peak memory (about 2.4 GiB more). Keep the
   option off until at least one real double drop with a known tracklist
   has been checked; a cap on masks in flight would bound the memory if
   that matters.

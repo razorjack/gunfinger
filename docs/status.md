@@ -275,3 +275,30 @@ change (the core's watcher gained a mode the harness uses).
   identical, also with `--strict`; `docs/pair-verdicts.txt` and the NAS
   clusters file unchanged. A review fixed `shared --harmonic`'s
   reference, which this session's receipts had broken before any run.
+
+## 2026-11-07: session 79, the fourth drop rule of `identify --under` and its masks on the workers
+
+Brief `docs/brief-79.md`, checklist `docs/session-79-checklist.md`;
+notes "Session 79"; experiments 0281-0282. `identify --under` changed;
+it stays off by default and ADR 0025 stays Proposed. Without the option
+every output is unchanged.
+
+- The fourth drop rule drops a play found under an entry for lining up
+  with a confident play only when the two are one passage (they overlap
+  or lie at most 10 s apart); tags alike still count within 90 s. Both
+  partners session 73 lost are kept, and on 64 generated drops mixes
+  (two seeds of 0274, two fresh) the fix released 9 plays, all right
+  partners, with no wrong line, lost entry or repeated entry (0282).
+- Each confident entry's decode and mask run on its own worker; the
+  output is byte-identical to the serial step's. At NAS scale the option
+  takes 1.85-2.01 times the default's time (before 2.85-2.94), about 17 s
+  more per hour of mix, and 2.0-2.8 GiB more peak memory. The registered
+  bar of twice fails on Nocny by 0.3 s (0281).
+- Decisions queue item 2 holds the evidence for the default; real
+  annotated double drops, key lock, broadcast compression and a mistaken
+  foreground are unmeasured.
+- Final checks with `work/bin/s79-final/`: `scripts/check.sh` green;
+  `regress session-78-linux` and `regress session-78-linux-nas`
+  identical with `--strict`; `docs/pair-verdicts.txt` and the NAS
+  clusters file unchanged. A review by a subagent found no bug in the
+  code and corrected several figures in the documents.

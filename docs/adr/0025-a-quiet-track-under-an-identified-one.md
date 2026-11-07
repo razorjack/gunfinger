@@ -146,6 +146,8 @@ the louder track as the reference.
 - A quieter track found as possible in the plain search and confidently
   under the louder track appears twice in the table: the possible row
   marked `shares material with`, and the row marked `under`.
+- Since session 79 up to one mask per worker is in flight, about 0.2 GiB
+  each, so peak memory grows with the worker count and the entries.
 - Not measured: real mixes' double drops (no truth beyond listening),
   broadcast processing and pitch rides under the louder track.
 
@@ -195,7 +197,6 @@ default's time at NAS scale, J4 reliability).
    speed comes last in the product's order, so that is a choice we can
    make with these numbers.
 
-
 ## Open points, measured in session 79
 
 Session 79 made the two changes asked for before the default
@@ -216,18 +217,21 @@ today's NAS store against the option as session 73 shipped it.
    right, with 73 confident finds and none wrong.
 2. **The masks on the workers (J3 narrowly not met).** Each entry's
    decode and mask run on its own worker; the output is byte-identical
-   to the serial step's on every development run and with 1 or 32
-   workers. At NAS scale the option takes 1.85-2.01 times the default's
-   time (before: 2.85-2.94), about 17-19 s more per hour of mix (before:
-   35-39 s); Nocny at 2.01 misses the bar of twice by 0.3 s. Peak memory
-   rises by 2.0-2.8 GiB at NAS scale, since every mask is in flight at
-   once (experiment 0281). A cap on masks in flight would bound the
-   memory; it is not built.
+   to the serial step's on every development run, and the Stakka mix at
+   262 tracks gives the same bytes with 1 worker as with 32. At NAS
+   scale the option takes 1.85-2.01 times the default's time (before:
+   2.85-2.94), about 16-19 s more per hour of mix (before: 35-39 s);
+   Nocny at 2.01 misses the bar of twice by 0.3 s. Peak memory is
+   2.0-2.8 GiB above the default's at NAS scale (1.8-2.7 above the
+   option's before), since up to one mask per worker is in flight, about
+   0.2 GiB each (experiment 0281): a long mix with 32 or more entries on
+   32 workers could add about 6 GiB. A cap on masks in flight would
+   bound the memory; it is not built. No phase timings were taken.
 3. **Still unmeasured.** Real annotated double drops, key lock under the
    louder track, broadcast compression, and a mistaken foreground (a
    wrong confident entry taken out). The evidence of precision rests on
    generated mixes drawn from the 262-track corpus.
 4. **For our decision.** The two fixes are made and measured. What
-   remains is a cost of about 18 s per hour of mix and about 2.5 GiB of
+   remains is a cost of about 17 s per hour of mix and about 2.4 GiB of
    peak memory at NAS scale on the Linux machine, and the check on a
    real double drop that decisions queue item 2 recommends.

@@ -24,8 +24,8 @@ for scope and rules.
   NAS scale; confirmation seeds 2091 and 2092
 - [x] 4. Experiments 0281 (the cost) and 0282 (the drop rule)
 - [x] 5. ADR 0025's open points, decisions queue item 2, roadmap item
-- [ ] 6. Read-only review by a subagent; fixes
-- [ ] 7. Wrap-up: notes "Session 79", status, checklist; final checks
+- [x] 6. Read-only review by a subagent; fixes
+- [x] 7. Wrap-up: notes "Session 79", status, checklist; final checks
   (`scripts/check.sh`, `regress session-78-linux` and
   `session-78-linux-nas` identical with `--strict`, digests unchanged,
   `git status` clean)

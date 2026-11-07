@@ -8,7 +8,7 @@ scale (J3, session 73)?
 workers, a warm-up per scale: each development mix in the order A B C C
 B A (A default, B `--under` with `s79-run`, C `--under` with
 `s79-start`, the option before this session), `/usr/bin/time -v`;
-`work/s79/cost.py`. Means of two runs (they differ by at most 2%).
+`work/s79/cost.py`. Means of two runs (within 3.3%); memory the larger.
 
 **Result.** Wall time (times the default), the step's own time
 (`--verbose`), CPU, peak memory (GiB); entries searched under.
@@ -22,19 +22,19 @@ B A (A default, B `--under` with `s79-run`, C `--under` with
 | razorjack, 262 (7) | 4.3 s | 8.4 s (1.94) | 16.4 s (3.79) | 4.1; 12.2 s | 79; 142; 136 s | 0.17; 1.5; 0.43 |
 | Nocny, 262 (9) | 6.0 s | 10.7 s (1.78) | 19.3 s (3.21) | 4.7; 13.0 s | 116; 190; 183 s | 0.22; 1.7; 0.49 |
 
-- Added at NAS scale: 13-21 s per mix, 1.1-1.4 s per entry, 17-19 s per
+- Added at NAS scale: 13-21 s per mix, 1.1-1.4 s per entry, 16-19 s per
   hour of mix (before: 30-40 s, 2.4-3.0 s, 35-39 s; 0275 measured
   2.79-2.92 times on the store before session 75's prune).
 - Output: B and C give byte-identical JSON on all six mixes, and the
   Stakka mix at 262 tracks with `--jobs 1` gives the same bytes as with
   32 (1:45 wall, the step 60.3 s). The tracklists are those of 0273.
-- CPU is unchanged. Peak memory rises by 2.0-2.8 GiB at NAS scale (1.3-2.6
-  at 262 tracks): every entry's mask is in flight at once, about 0.2 GiB each.
+- CPU B = C at NAS scale (3-8% more at 262). Memory, B above A: NAS 2.0-2.8,
+  262 1.3-2.7 GiB (above C: 1.8-2.7): a mask per worker, about 0.2 GiB.
 
 **Conclusion.** The step takes half its former time, and the option
-1.85-2.01 times the default's at NAS scale (about 17-19 s more per hour
+1.85-2.01 times the default's at NAS scale (about 16-19 s more per hour
 of mix). J3 is met on Stakka and razorjack and fails on Nocny by 0.3 s
 (41.86 s against twice 20.79 s): as registered, J3 is not met. The
-price is about 2.5 GiB more peak memory; a cap on masks in flight would
+price is about 2.4 GiB more peak memory; a cap on masks in flight would
 bound it (not built). What remains of the step is the searches in entry
 order and the slowest mask (an inference; no phase timings were taken).

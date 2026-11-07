@@ -101,7 +101,10 @@ conservative option, write it down here and continue.
   2053 `mix-00`, Ed Rush & Optical - Splinter (`...Wormhole, Virus
   Recordings VRS 001 LP track B) RSD 2023.opus`, 111 hits, possible,
   646.2-686.2 s), 3.5 s from Carlito & Addiction - Into Music's
-  (461.0-611.1 s).
+  (461.0-611.1 s). (Correction, 17:30: those offsets are 0274's; the
+  reports give 0.9 s, Blackout's line before the Two Faced `.opus`
+  upload's, and 1.5 s, Splinter's after Into Music's `.mp3`; the unit
+  tests use the reports' figures.)
 
 ## Plan
 
@@ -308,3 +311,9 @@ them): they test repeatability on new draws, not other recordings.
   ADR is Proposed, so its text is the draft of the decision and no
   superseding ADR is needed; "Open points, measured in session 79"
   holds the numbers.
+- (17:30) Deviation from the registration: no phase timings were taken
+  (the step's remaining time by phase), so the documents say what is
+  left of the step's time only as an inference. The review's fixes:
+  memory stated against the default and against the option before, the
+  added seconds per hour as 16-19 (mean about 17), "up to one mask per
+  worker", and the saved failures' offsets taken from the reports.

@@ -68,7 +68,7 @@ Each session takes the first item it can do without a pending decision.
    *Session 79 (0281, 0282):* both fixes made and measured. Both lost
    partners are kept, with no new wrong find; the option takes
    1.85-2.01 times the default at NAS scale (Nocny 0.3 s over twice),
-   with about 2.5 GiB more peak memory. Next: the decision (queue item
+   with about 2.4 GiB more peak memory. Next: the decision (queue item
    2), after one real double drop with a known tracklist.
 3. **The user's decisions** in `docs/decisions-queue.md`, then one
    session that adopts the accepted ones together and reruns the
@@ -211,7 +211,7 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   unrelated partner and let in no shared material, 0215-0218). `--under` gains 39 right
   entries and no wrong one on generated double drops and changes nothing
   on the development mixes, at 1.85-2.01 times `identify`'s time at NAS
-  scale (about 18 s per hour of mix) and about 2.5 GiB more peak memory
+  scale (about 17 s per hour of mix) and about 2.4 GiB more peak memory
   since session 79's fixes (the fourth drop rule, masks on the workers).
   Caveat: in session 65, with
   another rip as the reference, the residual once made a known related
