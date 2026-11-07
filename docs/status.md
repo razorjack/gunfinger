@@ -248,3 +248,30 @@ notes "Session 77"; experiment 0279. The product did not change.
   identical, also with `--strict`; `docs/pair-verdicts.txt` and the NAS
   clusters file unchanged. Left for session 78: the render cache, the
   harness's FFmpeg watchdog and `regress`'s coverage.
+
+## 2026-11-07: session 78, render receipts, the harness's FFmpeg watchdog and `regress` over all three development mixes
+
+Brief `docs/brief-78.md`, checklist `docs/session-78-checklist.md`;
+notes "Session 78"; experiment 0280. The product's behaviour did not
+change (the core's watcher gained a mode the harness uses).
+
+- A cached render is reused only when its receipt holds the same recipe:
+  the sources' path, size and modification time, the caller's steps
+  (excerpt, playback, filters, partner, fault, seed, encoding) and the
+  renderer with FFmpeg's version. Older receipts are refused once: the
+  sweep's 720 renders were rendered again (about 18 s) and gave identical
+  results (0280).
+- Every harness FFmpeg run is under the core's stall timeout (120 s,
+  ADR 0018). Encodes to a file report their progress, and only a report
+  that advanced counts, because FFmpeg repeats its last report while its
+  input stalls.
+- `regress` also scans the 2003 and Nocny mixes (7/7 and 9/9 at 262
+  tracks, 12/12 and 17/17 at NAS scale, 0 wrong); a baseline saved
+  without them is reported as incomplete. Baselines `session-78-linux`
+  and `session-78-linux-nas`.
+- Final checks with `work/bin/s78-final/` (`9b0ac59`): `scripts/check.sh`
+  green (on a rerun after the known "Text file busy" test race);
+  `regress session-78-linux` and `regress session-78-linux-nas`
+  identical, also with `--strict`; `docs/pair-verdicts.txt` and the NAS
+  clusters file unchanged. A review fixed `shared --harmonic`'s
+  reference, which this session's receipts had broken before any run.

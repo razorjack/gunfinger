@@ -28,7 +28,7 @@ for scope and rules.
   `session-78-linux-nas`; the new scans' scores against 0232
 - [x] 4. Experiment 0280, only if a figure moved or refused renders that
   earlier experiments used
-- [ ] 5. Read-only review by a subagent; fixes
-- [ ] 6. Wrap-up: notes "Session 78", status, roadmap queue item 1,
+- [x] 5. Read-only review by a subagent; fixes
+- [x] 6. Wrap-up: notes "Session 78", status, roadmap queue item 1,
   checklist; final checks (`scripts/check.sh`, both new baselines
   identical also with `--strict`, digests unchanged, `git status` clean)

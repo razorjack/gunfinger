@@ -52,8 +52,15 @@ Each session takes the first item it can do without a pending decision.
    *Session 77 (0279):* the scoring and `regress` parts are done: plays
    take the highest level (6 of 54,477 saved plays moved, all in 0250);
    `regress` reports incomparable pairs, compares `provenance.json` and
-   has `--strict`. Left for session 78: the render cache's recipe
-   fingerprint, the FFmpeg watchdog and the 2003 and Nocny scans.
+   has `--strict`.
+   *Session 78 (0280):* done. Render receipts hold a recipe (sources'
+   path, size and modification time; steps; renderer and FFmpeg's
+   version) and refuse any other; every harness FFmpeg run is under the
+   core's stall timeout (encodes count advancing `-progress` reports);
+   `regress` scans all three development mixes, and an older baseline is
+   "incomplete". Both regressions identical; baselines `session-78-linux`
+   and `session-78-linux-nas`. Next step, optional: reuse of identical
+   recipes across work directories.
 2. **`--under` before its default.** Fix the fourth drop rule
    (`named_as_one_track` matches non-overlapping plays within 90 s;
    0274), run the mask's entries in parallel, measure 0275's table

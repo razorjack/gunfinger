@@ -101,6 +101,7 @@ that holds it.
 - "Session 75" (2026-11-02): the records of DJ sets and a mixed CD's track fix pruned from the NAS store, new NAS-scale baseline. `this file`
 - "Session 76" (2026-11-07): the documents every session reads, made small and current. `this file`
 - "Session 77" (2026-11-07): generated-mix scoring and `regress` measure what they say. `this file`
+- "Session 78" (2026-11-07): render receipts, the harness's FFmpeg watchdog and `regress` over all three development mixes. `this file`
 
 
 ## Session 70
@@ -1269,3 +1270,125 @@ upper bound of 463 of 60,337 arm plays, `work/s77/arm-bound.txt`).
   scripts' old rule, `rescore`'s drift check on new reports,
   `--provenance-only` on stale reports, the panels walk), with wrong
   clock times in the brief (brief 77, step 7).
+
+## Session 78
+
+Brief `docs/brief-78.md`, checklist `docs/session-78-checklist.md`,
+experiment 0280. The harness changed; the product's behaviour did not.
+The `gunfinger` binary is no longer byte-identical to `s77-final`'s,
+because the core's watcher gained `run_reporting` (its reader holds the
+beat mode); `watch::run` behaves as before.
+
+### What changed
+
+- `render::Recipe` and `render::once`: a cached render is reused only
+  when its receipt (`<name>.<ext>.complete`, now JSON with `bytes` and
+  `recipe`) holds the same recipe: each source's path, size and
+  modification time (no content digest), the caller's steps in `{:?}`
+  form, and the renderer (`render::RENDERER`, "gunfinger-eval renders
+  1", with the first and the `lib...` lines of `ffmpeg -version`; LAME's
+  and Opus's versions are not among them). Anything else, older receipts
+  included, renders afresh. All six caches use it: the sweep (and
+  `recall`'s clean renders), `loss`, `recall`'s damaged renders,
+  `shared`, `robust` and generated mixes (whose recipe now includes the
+  stereo fault and every played file).
+- Bump `render::RENDERER` by hand whenever a harness change alters what
+  the same recipe renders (a constant in `robust`, a filter in `mixes`):
+  the build's digest is deliberately not part of the recipe.
+- FFmpeg in the harness runs under `gunfinger_core::decode::watch` with
+  the core's 120 s: pipes (`render_samples*`, `render_stereo_samples`,
+  `stereo::decode_stereo`, `ffmpeg -version`) under `watch::run`;
+  encodes to a file with `-nostats -progress pipe:1` under
+  `watch::run_reporting`, beating only when `out_time_us` or
+  `total_size` changes. FFmpeg 8.1.3 repeats its last report every
+  period while its input stalls (measured on a FIFO; the command is in
+  brief 78), so a beat on any output would never stop a stalled
+  encode. A source's metadata and first bytes are read under
+  `watch::within`. `pair-review`'s `ffplay` stays outside (playback).
+- `regress` runs and compares `scan-razorjack-2003-03-29.json` and
+  `scan-nocny-trans-vertical-2002-08-23.json` (whole sets, no
+  leave-outs) after Stakka's reports. A baseline without a report is
+  "incomplete": printed, compared for what it holds, named in the last
+  line; success without `--strict`, failure with it. Calibration still
+  reads only the `--set`'s reports.
+
+### Runs (0280)
+
+| Run | Result | Wall | Peak memory |
+|---|---|--:|--:|
+| Corpus regress `session-54-linux`, `s78-run` (720 renders refused) | 4 held reports identical, 2 incomplete | 1:23 | 0.4 GiB |
+| NAS regress `session-75-linux-nas`, first `s78-final` | the same | 4:49 | 5.5 GiB |
+| Corpus regress `session-78-linux`, final build (720 refused again, see below); `--strict` | identical; identical | 1:24; 1:05 | 0.4 GiB |
+| NAS regress `session-78-linux-nas`, final build; `--strict` | identical; identical | 4:59; 5:00 | 5.5 GiB |
+| `scripts/check.sh`, final | green on the rerun (the first hit the "Text file busy" test race) | 7:37 | |
+
+- The 720 sweep renders of seed 2026 were refused (size-only receipts,
+  made before FFmpeg 8.1.3) and rendered again in about 18 s; results
+  identical. 40,514 older receipts elsewhere under `work/` are refused on
+  their next use (`work/sweep/seed-2027` and `seed-2028`, `work/recall/`,
+  `work/robust/`, `work/shared/`, earlier sessions' scratch).
+- The new scans: 2003 mix 7/7 (262 tracks) and 12/12 (NAS), Nocny 9/9
+  and 17/17, 0 wrong; equal to 0238 and 0232.
+
+### Decided this session, open to change
+
+- No content digest of the sources (they would be read in full on each
+  check, from the NAS for references); a same-size replacement with its
+  modification time kept is not detected.
+- No reuse across work directories: a store keyed by the recipe's digest
+  is the next step, if wanted.
+- `--strict` fails on an incomplete baseline.
+- No leave-outs for the 2003 and Nocny scans in `regress`.
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: the Planet Dust (DC Breaks Remix) cut (`unsure`);
+  session 74's four break lists.
+
+### Handoff for the next session
+
+1. Baselines: `session-78-linux` (262 tracks) and `session-78-linux-nas`
+   (NAS scale), each with six reports (the sweep, the three
+   development scans, Stakka's two leave-outs) and `provenance.json`.
+   Use them from now on; `session-54-linux` and `session-75-linux-nas`
+   now read as incomplete.
+2. How to run: `gunfinger-eval regress session-78-linux` and
+   `gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks
+   regress session-78-linux-nas`, `--strict` for refactors. A NAS regress
+   takes about 5:00 on the Linux machine (32 workers; session 77:
+   3:47), a corpus regress about 1:05.
+3. The NAS store: 40,666 records, revision `0bd3f0c23fabc698`; corpus 265
+   records, `526a3b978eb3e411`. The NAS clusters file `c4d3da2e7e37...`
+   (unchanged), 284 clusters.
+4. Builds: `work/bin/s78-final/` (master at `9b0ac59`); `s77-final` is the
+   other kept final build. `s78-start` and `s78-run` were deleted.
+5. A session whose runs reuse old renders (generated mixes, `robust`,
+   `recall`, `shared`) pays one re-render of each the first time; budget
+   for it (a 30-80 minute generated mix renders in seconds to a minute).
+6. Scripts and data: `work/s78/` (`regress.sh`, `scans.py`, logs in
+   `logs/`, the NAS scan reports of 2026-10-21 in `old-reports/nas/`).
+
+### What else to know
+
+- The held-out test set was not touched: no command named it and no
+  manifest or report of it was opened. The mixes searched were the three
+  development mixes, through `regress`. Nothing ran on the candidate
+  mixes of 0065 or on the NAS root's broadcast file. The NAS and
+  `work/peaks` were only read.
+- `docs/pair-verdicts.txt`, the answer log and the NAS clusters file are
+  at their start digests (`work/s78/listening-digests-end.txt`); no
+  manifest, committed panel or `docs/same-titles.txt` changed.
+- A read-only review by a subagent found one bug, fixed before the final
+  queue: `harmonic::reference` removed a receipt `encode` no longer
+  writes, so `shared --harmonic` would have failed every measurement
+  (nothing ran it this session). Also fixed: report counts in the
+  documents, `--strict`'s message for an incomplete baseline, `robust`'s
+  recipe listing files a condition does not read, and the renderer now
+  holding FFmpeg's library versions, which refused the sweep's 720
+  renders a second time in the final queue (about 18 s; brief 78,
+  14:55).
+- The first final `scripts/check.sh` failed on ADR 0020's "Text file
+  busy" race in `decode::watch`'s stand-in tests (ETXTBSY on executing a
+  script another test thread's fork held open); the rerun was green. The
+  session's new stand-in tests make the race a little more likely; a
+  retry on `ExecutableFileBusy` in the tests' spawns would remove it.

@@ -177,9 +177,12 @@ generate tones with FFmpeg are not covered.
 **How an encode to a file reports progress.** With `-v error` such an
 encode writes nothing. `-progress pipe:1 -nostats` makes FFmpeg write a
 block of `key=value` lines to stdout every `-stats_period` (0.5 s by
-default). Measured on FFmpeg 8.1.3 (`work/s78/fifo/`, a raw input on a
-FIFO that stops after 2.8 s): FFmpeg goes on writing a block every
-period while its input stalls, with the same `out_time_us`. A heartbeat
+default). Measured on FFmpeg 8.1.3: 3 s of raw `f32le` written into a
+FIFO that is then held open without data, encoded with `ffmpeg -nostdin
+-v error -nostats -progress pipe:1 -stats_period 1 -f f32le -ar 44100
+-ac 1 -i in.fifo -c:a libmp3lame out.mp3`. FFmpeg went on writing a
+block every second while its input stalled, each with
+`out_time_us=2822290`, until the writer closed the FIFO. A heartbeat
 on any output would therefore never stop a stalled encode. The
 heartbeat of an encode is a block whose `out_time_us` or `total_size`
 has advanced.
@@ -220,7 +223,8 @@ Mac).
   saved leave-outs of the other two have no baseline role).
 - When `--set` names one of the two, it is not repeated.
 - A baseline that lacks a report `regress` now names is **incomplete**:
-  `regress` prints "incomplete: the baseline has no NAME", compares what
+  `regress` prints "NAME: incomplete: the baseline has no such report"
+  (wording as built), compares what
   the baseline holds, and names the missing reports in its last line.
   Without `--strict` it returns success as before; *decision:* with
   `--strict` an incomplete baseline fails, because strict means every
@@ -270,11 +274,13 @@ Mac).
   tool's playback, not a render, and agents never run it.
 - **14:16, the last line of `regress`.** It is unchanged when the
   baseline is complete ("every report equal to its baseline's apart from
-  timing"); an incomplete baseline adds "; incomplete: the baseline has
-  no ..." to it. `baseline --provenance-only` skips reports the baseline
+  timing"). For a baseline that is incomplete and otherwise identical it
+  reads "every report the baseline holds equal to its baseline's apart
+  from timing; incomplete: the baseline has no ..."; a changed one ends
+  with the same "; incomplete: ..." clause. `baseline --provenance-only` skips reports the baseline
   was saved without.
 - **14:20, the first corpus regress** (`work/bin/s78-run/`,
-  `work/s78/logs/regress-54-run.log`): the five reports
+  `work/s78/logs/regress-54-run.log`): the four reports
   `session-54-linux` holds are identical, the two new scans are reported
   as incomplete, exit 0, 1:23 wall. All 720 sweep renders were refused
   (old receipts) and rendered again in that run; the new receipts hold
@@ -293,7 +299,7 @@ Mac).
   and writes receipts with their recipes through
   `render::excerpt_recipe`, which `excerpt_once` also uses.
 - **14:34, the NAS regress** (`s78-final`,
-  `work/s78/logs/regress-75-nas-1.log`): the five held reports identical,
+  `work/s78/logs/regress-75-nas-1.log`): the four held reports identical,
   the two new scans incomplete, 4:49 wall (session 77: 3:47), 5.5 GiB.
   The new NAS scans give 12/12 and 17/17, 0 wrong. Against the saved
   reports of 2026-10-21, the only confident difference is the Into Music
@@ -305,8 +311,41 @@ Mac).
   about 18 s to render them again (by difference). The NAS regress reused
   the same renders (`work/sweep/seed-2026/` serves both scales).
 - **14:37, new baselines** `session-78-linux` and `session-78-linux-nas`,
-  saved by `s78-final` right after its regress runs, each with the seven
-  reports and a provenance file.
+  saved by `s78-final` right after its regress runs, each with six reports
+  (the sweep, the three development scans, Stakka's two leave-outs) and
+  a provenance file.
 - **14:40, experiment 0280.** Written because the receipts refused renders
   that every regress-based experiment used; no figure moved. 40,514
   older receipts under `work/` are refused on their next use.
+- **14:55, the review** (a read-only subagent; step 5). Its findings and
+  what was done:
+  1. `harmonic::reference` removed `<name>.wav.complete` after its
+     encode with `?`; `encode` writes no receipt any more, so every call
+     failed and `shared --harmonic` would have recorded an error for each
+     detection (no test calls it; nothing ran it this session). Fixed: it
+     removes only the WAV, as `mixes/residual.rs` does.
+  2. Report counts: the old baselines hold four reports, the new ones six
+     (the brief and 0280 said five and seven). Corrected.
+  3. The brief's wording of `regress`'s lines did not match the code.
+     Corrected above.
+  4. `--strict` on an incomplete baseline said the reports differ. It now
+     names the missing reports and says to save a new baseline.
+  5. `robust`'s recipe listed the partner and the speech file for every
+     condition. It now lists the partner only for the conditions that
+     play one and the speech file only for voice-over and insert.
+  6. The renderer kept only the first line of `ffmpeg -version`, which
+     does not change with the libraries (0280 found the MP3's tag holding
+     libavformat's version). It now also holds every `lib...` line of
+     that output. LAME's and Opus's own versions are not printed there:
+     a limitation. This refuses the 720 sweep renders once more on the
+     next run (about 18 s).
+- **15:05, the final queue** (`work/s78/final.sh`, final build
+  `gunfinger-eval` `8e01bb7a...`, `gunfinger` unchanged at
+  `5c0e2c66...`): `regress session-78-linux` and
+  `regress session-78-linux-nas` identical, also with `--strict` (1:24
+  and 1:05; 4:59 and 5:00). The renderer's new library lines refused the
+  720 sweep renders once more, in the first corpus run. The first
+  `scripts/check.sh` failed on ADR 0020's "Text file busy" race in
+  `decode::watch`'s stand-in tests; it was run again. The baselines were
+  kept: the final build reproduces their reports, and the provenance
+  prints only another build.

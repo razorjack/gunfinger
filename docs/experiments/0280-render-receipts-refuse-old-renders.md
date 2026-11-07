@@ -4,7 +4,7 @@
 completion receipt (the external review of 2026-11-05, item 3). The receipt now holds
 the render's recipe: each source's path, size and modification time, the caller's steps
 (excerpt, playback, filters, partner, fault, seed, encoding) and the renderer
-(`render::RENDERER` and FFmpeg's version line). Which renders does it refuse, and does
+(`render::RENDERER`, FFmpeg's version and its libraries' lines). Which renders does it refuse, and does
 rendering them again move any figure? **Change.** Harness only: `render::once` behind
 every render cache; FFmpeg runs under the core's stall timeout (`watch::run_reporting`
 for encodes to a file). **Command.** `work/s78/regress.sh` with `s78-run`, then
@@ -13,7 +13,7 @@ and Nocny scans now run inside `regress` (`work/s78/logs/`).
 
 | Run | Renders refused | Result | Wall |
 |---|--:|---|--:|
-| Corpus regress, `s78-run` | 720 (the sweep, seed 2026) | the 5 held reports identical; 2 new incomplete | 1:23 |
+| Corpus regress, `s78-run` | 720 (the sweep, seed 2026) | the 4 held reports identical; 2 new incomplete | 1:23 |
 | Corpus regress, `s78-final` | 0 | the same | 1:05 |
 | NAS regress, `s78-final` | 0 (the same sweep renders) | the same | 4:49 |
 
