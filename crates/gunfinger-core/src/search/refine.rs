@@ -20,7 +20,7 @@ use std::ops::{Range, RangeBounds};
 
 pub use fit::MIN_HITS_TO_FIT;
 
-use super::chains::{chain_speed, without_weak_ends};
+use super::chains::{chain_speed, speed_estimate, without_weak_ends};
 use super::lines::{LINE_SPAN_FRAMES, Line, MIN_LINE_HITS, WINDOW_SECONDS};
 use super::{Chained, Detection, Options, Search};
 use crate::confidence::{Evidence, Pass};
@@ -190,7 +190,13 @@ fn at_fitted_speed(
     };
     let mut hits = candidate.hits_near(fitted, candidate.span.clone(), .., SEARCH_FRAMES);
     let measured = measure(&mut hits, fitted);
-    let (fitted, mut measured) = fit::refit(options.second_pass_fit, &candidate, fitted, measured);
+    let (fitted, mut measured) = fit::refit(
+        options.second_pass_fit,
+        speed_estimate(&near),
+        &candidate,
+        fitted,
+        measured,
+    );
     if options.speed_per_stretch {
         measured = per_stretch(&candidate, fitted, measured);
     }

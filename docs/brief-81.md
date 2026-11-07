@@ -182,15 +182,15 @@ new registration and data the first run did not use.
 
 ## Decisions
 
-- *(19:50)* Start regressions skipped: `s81-start` is byte-identical to
+- *(19:25)* Start regressions skipped: `s81-start` is byte-identical to
   `s80-final` and the store revisions are unchanged.
-- *(19:55)* Scale-down, by the prompt's time box: recall's brief plays
+- *(19:28)* Scale-down, by the prompt's time box: recall's brief plays
   and the shared panels' development halves are not run (NAS scale
   only, 24-85 minutes per run in session 63). The panels are the A4
   check; the brief plays are covered in part by the grid's 10-20 s
   plays at 262 tracks.
-- *(19:55)* Chain length is measured by the query's length, because
+- *(19:28)* Chain length is measured by the query's length, because
   neither report holds the first-pass chain (`--trace-candidates` exists
   for the sweep and recall only).
-- *(19:55)* `copies` runs for the sweep only, the one command with
+- *(19:28)* `copies` runs for the sweep only, the one command with
   `--exact-copies`.

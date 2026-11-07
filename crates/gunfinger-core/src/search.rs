@@ -200,6 +200,10 @@ pub enum SecondPassFit {
     /// Fitted again to the drift of its own hits, at most two rounds within
     /// 0.4% of the chain's speed, keeping the last.
     Iterated,
+    /// `Iterated` where the chain's speed is the mean of its rungs (fewer
+    /// than 3 lines, or under 16 s between their centres), the chain's
+    /// speed elsewhere (session 81).
+    IteratedShortChains,
 }
 
 /// After the second pass, which detection of an asset overlaps a stronger

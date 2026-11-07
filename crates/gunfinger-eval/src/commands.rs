@@ -218,11 +218,12 @@ pub enum Command {
 }
 
 /// The commands that take --other-peaks-dir, by `Command::name`.
-const OTHER_LIBRARY_COMMANDS: [&str; 28] = [
+const OTHER_LIBRARY_COMMANDS: [&str; 29] = [
     "validate",
     "map-library",
     "clusters --from-peaks",
     "sweep",
+    "grid",
     "scan",
     "calibrate",
     "robust",
@@ -260,8 +261,9 @@ const FRONT_END_COMMANDS: [&str; 6] = [
 ];
 
 /// The commands that take --other-sample.
-const OTHER_SAMPLE_COMMANDS: [&str; 6] = [
+const OTHER_SAMPLE_COMMANDS: [&str; 7] = [
     "sweep",
+    "grid",
     "scan",
     "calibrate",
     "baseline",

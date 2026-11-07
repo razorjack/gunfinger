@@ -195,13 +195,32 @@ fn playback(chain: &[&Line]) -> Playback {
     }
 }
 
+/// How `chain_speed` estimates a chain's speed.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(super) enum SpeedEstimate {
+    /// A fit through the lines' centres.
+    LineFit,
+    /// The hit-weighted mean of the lines' rungs: a chain of fewer than 3
+    /// lines, or with less than `MIN_FIT_FRAMES` between its first and last
+    /// line's centres.
+    MeanOfRungs,
+}
+
+pub(super) fn speed_estimate(chain: &[&Line]) -> SpeedEstimate {
+    let span = chain[chain.len() - 1].centre() - chain[0].centre();
+    if chain.len() < 3 || span < MIN_FIT_FRAMES {
+        SpeedEstimate::MeanOfRungs
+    } else {
+        SpeedEstimate::LineFit
+    }
+}
+
 /// The slope of the chain: a hit-weighted least-squares fit of reference
 /// time against query time through the lines' centres,
 /// `cov(query, reference) / var(query)`. It resolves the speed far more
 /// finely than the ladder step. A short chain gives the mean of its rungs.
 pub(super) fn chain_speed(chain: &[&Line]) -> f64 {
-    let span = chain[chain.len() - 1].centre() - chain[0].centre();
-    if chain.len() < 3 || span < MIN_FIT_FRAMES {
+    if speed_estimate(chain) == SpeedEstimate::MeanOfRungs {
         return weighted_mean(chain, |line| line.speed);
     }
     let reference = |line: &Line| line.reference_frame_at(line.centre());
@@ -338,5 +357,23 @@ mod tests {
         let chain: Vec<&Line> = lines.iter().collect();
 
         assert!((chain_speed(&chain) - 1.031).abs() < 1e-9);
+    }
+
+    #[test]
+    fn a_chain_under_3_lines_or_16_s_between_centres_gives_the_mean_of_its_rungs() {
+        let estimate = |windows: &[u32]| {
+            let lines: Vec<Line> = windows
+                .iter()
+                .map(|&window| line(window, 1.0, 0.0, 10))
+                .collect();
+            let chain: Vec<&Line> = lines.iter().collect();
+            speed_estimate(&chain)
+        };
+
+        assert_eq!(estimate(&[0, 5]), SpeedEstimate::MeanOfRungs);
+        // Centres 625 frames apart: 1,250 frames, 20 s, from first to last.
+        assert_eq!(estimate(&[0, 1, 2]), SpeedEstimate::LineFit);
+        // Three lines of two windows, 625 frames, 10 s, apart.
+        assert_eq!(estimate(&[0, 0, 1]), SpeedEstimate::MeanOfRungs);
     }
 }

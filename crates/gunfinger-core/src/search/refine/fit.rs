@@ -5,6 +5,7 @@
 
 use super::{Alignment, Candidate, Hit, Measured, SEARCH_FRAMES, drift, measure};
 use crate::search::SecondPassFit;
+use crate::search::chains::SpeedEstimate;
 
 /// Candidates with fewer hits at the chain's speed keep that measurement:
 /// a third of the rule's 240, so that only a move of speed that tripled the
@@ -26,9 +27,11 @@ const FIT_REACH: f64 = 0.004;
 const MIN_ROUND_CHANGE: f64 = 0.00005;
 
 /// The alignment and measurement `fit` keeps for `candidate`, given its
-/// measurement at the chain's alignment.
+/// measurement at the chain's alignment and how the chain's speed was
+/// estimated.
 pub(super) fn refit(
     fit: SecondPassFit,
+    estimate: SpeedEstimate,
     candidate: &Candidate,
     chain: Alignment,
     at_chain_speed: Vec<Measured>,
@@ -41,6 +44,10 @@ pub(super) fn refit(
         SecondPassFit::BestOfGrid => best_of_grid(candidate, chain, at_chain_speed),
         SecondPassFit::CrossFitted => cross_fitted(candidate, chain, &at_chain_speed),
         SecondPassFit::Iterated => iterated(candidate, chain, at_chain_speed),
+        SecondPassFit::IteratedShortChains => match estimate {
+            SpeedEstimate::MeanOfRungs => iterated(candidate, chain, at_chain_speed),
+            SpeedEstimate::LineFit => (chain, at_chain_speed),
+        },
     }
 }
 
@@ -266,6 +273,14 @@ mod tests {
 
     impl Play {
         fn refit(&self, fit: SecondPassFit) -> (Alignment, Vec<Measured>) {
+            self.refit_estimated(fit, SpeedEstimate::MeanOfRungs)
+        }
+
+        fn refit_estimated(
+            &self,
+            fit: SecondPassFit,
+            estimate: SpeedEstimate,
+        ) -> (Alignment, Vec<Measured>) {
             let candidate = Candidate {
                 index: &self.index,
                 samples: Signal::Mono(&self.query),
@@ -276,7 +291,7 @@ mod tests {
             let mut hits =
                 candidate.hits_near(self.chain, candidate.span.clone(), .., SEARCH_FRAMES);
             let at_chain_speed = measure(&mut hits, self.chain);
-            refit(fit, &candidate, self.chain, at_chain_speed)
+            refit(fit, estimate, &candidate, self.chain, at_chain_speed)
         }
     }
 
@@ -332,6 +347,31 @@ mod tests {
     }
 
     #[test]
+    fn the_short_chain_fit_iterates_only_on_a_mean_of_rungs() {
+        let off = play(1.003);
+        let total_of =
+            |(alignment, measured): (Alignment, Vec<Measured>)| (alignment.speed, total(&measured));
+
+        assert_eq!(
+            total_of(off.refit_estimated(
+                SecondPassFit::IteratedShortChains,
+                SpeedEstimate::MeanOfRungs
+            )),
+            total_of(off.refit_estimated(SecondPassFit::Iterated, SpeedEstimate::MeanOfRungs))
+        );
+        assert_eq!(
+            total_of(
+                off.refit_estimated(SecondPassFit::IteratedShortChains, SpeedEstimate::LineFit)
+            ),
+            total_of(off.refit_estimated(SecondPassFit::ChainSpeed, SpeedEstimate::LineFit))
+        );
+        assert_eq!(
+            total_of(off.refit_estimated(SecondPassFit::Iterated, SpeedEstimate::LineFit)),
+            total_of(off.refit_estimated(SecondPassFit::Iterated, SpeedEstimate::MeanOfRungs))
+        );
+    }
+
+    #[test]
     fn a_candidate_below_the_floor_keeps_its_measurement_at_the_chains_speed() {
         let off = play(1.003);
         let candidate = Candidate {
@@ -350,8 +390,15 @@ mod tests {
             SecondPassFit::BestOfGrid,
             SecondPassFit::CrossFitted,
             SecondPassFit::Iterated,
+            SecondPassFit::IteratedShortChains,
         ] {
-            let (alignment, measured) = refit(fit, &candidate, off.chain, weak.clone());
+            let (alignment, measured) = refit(
+                fit,
+                SpeedEstimate::MeanOfRungs,
+                &candidate,
+                off.chain,
+                weak.clone(),
+            );
             assert_eq!(alignment.speed, 1.003);
             assert_eq!(total(&measured), MIN_HITS_TO_FIT - 1);
         }

@@ -3,20 +3,21 @@
 //! reports of anything but the default go to `reports/variant-<name>/`, so
 //! that calibrate and regress read one matcher at a time.
 
+use std::fmt;
 use std::path::Path;
 
 use gunfinger_core::confidence::{Pass, Rule};
 use gunfinger_core::index::Index;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{
-    Detection, Matcher, Options, SAME_SPEED_SHARE, SecondOverlap, SecondPassFit, Trace,
-    search_signal_with, search_with, trace_with,
+    Detection, Matcher, Options, SAME_SPEED_SHARE, SKIPPED_SHARE, SecondOverlap, SecondPassFit,
+    Trace, search_signal_with, search_with, trace_with,
 };
 use gunfinger_core::speed::Rung;
 
 use crate::stereo::{FrontEnd, QueryAudio};
 
-#[derive(clap::Args, Clone, Copy, Debug, PartialEq)]
+#[derive(clap::Args, Clone, Copy, PartialEq)]
 pub struct Matching {
     /// Search with the single-pass matcher, the default before session 6:
     /// every posting list, one pass over the ladder, 200 hits in 3 windows.
@@ -27,6 +28,12 @@ pub struct Matching {
     /// default matcher the lists are emptied instead of set aside.
     #[arg(long, global = true, default_value_t = 0.0)]
     pub drop_fullest: f64,
+    /// Set aside this share of the fullest posting lists from the first
+    /// pass instead of the default 1% (0.01), so that only the cut moves:
+    /// lists cross it as a change of the library makes them (ADR 0014,
+    /// experiment 0242). Session 81's perturbation.
+    #[arg(long, global = true, value_name = "SHARE", conflicts_with_all = ["single_pass", "drop_fullest"])]
+    pub set_aside_share: Option<f64>,
     /// The second pass measures each stretch of a few windows again at its
     /// own speed when it drifts from the fitted one.
     #[arg(long, global = true, conflicts_with = "single_pass")]
@@ -59,7 +66,9 @@ pub struct Matching {
     /// more at (`SecondPassFit`): the chain's speed (the default), the best
     /// of a grid within 0.4% (`grid`), the grid chosen on alternate windows
     /// and counted on the others (`cross`), or a fit iterated on the hits
-    /// (`iterated`). Experiments 0251-0253.
+    /// (`iterated`), or that fit only where the chain's speed is the mean
+    /// of its rungs (`iterated-short`). Experiments 0251-0253 and
+    /// session 81's.
     #[arg(long, global = true, value_enum, default_value_t = Fit::ChainSpeed, conflicts_with_all = ["single_pass", "speed_per_stretch"])]
     pub second_pass_fit: Fit,
 }
@@ -71,6 +80,7 @@ pub enum Fit {
     Grid,
     Cross,
     Iterated,
+    IteratedShort,
 }
 
 impl Fit {
@@ -80,6 +90,7 @@ impl Fit {
             Fit::Grid => SecondPassFit::BestOfGrid,
             Fit::Cross => SecondPassFit::CrossFitted,
             Fit::Iterated => SecondPassFit::Iterated,
+            Fit::IteratedShort => SecondPassFit::IteratedShortChains,
         }
     }
 
@@ -90,7 +101,32 @@ impl Fit {
             Fit::Grid => Some("fit-grid"),
             Fit::Cross => Some("fit-cross"),
             Fit::Iterated => Some("fit-iterated"),
+            Fit::IteratedShort => Some("fit-iterated-short"),
         }
+    }
+}
+
+/// Baselines' provenance records this (`provenance.json`, "matching"):
+/// the derived form, with `set_aside_share` only when it is given, so that
+/// baselines written before it existed still compare.
+impl fmt::Debug for Matching {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut fields = formatter.debug_struct("Matching");
+        fields
+            .field("single_pass", &self.single_pass)
+            .field("drop_fullest", &self.drop_fullest);
+        if let Some(share) = self.set_aside_share {
+            fields.field("set_aside_share", &share);
+        }
+        fields
+            .field("speed_per_stretch", &self.speed_per_stretch)
+            .field("trim_ends", &self.trim_ends)
+            .field("overlap_by_spans", &self.overlap_by_spans)
+            .field("overlap_by_chains", &self.overlap_by_chains)
+            .field("apart_in_speed", &self.apart_in_speed)
+            .field("front_end", &self.front_end)
+            .field("second_pass_fit", &self.second_pass_fit)
+            .finish()
     }
 }
 
@@ -104,6 +140,17 @@ impl Matching {
             .is_some_and(|share| !(share > 0.0 && share < 1.0))
         {
             return Err(String::from("--apart-in-speed is a share between 0 and 1"));
+        }
+        if self
+            .set_aside_share
+            .is_some_and(|share| !(share > 0.0 && share < 1.0))
+        {
+            return Err(String::from("--set-aside-share is a share between 0 and 1"));
+        }
+        if self.set_aside_share == Some(SKIPPED_SHARE) {
+            return Err(format!(
+                "--set-aside-share {SKIPPED_SHARE} is the default; leave the option out"
+            ));
         }
         if self.apart_in_speed == Some(SAME_SPEED_SHARE) {
             return Err(format!(
@@ -129,6 +176,9 @@ impl Matching {
         }
         if self.drop_fullest > 0.0 {
             parts.push(format!("drop-{}", self.drop_fullest));
+        }
+        if let Some(share) = self.set_aside_share {
+            parts.push(format!("set-aside-{share}"));
         }
         if self.speed_per_stretch {
             parts.push(String::from("stretch"));
@@ -179,6 +229,8 @@ impl Matching {
     pub fn index(&self, index: Index) -> Index {
         if self.drop_fullest > 0.0 {
             index.without_fullest(self.drop_fullest)
+        } else if let Some(share) = self.set_aside_share {
+            index.skipping_fullest(share)
         } else {
             self.matcher().index(index)
         }
@@ -254,11 +306,17 @@ impl Matching {
 
 #[cfg(test)]
 mod tests {
+    use gunfinger_core::library::{Asset, Timestamp};
+    use gunfinger_core::peaks::Peak;
+    use gunfinger_core::store::{PeakRecord, RecordHeader};
+
     use super::*;
+    use crate::fullest::set_aside_hashes;
 
     const DEFAULT: Matching = Matching {
         single_pass: false,
         drop_fullest: 0.0,
+        set_aside_share: None,
         speed_per_stretch: false,
         trim_ends: false,
         overlap_by_spans: false,
@@ -342,6 +400,11 @@ mod tests {
             (Fit::Grid, SecondPassFit::BestOfGrid, "fit-grid"),
             (Fit::Cross, SecondPassFit::CrossFitted, "fit-cross"),
             (Fit::Iterated, SecondPassFit::Iterated, "fit-iterated"),
+            (
+                Fit::IteratedShort,
+                SecondPassFit::IteratedShortChains,
+                "fit-iterated-short",
+            ),
         ];
         for (fit, second_pass_fit, name) in fits {
             let variant = Matching {
@@ -359,6 +422,80 @@ mod tests {
                 DEFAULT.options()
             );
         }
+    }
+
+    fn record(path: &str, bins: &[f32]) -> PeakRecord {
+        PeakRecord {
+            header: RecordHeader {
+                profile: Profile::CURRENT.id(),
+                source: Asset {
+                    path: path.to_string(),
+                    size: 1,
+                    modified: Timestamp {
+                        seconds: 0,
+                        nanos: 0,
+                    },
+                },
+                duration_seconds: 10.0,
+            },
+            peaks: bins
+                .iter()
+                .enumerate()
+                .map(|(frame, &bin)| Peak {
+                    frame: 10.0 * frame as f64,
+                    bin,
+                    magnitude: 10.0,
+                })
+                .collect(),
+        }
+    }
+
+    #[test]
+    fn another_set_aside_share_moves_only_the_cut_in_its_own_reports() {
+        // One pair of peaks in six files, the others in one each.
+        let mut records = vec![
+            record("a.mp3", &[100.0, 120.0, 0.0, 300.0, 340.0]),
+            record("b.mp3", &[200.0, 230.0]),
+        ];
+        records.extend((0..4).map(|copy| record(&format!("common-{copy}.mp3"), &[100.0, 120.0])));
+        let index = || Index::build(&records).unwrap();
+        let lists = index()
+            .posting_lists()
+            .filter(|list| !list.is_empty())
+            .count();
+        let share = 1.0 / lists as f64;
+        let moved = Matching {
+            set_aside_share: Some(share),
+            ..DEFAULT
+        };
+
+        assert_eq!(moved.check(), Ok(()));
+        assert_eq!(moved.name(), Some(format!("set-aside-{share}")));
+        assert_eq!(moved.options(), DEFAULT.options());
+        assert_eq!(set_aside_hashes(&moved.index(index())).len(), 1);
+        assert!(set_aside_hashes(&DEFAULT.index(index())).is_empty());
+        for share in [0.0, 1.0, SKIPPED_SHARE] {
+            let invalid = Matching {
+                set_aside_share: Some(share),
+                ..DEFAULT
+            };
+            assert!(invalid.check().is_err(), "{share}");
+        }
+    }
+
+    #[test]
+    fn the_provenance_of_the_default_is_as_before_the_set_aside_share() {
+        assert_eq!(
+            format!("{DEFAULT:?}"),
+            "Matching { single_pass: false, drop_fullest: 0.0, speed_per_stretch: false, \
+             trim_ends: false, overlap_by_spans: false, overlap_by_chains: false, \
+             apart_in_speed: None, front_end: Downmix, second_pass_fit: ChainSpeed }"
+        );
+        let moved = Matching {
+            set_aside_share: Some(0.0101),
+            ..DEFAULT
+        };
+        assert!(format!("{moved:?}").contains("drop_fullest: 0.0, set_aside_share: 0.0101, "));
     }
 
     #[test]
