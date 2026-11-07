@@ -6,8 +6,7 @@ development halves (B2) and among calibrate's false candidates (B4)? **Method.**
 `shared-material-seed-2026-development.json` (12 scenarios of 4 families, 605 results) and
 `shared-material-2-seed-2026-development.json` (10 of 3, 440), each index holding the corpus
 and 109 NAS files (0290), not the NAS store; `panels.py`, `falsepairs.py`. A query is flagged
-when it holds a confident detection of role related or other. The validation halves were not
-named. Data: `data/0291-band-profile-shared-panels.json`.
+when it holds a confident detection of role related or other. The validation halves were not named. Data: `data/0291-band-profile-shared-panels.json`.
 
 | Panel (index) | T | a (4-24) | b (4-16) |
 |---|--:|--:|--:|
@@ -23,8 +22,7 @@ On panel 1 the flagged queries fall under a in 6 of 12 scenarios and rise in non
 they fall only in Sonar 1 and 2. Panel 2's flags are all in the Phantom Force family: Digital &
 Spirit's Phantom 2018 (a remake), and in phantom-force-2 the Phantom Force upload. In
 phantom-force-1 Phantom 2018 sits at the rule in every arm (243-280 hits); a flags 3 queries T
-does not and drops 12; b flags 45 queries against T's 19, in 3 scenarios, and in
-phantom-force-5 (whose related file is Meltdown) names Phantom 2018 as an other file 10 times.
+does not and drops 12; b flags 45 queries against T's 19, in 3 scenarios, and in phantom-force-5 (whose related file is Meltdown) names Phantom 2018 as an other file 10 times.
 
 **False candidates of 30 hits or more** (calibrate over the 4 sweeps and the Stakka scans, per
 query recording and file; T, a, b): the Clockwork remix 100, 94, 111; Aphrodite - Fanfare on
@@ -38,6 +36,5 @@ remix or two tracks of one artist; the APH33 pair has not been heard.
 other) and fails for b (panel 2 on all three indexes, and a new other file). B4 holds for both
 on its figures, with the APH33 pair unconfirmed by ear. **Conclusion.** On these 7 families
 variant a does not strengthen shared material at the confident level; it moves related
-detections from confident to possible. Variant b, the one that gains under damage (0290),
-strengthens it (strongest related 601 → 864 hits on panel 1). With 0290's B5, neither variant
+detections from confident to possible. Variant b, the one that gains under damage (0290), strengthens it (strongest related 601 → 864 hits on panel 1). With 0290's B5, neither variant
 passes the registration.

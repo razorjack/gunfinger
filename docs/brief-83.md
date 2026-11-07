@@ -245,3 +245,5 @@ what a further test would need.
   queue, so the shared panels' searches (experiment 0291) started before
   0290 was written. 0290 holds the protocol, `recall`, `grid` and
   `robust`; it is written and committed before 0291's analysis.
+- *(00:48)* Slips: 0290 and 0291 were each first committed over 40 lines
+  (41 and 43) and corrected in the next commit.
