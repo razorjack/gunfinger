@@ -1505,8 +1505,8 @@ byte-identical and both regressions are identical.
 ### Final checks
 
 `work/s79/final.sh` (tmux `s79final`): `scripts/check.sh` green (12:20;
-the new end-to-end test of the workers takes about 8 minutes of it in a
-debug build); `regress session-78-linux --strict` (1:05) and `regress
+the end-to-end tests take 8:16 of it in a debug build, the new test of
+the workers about 5.7 minutes alone); `regress session-78-linux --strict` (1:05) and `regress
 session-78-linux-nas --strict` (4:57) identical, every report equal to
 its baseline's. After the review's fixes (comments and test code in
 `under.rs`, documents), `scripts/check.sh` green again (12:19) on the
