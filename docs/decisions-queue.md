@@ -35,23 +35,26 @@ external review (`docs/research/2026-11-05-external-review.md`).
 
 ### 2. `identify --under` on by default (ADR 0025, Proposed)
 
-- **Evidence.** Experiments 0272-0275: on the three development mixes no
-  entry was gained or lost; on generated double drops 38 right entries
-  were gained with 0 wrong; the cost is 2.8-2.9 times the default's at
-  NAS scale (about 35 s per hour of mix), which fails the registered
-  bar of twice. Most of that time is the mask, which runs on one thread,
-  and the entries are processed one after another.
-- **Before deciding.** Two fixes come first: the fourth drop rule's
-  start test (`crates/gunfinger/src/under.rs`, `named_as_one_track`)
-  dropped two right partners 33-36 s from a confident play of another
-  upload (0274), and the mask's entries can run in parallel. Then the
-  cost is measured again. The evidence of precision comes from
-  generated mixes of familiar recordings; real annotated double drops,
-  key lock, broadcast compression and a mistaken foreground are
-  unmeasured.
+- **Evidence.** Experiments 0272-0275 and 0281-0282. On the three
+  development mixes no entry is gained or lost. On generated double
+  drops (32 mixes) the option gains 39 right entries with 0 wrong, and
+  on two fresh seeds (32 mixes) 45, also with 0 wrong. Session 79 fixed the fourth drop rule, which had dropped two
+  right partners whose lines happened to put their files' starts near
+  another track's (0274, 0282), and put each entry's mask on its own
+  worker: at NAS scale the option now takes 1.85-2.01 times the
+  default's time (about 17-19 s more per hour of mix; before 2.85-2.94
+  times, 35-39 s), with 2.0-2.8 GiB more peak memory. The registered bar
+  of twice holds on two development mixes and fails on Nocny by 0.3 s
+  (0281).
+- **Still unmeasured.** Real annotated double drops, key lock under the
+  louder track, broadcast compression, and a mistaken foreground (a
+  wrong confident entry taken out). The precision evidence rests on
+  generated mixes drawn from the 262-track corpus.
 - **Recommendation.** Decide the acceptable added seconds per hour of
-  mix. Keep the option off until the two fixes are measured and at least
-  one real double drop with a known tracklist has been checked.
+  mix (now about 18) and peak memory (about 2.5 GiB more). Keep the
+  option off until at least one real double drop with a known tracklist
+  has been checked; a cap on masks in flight would bound the memory if
+  that matters.
 
 ### 3. The inverted-channel repair (since 2026-10-31)
 

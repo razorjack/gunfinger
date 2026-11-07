@@ -20,10 +20,10 @@ for scope and rules.
 - [x] 2. Implementation, tested: the saved failures kept; a repeated
   upload and an aligned unrelated drop still dropped; identical output
   with 1 and many workers; option off byte-identical
-- [~] 3. Runs: cost A B C C B A (both scales); G seeds 2050 and 2053 at
+- [x] 3. Runs: cost A B C C B A (both scales); G seeds 2050 and 2053 at
   NAS scale; confirmation seeds 2091 and 2092
-- [ ] 4. Experiments 0281 (the drop rule) and 0282 (the cost)
-- [ ] 5. ADR 0025's open points, decisions queue item 2, roadmap item
+- [x] 4. Experiments 0281 (the cost) and 0282 (the drop rule)
+- [x] 5. ADR 0025's open points, decisions queue item 2, roadmap item
 - [ ] 6. Read-only review by a subagent; fixes
 - [ ] 7. Wrap-up: notes "Session 79", status, checklist; final checks
   (`scripts/check.sh`, `regress session-78-linux` and

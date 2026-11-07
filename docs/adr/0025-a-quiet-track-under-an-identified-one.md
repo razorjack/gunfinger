@@ -10,8 +10,10 @@ the search, the confidence rule (ADR 0006, ADR 0013), plays, the entries
 (ADR 0017, ADR 0019), the gaps (ADR 0023, ADR 0024), every output and
 both regressions are byte-identical. Session 73 measured the cost and
 the effect (experiments 0273-0275; "Open points, measured in session
-73" below). The status stays Proposed: whether the step is on by default
-is our decision.
+73" below). Session 79 fixed the fourth drop rule and put each entry's
+mask on its own worker (experiments 0281-0282; "Open points, measured in
+session 79"). The status stays Proposed: whether the step is on by
+default is our decision.
 
 ## Context
 
@@ -57,7 +59,10 @@ the louder track as the reference.
 2. **Where it runs.** After the report's plays are grouped and marked,
    once for each confident tracklist entry (ADR 0017's entries, so two
    rips of one recording found over the same passage are taken out
-   once).
+   once). Since session 79 each entry's reference is decoded and masked
+   on its own worker, and the residuals are then searched in entry
+   order, each search on the workers; the output is the same for any
+   number of workers.
 3. **The reference, the best-aligned rip.** The entry's strongest
    confident play (the most hits): of the files of the louder track that
    the search found there, the one the recording's audio supports best.
@@ -85,9 +90,13 @@ the louder track as the reference.
    overlaps it or lies within 90 s of it (the tracklist names the track
    there already). The kept detections are grouped into plays, and a
    play is dropped when it is one track with a confident play of the
-   recording that overlaps it or lies within 90 s of it, by the tests of
-   ADR 0017's entry rule (the two line up, or their files are tagged
-   alike): another upload of a track the tracklist names there. The
+   recording by the tests of ADR 0017's entry rule: the two line up and
+   are one passage of the mix (they overlap, or at most 10 s lie
+   between them), or their files are tagged alike and the confident play
+   overlaps it or lies within 90 s of it: another upload of a track the
+   tracklist names there. Until session 79 lining up within 90 s was
+   enough, which dropped two right partners whose lines happened to put
+   their files' starts near another track's (experiments 0274, 0282). The
    shared-material rule is the product's reading of the user's answer
    that related versions are not printed at first: a related version of
    the quieter track cannot be told from the right recording, while one
@@ -186,3 +195,39 @@ default's time at NAS scale, J4 reliability).
    speed comes last in the product's order, so that is a choice we can
    make with these numbers.
 
+
+## Open points, measured in session 79
+
+Session 79 made the two changes asked for before the default
+(`docs/brief-79.md`, registered before the runs) and measured them on
+today's NAS store against the option as session 73 shipped it.
+
+1. **The fourth drop rule (fixed).** Lining up now drops a play found
+   under an entry only when the two plays are one passage (they overlap
+   or lie at most 10 s apart); the tag test keeps its 90 s. Both partners
+   session 73 lost are kept: Chris SU & SKC - Blackout is printed
+   `(under N.)`, the Splinter partner stays possible. On session 73's 32
+   drops mixes the fix released those 5 plays and nothing else: 39
+   entries gained against the default, all right (38 before), 58
+   confident finds, all right, and 3 possible finds matching no track,
+   as before. The development mixes print the same tracklists as before
+   (experiment 0282). On two fresh seeds (32 more mixes) the fix released
+   4 plays, all right partners, and the option gained 45 entries, all
+   right, with 73 confident finds and none wrong.
+2. **The masks on the workers (J3 narrowly not met).** Each entry's
+   decode and mask run on its own worker; the output is byte-identical
+   to the serial step's on every development run and with 1 or 32
+   workers. At NAS scale the option takes 1.85-2.01 times the default's
+   time (before: 2.85-2.94), about 17-19 s more per hour of mix (before:
+   35-39 s); Nocny at 2.01 misses the bar of twice by 0.3 s. Peak memory
+   rises by 2.0-2.8 GiB at NAS scale, since every mask is in flight at
+   once (experiment 0281). A cap on masks in flight would bound the
+   memory; it is not built.
+3. **Still unmeasured.** Real annotated double drops, key lock under the
+   louder track, broadcast compression, and a mistaken foreground (a
+   wrong confident entry taken out). The evidence of precision rests on
+   generated mixes drawn from the 262-track corpus.
+4. **For our decision.** The two fixes are made and measured. What
+   remains is a cost of about 18 s per hour of mix and about 2.5 GiB of
+   peak memory at NAS scale on the Linux machine, and the check on a
+   real double drop that decisions queue item 2 recommends.

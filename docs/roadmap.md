@@ -65,6 +65,11 @@ Each session takes the first item it can do without a pending decision.
    (`named_as_one_track` matches non-overlapping plays within 90 s;
    0274), run the mask's entries in parallel, measure 0275's table
    again, then the decision (queue item 2).
+   *Session 79 (0281, 0282):* both fixes made and measured. Both lost
+   partners are kept, with no new wrong find; the option takes
+   1.85-2.01 times the default at NAS scale (Nocny 0.3 s over twice),
+   with about 2.5 GiB more peak memory. Next: the decision (queue item
+   2), after one real double drop with a known tracklist.
 3. **The user's decisions** in `docs/decisions-queue.md`, then one
    session that adopts the accepted ones together and reruns the
    protocol once.
@@ -203,17 +208,18 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   Proposed).* Open: whether the tracklist prints a marked play is ours
   to decide, with an ADR (R1, whether the two files share an alignment
   of 60 hits or more by `pair`, printed every record playing under an
-  unrelated partner and let in no shared material, 0215-0218). `--under` gained 38 right
-  entries and no wrong one on generated double drops and changed nothing
-  on the development mixes, at 2.8-2.9 times `identify`'s time at NAS
-  scale (about 35 s per hour of mix). Caveat: in session 65, with
+  unrelated partner and let in no shared material, 0215-0218). `--under` gains 39 right
+  entries and no wrong one on generated double drops and changes nothing
+  on the development mixes, at 1.85-2.01 times `identify`'s time at NAS
+  scale (about 18 s per hour of mix) and about 2.5 GiB more peak memory
+  since session 79's fixes (the fourth drop rule, masks on the workers).
+  Caveat: in session 65, with
   another rip as the reference, the residual once made a known related
   version of the masked record confident at NAS scale; a product
   version needed a rule for related versions (session 70). Next:
-  active queue item 2 (the
-  fourth drop rule, a parallel mask, 0275's table again), then
-  decisions queue item 2. Evidence: 0107, 0215-0218, 0255-0258,
-  0269-0275; notes "Session 72", "Session 73".
+  decisions queue item 2, after one real double drop with a known
+  tracklist. Evidence: 0107, 0215-0218, 0255-0258, 0269-0275,
+  0281-0282; notes "Session 72", "Session 73", "Session 79".
 
 ## Matching
 

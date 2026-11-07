@@ -295,3 +295,16 @@ them): they test repeatability on new draws, not other recordings.
   plan said.
 - (16:18) J3 is reported as failed: Nocny at NAS scale takes 2.01 times
   the default (41.86 s against 20.79 s), Stakka 1.87 and razorjack 1.85.
+- (16:45) The first queue's render of the confirmation seeds failed at
+  once: `mixes` reads the corpus clusters from its work directory, and
+  `work/s79/gen/reports/` had none (session 73's scratch directory held
+  a copy). The file was copied from `work/reports/duplicate-clusters.json`
+  (identical to session 73's copy) and the confirmation part ran again
+  (`work/s79/queue2.sh`, tmux `s79confirm`). Nothing else in the first
+  queue depended on it.
+- (17:15) The runs are done: experiment 0281 (the cost) and 0282 (the
+  drop rule, with the confirmation seeds). ADR 0025's decision items 2
+  and 8 are edited in place to describe the option as it now is: the
+  ADR is Proposed, so its text is the draft of the decision and no
+  superseding ADR is needed; "Open points, measured in session 79"
+  holds the numbers.
