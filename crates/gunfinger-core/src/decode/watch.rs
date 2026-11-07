@@ -258,12 +258,33 @@ mod tests {
         dir
     }
 
-    /// An executable shell script standing in for FFmpeg or FFprobe.
+    /// An executable shell script standing in for FFmpeg or FFprobe,
+    /// returned once it can be executed. A fork on another test thread
+    /// while the script was open for writing holds a writer until that
+    /// child execs, and executing the script meanwhile fails with "Text
+    /// file busy" (ETXTBSY), so a probe run that exits at once is retried
+    /// until it starts.
     fn stand_in(dir: &Path, name: &str, script: &str) -> PathBuf {
         let path = dir.join(name);
-        fs::write(&path, format!("#!/bin/sh\n{script}\n")).unwrap();
+        fs::write(
+            &path,
+            format!("#!/bin/sh\n[ -n \"$STAND_IN_PROBE\" ] && exit 0\n{script}\n"),
+        )
+        .unwrap();
         fs::set_permissions(&path, fs::Permissions::from_mode(0o755)).unwrap();
-        path
+        for _ in 0..500 {
+            match Command::new(&path).env("STAND_IN_PROBE", "1").status() {
+                Ok(status) => {
+                    assert!(status.success());
+                    return path;
+                }
+                Err(error) if error.kind() == std::io::ErrorKind::ExecutableFileBusy => {
+                    std::thread::sleep(Duration::from_millis(10));
+                }
+                Err(error) => panic!("{}: {error}", path.display()),
+            }
+        }
+        panic!("{} stayed busy for 5 s", path.display())
     }
 
     fn decoder(ffmpeg: PathBuf, ffprobe: PathBuf) -> Decoder {
