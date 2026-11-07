@@ -1,0 +1,355 @@
+{
+ "arms": {
+  "T": "s83-start, work/peaks",
+  "a": "spread 0.094:4..24",
+  "b": "spread 0.094:4..16"
+ },
+ "by_arm": {
+  "T": {
+   "shared": {
+    "shared-material-seed-2026-development.json": {
+     "results": 605,
+     "levels": {
+      "everything|other|confident": 116,
+      "everything|other|possible": 150,
+      "everything|other|weak": 572,
+      "everything|partner|confident": 4,
+      "everything|partner|possible": 16,
+      "everything|partner|weak": 10,
+      "everything|played|confident": 331,
+      "everything|played|possible": 62,
+      "everything|played|weak": 35,
+      "everything|related|confident": 184,
+      "everything|related|possible": 132,
+      "everything|related|weak": 194,
+      "played left out|other|confident": 116,
+      "played left out|other|possible": 150,
+      "played left out|other|weak": 613,
+      "played left out|partner|confident": 4,
+      "played left out|partner|possible": 16,
+      "played left out|partner|weak": 10,
+      "played left out|related|confident": 186,
+      "played left out|related|possible": 128,
+      "played left out|related|weak": 199,
+      "source left out|other|confident": 53,
+      "source left out|other|possible": 65,
+      "source left out|other|weak": 320,
+      "source left out|partner|possible": 7,
+      "source left out|partner|weak": 6,
+      "source left out|played|confident": 95,
+      "source left out|played|possible": 19,
+      "source left out|played|weak": 4,
+      "source left out|related|confident": 61,
+      "source left out|related|possible": 35,
+      "source left out|related|weak": 30
+     },
+     "flagged_by_index": {
+      "everything": 110,
+      "played left out": 109,
+      "source left out": 47
+     },
+     "strongest": {
+      "everything|other": 4569,
+      "everything|related": 601,
+      "played left out|other": 4569,
+      "played left out|related": 601,
+      "source left out|other": 564,
+      "source left out|related": 582
+     }
+    },
+    "shared-material-2-seed-2026-development.json": {
+     "results": 440,
+     "levels": {
+      "everything|other|confident": 3,
+      "everything|other|possible": 26,
+      "everything|other|weak": 206,
+      "everything|partner|possible": 8,
+      "everything|partner|weak": 9,
+      "everything|played|confident": 327,
+      "everything|played|possible": 70,
+      "everything|played|weak": 11,
+      "everything|related|confident": 6,
+      "everything|related|possible": 292,
+      "everything|related|weak": 54,
+      "played left out|other|confident": 1,
+      "played left out|other|possible": 26,
+      "played left out|other|weak": 251,
+      "played left out|partner|possible": 8,
+      "played left out|partner|weak": 9,
+      "played left out|related|confident": 7,
+      "played left out|related|possible": 295,
+      "played left out|related|weak": 56,
+      "source left out|other|confident": 1,
+      "source left out|other|possible": 27,
+      "source left out|other|weak": 205,
+      "source left out|partner|possible": 5,
+      "source left out|partner|weak": 6,
+      "source left out|played|confident": 120,
+      "source left out|played|possible": 17,
+      "source left out|played|weak": 5,
+      "source left out|related|confident": 4,
+      "source left out|related|possible": 130,
+      "source left out|related|weak": 27
+     },
+     "flagged_by_index": {
+      "everything": 8,
+      "played left out": 7,
+      "source left out": 4
+     },
+     "strongest": {
+      "everything|other": 277,
+      "everything|related": 378,
+      "played left out|other": 253,
+      "played left out|related": 297,
+      "source left out|other": 245,
+      "source left out|related": 285
+     }
+    }
+   },
+   "false_pairs_30_or_more": [
+    " 100  Skynet & Stakka - Clockwork.mp3 -> extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "  94  scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json -> extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "  94  scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json -> extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "  94  scan-stakka-skynet-knowledge.json -> extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "  61  extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 -> extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-s",
+    "  61  extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 -> extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+    "  38  extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/a1_clean_decibel-drum. -> extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/b1_from_the_east-drum.",
+    "  31  Kemal & Rob Data - Star Trails.mp3 -> extra/aa-kemal-mechanizm-sour.mp3",
+    "  31  extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/0 -> extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-la",
+    "  30  extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3 -> extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3"
+   ]
+  },
+  "a": {
+   "shared": {
+    "shared-material-seed-2026-development.json": {
+     "results": 605,
+     "levels": {
+      "everything|other|confident": 109,
+      "everything|other|possible": 134,
+      "everything|other|weak": 352,
+      "everything|partner|confident": 1,
+      "everything|partner|possible": 18,
+      "everything|partner|weak": 13,
+      "everything|played|confident": 339,
+      "everything|played|possible": 51,
+      "everything|played|weak": 24,
+      "everything|related|confident": 142,
+      "everything|related|possible": 196,
+      "everything|related|weak": 156,
+      "played left out|other|confident": 109,
+      "played left out|other|possible": 134,
+      "played left out|other|weak": 478,
+      "played left out|partner|confident": 1,
+      "played left out|partner|possible": 19,
+      "played left out|partner|weak": 11,
+      "played left out|related|confident": 142,
+      "played left out|related|possible": 195,
+      "played left out|related|weak": 148,
+      "source left out|other|confident": 48,
+      "source left out|other|possible": 71,
+      "source left out|other|weak": 222,
+      "source left out|partner|possible": 8,
+      "source left out|partner|weak": 5,
+      "source left out|played|confident": 98,
+      "source left out|played|possible": 21,
+      "source left out|played|weak": 3,
+      "source left out|related|confident": 47,
+      "source left out|related|possible": 57,
+      "source left out|related|weak": 25
+     },
+     "flagged_by_index": {
+      "everything": 97,
+      "played left out": 97,
+      "source left out": 38
+     },
+     "strongest": {
+      "everything|other": 4629,
+      "everything|related": 567,
+      "played left out|other": 4629,
+      "played left out|related": 536,
+      "source left out|other": 481,
+      "source left out|related": 536
+     }
+    },
+    "shared-material-2-seed-2026-development.json": {
+     "results": 440,
+     "levels": {
+      "everything|other|possible": 26,
+      "everything|other|weak": 261,
+      "everything|partner|possible": 12,
+      "everything|partner|weak": 6,
+      "everything|played|confident": 308,
+      "everything|played|possible": 36,
+      "everything|played|weak": 14,
+      "everything|related|confident": 4,
+      "everything|related|possible": 297,
+      "everything|related|weak": 76,
+      "played left out|other|possible": 28,
+      "played left out|other|weak": 349,
+      "played left out|partner|possible": 12,
+      "played left out|partner|weak": 5,
+      "played left out|related|confident": 4,
+      "played left out|related|possible": 306,
+      "played left out|related|weak": 88,
+      "source left out|other|possible": 30,
+      "source left out|other|weak": 256,
+      "source left out|partner|possible": 7,
+      "source left out|partner|weak": 3,
+      "source left out|played|confident": 119,
+      "source left out|played|possible": 14,
+      "source left out|played|weak": 1,
+      "source left out|related|confident": 4,
+      "source left out|related|possible": 125,
+      "source left out|related|weak": 47
+     },
+     "flagged_by_index": {
+      "everything": 4,
+      "played left out": 3,
+      "source left out": 3
+     },
+     "strongest": {
+      "everything|other": 217,
+      "everything|related": 294,
+      "played left out|other": 208,
+      "played left out|related": 281,
+      "source left out|other": 190,
+      "source left out|related": 281
+     }
+    }
+   },
+   "false_pairs_30_or_more": [
+    "  94  scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json -> extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "  94  scan-stakka-skynet-knowledge.json -> extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "  94  scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json -> extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "  92  extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 -> extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+    "  92  extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 -> extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-s",
+    "  83  extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/a1_clean_decibel-drum. -> extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/b1_from_the_east-drum.",
+    "  80  Skynet & Stakka - Clockwork.mp3 -> extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "  51  extra/b-bad_company-china_cup.mp3 -> extra/A- The_Nine.mp3",
+    "  44  Kemal & Rob Data - Star Trails.mp3 -> extra/aa-kemal-mechanizm-sour.mp3",
+    "  41  scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json -> extra/aa-kemal-mechanizm-sour.mp3",
+    "  34  extra/a-mo_funk-slipstream-sour.mp3 -> extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3"
+   ]
+  },
+  "b": {
+   "shared": {
+    "shared-material-seed-2026-development.json": {
+     "results": 605,
+     "levels": {
+      "everything|other|confident": 111,
+      "everything|other|possible": 143,
+      "everything|other|weak": 635,
+      "everything|partner|confident": 4,
+      "everything|partner|possible": 19,
+      "everything|partner|weak": 9,
+      "everything|played|confident": 340,
+      "everything|played|possible": 42,
+      "everything|played|weak": 22,
+      "everything|related|confident": 178,
+      "everything|related|possible": 154,
+      "everything|related|weak": 157,
+      "played left out|other|confident": 111,
+      "played left out|other|possible": 143,
+      "played left out|other|weak": 899,
+      "played left out|partner|confident": 4,
+      "played left out|partner|possible": 19,
+      "played left out|partner|weak": 9,
+      "played left out|related|confident": 173,
+      "played left out|related|possible": 159,
+      "played left out|related|weak": 154,
+      "source left out|other|confident": 50,
+      "source left out|other|possible": 72,
+      "source left out|other|weak": 341,
+      "source left out|partner|possible": 10,
+      "source left out|partner|weak": 4,
+      "source left out|played|confident": 104,
+      "source left out|played|possible": 15,
+      "source left out|played|weak": 2,
+      "source left out|related|confident": 53,
+      "source left out|related|possible": 43,
+      "source left out|related|weak": 19
+     },
+     "flagged_by_index": {
+      "everything": 103,
+      "played left out": 103,
+      "source left out": 42
+     },
+     "strongest": {
+      "everything|other": 5112,
+      "everything|related": 562,
+      "played left out|other": 5111,
+      "played left out|related": 864,
+      "source left out|other": 510,
+      "source left out|related": 865
+     }
+    },
+    "shared-material-2-seed-2026-development.json": {
+     "results": 440,
+     "levels": {
+      "everything|other|confident": 5,
+      "everything|other|possible": 20,
+      "everything|other|weak": 434,
+      "everything|partner|possible": 10,
+      "everything|partner|weak": 6,
+      "everything|played|confident": 315,
+      "everything|played|possible": 49,
+      "everything|played|weak": 5,
+      "everything|related|confident": 12,
+      "everything|related|possible": 300,
+      "everything|related|weak": 87,
+      "played left out|other|confident": 5,
+      "played left out|other|possible": 21,
+      "played left out|other|weak": 599,
+      "played left out|partner|possible": 10,
+      "played left out|partner|weak": 6,
+      "played left out|related|confident": 13,
+      "played left out|related|possible": 300,
+      "played left out|related|weak": 91,
+      "source left out|other|confident": 5,
+      "source left out|other|possible": 21,
+      "source left out|other|weak": 453,
+      "source left out|partner|possible": 5,
+      "source left out|partner|weak": 3,
+      "source left out|played|confident": 112,
+      "source left out|played|possible": 13,
+      "source left out|played|weak": 1,
+      "source left out|related|confident": 11,
+      "source left out|related|possible": 121,
+      "source left out|related|weak": 46
+     },
+     "flagged_by_index": {
+      "everything": 16,
+      "played left out": 16,
+      "source left out": 13
+     },
+     "strongest": {
+      "everything|other": 323,
+      "everything|related": 334,
+      "played left out|other": 324,
+      "played left out|related": 380,
+      "source left out|other": 323,
+      "source left out|related": 360
+     }
+    }
+   },
+   "false_pairs_30_or_more": [
+    " 111  scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json -> extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    " 111  scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json -> extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    " 111  scan-stakka-skynet-knowledge.json -> extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    " 108  Skynet & Stakka - Clockwork.mp3 -> extra/a-stakka_and_skynet-clockwork_(stakka_rmx)-sour.mp3",
+    "  98  extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 -> extra/APH035-Aphrodite - 2000/b-aphrodite-fanfare_dubstyle-sour.mp3",
+    "  98  extra/APH035-Aphrodite - 2000/a-aphrodite-fanfare-sour.mp3 -> extra/Aphrodite-Fanfare-APH35-2000-sour/b-aphrodite-fanfare_dubstyle-s",
+    "  83  extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/a1_clean_decibel-drum. -> extra/APH33-Aphrodite-Project_2-Vinyl-2000-DRUM/b1_from_the_east-drum.",
+    "  52  extra/b-bad_company-china_cup.mp3 -> extra/A- The_Nine.mp3",
+    "  50  extra/b-bad_company-china_cup.mp3 -> extra/A-Bad_Company-The_Nine-dmz.mp3",
+    "  50  extra/b-bad_company-china_cup.mp3 -> Bad Company - The Nine.mp3",
+    "  50  Kemal & Rob Data - Star Trails.mp3 -> extra/aa-kemal-mechanizm-sour.mp3",
+    "  38  scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json -> extra/aa-kemal-mechanizm-sour.mp3",
+    "  38  extra/APH37-Aphrodite-2001-sour/a-aphrodite-lava_flow-sour.mp3 -> extra/APH038-Aphrodite - 2001/a-aphrodite-cloud_break-bpm.mp3",
+    "  35  extra/APH029-Aphrodite-Private_Plates-Limited_Edition-Vinyl-2001-BPM/0 -> extra/APH28-Aphrodite-VINYL-1998-LAME/a-aphrodite-wikki_wikki_plate-la",
+    "  33  extra/a-mo_funk-slipstream-sour.mp3 -> extra/aa-mo_funk-slipstream_(gridlok_remix)-sour.mp3",
+    "  31  extra/AA. SKC -- Recharger 2007.mp3 -> extra/A. SKC -- Recharger.mp3"
+   ]
+  }
+ }
+}
