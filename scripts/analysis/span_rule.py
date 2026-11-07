@@ -102,11 +102,13 @@ def grid(path, out):
     queries = report["queries"]
     problems = []
     for q in queries:
-        best = max(q["matching"], key=lambda d: d["hits"], default=None)
         stored = q["level"]
-        computed = level(best, TODAY) if best else "none"
+        computed = highest(q["matching"], TODAY)
+        # Reports written before session 77 hold the strongest detection's level.
+        best = max(q["matching"], key=lambda d: d["hits"], default=None)
+        before = level(best, TODAY) if best else "none"
         check(f"brief {q['brief']} {q['seconds']} s offset {q['offset_seconds']}: "
-              f"stored {stored}, computed {computed}", stored == computed, problems)
+              f"stored {stored}, computed {computed}", stored in (computed, before), problems)
     false_over_240 = [q for q in queries if q["strongest_false_hits"] >= 240]
     lengths = sorted({q["seconds"] for q in queries})
     briefs = sorted({q["brief"] for q in queries})
@@ -170,10 +172,17 @@ def grid(path, out):
 
 # --- generated mixes ------------------------------------------------------
 
+def highest(matching, rule):
+    """The highest level among `matching` under `rule`, as `mixes::score`
+    gives a play since session 77 (0279); "none" without a detection."""
+    return max((level(d, rule) for d in matching), key=ORDER.get, default="none")
+
+
 def mix_score(mix, detections, cluster_of, rule):
-    """`mixes::score` under `rule`: each planned play's level is its
-    strongest (most hits) matching detection's; a detection matching no
-    play is wrong at its level."""
+    """`mixes::score` under `rule`: each planned play's level is the
+    highest of its matching detections' (session 77; before it, the
+    strongest detection's by hits, which the runs of 0136-0148 used); a
+    detection matching no play is wrong at its level."""
     plays = mix["plays"]
     accepted = [cluster_of(p["asset"]) for p in plays]
 
@@ -185,8 +194,7 @@ def mix_score(mix, detections, cluster_of, rule):
     levels = []
     for i in range(len(plays)):
         matching = [d for d in detections if matches(d, i)]
-        best = max(matching, key=lambda d: d["hits"], default=None)
-        levels.append(level(best, rule) if best else "none")
+        levels.append(highest(matching, rule))
     unmatched = [d for d in detections if not any(matches(d, i) for i in range(len(plays)))]
     return levels, [d for d in unmatched if level(d, rule) == "confident"], \
         [d for d in unmatched if level(d, rule) == "possible"]

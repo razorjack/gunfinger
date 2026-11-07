@@ -5,9 +5,15 @@
 //!
 //! The scorer reads today's clusters and same-title judgments. A play
 //! whose rescored placement (its strongest detection by hits, its
-//! boundaries) or whose mix's wrong answers differ from the saved ones
-//! has drifted for another reason than the level rule, and is counted
-//! apart.
+//! boundaries) or whose mix's wrong answers differ from the saved ones,
+//! or whose saved level is neither its strongest detection's (the rule
+//! before session 77) nor the highest of its detections' (the rule
+//! since), has drifted for another reason than the level rule, and is
+//! counted apart. A grid query keeps its saved `matching` list, which
+//! was chosen under the clusters of its run, so a grid report shows no
+//! drift of clusters. Each mix's `score` is written from today's
+//! structure: fields it no longer has are left out, and its seconds may
+//! differ from the saved ones by the last place (`close`).
 
 use std::path::{Path, PathBuf};
 
@@ -169,7 +175,8 @@ fn rescore_mixes(
                 && close(before.start_late_seconds, after.start_late_seconds)
                 && close(before.end_early_seconds, after.end_early_seconds)
                 && close(before.position_error_seconds, after.position_error_seconds);
-            if !placed_alike || before.level != level_of(&before.best) {
+            let either_rule = before.level == level_of(&before.best) || before.level == after.level;
+            if !placed_alike || !either_rule {
                 rescored.drifted_plays += 1;
             }
             if after.level != level_of(&after.best) {
@@ -217,14 +224,16 @@ fn rescore_grid(report: &mut Value) -> Result<Rescored, String> {
         let matching: Vec<MixFound> = serde_json::from_value(query["matching"].clone())
             .map_err(|error| format!("a query's matching detections: {error}"))?;
         let strongest = matching.iter().max_by_key(|found| found.hits);
-        if before != strongest.map_or(Level::None, |found| found.confidence().into()) {
-            rescored.drifted_plays += 1;
-        }
         let after = matching
             .iter()
             .map(MixFound::confidence)
             .max()
             .map_or(Level::None, Level::from);
+        if before != strongest.map_or(Level::None, |found| found.confidence().into())
+            && before != after
+        {
+            rescored.drifted_plays += 1;
+        }
         if after != strongest.map_or(Level::None, |found| found.confidence().into()) {
             rescored.by_rule += 1;
         }
@@ -384,6 +393,18 @@ mod tests {
         assert_eq!(first["level"], "confident");
         assert_eq!(first["best"]["hits"], 3000);
         assert_eq!(first["at_level"]["hits"], 1000);
+    }
+
+    #[test]
+    fn a_report_written_by_todays_scorer_rescores_to_itself() {
+        let mut once = saved_report();
+        rescore(&mut once, &no_clusters(), &SameTitles::default()).unwrap();
+        let mut twice = once.clone();
+        let rescored = rescore(&mut twice, &no_clusters(), &SameTitles::default()).unwrap();
+        assert!(rescored.moves.is_empty());
+        assert_eq!(rescored.by_rule, 1);
+        assert_eq!(rescored.drifted_plays, 0);
+        assert_eq!(twice, once);
     }
 
     #[test]

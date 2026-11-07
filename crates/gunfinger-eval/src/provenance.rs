@@ -177,10 +177,16 @@ fn collect_files(dir: &Path, files: &mut Vec<PathBuf>) -> Result<(), String> {
     let entries =
         fs::read_dir(dir).map_err(|error| format!("cannot read {}: {error}", dir.display()))?;
     for entry in entries {
-        let path = entry.map_err(|error| error.to_string())?.path();
-        if path.is_dir() {
+        let entry = entry.map_err(|error| error.to_string())?;
+        let path = entry.path();
+        // A symbolic link to a directory is not followed, so a cycle ends.
+        let is_dir = entry
+            .file_type()
+            .map_err(|error| error.to_string())?
+            .is_dir();
+        if is_dir {
             collect_files(&path, files)?;
-        } else {
+        } else if path.is_file() {
             files.push(path);
         }
     }

@@ -153,7 +153,7 @@ Rules for this session:
 
 ## Pre-registration (step 1), before the fix is committed and before any rescoring
 
-Registered at 13:40, before `rescore` has read any saved report.
+Registered at 13:18 (`3c93455`), before `rescore` had read any saved report (its first run started at 13:19:32).
 
 - **The rule.** A truth play of a generated mix takes the highest
   confidence among its matching detections (ADR 0013's rule for plays):
@@ -215,7 +215,7 @@ Registered at 13:40, before `rescore` has read any saved report.
   plays that had a confident detection as possible); registered bars
   and verdicts are never changed.
 
-## Step 3: the rescoring (13:19-13:30)
+## Step 3: the rescoring (13:19-13:23)
 
 - **(13:19) The run.** `work/s77/rescore.sh` with `work/bin/s77-run/`
   (master at `0bcfa44` plus the drift check's tolerance, committed
@@ -231,7 +231,7 @@ Registered at 13:40, before `rescore` has read any saved report.
   reports, so every saved level equals its strongest detection's under
   today's clusters, judgments and thresholds, and every change below is
   the rule's.
-- **(13:22) What moved.** 6 plays in 5 reports, all possible to
+- **(13:21) What moved.** 6 plays in 5 reports, all possible to
   confident, all at NAS scale in session 62's stereo-fault mixes of
   seed 2028 (0250): Bad Company - Oxygen (0:00-0:24 of mix 02; strongest
   detection 521 hits in 2 windows, a confident one of 487 hits in 3; under
@@ -241,7 +241,7 @@ Registered at 13:40, before `rescore` has read any saved report.
   the sixth is the same Oxygen play in `work/s62/check/nas-2028-run.json`,
   an identity check no experiment cites. The other 199 reports, the three
   grid reports among them, change in no play.
-- **(13:25) The tables, by experiment.** 38 experiments cite at least
+- **(13:21) The tables, by experiment.** 38 experiments cite at least
   one report (`work/s77/report-map.tsv`; 197 of 205 reports mapped).
   For 37 of them no play's level moves, so no figure they state moves:
   0159-0166, 0175-0179, 0181, 0182, 0184, 0185, 0198, 0210, 0211,
@@ -260,7 +260,7 @@ Registered at 13:40, before `rescore` has read any saved report.
   fails item 2: no decision's reading changes. 0250's figures were
   wrong under the rule it measured (confident plays), so it gains an
   amendment, appended to its last line to keep the file at 40 lines.
-- **(13:27) Not rescorable without searching again.** The residual
+- **(13:22) Not rescorable without searching again.** The residual
   pilots of 0255-0258 and 0269-0271 (22 reports): their cases are the
   confident indexed plays, and no such play's level moved, so the cases
   are the ones the pilots ran; but their arms keep each play's strongest
@@ -272,7 +272,7 @@ Registered at 13:40, before `rescore` has read any saved report.
   count of figures that move. Also as registered: `counterexamples`
   (0264-0266; 0266 already scored the registered definition),
   `shared-mixes`, `passages` and `identify` reports.
-- **(13:28) The glob hazard.** Scripts of earlier sessions glob report
+- **(13:22) The glob hazard.** Scripts of earlier sessions glob report
   directories (`query_side_bar.py` reads `mixes-stereo-*-seed-*.json`),
   and the rescored copies match those patterns. They are kept beside
   their reports as the prompt asks; `work/s77/rescored-files.txt` lists
@@ -280,7 +280,7 @@ Registered at 13:40, before `rescore` has read any saved report.
 
 ## Step 4: `regress` (committed in `1ee36e1`)
 
-- **(13:40) What "incomparable" means.** A sweep pair is incomparable
+- **(13:24) What "incomparable" means.** A sweep pair is incomparable
   when the seeds differ, the speed rows differ, or the queries differ in
   count or in any query's asset, start, speed or held-out status, in
   order (a reordered list is incomparable: the comparison is
@@ -292,7 +292,7 @@ Registered at 13:40, before `rescore` has read any saved report.
   36, now in `regress`). A query whose detections are unchanged apart
   from how they were scored (right, same title, partner) is changed,
   and counted on its own line.
-- **(13:42) Provenance.** `gunfinger-eval baseline` writes
+- **(13:25) Provenance.** `gunfinger-eval baseline` writes
   `provenance.json` beside the reports: the SHA-256 of the running
   `gunfinger-eval`, the set and seed, the corpus store's and (with
   `--other-peaks-dir`) the other store's current records and revision
@@ -305,20 +305,22 @@ Registered at 13:40, before `rescore` has read any saved report.
   (`digest.rs`, tested on the standard's vectors), since no crate in the
   tree provides it; its digests equal `sha256sum`'s (checked on the
   build, the clusters file, both documents and the panels listing).
-- **(13:43) Decision: the build is not an input.** `regress` prints a
+- **(13:26) Decision: the build is not an input.** `regress` prints a
   different build on its own line and does not count it: a refactor
   changes the build by design, and `--strict` exists for refactors.
   Every other field that differs makes the comparison incomparable.
-- **(13:44) Decision: `--strict`.** Exits with an error on any changed
+- **(13:26) Decision: `--strict`.** Exits with an error on any changed
   or incomparable pair and any differing input; without it `regress`
   prints the same lines and returns success, as before.
-- **(13:45) Decision: provenance beside the old baselines.** `baseline
+- **(13:27) Decision: provenance beside the old baselines.** `baseline
   --provenance-only NAME` writes only `provenance.json`, marked
   `after_the_fact`, and is refused when the file exists or when any
   current standard report differs from the baseline's apart from
   `wall_seconds`. It then records the build and inputs that reproduced
   the baseline's reports, not those of the session that saved them
-  (sessions 54 and 75); the reports are not touched (their SHA-256s are
-  checked before and after, `work/s77/baselines-before-provenance.txt`).
+  (sessions 54 and 75); the reports are not to be touched, and their
+  SHA-256s are to be checked before and after
+  (`work/s77/baselines-before-provenance.txt`; the outcome is under
+  "Step 5").
   This is safe in the sense of the prompt, so no new baselines are
   saved.

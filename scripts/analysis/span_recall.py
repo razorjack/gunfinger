@@ -156,13 +156,16 @@ def panako(out, path, clusters):
         i = found[0]
         play = m["mix"]["plays"][i]
         today, _, _ = span_rule.mix_score(m["mix"], m["detections"], cluster_of, span_rule.TODAY)
-        if today[i] != m["score"]["plays"][i]["level"]:
-            problems.append(f"{name} {word}: today {today[i]} against stored "
-                            f"{m['score']['plays'][i]['level']}")
         accepted = cluster_of(play["asset"])
         matching = [d for d in m["detections"] if d["asset"] in accepted
                     and d["start_seconds"] < play["end_seconds"]
                     and play["start_seconds"] < d["end_seconds"]]
+        # Reports written before session 77 hold the strongest detection's level.
+        strongest = max(matching, key=lambda d: d["hits"], default=None)
+        before = span_rule.level(strongest, span_rule.TODAY) if strongest else "none"
+        if m["score"]["plays"][i]["level"] not in (today[i], before):
+            problems.append(f"{name} {word}: today {today[i]} against stored "
+                            f"{m['score']['plays'][i]['level']}")
         best = max(matching, key=lambda d: d["hits"])
         levels = {}
         for rule in span_rule.RULES:

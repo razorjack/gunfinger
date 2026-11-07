@@ -86,7 +86,13 @@ pub fn save_provenance_only(
     if file.exists() {
         return Err(format!("{} exists already", file.display()));
     }
+    let build = std::env::current_exe().map_err(|error| error.to_string())?;
     for name in report_names(set, seed) {
+        if modified(&reports.join(&name))? < modified(&build)? {
+            return Err(format!(
+                "{name} is older than this build; run regress with it first"
+            ));
+        }
         if !same_apart_from_timing(&baseline.join(&name), &reports.join(&name))? {
             return Err(format!(
                 "{name} differs from the baseline's; run regress first and save a new baseline"
@@ -107,10 +113,16 @@ pub fn save_provenance_only(
     Ok(())
 }
 
+fn modified(path: &Path) -> Result<std::time::SystemTime, String> {
+    fs::metadata(path)
+        .and_then(|metadata| metadata.modified())
+        .map_err(|error| format!("cannot read {}: {error}", path.display()))
+}
+
 /// What a comparison found.
 #[derive(Debug, Default)]
 pub struct Verdict {
-    /// Pairs of reports, or inputs, that differ.
+    /// Pairs of reports that differ.
     pub changed: Vec<String>,
     /// Pairs of reports that do not describe the same queries or scan, and
     /// inputs of the provenance that differ.
@@ -757,6 +769,35 @@ mod tests {
         compare_provenance(&dir, &now, &mut verdict).unwrap();
         fs::remove_dir_all(&dir).unwrap();
         assert_eq!(verdict.incomparable, ["provenance (clusters)"]);
+    }
+
+    #[test]
+    fn a_difference_outside_the_detections_is_changed_and_timing_is_not() {
+        let root = std::env::temp_dir().join(format!("gunfinger-compare-{}", std::process::id()));
+        let (reports, baseline) = (root.join("reports"), root.join("baseline"));
+        let names = report_names("set", 1);
+        for dir in [&reports, &baseline] {
+            write_json(&dir.join(&names[0]), &sweep(1, 300)).unwrap();
+            for name in &names[1..] {
+                write_text(&dir.join(name), EMPTY_SCAN).unwrap();
+            }
+        }
+        write_text(
+            &reports.join(&names[1]),
+            &EMPTY_SCAN.replace(r#""wall_seconds": 1.0"#, r#""wall_seconds": 2.0"#),
+        )
+        .unwrap();
+        let now = crate::provenance::tests::provenance();
+        let same = compare(&baseline, &reports, "set", 1, &now).unwrap();
+        let mut more = sweep(1, 300);
+        more.indexed_assets = 2;
+        write_json(&reports.join(&names[0]), &more).unwrap();
+        let changed = compare(&baseline, &reports, "set", 1, &now).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+
+        assert!(same.identical(), "{same:?}");
+        assert_eq!(changed.changed, [names[0].clone()]);
+        assert!(changed.incomparable.is_empty());
     }
 
     #[test]
