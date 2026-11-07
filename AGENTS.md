@@ -106,7 +106,11 @@ grouped, same-audio plays merged) → `gaps` (the stretches no
 confident play covers, which the CLI prints and the harness lists;
 ADR 0023; and the estimate of how many tracks each holds, from
 `repeats`, the gap matched against itself, within the range its length
-gives; ADR 0024). `profile` holds the front-end
+gives; ADR 0024). `residual` takes a record known to play in an
+excerpt out of it, so that a quieter record under it can be searched
+for (the masked residual of ADR 0025), and `decode::Decoder::render`
+decodes the stretch of a library file that a play places there, for
+that mask. `profile` holds the front-end
 parameters; changing one invalidates every peak record. Around it:
 `library` finds the audio files, leaving out what the
 `.gunfingerignore` at the root lists (`library::ignore`, a subset of
@@ -130,7 +134,10 @@ the library's files or, without a library, the store's own records;
 `survey` compares the peak store with the library for `doctor` and
 `prune`, telling records of files gone from the library from those of
 ignored files; `names` reads track names from tags; `playback` picks the
-ladder.
+ladder; `under` is `identify --under` (ADR 0025, Proposed, off by
+default): each confident entry's file is taken out of the recording
+with the core's `residual`, and what is left is searched for a quieter
+track.
 
 The harness adds `sweep`, `scan`, `calibrate`, `regress`, `robust`
 (transformed excerpts), `synthetic` (the scale proxy), `clusters` and
@@ -169,6 +176,15 @@ track), with every part, for `questions parts` to ask by ear.
 (`stereo-width`).
 `scan --leave-out-slots` leaves runs of named manifest slots out of the
 index, so that each run leaves a gap of known tracks.
+`mixes` generates mixes of library tracks with exact truth (`mixes
+--kind drops` for double drops) and `render` renders test audio with
+FFmpeg (excerpts at another speed, turntable or key-locked, filtered
+and encoded); `grid` places brief plays across the window grid;
+`loss` counts where a real mix loses evidence; `versions` is the
+diagnostic version verifier; `residual` holds the harness's names for
+the core's mask; `counterexamples` searches small generated mixes under
+sampled transformations and minimizes each failure; `passages` searches
+recurring unidentified passages across a batch of generated mixes.
 `padding` adds records to the index for scale experiments, including a
 larger library the corpus was drawn from (`--other-peaks-dir`), whose
 copies of corpus files `library_map` finds and whose rips of the corpus
@@ -290,7 +306,8 @@ crates/gunfinger-eval/src/audition/web/tests/*.test.mjs` (the player's
 schedule under held keys). Trying the
 page: start `audition --no-open` on temporary files as above, open the
 printed URL (a browser, or headless Chrome over the DevTools
-protocol: session 14's client is `work/s14/cdp/cdp.ts`, uncommitted), and
+protocol: session 14's client is `work/s14/cdp/cdp.ts`, uncommitted and
+not on the Linux machine, whose `work/` has no `s14`), and
 read `window.audition.snapshot()` for the open question, the player's
 position, lanes and sources, and the queue; `window.audition.open(id)`
 opens a question and `window.audition.player()` returns the player. Keys

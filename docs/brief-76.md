@@ -235,3 +235,43 @@ Rules for this session:
   archive research proposals" is `](../research/...)` in its history
   file. Path-and-line references to update: none (step 1). Sizes:
   notes 63,796 bytes (was 840,449), status 13,150 (was 373,487).
+- **(14:15) Step 4, the other documents.**
+  - `CLAUDE.md`: items 3 and 4 now name the notes' index and newest
+    section and the newest status entries, with `docs/history/` for the
+    rest, and point at `docs/roadmap-history.md`; item 13 names the
+    history file that holds the notes of sessions 32 and 33. The topic
+    items' roadmap pointers quote item names that the new roadmap keeps.
+  - `AGENTS.md`, descriptive parts only: the core's `residual` and
+    `decode::Decoder::render`, the CLI's `under`, and the harness's
+    `mixes`, `render`, `grid`, `loss`, `versions`, `residual`,
+    `counterexamples` and `passages` added to the module map (each from
+    its module documentation); session 14's `work/s14/cdp/cdp.ts` is not
+    on the Linux machine, which the text now says. Every other path and
+    identifier it names exists (`docs/same-titles.txt`,
+    `commands/clusters.rs`, `commands/listening.rs`, `web/keys.js`,
+    `schema::CONTROL_KEYS`, `names::Libraries`, `audio::tests::tone`,
+    `audition::desktop`, `robust::speech_synthesis`,
+    `decode::INSTALL_FFMPEG`, `mixes::draw_around`,
+    `clusters::find_around`); it states no count that has changed. No
+    rule changed.
+  - Two rules in `AGENTS.md` look outdated and went to
+    `docs/decisions-queue.md` (item 9) instead of being changed: its
+    "Evaluation rules" name two development sets, not three; its reading
+    order describes `docs/status.md` as holding exact commands and
+    numbers, while `docs/session-rules.md` puts results in the
+    experiment files. Already in the queue: the zero-wrong bar (item 5)
+    and kept diagnostics against "no dead code" (item 8).
+  - `docs/calibration.md`: "Measured at NAS scale (session 5)" with the
+    session 6-11 paragraphs after it, and "Changes since
+    `poc-freeze-1`", moved verbatim to
+    `docs/history/calibration-history.md`; both headings stay with a
+    pointer, so the quoted section names still resolve. The tables of
+    today's values stay. 25,941 bytes to 15,044.
+  - `docs/session-rules.md`: the roadmap rule of step 2, and the index
+    lines of the notes and status. Checked against `AGENTS.md` and the
+    prompt's rules: no contradiction apart from the two above; one
+    wording fix ("one short paragraph per session" for status, where
+    sessions write a paragraph or a few bullets).
+  - `README.md`'s list of documents names the history files (a
+    descriptive line; not in the prompt's list, changed because it
+    described the moved documents).

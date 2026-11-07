@@ -516,9 +516,13 @@ Everything else is in `docs/`:
   to measure again as it grows.
 - `docs/references.md`: the papers below, with the sections that matter
   and where Gunfinger uses them.
-- `docs/roadmap.md`: what is missing and ideas not yet tried.
+- `docs/roadmap.md`: what is missing and ideas not yet tried, each with
+  its state and next step; `docs/roadmap-history.md` holds each item's
+  history.
 - `docs/status.md`: a running log of the work, with exact commands and
-  numbers.
+  numbers; `docs/session-notes.md`: each session's handoff. Both keep
+  the newest sessions; the older entries and sections are in
+  `docs/history/`.
 - `docs/brief*.md` and `docs/session-*-checklist.md`: the brief for each
   development session and its progress.
 - `docs/audition-questions.md`: the listening tool's question format.

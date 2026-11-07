@@ -21,7 +21,7 @@ for scope and rules.
 - [x] 3. `docs/session-notes.md` and `docs/status.md` keep the newest
   sessions with an index; older sections verbatim under `docs/history/`;
   references updated
-- [ ] 4. `CLAUDE.md`, `AGENTS.md` (descriptive parts), `docs/calibration.md`,
+- [x] 4. `CLAUDE.md`, `AGENTS.md` (descriptive parts), `docs/calibration.md`,
   `docs/session-rules.md`
 - [ ] 5. Verification script (multiset of lines, links, path-and-line
   references); counts in the brief

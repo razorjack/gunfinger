@@ -149,6 +149,18 @@ external review (`docs/research/2026-11-05-external-review.md`).
   seconds` gives the first external per-second score.
 - **The Planet Dust (DC Breaks Remix) cut** stays "unsure" from the
   2026-10-30 listening.
+- **`AGENTS.md`'s development sets** (session 76). "Evaluation rules"
+  names `stakka-skynet-knowledge` and `razorjack-2003-03-29` as the
+  development sets; `nocny-trans-vertical-2002-08-23` has been the third
+  since session 18 (experiment 0100; `CLAUDE.md`, the roadmap's "More
+  development mixes"). Should the rule name all three?
+- **What `AGENTS.md` says `docs/status.md` holds** (session 76). "Before
+  changing a decision" describes it as "current state, exact commands
+  and numbers"; since 2026-11-05 `docs/session-rules.md` keeps measured
+  results in the experiment files and one short entry per session in
+  the status file, and since session 76 its older entries are in
+  `docs/history/`. Should the reading order point at the experiments,
+  the roadmap's item lines and the newest handoff instead?
 
 ## Decided
 

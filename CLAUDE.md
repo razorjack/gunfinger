@@ -17,8 +17,13 @@ anything else:
    for a prune. The current session is 76: `docs/brief-76.md` and
    `docs/session-76-checklist.md`, with the external review note
    `docs/research/2026-11-05-external-review.md`.
-3. `docs/session-notes.md` (findings to report)
-4. `docs/status.md` (running log: where the work stands)
+3. `docs/session-notes.md`: its index and the newest session's section
+   (the handoff: baselines, store revision, builds, open questions);
+   older sessions are in `docs/history/`, named in the index
+4. `docs/status.md`: the newest entries (the running log; older entries
+   are in `docs/history/`, named in its index). The roadmap's item
+   lines hold each item's state and next step; its history is in
+   `docs/roadmap-history.md`, under the same item names
 5. the newest file in `docs/experiments/`; the third development set's
    manifest, `corpus/sets/nocny-trans-vertical-2002-08-23/tracklist.toml`
    (never edit it)
@@ -52,8 +57,9 @@ anything else:
    name, the peak verifier's experiments (0054-0058) and session 30's
    tolerant pair count (0149 and up; `verifier.rs`)
 13. for work on Linux or another platform: `docs/adr/0020-macos-and-linux.md`,
-   AGENTS.md's "Platforms" and the notes of sessions 32 and 33 (session
-   33: the NAS-scale harness on the Linux machine, experiments 0155-0158)
+   AGENTS.md's "Platforms" and the notes of sessions 32 and 33
+   (`docs/history/session-notes-01-39.md`; session 33: the NAS-scale
+   harness on the Linux machine, experiments 0155-0158)
 14. for marking time without a confident match in tracklists, and
    estimating how many tracks a gap holds: the roadmap's "Time without a
    confident match", `docs/research/2026-10-20-unidentified-gaps.md`,

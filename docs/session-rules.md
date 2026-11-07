@@ -95,9 +95,22 @@ commit that relies on it.
 
 - Measured results: the experiment file only. Other documents cite it by
   number and repeat at most the headline figure.
-- `docs/status.md`: one short paragraph per session with pointers.
+- `docs/status.md`: one short entry per session (a paragraph or a few
+  bullets) with pointers. Older entries are in `docs/history/`, named in
+  the index at the top of the file.
 - `docs/session-notes.md`: the handoff (baselines, store revision,
   builds, data paths, open questions) and findings that no experiment
-  holds; aim for about 60 lines per session.
-- `docs/roadmap.md`: an item's current state and its next step.
+  holds; aim for about 60 lines per session. A session adds its section
+  at the end and a line for it in the index at the top (the session,
+  its date and headline, the file). Older sections are in
+  `docs/history/`, under their own headings.
+- `docs/roadmap.md`: each item's state (open; measured and undecided;
+  blocked on the user; blocked on a larger library; demoted), its one
+  next step, its evidence (experiment, ADR and note numbers) and the few
+  current numbers a session needs to act on it, in a few lines. A
+  session changes those lines in place and keeps the item's bold name,
+  since documents quote it; it does not add a paragraph of results. A
+  finished or closed item becomes one line under "Done and closed". The
+  active queue changes only to say what moved. The text up to session 75,
+  with each item's history, is in `docs/roadmap-history.md`.
 - Open decisions: `docs/decisions-queue.md`.
