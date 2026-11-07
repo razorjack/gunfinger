@@ -23,7 +23,7 @@ for scope and rules.
   references updated
 - [x] 4. `CLAUDE.md`, `AGENTS.md` (descriptive parts), `docs/calibration.md`,
   `docs/session-rules.md`
-- [ ] 5. Verification script (multiset of lines, links, path-and-line
+- [x] 5. Verification script (multiset of lines, links, path-and-line
   references); counts in the brief
 - [ ] 6. Read-only review of the new roadmap by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 76", status, checklist; final checks

@@ -275,3 +275,27 @@ Rules for this session:
   - `README.md`'s list of documents names the history files (a
     descriptive line; not in the prompt's list, changed because it
     described the moved documents).
+- **(14:25) Step 5, verification** (`work/s76/verify.py`, not committed;
+  the old files read from `009fe55`). All checks pass:
+  - Every non-blank line of the old files appears in the union of the
+    new ones, counted as a multiset: roadmap 1,766 of 1,766 (in
+    `docs/roadmap.md` and `docs/roadmap-history.md`), notes 13,117 of
+    13,117, status 5,777 of 5,778, calibration 187 of 187. The one status
+    line is the link changed on purpose (`](research/...)` to
+    `](../research/...)`, step 3).
+  - Relative Markdown links in `docs/` (with the new history files),
+    `README.md`, `AGENTS.md` and `CLAUDE.md`: 18 in 490 files, none
+    broken (code spans and fenced blocks left out; the one false
+    positive was a formula in a code span).
+  - The three path-and-line references (the prompt's examples, copied
+    into this brief) no longer point at the same line, since the files
+    changed; each line's text has one copy: `docs/session-notes.md:14678`
+    ("## Session 74") is now line 727 of `docs/session-notes.md`;
+    `docs/status.md:5951` is line 1,439 of
+    `docs/history/status-2026-10-23-to-10-31.md`; `docs/roadmap.md:375`
+    is line 381 of `docs/roadmap-history.md`. The brief keeps the prompt
+    verbatim, so they are recorded here instead of edited.
+  - Quoted names: all 39 roadmap item names are in the new roadmap; all
+    374 headings of the old notes and all 134 of the old status are in
+    the new files, and every `##` heading of the old notes has an index
+    line.
