@@ -342,7 +342,8 @@ product and its defaults are unchanged.
   copies, the set-aside cut moved by `--set-aside-share`) over the grid's
   10-40 s plays and the sweep, at 262 tracks and NAS scale: no confident
   answer changed. Short plays' detections move far more than long ones'
-  (up to a rung of speed and a third of their hits), but at today's rule
+  (up to a rung of speed; a 20 s play lost a third of its hits, a 10 s
+  play nine tenths), but at today's rule
   short plays near it fail on windows, not hits (0285, 0287).
 - The bounded fit for short chains only (`--second-pass-fit
   iterated-short`) removes most of that movement but lifts calibrate's

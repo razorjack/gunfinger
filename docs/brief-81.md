@@ -219,3 +219,16 @@ new registration and data the first run did not use.
   0285's question (short plays at the scale of the minimum span's
   evidence). Decided before the runs; the variant is not run there,
   since it has already failed A1 and A3 at 262 tracks.
+- *(21:00, the review's corrections)* Two records above were not exact.
+  The 20:05 entry says 0285 was committed before any of 0286's
+  comparisons was read; `work/s81/summary-partial.txt` (20:00), read
+  while 0285 was drafted, already held the variant's first comparisons
+  (`added`) and its base comparison, so 0285 was written with those in
+  view (its text uses the default's runs only). 0287's runs started at
+  20:11, before 0286 was written (20:17), against the rule that an
+  experiment is written before the next starts. The decision times of
+  19:25 and 19:28 were first written as 19:50 and 19:55 by mistake and
+  corrected the same hour. The review's other corrections are in the
+  documents (0285-0287, the note, the roadmap, decisions queue item 1,
+  the status entry) and in commit `ae03fb8` (code: no behaviour
+  change).

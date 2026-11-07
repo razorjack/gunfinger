@@ -1698,7 +1698,8 @@ unchanged.
 - Default (0285, 0287): no confident answer changed under any
   perturbation. A 10-20 s play's true detection moves by 5% or more
   6-7 times as often as a 25-40 s play's when files are added or
-  removed at 262 tracks, and its speed by up to a rung; at NAS scale
+  removed at 262 tracks (the grid's plays: 8 recordings), and its speed
+  by up to a rung; at NAS scale
   1-4 of 582 short detections move by 5% or more, by 16-32%; 30 s
   excerpts move by at most 3 hits. Short plays near the rule fail on
   windows, not hits, so the moves decide nothing today.

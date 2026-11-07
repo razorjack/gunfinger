@@ -28,8 +28,8 @@ have since been measured: stereo power fingerprints (0245-0250, not
 adopted; the inverted-channel repair 0262-0263 is open), filtering before
 hit grouping (0243-0244, not adopted), correcting the second pass's
 initial alignment (0251-0253, not adopted; the short-chain variant
-0286, not adopted), quiet tracks under an identified one (0255-0258, 0269-0275;
-`identify --under`, ADR 0025, Proposed), a harmonic/percussive view
+0286, not adopted), quiet tracks under an identified one (0255-0258,
+0269-0275; `identify --under`, ADR 0025, Proposed), a harmonic/percussive view
 (0259-0261, not adopted) and recurring passages across mixes (0267-0268,
 a pilot). Automated counterexample search was piloted in 0264-0266.
 
@@ -241,9 +241,9 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   A(10) and B(10), against 228 today. Under library perturbations
   (0285, 0287) no confident answer changes today, because short plays
   near the rule fail on windows; a 10-20 s play's true detection moves
-    by 5% or more 6-7 times as often as a longer play's. On the fair
-  shared-material test (0146-0148) B(15) fails F1 by 6 of 168 wrong answers, all from three
-  20 s passages placed exactly on a window border, where today's rule
+  by 5% or more 6-7 times as often as a longer play's. On the fair
+  shared-material test (0146-0148) B(15) fails F1 by 6 of 168 wrong
+  answers, all from three 20 s passages placed exactly on a window border, where today's rule
   names the same wrong files at 8-9 of their other positions; A(20) and
   B(20) meet F but name fewer brief plays; A(10) fails F1 by 9. Next:
   active queue item 5 (placement-aware scoring, the rule frozen, one
@@ -342,8 +342,10 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   speed and span the second pass starts from (0242, expected under ADR
   0014); a famous break lines up with up to 403 of the NAS library's
   files, and its holders lose more hits to the filter (0276-0277). How
-  often a short chain's speed hinges on the lists set aside: 0285 (up to
-  a rung for 10-20 s plays, no confident answer changed). Open: break
+  far a short chain's speed and hits move when the library changes:
+  0285 and 0287 (up to a rung for 10-20 s plays, no confident answer
+  changed). Open: how often a short chain's speed hinges on one hit
+  (not counted); break
   search as a command (decisions queue item 4; active queue
   item 10); a posting-count set-aside threshold (active queue item 11);
   if candidates go missing, rank hashes by distinct files or weight hits

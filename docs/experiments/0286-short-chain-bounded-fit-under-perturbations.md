@@ -3,8 +3,8 @@
 **Question** (`docs/brief-81.md`, registered). With 0252's bounded fit applied only where `chain_speed`
 gives the mean of the rungs (fewer than 3 lines, or under 16 s between their centres;
 `--second-pass-fit iterated-short`), do short plays move less under 0285's perturbations, at no cost?
-**Method.** 0285's runs repeated with the variant (`work/bin/s81-run3`; its bases and `regress
-session-78-linux` with `s81-run`, the same search code), each against the variant's own base, by
+**Method.** 0285's runs repeated with the variant (`work/bin/s81-run3`; its `regress session-78-linux`
+with `s81-run`, the same search code), each against the variant's own base, by
 `scripts/analysis/perturbation.py`; at the bases, the variant against the default
 (`perturbation.py fits`). `data/0286-short-chain-bounded-fit-under-perturbations.json`.
 
@@ -13,7 +13,7 @@ session-78-linux` with `s81-run`, the same search code), each against the varian
 | added: speed moved > 1e-4 pp; hits moved; by 5% or more; largest speed move | 131; 98; 23; 0.35 pp | 45; 40; 16; 0.23 pp |
 | removed | 97; 54; 14; 0.40 pp | 31; 29; 11; 0.015 pp |
 | cut-down; cut-up | 53; 9; 2 / 0; 0; 0 | 1; 1; 0 / 0; 0; 0 |
-| Confident identity changes, all perturbations (grid, sweep, both scales) | 0 | 0 |
+| Confident identity changes, all perturbations (grid at 262 tracks, sweep at both scales) | 0 | 0 |
 
 - The 25-40 s plays and the sweep (30 s) move as under the default (within 3 detections per
   perturbation); at NAS scale the two fits' moves are identical (47 and 83 speeds, 5 and 15 hit counts).
@@ -29,7 +29,8 @@ session-78-linux` with `s81-run`, the same search code), each against the varian
   remix) passage in the Stakka scan at 20:23, 94 to 107 hits at +1.20% to +1.274% (0252's B4 case).
 
 **Against the bar.** A1 fails: neither fit changes a confident answer under any perturbation, so the
-variant cannot have fewer. A2 passes (27 detections moved by 5% or more against 39). A3 fails through
+variant cannot have fewer. A2 passes (27 detections moved by 5% or more against 39; the plays are of 8
+recordings, and Clockwork's two rips are 18 of the 27). A3 fails through
 calibrate's strongest false (107 against 100). A4 was not run.
 **Conclusion.** For short chains the bounded fit removes most of the speed's dependence on the library
 (a third as many speeds move under `added` and `removed`, 1 of 53 under `cut-down`; the largest move

@@ -35,10 +35,10 @@ external review (`docs/research/2026-11-05-external-review.md`).
   often as a longer play's, and its speed by up to a rung, which cost
   one 20 s play a third of its hits (0285). Today short plays near the
   rule fail on windows, so hits do not decide them; under B(15) hits
-  would. On the
-  grid's 15-20 s plays the movement stays far from B(15)'s 200 hits
-  (the weakest holds 355); recall's brief plays, the B(15) evidence
-  above, were not perturbed. The bounded fit for short chains only
+  would. On the grid's 15-20 s plays the movement stays above B(15)'s
+  200 hits (the weakest holds 355; a drop of a third would leave about
+  237); recall's brief plays, the B(15) evidence above, were not
+  perturbed. The bounded fit for short chains only
   removes most of the movement but lifts shared material (0286; not a
   candidate as registered).
 - **Recommendation.** Decide between B(15) and A(20). Then a session

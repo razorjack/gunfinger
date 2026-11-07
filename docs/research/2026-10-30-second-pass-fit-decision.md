@@ -153,7 +153,7 @@ the bounded fit where `chain_speed` gives the mean of the rungs, the
 chain's speed elsewhere) with a perturbation panel instead of one
 example: 400 NAS records added to the 262 tracks, 100 of them removed,
 the set-aside cut at 0.99% and 1.01%, duplicate copies, and at NAS
-scale 1% of the records removed and the cut at 1.01% (0285, 0286).
+scale 1% of the records removed and the cut at 1.01% (0285-0287).
 
 Under the default, a 10-20 s play's true detection moves by 5% or more
 6-7 times as often as a 25-40 s play's, and its speed by up to a rung
@@ -165,12 +165,16 @@ movement (a third as many speeds move when files are added or removed,
 fifth, with no confident answer changed under any perturbation either.
 At the base it makes one 20 s play confident and lifts the Clockwork
 remix's shared passage from 94 to 107 hits, so calibrate's strongest
-false rises from 100 to 107 at 262 tracks, as the bounded fit did
-everywhere in 0252 (0286).
+false rises from 100 to 107 at 262 tracks, as the bounded fit did at
+262 tracks in 0252 (at NAS scale it stayed at 282) (0286).
 
 By the registration it is not a candidate for an ADR proposal: it
 cannot reduce confident changes that the default does not make (A1),
-and it raises the strongest false (A3). The fits stay opt-in. Whether to
+and it raises the strongest false (A3). The fits stay opt-in for now:
+the measurement this note prescribed for the candidate (the shared
+panels and calibrate at both scales) was not run, and whether to take
+it up with the minimum span is ours, so they are deleted when that is
+decided. Whether to
 take the short-chain fit up with the minimum span, where 15-20 s plays
 become confident on hits and the movement would reach the threshold,
 is a question for that decision (`docs/decisions-queue.md`, item 1).
