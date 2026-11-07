@@ -1344,6 +1344,79 @@ fn the_saved_index_is_used_while_current_and_rebuilt_when_not() {
 }
 
 #[test]
+fn what_is_found_under_confident_tracks_does_not_depend_on_the_number_of_workers() {
+    if !ffmpeg_available() {
+        return;
+    }
+    let dir = scratch_dir("under-workers");
+    let library = dir.join("library");
+    let tracks: Vec<(&str, Track)> = [("a.wav", 21), ("b.wav", 22), ("c.wav", 23), ("d.wav", 24)]
+        .into_iter()
+        .map(|(name, seed)| (name, Track::random(seed, 80.0)))
+        .collect();
+    for (name, track) in &tracks {
+        write_wav(&library.join(name), &track.play(0.0, track.seconds, 1.0));
+    }
+    // Two double drops one after the other: b.wav 12 dB down under a.wav,
+    // then d.wav under c.wav. Each confident entry is masked on its own
+    // worker with more than one.
+    let gain = 10_f32.powf(-12.0 / 20.0);
+    let quiet = |track: &Track, speed: f64| -> Vec<f32> {
+        track
+            .play(10.0, 40.0, speed)
+            .iter()
+            .map(|sample| sample * gain)
+            .collect()
+    };
+    let mut mix = Mix::new(150.0);
+    mix.add(0.0, &tracks[0].1.play(5.0, 75.0, 1.02), 1.0);
+    mix.add(20.0, &quiet(&tracks[1].1, 0.98), 2.0);
+    mix.add(75.0, &tracks[2].1.play(5.0, 75.0, 0.97), 1.0);
+    mix.add(95.0, &quiet(&tracks[3].1, 1.01), 2.0);
+    let recording = dir.join("mix.wav");
+    write_wav(&recording, mix.samples());
+    let library_arg = library.to_str().unwrap();
+    let recording_arg = recording.to_str().unwrap();
+    gunfinger(&dir, &["index", library_arg]);
+
+    let with = |jobs: &str| {
+        gunfinger(
+            &dir,
+            &[
+                "identify",
+                recording_arg,
+                "--library",
+                library_arg,
+                "--under",
+                "--playback",
+                "turntable",
+                "--jobs",
+                jobs,
+                "--format",
+                "json",
+            ],
+        )
+        .stdout
+    };
+    let one = with("1");
+    let four = with("4");
+
+    assert_eq!(
+        String::from_utf8_lossy(&one),
+        String::from_utf8_lossy(&four)
+    );
+    let report: Value = serde_json::from_slice(&four).unwrap();
+    let under: Vec<&str> = report["under"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|play| play["confidence"] == "confident")
+        .map(|play| play["asset"].as_str().unwrap())
+        .collect();
+    assert_eq!(under, ["b.wav", "d.wav"], "{report}");
+}
+
+#[test]
 fn a_quiet_track_under_a_confident_one_is_found_once_the_louder_is_taken_out() {
     if !ffmpeg_available() {
         return;

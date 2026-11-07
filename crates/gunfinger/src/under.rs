@@ -7,7 +7,10 @@
 //! entry's, shares material with the file taken out, or is already
 //! confident nearby in the recording (`Dropped`); a play found there is
 //! dropped when it is one track with a confident play of the recording
-//! (`named_as_one_track`).
+//! (`named_as_one_track`). The entries' decodes and masks run on the
+//! workers, one entry each; their residuals are then searched in entry
+//! order, each search on the workers, so the output does not depend on
+//! the number of workers.
 
 use std::collections::BTreeMap;
 use std::path::Path;
@@ -16,6 +19,7 @@ use std::time::Instant;
 use gunfinger_core::confidence::Confidence;
 use gunfinger_core::decode::{DecodeError, Decoder, Played};
 use gunfinger_core::index::{AssetId, Index};
+use gunfinger_core::parallel;
 use gunfinger_core::peaks::Peak;
 use gunfinger_core::plays::{self, MAX_GAP_SECONDS};
 use gunfinger_core::profile::Profile;
@@ -26,7 +30,7 @@ use gunfinger_core::speed::{self, Rung};
 use crate::catalog::Catalog;
 use crate::console::Console;
 use crate::export::{Entry, entries};
-use crate::report::{FoundPlay, Level, Playback, Report, SharedWith};
+use crate::report::{FoundPlay, Level, PASSAGE_GAP_SECONDS, Playback, Report, SharedWith};
 
 /// The step as a report's search settings record it.
 pub fn design() -> String {
@@ -51,12 +55,20 @@ pub fn find(
         .into_iter()
         .filter(|entry| entry.confidence() == Level::Confident)
         .collect();
+    let taken_out: Vec<TakenOut> = confident
+        .iter()
+        .filter_map(|entry| TakenOut::of(report, entry))
+        .collect();
+    let residuals = parallel::map_in_order(&taken_out, jobs, |taken_out| {
+        Left::of(report, catalog, samples, taken_out)
+    });
     let mut found = Vec::new();
-    for entry in &confident {
-        let Some(taken_out) = TakenOut::of(report, entry) else {
-            continue;
-        };
-        match under_entry(report, catalog, samples, &taken_out, ladder, jobs) {
+    for (taken_out, left) in taken_out.iter().zip(residuals) {
+        let plays = left.and_then(|left| match left {
+            Some(left) => under_entry(report, catalog, &left, taken_out, ladder, jobs),
+            None => Ok(Vec::new()),
+        });
+        match plays {
             Ok(plays) => found.extend(plays),
             Err(error) => console.warning(format_args!(
                 "--under: nothing is reported under {}: {error}",
@@ -107,35 +119,61 @@ impl<'a> TakenOut<'a> {
     }
 }
 
+/// What is left of the recording over an entry's strongest play once its
+/// file is taken out: the residual of the play's span, and the recording's
+/// time at its first sample.
+struct Left {
+    samples: Vec<f32>,
+    offset: f64,
+}
+
+impl Left {
+    /// The residual over `taken_out`'s play, none when the play spans no
+    /// sample of `samples`. One thread: the decode of the play's file and
+    /// the mask.
+    fn of(
+        report: &Report,
+        catalog: &Catalog,
+        samples: &[f32],
+        taken_out: &TakenOut,
+    ) -> Result<Option<Left>, String> {
+        let profile = Profile::CURRENT;
+        let rate = f64::from(profile.sample_rate);
+        let at = |seconds: f64| {
+            (((seconds - report.query.start_seconds) * rate)
+                .round()
+                .max(0.0) as usize)
+                .min(samples.len())
+        };
+        let (first, last) = (
+            at(taken_out.play.start_seconds),
+            at(taken_out.play.end_seconds),
+        );
+        if last <= first {
+            return Ok(None);
+        }
+        let excerpt = &samples[first..last];
+        let offset = report.query.start_seconds + first as f64 / rate;
+        let file = catalog.root.join(&taken_out.play.asset);
+        let reference = placed(taken_out.play, &file, offset, excerpt.len(), &profile)
+            .map_err(|error| error.to_string())?;
+        Ok(Some(Left {
+            samples: residual(excerpt, &reference, &profile, Mask::UNDER).samples,
+            offset,
+        }))
+    }
+}
+
 fn under_entry(
     report: &Report,
     catalog: &Catalog,
-    samples: &[f32],
+    left: &Left,
     taken_out: &TakenOut,
     ladder: &[Rung],
     jobs: usize,
 ) -> Result<Vec<FoundPlay>, String> {
     let profile = Profile::CURRENT;
-    let rate = f64::from(profile.sample_rate);
-    let at = |seconds: f64| {
-        (((seconds - report.query.start_seconds) * rate)
-            .round()
-            .max(0.0) as usize)
-            .min(samples.len())
-    };
-    let (first, last) = (
-        at(taken_out.play.start_seconds),
-        at(taken_out.play.end_seconds),
-    );
-    if last <= first {
-        return Ok(Vec::new());
-    }
-    let excerpt = &samples[first..last];
-    let offset = report.query.start_seconds + first as f64 / rate;
-    let file = catalog.root.join(&taken_out.play.asset);
-    let reference = placed(taken_out.play, &file, offset, excerpt.len(), &profile)
-        .map_err(|error| error.to_string())?;
-    let left = residual(excerpt, &reference, &profile, Mask::UNDER);
+    let offset = left.offset;
     let detections = search_with(
         &catalog.index,
         &left.samples,
@@ -182,17 +220,28 @@ fn under_entry(
 }
 
 /// Whether a play found under another is one track with a confident play
-/// of the recording overlapping it or within `MAX_GAP_SECONDS` of it, by
-/// the tests of the tracklist's entry rule (ADR 0017): the two line up, or
-/// their files are tagged alike. Another upload of a track the tracklist
-/// names there already, over the same passage or going on alone after it.
+/// of the recording, by the tests of the tracklist's entry rule (ADR 0017):
+/// the two line up and are one passage of the mix (they overlap, or at
+/// most `PASSAGE_GAP_SECONDS` lie between them), or their files are
+/// tagged alike and the confident play overlaps it or lies within
+/// `MAX_GAP_SECONDS` of it. Another upload of a track the tracklist names
+/// there already, over the same passage or going on alone after it. Two
+/// tracks whose lines put their files' starts at the same mix time are
+/// common in a mix, so lining up across a longer stretch is no evidence
+/// of one track (session 73 lost two right partners to it, experiment
+/// 0274).
 fn named_as_one_track(found: &FoundPlay, plays: &[FoundPlay]) -> bool {
     plays.iter().any(|play| {
         play.confidence == Level::Confident
-            && play.start_seconds - MAX_GAP_SECONDS <= found.end_seconds
-            && found.start_seconds <= play.end_seconds + MAX_GAP_SECONDS
-            && (found.lines_up_with(play) || found.tagged_alike(play))
+            && ((within(found, play, PASSAGE_GAP_SECONDS) && found.lines_up_with(play))
+                || (within(found, play, MAX_GAP_SECONDS) && found.tagged_alike(play)))
     })
+}
+
+/// Whether `play` overlaps `found` or lies within `seconds` of it.
+fn within(found: &FoundPlay, play: &FoundPlay, seconds: f64) -> bool {
+    play.start_seconds - seconds <= found.end_seconds
+        && found.start_seconds <= play.end_seconds + seconds
 }
 
 /// `play`'s file as the recording plays it over `length` samples from
@@ -527,6 +576,173 @@ mod tests {
         };
         assert!(far.lines_up_with(&report.plays[1]));
         assert!(!named_as_one_track(&far, &report.plays));
+    }
+
+    fn tagged(artist: &str, title: &str) -> Option<crate::report::PlayTags> {
+        Some(crate::report::PlayTags {
+            artist: Some(artist.to_owned()),
+            title: Some(title.to_owned()),
+            album: None,
+        })
+    }
+
+    /// A play of `asset` from `start` to `end` at `speed` whose line puts
+    /// its file's start at mix time `started`.
+    fn lined_up(
+        asset: &str,
+        start: f64,
+        end: f64,
+        speed: f64,
+        started: f64,
+        confidence: Level,
+        tags: Option<crate::report::PlayTags>,
+    ) -> FoundPlay {
+        FoundPlay {
+            asset: asset.to_owned(),
+            same_audio: Vec::new(),
+            start_seconds: start,
+            end_seconds: end,
+            track_start_seconds: (start - started) * speed,
+            speed,
+            confidence,
+            tags,
+            ..report().plays[1].clone()
+        }
+    }
+
+    #[test]
+    fn a_find_lining_up_with_another_tracks_play_across_a_long_stretch_is_kept() {
+        // Experiment 0274, drops seed 2050, mix-14: Tee Bee - Two Faced is
+        // confident from 421.2 to 553.3 s at +2.02%, its file starting at
+        // 325.8 s by its line. Chris SU & SKC - Blackout is found
+        // confidently under the next entry from 589.8 s, 36 s after Two
+        // Faced ends, its line putting its file's start 0.5 s later.
+        let two_faced = FoundPlay {
+            track_start_seconds: 97.330,
+            ..lined_up(
+                "two-faced.mp3",
+                421.218,
+                553.336,
+                1.020_215,
+                0.0,
+                Level::Confident,
+                tagged("Tee Bee", "Two Faced"),
+            )
+        };
+        let started = 421.218 - 97.330 / 1.020_215;
+        let blackout = |start: f64, end: f64| {
+            lined_up(
+                "blackout.mp3",
+                start,
+                end,
+                1.0,
+                started + 0.5,
+                Level::Confident,
+                tagged("Chris SU & SKC", "Blackout"),
+            )
+        };
+        let plays = [two_faced];
+        assert!(blackout(589.766, 633.272).lines_up_with(&plays[0]));
+        assert!(!named_as_one_track(&blackout(589.766, 633.272), &plays));
+        // The same line 8 s after Two Faced ends: one passage, a track
+        // going on alone, so another upload of Two Faced.
+        assert!(named_as_one_track(&blackout(561.3, 600.0), &plays));
+    }
+
+    #[test]
+    fn a_possible_find_lining_up_with_another_tracks_play_35_s_before_is_kept() {
+        // Experiment 0274, drops seed 2053, mix-00: Carlito & Addiction -
+        // Into Music is confident from 461.0 to 611.1 s at -1.64%; Ed Rush &
+        // Optical - Splinter is found as possible from 646.2 s, its line
+        // putting its file's start 3.5 s from Into Music's.
+        let into_music = FoundPlay {
+            track_start_seconds: 133.367,
+            ..lined_up(
+                "into-music.mp3",
+                461.035,
+                611.113,
+                0.983_608,
+                0.0,
+                Level::Confident,
+                tagged("Carlito & Addiction", "Into Music"),
+            )
+        };
+        let started = 461.035 - 133.367 / 0.983_608;
+        let splinter = lined_up(
+            "splinter.opus",
+            646.201,
+            686.229,
+            1.0,
+            started - 3.5,
+            Level::Possible,
+            tagged("Ed Rush & Optical", "Splinter"),
+        );
+        let plays = [into_music];
+        assert!(splinter.lines_up_with(&plays[0]));
+        assert!(!named_as_one_track(&splinter, &plays));
+    }
+
+    #[test]
+    fn uploads_over_the_same_passage_and_tracks_tagged_alike_nearby_are_still_dropped() {
+        let louder = lined_up(
+            "tune.mp3",
+            100.0,
+            200.0,
+            1.0,
+            40.0,
+            Level::Confident,
+            tagged("Artist", "Tune"),
+        );
+        let plays = [louder];
+        // Another upload of the track over the same passage, tagged
+        // otherwise, lining up: a repeated upload.
+        let upload = lined_up(
+            "upload.opus",
+            120.0,
+            180.0,
+            1.0,
+            41.5,
+            Level::Confident,
+            tagged("artist", "Tune (Original Mix)"),
+        );
+        assert!(named_as_one_track(&upload, &plays));
+        // An unrelated drop inside the same passage whose line happens to
+        // put its file's start 4 s from the track's: the line test cannot
+        // tell it from an upload, and it is dropped as ADR 0017's entry
+        // rule joins such plays.
+        let unrelated = lined_up(
+            "other.mp3",
+            150.0,
+            190.0,
+            1.0,
+            44.0,
+            Level::Confident,
+            tagged("Someone", "Else"),
+        );
+        assert!(named_as_one_track(&unrelated, &plays));
+        // An upload tagged alike 60 s after the track ends, however it
+        // lines up: still within the 90 s of the tag test.
+        let tagged_later = lined_up(
+            "tagged.m4a",
+            260.0,
+            300.0,
+            1.0,
+            150.0,
+            Level::Confident,
+            tagged("Artist", "Tune"),
+        );
+        assert!(named_as_one_track(&tagged_later, &plays));
+        // Neither lining up nor tagged alike: another track.
+        let other = lined_up(
+            "other.mp3",
+            150.0,
+            190.0,
+            1.0,
+            60.0,
+            Level::Confident,
+            tagged("Someone", "Else"),
+        );
+        assert!(!named_as_one_track(&other, &plays));
     }
 
     #[test]

@@ -527,7 +527,7 @@ fn mark_shared_material(plays: &mut [FoundPlay]) {
 
 /// A play's segments at most this many seconds apart are one passage: the
 /// recording plays on through the gap (experiment 0091's `passage`).
-const PASSAGE_GAP_SECONDS: f64 = 10.0;
+pub(crate) const PASSAGE_GAP_SECONDS: f64 = 10.0;
 
 /// Plays of different assets are over the same passage of the mix when
 /// they overlap for at least this share of the shorter play...
