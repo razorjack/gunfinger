@@ -184,3 +184,27 @@ Rules for this session:
   relative link in a moved status entry (`research/...`) becomes
   `../research/...` in its history file, the only line changed in a
   move; the verification lists it.
+- **(13:40) Step 2, the roadmap.** The roadmap at `009fe55` holds 39
+  bold items, not 40 (the prompt's count); all 39 names and the six
+  section headings are kept. The old text, from its second line on, is
+  in `docs/roadmap-history.md` verbatim under a new title and a
+  paragraph naming commit `009fe55`; the old title line `# Roadmap`
+  stays in the new roadmap. The new roadmap keeps the preface's research
+  paragraph and "The active queue" word for word, apart from two
+  changes that say what moved: its opening now says the items hold state
+  and next step and the history file their history, and item 11 marks
+  the roadmap rewrite done in session 76. The demotion paragraph is
+  kept. 32 items stay under their sections with a state, a next step,
+  the current facts and their evidence; 7 finished or closed items
+  (Database, The Track/AudioAsset model, Report edits, No record inside
+  the track length range, Titles of mislabelled files, A full-screen
+  TUI, Panako as an outside benchmark) are one line each in "Done and
+  closed". Items that are done but keep open points (On-disk index, the
+  four library items with ADRs, Time without a confident match, Speed
+  that wanders within a play) stay among the open items with their open
+  points. States follow the active queue and the decisions queue; where
+  the old text leaves a state unclear, the item line says so (Library
+  identity and relocation: session 32's Linux run is recorded in the
+  notes, but not whether it closes the two risks; Library ignore file:
+  two open points from session 8 not rechecked). Size: 27,900 bytes,
+  against the target of about 35 KB.

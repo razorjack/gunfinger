@@ -15,7 +15,7 @@ for scope and rules.
 
 - [x] 1. Inventory of the documents read every session and of every
   reference into the documents that change, in the brief
-- [ ] 2. `docs/roadmap.md` rewritten (preface, active queue, open items,
+- [x] 2. `docs/roadmap.md` rewritten (preface, active queue, open items,
   "Done and closed"); the previous text verbatim in
   `docs/roadmap-history.md`
 - [ ] 3. `docs/session-notes.md` and `docs/status.md` keep the newest
