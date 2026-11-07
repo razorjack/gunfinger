@@ -214,3 +214,66 @@ Registered at 13:40, before `rescore` has read any saved report.
   wrong under the registered rule it measured (it counted "confident"
   plays that had a confident detection as possible); registered bars
   and verdicts are never changed.
+
+## Step 3: the rescoring (13:19-13:30)
+
+- **(13:19) The run.** `work/s77/rescore.sh` with `work/bin/s77-run/`
+  (master at `0bcfa44` plus the drift check's tolerance, committed
+  with step 3): 184 reports with the corpus clusters, 21 with
+  `--other-peaks-dir` and the NAS clusters, 4 s in all. Each rescored
+  report is `<stem>-rescored.json` beside its saved one
+  (`work/s77/rescored-files.txt`).
+- **(13:20) Decision: a tolerance in the drift check.** The first run
+  counted 23-155 drifted plays in nearly every report: each was a
+  boundary or position error computed again from floats that serde_json
+  reads one unit in the last place off (0265). Seconds now compare
+  within 1e-9 s; with it no play and no mix drifted in any of the 205
+  reports, so every saved level equals its strongest detection's under
+  today's clusters, judgments and thresholds, and every change below is
+  the rule's.
+- **(13:22) What moved.** 6 plays in 5 reports, all possible to
+  confident, all at NAS scale in session 62's stereo-fault mixes of
+  seed 2028 (0250): Bad Company - Oxygen (0:00-0:24 of mix 02; strongest
+  detection 521 hits in 2 windows, a confident one of 487 hits in 3; under
+  power-sum queries 702 and 495) in the control and inverted mixes under
+  both front ends, and Balderdash (5:26-5:53 of mix 06, 329 hits in 2
+  windows against 250 in 3) in the inverted mix under power-sum queries;
+  the sixth is the same Oxygen play in `work/s62/check/nas-2028-run.json`,
+  an identity check no experiment cites. The other 199 reports, the three
+  grid reports among them, change in no play.
+- **(13:25) The tables, by experiment.** 38 experiments cite at least
+  one report (`work/s77/report-map.tsv`; 197 of 205 reports mapped).
+  For 37 of them no play's level moves, so no figure they state moves:
+  0159-0166, 0175-0179, 0181, 0182, 0184, 0185, 0198, 0210, 0211,
+  0215-0217, 0235, 0237, 0239, 0240, 0245, 0246, 0255-0258, 0269-0271
+  and 0274. For 0250, `scripts/analysis/query_side_bar.py` on the saved
+  reports gives its committed figures exactly, and on the rescored ones:
+
+  | 0250, NAS scale, plays confident | Downmix before; after | Power-sum queries before; after |
+  |---|--:|--:|
+  | Control: first half, across, second half | 91/99, 23/24, 95/100; 92/99, 23/24, 95/100 | the same plays |
+  | Inverted from the middle: the same | 91/99, 16/24, 1/100; 92/99, 16/24, 1/100 | 91/99, 23/24, 93/100; 92/99, 23/24, 94/100 |
+  | Lost under the variant; new wrong files | 0; 0 | 0; 0 |
+
+  Brief 62's bar items 1, 3, 5 and 6 pass as before (the plays gained
+  are gained under both front ends, or by the variant), and 0249 still
+  fails item 2: no decision's reading changes. 0250's figures were
+  wrong under the rule it measured (confident plays), so it gains an
+  amendment, appended to its last line to keep the file at 40 lines.
+- **(13:27) Not rescorable without searching again.** The residual
+  pilots of 0255-0258 and 0269-0271 (22 reports): their cases are the
+  confident indexed plays, and no such play's level moved, so the cases
+  are the ones the pilots ran; but their arms keep each play's strongest
+  detection only. Of 60,337 arm plays, 463 are below confident with a
+  strongest detection of 240 hits or more in fewer than 3 windows (0255:
+  52, 0256: 27, 0257: 23, 0258: 25, 0269-0270: 250, 0271: 86); for those
+  a weaker confident detection may exist and only a search can tell.
+  This is an upper bound on the arm plays the rule could move, not a
+  count of figures that move. Also as registered: `counterexamples`
+  (0264-0266; 0266 already scored the registered definition),
+  `shared-mixes`, `passages` and `identify` reports.
+- **(13:28) The glob hazard.** Scripts of earlier sessions glob report
+  directories (`query_side_bar.py` reads `mixes-stereo-*-seed-*.json`),
+  and the rescored copies match those patterns. They are kept beside
+  their reports as the prompt asks; `work/s77/rescored-files.txt` lists
+  all 205 for deletion, and the handoff says so.

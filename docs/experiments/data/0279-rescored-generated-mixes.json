@@ -1,0 +1,1693 @@
+{
+ "reports": [
+  {
+   "report": "work/reports/mixes-seed-2026.json",
+   "experiments": "0178,0179,0240",
+   "map": "likely",
+   "plays": 192,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-seed-2027.json",
+   "experiments": "0159,0160,0162",
+   "map": "sure",
+   "plays": 192,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-seed-2028.json",
+   "experiments": "0159,0160,0162",
+   "map": "sure",
+   "plays": 192,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-seed-2029.json",
+   "experiments": "0159,0160,0162",
+   "map": "sure",
+   "plays": 192,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-seed-7.json",
+   "experiments": "0159,0160,0162",
+   "map": "sure",
+   "plays": 192,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-long-seed-2026.json",
+   "experiments": "0178,0179,0240",
+   "map": "likely",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-long-seed-2027.json",
+   "experiments": "0161,0162",
+   "map": "sure",
+   "plays": 357,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-long-seed-2028.json",
+   "experiments": "0161,0162",
+   "map": "sure",
+   "plays": 346,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-long-seed-2029.json",
+   "experiments": "0161,0162",
+   "map": "sure",
+   "plays": 353,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-long-seed-7.json",
+   "experiments": "0161,0162",
+   "map": "sure",
+   "plays": 345,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-shared-seed-900.json",
+   "experiments": "none",
+   "map": "sure",
+   "plays": 45,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-shared-seed-3501.json",
+   "experiments": "0163,0164,0165,0235",
+   "map": "sure",
+   "plays": 355,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-shared-seed-3502.json",
+   "experiments": "0163,0164,0165,0235",
+   "map": "sure",
+   "plays": 347,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-shared-seed-3503.json",
+   "experiments": "0163,0164,0165,0235",
+   "map": "sure",
+   "plays": 358,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-beatmatched-seed-3511.json",
+   "experiments": "0163,0164,0165,0235",
+   "map": "sure",
+   "plays": 346,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-beatmatched-seed-3512.json",
+   "experiments": "0163,0164,0165,0235",
+   "map": "sure",
+   "plays": 355,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-beatmatched-seed-3513.json",
+   "experiments": "0163,0164,0165,0235",
+   "map": "sure",
+   "plays": 348,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-seed-3521.json",
+   "experiments": "0175",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-seed-3522.json",
+   "experiments": "0175",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-long-seed-3531.json",
+   "experiments": "0166,0165",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-long-seed-3532.json",
+   "experiments": "0166,0165",
+   "map": "sure",
+   "plays": 361,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-0pct-5-15s-seed-3701.json",
+   "experiments": "0176",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-0.25pct-2-5s-seed-3701.json",
+   "experiments": "0176",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-0.25pct-10-20s-seed-3701.json",
+   "experiments": "0176",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-0.5pct-2-5s-seed-3701.json",
+   "experiments": "0176",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-0.5pct-10-20s-seed-3701.json",
+   "experiments": "0176",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-1pct-2-5s-seed-3701.json",
+   "experiments": "0176",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-1pct-10-20s-seed-3701.json",
+   "experiments": "0176,0177",
+   "map": "likely",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-2pct-2-5s-seed-3701.json",
+   "experiments": "0176",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-2pct-10-20s-seed-3701.json",
+   "experiments": "0176",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-3pct-2-5s-seed-3701.json",
+   "experiments": "0176,0177",
+   "map": "likely",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-3pct-10-20s-seed-3701.json",
+   "experiments": "0176",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-0.5pct-60s-seed-3701.json",
+   "experiments": "0176",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-seed-3741.json",
+   "experiments": "0178,0240",
+   "map": "sure",
+   "plays": 345,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-seed-3742.json",
+   "experiments": "0178,0240",
+   "map": "sure",
+   "plays": 356,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-3pct-2-5s-seed-3801.json",
+   "experiments": "0179,0181,0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-3pct-10-20s-seed-3801.json",
+   "experiments": "0179,0181,0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-1-2pct-2-5s-seed-3801.json",
+   "experiments": "0179,0181,0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-rides-1-2pct-10-20s-seed-3801.json",
+   "experiments": "0179,0181,0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-drops-seed-2026.json",
+   "experiments": "0182,0184,0215",
+   "map": "likely",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-drops-seed-2028.json",
+   "experiments": "0182,0184,0215",
+   "map": "likely",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-drops-other-pairs-seed-2026.json",
+   "experiments": "0185,0215,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/reports/mixes-drops-other-pairs-seed-2028.json",
+   "experiments": "0185,0215,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-stretch/mixes-rides-1pct-10-20s-seed-3701.json",
+   "experiments": "0177",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-stretch/mixes-rides-3pct-2-5s-seed-3701.json",
+   "experiments": "0177",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-trim/mixes-rides-1pct-10-20s-seed-3701.json",
+   "experiments": "0177",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-trim/mixes-rides-3pct-2-5s-seed-3701.json",
+   "experiments": "0177",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-single-pass/mixes-rides-1pct-10-20s-seed-3701.json",
+   "experiments": "0177",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-single-pass/mixes-rides-3pct-2-5s-seed-3701.json",
+   "experiments": "0177",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/extra-rungs-3/mixes-rides-1pct-10-20s-seed-3701.json",
+   "experiments": "0177",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/extra-rungs-3/mixes-rides-3pct-2-5s-seed-3701.json",
+   "experiments": "0177",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-chains/mixes-rides-1pct-10-20s-seed-3701.json",
+   "experiments": "0177,0178",
+   "map": "likely",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-chains/mixes-rides-3pct-2-5s-seed-3701.json",
+   "experiments": "0177,0178",
+   "map": "likely",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-chains/mixes-rides-seed-3741.json",
+   "experiments": "0178",
+   "map": "sure",
+   "plays": 345,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-chains/mixes-rides-seed-3742.json",
+   "experiments": "0178",
+   "map": "sure",
+   "plays": 356,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-chains/mixes-seed-2026.json",
+   "experiments": "0178",
+   "map": "sure",
+   "plays": 192,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-chains/mixes-long-seed-2026.json",
+   "experiments": "0178",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-chains/mixes-rides-3pct-2-5s-seed-3801.json",
+   "experiments": "0181",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-chains/mixes-rides-1-2pct-2-5s-seed-3801.json",
+   "experiments": "0181",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-chains/mixes-rides-1-2pct-10-20s-seed-3801.json",
+   "experiments": "0181",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-chains/mixes-rides-3pct-10-20s-seed-3801.json",
+   "experiments": "0181",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-apart-0.006/mixes-rides-3pct-2-5s-seed-3801.json",
+   "experiments": "0179,0181,0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-apart-0.006/mixes-rides-3pct-10-20s-seed-3801.json",
+   "experiments": "0179,0181,0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-apart-0.006/mixes-rides-1-2pct-2-5s-seed-3801.json",
+   "experiments": "0179,0181,0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-apart-0.006/mixes-rides-1-2pct-10-20s-seed-3801.json",
+   "experiments": "0179,0181,0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-apart-0.006/mixes-seed-2026.json",
+   "experiments": "0179,0240",
+   "map": "sure",
+   "plays": 192,
+   "changed": []
+  },
+  {
+   "report": "work/reports/variant-apart-0.006/mixes-long-seed-2026.json",
+   "experiments": "0179,0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/reports/ladder-turntable/mixes-drops-seed-2026.json",
+   "experiments": "0184",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/reports/ladder-turntable/mixes-drops-seed-2028.json",
+   "experiments": "0184",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s37/s35-reports/mixes-rides-seed-3521.json",
+   "experiments": "0166,0164,0165",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/s37/s35-reports/mixes-rides-seed-3522.json",
+   "experiments": "0166,0164,0165",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/s37/s35-reports/mixes-long-seed-3531.json",
+   "experiments": "0166,0165",
+   "map": "sure",
+   "plays": 354,
+   "changed": []
+  },
+  {
+   "report": "work/s37/s35-reports/mixes-long-seed-3532.json",
+   "experiments": "0166,0165",
+   "map": "sure",
+   "plays": 361,
+   "changed": []
+  },
+  {
+   "report": "work/s42/mcheck/reports/mixes-seed-2026.json",
+   "experiments": "0198",
+   "map": "likely",
+   "plays": 192,
+   "changed": []
+  },
+  {
+   "report": "work/s42/mixes/mixes-stereo-control-seed-2026.json",
+   "experiments": "0198",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s42/mixes/mixes-stereo-inverted-seed-2026.json",
+   "experiments": "0198",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s42/mixes/mixes-stereo-delay-5ms-seed-2026.json",
+   "experiments": "0198",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s42/mixes/mixes-stereo-noise-snr-0db-seed-2026.json",
+   "experiments": "0198",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s42/mixes/mixes-stereo-control-seed-2027.json",
+   "experiments": "0198",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s42/mixes/mixes-stereo-inverted-seed-2027.json",
+   "experiments": "0198",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s42/mixes/mixes-stereo-delay-5ms-seed-2027.json",
+   "experiments": "0198",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s42/mixes/mixes-stereo-noise-snr-0db-seed-2027.json",
+   "experiments": "0198",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s42/mixes/mixes-stereo-control-seed-2028.json",
+   "experiments": "0198",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s42/mixes/mixes-stereo-inverted-seed-2028.json",
+   "experiments": "0198",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s42/mixes/mixes-stereo-delay-5ms-seed-2028.json",
+   "experiments": "0198",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s42/mixes/mixes-stereo-noise-snr-0db-seed-2028.json",
+   "experiments": "0198",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w0/reports/mixes-drops-seed-2026.json",
+   "experiments": "0210,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w0/reports/mixes-drops-seed-2028.json",
+   "experiments": "0210,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w0/reports/variant-apart-0.006/mixes-drops-seed-2026.json",
+   "experiments": "0210,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w0/reports/variant-apart-0.006/mixes-drops-seed-2028.json",
+   "experiments": "0210,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w0/reports/ladder-turntable/mixes-drops-seed-2026.json",
+   "experiments": "0210",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w0/reports/ladder-turntable/mixes-drops-seed-2028.json",
+   "experiments": "0210",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w0/reports/ladder-turntable/variant-apart-0.006/mixes-drops-seed-2026.json",
+   "experiments": "0210",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w0/reports/ladder-turntable/variant-apart-0.006/mixes-drops-seed-2028.json",
+   "experiments": "0210",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s45/wd/reports/mixes-drops-seed-2026.json",
+   "experiments": "0210",
+   "map": "likely",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s45/wd/reports/mixes-drops-seed-2028.json",
+   "experiments": "0210",
+   "map": "likely",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w5/reports/mixes-beatmatched-seed-3511.json",
+   "experiments": "0211",
+   "map": "sure",
+   "plays": 346,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w5/reports/mixes-beatmatched-seed-3512.json",
+   "experiments": "0211",
+   "map": "sure",
+   "plays": 355,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w5/reports/mixes-beatmatched-seed-3513.json",
+   "experiments": "0211",
+   "map": "sure",
+   "plays": 348,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w5/reports/variant-apart-0.006/mixes-beatmatched-seed-3511.json",
+   "experiments": "0211",
+   "map": "sure",
+   "plays": 346,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w5/reports/variant-apart-0.006/mixes-beatmatched-seed-3512.json",
+   "experiments": "0211",
+   "map": "sure",
+   "plays": 355,
+   "changed": []
+  },
+  {
+   "report": "work/s45/w5/reports/variant-apart-0.006/mixes-beatmatched-seed-3513.json",
+   "experiments": "0211",
+   "map": "sure",
+   "plays": 348,
+   "changed": []
+  },
+  {
+   "report": "work/s48/w/reports/ladder-turntable/mixes-drops-aligned-drops-seed-2026.json",
+   "experiments": "0217,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s48/w/reports/ladder-turntable/mixes-drops-aligned-drops-seed-2028.json",
+   "experiments": "0217,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s48/w/reports/ladder-turntable/mixes-drops-other-pairs-seed-2032.json",
+   "experiments": "0216,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s48/w/reports/ladder-turntable/mixes-drops-other-pairs-seed-2034.json",
+   "experiments": "0216,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s48/w/reports/ladder-turntable/mixes-drops-aligned-drops-seed-2032.json",
+   "experiments": "0217,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s48/w/reports/ladder-turntable/mixes-drops-aligned-drops-seed-2034.json",
+   "experiments": "0217,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s48/w/reports/ladder-turntable/verified/mixes-drops-seed-2026.json",
+   "experiments": "0215",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s48/w/reports/ladder-turntable/verified/mixes-drops-seed-2028.json",
+   "experiments": "0215",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s48/w/reports/ladder-turntable/verified/mixes-drops-seed-2032.json",
+   "experiments": "0216,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s48/w/reports/ladder-turntable/verified/mixes-drops-seed-2034.json",
+   "experiments": "0216,0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s56/wmix/reports/mixes-shared-seed-3501.json",
+   "experiments": "0235",
+   "map": "sure",
+   "plays": 355,
+   "changed": []
+  },
+  {
+   "report": "work/s56/wmix/reports/mixes-shared-seed-3502.json",
+   "experiments": "0235",
+   "map": "sure",
+   "plays": 347,
+   "changed": []
+  },
+  {
+   "report": "work/s56/wmix/reports/mixes-shared-seed-3503.json",
+   "experiments": "0235",
+   "map": "sure",
+   "plays": 358,
+   "changed": []
+  },
+  {
+   "report": "work/s56/wmix/reports/mixes-beatmatched-seed-3511.json",
+   "experiments": "0235",
+   "map": "sure",
+   "plays": 346,
+   "changed": []
+  },
+  {
+   "report": "work/s56/wmix/reports/mixes-beatmatched-seed-3512.json",
+   "experiments": "0235",
+   "map": "sure",
+   "plays": 355,
+   "changed": []
+  },
+  {
+   "report": "work/s56/wmix/reports/mixes-beatmatched-seed-3513.json",
+   "experiments": "0235",
+   "map": "sure",
+   "plays": 348,
+   "changed": []
+  },
+  {
+   "report": "work/s56/wmix/s35-reports/mixes-shared-seed-3501.json",
+   "experiments": "0235",
+   "map": "likely",
+   "plays": 355,
+   "changed": []
+  },
+  {
+   "report": "work/s56/wmix/s35-reports/mixes-shared-seed-3502.json",
+   "experiments": "0235",
+   "map": "likely",
+   "plays": 347,
+   "changed": []
+  },
+  {
+   "report": "work/s56/wmix/s35-reports/mixes-shared-seed-3503.json",
+   "experiments": "0235",
+   "map": "likely",
+   "plays": 358,
+   "changed": []
+  },
+  {
+   "report": "work/s56/wmix/s35-reports/mixes-beatmatched-seed-3511.json",
+   "experiments": "0235",
+   "map": "likely",
+   "plays": 346,
+   "changed": []
+  },
+  {
+   "report": "work/s56/wmix/s35-reports/mixes-beatmatched-seed-3512.json",
+   "experiments": "0235",
+   "map": "likely",
+   "plays": 355,
+   "changed": []
+  },
+  {
+   "report": "work/s56/wmix/s35-reports/mixes-beatmatched-seed-3513.json",
+   "experiments": "0235",
+   "map": "likely",
+   "plays": 348,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wdrops/reports/mixes-drops-seed-2026.json",
+   "experiments": "0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wdrops/reports/mixes-drops-other-pairs-seed-2026.json",
+   "experiments": "0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wdrops/reports/mixes-drops-seed-2028.json",
+   "experiments": "0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wdrops/reports/mixes-drops-other-pairs-seed-2028.json",
+   "experiments": "0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wdrops/reports/ladder-turntable/mixes-drops-other-pairs-seed-2032.json",
+   "experiments": "0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wdrops/reports/ladder-turntable/mixes-drops-other-pairs-seed-2034.json",
+   "experiments": "0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wdrops/reports/ladder-turntable/mixes-drops-aligned-drops-seed-2026.json",
+   "experiments": "0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wdrops/reports/ladder-turntable/mixes-drops-aligned-drops-seed-2028.json",
+   "experiments": "0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wdrops/reports/ladder-turntable/mixes-drops-aligned-drops-seed-2032.json",
+   "experiments": "0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wdrops/reports/ladder-turntable/mixes-drops-aligned-drops-seed-2034.json",
+   "experiments": "0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wdrops/reports/ladder-turntable/verified/mixes-drops-seed-2032.json",
+   "experiments": "0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wdrops/reports/ladder-turntable/verified/mixes-drops-seed-2034.json",
+   "experiments": "0237",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wmixes/reports/mixes-seed-2026.json",
+   "experiments": "0240",
+   "map": "sure",
+   "plays": 192,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wmixes/reports/mixes-rides-3pct-2-5s-seed-3801.json",
+   "experiments": "0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wmixes/reports/mixes-long-seed-2026.json",
+   "experiments": "0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wmixes/reports/mixes-rides-3pct-10-20s-seed-3801.json",
+   "experiments": "0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wmixes/reports/mixes-rides-seed-3741.json",
+   "experiments": "0240",
+   "map": "sure",
+   "plays": 345,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wmixes/reports/mixes-rides-1-2pct-2-5s-seed-3801.json",
+   "experiments": "0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wmixes/reports/mixes-rides-seed-3742.json",
+   "experiments": "0240",
+   "map": "sure",
+   "plays": 356,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wmixes/reports/mixes-rides-1-2pct-10-20s-seed-3801.json",
+   "experiments": "0240",
+   "map": "sure",
+   "plays": 351,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/mixes-stereo-control-seed-2026.json",
+   "experiments": "0245,0246",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/mixes-stereo-inverted-seed-2026.json",
+   "experiments": "0245,0246",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/mixes-stereo-control-seed-2027.json",
+   "experiments": "0245,0246",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/mixes-stereo-inverted-seed-2027.json",
+   "experiments": "0245,0246",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/mixes-stereo-control-seed-2028.json",
+   "experiments": "0245,0246",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/mixes-stereo-inverted-seed-2028.json",
+   "experiments": "0245,0246",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/variant-power-sum-queries/mixes-stereo-control-seed-2026.json",
+   "experiments": "0245",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/variant-power-sum-queries/mixes-stereo-inverted-seed-2026.json",
+   "experiments": "0245",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/variant-power-sum-queries/mixes-stereo-control-seed-2027.json",
+   "experiments": "0245",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/variant-power-sum-queries/mixes-stereo-inverted-seed-2027.json",
+   "experiments": "0245",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/variant-power-sum-queries/mixes-stereo-control-seed-2028.json",
+   "experiments": "0245",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/variant-power-sum-queries/mixes-stereo-inverted-seed-2028.json",
+   "experiments": "0245",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/variant-power-sum/mixes-stereo-control-seed-2026.json",
+   "experiments": "0246",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/variant-power-sum/mixes-stereo-inverted-seed-2026.json",
+   "experiments": "0246",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/variant-power-sum/mixes-stereo-control-seed-2027.json",
+   "experiments": "0246",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/variant-power-sum/mixes-stereo-inverted-seed-2027.json",
+   "experiments": "0246",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/variant-power-sum/mixes-stereo-control-seed-2028.json",
+   "experiments": "0246",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s61/w/reports/variant-power-sum/mixes-stereo-inverted-seed-2028.json",
+   "experiments": "0246",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s62/check/nas-2028-run.json",
+   "experiments": "none",
+   "map": "likely",
+   "plays": 96,
+   "changed": [
+    "possible -> confident"
+   ]
+  },
+  {
+   "report": "work/s62/check/a/reports/mixes-stereo-inverted-seed-2026.json",
+   "experiments": "none",
+   "map": "likely",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s62/check/b/reports/mixes-stereo-inverted-seed-2026.json",
+   "experiments": "none",
+   "map": "likely",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s62/w/reports/library-nas-dnb-peaks/mixes-stereo-control-seed-2026.json",
+   "experiments": "0250",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s62/w/reports/library-nas-dnb-peaks/mixes-stereo-control-seed-2028.json",
+   "experiments": "0250",
+   "map": "sure",
+   "plays": 96,
+   "changed": [
+    "possible -> confident"
+   ]
+  },
+  {
+   "report": "work/s62/w/reports/library-nas-dnb-peaks/mixes-stereo-inverted-seed-2026.json",
+   "experiments": "0250",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s62/w/reports/library-nas-dnb-peaks/mixes-stereo-inverted-seed-2028.json",
+   "experiments": "0250",
+   "map": "likely",
+   "plays": 96,
+   "changed": [
+    "possible -> confident"
+   ]
+  },
+  {
+   "report": "work/s62/w/reports/library-nas-dnb-peaks/mixes-stereo-control-seed-2027.json",
+   "experiments": "0250",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s62/w/reports/library-nas-dnb-peaks/mixes-stereo-inverted-seed-2027.json",
+   "experiments": "0250",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s62/w/reports/library-nas-dnb-peaks/variant-power-sum-queries/mixes-stereo-control-seed-2026.json",
+   "experiments": "0250",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s62/w/reports/library-nas-dnb-peaks/variant-power-sum-queries/mixes-stereo-control-seed-2028.json",
+   "experiments": "0250",
+   "map": "sure",
+   "plays": 96,
+   "changed": [
+    "possible -> confident"
+   ]
+  },
+  {
+   "report": "work/s62/w/reports/library-nas-dnb-peaks/variant-power-sum-queries/mixes-stereo-inverted-seed-2026.json",
+   "experiments": "0250",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s62/w/reports/library-nas-dnb-peaks/variant-power-sum-queries/mixes-stereo-inverted-seed-2028.json",
+   "experiments": "0250",
+   "map": "sure",
+   "plays": 96,
+   "changed": [
+    "possible -> confident",
+    "possible -> confident"
+   ]
+  },
+  {
+   "report": "work/s62/w/reports/library-nas-dnb-peaks/variant-power-sum-queries/mixes-stereo-control-seed-2027.json",
+   "experiments": "0250",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s62/w/reports/library-nas-dnb-peaks/variant-power-sum-queries/mixes-stereo-inverted-seed-2027.json",
+   "experiments": "0250",
+   "map": "sure",
+   "plays": 96,
+   "changed": []
+  },
+  {
+   "report": "work/s65/wd/reports/ladder-turntable/mixes-drops-seed-2026-residual-truth-over-2.json",
+   "experiments": "0255",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s65/wd/reports/ladder-turntable/mixes-drops-seed-2028-residual-truth-over-2.json",
+   "experiments": "0255",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s65/wd/reports/ladder-turntable/mixes-drops-seed-2026-residual-truth-over-1.json",
+   "experiments": "0255",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s65/wd/reports/ladder-turntable/mixes-drops-seed-2028-residual-truth-over-1.json",
+   "experiments": "0255",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s65/wt/reports/ladder-turntable/mixes-drops-seed-2036-residual-truth-over-2.json",
+   "experiments": "0256",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s65/wt/reports/ladder-turntable/mixes-drops-seed-2039-residual-truth-over-2.json",
+   "experiments": "0256",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s65/wn/reports/library-nas-dnb-peaks/ladder-turntable/mixes-drops-seed-2026-residual-truth-over-2.json",
+   "experiments": "0257",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s65/wn/reports/library-nas-dnb-peaks/ladder-turntable/mixes-drops-seed-2028-residual-truth-over-2.json",
+   "experiments": "0257",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s65/wn/reports/library-nas-dnb-peaks/ladder-turntable/mixes-drops-seed-2036-residual-truth-over-2.json",
+   "experiments": "0258",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s65/wn/reports/library-nas-dnb-peaks/ladder-turntable/mixes-drops-seed-2039-residual-truth-over-2.json",
+   "experiments": "0258",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s70/smoke/reports/ladder-turntable/mixes-drops-seed-2026-residual-truth-detected-over-2-fix-off-align-align-fine.json",
+   "experiments": "none",
+   "map": "sure",
+   "plays": 17,
+   "changed": []
+  },
+  {
+   "report": "work/s70/w-corpus-2026/reports/ladder-turntable/mixes-drops-seed-2026-residual-truth-detected-over-2-fix-off-align-align-fine.json",
+   "experiments": "0269,0270",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s70/w-nas-2026/reports/library-nas-dnb-peaks/ladder-turntable/mixes-drops-seed-2026-residual-truth-detected-over-2-fix-off-align-align-fine.json",
+   "experiments": "0269,0270",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s70/w-corpus-2028/reports/ladder-turntable/mixes-drops-seed-2028-residual-truth-detected-over-2-fix-off-align-align-fine.json",
+   "experiments": "0269,0270",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s70/w-nas-2028/reports/library-nas-dnb-peaks/ladder-turntable/mixes-drops-seed-2028-residual-truth-detected-over-2-fix-off-align-align-fine.json",
+   "experiments": "0269,0270",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s70/t-nas-2040/reports/library-nas-dnb-peaks/ladder-turntable/mixes-drops-seed-2040-residual-truth-detected-over-2-fix-off-align.json",
+   "experiments": "0271",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s70/t-corpus-2041/reports/ladder-turntable/mixes-drops-seed-2041-residual-truth-detected-over-2-fix-off-align.json",
+   "experiments": "0271",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s70/t-corpus-2040/reports/ladder-turntable/mixes-drops-seed-2040-residual-truth-detected-over-2-fix-off-align.json",
+   "experiments": "0271",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s70/t-nas-2041/reports/library-nas-dnb-peaks/ladder-turntable/mixes-drops-seed-2041-residual-truth-detected-over-2-fix-off-align.json",
+   "experiments": "0271",
+   "map": "sure",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s70/smoke-final/reports/ladder-turntable/mixes-drops-seed-2026-residual-truth-detected-over-2-fix-off-align-align-fine.json",
+   "experiments": "none",
+   "map": "sure",
+   "plays": 17,
+   "changed": []
+  },
+  {
+   "report": "work/s72/smoke-harness/reports/ladder-turntable/mixes-drops-seed-2026-residual-truth-detected-over-2-fix-off-align-align-fine.json",
+   "experiments": "none",
+   "map": "sure",
+   "plays": 17,
+   "changed": []
+  },
+  {
+   "report": "work/s72/smoke-final/reports/ladder-turntable/mixes-drops-seed-2026-residual-truth-detected-over-2-fix-off-align-align-fine.json",
+   "experiments": "none",
+   "map": "sure",
+   "plays": 17,
+   "changed": []
+  },
+  {
+   "report": "work/s73/gen/reports/mixes-drops-seed-2050.json",
+   "experiments": "0274",
+   "map": "likely",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s73/gen/reports/mixes-long-seed-2052.json",
+   "experiments": "0274",
+   "map": "likely",
+   "plays": 89,
+   "changed": []
+  },
+  {
+   "report": "work/s73/gen/reports/mixes-drops-seed-2053.json",
+   "experiments": "0274",
+   "map": "likely",
+   "plays": 272,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wgrid32/reports/grid-seed-2026.json",
+   "experiments": "0239",
+   "map": "sure",
+   "plays": 960,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wrobust/reports/grid-seed-2026.json",
+   "experiments": "0239",
+   "map": "sure",
+   "plays": 960,
+   "changed": []
+  },
+  {
+   "report": "work/s57/wrobust/reports/variant-spans/grid-seed-2026.json",
+   "experiments": "0239",
+   "map": "sure",
+   "plays": 960,
+   "changed": []
+  }
+ ],
+ "by_experiment": {
+  "0159": {
+   "reports": 4,
+   "plays": 768,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0160": {
+   "reports": 4,
+   "plays": 768,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0161": {
+   "reports": 4,
+   "plays": 1401,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0162": {
+   "reports": 8,
+   "plays": 2169,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0163": {
+   "reports": 6,
+   "plays": 2109,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0164": {
+   "reports": 8,
+   "plays": 2811,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0165": {
+   "reports": 12,
+   "plays": 4241,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0166": {
+   "reports": 6,
+   "plays": 2132,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0175": {
+   "reports": 2,
+   "plays": 702,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0176": {
+   "reports": 12,
+   "plays": 4248,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0177": {
+   "reports": 12,
+   "plays": 4248,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0178": {
+   "reports": 10,
+   "plays": 3196,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0179": {
+   "reports": 12,
+   "plays": 3894,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0181": {
+   "reports": 12,
+   "plays": 4212,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0182": {
+   "reports": 2,
+   "plays": 544,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0184": {
+   "reports": 4,
+   "plays": 1088,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0185": {
+   "reports": 2,
+   "plays": 544,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0198": {
+   "reports": 13,
+   "plays": 1344,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0210": {
+   "reports": 10,
+   "plays": 2720,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0211": {
+   "reports": 6,
+   "plays": 2098,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0215": {
+   "reports": 6,
+   "plays": 1632,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0216": {
+   "reports": 4,
+   "plays": 1088,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0217": {
+   "reports": 4,
+   "plays": 1088,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0235": {
+   "reports": 18,
+   "plays": 6327,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0237": {
+   "reports": 26,
+   "plays": 7072,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0239": {
+   "reports": 3,
+   "plays": 2880,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0240": {
+   "reports": 22,
+   "plays": 7243,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0245": {
+   "reports": 12,
+   "plays": 1152,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0246": {
+   "reports": 12,
+   "plays": 1152,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0250": {
+   "reports": 12,
+   "plays": 1152,
+   "changed": 5,
+   "changed_reports": [
+    "work/s62/w/reports/library-nas-dnb-peaks/mixes-stereo-control-seed-2028.json",
+    "work/s62/w/reports/library-nas-dnb-peaks/mixes-stereo-inverted-seed-2028.json",
+    "work/s62/w/reports/library-nas-dnb-peaks/variant-power-sum-queries/mixes-stereo-control-seed-2028.json",
+    "work/s62/w/reports/library-nas-dnb-peaks/variant-power-sum-queries/mixes-stereo-inverted-seed-2028.json"
+   ]
+  },
+  "0255": {
+   "reports": 4,
+   "plays": 1088,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0256": {
+   "reports": 2,
+   "plays": 544,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0257": {
+   "reports": 2,
+   "plays": 544,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0258": {
+   "reports": 2,
+   "plays": 544,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0269": {
+   "reports": 4,
+   "plays": 1088,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0270": {
+   "reports": 4,
+   "plays": 1088,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0271": {
+   "reports": 4,
+   "plays": 1088,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "0274": {
+   "reports": 3,
+   "plays": 633,
+   "changed": 0,
+   "changed_reports": []
+  },
+  "none": {
+   "reports": 8,
+   "plays": 401,
+   "changed": 1,
+   "changed_reports": [
+    "work/s62/check/nas-2028-run.json"
+   ]
+  }
+ }
+}

@@ -166,9 +166,9 @@ fn rescore_mixes(
                     .map_or(Level::None, |found| found.confidence().into())
             };
             let placed_alike = before.best == after.best
-                && before.start_late_seconds == after.start_late_seconds
-                && before.end_early_seconds == after.end_early_seconds
-                && before.position_error_seconds == after.position_error_seconds;
+                && close(before.start_late_seconds, after.start_late_seconds)
+                && close(before.end_early_seconds, after.end_early_seconds)
+                && close(before.position_error_seconds, after.position_error_seconds);
             if !placed_alike || before.level != level_of(&before.best) {
                 rescored.drifted_plays += 1;
             }
@@ -188,6 +188,19 @@ fn rescore_mixes(
     }
     Ok(rescored)
 }
+
+/// Equal within `SECONDS_READ`: serde_json reads some floats one unit in
+/// the last place off (experiment 0265), so seconds computed again from
+/// read values can differ from the written ones by that much.
+fn close(a: Option<f64>, b: Option<f64>) -> bool {
+    match (a, b) {
+        (Some(a), Some(b)) => (a - b).abs() <= SECONDS_READ,
+        (a, b) => a.is_none() && b.is_none(),
+    }
+}
+
+/// The tolerance of `close`, in seconds.
+const SECONDS_READ: f64 = 1e-9;
 
 fn rescore_grid(report: &mut Value) -> Result<Rescored, String> {
     let mut rescored = Rescored {

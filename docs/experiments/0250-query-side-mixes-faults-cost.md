@@ -37,4 +37,4 @@ and no wrong file is new. Noise at 0 dB in one channel stays the cost (29
 to 19 confident, 80 to 75 possible). A search costs 12% more wall time
 and 12.5% more CPU (0247: 12%, 13%); each pair's reports are identical,
 the downmix's equal to `session-54-linux-nas`'s. Bar items 1, 3, 5, 6
-pass here; 0249 fails item 2.
+pass here; 0249 fails item 2. *Amended (session 77, 0279):* with a play's level the highest of its detections, the mixes' first halves are 92/99 under both front ends and the variant's inverted second halves 94/100 (Bad Company - Oxygen and Balderdash had a weaker confident detection); no wrong file, bar item or verdict changes.
