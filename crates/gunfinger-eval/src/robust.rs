@@ -741,11 +741,18 @@ fn render_query_once(
 ) -> Result<(), String> {
     let source = library.root.join(&job.draw.asset);
     let partner = library.root.join(&job.partner.asset);
+    let mut sources = vec![source.as_path()];
+    if job.condition.has_partner() {
+        sources.push(&partner);
+    }
+    if matches!(job.condition, Condition::VoiceOver | Condition::Insert) {
+        sources.push(speech.1);
+    }
     let steps = format!(
         "robust {:?} at speed {:?}, query {} from {:?} s, partner from {:?} s, seed {seed}",
         job.condition, job.speed, job.number, job.draw.start_seconds, job.partner.start_seconds
     );
-    let recipe = crate::render::Recipe::new(&[&source, &partner, speech.1], steps)?;
+    let recipe = crate::render::Recipe::new(&sources, steps)?;
     crate::render::once(&job.path, &recipe, || {
         render_query(job, library, speech.0, seed)
     })

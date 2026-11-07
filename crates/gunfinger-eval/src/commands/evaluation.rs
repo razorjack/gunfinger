@@ -282,9 +282,15 @@ pub fn regress(harness: &Harness, jobs: usize, args: RegressArgs) -> Result<(), 
         seed,
         &now,
     )?;
-    if strict && !(verdict.identical() && verdict.complete()) {
+    if strict && !verdict.identical() {
         return Err(String::from(
             "regress --strict: the reports or inputs differ from the baseline's",
+        ));
+    }
+    if strict && !verdict.complete() {
+        return Err(format!(
+            "regress --strict: the baseline has no {}; save a new baseline with `baseline NAME`",
+            verdict.incomplete.join(", ")
         ));
     }
     Ok(())

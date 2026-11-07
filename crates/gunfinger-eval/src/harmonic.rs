@@ -254,9 +254,7 @@ pub fn reference(
     let path = scratch.join(format!("reference-{}.wav", unique()));
     encode(&limited(samples), None, Encoding::Lossless, &path)?;
     let decoded = matching.decode_query(&path);
-    for file in [path.clone(), path.with_extension("wav.complete")] {
-        fs::remove_file(&file).map_err(|error| format!("{}: {error}", file.display()))?;
-    }
+    fs::remove_file(&path).map_err(|error| format!("{}: {error}", path.display()))?;
     decoded?
         .mono()
         .map(<[f32]>::to_vec)

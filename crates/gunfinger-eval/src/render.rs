@@ -79,7 +79,9 @@ impl SourceFile {
     }
 }
 
-/// `RENDERER` and FFmpeg's version, asked once per run.
+/// `RENDERER` and FFmpeg's version with its libraries' (`libavformat`
+/// writes its version into an MP3's tag), asked once per run. The
+/// encoders' own libraries (LAME, Opus) are not listed there.
 fn renderer() -> Result<String, String> {
     static RENDERER_NOW: OnceLock<Result<String, String>> = OnceLock::new();
     RENDERER_NOW
@@ -87,12 +89,14 @@ fn renderer() -> Result<String, String> {
             let mut command = Command::new("ffmpeg");
             command.arg("-version");
             let printed = pipe_watched(&mut command, STALL, "print its version")?;
-            let version = String::from_utf8_lossy(&printed)
-                .lines()
-                .next()
-                .map(str::to_owned)
-                .ok_or("ffmpeg -version printed nothing")?;
-            Ok(format!("{RENDERER}; {version}"))
+            let printed = String::from_utf8_lossy(&printed);
+            let mut lines = printed.lines();
+            let version = lines.next().ok_or("ffmpeg -version printed nothing")?;
+            let libraries: Vec<String> = lines
+                .filter(|line| line.starts_with("lib"))
+                .map(|line| line.split_whitespace().collect::<Vec<_>>().join(" "))
+                .collect();
+            Ok(format!("{RENDERER}; {version}; {}", libraries.join("; ")))
         })
         .clone()
 }
@@ -1000,6 +1004,11 @@ mod tests {
             recipe
                 .renderer
                 .starts_with("gunfinger-eval renders 1; ffmpeg version ")
+        );
+        assert!(
+            recipe.renderer.contains("; libavformat "),
+            "{}",
+            recipe.renderer
         );
         fs::remove_dir_all(&dir).ok();
     }
