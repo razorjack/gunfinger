@@ -225,6 +225,9 @@ changed in this session in response.
   mix that plays one of them (the mix's own pair) is a mistaken
   foreground too; scoring counts every play by whether the library
   searched holds its recording.
+- 18:40. The 262-track scale is not run: the left-out cases need the
+  NAS library's related versions (only two pair families have both
+  records in the corpus), and the time box goes to the final checks.
 - 17:55. "Dropped by rule" cannot be counted from the CLI's report
   without a product or output change, which this session may not make;
   partners found and not found are reported instead.
