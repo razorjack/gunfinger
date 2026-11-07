@@ -2,7 +2,8 @@
 
 **Status: measured (session 61, experiments 0245-0247; session 62, the
 query side alone at NAS scale, 0248-0250; session 67, a polarity check
-of the records at indexing, 0262-0263); not adopted.**
+of the records at indexing, 0262-0263; session 82, two records per
+flagged file, 0288-0289); not adopted.**
 The product, its front end and every default are unchanged. The variant
 is an opt-in harness front end (`--front-end`, `variant-store`); this
 note gives our recommendation for whether to take it further.
@@ -252,3 +253,59 @@ way (0263), and listening would settle whether it is a fault; Paradox -
 Filmscape, plainly inverted by measure, has not been heard. The harness
 keeps `variant-store --repair-inverted` and `stereo-width`'s verdict,
 which such a re-registration would reuse.
+
+## Session 82: two records for a flagged file
+
+Session 82 piloted the user's idea of 2026-10-31 in the harness: keep
+today's record of a flagged file and index its repaired record beside
+it, as a second asset of the same file (`--second-records`; `variant-store
+--repair-inverted --repaired-only` writes the second records). The two
+records are searched apart, so no chain or play joins them, and at the
+file only the stronger play is kept; hits are never added. The flag is
+session 67's, unchanged. The registration and bar are in
+`docs/brief-82.md`; the results in 0288 and 0289.
+
+**What it recovers (0288).** With both records, the four plainly inverted
+recordings are confident in 48 of 48 correct-polarity excerpts and 4 of
+4 mixes, and in 48 of 48 as-ripped excerpts and 4 of 4 mixes: each kind
+of query finds its own record. Today's index finds only the as-ripped
+kind, the repaired store (R, 0263) only the correct-polarity kind. We -
+Hello World is found through both records either way. No other file is
+named that today's index does not name, and no second record is named
+on another file's query.
+
+**What else moves (0289).** On both shared panels' development halves
+every confident and possible count by role is unchanged; a second record
+is detected only weakly (at most 11 hits). The NAS sweep differs from
+the baseline in 2 of 720 queries, both sub-threshold candidates; with
+today's set-aside lists all 720 are identical, so the cut accounts for
+every move (one list crossed it). At 262 tracks with the 18 scratch
+files the index is small, and the 5 records move 345 sweep queries and
+98 of 240 plan queries (no level changes); with today's lists the plan
+queries are identical and 343 of the sweep's moves go, the other 2
+being candidates of 6 and 7 hits of a second record. The second records
+add 123,160 postings, 0.011% of the NAS index, and no search time
+beyond noise (240 queries, A B B A).
+
+**The detector's limit.** We - Polynesian Inventor, heard inverted on
+2026-10-31, is inverted in 2 of its 7 windows (-0.98 there) and not
+flagged (-0.27 over the file). Its as-ripped queries are found; queries
+of those windows with correct polarity are not, under any arm. By ear,
+the flag takes 4 of the 5 files heard inverted (Hello World is unsure),
+and a check per window would be a new rule with its own registration.
+
+**What an ADR would decide.** The registered bar holds (A1-A6), so the
+pilot is worth an ADR proposal, which is ours to decide. An ADR for the
+product would decide: (1) the check at indexing (session 67's rule; one
+pass over the NAS store of about an hour, then one two-channel decode
+per new file) and how the store remembers that a file was checked; (2)
+that a flagged file keeps its record as ripped and gains a second
+record, identified in the record header (a profile identifier or record
+kind) so that a saved index's provenance tells the two apart; (3) that
+the index gives each record its own asset and `plays` or the report
+names the file once, keeping the stronger of its records' plays (no
+sum, no chain across the two; `merge_same_audio` does not do this today,
+since the records' segments differ); (4) that the set-aside cut's moves
+are accepted and counted as for a prune (ADR 0014, 0242). It costs about
+31 records at the census's rate. It would not recover a file inverted
+only in part.

@@ -85,17 +85,37 @@ external review (`docs/research/2026-11-05-external-review.md`).
 
 ### 3. The inverted-channel repair (since 2026-10-31)
 
-- **Evidence.** Experiments 0248, 0262 and 0263: about 0.4% of NAS rips
-  have an inverted channel; a repair at indexing recovers the four
-  plainly inverted recordings (0 of 48 to 48 of 48 excerpts) with no new
-  wrong answer, but loses all 48 queries of the as-ripped audio. The
+- **Evidence.** Experiments 0248, 0262 and 0263: the polarity check
+  flags an estimated 0.08% of the NAS store (5 of 6,766 files sampled,
+  about 31 records); replacing the flagged records recovers the four plainly
+  inverted recordings (0 of 48 to 48 of 48 excerpts) with no new wrong
+  answer, but loses all 48 queries of the as-ripped audio. That
   registered bar failed through the set-aside cut's moves, not a wrong
   answer.
-- **The user's idea (2026-10-31).** Index both the original and the
-  repaired form of a flagged file.
-- **Recommendation.** A harness pilot of two records per flagged file,
-  scored apart and never summed or chained across the two forms (roadmap
-  queue, item 6). Then an ADR.
+- **The user's idea (2026-10-31), piloted in session 82 (0288, 0289).**
+  Two records per flagged file, the record as ripped and the repaired
+  one, each its own asset, merged at the file only by keeping the
+  stronger play. Both kinds of query find the four plainly inverted
+  recordings in full, and no file is named that today's index does not
+  name (the plan's queries, both scales' sweeps, both shared panels'
+  development halves). Every NAS-scale move is the set-aside cut's; at
+  262 tracks all but 2 sub-threshold candidates of a second record, and
+  on the panels by inference. The second records add 0.011% of the NAS
+  index's postings. The registered bar holds (brief 82). We -
+  Polynesian Inventor, heard inverted in part and not flagged, stays
+  unrecovered: the check misses partial inversions.
+- **What an ADR would decide** (the stereo-power note, "Session 82"): the
+  check at indexing (one pass of about an hour over the NAS store, then
+  one two-channel decode per new file) and how the store remembers it;
+  a second record kind that the saved index's provenance tells apart;
+  one entry per file in the output, the stronger record's play (today's
+  `merge_same_audio` would print both records); the cut's moves counted
+  as for a prune.
+- **Recommendation.** Adopt the two-record route by an ADR if the user
+  wants faults in the rips recovered at about 31 records' cost; it keeps
+  the queries that replacing the record loses (a mix made digitally from
+  the inverted file). A check per window for partial inversions would be
+  a separate registration.
 
 ### 4. A command that lists the tracks using a break (since 2026-11-02)
 

@@ -25,7 +25,8 @@ larger library*, *deferred* (revisit on the condition the line names),
 [matching and archive note](research/2026-10-29-matching-and-archive-proposals.md)
 records six ideas with their first experiments and failure cases. All six
 have since been measured: stereo power fingerprints (0245-0250, not
-adopted; the inverted-channel repair 0262-0263 is open), filtering before
+adopted; the inverted-channel repair 0262-0263 and its two-record pilot
+0288-0289 wait on the user), filtering before
 hit grouping (0243-0244, not adopted), correcting the second pass's
 initial alignment (0251-0253, not adopted; the short-chain variant
 0286, not adopted), quiet tracks under an identified one (0255-0258,
@@ -94,6 +95,9 @@ Each session takes the first item it can do without a pending decision.
    2026-10-31 (queue item 3): a harness pilot that scores the two forms
    apart and never sums or chains their evidence; as-ripped and repaired
    queries, genuine wide stereo, the shared-material negatives.
+   *Session 82 (0288, 0289):* done in the harness (`--second-records`);
+   the registered bar holds. Next: the decision (queue item 3), then an
+   ADR.
 7. **The band profile of 0034** under the default matcher at 262 tracks
    (shared panels' development halves, `recall`, `robust`), criteria
    first; a NAS re-extraction only if it passes.
@@ -459,23 +463,26 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   `recall` needs `--panels work/s33/panels`. Evidence: 0068, 0143-0145,
   0156, 0223, 0238.
 - **Stereo faults before the downmix.** *Blocked on the user for the
-  inverted-channel repair (decisions queue item 3; active queue item 6);
-  the rest measured.* Facts: the
+  inverted-channel repair (decisions queue item 3; active queue item 6,
+  piloted in session 82); the rest measured.* Facts: the
   downmix loses every excerpt with one channel's polarity inverted
-  (0194-0198); about 0.4% of 2,000 NAS rips are inverted in one channel
-  (0248); the power-sum front end (`--front-end`, 0245-0247) and
-  power-sum queries alone (0248-0250) were not adopted; the repair at
-  indexing (`variant-store --repair-inverted`, 0262-0263) recovers the
-  four plainly inverted recordings with no new wrong answer (5 of 6,766
-  files flagged, We - Hello World uncertain) but loses all 48 queries of
-  the as-ripped audio (decisions queue item 3), and its bar failed
-  through the set-aside cut's moves. An ADR would choose a per-record
-  flag (one check pass of about an hour, about 31 records rewritten) or
-  a profile bump (every record rebuilt). Open (ours): the larger of
-  the mid's and the side's power per bin (unmeasured); a query-side
-  fallback of three searches (0195, exploratory). Evidence: 0194-0198,
-  0245-0250, 0262, 0263;
-  `docs/research/2026-10-30-stereo-power-decision.md`.
+  (0194-0198); the polarity check flags an estimated 0.08% of the NAS
+  store (5 of 6,766 files sampled, about 31 records; 0262); the
+  power-sum front end (`--front-end`,
+  0245-0247) and power-sum queries alone (0248-0250) were not adopted;
+  replacing the flagged records (`variant-store --repair-inverted`,
+  0263) recovers the four plainly inverted recordings but loses every
+  as-ripped query. Two records per flagged file (`--second-records`,
+  0288-0289) keep both kinds of query and name nothing new; the
+  registered bar holds. An ADR would decide the
+  check at indexing, a second record kind the saved index can tell
+  apart, and one entry per file in the output (the stronger record's
+  play; `docs/research/2026-10-30-stereo-power-decision.md`, "Session
+  82"). Open (ours): a file inverted only in part (We - Polynesian
+  Inventor, heard inverted, not flagged; a check per window would need
+  its own registration); the larger of the mid's and the side's power
+  per bin (unmeasured). Evidence: 0194-0198, 0245-0250, 0262, 0263,
+  0288, 0289; `docs/research/2026-10-30-stereo-power-decision.md`.
 - **More development mixes.** *Blocked on the user (decisions queue item
   6; active queue item 4).* The three development mixes score 11/11,
   12/12 and 17/17 at NAS scale with 0 wrong and no longer show failures;

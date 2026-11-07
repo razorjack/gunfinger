@@ -1,0 +1,54 @@
+{
+ "sweep_nas_B_vs_baseline": [
+  "Skynet & Stakka - Night Lore.mp3 -8.0 only base: [('second-library/__youtube_archivists/dfect-dnb/Nemesis feat. DJ Kane - System (Optical & Fierce RMX).m4a', 6, -6.8)] only other: []",
+  "Skynet & Stakka - Night Lore.mp3 -1.0 only base: [('second-library/__youtube_archivists/i-witness-dnb/Spectrasoul - Cherry Smoke.m4a', 7, -0.171428571)] only other: [('second-library/__youtube_archivists/i-witness-dnb/Spectrasoul - Cherry Smoke.m4a', 6, -0.2)]",
+  "718 of 720 queries identical; confident gained 0, lost 0; second-record detections 0",
+  "per_speed identical"
+ ],
+ "sweep_nas_B_set_aside_vs_baseline": [
+  "720 of 720 queries identical; confident gained 0, lost 0; second-record detections 0",
+  "per_speed identical"
+ ],
+ "sweep_262_B_vs_T": [
+  "375 of 720 queries identical; confident gained 0, lost 0; second-record detections 0",
+  "per_speed DIFFERENT"
+ ],
+ "sweep_262_B_set_aside_vs_T": [
+  "extra/APH39B-Aphrodite-2001-sour/b-aphrodite-siren_bass-sour.mp3 -1.0 only base: [] only other: [('second-record/second-library/__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus', 6, 3.8)]",
+  "extra/APH39B-Aphrodite-2001-sour/b-aphrodite-siren_bass-sour.mp3 1.0 only base: [] only other: [('second-record/second-library/__youtube_archivists/unxplored-dnb/Plasmic - The Weapon.opus', 7, 6.0)]",
+  "718 of 720 queries identical; confident gained 0, lost 0; second-record detections 2",
+  "per_speed identical"
+ ],
+ "plan_nas_moves": [
+  "plays moved 1, level changed 0, in one arm only 0; largest hit change 0.0%, largest speed change 1.08e-06 percentage points"
+ ],
+ "plan_nas_moves_set_aside": [
+  "plays moved 0, level changed 0, in one arm only 0; largest hit change 0.0%, largest speed change 0.00e+00 percentage points"
+ ],
+ "plan_262_moves": [
+  "plays moved 111, level changed 0, in one arm only 0; largest hit change 3.9%, largest speed change 2.25e-03 percentage points"
+ ],
+ "plan_262_moves_set_aside": [
+  "plays moved 0, level changed 0, in one arm only 0; largest hit change 0.0%, largest speed change 0.00e+00 percentage points"
+ ],
+ "set_aside_lines": [
+  "set aside like work/indexes/library-nas-dnb-peaks.index: 10860 lists there, 10861 here; 0 only there, 1 only here; 0 files only there; same postings without them: false\n",
+  "set aside like work/indexes/library-nas-dnb-peaks.index: 10865 lists there, 10865 here; 1 only there, 1 only here; 0 files only there; same postings without them: false\n",
+  "set aside like work/s82/w262/indexes/library-today.index: 5815 lists there, 5837 here; 46 only there, 68 only here; 0 files only there; same postings without them: false\n",
+  "set aside like work/s82/w262/indexes/library-today.index: 6128 lists there, 6199 here; 0 only there, 71 only here; 0 files only there; same postings without them: false\n"
+ ],
+ "shared-material-seed-2026-development": [
+  "594 of 622 results identical",
+  "T {('other', 'confident'): 475, ('other', 'possible'): 2446, ('other', 'weak'): 82436, ('partner', 'confident'): 8, ('partner', 'possible'): 109, ('partner', 'weak'): 77, ('played', 'confident'): 516, ('played', 'possible'): 89, ('played', 'weak'): 32, ('related', 'confident'): 430, ('related', 'possible'): 359, ('related', 'weak'): 452}",
+  "B {('other', 'confident'): 475, ('other', 'possible'): 2446, ('other', 'weak'): 82481, ('partner', 'confident'): 8, ('partner', 'possible'): 109, ('partner', 'weak'): 77, ('played', 'confident'): 516, ('played', 'possible'): 89, ('played', 'weak'): 32, ('related', 'confident'): 430, ('related', 'possible'): 359, ('related', 'weak'): 452}",
+  "second-record detections in B: [('playground-shades-1-looped-60s', 'second-record/second-library/__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a', 'weak', 9), ('playground-shades-1-looped-60s', 'second-record/second-library/__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a', 'weak', 7), ('playground-shades-1-looped-120s', 'second-record/second-library/__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a', 'weak', 9), ('playground-shades-1-looped-120s', 'second-record/second-library/__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a', 'weak', 9), ('playground-shades-1-looped-120s', 'second-record/second-library/__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a', 'weak', 8), ('playground-shades-1-looped-120s', 'second-record/second-library/__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a', 'weak', 7), ('playground-shades-1-looped-240s', 'second-record/second-library/__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a', 'weak', 11), ('playground-shades-1-looped-240s', 'second-record/second-library/__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a', 'weak', 10), ('playground-shades-1-looped-240s', 'second-record/second-library/__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a', 'weak', 9), ('playground-shades-1-looped-240s', 'second-record/second-library/__youtube_archivists/abstract-math/Keltech - Axis (Low Level Mix).m4a', 'weak', 9)] 45",
+  "confident other: 475 475"
+ ],
+ "shared-material-2-seed-2026-development": [
+  "440 of 440 results identical",
+  "T {('other', 'confident'): 3, ('other', 'possible'): 191, ('other', 'weak'): 62042, ('partner', 'possible'): 52, ('partner', 'weak'): 62, ('played', 'confident'): 545, ('played', 'possible'): 107, ('played', 'weak'): 35, ('related', 'confident'): 12, ('related', 'possible'): 796, ('related', 'weak'): 140}",
+  "B {('other', 'confident'): 3, ('other', 'possible'): 191, ('other', 'weak'): 62042, ('partner', 'possible'): 52, ('partner', 'weak'): 62, ('played', 'confident'): 545, ('played', 'possible'): 107, ('played', 'weak'): 35, ('related', 'confident'): 12, ('related', 'possible'): 796, ('related', 'weak'): 140}",
+  "second-record detections in B: [] 0",
+  "confident other: 3 3"
+ ]
+}

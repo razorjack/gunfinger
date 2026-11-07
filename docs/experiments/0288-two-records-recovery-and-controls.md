@@ -26,7 +26,7 @@ record as ripped and the second with correct polarity, never both; Hello
 World through both, the file keeping the stronger (1,454 hits, no sum). **Wrong answers
 (A2, A3).** The same 9 confident plays of other files in each arm at NAS
 scale: other uploads of two W files with the same titles (Conrad Black -
-Programme Four 4, Mampi Swift - Origin 4; the clusters cover corpus
+Programme Four, Mampi Swift - Origin, 4 excerpts each; the clusters cover corpus
 recordings only) and the known Evol Intent VIP of The Nine over a mix's
 corpus track (0263). Possible plays of other files: 13 in each arm (2 at
 262 tracks). No second record is named on another file's query, and no
@@ -35,6 +35,6 @@ other file is confident on F's queries (other rips: none).
 239 of 240 queries at NAS scale (one speed by 1e-6 percentage points);
 at 262 tracks 111 plays in 98 queries move (hits by up to 3.9%, speeds
 2e-3 points), no level changes (0289 attributes them). **Conclusion.**
-A1, A2, A3 and A5 hold: both kinds of query find the four plainly
-inverted recordings in full and nothing new is named. P's inverted
+A1 and A5 hold, A2 and A3 on these queries (0289: the sweeps, panels):
+both kinds of query find the four plainly inverted recordings in full. P's inverted
 windows with correct polarity are lost in every arm: the flag missed P.

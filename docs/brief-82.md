@@ -242,14 +242,32 @@ the first run did not use. Hello World, P and W decide nothing alone.
 - *(22:05)* At 262 tracks the scratch store (`work/s82/c/today`, 18
   records) is the other library; the NAS map and clusters files stand in
   for its own, since none of its files is a copy of a corpus file.
-- *(22:05)* `shared` and `scan` score a second record by its own name (not
-  in any cluster), so a confident second record would count against the
-  arm: the conservative reading.
+- *(22:05)* `shared` scores a second record by its own name (not in any
+  cluster), so a confident second record would count against the arm:
+  the conservative reading (`scan` refuses `--second-records`).
 - *(22:18)* Added `second-records --set-aside-like` (`b574f95`, build
   `s82-run3`): the registered check covers the sweep only, but at 262
   tracks 98 of 240 plan queries move between T and B, so the same one
   check is run for them and for the 262-track sweep. No bar item depends
   on it beyond A4's reading.
-- *(22:20)* A slip: the NAS queue started the sweep (0289's run) at 22:13,
-  before 0288 was committed (22:21); the sweep's results were not read
-  until 0288 was committed.
+- *(22:20)* A slip: 0289's sweeps started before 0288 was committed
+  (22:21): `sweep-nas-B` (22:13), `sweep-262-T` (22:16),
+  `sweep-nas-B-set-aside` and `sweep-262-B` (22:17) and
+  `sweep-262-B-set-aside` (22:19). Their results were not read until
+  0288 was committed. 0288 was first committed at 46 lines (`e2d0303`)
+  and brought to 40 in `b8d8401`.
+- *(22:55)* A read-only review by a subagent (22:54-23:05) found 24
+  points. Fixed in code (`4abc92d`): `strongest` could drop a play beaten
+  only by a play that was itself dropped (now strongest first; the
+  case occurs in none of this session's reports, checked offline); the
+  saved index with second records is named by their store's directory;
+  `--records second` needs `--second-records` and takes the other
+  index's cut with the same files left out; an enum for the arm; the
+  field renamed; help text and a doc comment. Fixed in the documents:
+  the bar items reported per set, the sweep's two remaining candidates,
+  panel counts said of confident and possible plays, load times, the
+  0.08% called an estimate, the roadmap and queue trimmed to headline
+  figures, and these slips named.
+- *(23:10)* The search-time comparison (A B B A, 32 jobs, alone) ran
+  after the panels with `s82-run3`, the build before the review's code
+  fixes, whose search path they do not touch.
