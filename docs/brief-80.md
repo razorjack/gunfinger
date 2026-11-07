@@ -118,7 +118,8 @@ conservative option, write it down here and continue.
 
 Each case is 12 mixes of the drops kind (12 blocks each: per mix one quiet
 partner, one brief partner, two unrelated double drops, one pair drop and
-plays alone), drawn from the 208 tagged corpus files (`work/s39/tags-262.json`)
+plays alone), drawn from the 208 tagged corpus files (`work/s39/tags-262.json`;
+mistaken-over and related-under from every indexed file, Decisions 18:05)
 with a seed no session has used, one seed per case. The number of distinct
 recordings and shared-material families each case rests on is counted
 from its truth and stated in the experiment. Fresh seeds of the 262-track
@@ -127,15 +128,15 @@ pool); what is new is each case's construction.
 
 | Case | Seed | Construction | Search |
 |---|--:|---|---|
-| plain | 8001 | the drops kind as it is | turntable (the NAS configuration) |
-| broadcast | 8001 | plain's renders, the whole mixture through `acompressor=threshold=-20dB:ratio=4:attack=5:release=120:makeup=6dB`, `alimiter=limit=0.891:attack=5:release=50` (about -1 dBFS) and re-encoded as MP3 at 96 kbit/s (a second lossy generation) | turntable |
-| key-locked-under | 8002 | the second record of each quiet, brief and unrelated block plays key-locked (`atempo`), the first on the turntable | `--playback both` |
-| key-locked-over | 8003 | the reverse: the first record key-locked, the second on the turntable | `--playback both` |
-| ride-over | 8004 | the first record of each quiet, brief and inside double drop rides its pitch by 1-3% over 5-15 s, starting while the second plays at full level | turntable |
-| three | 8005 | the quiet block gains a third record at full level over the quiet one's span: two loud records and a quiet one at once | turntable |
-| mistaken-over | 8006 | the first record of the quiet and brief blocks is a shared-material pair's played record over its passage, and that record's files are left out of the library searched, so its related version is the foreground's best match | turntable |
-| related-under | 8007 | the second record of the quiet and brief blocks is a pair's played record over its passage, left out of the library searched while its related version stays indexed | turntable |
-| controls | 8008 | `--kind long` (4 mixes): plays joined by crossfades, with runs of held-out tracks, no partner anywhere | turntable |
+| plain | 8002 | the drops kind as it is | turntable (the NAS configuration) |
+| broadcast | 8002 | plain's renders, the whole mixture through `acompressor=threshold=-20dB:ratio=4:attack=5:release=120:makeup=6dB`, `alimiter=limit=0.891:attack=5:release=50` (about -1 dBFS) and re-encoded as MP3 at 96 kbit/s (a second lossy generation) | turntable |
+| key-locked-under | 8003 | the second record of each quiet, brief and unrelated block plays key-locked (`atempo`), the first on the turntable | `--playback both` |
+| key-locked-over | 8004 | the reverse: the first record key-locked, the second on the turntable | `--playback both` |
+| ride-over | 8006 | the first record of each quiet, brief and inside double drop rides its pitch by 1-3% over 5-15 s, starting while the second plays at full level | turntable |
+| three | 8007 | the quiet block gains a third record at full level over the quiet one's span: two loud records and a quiet one at once | turntable |
+| mistaken-over | 8008 | the first record of the quiet and brief blocks is a shared-material pair's played record over its passage, and that record's files are left out of the library searched, so its related version is the foreground's best match | turntable |
+| related-under | 8009 | the second record of the quiet and brief blocks is a pair's played record over its passage, left out of the library searched while its related version stays indexed | turntable |
+| controls | 8011 | `--kind long` (4 mixes): plays joined by crossfades, with runs of held-out tracks, no partner anywhere | turntable |
 
 The plays alone in every drops mix (5 per mix) are controls too.
 
@@ -197,6 +198,19 @@ changed in this session in response.
   `gunfinger-eval` `8e01bb7a...`), and neither store changed (40,666 and
   265 records, no file newer than brief 79). `s80-run` (from `cf05900`)
   has the same `gunfinger`; only `gunfinger-eval` changed (`41bf0d3d...`).
+- 18:05. Seeds and `--tagged`, before any scored run. Of the panel's 24
+  pairs (9 families), only Clockwork's two directions have both files
+  among the 208 tagged files, so with `--tagged` the drops kind plays
+  that one family's pair, and a seed whose sweep holds Clockwork out
+  cannot be drawn (8001 failed). Seeds 8001-8020 were probed with
+  `--count 0` (panels only); each case takes the first unused seed in
+  order whose sweep keeps a pair playable: plain and broadcast 8002,
+  key-locked-under 8003, key-locked-over 8004, ride-over 8006, three
+  8007, mistaken-over 8008, related-under 8009, controls 8011 (the table
+  above is corrected). mistaken-over and related-under need two pairs of
+  families other than the mix's own, so they run without `--tagged`
+  (every indexed corpus file may play; titles are scored by recording as
+  before, and an untagged file prints its file name).
 - 17:55. "Dropped by rule" cannot be counted from the CLI's report
   without a product or output change, which this session may not make;
   partners found and not found are reported instead.
