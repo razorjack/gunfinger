@@ -208,3 +208,30 @@ Rules for this session:
   notes, but not whether it closes the two risks; Library ignore file:
   two open points from session 8 not rechecked). Size: 27,900 bytes,
   against the target of about 35 KB.
+- **(13:55) Step 3, notes and status** (`work/s76/split.py`, reading
+  both files from `009fe55`). `docs/session-notes.md` keeps sessions 70,
+  72, 73, 74 and 75 (and gains session 76's section at the wrap-up); the
+  sections before "## Session 40" (sessions 2-39 and the notes between
+  them) are in `docs/history/session-notes-01-39.md` (the file name of
+  the prompt's example, although no session 1 section exists), sessions
+  40-69 in `docs/history/session-notes-40-69.md`. The index at the top
+  of the notes has one line per `##` heading of the old file (86 lines):
+  the heading in quotes, the date and headline of the session's
+  `docs/status.md` entry where one names it, and the file that holds
+  it. `docs/status.md` keeps the entries from 2026-11-02 on (the prompt
+  says 2026-11-01; no entry is dated 2026-11-01); the entries before
+  session 40's are in `docs/history/status-2026-10-05-to-10-23.md`, the
+  rest up to 2026-10-31 in `docs/history/status-2026-10-23-to-10-31.md`.
+  Its index has a line per file and a line for each of the 20 older
+  entries that record the user's listening answers, verdicts and
+  decisions, which the prompts cite (among them "2026-10-31: the
+  listening of the 2026-10-31 packs" and "2026-10-31: the last answer,
+  and the user's decisions and views"). Decision: the 2026-10-31
+  entries move as the prompt says, and the index names them, instead of
+  keeping them in `docs/status.md`. The old titles stay as the kept
+  files' titles; the old one-paragraph prefaces are in the history files
+  verbatim and new prefaces say what moved. The one changed line: the
+  link `](research/...)` of the moved entry "2026-10-29: matching and
+  archive research proposals" is `](../research/...)` in its history
+  file. Path-and-line references to update: none (step 1). Sizes:
+  notes 63,796 bytes (was 840,449), status 13,150 (was 373,487).

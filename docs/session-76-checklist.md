@@ -18,7 +18,7 @@ for scope and rules.
 - [x] 2. `docs/roadmap.md` rewritten (preface, active queue, open items,
   "Done and closed"); the previous text verbatim in
   `docs/roadmap-history.md`
-- [ ] 3. `docs/session-notes.md` and `docs/status.md` keep the newest
+- [x] 3. `docs/session-notes.md` and `docs/status.md` keep the newest
   sessions with an index; older sections verbatim under `docs/history/`;
   references updated
 - [ ] 4. `CLAUDE.md`, `AGENTS.md` (descriptive parts), `docs/calibration.md`,
