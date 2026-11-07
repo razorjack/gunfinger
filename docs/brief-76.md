@@ -299,3 +299,33 @@ Rules for this session:
     374 headings of the old notes and all 134 of the old status are in
     the new files, and every `##` heading of the old notes has an index
     line.
+- **(14:45) Step 6, the review.** A read-only subagent (no further
+  agents) compared the old roadmap (from `009fe55`), the new one and the
+  history file item by item, against the decisions queue and the active
+  queue. It found one contradiction: "Where search time goes" cited only
+  0158 for the worker count, while the old text's later result (0167,
+  0169) is that 32 workers are faster than 16 once the `take_part`
+  changes are in, so the default need not change; the item line now
+  says so, and decisions queue item 9 gained a note with that evidence
+  (its question unchanged). Two open points in "Library ignore file"
+  were stale: verdict links leave out ignored files since session 10,
+  and 0065's 33 folders are now pointed at session 10's notes. The
+  state labels were mixed ("Ongoing", "Decided", "A pilot", ...): the
+  preface now defines "done with open points" and "deferred", and every
+  item uses a defined state; the minimum span is "blocked on the user"
+  first. The rest were caveats and numbers dropped from item lines,
+  each added from the old text: the memory estimate past 65,536 assets
+  and measurement 3's terms; the consequences of the two Linux risks
+  and the files with NFD paths; the passages pilot's 266 and 12% reach;
+  session 65's related-version caveat for `--under`; the grid counts
+  and "no variant meets F and the grid criterion together"; the ride
+  variant's reliance on the 240-hit margin; Siren Bass at 230-241 hits
+  and the deck-range condition; the band profile's 50 hits; FFmpeg's
+  share of a first `index`; the padding cap and break search's cost; the
+  containment rule's result; step 3's recall guidance; session 40's pack
+  heard; the failure mode of every join measure; the possible tier's
+  cost figures; recall's combined conditions; the repair's loss on
+  as-ripped audio and its two ADR options; genre and dataset conditions;
+  the printed tracklist's 64 of 105 and 40 s bound. Not taken: nothing.
+  The roadmap is 33,003 bytes after the fixes; `work/s76/verify.py`
+  still passes.

@@ -14,10 +14,12 @@ an item does not gain a paragraph per session. Open decisions are in
 item's session-by-session history, is in `docs/roadmap-history.md` under
 the same headings and item names (taken from commit `009fe55`).
 
-States: *open* (work can start), *measured and undecided* (evidence in,
-the decision is ours), *blocked on the user* (an entry in the decisions
-queue), *blocked on a larger library*, *demoted* (until new evidence
-addresses its recorded failures).
+States: *open* (work can start; "done, open points" when an ADR settled
+the main question and smaller points stay), *measured and undecided*
+(evidence in, the decision is ours and not yet in the decisions queue),
+*blocked on the user* (an entry in the decisions queue), *blocked on a
+larger library*, *deferred* (revisit on the condition the line names),
+*demoted* (until new evidence addresses its recorded failures).
 
 **Research proposals, 2026-10-29.** The
 [matching and archive note](research/2026-10-29-matching-and-archive-proposals.md)
@@ -115,20 +117,33 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
 - **More than 65,536 assets.** *First step done (ADR 0010); the rest
   blocked on a larger library.* A posting holds 16 frame bits and 16
   asset bits: 65,536 assets, tracks up to 17:28 (default limit 17:00).
-  Next: past 65,536 assets, shard by asset range (ADR 0007, option A);
-  decide collection boundaries from evidence (drum & bass alone,
-  hardcore alone, their union; ADR 0007, measurement 3). Searched shard
-  by shard, the fullest 1% of posting lists must still be chosen over
-  the whole searched library. Evidence: 0063; ADR 0007.
+  At 65,536 assets of the NAS mean length the index would hold about
+  1.84 billion postings, 7.4 GB in memory, before the search's own
+  memory, so memory may call for loading shards one at a time before
+  addressing does. Next: past 65,536 assets, shard by asset range (ADR
+  0007, option A); shards do not reduce the work or the chances of a
+  false match. Decide collection boundaries from evidence (drum & bass
+  alone, hardcore alone, their union: false candidates, missed
+  cross-genre matches and cost, with one confidence rule; ADR 0007,
+  measurement 3). Searched shard by shard, the fullest 1% of posting
+  lists must still be chosen over the whole searched library. Evidence:
+  0063; ADR 0007.
 - **Library identity and relocation.** *Done (ADR 0012); open points on
   a NAS.* Open: indexing throughput, slow `stat` calls and reconnects on
-  a NAS; the two risks of reaching the NAS from Linux (ADR 0020), the
-  Unicode form of file names and modification-time precision, checked
-  with `scripts/analysis/store_identity.py`. State unclear here: session
-  32's notes record the Linux index run (the same 40,683 records as the
-  Mac's, 160 equal only after NFC; one committed panel file names an NFD
-  path); the roadmap's text did not record whether that closes the two
-  risks.
+  a NAS; the two risks of reaching the NAS from Linux (ADR 0020), checked
+  with `scripts/analysis/store_identity.py`: names stored decomposed
+  (NFD) by the Mac that Linux lists precomposed would be indexed again
+  under new names, and verdicts, manifest references and ignore patterns
+  naming them would not match (a fix needs an ADR and a way to find the
+  existing records); modification times of another precision would make
+  up to 32,000 records (84%) look out of date. State unclear here:
+  session 32's notes (`docs/history/session-notes-01-39.md`, "Session
+  32") record the Linux index run (the same 40,683 records as the Mac's,
+  160 equal only after NFC; NFD paths in
+  `docs/panels/recall-seed-2026.json` and
+  `docs/experiments/data/0129-second-panel-development.json`, so a
+  `recall` run on Linux would not find that panel file's record); the
+  roadmap's text did not record whether that closes the two risks.
 - **Files that vanish while the library is listed.** *Done (ADR 0015);
   one open point.* Open: a share that drops and comes back between a
   vanished entry and the root check gives that run a partial library
@@ -148,24 +163,27 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   (0254) and 75 (0278), each with no scored result changed. Open in the
   item's text (not rechecked in session 76): `2002 - CPT003 - Kemal vs.
   Rob F & Impulse - 256` (notes "Mixed-CD tracks in the library") is
-  not listed; the clusters' verdict links must leave out ignored files
-  ("More development mixes", step 2, in the history);
-  33 folders with at least 75% joined boundaries are a listening list
-  (0065, `work/s9/mixed-cd-candidates.tsv`).
+  not listed. The clusters' verdict links leave out ignored files since
+  session 10 ("More development mixes", step 2, in the history). 0065
+  listed 33 folders with at least 75% joined boundaries as a listening
+  list (`work/s9/mixed-cd-candidates.tsv`); session 10's notes record
+  which of them became ignore patterns.
 
 ## Reports and command line
 
-- **Time without a confident match.** *Printing done (ADR 0023, 0024);
-  the recurring-passages pilot open.* `identify` prints gaps of 45 s or
+- **Time without a confident match.** *Open, done with open points:
+  printing done (ADR 0023, 0024); the recurring-passages pilot open.* `identify` prints gaps of 45 s or
   more as "ID - ID" lines with a range of tracks from the gap matched
   against itself (`gunfinger_core::repeats`); the covered time is
   computed once, in `gaps::uncovered`. What is left belongs elsewhere:
   records sharing material, pitch rides (0166) and a gap holding no
   missed track, which the estimate cannot tell from one that does. The
   pilot of recurring passages across mixes (`gunfinger-eval passages`,
-  0267-0268) found 192 of 312 recurring passages and linked no unrelated
-  records; not a product change; a next step would search whole mixes
-  and measure archive-scale cost. Evidence: 0159-0166, 0234, 0235;
+  0267-0268) found 192 of 312 recurring passages (whole mixes: 266) and
+  linked no unrelated records; the product's ladder reaches none beyond
+  12% relative speed; not a product change; a next step would search
+  whole mixes and measure archive-scale cost. Novelty segmentation comes
+  only if counting stays out of reach. Evidence: 0159-0166, 0234, 0235;
   `docs/research/2026-10-20-unidentified-gaps.md`,
   `docs/research/2026-10-21-printing-gaps.md`.
 - **Possible plays inside a confident play of another recording.**
@@ -176,15 +194,22 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   unrelated partner and let in no shared material, 0215-0218). `--under` gained 38 right
   entries and no wrong one on generated double drops and changed nothing
   on the development mixes, at 2.8-2.9 times `identify`'s time at NAS
-  scale (about 35 s per hour of mix). Next: active queue item 2 (the
+  scale (about 35 s per hour of mix). Caveat: in session 65, with
+  another rip as the reference, the residual once made a known related
+  version of the masked record confident at NAS scale; a product
+  version needed a rule for related versions (session 70). Next:
+  active queue item 2 (the
   fourth drop rule, a parallel mask, 0275's table again), then
   decisions queue item 2. Evidence: 0107, 0215-0218, 0255-0258,
   0269-0275; notes "Session 72", "Session 73".
 
 ## Matching
 
-- **A minimum span instead of 3 windows.** *Measured and undecided;
-  blocked on the user (decisions queue item 1).* Facts: on session 28's
+- **A minimum span instead of 3 windows.** *Blocked on the user
+  (decisions queue item 1); measured.* No variant meets the fair test's
+  F and the grid criterion together. On the grid, B(15) makes 800 of 960
+  queries confident with 0 flips, against 693 with 30 today (0136-0142).
+  Facts: on session 28's
   brief plays at NAS scale, 15 s plays are confident 504 of 522 times
   under B(15) (200 hits over at least 15 s of supported time), 519 under
   A(10) and B(10), against 228 today. On the fair shared-material test
@@ -199,8 +224,12 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   merged).
 - **Speed that wanders within a play.** *Done for pitch rides (ADR 0021,
   0232); open: wander within one side and rides inside short plays.*
-  `SpansAtSpeed(0.006)` keeps both sides of a ride (the old rule is
-  `--overlap-by-spans`). Open: `--speed-per-stretch` (opt-in; Star
+  `SpansAtSpeed(0.006)` (the harness's opt-in was `--apart-in-speed
+  0.006`) keeps both sides of a ride (the old rule is
+  `--overlap-by-spans`); against shared material it relies on the
+  240-hit rule's margin, not on its speed condition (session 45), and
+  related versions' second alignments reached at most 55, 44 and 67
+  hits in the panels, drops and ridden mixes (session 57). Open: `--speed-per-stretch` (opt-in; Star
   Trails +11% hits, no measurable CPU, 0032) is adopted only if a real
   play near the 240-hit rule needs it; rides inside short plays are a
   question for the window condition (0180: a ride from 2% in the middle
@@ -219,8 +248,14 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   9% of relative speed against the remaining copy; each extra rung pair
   moves the reach by 0.4% for 4.3-5.3% more search CPU; for a deck at
   ±5%, copies with no other copy in reach fall from 29 to 19, 7, 3 and 1
-  with 1, 2, 3 and 5 extra rung pairs. One rip near -8% loses its
-  confident answer under every wider ladder. Next: extra rungs only
+  with 1, 2, 3 and 5 extra rung pairs. The choice depends on how far the
+  decks go beyond about ±5%, and which copy runs at the record's true
+  speed is unknown. One rip near -8% (Siren Bass's upload) loses its
+  confident answer under every wider ladder; better speed fits put it
+  at 241, 237 or 230 hits, at the rule, not clearly above it (0251,
+  0252). The other deciding case, China Cup against ƆƐI3C's upload from
+  two extra rungs, is a same-title credit since ADR 0022. Next: extra
+  rungs only
   where nothing is confident (2% of the Stakka mix, estimated at under
   1% more CPU), which with one extra rung pair passes the registration.
   Evidence: 0033, 0059, 0219, 0226-0230, 0251, 0252;
@@ -228,7 +263,8 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
 - **Peaks across frequency bands.** *Open (active queue item 7).* The
   band profile (variant a, 0034) has 9% fewer postings and gives the
   development mix 34% more true hits, but related records reach the
-  possible tier more easily. Next: test it under the default matcher at
+  possible tier more easily (up to 50 hits from audio not in the
+  index). Adoption is ours to decide. Next: test it under the default matcher at
   262 tracks on the shared panels' development halves, `recall` and
   `robust`, criteria first; a NAS re-extraction only if it passes; its
   search cost at scale is unmeasured. Adopting it means extracting every
@@ -249,8 +285,12 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   grouping (0243, 0244). Open: FFT lengths with small prime factors
   (0109) change peaks and output; part 1 of their retrieval study
   failed two criteria (0119), part 2 needs harness work, then timing,
-  and adoption is ours. Whether the default worker count should count
-  cores rather than hardware threads is decisions queue item 9 (0158).
+  and adoption is ours. A first `index` is 86% FFmpeg's decoding and
+  resampling (0099), whose options are fixed. Workers: at 16 workers
+  NAS-scale scans took about 30% less time than at 32 (0158), but with
+  the two `take_part` changes in master 32 workers are faster than 16
+  (0167, 0169: 37.9 s against 45.3 s), so the old text concluded the
+  default need not change; decisions queue item 9 still cites 0158.
   Evidence: 0028, 0075, 0080-0088, 0093, 0096-0099, 0103, 0108-0109,
   0113, 0117, 0119, 0158, 0167-0173, 0189-0193, 0199-0205, 0212-0214,
   0243-0244; `docs/research/2026-10-14-matching-proposals.md`,
@@ -265,8 +305,7 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   two different recordings reach the confident rule. The new tracks must
   include jungle, hardcore, remixes, versions and producer catalogues
   that reuse material. Evidence: 0012, 0049-0052, 0222-0224, 0233, 0239.
-- **The filter and famous breaks.** *Measured (stable under copies); open
-  points.* Facts: copies of records do not move candidates or answers
+- **The filter and famous breaks.** *Open; measured stable under copies.* Facts: copies of records do not move candidates or answers
   (0222-0225); a candidate's evidence depends on the filter through the
   speed and span the second pass starts from (0242, expected under ADR
   0014); a famous break lines up with up to 403 of the NAS library's
@@ -275,14 +314,20 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   5); break search as a command (decisions queue item 4; active queue
   item 10); a posting-count set-aside threshold (active queue item 11);
   if candidates go missing, rank hashes by distinct files or weight hits
-  by rarity (active queue item 9). Evidence: 0012, 0144, 0222-0225,
+  by rarity (active queue item 9); a real collection's duplicates beyond
+  exact copies (the 65,536-asset limit capped the padding at NAS scale).
+  For `identify` the break's many holders change nothing measured; the
+  passage query with every list costs about 8 thread seconds per query
+  at NAS scale. Evidence: 0012, 0144, 0222-0225,
   0242, 0276, 0277; `docs/research/2026-11-02-break-search.md`.
 - **A confidence statistic for shared material.** *Blocked on the user
   (decisions queue item 7; the active queue: it waits on that item).*
   Facts: with the played recording left out at NAS scale a related
   version is wrong confident in 106 of 218 queries of the first panel
   (0111) and 5 of 135 of the second (0128, 0129); no pre-registered candidate
-  passes against real true plays (0116, 0118); reporting the ambiguity
+  passes against real true plays (0116, 0118); the containment rule
+  (0091) was not adopted, since a new development mix that plays
+  versions whole is needed first; reporting the ambiguity
   as a note flagged 13.9% of true plays (0120-0123); the version verifier,
   versions 1 and 2, failed one criterion each (0124-0127, 0133-0135;
   `gunfinger-eval versions`, kept as a diagnostic); the harmonic view
@@ -307,7 +352,10 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   loss under damage is peaks. Next, step 3: denser query peaks around
   candidate passages, the reference store unchanged, used in the
   verifier first; measure peaks recovered under EQ and blends,
-  accidental agreement and CPU. Wider fan-out is demoted (the active
+  accidental agreement and CPU. Steps 2 and 3 matter more for recall
+  than for separation: the 57 misses within 9% of relative speed in
+  0059 are weak copies found at 25-239 hits; measure those copies and
+  the shared-material scenarios (0055) together. Wider fan-out is demoted (the active
   queue). Evidence: 0004, 0027, 0054-0059, 0149, 0151, 0206-0208;
   `verifier.rs`, `verifier/pairs.rs`.
 - **Longer hashes.** *Deferred.* Triplet hashes would scan 25-79 times
@@ -326,7 +374,7 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
 
 ## Evaluation
 
-- **The verdicts by ear on borderline pairs.** *Ongoing; more judged
+- **The verdicts by ear on borderline pairs.** *Open; more judged
   pairs needed (larger library).* Facts: every borderline pair between
   two clusters of session 33's NAS run has a verdict (2026-10-22); China
   Cup's upload counts as right since ADR 0022 (`docs/same-titles.txt`);
@@ -337,41 +385,58 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   14 hardest judged pairs no measure separates (AUC 0.40-0.56, coverage
   0.06; 0187); `drift_0.8_20` is not better by the registered bar, and
   the 10 s variant found after the test needs more judged pairs to
-  decide (0220, 0221). Evidence: 0049, 0057, 0128, 0186-0188, 0220,
+  decide (0220, 0221). Session 40's pack (`work/s40/pack/`) was heard
+  on 2026-10-25 (status, "after session 46" and "after session 51");
+  two of its items got no verdict, each holding a file that should not
+  be in the library. Evidence: 0049, 0057, 0128, 0186-0188, 0220,
   0221, 0233.
 - **Clustering precision.** *Open.* A join rule on the near-offset share
   would rest on one pair more than supported time gets right; a change
-  is ours, with an ADR (0186, 0187). `pair --fine-rungs` lifts drifting
+  is ours, with an ADR (0186, 0187). Coverage, supported time and the
+  near-offset share all fail on uploads whose speed drifts and on edits
+  that move the rest by more than 10 s. `pair --fine-rungs` lifts drifting
   same pairs and version pairs alike; the registered variant failed
   (0220). Still to do: inspect long sparse alignments and chains through
   mixed-CD tracks (0058), and check a sample of joins by ear. A
   library-wide clustering comes first for break search (active queue
   item 10). Evidence: 0057, 0058, 0186, 0187, 0220.
-- **The possible tier at NAS scale.** *Decided: 60 stays (our decision);
-  measure at each size (larger library).* Every strongest match between
+- **The possible tier at NAS scale.** *Blocked on a larger library; the
+  value is decided: 60 stays (our decision); measure at each size.* Every strongest match between
   different recordings checked from 40 hits up shares material, by ear;
   no chance match has been heard above 40 hits. The three development
   mixes show 3.2, 2.8, 1.8 and 1.1 possible plays per hour at 60, 80, 100
   and 130 hits, every one a version or shared material (0092, 0094,
-  0102). Next, at each size: count what a higher tier costs (weak true
-  plays lost, possible plays per hour of mix). Evidence: 0040, 0041,
+  0102); no development true play depends on the tier, and at 262 tracks
+  a higher threshold hides only damaged excerpts (48-128 of 278 at
+  80-130). Next, at each size: count what a higher tier costs (weak true
+  plays lost, possible plays per hour of mix). Shared-material notes
+  could keep a lower threshold, but only where the two library files
+  match each other in that passage. Evidence: 0040, 0041,
   0051, 0052, 0092, 0094, 0102.
-- **Recall beyond the corpus recordings.** *Development half measured;
-  the validation half waits for a frozen rule.* Facts (0238, 40,678
+- **Recall beyond the corpus recordings.** *Open; the development half
+  measured, the validation half kept for a frozen rule.* Facts (0238, 40,678
   records): other rips only 174/180 confident, brief plays 228/522 (15
-  s) and 493/522 (20 s), combined damage 5/522 confident; no wrong
+  s) and 493/522 (20 s), combined damage 5/522 confident, all three
+  together 0/360 confident (107 possible), other rips with brief plays
+  171/360 (6 Known Unknown excerpts were found only through the pruned
+  track-fix copy); no wrong
   confident answer and no held-out query confident in any condition.
   `recall` needs `--panels work/s33/panels`. Evidence: 0068, 0143-0145,
   0156, 0223, 0238.
-- **Stereo faults before the downmix.** *Measured; the inverted-channel
-  repair open (decisions queue item 3; active queue item 6).* Facts: the
+- **Stereo faults before the downmix.** *Blocked on the user for the
+  inverted-channel repair (decisions queue item 3; active queue item 6);
+  the rest measured.* Facts: the
   downmix loses every excerpt with one channel's polarity inverted
   (0194-0198); about 0.4% of 2,000 NAS rips are inverted in one channel
   (0248); the power-sum front end (`--front-end`, 0245-0247) and
   power-sum queries alone (0248-0250) were not adopted; the repair at
   indexing (`variant-store --repair-inverted`, 0262-0263) recovers the
-  four plainly inverted recordings with no new wrong answer, and its bar
-  failed through the set-aside cut's moves. Open (ours): the larger of
+  four plainly inverted recordings with no new wrong answer (5 of 6,766
+  files flagged, We - Hello World uncertain) but loses all 48 queries of
+  the as-ripped audio (decisions queue item 3), and its bar failed
+  through the set-aside cut's moves. An ADR would choose a per-record
+  flag (one check pass of about an hour, about 31 records rewritten) or
+  a profile bump (every record rebuilt). Open (ours): the larger of
   the mid's and the side's power per bin (unmeasured); a query-side
   fallback of three searches (0195, exploratory). Evidence: 0194-0198,
   0245-0250, 0262, 0263;
@@ -382,11 +447,13 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   the held-out test mix has one evaluation left (ADR 0004). Agree each
   mix's role before looking at its results. Candidates on the NAS (0065,
   `work/s9/candidate-mixes.tsv`): no `identify` before their roles are
-  agreed; `EM_1999_02_07_-_Ed_Rush_Optical.mp3` and `sety/vertical.mp3`
-  stay out. A real test of the containment rule needs a mix whose tracks
+  agreed; `EM_1999_02_07_-_Ed_Rush_Optical.mp3` stays out of
+  development use, and `sety/vertical.mp3` was left alone (session 18).
+  Each new genre needs its own development and held-out mixes; check
+  the speed range those DJs used. A real test of the containment rule needs a mix whose tracks
   have indexed versions sharing much of their audio. Evidence: 0060,
   0065-0067, 0069, 0100-0102.
-- **Automated counterexample search.** *A pilot (0264-0266); open.*
+- **Automated counterexample search.** *Open; a pilot (0264-0266).*
   `gunfinger-eval counterexamples` found 188 failures in 17 classes at
   262 tracks and 72 in 11 at NAS scale; every play lost needs a channel
   fault or a blend. Next: run it with the same seed beside a variant, so
@@ -401,8 +468,11 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   indexed seconds correct, the development mixes 86.8% (262) and 90.7%
   (NAS) at a 30 s margin. Not yet unit-tested: the truth built from
   manifests and generated mixes. With Mixotic and UnmixDB (another
-  genre, their own library and store, split by recording family),
-  `seconds` gives the first external per-second score.
+  genre, their own library and store, split by recording family across
+  both, the frozen matcher run on the validation part), `seconds` gives
+  the first external per-second score. UnmixDB's time scaling comes from
+  SoX: check which variants resample and which keep the pitch. Compare
+  systems only by running them under one protocol.
 - **The printed tracklist.** *Measured and undecided (ours, with an
   ADR).* Grouping and printing lose nothing the search finds
   confidently, apart from one merge in 512 plays (0182-0185); what leaves
@@ -410,7 +480,11 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   only as possible). Open: whether a marked play may stay in the
   tracklist (by length, or marked as possible with its partner named),
   and whether `same_recording` needs more than a 5 s start and half the
-  shorter play when two files' titles differ; drops of the same rank and
+  shorter play when two files' titles differ. The mark is right on
+  shared material too (64 of 105 marked plays at 262 tracks) and no
+  measure in the report tells the two apart (0183); a length bound of
+  40 s would print every drop partner and 19 of 64 shared-material
+  lines. Drops of the same rank and
   real double drops are not measured (0217). The T-Minus vocal mix
   upload that 0185 left for listening opens with 56 s of Digital &
   Spirit - Crash and is ignored on the NAS since 2026-10-27 (status,
@@ -432,7 +506,8 @@ One line per finished or closed item; the history is in
 
 - **Database.** Not needed: the peak store is one file per asset and the
   index is rebuilt from it in 0.5 s; revisit only if detections need to
-  be stored (ADR 0017).
+  be stored. Report edits and the Track/AudioAsset model are out of
+  scope (ADR 0017).
 - **The Track/AudioAsset model.** Out of scope for the product (ADR
   0017, 2026-10-13).
 - **Report edits.** Out of scope for the product (ADR 0017,

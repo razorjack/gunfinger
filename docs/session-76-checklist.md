@@ -25,6 +25,6 @@ for scope and rules.
   `docs/session-rules.md`
 - [x] 5. Verification script (multiset of lines, links, path-and-line
   references); counts in the brief
-- [ ] 6. Read-only review of the new roadmap by a subagent; findings fixed
+- [x] 6. Read-only review of the new roadmap by a subagent; findings fixed
 - [ ] 7. Wrap-up: notes "Session 76", status, checklist; final checks
   (`scripts/check.sh`, digests, `git status`)

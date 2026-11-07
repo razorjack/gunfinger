@@ -138,7 +138,11 @@ external review (`docs/research/2026-11-05-external-review.md`).
 
 - **Worker count on Linux.** At 16 workers, NAS-scale scans took about
   30% less time than with the default 32 on the Linux machine (0158).
-  Should the default count cores rather than hardware threads?
+  Should the default count cores rather than hardware threads? (Session
+  76: since the two `take_part` changes of 0167, in master since 0169,
+  32 workers are faster than 16, 37.9 s against 45.3 s for the Stakka
+  scan's search, and the roadmap's text concluded that the default need
+  not change.)
 - **Key-locked ladder by default.** `--playback both` costs 1.57 times
   the CPU of the turntable ladder alone, and no development play uses
   key lock. The user chose both on 2026-10-06. One option is to keep it
