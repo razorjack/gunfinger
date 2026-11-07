@@ -1,8 +1,8 @@
 # 0281: what `identify --under` costs with the masks on the workers
 
 **Question.** With each confident entry's decode and mask on its own
-worker (brief 79; the searches still in entry order), does the option
-take at most twice the default's time at NAS scale (J3, session 73)?
+worker (brief 79), is the option within twice the default's time at NAS
+scale (J3, session 73)?
 
 **Commands.** `work/s79/cost.sh`, the Linux machine otherwise idle, 32
 workers, a warm-up per scale: each development mix in the order A B C C
@@ -28,16 +28,13 @@ B A (A default, B `--under` with `s79-run`, C `--under` with
 - Output: B and C give byte-identical JSON on all six mixes, and the
   Stakka mix at 262 tracks with `--jobs 1` gives the same bytes as with
   32 (1:45 wall, the step 60.3 s). The tracklists are those of 0273.
-- CPU is unchanged: the same work on more threads. Peak memory rises by
-  2.0-2.8 GiB at NAS scale and 1.3-2.6 GiB at 262 tracks, because every
-  entry's mask is in flight at once (7-17 entries, 32 workers); about
-  0.2 GiB per mask.
+- CPU is unchanged. Peak memory rises by 2.0-2.8 GiB at NAS scale (1.3-2.6
+  at 262 tracks): every entry's mask is in flight at once, about 0.2 GiB each.
 
 **Conclusion.** The step takes half its former time, and the option
 1.85-2.01 times the default's at NAS scale (about 17-19 s more per hour
 of mix). J3 is met on Stakka and razorjack and fails on Nocny by 0.3 s
 (41.86 s against twice 20.79 s): as registered, J3 is not met. The
 price is about 2.5 GiB more peak memory; a cap on masks in flight would
-bound it (not built or measured). What remains of the step is the
-searches in entry order and the slowest entry's mask (an inference; no
-phase timings were taken).
+bound it (not built). What remains of the step is the searches in entry
+order and the slowest mask (an inference; no phase timings were taken).
