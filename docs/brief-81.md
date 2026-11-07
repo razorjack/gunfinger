@@ -194,3 +194,22 @@ new registration and data the first run did not use.
   for the sweep and recall only).
 - *(19:28)* `copies` runs for the sweep only, the one command with
   `--exact-copies`.
+- *(19:33)* `regress session-78-linux --strict` with the options off
+  failed on provenance alone: every report was identical, but the
+  baseline's "matching" string had no `set_aside_share`. `Matching` now
+  has a `Debug` that prints the field only when given (tested against
+  the old string); rerun with `s81-run2`: every report equal, strict
+  passes (19:37).
+- *(19:38)* `grid` took no `--other-peaks-dir`; added to the commands
+  that take it (`s81-run3`). The 262-track queue restarted as
+  `q262b.sh`; the default's bases from the first queue are kept (the
+  search code is the same in `s81-run` and `s81-run3`).
+- *(19:38)* The variant's `regress session-78-linux` (A3) ran before
+  the perturbations: calibrate's strongest false 100 to 107, so A3
+  fails as registered (the same rise as 0252's B4). The runs continue,
+  since the stability measures are the session's main question.
+- *(20:05)* The registration put both fits on one panel, so the
+  variant's runs (0286) started in the same queues as the default's.
+  0285 is written and committed from the default's runs before any of
+  0286's comparisons is read (its A3 figure above came from `regress`,
+  before the perturbations).
