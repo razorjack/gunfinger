@@ -14,7 +14,9 @@ anything else:
    history, not live rules: the standing rules are collected in
    `docs/session-rules.md` (2026-11-05). Read an older brief only when a
    document points to it for a procedure, for example `docs/brief-64.md`
-   for a prune.
+   for a prune. The current session is 76: `docs/brief-76.md` and
+   `docs/session-76-checklist.md`, with the external review note
+   `docs/research/2026-11-05-external-review.md`.
 3. `docs/session-notes.md` (findings to report)
 4. `docs/status.md` (running log: where the work stands)
 5. the newest file in `docs/experiments/`; the third development set's
