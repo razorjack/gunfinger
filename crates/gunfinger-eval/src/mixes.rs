@@ -503,10 +503,16 @@ impl MixFound {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PlayScore {
     pub truth: PlannedPlay,
-    /// `confident`, `possible`, `weak` or `none`: the strongest matching
-    /// detection's level.
+    /// `confident`, `possible`, `weak` or `none`: the highest level among
+    /// the matching detections (ADR 0013's rule for plays).
     pub level: Level,
+    /// The matching detection with the most hits, which places the play
+    /// (position error, speed, the residual pilot's reference).
     pub best: Option<MixFound>,
+    /// The detection with the most hits at `level`, when it is not `best`:
+    /// a detection with more hits spans fewer windows.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub at_level: Option<MixFound>,
     /// Over the matching detections that are at least possible: how much
     /// later than the first audible sample they start, and how much earlier
     /// than the last they end (negative: outside the play).
@@ -612,9 +618,17 @@ fn score_play(play: &PlannedPlay, matching: &[&MixFound]) -> PlayScore {
         .iter()
         .max_by_key(|detection| detection.hits)
         .map(|detection| (*detection).clone());
-    let level = best
-        .as_ref()
-        .map_or(Level::None, |detection| detection.confidence().into());
+    let level = matching
+        .iter()
+        .map(|detection| detection.confidence())
+        .max()
+        .map_or(Level::None, Level::from);
+    let at_level = matching
+        .iter()
+        .filter(|detection| Level::from(detection.confidence()) == level)
+        .max_by_key(|detection| detection.hits)
+        .filter(|detection| Some(**detection) != best.as_ref())
+        .map(|detection| (*detection).clone());
     let shown: Vec<&&MixFound> = matching
         .iter()
         .filter(|detection| detection.confidence() >= Confidence::Possible)
@@ -630,6 +644,7 @@ fn score_play(play: &PlannedPlay, matching: &[&MixFound]) -> PlayScore {
     PlayScore {
         truth: play.clone(),
         level,
+        at_level,
         position_error_seconds: best.as_ref().map(|detection| {
             detection.track_start_seconds - play.source_at(detection.start_seconds)
         }),
@@ -2428,6 +2443,56 @@ mod tests {
         assert_eq!(score.plays[1].level, Level::None);
         assert_eq!(score.wrong_confident, [found[2].clone()]);
         assert_eq!(score.false_candidates.len(), 2);
+    }
+
+    #[test]
+    fn a_play_takes_the_highest_level_of_its_matching_detections() {
+        let mix = PlannedMix {
+            name: String::from("mix"),
+            seconds: 100.0,
+            plays: vec![play(10.0, 50.0)],
+        };
+        // The detection with the most hits spans 2 windows, short of the
+        // rule; the weaker one spans 5 and is confident.
+        let strong_but_short = MixFound {
+            windows: 2,
+            ..found("a.mp3", 12.0, 20.0, 3000)
+        };
+        let confident = MixFound {
+            windows: 5,
+            ..found("a.mp3", 20.0, 45.0, 1000)
+        };
+        assert_eq!(strong_but_short.confidence(), Confidence::Possible);
+        assert_eq!(confident.confidence(), Confidence::Confident);
+
+        for order in [
+            [strong_but_short.clone(), confident.clone()],
+            [confident.clone(), strong_but_short.clone()],
+        ] {
+            let score = score(&mix, &order, &no_clusters(), &SameTitles::default());
+            let play = &score.plays[0];
+            assert_eq!(play.level, Level::Confident);
+            assert_eq!(play.best.as_ref(), Some(&strong_but_short));
+            assert_eq!(play.at_level.as_ref(), Some(&confident));
+            assert!(play.position_error_seconds.unwrap().abs() < 1e-9);
+        }
+
+        let alone = score(
+            &mix,
+            std::slice::from_ref(&confident),
+            &no_clusters(),
+            &SameTitles::default(),
+        );
+        assert_eq!(alone.plays[0].level, Level::Confident);
+        assert_eq!(alone.plays[0].best.as_ref(), Some(&confident));
+        assert_eq!(alone.plays[0].at_level, None);
+        let short_only = score(
+            &mix,
+            std::slice::from_ref(&strong_but_short),
+            &no_clusters(),
+            &SameTitles::default(),
+        );
+        assert_eq!(short_only.plays[0].level, Level::Possible);
     }
 
     #[test]

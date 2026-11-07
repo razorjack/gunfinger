@@ -1,5 +1,5 @@
 //! Commands that read saved reports again and search nothing new:
-//! `seconds`, `gaps` and `self-match`.
+//! `seconds`, `gaps`, `self-match` and `rescore`.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
@@ -22,7 +22,7 @@ use crate::harness::Harness;
 use crate::manifest::Referable;
 use crate::matching::Matching;
 use crate::padding::OtherLibrary;
-use crate::{gaps, manifest, mixes, scan, seconds, shared_mixes};
+use crate::{gaps, manifest, mixes, rescore, scan, seconds, shared_mixes};
 
 #[derive(clap::Args)]
 pub struct SecondsArgs {
@@ -78,6 +78,33 @@ pub struct SelfMatchArgs {
     /// can be told apart.
     #[arg(long)]
     pub neighbours: bool,
+}
+
+#[derive(clap::Args)]
+pub struct RescoreArgs {
+    /// Reports written by `mixes` or `grid`.
+    #[arg(required = true)]
+    pub reports: Vec<PathBuf>,
+    /// Also print each rescored `mixes` report's summary, as `mixes`
+    /// prints it.
+    #[arg(long)]
+    pub summary: bool,
+}
+
+/// `rescore`: each report scored again from its saved detections, written
+/// beside it as `<stem>-rescored.json`.
+pub fn rescore(harness: &Harness, args: RescoreArgs) -> Result<(), String> {
+    let RescoreArgs { reports, summary } = args;
+    let clusters = harness.clusters()?;
+    let titles = harness.same_titles()?;
+    for path in &reports {
+        let (out, rescored) = rescore::rescore_file(path, &clusters, &titles)?;
+        rescore::print(path, &out, &rescored);
+        if summary && !rescored.grid {
+            rescore::print_mixes_summary(&out)?;
+        }
+    }
+    Ok(())
 }
 
 /// `seconds`: each report scored under today's rule and each minimum span.

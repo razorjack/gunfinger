@@ -410,17 +410,8 @@ impl Outcome {
                 }
             })
             .collect();
-        // The scorer's level is its strongest detection's by hits, which
-        // can fall short of the rule while a weaker one is confident.
-        let found = covering
-            .iter()
-            .any(|&(start, end)| start < target.end_seconds && target.start_seconds < end);
         Outcome {
-            target: if found {
-                Level::Confident
-            } else {
-                result.score.plays[1].level
-            },
+            target: result.score.plays[1].level,
             uncovered_seconds: longest_uncovered(
                 target.start_seconds,
                 target.end_seconds,
@@ -1122,40 +1113,32 @@ mod tests {
     #[test]
     fn a_target_is_found_when_any_detection_of_it_is_confident() {
         let (mix, _) = recipe(Vec::new()).planned("mix").unwrap();
-        // The scorer's best by hits spans 2 windows, short of the rule;
-        // the weaker one is confident.
+        // The detection with the most hits spans 2 windows, short of the
+        // rule; the weaker one is confident.
         let strong_but_short = found("target.mp3", 30.0, 33.0, 2, 3000);
         let confident = found("target.mp3", 31.0, 35.0, 5, 1000);
         assert_eq!(strong_but_short.confidence(), Confidence::Possible);
         assert_eq!(confident.confidence(), Confidence::Confident);
+        let clusters = Clusters {
+            criterion: String::new(),
+            duplicates: Vec::new(),
+            pairs: Vec::new(),
+            cut_links: Vec::new(),
+        };
+        let detections = vec![strong_but_short, confident];
         let result = MixResult {
-            score: crate::mixes::MixScore {
-                plays: mix
-                    .plays
-                    .iter()
-                    .map(|play| crate::mixes::PlayScore {
-                        truth: play.clone(),
-                        level: Level::Possible,
-                        best: None,
-                        start_late_seconds: None,
-                        end_early_seconds: None,
-                        position_error_seconds: None,
-                    })
-                    .collect(),
-                wrong_confident: Vec::new(),
-                wrong_possible: Vec::new(),
-                false_candidates: Vec::new(),
-                same_title: 0,
-            },
+            score: crate::mixes::score(&mix, &detections, &clusters, &SameTitles::default()),
             mix,
-            detections: vec![strong_but_short, confident],
+            detections,
         };
         let accepted = BTreeSet::from([String::from("target.mp3")]);
         let outcome = Outcome::of(&result, &accepted);
         assert_eq!(outcome.target, Level::Confident);
         assert!((outcome.uncovered_seconds - 1.0).abs() < 1e-9);
+        let target = &result.mix.plays[1];
         let elsewhere = BTreeSet::from([String::from("partner.mp3")]);
-        assert_eq!(Outcome::of(&result, &elsewhere).target, Level::Possible);
+        let uncovered = Outcome::of(&result, &elsewhere).uncovered_seconds;
+        assert!((uncovered - (target.end_seconds - target.start_seconds)).abs() < 1e-9);
     }
 
     #[test]

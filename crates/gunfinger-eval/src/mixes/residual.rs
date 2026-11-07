@@ -833,6 +833,7 @@ mod tests {
             truth: a.clone(),
             level: Level::Confident,
             best: Some(best),
+            at_level: None,
             start_late_seconds: None,
             end_early_seconds: None,
             position_error_seconds: None,

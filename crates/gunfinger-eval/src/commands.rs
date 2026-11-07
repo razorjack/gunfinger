@@ -161,6 +161,12 @@ pub enum Command {
     /// their scores as they are. The scores go to `seconds/` (with another
     /// library, `seconds/library-<store directory name>/`)
     Seconds(saved_reports::SecondsArgs),
+    /// Score saved `mixes` and `grid` reports again from their saved
+    /// detections with today's scorer, which gives a play the highest
+    /// level among its matching detections (session 77). Searches
+    /// nothing; each rescored report is written beside its saved one as
+    /// `<stem>-rescored.json`, never over it, and what changed is printed.
+    Rescore(saved_reports::RescoreArgs),
     /// List the gaps of saved `mixes`, `shared-mixes` or `scan` reports:
     /// the stretches no segment of a confident play covers, at each minimum
     /// length, with how many tracks each holds by its length over the
@@ -205,7 +211,7 @@ pub enum Command {
 }
 
 /// The commands that take --other-peaks-dir, by `Command::name`.
-const OTHER_LIBRARY_COMMANDS: [&str; 27] = [
+const OTHER_LIBRARY_COMMANDS: [&str; 28] = [
     "validate",
     "map-library",
     "clusters --from-peaks",
@@ -231,6 +237,7 @@ const OTHER_LIBRARY_COMMANDS: [&str; 27] = [
     "identifiability",
     "versions",
     "seconds",
+    "rescore",
     "gaps",
     "self-match",
 ];
@@ -290,6 +297,7 @@ impl Command {
             Command::Passages(_) => "passages",
             Command::Grid(_) => "grid",
             Command::Seconds(_) => "seconds",
+            Command::Rescore(_) => "rescore",
             Command::Gaps(_) => "gaps",
             Command::SelfMatch(_) => "self-match",
             Command::Loss(_) => "loss",
@@ -378,6 +386,7 @@ pub fn run(harness: &Harness, jobs: usize, command: Command) -> Result<(), Strin
         Command::Passages(args) => mixes::passages(harness, jobs, args),
         Command::Grid(args) => mixes::grid(harness, jobs, args),
         Command::Seconds(args) => saved_reports::seconds(harness, args),
+        Command::Rescore(args) => saved_reports::rescore(harness, args),
         Command::Gaps(args) => saved_reports::gaps(harness, args),
         Command::SelfMatch(args) => saved_reports::self_match(harness, jobs, args),
         Command::Loss(args) => evaluation::loss(harness, jobs, args),
