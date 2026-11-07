@@ -248,3 +248,65 @@ Mac).
 ## Decisions taken during the session
 
 (Added as they are taken, with the time.)
+
+- **14:10, the core's watcher.** `watch::run_reporting` and
+  `Heartbeat::beat` were added as designed. `watch::run` behaves as
+  before, but the `gunfinger` binary is no longer byte-identical to
+  `s77-final`'s (`5c0e2c66...` against `46fdc5ea...`), because the
+  watcher's reader now holds the beat mode. No product behaviour
+  changed; both regressions run the core's search and decode.
+- **14:12, the recipe type.** `render::Recipe` keeps its name although
+  `counterexamples` has a `Recipe` of its own (a transformation recipe);
+  `robust` names the render's as `crate::render::Recipe`. A stalled read
+  or render now reports "could not <what>: no progress for 120 s, so it
+  was stopped", for the source's metadata, its first bytes, a pipe and an
+  encode alike.
+- **14:14, shared material.** A `shared` query lists its partner as a
+  source only for the kinds that play it (damaged, blend), so that a
+  partner in the larger library is not needed for the other kinds, as
+  before.
+- **14:15, `ffplay`.** `pair-review`'s playback (`ffplay`, run while the
+  listener listens) stays outside the watchdog: it is the listening
+  tool's playback, not a render, and agents never run it.
+- **14:16, the last line of `regress`.** It is unchanged when the
+  baseline is complete ("every report equal to its baseline's apart from
+  timing"); an incomplete baseline adds "; incomplete: the baseline has
+  no ..." to it. `baseline --provenance-only` skips reports the baseline
+  was saved without.
+- **14:20, the first corpus regress** (`work/bin/s78-run/`,
+  `work/s78/logs/regress-54-run.log`): the five reports
+  `session-54-linux` holds are identical, the two new scans are reported
+  as incomplete, exit 0, 1:23 wall. All 720 sweep renders were refused
+  (old receipts) and rendered again in that run; the new receipts hold
+  the recipe.
+- **14:21, the scores to compare with.** 0232's 12/12 and 17/17 are the
+  NAS-scale figures. At 262 tracks the corpus holds 7 of the 2003 mix's
+  tracks and 9 of Nocny's, and the last recorded figures are 7/7 and 9/9,
+  0 wrong (0238). The first corpus run gives 7/7 and 9/9, 0 wrong. The
+  regress run overwrote the 262-track reports of 2026-10-21; the NAS
+  ones were copied to `work/s78/old-reports/nas/` before the NAS run.
+- **14:25, a test that relied on old receipts.** `recall`'s
+  `a_source_without_a_record_is_left_out_and_the_others_keep_their_order`
+  wrote size-only receipts for sources that did not exist; the recipe
+  reads each source's metadata, so the first `scripts/check.sh` failed on
+  it (`work/s78/logs/check-1.log`). The test now creates the kept sources
+  and writes receipts with their recipes through
+  `render::excerpt_recipe`, which `excerpt_once` also uses.
+- **14:34, the NAS regress** (`s78-final`,
+  `work/s78/logs/regress-75-nas-1.log`): the five held reports identical,
+  the two new scans incomplete, 4:49 wall (session 77: 3:47), 5.5 GiB.
+  The new NAS scans give 12/12 and 17/17, 0 wrong. Against the saved
+  reports of 2026-10-21, the only confident difference is the Into Music
+  segment that ADR 0021 added (0232); the weak ones (6-20 hits) are of
+  files the NAS store gained or lost since (session 75's prune removed
+  the `track_fix` files among them).
+- **14:36, re-rendering cost.** The corpus regress with every render
+  cached took 1:05, against 1:23 when the 720 sweep renders were refused:
+  about 18 s to render them again (by difference). The NAS regress reused
+  the same renders (`work/sweep/seed-2026/` serves both scales).
+- **14:37, new baselines** `session-78-linux` and `session-78-linux-nas`,
+  saved by `s78-final` right after its regress runs, each with the seven
+  reports and a provenance file.
+- **14:40, experiment 0280.** Written because the receipts refused renders
+  that every regress-based experiment used; no figure moved. 40,514
+  older receipts under `work/` are refused on their next use.

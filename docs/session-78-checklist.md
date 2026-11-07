@@ -18,15 +18,15 @@ for scope and rules.
 - [x] 1. Design in the brief: the render recipe, the receipt, mismatches,
   reuse across directories; the watchdog's coverage, heartbeat and
   timeout; the regress coverage and leave-outs
-- [ ] 2. Implementation, tested: receipts refuse a changed source, fault
+- [x] 2. Implementation, tested: receipts refuse a changed source, fault
   and renderer; the watchdog on a stalled and on a silently progressing
   child; `regress` names the new reports and reports an old baseline as
   incomplete
-- [ ] 3. Runs: `regress session-54-linux` and `regress
+- [x] 3. Runs: `regress session-54-linux` and `regress
   session-75-linux-nas` identical for the reports they hold; refused
   renders counted and timed; baselines `session-78-linux` and
   `session-78-linux-nas`; the new scans' scores against 0232
-- [ ] 4. Experiment, only if a figure moved or refused renders that
+- [x] 4. Experiment 0280, only if a figure moved or refused renders that
   earlier experiments used
 - [ ] 5. Read-only review by a subagent; fixes
 - [ ] 6. Wrap-up: notes "Session 78", status, roadmap queue item 1,
