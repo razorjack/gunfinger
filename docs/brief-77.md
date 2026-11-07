@@ -277,3 +277,48 @@ Registered at 13:40, before `rescore` has read any saved report.
   and the rescored copies match those patterns. They are kept beside
   their reports as the prompt asks; `work/s77/rescored-files.txt` lists
   all 205 for deletion, and the handoff says so.
+
+## Step 4: `regress` (committed in `1ee36e1`)
+
+- **(13:40) What "incomparable" means.** A sweep pair is incomparable
+  when the seeds differ, the speed rows differ, or the queries differ in
+  count or in any query's asset, start, speed or held-out status, in
+  order (a reordered list is incomparable: the comparison is
+  positional). A scan pair is incomparable when the set, the audio
+  file, the left-out tracks, slots or files, or the manifest's tracks
+  (label, start, referenced) differ. Other differences are "changed";
+  a pair is "identical" only when the whole reports are equal apart
+  from `wall_seconds` (the check `same.py` made by hand since session
+  36, now in `regress`). A query whose detections are unchanged apart
+  from how they were scored (right, same title, partner) is changed,
+  and counted on its own line.
+- **(13:42) Provenance.** `gunfinger-eval baseline` writes
+  `provenance.json` beside the reports: the SHA-256 of the running
+  `gunfinger-eval`, the set and seed, the corpus store's and (with
+  `--other-peaks-dir`) the other store's current records and revision
+  (`indexing::library_revision`, which `store_revision.py` reproduces),
+  the SHA-256 of the clusters file the run reads, of
+  `docs/pair-verdicts.txt`, of `docs/same-titles.txt` and of a listing
+  of the panels' files, the profile, `hash::design()`, the ladder,
+  extra rungs, the matcher's options (their `Debug` form) and
+  `--verify`. SHA-256 is computed by a small module of the harness
+  (`digest.rs`, tested on the standard's vectors), since no crate in the
+  tree provides it; its digests equal `sha256sum`'s (checked on the
+  build, the clusters file, both documents and the panels listing).
+- **(13:43) Decision: the build is not an input.** `regress` prints a
+  different build on its own line and does not count it: a refactor
+  changes the build by design, and `--strict` exists for refactors.
+  Every other field that differs makes the comparison incomparable.
+- **(13:44) Decision: `--strict`.** Exits with an error on any changed
+  or incomparable pair and any differing input; without it `regress`
+  prints the same lines and returns success, as before.
+- **(13:45) Decision: provenance beside the old baselines.** `baseline
+  --provenance-only NAME` writes only `provenance.json`, marked
+  `after_the_fact`, and is refused when the file exists or when any
+  current standard report differs from the baseline's apart from
+  `wall_seconds`. It then records the build and inputs that reproduced
+  the baseline's reports, not those of the session that saved them
+  (sessions 54 and 75); the reports are not touched (their SHA-256s are
+  checked before and after, `work/s77/baselines-before-provenance.txt`).
+  This is safe in the sense of the prompt, so no new baselines are
+  saved.

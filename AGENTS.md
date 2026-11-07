@@ -139,8 +139,9 @@ default): each confident entry's file is taken out of the recording
 with the core's `residual`, and what is left is searched for a quieter
 track.
 
-The harness adds `sweep`, `scan`, `calibrate`, `regress`, `robust`
-(transformed excerpts), `synthetic` (the scale proxy), `clusters` and
+The harness adds `sweep`, `scan`, `calibrate`, `regress` (with
+`provenance`, what a baseline was made from, and `digest`, SHA-256),
+`robust` (transformed excerpts), `synthetic` (the scale proxy), `clusters` and
 `related` (self-match of the library), `pair` (two files' alignments and
 the time their hits support), `recall` (a panel drawn from the larger
 library's records, beyond the corpus recordings), `survival` and `hash_cost` (hash
@@ -161,6 +162,8 @@ measures each detection for session 21's candidate statistics;
 a list of files and spans; `break_search` lists every file holding a
 passage of one file, with every posting list and with the fullest set
 aside (session 74).
+`rescore` scores saved `mixes` and `grid` reports again from their
+detections and writes each beside the saved one;
 `seconds` scores saved `mixes`, `shared-mixes` and `scan` reports
 second by second (Sonnleitner et al. 2016, §5), under today's rule or a
 minimum span; `gaps` lists the stretches of the same reports that no
