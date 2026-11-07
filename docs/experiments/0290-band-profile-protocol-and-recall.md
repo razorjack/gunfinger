@@ -25,8 +25,7 @@ Data: `data/0290-band-profile-protocol-and-recall.json`.
 | Robust (2,600): confident; possible or better | 1,938; 2,242 | 1,932; 2,253 | 1,969; 2,271 |
 | Blend 0 dB; beatmatched 0 dB; blend -6 dB; broadcast | 31; 28; 72; 66 | 23; 21; 71; 65 | 31; 28; 74; 72 |
 
-No arm has a wrong confident answer in any of these evaluations (recall's held-out queries
-included). Damaged recall rests on few recordings: T finds 1 source, a 1 other, b 4.
+No arm has a wrong confident answer here (recall's held-out queries included). Damaged recall rests on few recordings: T finds 1 source, a 1 other, b 4.
 The strongest audio not in the index is China Cup on The Nine under a and b (shared drums,
 judged by ear in session 4); calibrate's pairs of 30 hits or more are read in 0291.
 
