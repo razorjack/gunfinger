@@ -324,3 +324,74 @@ Registered at 13:18 (`3c93455`), before `rescore` had read any saved report (its
   "Step 5").
   This is safe in the sense of the prompt, so no new baselines are
   saved.
+
+## Step 7: the read-only review (13:32-13:40) and its fixes (`82dc9c6`)
+
+A subagent read the commits and documents (no runs, no agents). It
+found no bug in the scorer, `regress` or the SHA-256 code, and confirmed
+that the product's crates are unchanged, that 0279's and 0250's numbers
+match the data, and that every test the prompt asked for exists. What
+it found, and what was done:
+
+- `scripts/analysis/span_rule.py` (`mix_score`, `grid`) and
+  `span_recall.py` still gave a play its strongest detection's level, so
+  the minimum-span analyses scored by the old rule and would report
+  false "stored, computed" problems on new reports. Fixed: the highest
+  level, and the stored check accepts either rule. (The Rust consumers
+  had been checked; the Python ones had not.)
+- `rescore`'s drift check counted every raised play as drift on a report
+  written by today's scorer. Fixed: a saved level of either rule is
+  accepted; a test rescoring a rescored report expects no change.
+- `baseline --provenance-only` could not tell reports of another build.
+  Fixed: it refuses reports older than the running executable. Full
+  `baseline` keeps its help text ("save it with the build that wrote the
+  reports").
+- The panels walk could follow a symbolic link into a cycle. Fixed.
+- Wrong clock times in this brief (the registration read as later than
+  the rescoring), a doc comment of `Verdict::changed`, the untracked
+  report lists and the 24 mappings marked "likely" (now stated in
+  0279), the arm bound without a script (now `work/s77/arm_bound.py`,
+  output `work/s77/arm-bound.txt`) and the grid reports' saved matching
+  lists (now stated in `rescore.rs` and 0279). Fixed.
+- **Kept, decisions (13:45).** `pair_verdicts` and the whole panels
+  directory stay provenance inputs, as the prompt lists them, although
+  the standard evaluation reads the verdicts only through the clusters
+  file and one panel only: a verdict or another panel's change makes
+  `regress` incomparable. The matcher's settings stay in their `Debug`
+  form, so a refactor that adds a field to `Matching` makes `--strict`
+  fail on the provenance; the printed line names the field, and a new
+  baseline then follows. The rescored `score` is written from today's
+  structure (stated in `rescore.rs`). The 0250 amendment stays one long
+  last line, to keep the file at 40 lines. Not unit-tested: the exit
+  path of `--strict` in `commands/evaluation.rs` (it is run in step 5)
+  and a changed manifest track in a scan (the check is one comparison
+  beside the tested leave-out check).
+- The fixes change the harness, so the final queue ran again with a
+  new final build (`work/s77/final2.sh`); the first queue's runs with
+  the pre-fix build (`check.sh` green in 7:55; both regressions
+  identical) are kept in `work/s77/logs/first-final/`, and it was stopped
+  before its strict and provenance steps.
+
+## Step 5: the final regressions and the provenance (13:43-14:01)
+
+- `work/s77/final2.sh` with `work/bin/s77-final/` (master at `82dc9c6`;
+  `gunfinger` SHA-256 `46fdc5eac4a7...`, byte-identical to
+  `s75-final`'s; `gunfinger-eval` `12a2d5426aa3...`): `scripts/check.sh`
+  green (7:42); `regress session-54-linux` (0:51) and `regress
+  session-75-linux-nas` (3:47) end "every report equal to its baseline's
+  apart from timing", and `same.py` agrees for all eight reports; both
+  again with `--strict` (0:51, 3:48) exit 0. `rescore` under the final
+  build prints what the first run printed, for all 205 reports.
+- `baseline --provenance-only` wrote `provenance.json` beside
+  `session-54-linux` and `session-75-linux-nas`; the eight reports'
+  SHA-256s are unchanged (`sha256 -c` of
+  `work/s77/baselines-before-provenance.txt`: all OK). `regress
+  --no-rerun --strict` against both then compares the provenance and
+  exits 0 with no provenance line (same build, same inputs).
+- The failure path: `regress --no-rerun --strict session-64-linux-nas`
+  (the baseline before session 75's prune; it only reads) exits 1 and
+  lists the four reports as changed, with "689 of 720 queries with
+  identical detections", as 0278 recorded
+  (`work/s77/logs/strict-negative.log`).
+- No decision's evidence moved (step 3), so `docs/decisions-queue.md`
+  does not change.

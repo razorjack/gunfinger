@@ -100,6 +100,7 @@ that holds it.
 - "Session 74" (2026-11-02): which tracks use this break? A passage query, measured. `this file`
 - "Session 75" (2026-11-02): the records of DJ sets and a mixed CD's track fix pruned from the NAS store, new NAS-scale baseline. `this file`
 - "Session 76" (2026-11-07): the documents every session reads, made small and current. `this file`
+- "Session 77" (2026-11-07): generated-mix scoring and `regress` measure what they say. `this file`
 
 
 ## Session 70
@@ -1134,3 +1135,137 @@ stays 0279).
   their start digests (`work/s76/listening-digests-end.txt`); no file
   under `crates/`, `scripts/`, `docs/panels/` or `corpus/` changed since
   `009fe55`; `git status` clean.
+
+## Session 77
+
+Brief `docs/brief-77.md`, checklist `docs/session-77-checklist.md`,
+experiment 0279. The product did not change (the `gunfinger` binary is
+byte-identical to `s75-final`'s); the harness and two analysis scripts
+did.
+
+### What changed
+
+- `mixes::score_play` gives a generated mix's play the highest level
+  among its matching detections (ADR 0013's rule); `best` (most hits)
+  still places it, and `at_level` names the detection that gives the
+  level when it is another. `grid`, the residual pilot,
+  `counterexamples` (its override removed) and
+  `scripts/analysis/span_rule.py`, `span_recall.py` follow.
+- `gunfinger-eval rescore REPORT...` scores saved `mixes` and `grid`
+  reports again from their detections and writes `<stem>-rescored.json`
+  beside each, with the level moves, the rule's own effect and any drift.
+- `regress` checks the sweep's queries (count; asset, start, speed and
+  held-out status, in order) and each scan's set, audio, leave-outs and
+  manifest tracks first, prints "incomparable" for a mismatch, compares
+  whole reports apart from `wall_seconds`, and ends with one verdict
+  line. `--strict` exits 1 on any difference; the default still returns
+  success.
+- `baseline NAME` writes `provenance.json` (the build's SHA-256, both
+  stores' revisions, digests of the clusters, pair verdicts, same titles
+  and panels, the profile, hash design, ladder and matcher's settings),
+  which `regress` compares; `baseline --provenance-only NAME` adds it to
+  a baseline whose reports today's build reproduces.
+
+### Experiment 0279: what the scoring fix changed in saved reports
+
+`rescore` over every saved `mixes` report under `work/` (202) and the
+three `grid` reports: 6 of 54,477 plays moved, all possible to
+confident, all in 0250's NAS-scale stereo-fault mixes of seed 2028 (Bad
+Company - Oxygen in four reports, Balderdash in one; the sixth in an
+uncited check). 0250's first halves go from 91/99 to 92/99 and the
+variant's inverted second halves from 93/100 to 94/100; its bars and
+conclusion stand, and it has an amendment. The other 37 citing
+experiments move in no figure, and no play drifted for another reason.
+The residual pilots' arms cannot be rescored without a search (an
+upper bound of 463 of 60,337 arm plays, `work/s77/arm-bound.txt`).
+
+### Times on the Linux machine (32 workers)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `rescore`, 205 reports (541 MB) | 4 s | 0.16 GiB |
+| `scripts/check.sh` (final) | 7:42 | |
+| `regress session-54-linux`; with `--strict` | 0:51; 0:51 | 0.4 GiB |
+| `regress session-75-linux-nas`; with `--strict` | 3:47; 3:48 | 5.3 GiB |
+| `baseline --provenance-only`, corpus; NAS | 0.2 s; 0.5 s | |
+
+### Decided this session, open to change
+
+- The build is not a provenance input: `regress` prints another build
+  on its own line and `--strict` does not fail on it (refactors change
+  the build). `pair_verdicts` and the whole panels directory are inputs,
+  as the prompt listed them, although the standard evaluation reads the
+  verdicts only through the clusters file; the matcher's settings are
+  stored in their `Debug` form, so a new `Matching` field makes the
+  next `--strict` run fail on the provenance until a new baseline.
+- A reordered sweep is incomparable: the comparison stays positional.
+- Provenance was written beside the old baselines (`after_the_fact`)
+  instead of saving new ones, because the final build reproduced their
+  reports exactly.
+- Rescored reports stay beside their saved ones, as asked; scripts of
+  earlier sessions that glob a report directory
+  (`query_side_bar.py`'s `mixes-stereo-*-seed-*.json`) now also match
+  the `-rescored` copies. `work/s77/rescored-files.txt` lists all 205.
+
+### Questions this leaves for us
+
+- None that block. Whether `pair_verdicts` and every panel should stay
+  provenance inputs (they make `regress` incomparable on changes no
+  report can show).
+
+### Questions for listening (none answered by agents)
+
+- None new. Pending: the Planet Dust (DC Breaks Remix) cut (`unsure`);
+  session 74's four break lists.
+
+### Handoff for the next session
+
+1. Baselines: `session-54-linux` (262 tracks) and `session-75-linux-nas`
+   (NAS scale), unchanged reports, each now with a `provenance.json`
+   (written by the final build, `after_the_fact`). Use them as before.
+2. How to run: `gunfinger-eval regress session-54-linux` and
+   `gunfinger-eval --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks
+   regress session-75-linux-nas`; the last line says "every report
+   equal to its baseline's apart from timing" or names the changed and
+   incomparable reports. Add `--strict` for a change meant to keep every
+   result (a refactor): it exits 1 on any difference. A session that
+   saves a new baseline with `baseline NAME` gets the provenance with
+   it; run it with the build that wrote the reports, right after
+   `regress`.
+3. The rescored reports: `<stem>-rescored.json` beside each report listed
+   in `work/s77/rescored-files.txt` (per report and experiment:
+   `docs/experiments/data/0279-rescored-generated-mixes.json`; the map
+   `work/s77/report-map.tsv`; 0250's recomputation
+   `work/s77/q0250/{before,after}.json`).
+4. The NAS store: 40,666 records, revision `0bd3f0c23fabc698`; corpus 265
+   records, `526a3b978eb3e411`. The NAS clusters file
+   `c4d3da2e7e37...` (unchanged), 284 clusters.
+5. Builds: `work/bin/s77-final/` (master at `82dc9c6`; its `gunfinger` is
+   byte-identical to `s75-final`'s). `s77-start` and `s77-run` were
+   deleted; `s75-final` is the other kept final build.
+6. Left for session 78 (the active queue's item 1): the render cache's
+   recipe fingerprint, the harness's FFmpeg calls under the core's
+   watchdog, and `regress` coverage of the 2003 and Nocny scans. To
+   rescore the residual pilots' arms, the pilots would have to be run
+   again.
+7. Scripts and data: `work/s77/` (`run.sh`, `start.sh`, `rescore.sh`,
+   `final.sh`, `final2.sh`, `find_reports.py`, `summary.py`,
+   `changed_plays.py`, `arm_bound.py`, `same.py`; logs in `logs/`, the
+   first final queue's with the pre-review build in `logs/first-final/`).
+
+### What else to know
+
+- The held-out test set was not touched: no command named it, and no
+  manifest or report of it was opened (the report inventory holds no
+  path of it). The only mix searched was the Stakka development mix,
+  through `regress`; `rescore` searches nothing. Nothing ran on the
+  candidate mixes of 0065 or on the NAS root's broadcast file. The NAS
+  and `work/peaks` were only read.
+- `docs/pair-verdicts.txt`, the answer log and the NAS clusters file are
+  at their start digests (`work/s77/listening-digests-end.txt`); no
+  manifest, committed panel or `docs/same-titles.txt` changed.
+- A read-only review by a subagent found no bug in the shipped Rust
+  code and four points that were fixed before the final queue (the span
+  scripts' old rule, `rescore`'s drift check on new reports,
+  `--provenance-only` on stale reports, the panels walk), with wrong
+  clock times in the brief (brief 77, step 7).

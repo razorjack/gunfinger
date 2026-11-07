@@ -227,3 +227,24 @@ notes "Session 76". No code changed and nothing was measured.
 - `CLAUDE.md`, `AGENTS.md`'s module map, `docs/session-rules.md` and
   `README.md` follow the moves; two points about `AGENTS.md` went to the
   decisions queue (item 9).
+
+## 2026-11-07: session 77, generated-mix scoring and `regress` measure what they say
+
+Brief `docs/brief-77.md`, checklist `docs/session-77-checklist.md`;
+notes "Session 77"; experiment 0279. The product did not change.
+
+- A generated-mix play now takes the highest level among its matching
+  detections (ADR 0013's rule); the strongest by hits still places it.
+  `gunfinger-eval rescore` rescored the 205 saved reports offline: 6 of
+  54,477 plays moved, all possible to confident and all in 0250
+  (amended; its bars and conclusion stand). No other figure moved.
+- `regress` checks that the sweep's queries and the scans match before
+  comparing and prints "incomparable" for a mismatch; `baseline` writes
+  `provenance.json`, which `regress` compares; `regress --strict` exits
+  with an error on any difference. Both baselines gained a provenance
+  file beside their unchanged reports.
+- Final checks with `work/bin/s77-final/`: `scripts/check.sh` green;
+  `regress session-54-linux` and `regress session-75-linux-nas`
+  identical, also with `--strict`; `docs/pair-verdicts.txt` and the NAS
+  clusters file unchanged. Left for session 78: the render cache, the
+  harness's FFmpeg watchdog and `regress`'s coverage.

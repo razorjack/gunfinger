@@ -9,9 +9,10 @@ detections (ADR 0013's rule for plays), which figures of committed experiments m
 the play, `at_level` names the one giving the level; `counterexamples`' override is gone.
 **Command.** `work/s77/rescore.sh`: `gunfinger-eval rescore` (today's clusters and
 same-title judgments; `--other-peaks-dir` for NAS-scale reports) over every saved
-`mixes` report under `work/` (202) and the three `grid` reports of session 57, each
-written beside its saved one as `<stem>-rescored.json`. `work/s77/report-map.tsv` maps
-197 reports to 38 citing experiments; `scripts/analysis/query_side_bar.py` for 0250.
+`mixes` report under `work/` (202) and the three `grid` reports of session 57 (whose
+saved matching lists are kept), each written beside it as `<stem>-rescored.json`.
+`work/s77/report-map.tsv` maps 197 reports to 38 experiments (24 by inference, "likely");
+`query_side_bar.py` for 0250, `work/s77/arm_bound.py` for the arms.
 Data: `data/0279-rescored-generated-mixes.json`.
 
 | Reports | Plays | Level moved | Drifted otherwise |
@@ -32,9 +33,8 @@ Data: `data/0279-rescored-generated-mixes.json`.
 - Not rescorable without a search: the residual pilots' arms (0255-0258, 0269-0271),
   which keep each play's strongest detection only: 463 of 60,337 arm plays are below
   confident with 240 hits or more in under 3 windows, an upper bound on those that could
-  move. Their cases (the confident indexed plays) are unchanged. 0264-0266 used the
-  override, which gave the registered definition (0266); `shared-mixes`, `passages`
-  and `identify` reports have their own scorers.
+  move. Their cases are unchanged. 0264-0266 used the override, which gave the registered
+  definition; `shared-mixes`, `passages` and `identify` reports have their own scorers.
 
 **Conclusion.** The defect was real and moved little: 6 of 54,477 saved plays move, all in
 0250, by one play per figure, and no decision's reading changes.

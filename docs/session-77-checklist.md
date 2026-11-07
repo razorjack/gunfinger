@@ -15,16 +15,16 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 1. Pre-registration in the brief (the rule, the reports rescored,
+- [x] 1. Pre-registration in the brief (the rule, the reports rescored,
   what counts as a changed conclusion), committed before the fix
-- [ ] 2. The scoring fix at the common scorer, tested; the counterexample
+- [x] 2. The scoring fix at the common scorer, tested; the counterexample
   runner's workaround; every consumer of `level`; an offline `rescore`
-- [ ] 3. Rescoring the listed reports; a table per experiment
-- [ ] 4. `regress`: query identity and counts, scan set and leave-outs,
+- [x] 3. Rescoring the listed reports; a table per experiment
+- [x] 4. `regress`: query identity and counts, scan set and leave-outs,
   "incomparable", provenance from `baseline`, `--strict`, unit tests
-- [ ] 5. Final regressions (also `--strict`); provenance for both
+- [x] 5. Final regressions (also `--strict`); provenance for both
   baselines
-- [ ] 6. Experiment 0279
-- [ ] 7. Read-only review by a subagent; fixes
-- [ ] 8. Wrap-up: notes "Session 77", status, roadmap queue item 1,
+- [x] 6. Experiment 0279
+- [x] 7. Read-only review by a subagent; fixes
+- [x] 8. Wrap-up: notes "Session 77", status, roadmap queue item 1,
   decisions queue, checklist; final checks

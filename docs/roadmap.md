@@ -49,6 +49,11 @@ Each session takes the first item it can do without a pending decision.
    core's watchdog (ADR 0018); `regress` covers the 2003 and Nocny scans
    at both scales. One session, with both regressions identical or every
    difference explained.
+   *Session 77 (0279):* the scoring and `regress` parts are done: plays
+   take the highest level (6 of 54,477 saved plays moved, all in 0250);
+   `regress` reports incomparable pairs, compares `provenance.json` and
+   has `--strict`. Left for session 78: the render cache's recipe
+   fingerprint, the FFmpeg watchdog and the 2003 and Nocny scans.
 2. **`--under` before its default.** Fix the fourth drop rule
    (`named_as_one_track` matches non-overlapping plays within 90 s;
    0274), run the mask's entries in parallel, measure 0275's table
