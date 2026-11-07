@@ -289,3 +289,9 @@ them): they test repeatability on new draws, not other recordings.
   ~/.local/share/gunfinger/nas-dnb-peaks OUT
   work/s73/nas-exclude-<seed>.txt`; G and the confirmation seeds are
   scored the same way.
+- (16:18) Experiment numbers follow the order the runs finished: 0281
+  is the cost (its runs ended first, at 16:17), 0282 the drop rule's
+  fix (G and the confirmation seeds), not the other way round as the
+  plan said.
+- (16:18) J3 is reported as failed: Nocny at NAS scale takes 2.01 times
+  the default (41.86 s against 20.79 s), Stakka 1.87 and razorjack 1.85.
