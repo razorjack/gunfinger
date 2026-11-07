@@ -203,6 +203,21 @@ pub(super) fn playable(
         .collect()
 }
 
+/// The pairs whose played record (the first) is indexed and not held
+/// out, each record marked with whether it is indexed; the related record
+/// may be a file only the other library holds, which the cases that leave
+/// the played record out search at that library's scale.
+pub(super) fn with_played_record_indexed(
+    pairs: Vec<SharedPair>,
+    records: &[PeakRecord],
+    held_out: &BTreeSet<String>,
+) -> Vec<SharedPair> {
+    playable(pairs, records, held_out, None, true)
+        .into_iter()
+        .filter(|pair| pair.records[0].indexed)
+        .collect()
+}
+
 /// Draws a mix of the drops kind: its blocks, then their plays.
 pub(super) fn draw(
     name: &str,
@@ -211,7 +226,7 @@ pub(super) fn draw(
     clusters: &Clusters,
     rng: &mut Rng,
 ) -> Result<PlannedMix, String> {
-    let blocks = draw_blocks(pools, &extras.pairs, extras.case, clusters, rng)?;
+    let blocks = draw_blocks(pools, extras, clusters, rng)?;
     let mut plays: Vec<PlannedPlay> = Vec::new();
     // The play the next block is joined to.
     let mut current: Option<usize> = None;
@@ -274,11 +289,11 @@ pub(super) fn draw(
 /// recording of its own apart from the repeats the scenarios make.
 fn draw_blocks<'a>(
     pools: &Pools<'a>,
-    pairs: &'a [SharedPair],
-    case: Option<Case>,
+    extras: &'a LongExtras,
     clusters: &Clusters,
     rng: &mut Rng,
 ) -> Result<Vec<Block<'a>>, String> {
+    let pairs = &extras.pairs;
     if pairs.is_empty() {
         return Err(String::from(
             "no pair of the shared-material panel has both files indexed for the drops kind",
@@ -347,7 +362,7 @@ fn draw_blocks<'a>(
         Block::Alone(returning, Scenario::Returning),
         Block::Alone(rips.1, Scenario::Rips),
     ];
-    match case {
+    match extras.case {
         Some(Case::Three) => {
             let record = pick(&long, &mut used, clusters, rng)?;
             for block in &mut blocks {
@@ -362,7 +377,7 @@ fn draw_blocks<'a>(
             }
         }
         Some(case @ (Case::MistakenOver | Case::RelatedUnder)) => {
-            let (one, other) = two_other_pairs(pairs, [apart, paired], rng)?;
+            let (one, other) = two_other_pairs(&extras.left_out_pairs, [apart, paired], rng)?;
             let mut left_out = [one, other].into_iter().map(|pair| Pick {
                 left_out: true,
                 ..of_pair(pair, 0)
@@ -800,6 +815,7 @@ mod tests {
             pairs: vec![pair()],
             rides: super::super::RideDraw::default(),
             case: None,
+            left_out_pairs: Vec::new(),
         };
         (records, held_out, clusters, extras)
     }
@@ -1076,7 +1092,21 @@ mod tests {
                 ],
             })
             .collect();
+        extras.left_out_pairs = extras.pairs.clone();
         (records, held_out, clusters, extras)
+    }
+
+    #[test]
+    fn a_pair_may_be_left_out_when_its_played_record_is_indexed_whatever_its_related_one() {
+        let none = BTreeSet::new();
+        let played_only = vec![record("original.mp3", 420.0)];
+        let pairs = with_played_record_indexed(vec![pair()], &played_only, &none);
+        assert_eq!(pairs.len(), 1);
+        assert!(!pairs[0].records[1].indexed);
+        let related_only = vec![record("remix.mp3", 520.0)];
+        assert!(with_played_record_indexed(vec![pair()], &related_only, &none).is_empty());
+        let held_out = BTreeSet::from([String::from("original.mp3")]);
+        assert!(with_played_record_indexed(vec![pair()], &played_only, &held_out).is_empty());
     }
 
     fn drawn_with(case: Case, seed: u64) -> (PlannedMix, PlannedMix) {

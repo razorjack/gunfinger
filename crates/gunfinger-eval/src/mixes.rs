@@ -809,6 +809,10 @@ pub struct LongExtras {
     pub rides: RideDraw,
     /// The drops kind's harder case (`DropsOptions::case`).
     pub case: Option<drops::Case>,
+    /// The pairs `drops::Case::MistakenOver` and `RelatedUnder` may leave
+    /// out: the played record indexed, the related one in the index or
+    /// only in the other library.
+    pub left_out_pairs: Vec<SharedPair>,
 }
 
 /// Two records of one family of the shared-material panel, in the order
@@ -1615,6 +1619,12 @@ pub fn run(
         .cloned()
         .collect();
     let mut pools = Pools::new(&without_families, &held_out);
+    let left_out_pairs = match drops.and_then(|drops| drops.case) {
+        Some(drops::Case::MistakenOver | drops::Case::RelatedUnder) => {
+            drops::with_played_record_indexed(pairs.clone(), &records, &held_out)
+        }
+        _ => Vec::new(),
+    };
     let pairs = if let Some(drops) = drops {
         if let Some(tagged) = drops.tagged {
             pools
@@ -1644,6 +1654,7 @@ pub fn run(
             _ => RideDraw::default(),
         },
         case: drops.and_then(|drops| drops.case),
+        left_out_pairs,
     };
     let rides = options.kind.rides_label();
     let mut rng = Rng::new(options.seed);
