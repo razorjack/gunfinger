@@ -104,6 +104,7 @@ that holds it.
 - "Session 78" (2026-11-07): render receipts, the harness's FFmpeg watchdog and `regress` over all three development mixes. `this file`
 - "Session 79" (2026-11-07): the fourth drop rule of `identify --under` and its masks on the workers. `this file`
 - "Session 80" (2026-11-07): the precision of `identify --under` on harder generated cases. `this file`
+- "Session 81" (2026-11-07): short chains under library perturbations, and a bounded fit for short chains only. `this file`
 
 
 ## Session 70
@@ -1666,3 +1667,94 @@ renders or reports and corrected several readings in the documents
   `work/peaks` were only read.
 - The first render queue failed on seed 8001 (no playable pair) and
   then on mistaken-over (too few pairs); brief 80 records both.
+
+## Session 81
+
+Brief `docs/brief-81.md` (the registration and every decision),
+checklist `docs/session-81-checklist.md`, experiments 0285-0287. A
+measurement session: the product's behaviour and every default are
+unchanged.
+
+### What changed
+
+- Core, opt-in: `SecondPassFit::IteratedShortChains` (the bounded fit
+  only where `chain_speed` gives the mean of the rungs:
+  `chains::speed_estimate` returns `SpeedEstimate::MeanOfRungs` for a
+  chain of fewer than 3 lines or under 16 s between centres).
+- Harness: `--second-pass-fit iterated-short`; `--set-aside-share
+  SHARE` (the first pass sets aside another share of the fullest lists,
+  so that only the cut moves; reports in `variant-set-aside-<share>/`);
+  `grid` takes `--other-peaks-dir` and `--other-sample`.
+- `Matching` has its own `Debug`, which prints `set_aside_share` only
+  when given: provenance's "matching" string is what the derived form
+  printed before, so `regress --strict` still compares with the
+  session-78 baselines (the first strict run failed on that string
+  alone, every report identical).
+- `scripts/analysis/perturbation.py` (`compare`, `fits`): the registered
+  measures for sweep and grid reports.
+
+### Results
+
+- Default (0285, 0287): no confident answer changed under any
+  perturbation. A 10-20 s play's true detection moves by 5% or more
+  6-7 times as often as a 25-40 s play's when files are added or
+  removed at 262 tracks, and its speed by up to a rung; at NAS scale
+  1-4 of 582 short detections move by 5% or more, by 16-32%; 30 s
+  excerpts move by at most 3 hits. Short plays near the rule fail on
+  windows, not hits, so the moves decide nothing today.
+- The short-chain bounded fit (0286): most of the speed movement goes,
+  short plays gain about a fifth of their hits, no confident change
+  under perturbation either; at the base one 20 s play becomes
+  confident and calibrate's strongest false rises from 100 to 107 at
+  262 tracks (the Clockwork remix passage, 0252's B4 case). A1 and A3
+  fail; not a candidate for an ADR proposal.
+
+### Decided this session, open to change
+
+- Recall's brief plays and the shared panels' development halves were
+  not run (NAS scale only, 24-85 minutes per run in session 63); the
+  NAS-scale grid was added instead (decided at 20:11, before its runs).
+- Chain length is measured by the query's length: the reports hold no
+  first-pass chain.
+- The perturbation sizes: 400 NAS records added to 262 tracks, 100
+  removed again, the cut at 0.99% and 1.01%, 2 copies of 50 drawn files;
+  at NAS scale 420 records fewer and the cut at 1.01%. In both
+  commands' 262-track indexes the 1.01% cut moved nothing (by
+  inference, ties at the cut).
+
+### Questions this leaves for us
+
+- Decisions queue item 1: B(15) makes hits decide 15-20 s plays; 0285's
+  panel on recall's brief plays near 200 hits is the missing check
+  before the rule is frozen. Whether the short-chain fit should be
+  considered together with the minimum span is ours (it lifts shared
+  material).
+- The fits (`grid`, `cross`, `iterated`, `iterated-short`) stay opt-in;
+  the note says they are deleted once the minimum span is decided or
+  dropped.
+- Nothing needs listening.
+
+### Handoff for the next session
+
+1. Builds: `work/bin/s81-final/` (master) and `s80-final`. The runs
+   used `s81-run` (the default's bases, the variant's `regress`),
+   `s81-run3` (the rest; the same search code); `s81-start`,
+   `s81-run`, `s81-run2` and `s81-run3` are deleted at the end.
+2. Baselines unchanged: `session-78-linux` and `session-78-linux-nas`.
+3. Data: `work/s81/` (queues `q262.sh`, `q262b.sh`, `qnas.sh`,
+   `qgridnas.sh`, `qoff.sh`; logs `logs/`; reports in `w/reports/`
+   (262 tracks), `wnas/reports/` (NAS scale), `wreg/reports/` (the
+   variant's `regress`); `summarise.py`, `summary.json`, `movers.py`,
+   `windows.py`, `copied.txt`). Renders in the scratch directories are
+   deleted at the end; the sweep's are reflink copies of `work/sweep`.
+4. To compare again: `python3 -I scripts/analysis/perturbation.py
+   compare grid|sweep BASE.json PERTURBED.json`.
+5. The NAS store: 40,666 records, revision `0bd3f0c23fabc698`; corpus
+   store revision `526a3b978eb3e411`; the clusters file unchanged.
+
+### What else to know
+
+- The held-out test set was not touched; the only mixes searched were
+  the three development mixes (by `regress`); the grid and the sweep
+  search excerpts. Nothing ran on the candidate mixes of 0065 or the NAS
+  root's broadcast file. The NAS and `work/peaks` were only read.

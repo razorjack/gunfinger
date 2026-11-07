@@ -331,3 +331,23 @@ stays Proposed.
   clusters file unchanged. A review by a subagent found no change to the
   default path and corrected the documents' readings of 0284.
 
+
+## 2026-11-07: session 81, short chains under library perturbations, and a bounded fit for short chains only
+
+Brief `docs/brief-81.md`, checklist `docs/session-81-checklist.md`;
+notes "Session 81"; experiments 0285-0287. A measurement session: the
+product and its defaults are unchanged.
+
+- A registered perturbation panel (files added and removed, duplicate
+  copies, the set-aside cut moved by `--set-aside-share`) over the grid's
+  10-40 s plays and the sweep, at 262 tracks and NAS scale: no confident
+  answer changed. Short plays' detections move far more than long ones'
+  (up to a rung of speed and a third of their hits), but at today's rule
+  short plays near it fail on windows, not hits (0285, 0287).
+- The bounded fit for short chains only (`--second-pass-fit
+  iterated-short`) removes most of that movement but lifts calibrate's
+  strongest false at 262 tracks from 100 to 107; it fails its registered
+  bar and is not proposed (0286).
+- For the minimum span (decisions queue item 1): under B(15) hits would
+  decide 15-20 s plays; recall's brief plays near 200 hits were not
+  perturbed and are the check to run before the rule is frozen.

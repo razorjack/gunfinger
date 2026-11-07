@@ -16,10 +16,11 @@ for scope and rules.
 ## Steps
 
 - [x] 1. Registration committed (in `docs/brief-81.md`)
-- [ ] 2. Variants (`--second-pass-fit iterated-short`, `--set-aside-share`,
-  `grid --other-sample`), tested; `regress` identical with them off
-- [ ] 3. Runs (262 tracks; NAS-scale sweep where it fits)
-- [ ] 4. Experiments 0285, 0286
-- [ ] 5. Note, roadmap, decisions queue item 1
-- [ ] 6. Review by a subagent; fixes
-- [ ] 7. Wrap-up: notes, status, final checks, commit
+- [x] 2. Variants (`--second-pass-fit iterated-short`, `--set-aside-share`,
+  `grid --other-sample`), tested; `regress session-78-linux --strict`
+  identical with them off
+- [x] 3. Runs (262 tracks; NAS-scale sweep; the NAS-scale grid added)
+- [x] 4. Experiments 0285, 0286, 0287
+- [x] 5. Note, roadmap, decisions queue item 1
+- [~] 6. Review by a subagent; fixes
+- [~] 7. Wrap-up: notes, status, final checks, commit
