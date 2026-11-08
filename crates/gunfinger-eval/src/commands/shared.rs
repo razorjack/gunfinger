@@ -7,7 +7,7 @@ use std::path::PathBuf;
 use gunfinger_core::store::PeakStore;
 
 use crate::files::{read_json, stem_or, write_json};
-use crate::harness::{Harness, UNCHANGED_INDEX};
+use crate::harness::{Harness, Ladder, UNCHANGED_INDEX};
 use crate::library_map::LibraryMap;
 use crate::padding::OTHER_LIBRARY_PREFIX;
 use crate::{break_search, holders, identifiability, pair, shared, shared_mixes, versions};
@@ -52,6 +52,10 @@ pub struct BreakSearchArgs {
     /// The report.
     #[arg(long)]
     pub out: PathBuf,
+    /// The ladder the passages are searched on: the turntable ladder
+    /// (session 74's), or with `both` the key-locked rungs as well.
+    #[arg(long, value_enum, default_value = "turntable")]
+    pub passage_ladder: Ladder,
 }
 
 #[derive(clap::Args)]
@@ -202,7 +206,11 @@ pub fn holders(harness: &Harness, jobs: usize, args: HoldersArgs) -> Result<(), 
 
 /// The holders of each query's passage, with every list and filtered.
 pub fn break_search(harness: &Harness, jobs: usize, args: BreakSearchArgs) -> Result<(), String> {
-    let BreakSearchArgs { queries, out } = args;
+    let BreakSearchArgs {
+        queries,
+        out,
+        passage_ladder,
+    } = args;
     let queries: Vec<break_search::Query> = read_json(&queries)?;
     let report = break_search::run(
         &queries,
@@ -212,6 +220,7 @@ pub fn break_search(harness: &Harness, jobs: usize, args: BreakSearchArgs) -> Re
             padding: &harness.padding(&UNCHANGED_INDEX)?,
             clusters: &harness.clusters()?,
         },
+        passage_ladder,
         jobs,
     )?;
     write_json(&out, &report)?;

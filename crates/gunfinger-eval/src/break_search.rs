@@ -24,11 +24,12 @@ use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::peaks::Peak;
 use gunfinger_core::profile::Profile;
 use gunfinger_core::search::{Detection, SKIPPED_SHARE, search_peaks};
-use gunfinger_core::speed::{Rung, SpeedRatio, ladder};
+use gunfinger_core::speed::{Playback, Rung, SpeedRatio};
 use gunfinger_core::store::{PeakRecord, PeakStore};
 use serde::{Deserialize, Serialize};
 
 use crate::clusters::Clusters;
+use crate::harness::Ladder;
 use crate::padding::Padding;
 use crate::shared_mixes::passage;
 
@@ -119,6 +120,8 @@ pub struct Holder {
     pub found_end_seconds: f64,
     /// The found file's speed relative to the query file's.
     pub speed: f64,
+    /// The rung kind of the detection.
+    pub playback: Played,
     /// The file's detections of `FLOOR_HITS` or more. The search keeps
     /// one detection of a file per moment of the query, so for a passage
     /// of 20 s this is nearly always 1.
@@ -192,8 +195,35 @@ fn holder(file: &str, detection: &Detection, passage_seconds: f64) -> Holder {
         found_start_seconds: detection.track_start_seconds,
         found_end_seconds: detection.track_end_seconds,
         speed: detection.speed.0,
+        playback: Played::from(detection.playback),
         detections: 1,
         reach: None,
+    }
+}
+
+/// How a holder's detection was played, as the report names it.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum Played {
+    Turntable,
+    KeyLocked,
+}
+
+impl From<Playback> for Played {
+    fn from(playback: Playback) -> Played {
+        match playback {
+            Playback::Turntable => Played::Turntable,
+            Playback::KeyLocked => Played::KeyLocked,
+        }
+    }
+}
+
+impl Played {
+    fn rung(self, speed: SpeedRatio) -> Rung {
+        match self {
+            Played::Turntable => Rung::Turntable(speed),
+            Played::KeyLocked => Rung::KeyLocked(speed),
+        }
     }
 }
 
@@ -248,7 +278,13 @@ pub struct Sources<'a> {
 
 /// Every query in both modes, all lists first, `jobs` queries at a time,
 /// each on one thread.
-pub fn run(queries: &[Query], sources: &Sources, jobs: usize) -> Result<Report, String> {
+pub fn run(
+    queries: &[Query],
+    sources: &Sources,
+    ladder: Ladder,
+    jobs: usize,
+) -> Result<Report, String> {
+    let rungs = ladder.rungs(0);
     let profile = Profile::CURRENT;
     let (corpus, problems) =
         load_records(sources.library, sources.store, &profile, &BTreeSet::new());
@@ -279,7 +315,7 @@ pub fn run(queries: &[Query], sources: &Sources, jobs: usize) -> Result<Report, 
     for lists in [Lists::All, Lists::Filtered] {
         index = searched_index(index, lists);
         let searched = map_in_order(queries, jobs, |query| {
-            search_query(&index, &indexed, &records, &own_of, query, lists)
+            search_query(&index, &indexed, &records, &own_of, query, lists, &rungs)
         });
         eprintln!(
             "{} queries searched with {} lists",
@@ -289,17 +325,17 @@ pub fn run(queries: &[Query], sources: &Sources, jobs: usize) -> Result<Report, 
         searches.extend(searched);
     }
     Ok(Report {
-        criterion: criterion(),
+        criterion: criterion(ladder, rungs.len()),
         index_files,
         index_seconds,
         searches,
     })
 }
 
-fn criterion() -> String {
+fn criterion(ladder: Ladder, rungs: usize) -> String {
     format!(
-        "the passage's stored peaks searched on the turntable ladder ({} rungs), one pass; each file at its strongest detection of {FLOOR_HITS} hits or more, ranked by hits over the passage's length; the query's file and its duplicate cluster apart; reach for the {REACHED_FILES} strongest others; lists: all, then filtered (the fullest {SKIPPED_SHARE} set aside)",
-        ladder().len()
+        "the passage's stored peaks searched on the {} ladder ({rungs} rungs), one pass; each file at its strongest detection of {FLOOR_HITS} hits or more, ranked by hits over the passage's length; the query's file and its duplicate cluster apart; reach for the {REACHED_FILES} strongest others; lists: all, then filtered (the fullest {SKIPPED_SHARE} set aside)",
+        ladder.name()
     )
 }
 
@@ -347,6 +383,7 @@ fn search_query(
     own_of: &BTreeMap<&str, &[String]>,
     query: &Query,
     lists: Lists,
+    rungs: &[Rung],
 ) -> Searched {
     let mut searched = Searched {
         name: query.name.clone(),
@@ -388,7 +425,7 @@ fn search_query(
     (searched.held_hashes, searched.set_aside_hashes) = held_and_set_aside(index, &hashes);
     searched.passage_hashes = hashes.len();
     let started = Instant::now();
-    let found: Vec<Found> = search_peaks(index, &passage, &profile, &ladder(), 1)
+    let found: Vec<Found> = search_peaks(index, &passage, &profile, rungs, 1)
         .into_iter()
         .map(|detection| Found {
             file: index.asset(detection.asset).path.clone(),
@@ -426,9 +463,9 @@ fn search_query(
     searched
 }
 
-/// The whole query against `found` alone, every list, at the speed of
-/// `holder`'s detection (the chain's fitted speed, not necessarily a
-/// rung of the ladder): the strongest alignment overlapping it in the
+/// The whole query against `found` alone, every list, at the speed and
+/// playback of `holder`'s detection (the chain's fitted speed, not
+/// necessarily a rung of the ladder): the strongest alignment overlapping it in the
 /// query. `None` when no alignment kept overlaps it: the search keeps one
 /// alignment per moment of the query, so a stronger one elsewhere in the
 /// found file can take the passage's place.
@@ -440,7 +477,7 @@ fn reach(query: &[Peak], found: &PeakRecord, holder: &Holder) -> Option<Reach> {
             return None;
         }
     };
-    let rung = [Rung::Turntable(SpeedRatio(holder.speed))];
+    let rung = [holder.playback.rung(SpeedRatio(holder.speed))];
     search_peaks(&index, query, &Profile::CURRENT, &rung, 1)
         .into_iter()
         .filter(|aligned| {
@@ -617,7 +654,7 @@ mod tests {
         let passage = passage(&loop_peaks, 10.0, 30.0, &profile);
         let hashes = hashes(&passage);
         let found = |index: &Index| -> Vec<String> {
-            search_peaks(index, &passage, &profile, &ladder(), 1)
+            search_peaks(index, &passage, &profile, &Ladder::Turntable.rungs(0), 1)
                 .into_iter()
                 .filter(|detection| detection.evidence.hits >= FLOOR_HITS)
                 .map(|detection| index.asset(detection.asset).path.clone())
@@ -634,6 +671,39 @@ mod tests {
             (hashes.len(), hashes.len())
         );
         assert!(found(&filtered).is_empty());
+    }
+
+    #[test]
+    fn a_key_locked_passage_is_found_on_both_ladders_and_its_reach_follows_key_lock() {
+        let profile = Profile::CURRENT;
+        // High bins, which a turntable rung 4% off moves by 10-20 bins.
+        let original: Vec<Peak> = scattered(20_000)
+            .into_iter()
+            .map(|p| peak(p.frame, 250.0 + p.bin / 2.0))
+            .collect();
+        // The query file plays the original 4% faster with its pitch kept:
+        // times shrink, frequencies stay.
+        let key_locked: Vec<Peak> = original
+            .iter()
+            .map(|p| peak(p.frame / 1.04, p.bin))
+            .collect();
+        let records = [record("original.mp3", original)];
+        let index = Index::build(&records).unwrap();
+        let passage = passage(&key_locked, 20.0, 40.0, &profile);
+        let strongest = |ladder: Ladder| {
+            search_peaks(&index, &passage, &profile, &ladder.rungs(0), 1)
+                .into_iter()
+                .filter(|detection| detection.evidence.hits >= FLOOR_HITS)
+                .max_by_key(|detection| detection.evidence.hits)
+        };
+
+        assert!(strongest(Ladder::Turntable).is_none());
+        let detection = strongest(Ladder::Both).unwrap();
+        assert_eq!(detection.playback, Playback::KeyLocked);
+        let holder = holder("original.mp3", &detection, 20.0);
+        assert_eq!(holder.playback, Played::KeyLocked);
+        let reach = reach(&key_locked, &records[0], &holder).unwrap();
+        assert!(reach.query_end_seconds - reach.query_start_seconds > 60.0);
     }
 
     #[test]
