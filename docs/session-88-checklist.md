@@ -19,5 +19,5 @@ for scope and rules.
 - [x] 3. The runs at NAS scale and at 262 tracks
 - [x] 4. Experiment 0298 (`d60d618`)
 - [x] 5. Roadmap (item and active queue item 11), decisions queue item 11 (`d60d618`)
-- [ ] 6. Review by a subagent; fixes
-- [ ] 7. Wrap-up: notes, status, final checks, commit
+- [x] 6. Review by a subagent; fixes (`3c9c788`)
+- [x] 7. Wrap-up: notes, status, final checks (check.sh green; both regressions identical with `--strict`; digests unchanged), commit

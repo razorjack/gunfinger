@@ -2574,3 +2574,19 @@ still waits.
 | one growth sweep (build + 720 queries) | 5:07-7:48 | 4.9-5.8 GiB |
 
 The times are not product timings: two runs shared the machine.
+
+### Final checks
+
+With `work/bin/s88-final/` (master at `3c9c788`; `gunfinger`
+`cf8393e36bad...`, byte-identical to `s87-final`'s, `gunfinger-eval`
+`bb520581bc09...`; `work/s88/final.sh`, logs `work/s88/logs/final*.log`):
+`scripts/check.sh` green (12:40; the harness's 483 tests pass); `regress
+session-78-linux --strict` (1:04) and `regress session-78-linux-nas
+--strict` (4:42) identical, every report equal to its baseline's apart
+from timing. `docs/pair-verdicts.txt`, the NAS clusters file and the
+answer log are at their start digests
+(`work/s88/listening-digests-end.txt`). The session's other builds
+(`s88-start`, `s88-run`, `s88-trace`) and the scratch copies of the
+sweep renders are deleted; `s87-final` and older finals are left as
+they were. A read-only review by a subagent recomputed the figures;
+its corrections were taken (brief 88, 09:55).
