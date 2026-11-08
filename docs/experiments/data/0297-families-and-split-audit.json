@@ -298,13 +298,33 @@
  },
  "reread": [
   {
-   "experiment": "0091",
+   "experiment": "0092, 0100, 0102",
    "decision": "ADR 0019",
-   "items": "0076 passages, played file indexed (by played file)",
+   "items": "possible lines of the three development mixes",
+   "count": 9,
+   "families": 6,
+   "recording_families": 8,
+   "largest_share": 0.333,
+   "by": "file"
+  },
+  {
+   "experiment": "0091",
+   "decision": "containment",
+   "items": "design: 0076 passages, played file indexed (by played file)",
    "count": 92,
    "families": 5,
    "recording_families": 15,
    "largest_share": 0.587,
+   "by": "file"
+  },
+  {
+   "experiment": "0091",
+   "decision": "containment",
+   "items": "test: new judged pairs, played file indexed (by played file)",
+   "count": 5,
+   "families": 2,
+   "recording_families": 4,
+   "largest_share": 0.6,
    "by": "file"
   },
   {
@@ -350,11 +370,11 @@
   {
    "experiment": "0188",
    "decision": "ADR 0022",
-   "items": "false detections (by query file)",
-   "count": 84,
-   "families": 34,
-   "recording_families": 35,
-   "largest_share": 0.119,
+   "items": "false confident detections (by query file)",
+   "count": 25,
+   "families": 2,
+   "recording_families": 2,
+   "largest_share": 0.72,
    "by": "file"
   },
   {
@@ -847,7 +867,7 @@
       0.7155172413793104
      ],
      "family_weighted_interval": [
-      0.6676245210727975,
+      0.6676245210727972,
       0.7155172413793104
      ]
     },
@@ -911,7 +931,7 @@
       1.0
      ],
      "family_weighted_interval": [
-      0.9333333333333332,
+      0.9333333333333333,
       1.0
      ]
     },
@@ -1039,8 +1059,8 @@
       0.875
      ],
      "family_weighted_interval": [
-      0.7798295454545454,
-      0.8323863636363636
+      0.7561369509043928,
+      0.8349375362170638
      ]
     },
     "items": 256
@@ -1084,8 +1104,8 @@
       0.87890625
      ],
      "family_weighted_interval": [
-      0.7727272727272727,
-      0.8366477272727273
+      0.7541914682539683,
+      0.8378754578754579
      ]
     },
     "items": 256

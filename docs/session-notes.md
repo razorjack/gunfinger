@@ -110,6 +110,7 @@ that holds it.
 - "Session 84" (2026-11-08): a second-chance search over the gaps. `this file`
 - "Session 85" (2026-11-08): hash-rarity weighting as a diagnostic score. `this file`
 - "Session 86" (2026-11-08): a library-wide clustering in a scratch file, and break search as retrieval. `this file`
+- "Session 87" (2026-11-08): results by recording family, and the split audit. `this file`
 
 
 ## Session 70
@@ -2359,3 +2360,103 @@ file and the answer log are at their start digests
 (`work/s86/listening-digests-end.txt`). A read-only review by a
 subagent recomputed every figure; its corrections were taken (brief 86,
 07:10).
+
+## Session 87
+
+Brief `docs/brief-87.md` (the prompt, the design, every decision),
+checklist `docs/session-87-checklist.md`, experiment 0297. A
+measurement session: the product did not change (the `gunfinger`
+binary of `s87-final` is byte-identical to `s86-final`'s), nor the
+stores, the NAS clusters file, the panels or the answer log.
+
+### What changed
+
+- Harness, tested: `gunfinger-eval families` (`families.rs`) builds a
+  family key from stored relations and scores saved `sweep`, `recall`
+  and `mixes` reports by family. Sources: the clusters in use (corpus
+  and, with `--other-peaks-dir`, the NAS file), the library map, the
+  verdicts, `docs/same-titles.txt`, the two frozen shared panels'
+  families, and with `--scratch-clusters` a scratch clusters file.
+  Tiers: `recording` (clusters, library map, `same` verdicts), `title`
+  (plus same-title judgments), `relation` (plus every verdict pair, the
+  panels' families, and stored clusters pairs covering 20% of the
+  shorter file with 30 hits or more). No existing report changed.
+- Scripts: `family_audit.py` (the split audit), `family_counts.py`
+  (families of the library files any saved JSON names, looked up by
+  file name when the data holds file names only), `family_reread.py`
+  (0297's table), with tests.
+- Documents: `AGENTS.md`'s module map; `docs/session-rules.md`'s rule
+  on families points at the tools.
+
+### Results (0297)
+
+- No recording or relation family has files on both sides of any
+  panel's split (recall, both shared panels, panel 1 against panel 2,
+  the sweep and shared-mixes panels' held-out recordings), with or
+  without the scratch clusters. `recall`'s tag key has not let a
+  recording into both halves; 50 of its 80 development sources and 43
+  of its 80 validation sources are in no stored relation at all.
+- Outside the halves, the development mixes play two validation
+  families (Clockwork of panel 1, Stab 2 Def of panel 2), so those
+  recordings are development data already.
+- The decisions rest on few families: ADR 0022 on 1 (China Cup; 0188's
+  25 false confident detections are China Cup and Cool Rock), ADR 0019
+  on the development mixes' 9 possible lines in 6 families and 0107
+  (its recall part 1 family), the version verifier's and 0116-0118's
+  wrong related plays on 4 (Fire 77-80%), the marked-play rules' shared
+  plays (0215, 0216) on 1 (Clockwork) in every run. ADR 0021's rides
+  (0175) and the residual oracle rows rest on tens of families.
+
+### How to read the family figures
+
+- `families` prints, per report, the items and their distinct
+  families at each tier, then each rate twice: by item (the report's
+  own figure) and by family (each family's rate, averaged with one vote
+  per family), each with a 95% interval from 2,000 resamples of whole
+  families (whole mixes for `mixes` reports; seed 87).
+- The interval is the spread that the families give; with one family,
+  or a rate of 0 or 1, it collapses to a point and says nothing. For
+  zero events, read the family count instead: 0 wrong over K families
+  bounds the per-family rate at about 3/K (95%). Under mix resampling
+  a family played in two mixes stays one family.
+- Family-weighted and item-weighted rates differ when families hold
+  unequal numbers of items: 0124's rejections are 50% by negative and
+  35% by family; the harness's scoring of 0274's drops renders recalls
+  85% of plays and 80% of families. State the relation-tier count beside a query count.
+
+### Decided this session, open to change
+
+- The relation tier needs 30 hits as well as 20% coverage: coverage
+  alone chained 679 files into one family (brief 87, 07:42).
+- The key reads the shared panels' families, because four relations
+  are recorded only there (brief 87, 07:50).
+- Family figures are computed offline from saved reports, so `regress`
+  compares the same reports as before.
+- The relation tier leaves out 488 stored pairs of 30 hits or more
+  under 20% coverage; with them 5,014 families instead of 5,074 and no
+  conclusion changes (brief 87, 08:00).
+- A read-only review by a subagent corrected 0297's 0188 and 0091 rows,
+  the mix-resampling interval and the 0274 labels (brief 87, 08:00).
+
+### Questions for listening (none answered by agents)
+
+None new. The pack of session 86 (`work/s86/pack/07-breaks-s86.json`)
+still waits.
+
+### Handoff for the next session
+
+1. Builds `work/bin/s87-final/` (master) and `s86-final`. Baselines
+   `session-78-linux` and `session-78-linux-nas`; stores and the NAS
+   clusters file unchanged (NAS `0bd3f0c23fabc698`, corpus
+   `526a3b978eb3e411`, `c4d3da2e7e37...`).
+2. The keys: `work/s87/key/in-use.json` and `with-scratch.json` (with
+   session 86's `work/s86/clusters/library-wide.json`). Again: `E
+   --panels work/s33/panels --other-peaks-dir N families
+   [--scratch-clusters work/s86/clusters/library-wide.json] --out KEY
+   [REPORTS...] [--summary OUT]`; `python3 -I
+   scripts/analysis/family_audit.py docs/panels IN_USE WITH_SCRATCH
+   OUT`; `python3 -I scripts/analysis/family_counts.py KEY DATA...`.
+3. New relation families come only from new relations: new judged
+   pairs or new real mixes (decisions queue item 6). A rule tested on
+   shared material should name the families its negatives come from.
+

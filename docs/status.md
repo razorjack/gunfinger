@@ -478,3 +478,24 @@ the product, the stores and the NAS clusters file did not change.
   subagent found a naming fault in the clusters' verdicts (fixed,
   reclustered) and figure and wording errors (corrected).
 
+
+## 2026-11-08: session 87, results by recording family, and the split audit
+
+Brief `docs/brief-87.md`, checklist `docs/session-87-checklist.md`;
+notes "Session 87"; experiment 0297. A measurement session: the
+product, the stores, the NAS clusters file and the panels did not
+change.
+
+- `gunfinger-eval families` builds a key of recording, title and
+  relation families from stored relations and scores saved `sweep`,
+  `recall` and `mixes` reports by family, with intervals from
+  resampling whole families or mixes; `family_audit.py`,
+  `family_counts.py` and `family_reread.py` read panels and saved data.
+- No family crosses any panel's split, so `recall`'s tag key has not
+  let a recording into both halves, as far as the stored relations
+  reach; the development mixes do play two validation families (0297).
+- The decisions rest on few families: ADR 0022 on 1 (China Cup), ADR
+  0019 on 6 (the development mixes' 9 possible lines) and 0107, the
+  version verifier's negatives on 4 (Fire 77-80%), the marked-play
+  rules' shared plays on 1 (Clockwork); ADR 0021's rides on tens
+  (0297).

@@ -122,15 +122,15 @@ its smallest member in byte order):
 
 1. **recording**: the duplicate clusters in use (corpus and NAS files,
    which already follow the `same` verdicts and keep the `different`
-   ones apart), each corpus file joined with the NAS file it stands for
+   ones apart), the pairs judged `same` by ear, each corpus file joined
+   with the NAS file it stands for
    (library map), and, when `--scratch-clusters` names one, session
    86's library-wide clusters (a scratch file, not in use; stated as a
    source wherever it changes a figure).
 2. **title**: plus each `docs/same-titles.txt` judgment, the joins that
    scoring credits as right (ADR 0022).
-3. **relation**: plus every pair a verdict names, `same` or `different`
-   (a verdict is written on a pair because a search found it sharing
-   material; the run counts the verdict pairs no clusters file holds),
+3. **relation**: plus every pair judged `different` by ear (a verdict
+   is written on a pair because a search found it sharing material),
    and every stored clusters pair whose alignment covers 20% or more
    of the shorter file (`REPORTED_COVERAGE`) with 30 hits or more
    (`RELATED_HITS`, the census of related recordings; added at 07:42,
@@ -138,8 +138,9 @@ its smallest member in byte order):
    scoring.
 
 Decision (conservative): the counts that state independence use the
-relation tier, the coarsest one, so a figure never overstates how many
-independent families a result rests on; the recording tier is printed
+relation tier, the coarsest one, so a figure does not overstate how
+many independent families a result rests on, as far as this tier's
+joins reach (see 08:00 below); the recording tier is printed
 beside it. The relation tier through clusters pairs can chain
 unrelated tracks through a common break; the run prints the largest
 families, and a family over 20 files is named in the experiment.
@@ -158,7 +159,8 @@ bootstrap resamples (seed fixed) of whole families for `sweep` and
 query recalled when a right detection is confident; a wrong answer is
 a query with a confident wrong detection (a damaged query's partner
 counts as neither, as in the reports). Held-out queries' rate is the
-share with a confident answer. Unobservable `recall` queries are left
+share with a confident wrong answer (same-title and partner detections
+are not wrong). Unobservable `recall` queries are left
 out, as the reports leave them out.
 
 ### The split audit
@@ -202,7 +204,9 @@ No bar is registered: the session measures and adopts nothing.
 
 - 07:42. The relation tier's clusters pairs need 30 hits or more
   (`RELATED_HITS`) as well as 20% coverage. With coverage alone the key
-  chained 679 files into one family (China Cup's, 76 corpus files):
+  chained 679 files into one family (China Cup's, 76 corpus files;
+  measured on the clusters files' joins alone, 704 files with the
+  verdicts and the panels' families):
   coverage counts the span from the first hit to the last, and 620 of
   the NAS clusters' 706 such pairs have under 60 hits (median 9). With
   30 hits the largest family over all three clusters files holds 13
@@ -228,3 +232,28 @@ No bar is registered: the session measures and adopts nothing.
 - 07:53. The family figures of saved reports went into 0297 for the
   NAS sweep and recall reports and 0274's drops mixes only; the other
   saved reports were not rescored by family.
+- 08:00. The review by a subagent (read-only; it recomputed every
+  figure and re-ran the audit) found, and the session corrected: 0188's
+  row counted every pair behind a false candidate instead of the 25
+  false confident detections (2 families, China Cup 18 and Cool Rock
+  7), so ADR 0022 rests on 1 family (China Cup, with 0230); 0091's 92
+  passages are the containment rule's design data (0076) and the rule
+  was not adopted, while ADR 0019 rests on the development mixes' 9
+  possible lines (6 families) and 0107; under mix resampling the
+  family-weighted interval counted a family in two mixes as two (fixed:
+  only repeated draws of one unit are kept apart; 0274's lower bounds
+  fall from 78.0% to 75.6% and 77.3% to 75.4%); the 0274 rows are the
+  harness's scoring of its renders, not `--under`'s partner plays; the
+  development mixes play two validation families (Clockwork, Stab 2
+  Def), which the audit of the halves does not show; the design text
+  placed `same` verdicts at the relation tier and promised a count of
+  verdict pairs that the code does not make (both texts corrected); and
+  house-style points in `families.rs` (a `Side` enum for the held-out
+  flag, no index into the tiers, an explicit union-find root, no unused
+  `Deserialize`).
+- 08:00. Not changed: the relation tier leaves out 488 stored pairs of
+  30 hits or more under 20% coverage (the census keeps them at any
+  coverage). With them the key has 5,014 relation families of two or
+  more (largest 29), and five re-read rows lose 1-4 families each; no
+  conclusion changes. Named in 0297.
+

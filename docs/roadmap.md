@@ -588,6 +588,11 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
 One line per finished or closed item; the history is in
 `docs/roadmap-history.md` under the same name.
 
+- **Results by family and the split audit.** Done in session 87
+  (0297): `gunfinger-eval families` and `family_counts.py` count the
+  families a result rests on; no family crosses any panel's split. The
+  shared-material rules rest on 1-4 relation families, and more come
+  only with new judged pairs or real mixes (decisions queue item 6).
 - **Hash-rarity weighting.** Closed by 0294 (session 85): no separation
   of shared material at equal hits. `--rarity` is kept as a diagnostic
   for one possible next use, a weight relative to each file's own hashes
