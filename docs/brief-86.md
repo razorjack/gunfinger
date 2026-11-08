@@ -272,3 +272,19 @@ passage as A's span? Written under `work/s86/`, never answered tonight.
   (`break-search --passage-ladder`, `questions breaks`) were built and
   tested on the same machine while it ran, so its wall time is not a
   product timing.
+- *(06:53)* **The clustering finished** (35:41, exit 0; the NAS clusters
+  file `c4d3da2e7e37...` before and after). The 29 old clusters that
+  hold only a corpus file and its NAS copy are one file in this index,
+  so 0295 counts them as kept whole.
+- *(06:54)* **Break search ran with the new clusters in a scratch work
+  directory** (`work/s86/wb`, `work/s86/break.sh`), turntable then both
+  ladders, nothing else running (0:57 and 1:53).
+- *(06:57)* **The null's reach under the clusters in use is not
+  reported.** `break-search` measures the reach only for the 20
+  strongest files outside the clusters in use of its run (the new
+  ones), so the old clusters' 95th percentile is comparable and their
+  count of files reaching 60 s is not.
+- *(06:58)* **The pack stays in `work/s86/pack/`**, not in
+  `work/audition/questions/`, so that no default `audition` run serves it
+  before the user chooses to; the handoff gives the command. The answer
+  log's digest is unchanged after `questions breaks` ran.
