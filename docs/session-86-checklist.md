@@ -15,10 +15,10 @@ for scope and rules.
 ## Steps
 
 - [x] 1. Registration committed (in `docs/brief-86.md`, `7909c1e`; 0296's cases `80b57e7`)
-- [~] 2. Harness: `clusters --library-wide` (`58c53c1`), `break-search --passage-ladder` (`5ab4e2a`), `questions breaks` (`c4a01f0`); tested; both regressions identical
-- [~] 3. Runs: the clustering (started 06:17), break search
-- [ ] 4. Experiments 0295 (clustering) and 0296 (break search as retrieval, the null)
-- [ ] 5. The listening pack (not answered)
-- [ ] 6. Break-search note, roadmap items, decisions queue item 4
-- [ ] 7. Review by a subagent; fixes
+- [x] 2. Harness: `clusters --library-wide` (`58c53c1`), `break-search --passage-ladder` (`5ab4e2a`), `questions breaks` (`c4a01f0`); tested; both regressions identical with `s86-run2` (`--strict`)
+- [x] 3. Runs: the clustering (35:41, exit 0), break search on both ladders (exit 0)
+- [x] 4. Experiments 0295 (clustering) and 0296 (break search as retrieval, the null)
+- [x] 5. The listening pack (`work/s86/pack/07-breaks-s86.json`, 32 questions; not answered)
+- [x] 6. Break-search note, roadmap items, decisions queue item 4
+- [~] 7. Review by a subagent; fixes
 - [ ] 8. Wrap-up: notes, status, final checks, commit
