@@ -17,6 +17,7 @@ use gunfinger_core::spectrogram::Signal;
 use gunfinger_core::speed::Rung;
 
 use crate::gap_search::{self, GapSearch};
+use crate::set_aside;
 use crate::stereo::{FrontEnd, QueryAudio};
 
 #[derive(clap::Args, Clone, Copy, PartialEq)]
@@ -38,6 +39,10 @@ pub struct Matching {
     /// themselves.
     #[arg(long, global = true, value_name = "SHARE", conflicts_with_all = ["single_pass", "drop_fullest"])]
     pub set_aside_share: Option<f64>,
+    /// Set aside every list longer than this many postings (`set_aside`,
+    /// brief 88), filled in from `--set-aside-from`.
+    #[arg(skip)]
+    pub set_aside_above: Option<u32>,
     /// The second pass measures each stretch of a few windows again at its
     /// own speed when it drifts from the fitted one.
     #[arg(long, global = true, conflicts_with = "single_pass")]
@@ -132,6 +137,7 @@ impl fmt::Debug for Matching {
             single_pass,
             drop_fullest,
             set_aside_share,
+            set_aside_above,
             speed_per_stretch,
             trim_ends,
             overlap_by_spans,
@@ -148,6 +154,9 @@ impl fmt::Debug for Matching {
             .field("drop_fullest", drop_fullest);
         if let Some(share) = set_aside_share {
             fields.field("set_aside_share", share);
+        }
+        if let Some(postings) = set_aside_above {
+            fields.field("set_aside_above", postings);
         }
         fields
             .field("speed_per_stretch", speed_per_stretch)
@@ -217,6 +226,9 @@ impl Matching {
         if let Some(share) = self.set_aside_share {
             parts.push(format!("set-aside-{share}"));
         }
+        if let Some(postings) = self.set_aside_above {
+            parts.push(format!("set-aside-above-{postings}"));
+        }
         if self.speed_per_stretch {
             parts.push(String::from("stretch"));
         }
@@ -274,6 +286,8 @@ impl Matching {
             index.without_fullest(self.drop_fullest)
         } else if let Some(share) = self.set_aside_share {
             index.skipping_fullest(share)
+        } else if let Some(postings) = self.set_aside_above {
+            set_aside::skipping_above(index, postings)
         } else {
             self.matcher().index(index)
         }
@@ -391,6 +405,7 @@ mod tests {
         single_pass: false,
         drop_fullest: 0.0,
         set_aside_share: None,
+        set_aside_above: None,
         speed_per_stretch: false,
         trim_ends: false,
         overlap_by_spans: false,
@@ -578,6 +593,29 @@ mod tests {
             };
             assert!(invalid.check().is_err(), "{share}");
         }
+    }
+
+    #[test]
+    fn a_threshold_of_postings_names_its_reports_and_sets_aside_what_it_says() {
+        // One pair of peaks in five files, the others in one each.
+        let mut records = vec![
+            record("a.mp3", &[100.0, 120.0, 0.0, 300.0, 340.0]),
+            record("b.mp3", &[200.0, 230.0]),
+        ];
+        records.extend((0..4).map(|copy| record(&format!("common-{copy}.mp3"), &[100.0, 120.0])));
+        let index = || Index::build(&records).unwrap();
+        let above = Matching {
+            set_aside_above: Some(4),
+            ..DEFAULT
+        };
+        assert_eq!(above.name().as_deref(), Some("set-aside-above-4"));
+        let longer = index()
+            .posting_lists()
+            .filter(|list| list.len() > 4)
+            .count();
+        assert_eq!(set_aside_hashes(&above.index(index())).len(), longer);
+        let provenance = format!("{above:?}");
+        assert!(provenance.contains("set_aside_above: 4"), "{provenance}");
     }
 
     #[test]

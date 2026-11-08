@@ -47,6 +47,7 @@ mod scan;
 mod scoring;
 mod second_records;
 mod seconds;
+mod set_aside;
 mod shared;
 mod shared_mixes;
 mod stereo;
@@ -82,10 +83,14 @@ struct Cli {
 
 fn main() -> ExitCode {
     let Cli {
-        harness,
+        mut harness,
         jobs,
         command,
     } = Cli::parse();
+    if let Err(message) = harness.resolve_fixed_cut() {
+        eprintln!("error: {message}");
+        return ExitCode::FAILURE;
+    }
     let jobs = jobs.map_or_else(available_parallelism, NonZeroUsize::get);
     match harness
         .search

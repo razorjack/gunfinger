@@ -45,6 +45,18 @@ pub struct Padding {
     pub exact: Option<ExactCopies>,
     /// A second record of some of the second library's files.
     pub second_records: Option<SecondRecords>,
+    /// Another saved index searched in place of today's, or files left
+    /// out of whichever index is searched (brief 88).
+    pub replay: Option<Replay>,
+}
+
+/// A prune re-created in memory (brief 88): the files named are left out
+/// of the index searched, and an earlier saved index, read by its own
+/// provenance, can take the place of the current one. No store is written.
+#[derive(Default)]
+pub struct Replay {
+    pub index: Option<PathBuf>,
+    pub left_out: BTreeSet<String>,
 }
 
 /// Exact copies of chosen records, as a library holding many files of the
@@ -105,6 +117,13 @@ impl SavedIndex {
             SavedIndex::Use(path) | SavedIndex::Rebuild(path) => path,
         }
     }
+}
+
+/// A saved index read as it is, whatever store it was built from.
+fn replayed_index(path: &Path) -> Result<Index, String> {
+    let unusable = |error: Unusable| format!("cannot load {}: {error}", path.display());
+    let provenance = saved::provenance(path).map_err(unusable)?;
+    saved::load(path, &provenance).map_err(unusable)
 }
 
 /// The harness indexes records of any length; a saved index records this
@@ -312,7 +331,24 @@ impl Padding {
             Some(second) => Cow::Owned(second.with_second_records(excluded)),
             None => Cow::Borrowed(excluded),
         };
+        let replay_left_out = self.replay.as_ref().map(|replay| &replay.left_out);
+        let excluded = match replay_left_out {
+            Some(left_out) => Cow::Owned(excluded.union(left_out).cloned().collect()),
+            None => excluded,
+        };
         let excluded = excluded.as_ref();
+        if let Some(replay_index) = self
+            .replay
+            .as_ref()
+            .and_then(|replay| replay.index.as_ref())
+        {
+            if self.copies > 0 || self.exact.is_some() {
+                return Err(String::from(
+                    "--replay-index searches a saved index; it takes no copies",
+                ));
+            }
+            return Ok(replayed_index(replay_index)?.without_assets(excluded));
+        }
         match (&self.saved, &self.other) {
             (Some(saved), Some(second)) if self.copies == 0 && self.exact.is_none() => Ok(self
                 .whole_index(saved, second, records, profile)?
@@ -535,6 +571,7 @@ mod tests {
             saved: None,
             exact: None,
             second_records: None,
+            replay: None,
         };
         let index = padding
             .index(
@@ -807,6 +844,83 @@ mod tests {
         let whole = saved.index(&records, &profile, &excluded(&[])).unwrap();
         assert_eq!(whole.assets().len(), 4);
         fs::remove_dir_all(&dir).unwrap();
+    }
+
+    #[test]
+    fn a_replayed_index_is_a_saved_index_read_as_it_is_less_the_files_left_out() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-replay-{}", std::process::id()));
+        let files: &[(&str, &[f32])] = &[
+            ("b.mp3", &[100.0, 120.0, 90.0]),
+            ("c.mp3", &[150.0, 130.0, 160.0]),
+        ];
+        let file = dir.join("indexes").join("library-peaks.index");
+        let saved = Padding {
+            other: Some(other_library(&dir, files)),
+            saved: Some(SavedIndex::Use(file.clone())),
+            ..Padding::default()
+        };
+        let records = corpus();
+        let profile = Profile::CURRENT;
+        let whole = saved.index(&records, &profile, &excluded(&[])).unwrap();
+        let written = fs::read(&file).unwrap();
+
+        // The saved index's own provenance: it need not name the current records.
+        let current_records = vec![records[0].clone()];
+        let replayed = Padding {
+            other: Some(other_library(&dir, files)),
+            replay: Some(Replay {
+                index: Some(file.clone()),
+                left_out: excluded(&["second-library/b.mp3"]),
+            }),
+            ..Padding::default()
+        };
+        let index = replayed
+            .index(&current_records, &profile, &excluded(&["d.mp3"]))
+            .unwrap();
+        let expected = whole.without_assets(&excluded(&["second-library/b.mp3", "d.mp3"]));
+        assert!(same_index(&index, &expected));
+        assert_eq!(
+            fs::read(&file).unwrap(),
+            written,
+            "the saved index is only read"
+        );
+        fs::remove_dir_all(&dir).unwrap();
+    }
+
+    #[test]
+    fn files_left_out_of_a_replay_are_left_out_of_a_built_index_too() {
+        let records = corpus();
+        let profile = Profile::CURRENT;
+        let built = Padding::default()
+            .index(&records, &profile, &excluded(&["d.mp3"]))
+            .unwrap();
+        let replayed = Padding {
+            replay: Some(Replay {
+                index: None,
+                left_out: excluded(&["d.mp3"]),
+            }),
+            ..Padding::default()
+        }
+        .index(&records, &profile, &excluded(&[]))
+        .unwrap();
+        assert!(same_index(&replayed, &built));
+    }
+
+    #[test]
+    fn a_replayed_index_takes_no_copies() {
+        let replayed = Padding {
+            copies: 1,
+            replay: Some(Replay {
+                index: Some(PathBuf::from("not-read.index")),
+                left_out: BTreeSet::new(),
+            }),
+            ..Padding::default()
+        };
+        let refused = replayed
+            .index(&corpus(), &Profile::CURRENT, &excluded(&[]))
+            .err()
+            .expect("--replay-index takes no copies");
+        assert!(refused.contains("--replay-index"), "{refused}");
     }
 
     #[test]

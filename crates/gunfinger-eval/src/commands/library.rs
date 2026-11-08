@@ -2,16 +2,19 @@
 //! the other library, related recordings, stereo width and the fullest
 //! posting lists.
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
 
+use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::ignore;
+use gunfinger_core::profile::Profile;
 use gunfinger_core::store::PeakStore;
 
 use super::sweep::ExactCopyOptions;
 use crate::files::write_json;
 use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::padding::{Padding, current_sources};
+use crate::set_aside::{self, FixedCut, GROWTH_LIMIT};
 use crate::{fullest, hash_cost, library_map, manifest, related, stereo, survival};
 
 #[derive(clap::Args)]
@@ -84,6 +87,22 @@ pub struct FullestArgs {
     /// count the hashes both hold and those set aside (session 50).
     #[arg(long)]
     pub shared_by: Option<PathBuf>,
+}
+
+#[derive(clap::Args)]
+pub struct SetAsideThresholdArgs {
+    /// The threshold file to write (normally beside the saved index).
+    #[arg(long, value_name = "FILE")]
+    pub out: PathBuf,
+    /// A previous threshold file: its number is kept unless the whole
+    /// index's postings have grown past its limit (`set_aside`).
+    #[arg(long, value_name = "FILE")]
+    pub after: Option<PathBuf>,
+    /// The share of non-empty lists the number stands for.
+    #[arg(long, default_value_t = 0.01)]
+    pub share: f64,
+    #[command(flatten)]
+    pub copies: ExactCopyOptions,
 }
 
 pub fn validate(harness: &Harness, args: ValidateArgs) -> Result<(), String> {
@@ -292,5 +311,58 @@ pub fn fullest(harness: &Harness, args: FullestArgs) -> Result<(), String> {
         &report,
     )?;
     fullest::print_summary(&report);
+    Ok(())
+}
+
+/// Derives the set-aside threshold of the whole index, or decides whether
+/// the previous one stands (brief 88), and writes it.
+pub fn set_aside_threshold(harness: &Harness, args: SetAsideThresholdArgs) -> Result<(), String> {
+    let SetAsideThresholdArgs {
+        out,
+        after,
+        share,
+        copies,
+    } = args;
+    if !(share > 0.0 && share < 1.0) {
+        return Err(String::from("--share is a share above 0 and below 1"));
+    }
+    let profile = Profile::CURRENT;
+    let (records, _) = load_records(
+        &harness.library()?,
+        &harness.store()?,
+        &profile,
+        &BTreeSet::new(),
+    );
+    let padding = Padding {
+        exact: copies.exact()?,
+        ..harness.padding(&UNCHANGED_INDEX)?
+    };
+    let index = padding.index(&records, &profile, &BTreeSet::new())?;
+    drop(records);
+    let digest = set_aside::lists_digest(&index);
+    let lengths: Vec<usize> = index.posting_lists().map(<[_]>::len).collect();
+    let non_empty = lengths.iter().filter(|&&length| length > 0).count();
+    let (cut, derived) = match &after {
+        Some(file) => {
+            let (_, cut, derived) = FixedCut::read(file)?.after_growth(index);
+            (cut, derived)
+        }
+        None => (set_aside::derive(index, share, GROWTH_LIMIT).1, true),
+    };
+    let above = lengths
+        .iter()
+        .filter(|&&length| length as u32 > cut.postings_per_list)
+        .count();
+    let posting_total: usize = lengths.iter().sum();
+    write_json(&out, &cut)?;
+    println!(
+        "{} {}: lists longer than {} postings set aside: {above} of {non_empty} lists ({:.3}%) at {} postings, {} assets; lists digest {digest}",
+        if derived { "derived" } else { "kept" },
+        out.display(),
+        cut.postings_per_list,
+        100.0 * above as f64 / non_empty as f64,
+        posting_total,
+        cut.assets,
+    );
     Ok(())
 }

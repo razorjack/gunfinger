@@ -2,6 +2,7 @@
 //! peak stores, the clusters and verdicts, the report directories, and
 //! the additions to the index of scale experiments.
 
+use std::collections::BTreeSet;
 use std::path::PathBuf;
 
 use clap::ValueEnum;
@@ -10,11 +11,13 @@ use gunfinger_core::speed::{Rung, key_lock_ladder_with_extra_rungs, ladder_with_
 use gunfinger_core::store::PeakStore;
 
 use crate::clusters::{self, Clusters};
+use crate::files::read_lines;
 use crate::library_map::LibraryMap;
 use crate::manifest::Referable;
 use crate::matching::Matching;
-use crate::padding::{OtherLibrary, Padding, SavedIndex, current_sources};
+use crate::padding::{OtherLibrary, Padding, Replay, SavedIndex, current_sources};
 use crate::second_records::SecondRecords;
+use crate::set_aside::FixedCut;
 use crate::{available_parallelism, synthetic, titles};
 
 /// The harness's global options: where it reads and writes, how it
@@ -85,6 +88,12 @@ pub struct SearchOptions {
     /// `reports/rarity/` below the usual directory.
     #[arg(long, global = true)]
     pub rarity: bool,
+    /// Set aside every posting list longer than the threshold in this file
+    /// (`set-aside-threshold`, brief 88) instead of the fullest 1% of each
+    /// index the run searches. A variant under measurement; reports go to
+    /// `reports/variant-set-aside-above-<postings>/`.
+    #[arg(long, global = true, value_name = "FILE", conflicts_with_all = ["single_pass", "drop_fullest", "set_aside_share"])]
+    pub set_aside_from: Option<PathBuf>,
 }
 
 /// The larger library the corpus was drawn from, known from its peak store.
@@ -124,6 +133,15 @@ pub struct OtherLibraryOptions {
     /// records change, run once with --saved-index rebuild.
     #[arg(long, global = true, requires = "other_peaks_dir")]
     pub second_records: Option<PathBuf>,
+    /// With --other-peaks-dir: search this saved index, read by its own
+    /// provenance, instead of today's (brief 88: a prune re-created in
+    /// memory). No store or saved index is written.
+    #[arg(long, global = true, value_name = "FILE", requires = "other_peaks_dir")]
+    pub replay_index: Option<PathBuf>,
+    /// Leave the files this list names (index paths, one per line) out of
+    /// the index searched, as if pruned from the store (brief 88).
+    #[arg(long, global = true, value_name = "FILE")]
+    pub replay_leave_out: Option<PathBuf>,
 }
 
 /// Whether runs with --other-peaks-dir use the saved index, as
@@ -205,6 +223,7 @@ impl IndexVariant {
             saved: None,
             exact: None,
             second_records: None,
+            replay: None,
         })
     }
 
@@ -418,6 +437,7 @@ impl Harness {
     /// copies corpus files stand for, and their saved index.
     pub fn padding(&self, variant: &IndexVariant) -> Result<Padding, String> {
         let mut padding = variant.padding()?;
+        padding.replay = self.replay()?;
         let (Some(store), Some(map_file)) = (self.other_store()?, self.map_file()) else {
             return Ok(padding);
         };
@@ -439,6 +459,29 @@ impl Harness {
         padding.other = Some(second);
         padding.saved = self.saved_index();
         Ok(padding)
+    }
+
+    /// The prune re-created in memory, from `--replay-index` and
+    /// `--replay-leave-out`.
+    fn replay(&self) -> Result<Option<Replay>, String> {
+        if self.other.replay_index.is_none() && self.other.replay_leave_out.is_none() {
+            return Ok(None);
+        }
+        Ok(Some(Replay {
+            index: self.other.replay_index.clone(),
+            left_out: match &self.other.replay_leave_out {
+                Some(file) => read_lines(file)?.into_iter().collect(),
+                None => BTreeSet::new(),
+            },
+        }))
+    }
+
+    /// Fills in the threshold `--set-aside-from` names.
+    pub fn resolve_fixed_cut(&mut self) -> Result<(), String> {
+        if let Some(file) = &self.search.set_aside_from {
+            self.search.matching.set_aside_above = Some(FixedCut::read(file)?.postings_per_list);
+        }
+        Ok(())
     }
 
     /// The saved index of the corpus and the whole other library, unless

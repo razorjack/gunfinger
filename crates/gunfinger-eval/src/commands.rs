@@ -224,6 +224,12 @@ pub enum Command {
     /// Count each indexed record's postings in the fullest posting lists,
     /// the lists `--skip-fullest` sets aside when looking for candidates.
     Fullest(library::FullestArgs),
+    /// Derive the number of postings per list above which a list is set
+    /// aside, from the whole index the run would search, and write it
+    /// beside the saved index (brief 88; a variant under measurement), or
+    /// with `--after` keep an earlier one unless the index has grown past
+    /// its limit.
+    SetAsideThreshold(library::SetAsideThresholdArgs),
     /// Rerun the standard evaluation and report what changed against a
     /// saved baseline: reports that are identical, changed, or
     /// incomparable (other queries, another scan or leave-out, or other
@@ -233,7 +239,7 @@ pub enum Command {
 }
 
 /// The commands that take --other-peaks-dir, by `Command::name`.
-const OTHER_LIBRARY_COMMANDS: [&str; 31] = [
+const OTHER_LIBRARY_COMMANDS: [&str; 32] = [
     "validate",
     "second-records",
     "map-library",
@@ -250,6 +256,7 @@ const OTHER_LIBRARY_COMMANDS: [&str; 31] = [
     "regress",
     "memory",
     "fullest",
+    "set-aside-threshold",
     "pair",
     "parts",
     "pair-review",
@@ -351,6 +358,7 @@ impl Command {
             Command::Baseline(_) => "baseline",
             Command::Memory(_) => "memory",
             Command::Fullest(_) => "fullest",
+            Command::SetAsideThreshold(_) => "set-aside-threshold",
             Command::Regress(_) => "regress",
         }
     }
@@ -471,6 +479,7 @@ pub fn run(harness: &Harness, jobs: usize, command: Command) -> Result<(), Strin
         Command::Baseline(args) => evaluation::baseline(harness, jobs, args),
         Command::Memory(args) => evaluation::memory(harness, jobs, args),
         Command::Fullest(args) => library::fullest(harness, args),
+        Command::SetAsideThreshold(args) => library::set_aside_threshold(harness, args),
         Command::Regress(args) => evaluation::regress(harness, jobs, args),
     }
 }

@@ -1682,6 +1682,7 @@ mod tests {
         single_pass: false,
         drop_fullest: 0.0,
         set_aside_share: None,
+        set_aside_above: None,
         speed_per_stretch: false,
         trim_ends: false,
         overlap_by_spans: false,
