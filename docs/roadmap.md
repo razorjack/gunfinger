@@ -151,8 +151,10 @@ Each session takes the first item it can do without a pending decision.
     diagnostics cleanup (queue item 8); FFmpeg's version in the record
     header and perhaps an explicit resampler (a profile bump, an ADR); a
     posting-count set-aside threshold stored in the saved index instead
-    of the share-based cut, so that a small prune moves nothing (an ADR
-    superseding part of ADR 0014).
+    of the share-based cut (an ADR superseding part of ADR 0014):
+    measured in session 88 (0298), in the decisions queue (item 11),
+    registered bars met but the gain small; next step: the user's
+    decision.
 
 Demoted until new evidence addresses their recorded failures: another
 general harmonic or band-dynamics verifier, a global stereo-power front
@@ -388,7 +390,7 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   changed). Open: how often a short chain's speed hinges on one hit
   (not counted); break
   search as a command (decisions queue item 4; active queue
-  item 10; with rips clustered its null holds, 0296); a posting-count set-aside threshold (active queue item 11);
+  item 10; with rips clustered its null holds, 0296); a posting-count set-aside threshold (active queue item 11; measured in 0298, decisions queue item 11);
   if candidates go missing, rank hashes by distinct files (weighting
   hits by rarity does not separate shared material at equal hits, 0294;
   as a way to recover candidates it is unmeasured); a real

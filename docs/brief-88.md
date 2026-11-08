@@ -207,3 +207,7 @@ Conservative choices, as they are taken:
 - 08:43 For the 262-track replay, 12 corpus files named by no
   development set's manifest and by no sweep panel, drawn with seed 88
   (`work/s88/prune-262.txt`).
+- 09:35 The two growth threshold runs failed on a missing `library-map.json`
+  in the scratch directory (the queue created it later); they and the
+  20% re-derived arm are rerun in `work/s88/queue2.sh`. Off-regressions
+  (`off-262`, `off-nas`, `--strict`) identical with `s88-run`.

@@ -279,6 +279,43 @@ external review (`docs/research/2026-11-05-external-review.md`).
   missing peaks is an inference from 0207; no peak count ran), and the
   variant that comes closest strengthens shared material.
 
+### 11. A set-aside threshold by posting count (since 2026-11-08)
+
+- **Evidence.** Experiment 0298 (brief 88, registered in `df1ce0e`). A
+  fixed threshold, derived once (T = 9,932 postings from today's whole
+  NAS index, 10,865 of 1,086,456 lists), replaces the fullest 1% of each
+  index searched. Replaying the prunes of sessions 64 and 75 in memory,
+  sweep queries with detections changed (other than the pruned files'):
+  13 of 1,440 with T against 32 with today's rule, 13 and 0 per prune
+  against 7 and 25; no confident file changes under either. The scans'
+  confident fits moved more under T (15 detections against 8, by up to
+  3.5e-5 and 6.5e-6 points). At 5% growth T keeps 1.082% of the lists
+  (bar 1.5%); at 20% the rule re-derives T (11,904). At 5% and at 20%
+  T unchanged, 642 and 684 of 720 sweep queries' detections differ
+  from today's rule at the same grown index, none in a confident file
+  (a detection's hits moved by up to 36% on one weak detection); 178
+  of 720 when T is re-derived. At 262 tracks a fixed T did no better
+  than today's rule after a 12-file prune (sweep queries identical: 229
+  under today's rule, 191 with T, of 720; a prune of 4.5% of the library
+  moves most fits either way).
+- **What it does not do.** A list holding a pruned file's postings
+  shortens and can cross T (3 such lists per prune in the whole index).
+  T removes only the moves caused by the cut itself moving. So a prune
+  does not move nothing: the first of the two moved more queries under
+  T than under today's rule. Exact copies add postings, no hashes;
+  real growth is not shown.
+- **What an ADR would decide.** A posting-count cut in the saved
+  index's header (format 2 of ADR 0011), with a growth rule (10% here);
+  how a leave-out run uses it; and whether a one-time difference from
+  today's rule (186 of 720 sweep queries, no confident file) is
+  acceptable. A frozen list of hashes would make a prune move nothing
+  but cannot follow a library.
+- **Recommendation.** The registered conditions hold, so the ADR may
+  be written, but the case for it is modest: under today's rule a prune
+  moved no confident answer in any of these runs, and `docs/session-rules.md`
+  already has a one-step check that attributes the moves. Keep ADR
+  0014's rule unless prunes or their checks become a routine cost.
+
 ## Decided
 
 (none yet)

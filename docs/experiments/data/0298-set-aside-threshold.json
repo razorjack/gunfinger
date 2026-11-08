@@ -1,0 +1,596 @@
+{
+ "D-R-vs-baseline": {
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4162,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4997,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4212,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4245,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4254,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "sweep-seed-2026.json": {
+   "confident": 0,
+   "identical": 720,
+   "none": 720,
+   "order": 0,
+   "queries": 720,
+   "refit": 0,
+   "weak": 0
+  }
+ },
+ "at-262-VvsR": {
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 64,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 77,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 83,
+   "gone": 10,
+   "kind": "weak",
+   "new": 14
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "confident_gone": 10,
+   "confident_new": 10,
+   "detections": 100,
+   "gone": 12,
+   "kind": "refit",
+   "new": 12
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 92,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "sweep-seed-2026.json": {
+   "confident": 0,
+   "identical": 146,
+   "none": 146,
+   "order": 0,
+   "queries": 720,
+   "refit": 540,
+   "weak": 34
+  }
+ },
+ "at-A-VvsR": {
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "confident_gone": 2,
+   "confident_new": 2,
+   "detections": 4162,
+   "gone": 5,
+   "kind": "refit",
+   "new": 4
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "confident_gone": 2,
+   "confident_new": 2,
+   "detections": 4997,
+   "gone": 2,
+   "kind": "refit",
+   "new": 2
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4214,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "confident_gone": 3,
+   "confident_new": 3,
+   "detections": 4247,
+   "gone": 3,
+   "kind": "refit",
+   "new": 3
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "confident_gone": 2,
+   "confident_new": 2,
+   "detections": 4256,
+   "gone": 2,
+   "kind": "refit",
+   "new": 2
+  },
+  "sweep-seed-2026.json": {
+   "confident": 0,
+   "identical": 548,
+   "none": 548,
+   "order": 0,
+   "queries": 720,
+   "refit": 128,
+   "weak": 44
+  }
+ },
+ "at-B-VvsR": {
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4163,
+   "gone": 1,
+   "kind": "weak",
+   "new": 0
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "confident_gone": 1,
+   "confident_new": 1,
+   "detections": 4997,
+   "gone": 1,
+   "kind": "refit",
+   "new": 1
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4213,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "confident_gone": 3,
+   "confident_new": 3,
+   "detections": 4246,
+   "gone": 3,
+   "kind": "refit",
+   "new": 3
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "confident_gone": 5,
+   "confident_new": 5,
+   "detections": 4255,
+   "gone": 5,
+   "kind": "refit",
+   "new": 5
+  },
+  "sweep-seed-2026.json": {
+   "confident": 0,
+   "identical": 535,
+   "none": 535,
+   "order": 0,
+   "queries": 720,
+   "refit": 140,
+   "weak": 45
+  }
+ },
+ "at-D-VvsR": {
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4162,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4997,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4212,
+   "gone": 0,
+   "kind": "weak",
+   "new": 1
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4245,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4254,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "sweep-seed-2026.json": {
+   "confident": 0,
+   "identical": 534,
+   "none": 534,
+   "order": 0,
+   "queries": 720,
+   "refit": 138,
+   "weak": 48
+  }
+ },
+ "g20-VrvsR": {
+  "sweep-seed-2026-exact-1-grow20.json": {
+   "confident": 0,
+   "identical": 542,
+   "none": 542,
+   "order": 0,
+   "queries": 720,
+   "refit": 128,
+   "weak": 50
+  }
+ },
+ "g20-VvsR": {
+  "sweep-seed-2026-exact-1-grow20.json": {
+   "confident": 0,
+   "identical": 36,
+   "none": 36,
+   "order": 0,
+   "queries": 720,
+   "refit": 547,
+   "weak": 137
+  }
+ },
+ "g5-VvsR": {
+  "sweep-seed-2026-exact-1-grow5.json": {
+   "confident": 0,
+   "identical": 78,
+   "none": 78,
+   "order": 0,
+   "queries": 720,
+   "refit": 536,
+   "weak": 106
+  }
+ },
+ "p262-R": {
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "confident_gone": 9,
+   "confident_new": 9,
+   "detections": 60,
+   "gone": 10,
+   "kind": "refit",
+   "new": 13
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "confident_gone": 9,
+   "confident_new": 9,
+   "detections": 76,
+   "gone": 9,
+   "kind": "refit",
+   "new": 12
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 79,
+   "gone": 8,
+   "kind": "weak",
+   "new": 5
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "confident_gone": 15,
+   "confident_new": 15,
+   "detections": 96,
+   "gone": 20,
+   "kind": "refit",
+   "new": 20
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "confident_gone": 19,
+   "confident_new": 19,
+   "detections": 88,
+   "gone": 20,
+   "kind": "refit",
+   "new": 22
+  },
+  "sweep-seed-2026.json": {
+   "confident": 0,
+   "identical": 229,
+   "none": 229,
+   "order": 0,
+   "queries": 720,
+   "refit": 482,
+   "weak": 9
+  }
+ },
+ "p262-V": {
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "confident_gone": 9,
+   "confident_new": 9,
+   "detections": 60,
+   "gone": 9,
+   "kind": "refit",
+   "new": 15
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "confident_gone": 9,
+   "confident_new": 9,
+   "detections": 76,
+   "gone": 10,
+   "kind": "refit",
+   "new": 13
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 83,
+   "gone": 4,
+   "kind": "weak",
+   "new": 7
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "confident_gone": 15,
+   "confident_new": 15,
+   "detections": 96,
+   "gone": 17,
+   "kind": "refit",
+   "new": 21
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "confident_gone": 19,
+   "confident_new": 19,
+   "detections": 88,
+   "gone": 22,
+   "kind": "refit",
+   "new": 25
+  },
+  "sweep-seed-2026.json": {
+   "confident": 0,
+   "identical": 191,
+   "none": 191,
+   "order": 0,
+   "queries": 720,
+   "refit": 514,
+   "weak": 15
+  }
+ },
+ "p64-R": {
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4162,
+   "gone": 0,
+   "kind": "weak",
+   "new": 1
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "confident_gone": 1,
+   "confident_new": 1,
+   "detections": 4997,
+   "gone": 1,
+   "kind": "refit",
+   "new": 1
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4213,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4246,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "confident_gone": 3,
+   "confident_new": 3,
+   "detections": 4255,
+   "gone": 3,
+   "kind": "refit",
+   "new": 3
+  },
+  "sweep-seed-2026.json": {
+   "confident": 0,
+   "identical": 713,
+   "none": 713,
+   "order": 0,
+   "queries": 720,
+   "refit": 4,
+   "weak": 3
+  }
+ },
+ "p64-V": {
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "confident_gone": 2,
+   "confident_new": 2,
+   "detections": 4161,
+   "gone": 4,
+   "kind": "refit",
+   "new": 5
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "confident_gone": 2,
+   "confident_new": 2,
+   "detections": 4997,
+   "gone": 2,
+   "kind": "refit",
+   "new": 2
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4213,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4246,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4255,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "sweep-seed-2026.json": {
+   "confident": 0,
+   "identical": 707,
+   "none": 707,
+   "order": 0,
+   "queries": 720,
+   "refit": 12,
+   "weak": 1
+  }
+ },
+ "p75-R": {
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4162,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "confident_gone": 1,
+   "confident_new": 1,
+   "detections": 4997,
+   "gone": 1,
+   "kind": "refit",
+   "new": 1
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4212,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "confident_gone": 3,
+   "confident_new": 3,
+   "detections": 4245,
+   "gone": 3,
+   "kind": "refit",
+   "new": 3
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4254,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "sweep-seed-2026.json": {
+   "confident": 0,
+   "identical": 695,
+   "none": 695,
+   "order": 0,
+   "queries": 720,
+   "refit": 21,
+   "weak": 4
+  }
+ },
+ "p75-V": {
+  "scan-nocny-trans-vertical-2002-08-23.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4161,
+   "gone": 0,
+   "kind": "weak",
+   "new": 1
+  },
+  "scan-razorjack-2003-03-29.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4997,
+   "gone": 0,
+   "kind": "none",
+   "new": 0
+  },
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json": {
+   "confident_gone": 0,
+   "confident_new": 0,
+   "detections": 4212,
+   "gone": 0,
+   "kind": "weak",
+   "new": 1
+  },
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json": {
+   "confident_gone": 6,
+   "confident_new": 6,
+   "detections": 4245,
+   "gone": 6,
+   "kind": "refit",
+   "new": 6
+  },
+  "scan-stakka-skynet-knowledge.json": {
+   "confident_gone": 5,
+   "confident_new": 5,
+   "detections": 4254,
+   "gone": 5,
+   "kind": "refit",
+   "new": 5
+  },
+  "sweep-seed-2026.json": {
+   "confident": 0,
+   "identical": 720,
+   "none": 720,
+   "order": 0,
+   "queries": 720,
+   "refit": 0,
+   "weak": 0
+  }
+ }
+}
