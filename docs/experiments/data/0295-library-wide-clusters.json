@@ -1,0 +1,464 @@
+{
+ "new": {
+  "clusters": 4880,
+  "files": 11165,
+  "with_corpus_file": 215,
+  "sizes_top": [
+   10,
+   8,
+   8,
+   7,
+   7,
+   7,
+   7,
+   7,
+   7,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6
+  ],
+  "size_median": 2.0,
+  "size_2": 3854,
+  "size_3_5": 1004,
+  "size_6_20": 22,
+  "size_over_20": 0,
+  "largest": [
+   {
+    "size": 10,
+    "corpus": [
+     "Bad Company - The Nine.mp3",
+     "extra/A- The_Nine.mp3",
+     "extra/A-Bad_Company-The_Nine-dmz.mp3"
+    ],
+    "first": [
+     "Bad Company - The Nine.mp3",
+     "extra/A- The_Nine.mp3",
+     "extra/A-Bad_Company-The_Nine-dmz.mp3"
+    ]
+   },
+   {
+    "size": 8,
+    "corpus": [],
+    "first": [
+     "second-library/(2001) Book Of The Bad (BCRUKEPCD001)/Disc 1/02.mp3",
+     "second-library/(2001) Planet Dust (PRO003UK)/a-bad_company-planet_dust-sour.mp3",
+     "second-library/(2007) Bad Company Classics (BCUK001LP)/D-Bad_Company-Planet_Dust-dmz.mp3"
+    ]
+   },
+   {
+    "size": 8,
+    "corpus": [],
+    "first": [
+     "second-library/2008 - UDFRLTD001 - Stakka & Skynet (Kraken) - Side Effects - 215/1. Stakka And Skynet (Kraken) - Side Effects.mp3",
+     "second-library/__full_scene/1999/1999-08/1999-08-22/underfire_recordings-blazin-cd_rip-1999-sour/101_-_kraken_-_side_effects-sour.mp3",
+     "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-05/underfire-kraken-udfr015-2000-sour/a-kraken-side_effects-sour.mp3"
+    ]
+   },
+   {
+    "size": 7,
+    "corpus": [
+     "extra/02-Decoder-Hord_39-sour.mp3"
+    ],
+    "first": [
+     "extra/02-Decoder-Hord_39-sour.mp3",
+     "second-library/TI028 - Decoder - Hord 39; Cobra [2000] (Tech Itch Recordings)/A_-_Decoder_-_Hord_39.mp3",
+     "second-library/__full_scene/-= Tech Itch Recordings =-/TI028 - Decoder - Hord 39; Cobra [2000] (Tech Itch Recordings)/A_-_Decoder_-_Hord_39.mp3"
+    ]
+   },
+   {
+    "size": 7,
+    "corpus": [
+     "extra/1.Kemal & Rob Data - The Mummy.mp3"
+    ],
+    "first": [
+     "extra/1.Kemal & Rob Data - The Mummy.mp3",
+     "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/negative-konflict-ntv001-2000-sour/a-konflict-the_mummy-sour.mp3",
+     "second-library/__youtube_archivists/alien5ive/NEGATIVE RECORDINGS [ NTV 001 ： KEMAL & ROB DATA - the mummy - ] drum and bass.opus"
+    ]
+   },
+   {
+    "size": 7,
+    "corpus": [],
+    "first": [
+     "second-library/(1999) Twisted EP (VRS 006)/02. Optical & Ryme Tyme - Ghostbuster.mp3",
+     "second-library/__full_scene/1999/1999-09/1999-09-23/virus-twisted_ep-vrs006-1999-sour/b-optical_and_ryme_tyme-ghostbuster-sour.mp3",
+     "second-library/__youtube_archivists/alien5ive/VIRUS RECORDINGS [ VRS 006 ： RYME TYME & OPTICAL - ghostbuster - ] drum and bass.m4a"
+    ]
+   },
+   {
+    "size": 7,
+    "corpus": [],
+    "first": [
+     "second-library/(1999) Twisted EP (VRS 006)/03. Bad Company - Seizure.mp3",
+     "second-library/__full_scene/1999/1999-09/1999-09-23/virus-twisted_ep-vrs006-1999-sour/c-bad_company-seizure-sour.mp3",
+     "second-library/__youtube_archivists/dfect-dnb/Bad Company - Seizure.opus"
+    ]
+   },
+   {
+    "size": 7,
+    "corpus": [],
+    "first": [
+     "second-library/(1999) Twisted EP (VRS 006)/04. Bad Company - Skin Tag.mp3",
+     "second-library/__full_scene/1999/1999-09/1999-09-23/virus-twisted_ep-vrs006-1999-sour/d-bad_company-skin_tag-sour.mp3",
+     "second-library/__youtube_archivists/dfect-dnb/Bad Company - Skin Tag.opus"
+    ]
+   }
+  ]
+ },
+ "old": {
+  "clusters": 284,
+  "files": 1004,
+  "joins": 811
+ },
+ "a_old_joins_kept": 810,
+ "a_old_joins_share": 0.998766954377312,
+ "a_old_joins_missed": [
+  [
+   "extra/A. Pyro -- Time Is Broken.mp3",
+   "second-library/__youtube_archivists/butch-french/Pyro - Time Is Broken.m4a"
+  ]
+ ],
+ "a_old_clusters_whole": 254,
+ "b_merging": [],
+ "c_without_corpus": {
+  "clusters": 4665,
+  "files": 10529
+ },
+ "d_joins": 8139,
+ "d_median_hits_per_second": 18.319227872676194,
+ "d_sparse": 5,
+ "d_sparse_share": 0.0006143260842855387,
+ "d_sparse_list": [
+  [
+   "second-library/__youtube_archivists/dfect-dnb/Robot Death Squad - Hot 9mm.m4a",
+   "second-library/__youtube_archivists/weedsurfer/Robot Death Squad - Hot 9 mm.m4a",
+   0.92,
+   389,
+   1.09
+  ],
+  [
+   "second-library/__youtube_archivists/weedsurfer/Kaos, Karl K, Jae Kennedy and Lee - Never Forget.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/DJ Lee, Karl K & Jae Kennedy - Come Home.m4a",
+   0.978,
+   534,
+   1.5
+  ],
+  [
+   "second-library/__youtube_archivists/unxplored-dnb/Big Brovaz - OK (Ray Keith Remix Vocal).m4a",
+   "second-library/__youtube_archivists/unxplored-dnb/Big Brovaz - OK (Ray Keith Remix Dub).m4a",
+   0.97,
+   602,
+   1.54
+  ],
+  [
+   "second-library/va-distorted_reality_ep-rh08-1997-sour/c-future_forces_inc-the_killer-sour.mp3",
+   "second-library/__youtube_archivists/cryptic-jungle/Future Forces Inc - The Killer.opus",
+   0.834,
+   456,
+   1.54
+  ],
+  [
+   "second-library/__youtube_archivists/the-hifi-junglist/Joe Armon-Jones - Wrong Side Of The Rhodes (Aquarii Records AQU007LP B2) 2024.opus",
+   "second-library/__youtube_archivists/the-hifi-junglist/Joe Armon-Jones feat. Hak Baker - Dub Side Of The Town (Aquarii Records AQU007LP A2) 2024.opus",
+   0.849,
+   323,
+   1.71
+  ]
+ ],
+ "d_borderline": 421,
+ "d_borderline_list": [
+  [
+   "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus",
+   "second-library/bad_company-fear_lp/07 bad company-china cup.mp3",
+   0.999,
+   2589
+  ],
+  [
+   "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus",
+   "Bad Company - China Cup.mp3",
+   0.994,
+   2448
+  ],
+  [
+   "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus",
+   "extra/02. Bad Company - China Cup.mp3",
+   0.994,
+   2448
+  ],
+  [
+   "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus",
+   "extra/b-bad_company-china_cup.mp3",
+   0.993,
+   2489
+  ],
+  [
+   "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+   "second-library/__youtube_archivists/i-witness-dnb/Ryme Tyme - We Enter (Optical Remix V.2.0).m4a",
+   0.938,
+   1261
+  ],
+  [
+   "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+   "second-library/__youtube_archivists/dfect-dnb/Ryme Tyme - We Enter (Optical RMX).m4a",
+   0.896,
+   2119
+  ],
+  [
+   "second-library/__youtube_archivists/i-witness-dnb/Ryme Tyme - We Enter (Optical Remix V.2.0).m4a",
+   "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+   0.849,
+   1214
+  ],
+  [
+   "second-library/__youtube_archivists/dfect-dnb/Ryme Tyme - We Enter (Optical RMX).m4a",
+   "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+   0.835,
+   2111
+  ],
+  [
+   "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a",
+   0.817,
+   3450
+  ],
+  [
+   "second-library/__youtube_archivists/sicknote-classic-dnb/Ram Trilogy - Mind Overload.opus",
+   "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3",
+   0.815,
+   3449
+  ],
+  [
+   "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3",
+   "second-library/__youtube_archivists/sicknote-classic-dnb/Ram Trilogy - Mind Overload.opus",
+   0.809,
+   3478
+  ],
+  [
+   "second-library/__youtube_archivists/the-hifi-junglist/Roots Manuva - Witness (1 Hope) Part 2 In The Flesh Mix (Big Dada Recordings BD022 B1) 2001.opus",
+   "second-library/__youtube_archivists/the-hifi-junglist/Roots Manuva - Witness (1 Hope) (Big Dada Recordings BD022 A) 2001.opus",
+   0.8,
+   549
+  ],
+  [
+   "second-library/__youtube_archivists/i-witness-dnb/Ill.Skillz (DKay & Rawfull) - Guru.m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Ill.Skillz (DKay & Rawfull) - Guru VIP.m4a",
+   0.799,
+   524
+  ],
+  [
+   "second-library/__youtube_archivists/i-witness-dnb/Ancronix feat. Tyrah Morena - Dark Thoughts.m4a",
+   "second-library/__youtube_archivists/dfect-dnb/Ancronix feat. Tyrah Morena - Dark Thoughts.m4a",
+   0.798,
+   3443
+  ],
+  [
+   "second-library/__youtube_archivists/i-witness-dnb/Dom, Gridlok & AK1200 - The Lycan Autopsy.m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/AK1200 feat. Dom & Roland - The Lycan Revisited.m4a",
+   0.798,
+   1621
+  ],
+  [
+   "second-library/__youtube_archivists/just-another-archivist/LTJ Bukem – Untitled (Mix 2) [Not On Label – WIZ BUK 01 ⧸ B1] 1991.opus",
+   "second-library/__youtube_archivists/just-another-archivist/LTJ Bukem – Untitled (Mix 1) [Not On Label – WIZ BUK 01 ⧸ A1] 1991.m4a",
+   0.798,
+   2005
+  ],
+  [
+   "second-library/__youtube_archivists/sicknote-classic-dnb/Konflict - Beckoning (Usual Suspects Remix).opus",
+   "second-library/__youtube_archivists/i-witness-dnb/Konflict - Beckoning (Usual Suspects Remix).m4a",
+   0.797,
+   4472
+  ],
+  [
+   "second-library/__youtube_archivists/jungle-jungle/A-Sides & MC Fats - Crazy VIP.m4a",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/eastside-a_sides-east34-2000-sour/a-a_sides-crazy-sour.mp3",
+   0.796,
+   1184
+  ],
+  [
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Kaos & Karl K - Street Knowledge.opus",
+   "second-library/orgone-kaos_karl_k_and_siren-orgone010-2002-sour/a-kaos_karl_k_and_siren-street_knowledge-sour.mp3",
+   0.796,
+   4659
+  ],
+  [
+   "second-library/__youtube_archivists/the-hifi-junglist/Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a",
+   "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3",
+   0.796,
+   3393
+  ],
+  [
+   "second-library/__youtube_archivists/cryptic-jungle/Future Forces Inc - The Killer (Radio Edit).m4a",
+   "second-library/__youtube_archivists/cryptic-jungle/Future Forces Inc - The Killer.opus",
+   0.796,
+   379
+  ],
+  [
+   "second-library/__youtube_archivists/abstract-math/Cipher & Divert - Radiation.opus",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Cipher & Squeez - Radiation.opus",
+   0.795,
+   1473
+  ],
+  [
+   "second-library/__youtube_archivists/jungle-jungle/A-Sides & MC Fats - Crazy VIP.m4a",
+   "second-library/__youtube_archivists/rootzdnb/A Sides - Crazy.m4a",
+   0.794,
+   1124
+  ],
+  [
+   "second-library/orgone-kaos_karl_k_and_siren-orgone010-2002-sour/a-kaos_karl_k_and_siren-street_knowledge-sour.mp3",
+   "second-library/__youtube_archivists/3zb-gangstep-dnb/Kaos & Karl K - Street Knowledge.opus",
+   0.793,
+   4624
+  ],
+  [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/technical_itch-the_never_after_ep-msxep005-2000-sour/y-technical_itch-extraction-sour.mp3",
+   "second-library/__youtube_archivists/dfect-dnb/Technical Itch - Extraction.m4a",
+   0.792,
+   3943
+  ],
+  [
+   "second-library/__youtube_archivists/dfect-dnb/Technical Itch - Extraction.m4a",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-08/technical_itch-the_never_after_ep-msxep005-2000-sour/y-technical_itch-extraction-sour.mp3",
+   0.792,
+   4301
+  ],
+  [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 1/2000-06/va-jungle_massive_1-hfcd42-1994-sour/03-ltj_bukem-music-sour.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/LTJ Bukem - Music (Logical Progression - Good Looking Records 828 739-1 B1) 1996.opus",
+   0.792,
+   2123
+  ],
+  [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/v_recordings-roni_size-v011-1995-sour/aa-roni_size-phyzical_(vintage_remix_by_rk_and_photek)-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 2/2000-09/va-v_classic-vecd01-1997-sour/208-ray_keith-phizical_(moody_mix)-sour.mp3",
+   0.79,
+   1246
+  ],
+  [
+   "second-library/__youtube_archivists/cryptic-jungle/Majistrate - Big Tings.m4a",
+   "second-library/__youtube_archivists/old-skool-jungle-dnb/Majistrate – Big Ting's ⧸⧸ Old Skool Jungle & Drum N Bass.m4a",
+   0.79,
+   7085
+  ],
+  [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/renk-m_beat_feat_general_levy-renkt42-1994-sour/aa2-m_beat_feat_general_levy-incredible_(instrumental)-sour.mp3",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/renk-m_beat_feat_general_levy-renkt42-1994-sour/a-m_beat_feat_general_levy-incredible_(original)-sour.mp3",
+   0.788,
+   636
+  ],
+  [
+   "second-library/DNAudio-Bloc_Party_(Break_And_Silent_Witness_Remix)-DNAUDIO012-Vinyl-2007-uC/b-bloc_party-the_prayer_(break_and_silent_witness_instrumental).mp3",
+   "second-library/DNAudio-Bloc_Party_(Break_And_Silent_Witness_Remix)-DNAUDIO012-Vinyl-2007-uC/a-bloc_party-the_prayer_(break_and_silent_witness_remix).mp3",
+   0.787,
+   2164
+  ],
+  [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/hard_leaders-5th_assasin-hllp10s-2000-sour/aa-5th_assasin-interface-sour.mp3",
+   "second-library/__youtube_archivists/unxplored-dnb/5th Assassin - Interface.m4a",
+   0.784,
+   1364
+  ],
+  [
+   "second-library/__youtube_archivists/i-witness-dnb/Konflict - Beckoning (Usual Suspects Remix).m4a",
+   "second-library/konflict-maelstrom_ep-rh26-2000-sour/d-konflict-the_beckoning_(konflict_remix)-sour.mp3",
+   0.784,
+   3374
+  ],
+  [
+   "second-library/__youtube_archivists/hld77777/Persian Prince + Budda. Q. - Get Up Stand Up (Mix 1).opus",
+   "second-library/__youtube_archivists/hld77777/Persian Prince + Budda. Q. - Get Up Stand Up (Mix 2).opus",
+   0.783,
+   547
+  ],
+  [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-12/dj_hype_and_tru_playaz-real_vibes-tprlp002-1998-sour/i-hype-the_big_30th-1998-sour.mp3",
+   "second-library/__youtube_archivists/the-hifi-junglist/DJ Hype - The Big 30h (Real Vibes CD1, True Playaz TPRCD002 track 9) 1998.m4a",
+   0.783,
+   5570
+  ],
+  [
+   "second-library/__youtube_archivists/i-witness-dnb/Paragliders - Share Of Bitterness (Konflict Remix).m4a",
+   "second-library/1998 - WAQT004 - Paragliders - Share Of Bitterness - 192/2. Paragliders - Share Of Bitterness (Konflict Remix).mp3",
+   0.782,
+   3638
+  ],
+  [
+   "second-library/__youtube_archivists/old-skool-jungle-dnb/Fresh & Vegus - Otto's Way.m4a",
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/metro-fresh_n_vegas-mtrr004-1998-sour/a-fresh_n_vegas-ottos_way-sour.mp3",
+   0.782,
+   3664
+  ],
+  [
+   "second-library/__youtube_archivists/i-witness-dnb/AK1200 feat. Dom & Roland - The Lycan Revisited.m4a",
+   "second-library/__youtube_archivists/i-witness-dnb/Dom, Gridlok & AK1200 - The Lycan Autopsy.m4a",
+   0.781,
+   1568
+  ],
+  [
+   "extra/b-bad_company-china_cup.mp3",
+   "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus",
+   0.781,
+   2177
+  ],
+  [
+   "second-library/__full_scene/dnb_scene - 2000 - Part 3/2000-10/v_recordings-roni_size-v011-1995-sour/aa-roni_size-phyzical_(vintage_remix_by_rk_and_photek)-sour.mp3",
+   "second-library/__youtube_archivists/old-skool-jungle-dnb/Roni Size - Phizical (Ray Keith Moody Mix).m4a",
+   0.78,
+   928
+  ]
+ ],
+ "e_cut_links": [
+  {
+   "query": "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus",
+   "found": "second-library/bad_company-fear_lp/07 bad company-china cup.mp3",
+   "judged_different": [
+    "extra/b-bad_company-china_cup.mp3",
+    "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus",
+   "found": "Bad Company - China Cup.mp3",
+   "judged_different": [
+    "extra/b-bad_company-china_cup.mp3",
+    "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus",
+   "found": "extra/02. Bad Company - China Cup.mp3",
+   "judged_different": [
+    "extra/b-bad_company-china_cup.mp3",
+    "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus"
+   ]
+  },
+  {
+   "query": "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3",
+   "found": "second-library/__youtube_archivists/the-hifi-junglist/Ram Trilogy - Mind Overload (Chapter Two - RAM Records RAMM 23 A) 1998.m4a",
+   "judged_different": [
+    "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3",
+    "second-library/__full_scene/1999/1999-11/1999-11-29/ram-ram_trilogy_chapter_2-ramm23-1998-sour/01-ram_trilogy-mind_overload.mp3"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/sicknote-classic-dnb/Ram Trilogy - Mind Overload.opus",
+   "found": "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3",
+   "judged_different": [
+    "second-library/__full_scene/1999/1999-11/1999-11-21/ram_trilogy-molten_beats-1999-sour/111-ram_trilogy-mind_overload-sour.mp3",
+    "second-library/__full_scene/1999/1999-11/1999-11-29/ram-ram_trilogy_chapter_2-ramm23-1998-sour/01-ram_trilogy-mind_overload.mp3"
+   ]
+  },
+  {
+   "query": "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+   "found": "second-library/__youtube_archivists/i-witness-dnb/Ryme Tyme - We Enter (Optical Remix V.2.0).m4a",
+   "judged_different": [
+    "second-library/__youtube_archivists/butch-french/Ryme Tyme - We Enter (Optical Remix v.3.0 Full Instrumental).opus",
+    "second-library/__youtube_archivists/dfect-dnb/Ryme Tyme - We Enter (Optical RMX).m4a"
+   ]
+  }
+ ]
+}
