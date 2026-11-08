@@ -44,9 +44,14 @@ def items(data_dir):
     rows = []
     add = lambda exp, decision, what, values, kind="file": rows.append((exp, decision, what, values, kind))
 
+    d = load(data_dir, "0102-possible-tier-third-mix.json")
+    add("0092, 0100, 0102", "ADR 0019", "possible lines of the three development mixes",
+        files_at(d["scans"], "plays", "asset") + files_at(d["new mix"], "plays", "asset"))
     d = load(data_dir, "0091-containment-rule.json")["demoted at passage, tolerance 10 s, no ratio bound"]
-    add("0091", "ADR 0019", "0076 passages, played file indexed (by played file)",
+    add("0091", "containment", "design: 0076 passages, played file indexed (by played file)",
         files_at(d["0076 passages, played file indexed"], "play"))
+    add("0091", "containment", "test: new judged pairs, played file indexed (by played file)",
+        files_at(d["new judged pairs, played file indexed"], "play"))
     d = load(data_dir, "0107-possible-plays-inside-a-confident-play.json")
     for part in ("sweeps (NAS)", "recall (NAS)"):
         add("0107", "ADR 0019", f"{part}: possible plays left out (by confident play's file)",
@@ -56,7 +61,8 @@ def items(data_dir):
         add("0175", "ADR 0021", f"seed {seed}: lost sides, no detection",
             files_at(d["seeds"][seed]["no_detection"], "lost_sides", "asset"))
     d = load(data_dir, "0188-false-detections-measures.json")
-    add("0188", "ADR 0022", "false detections (by query file)", files_at(d, "query"))
+    add("0188", "ADR 0022", "false confident detections (by query file)",
+        [row["query"] for row in d for _ in range(row["confident"])])
     d = load(data_dir, "0230-other-copies-seeds-2027-2028.json")
     add("0230", "ADR 0022", "seed 2027, L5: new wrong confident",
         files_at(d["2027"]["ladders"]["L5"], "new_wrong_confident"))

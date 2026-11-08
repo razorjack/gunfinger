@@ -6,13 +6,13 @@
 //! listening, never from a search result. Each tier joins more than the
 //! one before it:
 //!
-//! - `Recording`: the duplicate clusters, and each corpus file with the
-//!   other library's file it stands for (the library map);
+//! - `Recording`: the duplicate clusters, the pairs judged the same
+//!   recording by ear, and each corpus file with the other library's file
+//!   it stands for (the library map);
 //! - `Title`: and each same-title judgment, the joins scoring credits as
 //!   right (ADR 0022);
-//! - `Relation`: and every pair a verdict by ear names, the same or
-//!   different (a verdict is written on a pair a search found sharing
-//!   material), and every stored clusters pair whose alignment covers
+//! - `Relation`: and every pair judged different by ear (a verdict is
+//!   written on a pair a search found sharing material), and every stored clusters pair whose alignment covers
 //!   `REPORTED_COVERAGE` or more of the shorter file with `RELATED_HITS`
 //!   or more hits, and the recordings of each family of a shared-material
 //!   panel (`docs/panels/shared-material-*.json`), which records relations
@@ -21,7 +21,8 @@
 //!   relation family can hold a remix and the remix's own remixes.
 //!   Coverage alone would chain chance alignments: it counts the span
 //!   from the first hit to the last, and most stored pairs over 20%
-//!   have under 10 hits (session 87 joined 679 files that way).
+//!   have under 10 hits (in session 87 coverage alone joined 704 files
+//!   into one family).
 //!
 //! A file in no relation is its own family; a family is named by its
 //! smallest member in byte order.
@@ -37,7 +38,7 @@ use crate::rng::Rng;
 use crate::scoring::Level;
 use crate::sweep::{Outcome, Query};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum Tier {
     Recording,
@@ -100,14 +101,14 @@ impl Joins {
 }
 
 /// Every file named by a join, with its family at each tier.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize)]
 pub struct Families {
     /// What the joins were read from, for the reader of the key.
     pub sources: Vec<String>,
     pub files: BTreeMap<String, FileFamilies>,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub struct FileFamilies {
     pub recording: String,
     pub title: String,
@@ -117,30 +118,23 @@ pub struct FileFamilies {
 impl Families {
     pub fn build(sources: Vec<String>, joins: &Joins) -> Families {
         let mut joined = Joined::default();
-        let mut tiers = Vec::new();
-        for (tier, pairs) in [
-            (Tier::Recording, &joins.same_recording),
-            (Tier::Title, &joins.same_title),
-            (Tier::Relation, &joins.related),
-        ] {
-            for (a, b) in pairs {
-                joined.join(a, b);
-            }
-            tiers.push((tier, joined.names()));
-        }
-        let mut files: BTreeMap<String, FileFamilies> = BTreeMap::new();
-        let relation = &tiers[2].1;
-        for file in relation.keys() {
-            let name = |tier: usize| tiers[tier].1.get(file).unwrap_or(file).clone();
-            files.insert(
-                file.clone(),
-                FileFamilies {
-                    recording: name(0),
-                    title: name(1),
-                    relation: name(2),
-                },
-            );
-        }
+        let recording = joined.after(&joins.same_recording);
+        let title = joined.after(&joins.same_title);
+        let relation = joined.after(&joins.related);
+        let name = |names: &BTreeMap<String, String>, file: &String| {
+            names.get(file).unwrap_or(file).clone()
+        };
+        let files = relation
+            .iter()
+            .map(|(file, family)| {
+                let families = FileFamilies {
+                    recording: name(&recording, file),
+                    title: name(&title, file),
+                    relation: family.clone(),
+                };
+                (file.clone(), families)
+            })
+            .collect();
         Families { sources, files }
     }
 
@@ -180,20 +174,30 @@ struct Joined {
 }
 
 impl Joined {
+    /// The root of `file`'s family; every file on the way is pointed at it.
     fn root(&mut self, file: &str) -> String {
-        let mut root = file.to_owned();
-        while let Some(parent) = self.parent.get(&root).filter(|parent| **parent != root) {
-            root = parent.clone();
-        }
+        let mut path = Vec::new();
         let mut current = file.to_owned();
-        while current != root {
-            let next = self
-                .parent
-                .insert(current, root.clone())
-                .unwrap_or_default();
-            current = next;
+        while let Some(parent) = self
+            .parent
+            .get(&current)
+            .filter(|parent| **parent != current)
+        {
+            let parent = parent.clone();
+            path.push(std::mem::replace(&mut current, parent));
         }
-        root
+        for member in path {
+            self.parent.insert(member, current.clone());
+        }
+        current
+    }
+
+    /// Joins every pair, then names every file's family.
+    fn after(&mut self, pairs: &[(String, String)]) -> BTreeMap<String, String> {
+        for (a, b) in pairs {
+            self.join(a, b);
+        }
+        self.names()
     }
 
     fn join(&mut self, a: &str, b: &str) {
@@ -271,13 +275,30 @@ struct SavedTruth {
     held_out: bool,
 }
 
+/// Whether an item's recording was in the index.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Side {
+    /// Recalled or not.
+    Indexed,
+    /// Scored only by whether a confident detection named another title.
+    HeldOut,
+}
+
+impl Side {
+    fn of(held_out: bool) -> Side {
+        if held_out {
+            Side::HeldOut
+        } else {
+            Side::Indexed
+        }
+    }
+}
+
 /// One scored item: a query, or a play of a generated mix.
 #[derive(Debug, Clone)]
 pub struct Item {
     pub asset: String,
-    /// Indexed items are recalled or not; held-out ones are scored only by
-    /// whether something confident answered.
-    pub held_out: bool,
+    pub side: Side,
     pub recalled: bool,
     /// For a query, whether a confident detection named another title. A
     /// mix's wrong answers match no play, so they are counted per mix
@@ -312,7 +333,7 @@ pub fn read_report(path: &Path) -> Result<Scored, String> {
             .flat_map(|(number, mix)| {
                 mix.score.plays.iter().map(move |play| Item {
                     asset: play.truth.asset.clone(),
-                    held_out: play.truth.held_out,
+                    side: Side::of(play.truth.held_out),
                     recalled: !play.truth.held_out && play.level == Level::Confident,
                     wrong: false,
                     mix: Some(number),
@@ -341,7 +362,7 @@ pub fn read_report(path: &Path) -> Result<Scored, String> {
                 .any(|outcome| outcome.is_right() && outcome.confident);
             Item {
                 asset: query.asset.clone(),
-                held_out: query.held_out,
+                side: Side::of(query.held_out),
                 recalled: !query.held_out && confident_right,
                 wrong: query.detections.iter().any(Outcome::is_wrong),
                 mix: None,
@@ -411,9 +432,28 @@ pub fn summarise(report: &str, scored: &Scored, families: &Families) -> Summary 
     } else {
         Unit::Family
     };
-    let indexed: Vec<&Item> = scored.items.iter().filter(|item| !item.held_out).collect();
-    let held_out: Vec<&Item> = scored.items.iter().filter(|item| item.held_out).collect();
-    let group = |items: &[&Item], held: bool| Group {
+    let group = |side: Side| {
+        let items: Vec<&Item> = scored
+            .items
+            .iter()
+            .filter(|item| item.side == side)
+            .collect();
+        group(&items, side, unit, families)
+    };
+    Summary {
+        report: report.to_owned(),
+        resampled: unit,
+        indexed: group(Side::Indexed),
+        held_out: group(Side::HeldOut),
+        wrong_per_mix: scored
+            .wrong_per_mix
+            .as_ref()
+            .map(|wrong| wrong_per_mix(wrong)),
+    }
+}
+
+fn group(items: &[&Item], side: Side, unit: Unit, families: &Families) -> Group {
+    Group {
         families: TIERS
             .iter()
             .map(|&tier| {
@@ -429,24 +469,14 @@ pub fn summarise(report: &str, scored: &Scored, families: &Families) -> Summary 
             .filter_map(|item| item.mix)
             .collect::<BTreeSet<_>>()
             .len(),
-        rate: match (held, unit) {
-            (false, _) => Some(rate(items, families, unit, |item| item.recalled)),
-            (true, Unit::Family) => Some(rate(items, families, unit, |item| item.wrong)),
-            (true, Unit::Mix) => None,
+        rate: match (side, unit) {
+            (Side::Indexed, _) => Some(rate(items, families, unit, |item| item.recalled)),
+            (Side::HeldOut, Unit::Family) => Some(rate(items, families, unit, |item| item.wrong)),
+            (Side::HeldOut, Unit::Mix) => None,
         },
         items: items.len(),
-        wrong: (!held && unit == Unit::Family)
+        wrong: (side == Side::Indexed && unit == Unit::Family)
             .then(|| rate(items, families, unit, |item| item.wrong)),
-    };
-    Summary {
-        report: report.to_owned(),
-        resampled: unit,
-        indexed: group(&indexed, false),
-        held_out: group(&held_out, true),
-        wrong_per_mix: scored
-            .wrong_per_mix
-            .as_ref()
-            .map(|wrong| wrong_per_mix(wrong)),
     }
 }
 
@@ -479,12 +509,17 @@ pub fn rate(
     let mut family_draws = Vec::with_capacity(RESAMPLES);
     if !units.is_empty() {
         for _ in 0..RESAMPLES {
-            // Families drawn twice count as two families.
+            // A unit drawn twice brings its families twice, as more
+            // families; a family in two different mixes stays one.
+            let mut copies = vec![0_usize; units.len()];
             let drawn: Vec<Vec<(String, bool)>> = (0..units.len())
-                .map(|draw| {
-                    units[rng.below(units.len())]
+                .map(|_| {
+                    let unit = rng.below(units.len());
+                    let copy = copies[unit];
+                    copies[unit] += 1;
+                    units[unit]
                         .iter()
-                        .map(|(name, counted)| (format!("{draw}:{name}"), *counted))
+                        .map(|(name, counted)| (format!("{copy}:{name}"), *counted))
                         .collect()
                 })
                 .collect();
@@ -584,9 +619,9 @@ pub fn print_key(key: &Families) {
 
 pub fn print_summary(summary: &Summary) {
     println!("{}", summary.report);
-    for (label, group) in [
-        ("indexed", &summary.indexed),
-        ("held out", &summary.held_out),
+    for (label, what, group) in [
+        ("indexed", "recall", &summary.indexed),
+        ("held out", "confident wrong", &summary.held_out),
     ] {
         if group.items == 0 {
             continue;
@@ -596,11 +631,6 @@ pub fn print_summary(summary: &Summary) {
             .iter()
             .map(|(tier, count)| format!("{count} {tier:?}"))
             .collect();
-        let what = if label == "indexed" {
-            "recall"
-        } else {
-            "confident wrong"
-        };
         println!(
             "  {label}: {} items, families {}{}",
             group.items,
@@ -727,7 +757,7 @@ mod tests {
     fn item(asset: &str, recalled: bool, mix: Option<usize>) -> Item {
         Item {
             asset: asset.to_owned(),
-            held_out: false,
+            side: Side::Indexed,
             recalled,
             wrong: false,
             mix,
@@ -803,24 +833,17 @@ mod tests {
         std::fs::write(&path, text).unwrap();
         let scored = read_report(&path).unwrap();
         std::fs::remove_dir_all(&dir).unwrap();
-        let assets: Vec<(&str, bool, bool, bool)> = scored
+        let assets: Vec<(&str, Side, bool, bool)> = scored
             .items
             .iter()
-            .map(|item| {
-                (
-                    item.asset.as_str(),
-                    item.held_out,
-                    item.recalled,
-                    item.wrong,
-                )
-            })
+            .map(|item| (item.asset.as_str(), item.side, item.recalled, item.wrong))
             .collect();
         assert_eq!(
             assets,
             vec![
-                ("a.mp3", false, true, false),
-                ("x.mp3", false, false, true),
-                ("lone.mp3", true, false, false),
+                ("a.mp3", Side::Indexed, true, false),
+                ("x.mp3", Side::Indexed, false, true),
+                ("lone.mp3", Side::HeldOut, false, false),
             ]
         );
         let summary = summarise("recall.json", &scored, &key());
@@ -828,6 +851,24 @@ mod tests {
         assert_eq!(summary.indexed.wrong.as_ref().unwrap().count, 1);
         assert_eq!(summary.held_out.items, 1);
         assert_eq!(summary.held_out.rate.as_ref().unwrap().count, 0);
+    }
+
+    #[test]
+    fn a_family_played_in_two_mixes_stays_one_family_when_mixes_are_resampled() {
+        // a.mp3's family is played in both mixes, recalled in one; each
+        // resample's family-weighted rate then lies between 0 and 1 and
+        // matches the point estimate when both mixes are drawn once.
+        let items = [
+            item("a.mp3", true, Some(0)),
+            item("b.mp3", false, Some(1)),
+            item("x.mp3", true, Some(1)),
+        ];
+        let refs: Vec<&Item> = items.iter().collect();
+        let rate = rate(&refs, &key(), Unit::Mix, |item| item.recalled);
+        // Families a.mp3 (1 of 2) and x.mp3 (1 of 1): (0.5 + 1) / 2.
+        assert!((rate.family_weighted - 0.75).abs() < 1e-12);
+        // Mix 0 twice: 1; mix 1 twice: (0 + 1) / 2; once each: 0.75.
+        assert_eq!(rate.family_weighted_interval, [0.5, 1.0]);
     }
 
     #[test]
