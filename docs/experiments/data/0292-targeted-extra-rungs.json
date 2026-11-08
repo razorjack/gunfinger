@@ -1,0 +1,4710 @@
+{
+ "c1-262": {
+  "L0": {
+   "queries": 1080,
+   "confident": 225,
+   "possible": 321,
+   "wrong_confident": 0,
+   "wrong_possible": 1,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 74,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 105,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 0,
+     "possible": 80
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 8,
+     "confident": 8,
+     "possible": 8
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 117,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 100,
+     "possible": 114
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 0,
+     "possible": 78
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 232,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "L1": {
+   "queries": 1080,
+   "confident": 352,
+   "possible": 439,
+   "wrong_confident": 0,
+   "wrong_possible": 4,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 97,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 112,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 0,
+     "possible": 78
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 8,
+     "confident": 8,
+     "possible": 8
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 104,
+     "possible": 115
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 0,
+     "possible": 75
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 232,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T(L1)": {
+   "queries": 1080,
+   "confident": 352,
+   "possible": 439,
+   "wrong_confident": 0,
+   "wrong_possible": 1,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 74,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 112,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 0,
+     "possible": 78
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 8,
+     "confident": 8,
+     "possible": 8
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 104,
+     "possible": 115
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 0,
+     "possible": 75
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 232,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "L2": {
+   "queries": 1080,
+   "confident": 470,
+   "possible": 549,
+   "wrong_confident": 0,
+   "wrong_possible": 4,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 91,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 110,
+     "possible": 120
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 67
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 2
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 8,
+     "confident": 8,
+     "possible": 8
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 119,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 103,
+     "possible": 114
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 66
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 232,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T(L2)": {
+   "queries": 1080,
+   "confident": 470,
+   "possible": 549,
+   "wrong_confident": 0,
+   "wrong_possible": 2,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 76,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 110,
+     "possible": 120
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 67
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 2
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 8,
+     "confident": 8,
+     "possible": 8
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 119,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 103,
+     "possible": 114
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 66
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 232,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T1": {
+   "queries": 1080,
+   "confident": 352,
+   "possible": 437,
+   "wrong_confident": 0,
+   "wrong_possible": 1,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 74,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 112,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 0,
+     "possible": 76
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 8,
+     "confident": 8,
+     "possible": 8
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 104,
+     "possible": 115
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 0,
+     "possible": 73
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 232,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T(T1)": {
+   "queries": 1080,
+   "confident": 352,
+   "possible": 437,
+   "wrong_confident": 0,
+   "wrong_possible": 1,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 74,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 112,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 0,
+     "possible": 76
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 8,
+     "confident": 8,
+     "possible": 8
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 104,
+     "possible": 115
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 0,
+     "possible": 73
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 232,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T2": {
+   "queries": 1080,
+   "confident": 470,
+   "possible": 549,
+   "wrong_confident": 0,
+   "wrong_possible": 2,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 76,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 110,
+     "possible": 120
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 67
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 2
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 8,
+     "confident": 8,
+     "possible": 8
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 119,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 103,
+     "possible": 114
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 66
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 232,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T(T2)": {
+   "queries": 1080,
+   "confident": 470,
+   "possible": 549,
+   "wrong_confident": 0,
+   "wrong_possible": 2,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 76,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 110,
+     "possible": 120
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 67
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 2
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 8,
+     "confident": 8,
+     "possible": 8
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 119,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 103,
+     "possible": 114
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 0,
+     "possible": 66
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 0,
+     "possible": 1
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 232,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  }
+ },
+ "c1-nas": {
+  "L0": {
+   "queries": 1080,
+   "confident": 322,
+   "possible": 404,
+   "wrong_confident": 9,
+   "wrong_possible": 3,
+   "held_out_confident": 9,
+   "new_wrong_confident": [],
+   "strongest_wrong": 278,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 113,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 21,
+     "possible": 89
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 14,
+     "possible": 17
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 12,
+     "possible": 15
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 12,
+     "possible": 12
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 11,
+     "possible": 12
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 19,
+     "possible": 19
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 97,
+     "confident": 97,
+     "possible": 97
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 83,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 112,
+     "confident": 108,
+     "possible": 112
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 111,
+     "confident": 34,
+     "possible": 89
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 110,
+     "confident": 0,
+     "possible": 23
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 109,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 109,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 106,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 105,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 138,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "L1": {
+   "queries": 1080,
+   "confident": 434,
+   "possible": 504,
+   "wrong_confident": 9,
+   "wrong_possible": 9,
+   "held_out_confident": 9,
+   "new_wrong_confident": [],
+   "strongest_wrong": 278,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 115,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 19,
+     "possible": 77
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 15,
+     "possible": 18
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 12,
+     "possible": 12
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 20,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 97,
+     "confident": 97,
+     "possible": 97
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 83,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 112,
+     "confident": 112,
+     "possible": 112
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 111,
+     "confident": 110,
+     "possible": 111
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 110,
+     "confident": 32,
+     "possible": 83
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 109,
+     "confident": 0,
+     "possible": 18
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 109,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 106,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 105,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 138,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T(L1)": {
+   "queries": 1080,
+   "confident": 434,
+   "possible": 504,
+   "wrong_confident": 9,
+   "wrong_possible": 5,
+   "held_out_confident": 9,
+   "new_wrong_confident": [],
+   "strongest_wrong": 278,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 115,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 19,
+     "possible": 77
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 15,
+     "possible": 18
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 12,
+     "possible": 12
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 20,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 97,
+     "confident": 97,
+     "possible": 97
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 83,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 112,
+     "confident": 112,
+     "possible": 112
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 111,
+     "confident": 110,
+     "possible": 111
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 110,
+     "confident": 32,
+     "possible": 83
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 109,
+     "confident": 0,
+     "possible": 18
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 109,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 106,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 105,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 138,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "L2": {
+   "queries": 1080,
+   "confident": 545,
+   "possible": 613,
+   "wrong_confident": 9,
+   "wrong_possible": 15,
+   "held_out_confident": 9,
+   "new_wrong_confident": [],
+   "strongest_wrong": 278,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 116,
+     "possible": 120
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 20,
+     "possible": 78
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 14,
+     "possible": 18
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 22,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 97,
+     "confident": 97,
+     "possible": 97
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 83,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 112,
+     "confident": 112,
+     "possible": 112
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 111,
+     "confident": 111,
+     "possible": 111
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 110,
+     "confident": 108,
+     "possible": 110
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 109,
+     "confident": 34,
+     "possible": 79
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 109,
+     "confident": 0,
+     "possible": 21
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 106,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 105,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 138,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T(L2)": {
+   "queries": 1080,
+   "confident": 545,
+   "possible": 613,
+   "wrong_confident": 9,
+   "wrong_possible": 8,
+   "held_out_confident": 9,
+   "new_wrong_confident": [],
+   "strongest_wrong": 278,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 116,
+     "possible": 120
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 20,
+     "possible": 78
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 14,
+     "possible": 18
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 22,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 97,
+     "confident": 97,
+     "possible": 97
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 83,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 112,
+     "confident": 112,
+     "possible": 112
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 111,
+     "confident": 111,
+     "possible": 111
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 110,
+     "confident": 108,
+     "possible": 110
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 109,
+     "confident": 34,
+     "possible": 79
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 109,
+     "confident": 0,
+     "possible": 21
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 106,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 105,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 138,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T1": {
+   "queries": 1080,
+   "confident": 434,
+   "possible": 500,
+   "wrong_confident": 9,
+   "wrong_possible": 5,
+   "held_out_confident": 9,
+   "new_wrong_confident": [],
+   "strongest_wrong": 278,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 115,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 19,
+     "possible": 73
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 15,
+     "possible": 18
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 12,
+     "possible": 12
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 20,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 97,
+     "confident": 97,
+     "possible": 97
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 83,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 112,
+     "confident": 112,
+     "possible": 112
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 111,
+     "confident": 110,
+     "possible": 111
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 110,
+     "confident": 32,
+     "possible": 80
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 109,
+     "confident": 0,
+     "possible": 17
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 109,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 106,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 105,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 138,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T(T1)": {
+   "queries": 1080,
+   "confident": 434,
+   "possible": 500,
+   "wrong_confident": 9,
+   "wrong_possible": 5,
+   "held_out_confident": 9,
+   "new_wrong_confident": [],
+   "strongest_wrong": 278,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 115,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 19,
+     "possible": 73
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 15,
+     "possible": 18
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 12,
+     "possible": 12
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 20,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 97,
+     "confident": 97,
+     "possible": 97
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 83,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 112,
+     "confident": 112,
+     "possible": 112
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 111,
+     "confident": 110,
+     "possible": 111
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 110,
+     "confident": 32,
+     "possible": 80
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 109,
+     "confident": 0,
+     "possible": 17
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 109,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 106,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 105,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 138,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T2": {
+   "queries": 1080,
+   "confident": 545,
+   "possible": 613,
+   "wrong_confident": 9,
+   "wrong_possible": 8,
+   "held_out_confident": 9,
+   "new_wrong_confident": [],
+   "strongest_wrong": 278,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 116,
+     "possible": 120
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 20,
+     "possible": 78
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 14,
+     "possible": 18
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 22,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 97,
+     "confident": 97,
+     "possible": 97
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 83,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 112,
+     "confident": 112,
+     "possible": 112
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 111,
+     "confident": 111,
+     "possible": 111
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 110,
+     "confident": 108,
+     "possible": 110
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 109,
+     "confident": 34,
+     "possible": 79
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 109,
+     "confident": 0,
+     "possible": 21
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 106,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 105,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 138,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T(T2)": {
+   "queries": 1080,
+   "confident": 545,
+   "possible": 613,
+   "wrong_confident": 9,
+   "wrong_possible": 8,
+   "held_out_confident": 9,
+   "new_wrong_confident": [],
+   "strongest_wrong": 278,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 120,
+     "confident": 120,
+     "possible": 120
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 120,
+     "confident": 116,
+     "possible": 120
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 120,
+     "confident": 20,
+     "possible": 78
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 120,
+     "confident": 14,
+     "possible": 18
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 120,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 240,
+     "confident": 22,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 97,
+     "confident": 97,
+     "possible": 97
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 83,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 112,
+     "confident": 112,
+     "possible": 112
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 111,
+     "confident": 111,
+     "possible": 111
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 110,
+     "confident": 108,
+     "possible": 110
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 109,
+     "confident": 34,
+     "possible": 79
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 109,
+     "confident": 0,
+     "possible": 21
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 106,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 105,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 138,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  }
+ },
+ "c2-nas": {
+  "L0": {
+   "queries": 1269,
+   "confident": 653,
+   "possible": 706,
+   "wrong_confident": 0,
+   "wrong_possible": 24,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 100,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 329,
+     "confident": 322,
+     "possible": 329
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 94,
+     "confident": 86,
+     "possible": 88
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 94,
+     "confident": 83,
+     "possible": 87
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 94,
+     "confident": 73,
+     "possible": 84
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 94,
+     "confident": 21,
+     "possible": 43
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 94,
+     "confident": 14,
+     "possible": 17
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 94,
+     "confident": 12,
+     "possible": 15
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 94,
+     "confident": 12,
+     "possible": 12
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 94,
+     "confident": 11,
+     "possible": 12
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 188,
+     "confident": 19,
+     "possible": 19
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 479,
+     "confident": 471,
+     "possible": 479
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 81,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 81,
+     "confident": 72,
+     "possible": 80
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 79,
+     "confident": 28,
+     "possible": 56
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 79,
+     "confident": 1,
+     "possible": 8
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 77,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 124,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 33,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "L1": {
+   "queries": 1269,
+   "confident": 731,
+   "possible": 784,
+   "wrong_confident": 0,
+   "wrong_possible": 29,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 100,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 329,
+     "confident": 322,
+     "possible": 329
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 94,
+     "confident": 85,
+     "possible": 89
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 94,
+     "confident": 85,
+     "possible": 88
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 94,
+     "confident": 84,
+     "possible": 86
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 94,
+     "confident": 76,
+     "possible": 83
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 94,
+     "confident": 19,
+     "possible": 42
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 94,
+     "confident": 15,
+     "possible": 18
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 94,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 94,
+     "confident": 12,
+     "possible": 12
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 188,
+     "confident": 20,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 479,
+     "confident": 471,
+     "possible": 479
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 80,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 81,
+     "confident": 78,
+     "possible": 81
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 79,
+     "confident": 75,
+     "possible": 78
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 79,
+     "confident": 27,
+     "possible": 56
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 78,
+     "confident": 0,
+     "possible": 7
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 77,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 124,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 33,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T(L1)": {
+   "queries": 1269,
+   "confident": 732,
+   "possible": 784,
+   "wrong_confident": 0,
+   "wrong_possible": 24,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 100,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 329,
+     "confident": 322,
+     "possible": 329
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 94,
+     "confident": 86,
+     "possible": 89
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 94,
+     "confident": 85,
+     "possible": 88
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 94,
+     "confident": 84,
+     "possible": 86
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 94,
+     "confident": 76,
+     "possible": 83
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 94,
+     "confident": 19,
+     "possible": 42
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 94,
+     "confident": 15,
+     "possible": 18
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 94,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 94,
+     "confident": 12,
+     "possible": 12
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 188,
+     "confident": 20,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 479,
+     "confident": 471,
+     "possible": 479
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 81,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 81,
+     "confident": 78,
+     "possible": 81
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 79,
+     "confident": 75,
+     "possible": 78
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 79,
+     "confident": 27,
+     "possible": 56
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 78,
+     "confident": 0,
+     "possible": 7
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 77,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 124,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 33,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "L2": {
+   "queries": 1269,
+   "confident": 805,
+   "possible": 867,
+   "wrong_confident": 0,
+   "wrong_possible": 34,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 100,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 329,
+     "confident": 322,
+     "possible": 329
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 94,
+     "confident": 86,
+     "possible": 89
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 94,
+     "confident": 85,
+     "possible": 89
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 94,
+     "confident": 85,
+     "possible": 88
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 94,
+     "confident": 86,
+     "possible": 88
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 94,
+     "confident": 72,
+     "possible": 84
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 94,
+     "confident": 20,
+     "possible": 45
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 94,
+     "confident": 14,
+     "possible": 18
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 94,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 188,
+     "confident": 22,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 479,
+     "confident": 471,
+     "possible": 479
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 80,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 81,
+     "confident": 78,
+     "possible": 81
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 79,
+     "confident": 76,
+     "possible": 79
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 79,
+     "confident": 73,
+     "possible": 79
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 78,
+     "confident": 27,
+     "possible": 57
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 78,
+     "confident": 0,
+     "possible": 9
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 77,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 124,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 33,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T(L2)": {
+   "queries": 1269,
+   "confident": 806,
+   "possible": 867,
+   "wrong_confident": 0,
+   "wrong_possible": 26,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 100,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 329,
+     "confident": 322,
+     "possible": 329
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 94,
+     "confident": 87,
+     "possible": 89
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 94,
+     "confident": 85,
+     "possible": 89
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 94,
+     "confident": 85,
+     "possible": 88
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 94,
+     "confident": 86,
+     "possible": 88
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 94,
+     "confident": 72,
+     "possible": 84
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 94,
+     "confident": 20,
+     "possible": 45
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 94,
+     "confident": 14,
+     "possible": 18
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 94,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 188,
+     "confident": 22,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 479,
+     "confident": 471,
+     "possible": 479
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 81,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 81,
+     "confident": 78,
+     "possible": 81
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 79,
+     "confident": 76,
+     "possible": 79
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 79,
+     "confident": 73,
+     "possible": 79
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 78,
+     "confident": 27,
+     "possible": 57
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 78,
+     "confident": 0,
+     "possible": 9
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 77,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 124,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 33,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T1": {
+   "queries": 1269,
+   "confident": 732,
+   "possible": 783,
+   "wrong_confident": 0,
+   "wrong_possible": 24,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 100,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 329,
+     "confident": 322,
+     "possible": 329
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 94,
+     "confident": 86,
+     "possible": 89
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 94,
+     "confident": 85,
+     "possible": 88
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 94,
+     "confident": 84,
+     "possible": 87
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 94,
+     "confident": 76,
+     "possible": 83
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 94,
+     "confident": 19,
+     "possible": 40
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 94,
+     "confident": 15,
+     "possible": 18
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 94,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 94,
+     "confident": 12,
+     "possible": 12
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 188,
+     "confident": 20,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 479,
+     "confident": 471,
+     "possible": 479
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 81,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 81,
+     "confident": 78,
+     "possible": 81
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 79,
+     "confident": 75,
+     "possible": 79
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 79,
+     "confident": 27,
+     "possible": 54
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 78,
+     "confident": 0,
+     "possible": 7
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 77,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 124,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 33,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T(T1)": {
+   "queries": 1269,
+   "confident": 732,
+   "possible": 783,
+   "wrong_confident": 0,
+   "wrong_possible": 24,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 100,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 329,
+     "confident": 322,
+     "possible": 329
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 94,
+     "confident": 86,
+     "possible": 89
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 94,
+     "confident": 85,
+     "possible": 88
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 94,
+     "confident": 84,
+     "possible": 87
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 94,
+     "confident": 76,
+     "possible": 83
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 94,
+     "confident": 19,
+     "possible": 40
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 94,
+     "confident": 15,
+     "possible": 18
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 94,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 94,
+     "confident": 12,
+     "possible": 12
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 188,
+     "confident": 20,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 479,
+     "confident": 471,
+     "possible": 479
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 81,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 81,
+     "confident": 78,
+     "possible": 81
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 79,
+     "confident": 75,
+     "possible": 79
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 79,
+     "confident": 27,
+     "possible": 54
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 78,
+     "confident": 0,
+     "possible": 7
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 77,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 124,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 33,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T2": {
+   "queries": 1269,
+   "confident": 806,
+   "possible": 867,
+   "wrong_confident": 0,
+   "wrong_possible": 26,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 100,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 329,
+     "confident": 322,
+     "possible": 329
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 94,
+     "confident": 87,
+     "possible": 89
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 94,
+     "confident": 85,
+     "possible": 89
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 94,
+     "confident": 85,
+     "possible": 88
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 94,
+     "confident": 86,
+     "possible": 88
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 94,
+     "confident": 72,
+     "possible": 84
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 94,
+     "confident": 20,
+     "possible": 45
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 94,
+     "confident": 14,
+     "possible": 18
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 94,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 188,
+     "confident": 22,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 479,
+     "confident": 471,
+     "possible": 479
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 81,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 81,
+     "confident": 78,
+     "possible": 81
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 79,
+     "confident": 76,
+     "possible": 79
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 79,
+     "confident": 73,
+     "possible": 79
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 78,
+     "confident": 27,
+     "possible": 57
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 78,
+     "confident": 0,
+     "possible": 9
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 77,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 124,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 33,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  },
+  "T(T2)": {
+   "queries": 1269,
+   "confident": 806,
+   "possible": 867,
+   "wrong_confident": 0,
+   "wrong_possible": 26,
+   "held_out_confident": 0,
+   "new_wrong_confident": [],
+   "strongest_wrong": 100,
+   "by_played_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 329,
+     "confident": 322,
+     "possible": 329
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 94,
+     "confident": 87,
+     "possible": 89
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 94,
+     "confident": 85,
+     "possible": 89
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 94,
+     "confident": 85,
+     "possible": 88
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 94,
+     "confident": 86,
+     "possible": 88
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 94,
+     "confident": 72,
+     "possible": 84
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 94,
+     "confident": 20,
+     "possible": 45
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 94,
+     "confident": 14,
+     "possible": 18
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 94,
+     "confident": 13,
+     "possible": 15
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 188,
+     "confident": 22,
+     "possible": 22
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 0,
+     "confident": 0,
+     "possible": 0
+    }
+   ],
+   "by_relative_speed_bin": [
+    {
+     "bin": "0-8",
+     "queries": 479,
+     "confident": 471,
+     "possible": 479
+    },
+    {
+     "bin": "8-8.4",
+     "queries": 83,
+     "confident": 81,
+     "possible": 83
+    },
+    {
+     "bin": "8.4-8.8",
+     "queries": 81,
+     "confident": 78,
+     "possible": 81
+    },
+    {
+     "bin": "8.8-9.2",
+     "queries": 79,
+     "confident": 76,
+     "possible": 79
+    },
+    {
+     "bin": "9.2-9.6",
+     "queries": 79,
+     "confident": 73,
+     "possible": 79
+    },
+    {
+     "bin": "9.6-10.0",
+     "queries": 78,
+     "confident": 27,
+     "possible": 57
+    },
+    {
+     "bin": "10.0-10.4",
+     "queries": 78,
+     "confident": 0,
+     "possible": 9
+    },
+    {
+     "bin": "10.4-10.8",
+     "queries": 77,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "10.8-11.2",
+     "queries": 78,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "11.2-12.4",
+     "queries": 124,
+     "confident": 0,
+     "possible": 0
+    },
+    {
+     "bin": "12.4-100",
+     "queries": 33,
+     "confident": 0,
+     "possible": 0
+    }
+   ]
+  }
+ },
+ "c4-262": {
+  "L0": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     47,
+     31,
+     34
+    ]
+   },
+   "edge bins": {
+    "8.0-8.4": [
+     19,
+     1,
+     0
+    ],
+    "8.4-8.8": [
+     22,
+     4,
+     0
+    ],
+    "8.8-9.2": [
+     6,
+     10,
+     2
+    ],
+    "9.2-9.6": [
+     0,
+     16,
+     7
+    ],
+    "9.6-10.0": [
+     0,
+     0,
+     25
+    ]
+   },
+   "other plays (confident, possible, weak or none)": [
+    108,
+    8,
+    0
+   ],
+   "held-out plays": 60,
+   "wrong confident": [],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 0
+  },
+  "L1": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     64,
+     32,
+     16
+    ]
+   },
+   "edge bins": {
+    "8.0-8.4": [
+     20,
+     0,
+     0
+    ],
+    "8.4-8.8": [
+     23,
+     3,
+     0
+    ],
+    "8.8-9.2": [
+     12,
+     6,
+     0
+    ],
+    "9.2-9.6": [
+     9,
+     14,
+     0
+    ],
+    "9.6-10.0": [
+     0,
+     9,
+     16
+    ]
+   },
+   "other plays (confident, possible, weak or none)": [
+    108,
+    8,
+    0
+   ],
+   "held-out plays": 60,
+   "wrong confident": [],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 0
+  },
+  "L2": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     92,
+     19,
+     1
+    ]
+   },
+   "edge bins": {
+    "8.0-8.4": [
+     20,
+     0,
+     0
+    ],
+    "8.4-8.8": [
+     24,
+     2,
+     0
+    ],
+    "8.8-9.2": [
+     16,
+     2,
+     0
+    ],
+    "9.2-9.6": [
+     22,
+     1,
+     0
+    ],
+    "9.6-10.0": [
+     10,
+     14,
+     1
+    ]
+   },
+   "other plays (confident, possible, weak or none)": [
+    108,
+    8,
+    0
+   ],
+   "held-out plays": 60,
+   "wrong confident": [],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 0
+  },
+  "T1": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     64,
+     28,
+     20
+    ]
+   },
+   "edge bins": {
+    "8.0-8.4": [
+     20,
+     0,
+     0
+    ],
+    "8.4-8.8": [
+     23,
+     3,
+     0
+    ],
+    "8.8-9.2": [
+     9,
+     8,
+     1
+    ],
+    "9.2-9.6": [
+     12,
+     11,
+     0
+    ],
+    "9.6-10.0": [
+     0,
+     6,
+     19
+    ]
+   },
+   "other plays (confident, possible, weak or none)": [
+    108,
+    8,
+    0
+   ],
+   "held-out plays": 60,
+   "wrong confident": [],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 0
+  },
+  "T2": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     85,
+     25,
+     2
+    ]
+   },
+   "edge bins": {
+    "8.0-8.4": [
+     20,
+     0,
+     0
+    ],
+    "8.4-8.8": [
+     23,
+     3,
+     0
+    ],
+    "8.8-9.2": [
+     11,
+     6,
+     1
+    ],
+    "9.2-9.6": [
+     20,
+     3,
+     0
+    ],
+    "9.6-10.0": [
+     11,
+     13,
+     1
+    ]
+   },
+   "other plays (confident, possible, weak or none)": [
+    108,
+    8,
+    0
+   ],
+   "held-out plays": 60,
+   "wrong confident": [],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 0
+  }
+ },
+ "c4-nas": {
+  "L0": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     60,
+     23,
+     29
+    ]
+   },
+   "edge bins": {
+    "8.0-8.4": [
+     19,
+     1,
+     0
+    ],
+    "8.4-8.8": [
+     22,
+     4,
+     0
+    ],
+    "8.8-9.2": [
+     7,
+     10,
+     1
+    ],
+    "9.2-9.6": [
+     8,
+     8,
+     7
+    ],
+    "9.6-10.0": [
+     4,
+     0,
+     21
+    ]
+   },
+   "other plays (confident, possible, weak or none)": [
+    109,
+    7,
+    0
+   ],
+   "held-out plays": 60,
+   "wrong confident": [
+    [
+     "mix-12",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     375
+    ]
+   ],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 5
+  },
+  "L1": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     76,
+     21,
+     15
+    ]
+   },
+   "edge bins": {
+    "8.0-8.4": [
+     20,
+     0,
+     0
+    ],
+    "8.4-8.8": [
+     23,
+     3,
+     0
+    ],
+    "8.8-9.2": [
+     13,
+     5,
+     0
+    ],
+    "9.2-9.6": [
+     16,
+     7,
+     0
+    ],
+    "9.6-10.0": [
+     4,
+     6,
+     15
+    ]
+   },
+   "other plays (confident, possible, weak or none)": [
+    109,
+    7,
+    0
+   ],
+   "held-out plays": 60,
+   "wrong confident": [
+    [
+     "mix-12",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     375
+    ]
+   ],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 8
+  },
+  "L2": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     96,
+     15,
+     1
+    ]
+   },
+   "edge bins": {
+    "8.0-8.4": [
+     20,
+     0,
+     0
+    ],
+    "8.4-8.8": [
+     24,
+     2,
+     0
+    ],
+    "8.8-9.2": [
+     16,
+     2,
+     0
+    ],
+    "9.2-9.6": [
+     22,
+     1,
+     0
+    ],
+    "9.6-10.0": [
+     14,
+     10,
+     1
+    ]
+   },
+   "other plays (confident, possible, weak or none)": [
+    109,
+    7,
+    0
+   ],
+   "held-out plays": 60,
+   "wrong confident": [
+    [
+     "mix-12",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     375
+    ]
+   ],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 8
+  },
+  "T1": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     70,
+     27,
+     15
+    ]
+   },
+   "edge bins": {
+    "8.0-8.4": [
+     20,
+     0,
+     0
+    ],
+    "8.4-8.8": [
+     23,
+     3,
+     0
+    ],
+    "8.8-9.2": [
+     10,
+     8,
+     0
+    ],
+    "9.2-9.6": [
+     13,
+     10,
+     0
+    ],
+    "9.6-10.0": [
+     4,
+     6,
+     15
+    ]
+   },
+   "other plays (confident, possible, weak or none)": [
+    109,
+    7,
+    0
+   ],
+   "held-out plays": 60,
+   "wrong confident": [
+    [
+     "mix-12",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     375
+    ]
+   ],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 6
+  },
+  "T2": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     87,
+     24,
+     1
+    ]
+   },
+   "edge bins": {
+    "8.0-8.4": [
+     20,
+     0,
+     0
+    ],
+    "8.4-8.8": [
+     23,
+     3,
+     0
+    ],
+    "8.8-9.2": [
+     11,
+     7,
+     0
+    ],
+    "9.2-9.6": [
+     20,
+     3,
+     0
+    ],
+    "9.6-10.0": [
+     13,
+     11,
+     1
+    ]
+   },
+   "other plays (confident, possible, weak or none)": [
+    109,
+    7,
+    0
+   ],
+   "held-out plays": 60,
+   "wrong confident": [
+    [
+     "mix-12",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     375
+    ]
+   ],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 7
+  }
+ },
+ "c5-262": [
+  "condition speed indexed | L0 conf/wrong/wrongposs | L1 conf/wrong/wrongposs | T1 conf/wrong/wrongposs",
+  "control 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "control 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "bass-boost-12db 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "bass-boost-12db 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "bass-cut-250hz 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "bass-cut-250hz 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "low-pass-2khz 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "low-pass-2khz 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "low-pass-800hz 0.95 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "low-pass-800hz 1.03 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "high-pass-1khz 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "high-pass-1khz 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "telephone 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "telephone 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "echo 0.95 40 | 37/0/1 | 37/0/1 | 37/0/1",
+  "echo 1.03 40 | 38/0/1 | 38/0/1 | 38/0/1",
+  "clipping-12db 0.95 40 | 31/0/1 | 31/0/1 | 31/0/1",
+  "clipping-12db 1.03 40 | 33/0/1 | 33/0/1 | 33/0/1",
+  "pink-noise-snr-10db 0.95 40 | 37/0/1 | 37/0/1 | 37/0/1",
+  "pink-noise-snr-10db 1.03 40 | 38/0/0 | 38/0/0 | 38/0/0",
+  "pink-noise-snr-0db 0.95 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "pink-noise-snr-0db 1.03 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "mp3-64k 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "mp3-64k 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "mp3-32k 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "mp3-32k 1.03 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "aac-48k 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "aac-48k 1.03 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "opus-24k 0.95 40 | 39/0/0 | 39/0/0 | 39/0/0",
+  "opus-24k 1.03 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "blend--6db 0.95 40 | 36/0/0 | 36/0/0 | 36/0/0",
+  "blend--6db 1.03 40 | 36/0/0 | 36/0/0 | 36/0/0",
+  "blend-0db 0.95 40 | 16/0/0 | 16/0/0 | 16/0/0",
+  "blend-0db 1.03 40 | 15/0/0 | 15/0/0 | 15/0/0",
+  "voice-over 0.95 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "voice-over 1.03 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "speech-insert-8s 0.95 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "speech-insert-8s 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "needle-skip-2s 0.95 40 | 17/0/1 | 17/0/1 | 17/0/1",
+  "needle-skip-2s 1.03 40 | 14/0/1 | 14/0/1 | 14/0/1",
+  "pitch-ride-2pct 0.95 40 | 10/0/1 | 10/0/1 | 10/0/1",
+  "pitch-ride-2pct 1.03 40 | 14/0/1 | 14/0/1 | 14/0/1",
+  "wow-0.55hz 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "wow-0.55hz 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "wow-0.75hz 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "wow-0.75hz 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "broadcast 0.95 40 | 33/0/1 | 33/0/1 | 33/0/1",
+  "broadcast 1.03 40 | 33/0/1 | 33/0/1 | 33/0/1",
+  "beatmatched--6db 0.95 40 | 34/0/1 | 34/0/1 | 34/0/1",
+  "beatmatched--6db 1.03 40 | 35/0/0 | 35/0/0 | 35/0/0",
+  "beatmatched-0db 0.95 40 | 15/0/0 | 15/0/0 | 15/0/0",
+  "beatmatched-0db 1.03 40 | 13/0/0 | 13/0/0 | 13/0/0",
+  "combined 0.95 40 | 2/0/0 | 2/0/0 | 2/0/0",
+  "combined 1.03 40 | 2/0/0 | 2/0/0 | 2/0/0",
+  "speed-10pct 0.9 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "speed-12pct 0.88 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "speed-16pct 0.84 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "speed+10pct 1.1 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "speed+12pct 1.12 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "speed+16pct 1.16 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "key-lock-2pct 0.98 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "key-lock+2pct 1.02 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "key-lock-5pct 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "key-lock+5pct 1.05 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "key-lock+8pct 1.08 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "total | L0 1938/0/37 | L1 1938/0/37 | T1 1938/0/37"
+ ],
+ "c3": [
+  "== T1 262",
+  "sweep-seed-2026.json: 718 of 720 queries with identical detections",
+  "scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1",
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1",
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1",
+  "scan-razorjack-2003-03-29.json: identified 7 -> 7, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 0 -> 0",
+  "scan-nocny-trans-vertical-2002-08-23.json: identified 9 -> 9, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 0 -> 0",
+  "calibrate: weakest identifying 690 -> 690, strongest false 100 -> 100, missed 0 -> 0, false accepted 0 -> 0",
+  "calibrate: false candidates at 30 hits or more 18 -> 18, strongest on audio not in the index 19 -> 19",
+  "calibrate: same-title credits 0 -> 0",
+  "regress: sweep-seed-2026.json changed, provenance (matching) incomparable",
+  "== T1 nas",
+  "sweep-seed-2026.json: 657 of 720 queries with identical detections",
+  "scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3",
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3",
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3",
+  "scan-razorjack-2003-03-29.json: identified 12 -> 12, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3",
+  "scan-nocny-trans-vertical-2002-08-23.json: identified 17 -> 17, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3",
+  "calibrate: weakest identifying 704 -> 704, strongest false 282 -> 282, missed 0 -> 0, false accepted 7 -> 7",
+  "calibrate: false candidates at 30 hits or more 95 -> 95, strongest on audio not in the index 282 -> 282",
+  "calibrate: same-title credits 0 -> 0",
+  "regress: sweep-seed-2026.json, scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json, scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json changed, proven",
+  "== T2 262",
+  "sweep-seed-2026.json: 715 of 720 queries with identical detections",
+  "scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1",
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1",
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 1 -> 1",
+  "scan-razorjack-2003-03-29.json: identified 7 -> 7, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 0 -> 0",
+  "scan-nocny-trans-vertical-2002-08-23.json: identified 9 -> 9, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 0 -> 0",
+  "calibrate: weakest identifying 690 -> 690, strongest false 100 -> 100, missed 0 -> 0, false accepted 0 -> 0",
+  "calibrate: false candidates at 30 hits or more 18 -> 18, strongest on audio not in the index 19 -> 19",
+  "calibrate: same-title credits 0 -> 0",
+  "regress: sweep-seed-2026.json, scan-razorjack-2003-03-29.json changed, provenance (matching) incomparable",
+  "== T2 nas",
+  "sweep-seed-2026.json: 634 of 720 queries with identical detections",
+  "scan-stakka-skynet-knowledge.json: identified 11 -> 11, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3",
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: identified 8 -> 8, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3",
+  "scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json: identified 0 -> 0, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3",
+  "scan-razorjack-2003-03-29.json: identified 12 -> 12, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3",
+  "scan-nocny-trans-vertical-2002-08-23.json: identified 17 -> 17, wrong 0 -> 0, same-title 0 -> 0, possible 0 -> 0, unmatched possible plays 3 -> 3",
+  "calibrate: weakest identifying 704 -> 704, strongest false 282 -> 282, missed 0 -> 0, false accepted 7 -> 8",
+  "calibrate: false candidates at 30 hits or more 95 -> 96, strongest on audio not in the index 282 -> 282",
+  "calibrate: same-title credits 0 -> 0",
+  "regress: sweep-seed-2026.json, scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json, scan-stakka-skynet-knowledge-leave-out-11-seed-2026.json, scan-nocny-tra",
+  "== T1 262 sweep",
+  "{\"gained_correct\": 0, \"lost_correct\": 0, \"new_wrong_confident\": 0, \"new_wrong_possible\": 0, \"lost_wrong_possible\": 0, \"queries_changed_confident\": 0, \"recalled_ref\": 540, \"recalled_arm\": 540}",
+  "",
+  "== T1 NAS sweep",
+  "{\"gained_correct\": 0, \"lost_correct\": 0, \"new_wrong_confident\": 0, \"new_wrong_possible\": 0, \"lost_wrong_possible\": 0, \"queries_changed_confident\": 0, \"recalled_ref\": 540, \"recalled_arm\": 540}",
+  "",
+  "T1 262 stakka-skynet-knowledge: detections 92 -> 92; 60+ added 0, removed 0",
+  "T1 NAS stakka-skynet-knowledge: detections 4254 -> 4254; 60+ added 0, removed 0",
+  "T1 262 stakka-skynet-knowledge-leave-out-3-seed-2026: detections 100 -> 100; 60+ added 0, removed 0",
+  "T1 NAS stakka-skynet-knowledge-leave-out-3-seed-2026: detections 4245 -> 4253; 60+ added 0, removed 0",
+  "T1 262 stakka-skynet-knowledge-leave-out-11-seed-2026: detections 83 -> 83; 60+ added 0, removed 0",
+  "T1 NAS stakka-skynet-knowledge-leave-out-11-seed-2026: detections 4212 -> 4229; 60+ added 0, removed 0",
+  "T1 262 razorjack-2003-03-29: detections 77 -> 77; 60+ added 0, removed 0",
+  "T1 NAS razorjack-2003-03-29: detections 4997 -> 4997; 60+ added 0, removed 0",
+  "T1 262 nocny-trans-vertical-2002-08-23: detections 64 -> 64; 60+ added 0, removed 0",
+  "T1 NAS nocny-trans-vertical-2002-08-23: detections 4162 -> 4162; 60+ added 0, removed 0",
+  "== T2 262 sweep",
+  "{\"gained_correct\": 0, \"lost_correct\": 0, \"new_wrong_confident\": 0, \"new_wrong_possible\": 0, \"lost_wrong_possible\": 0, \"queries_changed_confident\": 0, \"recalled_ref\": 540, \"recalled_arm\": 540}",
+  "",
+  "== T2 NAS sweep",
+  "{\"gained_correct\": 0, \"lost_correct\": 0, \"new_wrong_confident\": 1, \"new_wrong_possible\": 0, \"lost_wrong_possible\": 0, \"queries_changed_confident\": 1, \"recalled_ref\": 540, \"recalled_arm\": 540}",
+  "NEW WRONG ('extra/APH027-Aphrodite-Underworld-Cool_Rock_Stuff-VLS-1998-UTB/02-aphrodite-b1-cool_rock_suff-utb.mp3', True, 59.275, 5.0) -> second-library/__youtube_archivists/old-skool-jungle-dnb/Mobb Deep Vs Urban Takover - Cool Rock Shook Ones.m4a (268 hits)",
+  "T2 262 stakka-skynet-knowledge: detections 92 -> 92; 60+ added 0, removed 0",
+  "T2 NAS stakka-skynet-knowledge: detections 4254 -> 4254; 60+ added 0, removed 0",
+  "T2 262 stakka-skynet-knowledge-leave-out-3-seed-2026: detections 100 -> 100; 60+ added 0, removed 0",
+  "T2 NAS stakka-skynet-knowledge-leave-out-3-seed-2026: detections 4245 -> 4279; 60+ added 0, removed 0",
+  "T2 262 stakka-skynet-knowledge-leave-out-11-seed-2026: detections 83 -> 83; 60+ added 0, removed 0",
+  "T2 NAS stakka-skynet-knowledge-leave-out-11-seed-2026: detections 4212 -> 4271; 60+ added 0, removed 0",
+  "T2 262 razorjack-2003-03-29: detections 77 -> 78; 60+ added 0, removed 0",
+  "T2 NAS razorjack-2003-03-29: detections 4997 -> 4997; 60+ added 0, removed 0",
+  "T2 262 nocny-trans-vertical-2002-08-23: detections 64 -> 64; 60+ added 0, removed 0",
+  "T2 NAS nocny-trans-vertical-2002-08-23: detections 4162 -> 4163; 60+ added 0, removed 0"
+ ],
+ "c6-cpu": {
+  "nocny-trans-vertical-2002-08-23 L0": {
+   "cpu": 883.51,
+   "cpu_range": [
+    883.0600000000001,
+    883.96
+   ],
+   "cpu_ratio": 1.0,
+   "wall": 30.3,
+   "wall_ratio": 1.0,
+   "runs": 2
+  },
+  "nocny-trans-vertical-2002-08-23 T1": {
+   "cpu": 886.2,
+   "cpu_range": [
+    886.1899999999999,
+    886.21
+   ],
+   "cpu_ratio": 1.003,
+   "wall": 30.67,
+   "wall_ratio": 1.0121,
+   "runs": 2
+  },
+  "nocny-trans-vertical-2002-08-23 L1": {
+   "cpu": 924.32,
+   "cpu_range": [
+    924.09,
+    924.5500000000001
+   ],
+   "cpu_ratio": 1.0462,
+   "wall": 31.63,
+   "wall_ratio": 1.044,
+   "runs": 2
+  },
+  "razorjack-2003-03-29 L0": {
+   "cpu": 555.89,
+   "cpu_range": [
+    555.68,
+    556.1
+   ],
+   "cpu_ratio": 1.0,
+   "wall": 19.6,
+   "wall_ratio": 1.0,
+   "runs": 2
+  },
+  "razorjack-2003-03-29 T1": {
+   "cpu": 555.97,
+   "cpu_range": [
+    555.87,
+    556.07
+   ],
+   "cpu_ratio": 1.0001,
+   "wall": 19.48,
+   "wall_ratio": 0.9943,
+   "runs": 2
+  },
+  "razorjack-2003-03-29 L1": {
+   "cpu": 581.125,
+   "cpu_range": [
+    581.02,
+    581.23
+   ],
+   "cpu_ratio": 1.0454,
+   "wall": 20.38,
+   "wall_ratio": 1.04,
+   "runs": 2
+  },
+  "stakka-skynet-knowledge L0": {
+   "cpu": 688.72,
+   "cpu_range": [
+    685.8599999999999,
+    691.58
+   ],
+   "cpu_ratio": 1.0,
+   "wall": 24.74,
+   "wall_ratio": 1.0,
+   "runs": 2
+  },
+  "stakka-skynet-knowledge T1": {
+   "cpu": 689.715,
+   "cpu_range": [
+    688.8900000000001,
+    690.54
+   ],
+   "cpu_ratio": 1.0014,
+   "wall": 24.76,
+   "wall_ratio": 1.0007,
+   "runs": 2
+  },
+  "stakka-skynet-knowledge L1": {
+   "cpu": 720.9949999999999,
+   "cpu_range": [
+    719.55,
+    722.4399999999999
+   ],
+   "cpu_ratio": 1.0469,
+   "wall": 25.84,
+   "wall_ratio": 1.0444,
+   "runs": 2
+  },
+  "stakka-skynet-knowledge T2": {
+   "cpu": 691.645,
+   "cpu_range": [
+    691.26,
+    692.03
+   ],
+   "cpu_ratio": 1.0042,
+   "wall": 24.96,
+   "wall_ratio": 1.0087,
+   "runs": 2
+  },
+  "stakka-skynet-knowledge L2": {
+   "cpu": 754.395,
+   "cpu_range": [
+    754.24,
+    754.5500000000001
+   ],
+   "cpu_ratio": 1.0954,
+   "wall": 26.87,
+   "wall_ratio": 1.0862,
+   "runs": 2
+  }
+ },
+ "gap-share-nas": [
+  "scan-stakka-skynet-knowledge.json: duration 3370 s; uncovered 8 s (0.2%); searched over the gaps 0 s (0.0%) in 0 stretches",
+  "scan-razorjack-2003-03-29.json: duration 2770 s; uncovered 11 s (0.4%); searched over the gaps 0 s (0.0%) in 0 stretches",
+  "scan-nocny-trans-vertical-2002-08-23.json: duration 4008 s; uncovered 215 s (5.4%); searched over the gaps 245 s (6.1%) in 2 stretches",
+  "scan-stakka-skynet-knowledge-leave-out-3-seed-2026.json: duration 3370 s; uncovered 793 s (23.5%); searched over the gaps 836 s (24.8%) in 3 stretches"
+ ]
+}
