@@ -66,7 +66,7 @@ rank); unknown fields are refused. A is the query file from 10 s before
 the span to 10 s after, the reference lane; B is the holder placed by
 the alignment, its speed taken from the two spans (a key-locked holder
 then plays with its pitch moved too, which a detail line says). The
-span carries a span and a `listen` marker. Answers (`same`, `chance`,
+question shades the span and puts a `listen` marker at its start. Answers (`same`, `chance`,
 `unsure`) go to the answer log only. Example pick:
 
 ```json

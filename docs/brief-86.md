@@ -288,3 +288,25 @@ passage as A's span? Written under `work/s86/`, never answered tonight.
   `work/audition/questions/`, so that no default `audition` run serves it
   before the user chooses to; the handoff gives the command. The answer
   log's digest is unchanged after `questions breaks` ran.
+- *(06:20)* **The ladder option is `--passage-ladder`, not `--ladder`.**
+  The registration wrote `break-search --ladder both`, but `--ladder` is
+  the harness's global option (default `both`, for the protocol's
+  reports), which `break-search` does not read; a subcommand option of
+  the same name would clash with it. The help text says so.
+- *(07:00)* **0296's runs started before 0295 was written.** The
+  break-search runs began at about 06:53:50, 0295 was committed at
+  06:54:42: a breach of the rule that an experiment is written before the
+  next starts, by under a minute. 0295's figures were all in hand from
+  the log and the summary; no result depends on the order.
+- *(07:10)* **The review's corrections.** A read-only review by a
+  subagent recomputed every figure. Taken: verdicts that name the NAS
+  copy a corpus file stands for now name the corpus file
+  (`8e59ef8`, `8afcb94`), and the search's pairs were clustered again
+  with `--reuse-pairs` (seconds; 811 of 811 old joins, 4,664 clusters
+  without a corpus file, every 0296 figure unchanged; the first
+  clustering is kept as `work/s86/clusters/library-wide-before-copy-names.json`);
+  the pack's answers are scored by query name, `same` as well as
+  `chance` (`--judgments`, `break_answers.py`); 0295's old clusters kept
+  whole counted as in its data; the list sizes 223-435; the null's
+  strongest holder named rightly; the two intros that reach 60 s named;
+  recall without the Man Of Steal case; the timing caveat; wording.

@@ -144,8 +144,8 @@ the three development mixes' scans and Stakka's leave-outs, with
 `provenance`, what a baseline was made from, and `digest`, SHA-256),
 `robust` (transformed excerpts), `synthetic` (the scale proxy), `clusters` and
 `related` (self-match of the library; `clusters::library_wide`
-clusters every file of the index from an excerpt of each, into a
-scratch file, session 86), `pair` (two files' alignments and
+clusters every file of the index, its candidates from an excerpt and
+each measured with the whole file, into a scratch file, session 86), `pair` (two files' alignments and
 the time their hits support), `recall` (a panel drawn from the larger
 library's records, beyond the corpus recordings), `survival` and `hash_cost` (hash
 measurements without a search) on top of `manifest` and `scoring`;

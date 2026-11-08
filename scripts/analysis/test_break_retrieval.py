@@ -24,7 +24,7 @@ class ScoreSearch(unittest.TestCase):
                            holder("t.mp3", 50)]}
 
     def test_rips_of_the_query_and_of_an_expected_file_are_relevant(self):
-        scored = score_search(self.case, self.searched(), CLUSTERS, [("t.mp3", "e.mp3")], [])
+        scored = score_search(self.case, self.searched(), CLUSTERS, [("t.mp3", "e.mp3")], {})
 
         self.assertEqual(scored["listed"], 5)
         self.assertEqual(scored["at"][5]["relevant"], 3)
@@ -36,11 +36,15 @@ class ScoreSearch(unittest.TestCase):
         self.assertEqual(scored["expected_hits"], 60)
         self.assertEqual(scored["expected_rank_among_others"], 3)
 
-    def test_a_judgment_of_unrelated_follows_the_holders_cluster(self):
-        scored = score_search(self.case, self.searched(), CLUSTERS, [], [("q-rip.mp3", "u.mp3")])
+    def test_judgments_follow_the_holders_cluster_for_their_query_only(self):
+        judgments = {"x": {"u.mp3": "chance", "t.mp3": "same"}, "other": {"a.mp3": "chance"}}
+
+        scored = score_search(self.case, self.searched(), CLUSTERS, [], judgments)
 
         self.assertEqual(scored["unrelated"], 1)
-        self.assertEqual(scored["at"][5]["precision_judged"], 2 / 3)
+        self.assertEqual(scored["at"][5]["relevant"], 3)
+        self.assertEqual(scored["at"][5]["unjudged"], 1)
+        self.assertEqual(scored["at"][5]["precision_judged"], 3 / 4)
 
     def test_the_null_skips_the_querys_cluster(self):
         case = {"name": "n", "group": "N1", "file": "q.mp3", "expected": [], "own_extra": []}
@@ -64,7 +68,7 @@ class Summarise(unittest.TestCase):
                                search("x", "q.mp3", "filtered", []),
                                search("n", "z.mp3", "filtered", [])]}
 
-        summary = summarise(cases, {"turntable": report}, CLUSTERS, [], [])
+        summary = summarise(cases, {"turntable": report}, CLUSTERS, [], {})
 
         self.assertEqual(summary["turntable/all"]["positives"]["found"], 1)
         self.assertEqual(summary["turntable/all"]["null_T"], 30)

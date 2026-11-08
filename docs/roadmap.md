@@ -136,13 +136,14 @@ Each session takes the first item it can do without a pending decision.
     ladders; a library-wide clustering first, so that a null of random
     passages is not contaminated by unclustered rips.
     *Session 86 (0295, 0296):* measured. The library-wide clustering
-    (`clusters --library-wide`, a scratch file) keeps 810 of 811 old
-    joins and adds 4,665 clusters of NAS rips; with them the null holds
+    (`clusters --library-wide`, a scratch file) keeps all 811 old
+    joins and adds 4,664 clusters of NAS rips; with them the null holds
     (95th percentile 46 hits against 729), recall is 63 of 66 with both
     ladders, and precision over judged holders is undecided: 57% of the
     first 10 holders are unjudged. Next: the pack
     (`work/s86/pack/07-breaks-s86.json`, 32 questions) answered by ear,
-    then the scores again with its answers (`--unrelated`).
+    then the scores again with its answers (`break_answers.py`,
+    `--judgments`).
 11. **Process.** A `gunfinger-eval protocol --variants ...` runner (one
     set of renders, one loaded index, one table against the baseline);
     the roadmap rewritten as open items with state and next step (done

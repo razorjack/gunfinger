@@ -132,7 +132,7 @@ The decision is ours.
 Session 86 (2026-11-08, brief 86, experiments 0295 and 0296) measured
 the query again with two changes. First, every file of the NAS index
 was clustered into a scratch file (`clusters --library-wide`; 4,880
-clusters, 11,165 files; the clusters in use keep only the corpus
+clusters, 11,157 files; the clusters in use keep only the corpus
 recordings' 284), so that another rip of a query's recording is part of
 its own cluster instead of an "other" file. Second, a listed file counts
 as relevant when it is in the query file's cluster, in an expected
@@ -153,14 +153,14 @@ directions were added.
   thread seconds per query (at most 44), with 32 queries at once.
 - **Precision is open.** The first 10 holders of a query are 43%
   judged, all relevant; the rest have never been heard. For Special
-  Branch, License and Raid the lists hold 224-436 holders, nearly all
+  Branch, License and Raid the lists hold 223-435 holders, nearly all
   unjudged. The registered bar for a design note needs the judged share
   of the first 10 to reach 50% before its precision counts.
 
 The pack `work/s86/pack/07-breaks-s86.json` (32 questions, `questions
 breaks`) asks of holders at the top, middle and bottom of the three
 famous-break lists, and of the null's five strongest finds, whether they
-play the same passage. Its answers, passed to
-`scripts/analysis/break_retrieval.py --unrelated`, give the first
+play the same passage. Its answers, written by `scripts/analysis/break_answers.py` and passed
+to `break_retrieval.py --judgments`, give the first
 precision that is not 1.0 by construction. Until then the
 recommendation above stands: no command yet.

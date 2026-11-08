@@ -3,14 +3,18 @@ holders (brief 86's registration, R2; experiment 0296).
 
     python3 -I scripts/analysis/break_retrieval.py CASES.json CLUSTERS.json OUT.json \
         LADDER=REPORT.json [LADDER=REPORT.json ...] [--same-titles FILE] \
-        [--unrelated FILE] [--old-clusters CLUSTERS.json]
+        [--judgments FILE] [--old-clusters CLUSTERS.json]
 
 Each listed holder (own and others merged, ranked by hits, the query file left
 out) is *relevant* (in the query file's cluster; an expected file or one of
 the case's own files, or in their clusters; or paired with one of these by
-`--same-titles`), *unrelated* (judged by ear not to share the passage:
-`--unrelated`, tab-separated query file and holder, followed through the
-clusters) or *unjudged*. Per ladder, mode and group: precision at 5, 10 and 20
+`--same-titles`), *unrelated* (judged by ear not to share the passage) or
+*unjudged*. `--judgments` holds answers by ear, one per line, tab-separated:
+the query's name in the cases, the holder, and `same` or `chance` (other
+answers are ignored; `break_answers.py` writes them from the answer log). A
+`same` judgment makes the holder's cluster relevant for that query, a
+`chance` one unrelated; a judgment is about one query's span, so it applies
+to no other query. Per ladder, mode and group: precision at 5, 10 and 20
 over judged holders, the judged and relevant shares of the first K,
 expected-holder recall (listed at all and in the first 20), the share of
 listed holders unrelated, and the null: the strongest holder outside the
@@ -83,22 +87,39 @@ def partners(pairs, files):
     return found
 
 
-def relevant_set(case, index, same_titles):
+def read_judgments(path):
+    """{query name: {holder: "same" | "chance"}} from a judgments file."""
+    judged = {}
+    if not path:
+        return judged
+    for line in open(path):
+        if not line.strip() or line.startswith("#"):
+            continue
+        name, holder, answer = line.rstrip("\n").split("\t")[:3]
+        if answer in ("same", "chance"):
+            judged.setdefault(name, {})[holder] = answer
+    return judged
+
+
+def judged_clusters(case, index, judgments, answer):
+    found = set()
+    for holder, given in judgments.get(case["name"], {}).items():
+        if given == answer:
+            found |= cluster_of(index, holder)
+    return found
+
+
+def relevant_set(case, index, same_titles, judgments=None):
     seeds = {case["file"], *case.get("expected", []), *case.get("own_extra", [])}
     seeds |= partners(same_titles, seeds)
     relevant = set()
     for file in seeds:
         relevant |= cluster_of(index, file)
-    return relevant
+    return relevant | judged_clusters(case, index, judgments or {}, "same")
 
 
-def unrelated_set(case, index, unrelated):
-    own = cluster_of(index, case["file"])
-    judged = {b for a, b in unrelated if a in own} | {a for a, b in unrelated if b in own}
-    found = set()
-    for file in judged:
-        found |= cluster_of(index, file)
-    return found
+def unrelated_set(case, index, judgments):
+    return judged_clusters(case, index, judgments, "chance")
 
 
 def holders(searched):
@@ -132,9 +153,9 @@ def at_k(labels, k):
     }
 
 
-def score_search(case, searched, index, same_titles, unrelated):
-    relevant = relevant_set(case, index, same_titles)
-    unrel = unrelated_set(case, index, unrelated) - relevant
+def score_search(case, searched, index, same_titles, judgments):
+    relevant = relevant_set(case, index, same_titles, judgments)
+    unrel = unrelated_set(case, index, judgments) - relevant
     listed = holders(searched)
     labels = [label(h["file"], relevant, unrel) for h in listed]
     out = {"listed": len(listed), "unrelated": labels.count("unrelated"),
@@ -168,7 +189,7 @@ def strongest_outside(case, searched, index):
     return (outside[0]["hits"] if outside else 0), bool(reaching), (outside[0]["file"] if outside else None)
 
 
-def summarise(cases, reports, index, same_titles, unrelated, old_index=None):
+def summarise(cases, reports, index, same_titles, judgments, old_index=None):
     by_name = {c["name"]: c for c in cases}
     summary = {}
     for ladder, report in reports.items():
@@ -179,7 +200,7 @@ def summarise(cases, reports, index, same_titles, unrelated, old_index=None):
                                             if s["lists"] == mode and s.get("error")]}
             scored = {}
             for case, searched in rows:
-                scored[case["name"]] = score_search(case, searched, index, same_titles, unrelated)
+                scored[case["name"]] = score_search(case, searched, index, same_titles, judgments)
             for group in POSITIVE + NEGATIVE:
                 members = [(c, s) for c, s in rows if c["group"] == group]
                 if not members:
@@ -251,7 +272,7 @@ def recall(scored):
 
 def main(argv):
     cases_path, clusters_path, out_path = argv[1:4]
-    reports, same_titles, unrelated, old = {}, [], [], None
+    reports, same_titles, judgments, old = {}, [], {}, None
     rest = argv[4:]
     i = 0
     while i < len(rest):
@@ -259,8 +280,8 @@ def main(argv):
         if arg == "--same-titles":
             same_titles = read_pairs(rest[i + 1], "same-title")
             i += 2
-        elif arg == "--unrelated":
-            unrelated = read_pairs(rest[i + 1])
+        elif arg == "--judgments":
+            judgments = read_judgments(rest[i + 1])
             i += 2
         elif arg == "--old-clusters":
             old = cluster_index(json.load(open(rest[i + 1])))
@@ -271,7 +292,7 @@ def main(argv):
             i += 1
     cases = json.load(open(cases_path))
     index = cluster_index(json.load(open(clusters_path)))
-    summary = summarise(cases, reports, index, same_titles, unrelated, old)
+    summary = summarise(cases, reports, index, same_titles, judgments, old)
     for key, out in summary.items():
         p = out["positives"]
         at = p["at"]

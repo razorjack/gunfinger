@@ -124,7 +124,7 @@ external review (`docs/research/2026-11-05-external-review.md`).
   found, 51 in the first five, but only 25 first, because a famous break
   lines up with 120-403 files.
 - **Session 86 (0295, 0296).** With every file of the NAS index
-  clustered in a scratch file (4,880 clusters, 810 of the 811 joins of
+  clustered in a scratch file (4,880 clusters, all 811 joins of
   the clusters in use kept), the null holds: random passages' strongest
   holder outside their own cluster is 46 hits at the 95th percentile
   (729 with the clusters in use), below the expected holders' median

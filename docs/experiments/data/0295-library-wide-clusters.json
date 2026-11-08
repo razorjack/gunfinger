@@ -1,8 +1,8 @@
 {
  "new": {
   "clusters": 4880,
-  "files": 11165,
-  "with_corpus_file": 215,
+  "files": 11157,
+  "with_corpus_file": 216,
   "sizes_top": [
    10,
    8,
@@ -21,9 +21,9 @@
    6
   ],
   "size_median": 2.0,
-  "size_2": 3854,
+  "size_2": 3855,
   "size_3_5": 1004,
-  "size_6_20": 22,
+  "size_6_20": 21,
   "size_over_20": 0,
   "largest": [
    {
@@ -113,19 +113,14 @@
   "files": 1004,
   "joins": 811
  },
- "a_old_joins_kept": 810,
- "a_old_joins_share": 0.998766954377312,
- "a_old_joins_missed": [
-  [
-   "extra/A. Pyro -- Time Is Broken.mp3",
-   "second-library/__youtube_archivists/butch-french/Pyro - Time Is Broken.m4a"
-  ]
- ],
- "a_old_clusters_whole": 254,
+ "a_old_joins_kept": 811,
+ "a_old_joins_share": 1.0,
+ "a_old_joins_missed": [],
+ "a_old_clusters_whole": 255,
  "b_merging": [],
  "c_without_corpus": {
-  "clusters": 4665,
-  "files": 10529
+  "clusters": 4664,
+  "files": 10527
  },
  "d_joins": 8139,
  "d_median_hits_per_second": 18.319227872676194,
@@ -168,7 +163,7 @@
    1.71
   ]
  ],
- "d_borderline": 421,
+ "d_borderline": 420,
  "d_borderline_list": [
   [
    "second-library/__youtube_archivists/sicknote-classic-dnb/ƆƐI3C - China Cup.opus",

@@ -464,8 +464,8 @@ the product, the stores and the NAS clusters file did not change.
 
 - `clusters --library-wide` clustered every file of the NAS-scale index
   into `work/s86/clusters/library-wide.json` in 36 minutes: 4,880
-  clusters, 4,665 of them NAS rips the clusters in use leave apart;
-  810 of their 811 joins are kept (0295).
+  clusters, 4,664 of them NAS rips the clusters in use leave apart;
+  all 811 of their joins are kept, one through a verdict by ear (0295).
 - With those clusters, break search's null holds (95th percentile 46
   hits against 729), and with the key-locked rungs 63 of 66 expected
   holders are found; precision over judged holders is undecided because
