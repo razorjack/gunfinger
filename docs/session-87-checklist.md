@@ -15,9 +15,9 @@ for scope and rules.
 ## Steps
 
 - [x] 1. Design in the brief (family key, where it prints, split audit)
-- [ ] 2. Harness: `families` (key and offline scoring), tested; `regress` identical
-- [ ] 3. The audit on every panel; the re-reading of past experiments
-- [ ] 4. Experiment 0297 (families behind the decisions, the split audit)
-- [ ] 5. Any family on both sides of a split: experiment and decisions queue
-- [ ] 6. Review by a subagent; fixes
+- [x] 2. Harness: `families` (key and offline scoring), tested (`23bd445`, `bde3443`); both regressions identical with `s87-run` (`--strict`)
+- [x] 3. The audit on every panel (no family across a split); the re-reading of past experiments
+- [x] 4. Experiment 0297 (`b3741f1`)
+- [-] 5. Any family on both sides of a split: none found, nothing to record
+- [~] 6. Review by a subagent; fixes
 - [ ] 7. Wrap-up: notes, status, final checks, commit

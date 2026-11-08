@@ -84,7 +84,10 @@ commit that relies on it.
   experiment starts.
 - Fresh seeds of the same recordings test repeatability, not
   generalisation: say how many distinct recordings or relation families
-  a result rests on, beside the query count.
+  a result rests on, beside the query count. `gunfinger-eval families`
+  counts them for saved `sweep`, `recall` and `mixes` reports, and
+  `scripts/analysis/family_counts.py` for other saved data (experiment
+  0297).
 - The confident threshold is never lowered on a strongest-false figure
   that excludes same-title credits added in the same session.
 - A change to an existing decision needs a new ADR; the next number is in

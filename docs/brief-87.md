@@ -218,3 +218,13 @@ No bar is registered: the session measures and adopts nothing.
   and without them 0216's single family (Clockwork) would count as
   two. Reading the validation families' recordings is a manifest read;
   nothing of them is searched.
+- 07:53. The audit found no family on both sides of any split, at any
+  tier, with or without the scratch clusters (0297), so step 5 (a
+  family across a split, into the decisions queue) does not apply;
+  nothing is added to the decisions queue. The re-reading counted the
+  saved data's items by the class each experiment's conclusion names
+  (`family_reread.py`); where the data holds no file names it lists the
+  experiment instead.
+- 07:53. The family figures of saved reports went into 0297 for the
+  NAS sweep and recall reports and 0274's drops mixes only; the other
+  saved reports were not rescored by family.

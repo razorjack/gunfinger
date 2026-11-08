@@ -170,7 +170,12 @@ passage of one file, with every posting list and with the fullest set
 aside (session 74), on the turntable ladder or with the key-locked
 rungs as well (`--passage-ladder both`, session 86).
 `rescore` scores saved `mixes` and `grid` reports again from their
-detections and writes each beside the saved one;
+detections and writes each beside the saved one; `families` builds a
+key of recording, title and relation families from stored relations
+(clusters, library map, verdicts, same-title judgments, the shared
+panels' families) and scores saved `sweep`, `recall` and `mixes`
+reports by family, with intervals from resampling whole families or
+mixes (session 87);
 `seconds` scores saved `mixes`, `shared-mixes` and `scan` reports
 second by second (Sonnleitner et al. 2016, §5), under today's rule or a
 minimum span; `gaps` lists the stretches of the same reports that no
