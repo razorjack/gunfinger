@@ -23,7 +23,7 @@ panel (clean, damaged, brief, brief-damaged), at NAS scale and at 262 tracks + 1
   we-r-the-ones have no band holding both: 6 of 7 measurable families above 0.5 (+109: the same 6, watermelon 0.0).
 - S4, `recall` (NAS): 4,436 right detections against both panels' related ones, S2 of m 0.395 (clean 0.652, brief 0.702,
   damaged 0.239, brief-damaged 0.261; +109 0.52). The damaged queries' hits lie in fuller lists: median `L` 3,956-3,997 for
-  the damaged sets, 2,882-2,956 clean. No wrong confident recall detection was measured.
+  the damaged sets, 2,882-2,956 undamaged. No wrong confident recall detection was measured.
 - The rule's counterpart (NAS): `W >= 29.33` accepts the same 930 related detections as `R >= 240` and 1,168 played
   (against 1,150) and 2,285 of recall's right (against 2,247); +109: 1,003 against 971 and 1,605 against 1,581.
 - Exploratory, not registered: within one search and index, the strongest played detection has a higher `m` than the
@@ -31,10 +31,10 @@ panel (clean, damaged, brief, brief-damaged), at NAS scale and at 262 tracks + 1
 - The recount's reach of 48 frames takes in runs a beat away in looped passages; the second pass's 24 frames on +109's
   panel 2 (brief 85, 05:01) gave 89.4% and 81.8% within 5% and S2 0.523 (from 0.526): the instrument, not the result.
 
-**By the registration.** D1 fails: the overall gain is +0.002 and -0.001, not +0.02, and panel 2's S2 is 0.453. D2
-fails on its AUC (0.395) and holds on the counterpart (38 more right). D3 holds (6 of 9 families; two have no data and
-star-trails rests on 2 played detections). The validity line fails: 85.2% of played detections within 5% (90% needed),
-so no design note would follow even from a pass. **Conclusion.** No. A hit's mean weight varies more between recordings
-(per family, the related files' hashes are commoner in 6 of 7) and with damage than between own and shared material, so
-at equal hits it does not separate them over a panel, and it ranks damaged true plays below shared material. The overall
-AUCs are those of raw hits. The weight closes as a separator of shared material in this form.
+**By the registration.** D1 fails: the overall gain is +0.002 and -0.001, not +0.02, and panel 2's S2 is 0.453 (panel
+1's 0.697 clears 0.60, from bands 120-959; 30-119 and 960+ go the other way, and `k` gives 0.362). D2 fails on its AUC
+(0.395) and holds on the counterpart (38 more right). D3 holds (6 of 9; two families have no data, star-trails 2 played
+detections). Validity fails: 85.2% of played detections within 5% (90% needed). **Conclusion.** No. Within a family the
+related files' hits are mostly commoner (6 of 7), but the mean weight varies more between recordings and with damage than
+between own and shared material, so over panel 2 and `recall` it does not separate at equal hits, panel 1's separation
+does not survive the second form, and it ranks damaged true plays below shared material. The overall AUCs are raw hits'.

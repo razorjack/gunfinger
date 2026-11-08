@@ -16,9 +16,9 @@ for scope and rules.
 ## Steps
 
 - [x] 1. Registration committed (in `docs/brief-85.md`)
-- [ ] 2. The score (`--rarity`, `rarity.rs`), tested; both regressions identical (`--strict`)
-- [ ] 3. Runs at +109 and NAS scale; every scored run exit 0
-- [ ] 4. Experiment 0294 (the weighted score against raw hits)
-- [ ] 5. Roadmap items, decisions queue item 7
+- [x] 2. The score (`--rarity`, `rarity.rs`, `38dce7d`), tested; both regressions identical (`--strict`)
+- [x] 3. Runs at +109 and NAS scale; every scored run exit 0
+- [x] 4. Experiment 0294 (the weighted score against raw hits)
+- [x] 5. Roadmap items (active queue item 9 closed), decisions queue items 7 and 8
 - [ ] 6. Review by a subagent; fixes
 - [ ] 7. Wrap-up: notes, status, final checks, commit

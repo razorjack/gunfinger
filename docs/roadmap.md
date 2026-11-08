@@ -123,6 +123,11 @@ Each session takes the first item it can do without a pending decision.
 9. **Hash-rarity weighting** as a diagnostic score beside the hit count
    (hits weighted by the inverse log of their posting-list length), on
    the shared panels' development halves and 0276's break lists.
+   *Session 85 (0294):* measured (`--rarity`); closed: at equal hits the
+   mean weight separates played from related on panel 1 only (AUC 0.697,
+   not with the second form; panel 2 0.453 at NAS scale), adds +0.002
+   and -0.001 to the overall AUC and ranks damaged true plays below
+   shared material (`recall` 0.395).
 10. **Break search, measured as retrieval** (queue item 4): judged
     holders as relevant, a listening pack across ranks, both playback
     ladders; a library-wide clustering first, so that a null of random
@@ -372,13 +377,14 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   (not counted); break
   search as a command (decisions queue item 4; active queue
   item 10); a posting-count set-aside threshold (active queue item 11);
-  if candidates go missing, rank hashes by distinct files or weight hits
-  by rarity (active queue item 9); a real collection's duplicates beyond
+  if candidates go missing, rank hashes by distinct files (weighting
+  hits by rarity does not separate shared material at equal hits, 0294;
+  as a way to recover candidates it is unmeasured); a real collection's duplicates beyond
   exact copies (the 65,536-asset limit capped the padding at NAS scale).
   For `identify` the break's many holders change nothing measured; the
   passage query with every list costs about 8 thread seconds per query
   at NAS scale. Evidence: 0012, 0144, 0222-0225,
-  0242, 0276, 0277; `docs/research/2026-11-02-break-search.md`.
+  0242, 0276, 0277, 0294; `docs/research/2026-11-02-break-search.md`.
 - **A confidence statistic for shared material.** *Blocked on the user
   (decisions queue item 7; the active queue: it waits on that item).*
   Facts: with the played recording left out at NAS scale a related
@@ -390,7 +396,8 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   as a note flagged 13.9% of true plays (0120-0123); the version verifier,
   versions 1 and 2, failed one criterion each (0124-0127, 0133-0135;
   `gunfinger-eval versions`, kept as a diagnostic); the harmonic view
-  was not proposed (0259-0261). An exploratory rule found after session
+  was not proposed (0259-0261); hash-rarity weighting separates no better
+  than hits (0294). An exploratory rule found after session
   21's run (a play the map marks with under 6.276 hits per second
   rejected) is frozen in `docs/brief-21.md` for a test on real mixes not
   used so far. The shared panels' development halves are a required
@@ -400,7 +407,7 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   statistic work stops; a version 3 of the verifier would need new real
   mixes with checked tracklists. Evidence: 0026, 0051, 0053, 0055, 0076,
   0091, 0110-0118, 0120-0129, 0132-0135, 0187, 0215-0218, 0225, 0236,
-  0259-0261; `docs/panels/`;
+  0259-0261, 0294; `docs/panels/`;
   `docs/research/2026-10-16-version-verification.md`,
   `docs/research/2026-10-31-harmonic-view-decision.md`.
 - **Evidence beyond exact pair hashes.** *Steps 1 and 2 done with no
@@ -566,6 +573,12 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
 One line per finished or closed item; the history is in
 `docs/roadmap-history.md` under the same name.
 
+- **Hash-rarity weighting.** Closed by 0294 (session 85): no separation
+  of shared material at equal hits. `--rarity` is kept as a diagnostic
+  for one possible next use, a weight relative to each file's own hashes
+  (per family the related files' hits are commoner in 6 of 7); it goes
+  in the diagnostics cleanup (decisions queue item 8) unless that is
+  registered first.
 - **Database.** Not needed: the peak store is one file per asset and the
   index is rebuilt from it in 0.5 s; revisit only if detections need to
   be stored. Report edits and the Track/AudioAsset model are out of

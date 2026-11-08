@@ -164,6 +164,13 @@ external review (`docs/research/2026-11-05-external-review.md`).
   accuracy question" at NAS scale, while on 2026-10-31 the user said a
   related version named for the track playing is acceptable, because the
   listener learns the title and can find the right version by ear.
+- **Session 85 (0294).** The last statistic in the active queue, hits
+  weighted by their hashes' rarity (`1 / ln(e + list length)`), fails
+  its registration at NAS scale: at equal hits it separates played from
+  related detections on panel 1 (AUC 0.697, not with the second form)
+  and not on panel 2 (0.453), adds +0.002 and -0.001 to the overall AUC
+  of raw hits, and ranks damaged true plays of `recall` below shared
+  material (0.395). No candidate statistic is left in the queue.
 - **Recommendation.** If the user confirms this view, the roadmap's "A
   confidence statistic for shared material" becomes "presentation of
   shared passages" (for example marking a confident play whose file
@@ -177,7 +184,8 @@ external review (`docs/research/2026-11-05-external-review.md`).
   several opt-ins and subcommands whose experiments concluded "not
   adopted" (for example the second-pass fits of 0251-0253, the power-sum
   front end of 0245-0250, `harmonic` of 0259-0261, `drop_fullest`,
-  `trim_ends`, `overlap_by_chains`). The harness has about 44,000 lines
+  `trim_ends`, `overlap_by_chains`; since session 85 `--rarity`, 0294).
+  The harness has about 44,000 lines
   against the core's 14,000, and `scripts/analysis/` holds 112 scripts.
 - **Recommendation.** Amend the rule: a kept diagnostic names its next
   use and the condition for deleting it, in the experiment or the
