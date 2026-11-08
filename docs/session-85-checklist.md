@@ -20,5 +20,5 @@ for scope and rules.
 - [x] 3. Runs at +109 and NAS scale; every scored run exit 0
 - [x] 4. Experiment 0294 (the weighted score against raw hits)
 - [x] 5. Roadmap items (active queue item 9 closed), decisions queue items 7 and 8
-- [ ] 6. Review by a subagent; fixes
-- [ ] 7. Wrap-up: notes, status, final checks, commit
+- [x] 6. Review by a subagent; fixes
+- [x] 7. Wrap-up: notes, status, final checks (check.sh green; both regressions identical with `--strict`; digests unchanged), commit

@@ -108,6 +108,7 @@ that holds it.
 - "Session 82" (2026-11-07): two records for a file with an inverted channel, a harness pilot. `this file`
 - "Session 83" (2026-11-08): the band profile of 0034 under the default matcher. `this file`
 - "Session 84" (2026-11-08): a second-chance search over the gaps. `this file`
+- "Session 85" (2026-11-08): hash-rarity weighting as a diagnostic score. `this file`
 
 
 ## Session 70
@@ -2126,3 +2127,132 @@ and `AGENTS.md`'s module map were all taken (brief 84, 04:00).
 - Slips, in brief 84: the first queues interleaved 0293's runs with
   0292's (held back by the wrapper); the mixes report's name lacked the
   label (fixed, rerun); 0292 was first committed over 40 lines.
+
+## Session 85
+
+Brief `docs/brief-85.md` (the prompt, the registration and every
+decision), checklist `docs/session-85-checklist.md`, experiment 0294. A
+measurement session: no default, threshold or output of the product
+changed, and the `gunfinger` binary is byte-identical to session 84's.
+
+### What changed
+
+- Harness: `--rarity` (`rarity.rs`, `38dce7d`), taken by `shared` and
+  `recall` only, with the default matching only (since the review);
+  reports go to `reports/rarity/`. Each second-pass
+  detection of 30 hits or more is counted again at its alignment (the
+  query analysed at its fitted speed, the asset's postings within 48
+  frames of the line through its first hit, per 10 s window the densest
+  run within 2 frames of 3 hits or more, only hits within its span), and
+  each hit is weighted by `1 / ln(e + L)`, `L` its hash's postings in the
+  index searched, set-aside lists included. The detection's `rarity`
+  holds the hits found again, their weights' sum, the hits outside the
+  set-aside lists and the median list length.
+- `scripts/analysis/rarity.py` (tested in `test_rarity.py`): the
+  registration's scores S1-S5, and an exploratory per-search comparison.
+- Documents: the roadmap's active queue item 9 closed (one line under
+  "Done and closed"), "The filter and famous breaks" and "A confidence
+  statistic for shared material"; decisions queue items 7 and 8;
+  `AGENTS.md`'s module map.
+
+### Results
+
+- 0294: at NAS scale, at equal hits, the mean weight `m` separates
+  played from related detections on panel 1 (AUC 0.697, from the bands
+  of 120-959 hits; the second form `k` gives 0.362) and not on panel 2
+  (0.453); the overall AUC of the weighted score is that of raw hits
+  (gains +0.002 and -0.001). Within the two families with many
+  detections (fire, phantom-force) the related files' hits are commoner
+  (0.69, 0.639); four other families above 0.5 rest on 2-14 played
+  detections. Pooled, the mean weight most likely differs more between
+  recordings than between own and shared material, and `recall`'s
+  damaged true plays have commoner hits than shared material (0.395). At the rule's
+  operating point a weighted cut accepting the same 930 related
+  detections as 240 hits accepts 38 more of `recall`'s 4,436 right
+  detections. The recount matches the second pass within 5% for 85.2%
+  of played detections (registered validity line 90%).
+
+### Decided this session, open to change
+
+- The score is a recount in the harness, not a field of the core's
+  `Evidence`, so the core and the CLI did not change; the recount's
+  STFT starts at another sample than the second pass's, hence S5.
+- Session 74's break lists were not rerun: `break-search` counts
+  first-pass hits from stored peaks, another code path, and 0277
+  measured the second form on them.
+- Session 83's +109 store had been deleted; it was rebuilt by copying
+  the NAS store's records of the same 109 files (`work/s85/stores/other`).
+- A recount with the second pass's reach of 24 frames improved the
+  match on +109's panel 2 (89.4% of played detections) without moving
+  S2 (0.523 against 0.526); by the rule written before it ran, the
+  scored runs were not repeated (brief 85, 05:01 and 05:07).
+
+### Questions this leaves for us
+
+- Whether a weight relative to each file's own hashes (the file's mean
+  weight over its whole record) would keep the within-family separation
+  across families; it would be a new registration on data these runs
+  did not use. Otherwise `--rarity` goes in the diagnostics cleanup
+  (decisions queue item 8).
+- Decisions queue item 7: no candidate statistic for shared material is
+  left in the active queue.
+
+### Questions for listening (none answered by agents)
+
+- None new. The Planet Dust (DC Breaks Remix) cut stays unsure.
+
+### Handoff for the next session
+
+1. Builds: `work/bin/s85-final/` (master) and `s84-final`. `s85-start`,
+   `s85-run` and `s85-run2` are deleted.
+2. Baselines unchanged: `session-78-linux` and `session-78-linux-nas`.
+   NAS store 40,666 records, revision `0bd3f0c23fabc698`; corpus store
+   `526a3b978eb3e411`; the clusters file unchanged.
+3. Data in `work/s85/`: the scored reports (`w109/reports/library-other/rarity/`,
+   `wnas/reports/library-nas-dnb-peaks/rarity/`; the 24-frame recount in
+   `w109b/`), the summaries (`summary-*.json`), the +109 store
+   (`stores/other`), the logs (`logs/`, `queue.log` has every exit
+   line), the scripts (`run.sh`, `setup.sh`, `queue.sh`,
+   `copy_records.py`, `show.py`). The renders are deleted; all of
+   `work/s85/` is safe to delete.
+4. To run it again:
+   ```sh
+   E=work/bin/s85-final/gunfinger-eval
+   $E --work W --panels work/s33/panels --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks --rarity shared docs/panels/shared-material-seed-2026-development.json
+   $E --work W --panels work/s33/panels --other-peaks-dir ~/.local/share/gunfinger/nas-dnb-peaks --rarity recall --queries clean,damaged,brief,brief-damaged
+   python3 -I scripts/analysis/rarity.py OUT.json --shared REPORT docs/panels/shared-material-seed-2026.json --shared REPORT2 docs/panels/shared-material-2-seed-2026-development.json --recall RECALL... --clusters work/reports/library-nas-dnb-peaks/duplicate-clusters.json
+   ```
+   (`W` holds copies of the clusters and the map, and the saved index
+   linked, as `work/s85/setup.sh` makes them.)
+
+### Final checks
+
+With `work/bin/s85-final/` (master at `9389458`; `gunfinger`
+`cf8393e36bad...`, byte-identical to `s84-final`'s, `gunfinger-eval`
+`c20a5f9cd80f...`): `scripts/check.sh` green (12:20); `regress
+session-78-linux --strict` (1:04) and `regress session-78-linux-nas
+--strict` (4:57) identical, 720 of 720 sweep queries and every report
+equal apart from timing. `docs/pair-verdicts.txt`, the NAS clusters
+file and the answer log are at their start digests
+(`work/s85/listening-digests-end.txt`). A read-only review by a
+subagent found every figure of 0294 equal to its data; its corrections
+(overstated family results, the validity failure in the roadmap and the
+queue, `recall`'s weak wrong detections, `--rarity` with matching
+variants, comments, wording) were all taken (brief 85, 05:45). No test
+runs a search with and without `--rarity`: `rarity::measure` takes the
+detection by shared reference after the search, and the regressions
+cover the option off.
+
+### What else to know
+
+- The held-out test set was not touched; no mix was searched apart from
+  the three development mixes through `regress`; the queries were the
+  panels' rendered passages and `recall`'s excerpts. Nothing ran on the
+  candidate mixes of 0065 or the NAS root's broadcast file. The NAS and
+  `work/peaks` were only read. No search named a validation half; for
+  panel 1's families and versions `rarity.py` reads the whole panel's
+  definitions (`docs/panels/shared-material-seed-2026.json`) and uses
+  only the development scenarios' families.
+- Times on the Linux machine, four runs at once (10, 8, 10 and 8 jobs):
+  NAS panel 1 49:12 (6.3 GB peak), panel 2 37:01 (5.5 GB), `recall`
+  49:08 (5.1 GB); +109 13:24, 7:30, 21:41. Not product timings.

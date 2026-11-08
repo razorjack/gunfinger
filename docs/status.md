@@ -432,3 +432,26 @@ default of the product changed.
   identical with `--strict`; `docs/pair-verdicts.txt` and the NAS
   clusters file unchanged. A review by a subagent found no code or
   figure error and corrected several descriptions.
+
+## 2026-11-08: session 85, hash-rarity weighting as a diagnostic score
+
+Brief `docs/brief-85.md`, checklist `docs/session-85-checklist.md`;
+notes "Session 85"; experiment 0294. A measurement session: the product
+did not change (the `gunfinger` binary is byte-identical to session
+84's).
+
+- The harness can count a detection's hits again at its alignment with
+  each hit weighted by its hash's list length, `1 / ln(e + L)`
+  (`--rarity` on `shared` and `recall`; `rarity.rs`).
+- At equal hits the mean weight per hit does not separate played from
+  related detections over the shared panels: AUC 0.697 on panel 1 (not
+  with the second form) and 0.453 on panel 2 at NAS scale, with overall
+  AUC gains of +0.002 and -0.001 over raw hits; it ranks `recall`'s
+  damaged true plays below shared material (0.395). The registration
+  fails (0294); active queue item 9 is closed, and decisions queue item
+  7 notes that no candidate statistic is left.
+- Final checks with `work/bin/s85-final/`: `scripts/check.sh` green;
+  `regress session-78-linux` and `regress session-78-linux-nas`
+  identical with `--strict`; `docs/pair-verdicts.txt` and the NAS
+  clusters file unchanged. A review by a subagent found no figure error
+  and tightened the claims about families and validity.
