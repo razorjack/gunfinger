@@ -2460,3 +2460,18 @@ still waits.
    pairs or new real mixes (decisions queue item 6). A rule tested on
    shared material should name the families its negatives come from.
 
+### Final checks
+
+With `work/bin/s87-final/` (master at `91bbf83`; `gunfinger`
+`cf8393e36bad...`, byte-identical to `s86-final`'s, `gunfinger-eval`
+`8577f809d8a1...`; `work/s87/final.sh`, log `work/s87/logs/final.log`):
+`scripts/check.sh` green (12:43, the analysis tests 92); `regress
+session-78-linux --strict` (1:05) and `regress session-78-linux-nas
+--strict` (4:42) identical, 720 of 720 sweep queries and every report
+equal apart from timing. `docs/pair-verdicts.txt`, the NAS clusters
+file and the answer log are at their start digests
+(`work/s87/listening-digests-end.txt`). The session's other builds
+(`s87-start`, `s87-run`) are deleted; `s85-final` and older finals are
+left as they were. A read-only review by a subagent recomputed every
+figure; its corrections were taken (brief 87, 08:00).
+

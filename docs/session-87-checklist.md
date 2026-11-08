@@ -19,5 +19,5 @@ for scope and rules.
 - [x] 3. The audit on every panel (no family across a split); the re-reading of past experiments
 - [x] 4. Experiment 0297 (`b3741f1`)
 - [-] 5. Any family on both sides of a split: none found, nothing to record
-- [~] 6. Review by a subagent; fixes
-- [ ] 7. Wrap-up: notes, status, final checks, commit
+- [x] 6. Review by a subagent; fixes (`a0a8512`, `91bbf83`)
+- [x] 7. Wrap-up: notes, status, final checks (check.sh green; both regressions identical with `--strict`; digests unchanged), commit
