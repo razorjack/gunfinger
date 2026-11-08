@@ -55,6 +55,7 @@ use crate::clusters::Clusters;
 use crate::harmonic::{self, Analysed, Measured, Placement};
 use crate::matching::Matching;
 use crate::padding::{OTHER_LIBRARY_PREFIX, Padding};
+use crate::rarity::{self, Rarity};
 use crate::render::{
     Encoding, Playback, RENDER_RATE, Recipe, encode, limited, render_excerpt, render_samples, rms,
 };
@@ -188,6 +189,9 @@ pub struct SharedFound {
     pub views: Option<Measured>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub views_error: Option<String>,
+    /// The hits' rarity, with `--rarity`.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rarity: Option<Rarity>,
 }
 
 /// How a query is cut from the played file.
@@ -250,6 +254,9 @@ pub struct Options<'a> {
     pub padding: &'a Padding,
     pub jobs: usize,
     pub views: Views,
+    /// Measure the hits' rarity of every detection the second pass counted
+    /// with `rarity::MIN_HITS` or more (brief 85).
+    pub rarity: bool,
 }
 
 pub fn run(
@@ -448,6 +455,9 @@ impl QuerySearcher<'_> {
             }),
             views: None,
             views_error: None,
+            rarity: samples.filter(|_| self.options.rarity).and_then(|samples| {
+                rarity::measure(&self.index, detection, samples, &Profile::CURRENT)
+            }),
         }
     }
 }

@@ -268,6 +268,9 @@ const FRONT_END_COMMANDS: [&str; 6] = [
 ];
 
 /// The commands whose index takes --second-records.
+/// The commands that measure the hits' rarity with --rarity.
+const RARITY_COMMANDS: [&str; 2] = ["shared", "recall"];
+
 const SECOND_RECORDS_COMMANDS: [&str; 3] = ["second-records", "sweep", "shared"];
 
 /// The commands that search with `--gap-rungs` or `--gap-key-lock`
@@ -367,6 +370,12 @@ fn check_global_options(harness: &Harness, command: &Command) -> Result<(), Stri
     if front_end != FrontEnd::Downmix && harness.search.verify {
         return Err(String::from(
             "the peak verifier analyses one channel: --verify takes the downmix front end only",
+        ));
+    }
+    if harness.search.rarity && !RARITY_COMMANDS.contains(&name) {
+        return Err(format!(
+            "this command does not take --rarity; {} do",
+            listed(&RARITY_COMMANDS)
         ));
     }
     if harness.other.second_records.is_some() && !SECOND_RECORDS_COMMANDS.contains(&name) {
@@ -484,6 +493,16 @@ mod tests {
         assert!(
             checked(&["--gap-key-lock", "mixes"])
                 .is_err_and(|message| message.contains("--ladder turntable"))
+        );
+    }
+
+    #[test]
+    fn the_hits_rarity_is_measured_only_by_shared_and_recall() {
+        assert_eq!(checked(&["--rarity", "recall"]), Ok(()));
+        assert_eq!(checked(&["--rarity", "shared", "plan.json"]), Ok(()));
+        assert!(
+            checked(&["--rarity", "sweep"])
+                .is_err_and(|message| message.contains("does not take --rarity"))
         );
     }
 

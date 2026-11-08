@@ -78,6 +78,13 @@ pub struct SearchOptions {
     /// `reports/verified/` below the usual directory.
     #[arg(long, global = true)]
     pub verify: bool,
+    /// Measure the rarity of the hits of every detection of shared and
+    /// recall that the second pass counted, with 30 hits or more: each hit
+    /// weighted by its hash's list length (`rarity.rs`, brief 85), a
+    /// diagnostic that leaves detections unchanged. Reports go to
+    /// `reports/rarity/` below the usual directory.
+    #[arg(long, global = true)]
+    pub rarity: bool,
 }
 
 /// The larger library the corpus was drawn from, known from its peak store.
@@ -333,6 +340,9 @@ impl Harness {
         }
         if self.search.verify {
             reports.push("verified");
+        }
+        if self.search.rarity {
+            reports.push("rarity");
         }
         if self.other.second_records.is_some() {
             reports.push("second-records");

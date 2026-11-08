@@ -33,6 +33,7 @@ mod parts;
 mod passages;
 mod platform;
 mod provenance;
+mod rarity;
 mod recall;
 mod regress;
 mod related;

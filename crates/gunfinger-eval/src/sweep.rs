@@ -28,6 +28,7 @@ use crate::fullest::{self, FullestReport, Ranking, SetAsideLike};
 use crate::library_map::LibraryMap;
 use crate::matching::Matching;
 use crate::padding::{OTHER_LIBRARY_PREFIX, Padding, original_path};
+use crate::rarity::Rarity;
 use crate::render::{Encoding, excerpt_once};
 use crate::rng::Rng;
 use crate::titles::SameTitles;
@@ -157,6 +158,9 @@ pub struct Outcome {
     /// The peak verifier's measures, with `--verify`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub verified: Option<Verification>,
+    /// The hits' rarity, with `--rarity` (`recall` only).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub rarity: Option<Rarity>,
 }
 
 impl Outcome {
@@ -597,6 +601,7 @@ pub fn outcome(
         fitted: detection.evidence.pass == Pass::Fitted,
         partner: false,
         verified,
+        rarity: None,
     }
 }
 
@@ -869,6 +874,13 @@ mod tests {
         }
     }
 
+    #[test]
+    fn an_outcome_without_the_rarity_is_written_as_before() {
+        let written = serde_json::to_string(&confident("a.mp3", true, false)).unwrap();
+
+        assert!(!written.contains("rarity"), "{written}");
+    }
+
     fn confident(asset: &str, correct: bool, same_title: bool) -> Outcome {
         Outcome {
             asset: asset.to_owned(),
@@ -881,6 +893,7 @@ mod tests {
             fitted: true,
             partner: false,
             verified: None,
+            rarity: None,
         }
     }
 

@@ -306,6 +306,7 @@ mod tests {
             fitted: true,
             partner: false,
             verified: None,
+            rarity: None,
         }
     }
 

@@ -150,7 +150,10 @@ measurements without a search) on top of `manifest` and `scoring`;
 `titles` reads our judgments that two files carry the same track title
 (`docs/same-titles.txt`, ADR 0022), which scoring follows.
 `verifier` is a peak verifier after Qfp, a diagnostic behind `--verify`
-that leaves detections unchanged; `shared` searches queries cut from a
+that leaves detections unchanged; `rarity` counts a detection's hits
+again at its alignment, each weighted by its hash's list length
+(`--rarity` on `shared` and `recall`, brief 85), another such
+diagnostic; `shared` searches queries cut from a
 passage two recordings share (with `--harmonic`, `harmonic` measures each
 candidate's harmonic and percussive parts, FitzGerald 2010, against the
 query's at the candidate's alignment, a diagnostic of brief 66), and

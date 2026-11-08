@@ -214,3 +214,20 @@ Passing would lead to a design note for a weighted statistic, to be
 registered on data these runs did not use (the validation halves, after
 a rule is frozen); adopting anything would be the user's decision and an
 ADR. Failing closes the weight as a separator of shared material.
+
+## Run log
+
+- *(04:37)* Build `work/bin/s85-run/` from the working tree with
+  `--rarity` (`gunfinger` byte-identical to `s85-start`'s,
+  `gunfinger-eval` `b31738b87fb0...`). Queues `work/s85/queue.sh`
+  (`small`, `nas1`, `nas2`, `nasr`; 8, 10, 8 and 10 jobs) under tmux;
+  work directories `work/s85/w109` and `work/s85/wnas` (`setup.sh`:
+  the clusters, the map, reflink copies of the cached renders, the NAS
+  index hard-linked).
+- *(04:38)* Decision: session 83's +109 store (`work/s83/stores/today/other`)
+  was deleted at its end. The +109 store is rebuilt as
+  `work/s85/stores/other` by copying the NAS store's own records of
+  session 83's 109 files (`work/s83/nas-files-kept.txt`), found by their
+  record names (`copy_records.py`; all 109 present). Session 83 found
+  those records equal to records made from byte copies, so the arm is
+  the same; the report directory stays `library-other`.

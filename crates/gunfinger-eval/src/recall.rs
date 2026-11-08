@@ -32,6 +32,7 @@ use crate::files::{read_json, write_json};
 use crate::fullest::{self, SetAsideLike};
 use crate::matching::Matching;
 use crate::padding::{OTHER_LIBRARY_PREFIX, Padding};
+use crate::rarity;
 use crate::render::{Recipe, Stereo, once};
 use crate::rng::Rng;
 use crate::robust::{COMBINED_ENCODING, render_combined};
@@ -787,6 +788,9 @@ pub struct Options<'a> {
     /// Measure every detection the second pass counted with the peak
     /// verifier; the others have no fitted alignment to verify.
     pub verify: bool,
+    /// Measure the hits' rarity of every detection the second pass counted
+    /// with `rarity::MIN_HITS` or more (brief 85).
+    pub rarity: bool,
     /// Keep each query's first-pass candidates (session 59).
     pub trace: Trace,
     /// Search with the lists set aside that the index saved in this file
@@ -942,6 +946,9 @@ impl Searcher<'_> {
                     let mut outcome =
                         outcome(self.index, detection, &own_cluster, &own_title, verified);
                     outcome.partner = is_partner(&outcome, &partner_cluster);
+                    outcome.rarity = samples.filter(|_| self.options.rarity).and_then(|samples| {
+                        rarity::measure(self.index, detection, samples, &Profile::CURRENT)
+                    });
                     outcome
                 })
                 .collect(),
@@ -1294,6 +1301,7 @@ mod tests {
                     fitted: true,
                     partner: false,
                     verified: None,
+                    rarity: None,
                 })
                 .collect(),
             candidates: None,
@@ -1447,6 +1455,7 @@ mod tests {
             fitted: true,
             partner: false,
             verified: None,
+            rarity: None,
         };
         assert!(is_partner(
             &detection("beneath.mp3", false),
@@ -1484,6 +1493,7 @@ mod tests {
             fitted: true,
             partner: false,
             verified: None,
+            rarity: None,
         };
         assert!(is_partner(&detection("version.opus", false), &partner));
         // The own title comes first: a version of the source stays right.
@@ -1736,6 +1746,7 @@ mod tests {
                         fitted: true,
                         partner,
                         verified: None,
+                        rarity: None,
                     })
                     .collect(),
                 candidates: None,

@@ -126,6 +126,7 @@ pub fn recall(harness: &Harness, jobs: usize, args: RecallArgs) -> Result<(), St
             matching: &harness.search.matching,
             left_out: &left_out,
             verify: harness.search.verify,
+            rarity: harness.search.rarity,
             trace: if study.trace_candidates {
                 sweep::Trace::Candidates
             } else {

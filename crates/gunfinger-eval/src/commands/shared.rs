@@ -110,6 +110,7 @@ pub fn shared(harness: &Harness, jobs: usize, args: SharedArgs) -> Result<(), St
             padding: &harness.padding(&UNCHANGED_INDEX)?,
             jobs,
             views,
+            rarity: harness.search.rarity,
         },
     )?;
     let report_name = if name.starts_with("shared") {
