@@ -284,3 +284,18 @@ in gaps, which in generated mixes is nearly every key-locked play past
 What would justify an ADR: a T_K or G that passes every criterion above.
 A failure is reported as a failure; a revised candidate needs a new
 registration and data these runs did not use.
+
+## Decisions during the runs
+
+- **(02:05) Key lock's runs deferred until 0292 is written.** The first
+  queues (`work/s84/queue-a.sh`, `queue-b.sh`) interleaved experiment
+  0293's runs (G, K and B on key-locked mixes, `regress` with G, `robust`
+  with K and G) with 0292's, against the rule that an experiment file is
+  written before the next experiment's runs start. The queue shells
+  could not be stopped from the session, so the run build's
+  `gunfinger-eval` became a wrapper (`work/bin/s84-run/gunfinger-eval`,
+  the binary beside it as `gunfinger-eval-real`) that exits with status
+  3 for any key-lock run; those runs show `exit 3` in the queue log and
+  run again in `work/s84/queue-k.sh` after 0292 is committed. The timing
+  scans are split the same way: C6 (`queue-cpu.sh`) and K2 (in
+  `queue-k.sh`), each palindromic on its own.
