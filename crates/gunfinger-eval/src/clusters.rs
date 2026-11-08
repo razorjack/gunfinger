@@ -760,6 +760,24 @@ impl Verdicts {
         )
     }
 
+    /// The verdicts with each file `names` holds named as it says: in an
+    /// index of both libraries a corpus file stands for its copies in the
+    /// other library, so a verdict on a copy is one on the corpus file.
+    /// A verdict that then names one file twice adds nothing and is left out.
+    pub fn renamed(self, names: &BTreeMap<String, String>) -> Verdicts {
+        let name = |file: String| names.get(&file).cloned().unwrap_or(file);
+        let verdicts = self
+            .verdicts
+            .into_iter()
+            .map(|((a, b), verdict)| (ordered(&name(a), &name(b)), verdict))
+            .filter(|((a, b), _)| a != b)
+            .collect();
+        Verdicts {
+            file: self.file,
+            verdicts,
+        }
+    }
+
     /// The verdict by ear on these two files, in either order: `true` for
     /// the same recording.
     pub fn verdict(&self, a: &str, b: &str) -> Option<bool> {
@@ -1512,6 +1530,26 @@ mod tests {
                 "verdicts.txt, line 1: second-library/Mixed CD/CD1/02-remix.mp3 is left out by /music/.gunfingerignore, line 2 (`/Mixed CD/`); the verdict adds nothing"
             ]
         );
+    }
+
+    #[test]
+    fn a_verdict_on_a_copy_becomes_one_on_the_corpus_file_that_stands_for_it() {
+        let verdicts = verdicts(
+            "same\tsecond-library/upload.m4a\tsecond-library/copy.mp3\nsame\tcorpus.mp3\tsecond-library/copy.mp3\n",
+        );
+        let names = BTreeMap::from([(
+            String::from("second-library/copy.mp3"),
+            String::from("corpus.mp3"),
+        )]);
+
+        let renamed = verdicts.renamed(&names);
+
+        assert_eq!(
+            renamed.verdict("corpus.mp3", "second-library/upload.m4a"),
+            Some(true)
+        );
+        assert!(!renamed.judges("second-library/upload.m4a", "second-library/copy.mp3"));
+        assert_eq!(renamed.verdicts.len(), 1);
     }
 
     #[test]

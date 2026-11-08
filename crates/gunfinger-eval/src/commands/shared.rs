@@ -53,7 +53,8 @@ pub struct BreakSearchArgs {
     #[arg(long)]
     pub out: PathBuf,
     /// The ladder the passages are searched on: the turntable ladder
-    /// (session 74's), or with `both` the key-locked rungs as well.
+    /// (session 74's), the key-locked rungs alone (`key-lock`), or both.
+    /// The global `--ladder` does not apply to this command.
     #[arg(long, value_enum, default_value = "turntable")]
     pub passage_ladder: Ladder,
 }

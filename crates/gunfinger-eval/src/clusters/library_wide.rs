@@ -12,7 +12,7 @@
 //! when that covers between `REPORTED_COVERAGE` and `MIN_COVERAGE`,
 //! on the whole ladder too, whose chains follow a rip whose speed
 //! drifts (experiment 0049). An alignment covering 80% of the shorter
-//! file of a pair holds its middle (for files of 33 s or more), so the
+//! file of a pair holds its middle 20 s (for files of 33.3 s or more), so the
 //! excerpt of the shorter file lies inside every alignment the
 //! criterion accepts.
 

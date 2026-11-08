@@ -126,7 +126,11 @@ fn cluster_library_wide(
     let other_assets = current_sources(&other, jobs)?;
     let searched =
         clusters::Searched::corpus(&library).with_other(&other_assets, other_ignore_file(&other)?);
-    let verdicts = verdicts_on(harness, &searched)?;
+    let map = harness
+        .map_file()
+        .ok_or("--library-wide needs the library map (`map-library`)")?;
+    let verdicts = verdicts_on(harness, &searched)?
+        .renamed(&LibraryMap::load(&map)?.corpus_names(OTHER_LIBRARY_PREFIX));
     let pairs = match reuse_pairs {
         Some(report) => {
             let report =

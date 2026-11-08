@@ -73,6 +73,21 @@ impl LibraryMap {
         standing
     }
 
+    /// Each copy of a corpus file in the other library, named as an index of
+    /// both libraries would name it (`prefix` and its path), with the corpus
+    /// file that stands for it there (the first, where two do).
+    pub fn corpus_names(&self, prefix: &str) -> BTreeMap<String, String> {
+        let mut names = BTreeMap::new();
+        for copies in &self.copies {
+            for copy in std::iter::once(&copies.stands_for).chain(&copies.also) {
+                names
+                    .entry(format!("{prefix}{copy}"))
+                    .or_insert_with(|| copies.corpus.clone());
+            }
+        }
+        names
+    }
+
     /// Every copy of a corpus file in the other library.
     pub fn copied(&self) -> BTreeSet<String> {
         self.copies
