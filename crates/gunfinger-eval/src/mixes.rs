@@ -1343,6 +1343,9 @@ pub struct MixesReport {
     /// The name of the short kind's stereo fault.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub stereo_fault: Option<String>,
+    /// How the short kind's plays were played otherwise (`Playing::label`).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub playing: Option<String>,
     pub ladder: String,
     pub indexed_assets: usize,
     pub mixes: Vec<MixResult>,
@@ -1489,6 +1492,7 @@ impl MixesReport {
             .or_else(|| self.aligned_drops.then(|| ALIGNED_DROPS.to_owned()))
             .or_else(|| self.case.clone())
             .or_else(|| self.stereo_fault.clone())
+            .or_else(|| self.playing.clone())
     }
 }
 
@@ -1809,6 +1813,7 @@ pub fn run(
             .and_then(|drops| drops.case)
             .map(|case| case.name().to_owned()),
         stereo_fault: options.kind.stereo_fault().map(Fault::name),
+        playing: playing.label().map(str::to_owned),
         ladder: options.ladder_name.to_owned(),
         indexed_assets: index.assets().len(),
         mixes: results,
@@ -2294,6 +2299,15 @@ mod tests {
         );
         assert_eq!(Playing::EdgeSpeeds.label(), Some("edge-speeds"));
         assert_eq!(Playing::Drawn.label(), None);
+        // The report keeps the label, which names it and its renders.
+        let report: MixesReport = serde_json::from_str(
+            r#"{"seed": 2026, "playing": "edge-speeds", "ladder": "both", "indexed_assets": 0, "mixes": []}"#,
+        )
+        .unwrap();
+        assert_eq!(
+            MixKind::Short.name(2026, report.label().as_deref()),
+            "edge-speeds-seed-2026"
+        );
     }
 
     #[test]
