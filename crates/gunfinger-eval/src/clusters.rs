@@ -53,7 +53,7 @@ pub(crate) const MIN_COVERAGE: f64 = 0.8;
 pub(crate) const REPORTED_COVERAGE: f64 = 0.2;
 /// In another library, pairs with this many hits are kept whatever their
 /// coverage: the census of related recordings (experiment 0015).
-const RELATED_HITS: u32 = 30;
+pub(crate) const RELATED_HITS: u32 = 30;
 /// Pairs from this coverage up to `MIN_COVERAGE` are listed to judge by ear.
 const BORDERLINE_COVERAGE: f64 = 0.4;
 /// The other library was indexed with its own track length range.
@@ -784,6 +784,13 @@ impl Verdicts {
         self.verdicts
             .get(&ordered(a, b))
             .map(|verdict| verdict.same)
+    }
+
+    /// Every judged pair, with `true` for the same recording.
+    pub fn pairs(&self) -> impl Iterator<Item = (&str, &str, bool)> {
+        self.verdicts
+            .iter()
+            .map(|((a, b), verdict)| (a.as_str(), b.as_str(), verdict.same))
     }
 
     fn judged_different(&self) -> impl Iterator<Item = (&str, &str)> {

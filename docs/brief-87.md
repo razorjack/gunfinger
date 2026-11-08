@@ -131,9 +131,10 @@ its smallest member in byte order):
 3. **relation**: plus every pair a verdict names, `same` or `different`
    (a verdict is written on a pair because a search found it sharing
    material; the run counts the verdict pairs no clusters file holds),
-   and every stored clusters pair judged not the same recording whose
-   alignment covers 20% or more of the shorter file
-   (`REPORTED_COVERAGE`). Chains are followed at this tier, unlike in
+   and every stored clusters pair whose alignment covers 20% or more
+   of the shorter file (`REPORTED_COVERAGE`) with 30 hits or more
+   (`RELATED_HITS`, the census of related recordings; added at 07:42,
+   see the decisions below). Chains are followed at this tier, unlike in
    scoring.
 
 Decision (conservative): the counts that state independence use the
@@ -199,3 +200,13 @@ No bar is registered: the session measures and adopts nothing.
 
 ## Decisions taken during the session
 
+- 07:42. The relation tier's clusters pairs need 30 hits or more
+  (`RELATED_HITS`) as well as 20% coverage. With coverage alone the key
+  chained 679 files into one family (China Cup's, 76 corpus files):
+  coverage counts the span from the first hit to the last, and 620 of
+  the NAS clusters' 706 such pairs have under 60 hits (median 9). With
+  30 hits the largest family over all three clusters files holds 13
+  files; with 60 or 100 hits the families barely change (1,042, 1,030
+  and 1,022 pairs).
+- 07:42. Family figures are computed offline (`gunfinger-eval
+  families`), so no report that `regress` compares changes.

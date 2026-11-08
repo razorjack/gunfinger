@@ -1,5 +1,5 @@
 //! Commands that read saved reports again and search nothing new:
-//! `seconds`, `gaps`, `self-match` and `rescore`.
+//! `seconds`, `gaps`, `self-match`, `rescore` and `families`.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
@@ -17,10 +17,13 @@ use gunfinger_core::store::PeakRecord;
 use serde::Serialize;
 
 use crate::clusters::Clusters;
+use crate::families::{self, Families, Joins};
 use crate::files::{read_json, write_json};
 use crate::harness::Harness;
+use crate::library_map::LibraryMap;
 use crate::manifest::Referable;
 use crate::matching::Matching;
+use crate::padding::OTHER_LIBRARY_PREFIX;
 use crate::padding::OtherLibrary;
 use crate::{gaps, manifest, mixes, rescore, scan, seconds, shared_mixes};
 
@@ -103,6 +106,108 @@ pub fn rescore(harness: &Harness, args: RescoreArgs) -> Result<(), String> {
         if summary && !rescored.grid {
             rescore::print_mixes_summary(&out)?;
         }
+    }
+    Ok(())
+}
+
+#[derive(clap::Args)]
+pub struct FamiliesArgs {
+    /// Saved `sweep`, `recall` or `mixes` reports to score by family.
+    pub reports: Vec<PathBuf>,
+    /// Clusters files whose clusters and pairs join files [default: the
+    /// corpus clusters and, with --other-peaks-dir, the other library's]
+    #[arg(long = "clusters-file")]
+    pub clusters_files: Vec<PathBuf>,
+    /// A scratch clusters file read as one more source, such as session
+    /// 86's library-wide clusters; the key names it among its sources.
+    #[arg(long)]
+    pub scratch_clusters: Option<PathBuf>,
+    /// Write the key here: every file a join names, with its family at
+    /// each tier.
+    #[arg(long)]
+    pub out: Option<PathBuf>,
+    /// Write the reports' summaries here.
+    #[arg(long)]
+    pub summary: Option<PathBuf>,
+}
+
+/// `families`: the family key, and saved reports scored by family.
+pub fn families(harness: &Harness, args: FamiliesArgs) -> Result<(), String> {
+    let FamiliesArgs {
+        reports,
+        clusters_files,
+        scratch_clusters,
+        out,
+        summary,
+    } = args;
+    let clusters_files = if clusters_files.is_empty() {
+        let corpus = harness
+            .paths
+            .work
+            .join("reports")
+            .join("duplicate-clusters.json");
+        let mut files = vec![corpus.clone()];
+        if harness.clusters_file() != corpus {
+            files.push(harness.clusters_file());
+        }
+        files
+    } else {
+        clusters_files
+    };
+    let mut joins = Joins::default();
+    let mut sources = Vec::new();
+    for path in clusters_files.iter().chain(&scratch_clusters) {
+        joins.add_clusters(&Clusters::load(path)?);
+        let scratch = if Some(path) == scratch_clusters.as_ref() {
+            " (scratch)"
+        } else {
+            ""
+        };
+        sources.push(format!("clusters{scratch}: {}", path.display()));
+    }
+    if let Some(map) = harness.map_file().filter(|map| map.exists()) {
+        for copies in &LibraryMap::load(&map)?.copies {
+            for copy in std::iter::once(&copies.stands_for).chain(&copies.also) {
+                joins.same_recording.push((
+                    copies.corpus.clone(),
+                    format!("{OTHER_LIBRARY_PREFIX}{copy}"),
+                ));
+            }
+        }
+        sources.push(format!("library map: {}", map.display()));
+    }
+    let verdicts = harness.verdicts()?;
+    for (a, b, same) in verdicts.pairs() {
+        let pair = (a.to_owned(), b.to_owned());
+        if same {
+            joins.same_recording.push(pair);
+        } else {
+            joins.related.push(pair);
+        }
+    }
+    sources.push(format!("verdicts: {}", harness.paths.verdicts.display()));
+    for (a, b) in harness.same_titles()?.pairs() {
+        joins.same_title.push((a.to_owned(), b.to_owned()));
+    }
+    sources.push(format!(
+        "same titles: {}",
+        harness.paths.same_titles.display()
+    ));
+    let key = Families::build(sources, &joins);
+    families::print_key(&key);
+    if let Some(out) = &out {
+        write_json(out, &key)?;
+        println!("wrote the key to {}", out.display());
+    }
+    let mut summaries = Vec::new();
+    for path in &reports {
+        let scored = families::read_report(path)?;
+        let summarised = families::summarise(&path.display().to_string(), &scored, &key);
+        families::print_summary(&summarised);
+        summaries.push(summarised);
+    }
+    if let Some(summary) = &summary {
+        write_json(summary, &summaries)?;
     }
     Ok(())
 }

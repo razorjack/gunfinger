@@ -95,6 +95,11 @@ impl SameTitles {
             .collect()
     }
 
+    /// Every pair of files judged to carry the same title.
+    pub fn pairs(&self) -> impl Iterator<Item = (&str, &str)> {
+        self.pairs.keys().map(|(a, b)| (a.as_str(), b.as_str()))
+    }
+
     /// Warns of every judged file that is neither in `index` nor left out
     /// of it by the run (`left_out`), so that a misspelt name, which would
     /// credit nothing, does not pass unnoticed.

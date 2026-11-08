@@ -173,6 +173,14 @@ pub enum Command {
     /// nothing; each rescored report is written beside its saved one as
     /// `<stem>-rescored.json`, never over it, and what changed is printed.
     Rescore(saved_reports::RescoreArgs),
+    /// Build the family key from stored relations (duplicate clusters, the
+    /// library map, the verdicts by ear and the same-title judgments) and
+    /// score saved `sweep`, `recall` or `mixes` reports by family: the
+    /// distinct recording, title and relation families beside the item
+    /// counts, recall and wrong answers weighted by item and by family,
+    /// with 95% intervals from resampling whole families (whole mixes for
+    /// `mixes`). Searches nothing (session 87).
+    Families(saved_reports::FamiliesArgs),
     /// List the gaps of saved `mixes`, `shared-mixes` or `scan` reports:
     /// the stretches no segment of a confident play covers, at each minimum
     /// length, with how many tracks each holds by its length over the
@@ -224,7 +232,7 @@ pub enum Command {
 }
 
 /// The commands that take --other-peaks-dir, by `Command::name`.
-const OTHER_LIBRARY_COMMANDS: [&str; 30] = [
+const OTHER_LIBRARY_COMMANDS: [&str; 31] = [
     "validate",
     "second-records",
     "map-library",
@@ -253,6 +261,7 @@ const OTHER_LIBRARY_COMMANDS: [&str; 30] = [
     "versions",
     "seconds",
     "rescore",
+    "families",
     "gaps",
     "self-match",
 ];
@@ -334,6 +343,7 @@ impl Command {
             Command::Grid(_) => "grid",
             Command::Seconds(_) => "seconds",
             Command::Rescore(_) => "rescore",
+            Command::Families(_) => "families",
             Command::Gaps(_) => "gaps",
             Command::SelfMatch(_) => "self-match",
             Command::Loss(_) => "loss",
@@ -453,6 +463,7 @@ pub fn run(harness: &Harness, jobs: usize, command: Command) -> Result<(), Strin
         Command::Grid(args) => mixes::grid(harness, jobs, args),
         Command::Seconds(args) => saved_reports::seconds(harness, args),
         Command::Rescore(args) => saved_reports::rescore(harness, args),
+        Command::Families(args) => saved_reports::families(harness, args),
         Command::Gaps(args) => saved_reports::gaps(harness, args),
         Command::SelfMatch(args) => saved_reports::self_match(harness, jobs, args),
         Command::Loss(args) => evaluation::loss(harness, jobs, args),

@@ -10,6 +10,7 @@ mod clusters;
 mod commands;
 mod counterexamples;
 mod digest;
+mod families;
 mod files;
 mod fullest;
 mod gap_search;
