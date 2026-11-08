@@ -53,7 +53,6 @@ pub struct Padding {
 /// A prune re-created in memory (brief 88): the files named are left out
 /// of the index searched, and an earlier saved index, read by its own
 /// provenance, can take the place of the current one. No store is written.
-#[derive(Default)]
 pub struct Replay {
     pub index: Option<PathBuf>,
     pub left_out: BTreeSet<String>,

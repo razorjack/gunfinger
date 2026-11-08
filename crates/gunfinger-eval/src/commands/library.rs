@@ -342,12 +342,10 @@ pub fn set_aside_threshold(harness: &Harness, args: SetAsideThresholdArgs) -> Re
     let digest = set_aside::lists_digest(&index);
     let lengths: Vec<usize> = index.posting_lists().map(<[_]>::len).collect();
     let non_empty = lengths.iter().filter(|&&length| length > 0).count();
+    let assets = index.assets().len();
     let (cut, derived) = match &after {
-        Some(file) => {
-            let (_, cut, derived) = FixedCut::read(file)?.after_growth(index);
-            (cut, derived)
-        }
-        None => (set_aside::derive(index, share, GROWTH_LIMIT).1, true),
+        Some(file) => FixedCut::read(file)?.after_growth(index),
+        None => (set_aside::derive(index, share, GROWTH_LIMIT), true),
     };
     let above = lengths
         .iter()
@@ -362,7 +360,7 @@ pub fn set_aside_threshold(harness: &Harness, args: SetAsideThresholdArgs) -> Re
         cut.postings_per_list,
         100.0 * above as f64 / non_empty as f64,
         posting_total,
-        cut.assets,
+        assets,
     );
     Ok(())
 }

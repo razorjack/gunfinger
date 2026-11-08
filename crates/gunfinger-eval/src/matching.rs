@@ -16,6 +16,7 @@ use gunfinger_core::search::{
 use gunfinger_core::spectrogram::Signal;
 use gunfinger_core::speed::Rung;
 
+use crate::fullest;
 use crate::gap_search::{self, GapSearch};
 use crate::set_aside;
 use crate::stereo::{FrontEnd, QueryAudio};
@@ -257,6 +258,12 @@ impl Matching {
             parts.push(String::from("gap-key-lock"));
         }
         (!parts.is_empty()).then(|| parts.join("-"))
+    }
+
+    /// How `--set-aside-like` chooses the lists it compares.
+    pub fn cut(&self) -> fullest::Cut {
+        self.set_aside_above
+            .map_or(fullest::Cut::Share(SKIPPED_SHARE), fullest::Cut::Above)
     }
 
     pub fn options(&self) -> Options {
@@ -613,6 +620,7 @@ mod tests {
             .posting_lists()
             .filter(|list| list.len() > 4)
             .count();
+        assert!(longer > 0);
         assert_eq!(set_aside_hashes(&above.index(index())).len(), longer);
         let provenance = format!("{above:?}");
         assert!(provenance.contains("set_aside_above: 4"), "{provenance}");

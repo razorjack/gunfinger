@@ -135,7 +135,8 @@ pub struct OtherLibraryOptions {
     pub second_records: Option<PathBuf>,
     /// With --other-peaks-dir: search this saved index, read by its own
     /// provenance, instead of today's (brief 88: a prune re-created in
-    /// memory). No store or saved index is written.
+    /// memory). No store or saved index is written; reports go to the
+    /// usual names, so run it in a scratch `--work` directory.
     #[arg(long, global = true, value_name = "FILE", requires = "other_peaks_dir")]
     pub replay_index: Option<PathBuf>,
     /// Leave the files this list names (index paths, one per line) out of

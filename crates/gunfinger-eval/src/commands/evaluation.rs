@@ -440,12 +440,8 @@ pub fn second_records(
     };
     let (index, like) = match &set_aside_like {
         Some(saved) => {
-            let (index, like) = fullest::setting_aside_like(
-                index,
-                saved,
-                &left_out,
-                gunfinger_core::search::SKIPPED_SHARE,
-            )?;
+            let (index, like) =
+                fullest::setting_aside_like(index, saved, &left_out, matching.cut())?;
             fullest::print_like(&like);
             (index, "-set-aside-like")
         }

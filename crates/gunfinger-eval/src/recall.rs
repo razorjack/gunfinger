@@ -22,7 +22,7 @@ use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::parallel::map_in_order;
 use gunfinger_core::profile::Profile;
-use gunfinger_core::search::{SKIPPED_SHARE, WINDOW_SECONDS};
+use gunfinger_core::search::WINDOW_SECONDS;
 use gunfinger_core::speed::Rung;
 use gunfinger_core::store::PeakStore;
 use serde::{Deserialize, Serialize};
@@ -825,7 +825,7 @@ pub fn run(
     let (index, set_aside_like) = match options.set_aside_like {
         Some(saved) => {
             let (index, like) =
-                fullest::setting_aside_like(built, saved, &excluded, SKIPPED_SHARE)?;
+                fullest::setting_aside_like(built, saved, &excluded, options.matching.cut())?;
             fullest::print_like(&like);
             (index, Some(like))
         }

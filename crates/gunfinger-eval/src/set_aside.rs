@@ -42,15 +42,12 @@ pub struct FixedCut {
 impl FixedCut {
     /// The cut the rule gives at `index` (as built), having been `self`:
     /// `self` until the postings have grown by more than the limit, then
-    /// derived again at `index` (the returned index holds the lists set
-    /// aside by the share; see `derive`). The bool says it was derived
-    /// again.
-    pub fn after_growth(self, index: Index) -> (Index, FixedCut, bool) {
+    /// derived again at `index`. The bool says it was derived again.
+    pub fn after_growth(self, index: Index) -> (FixedCut, bool) {
         if index.posting_count() as f64 <= self.postings as f64 * (1.0 + self.growth_limit) {
-            (index, self, false)
+            (self, false)
         } else {
-            let (index, cut) = derive(index, self.share, self.growth_limit);
-            (index, cut, true)
+            (derive(index, self.share, self.growth_limit), true)
         }
     }
 
@@ -63,9 +60,8 @@ impl FixedCut {
 }
 
 /// The cut that keeps exactly the lists the `share` keeps at `index`,
-/// read off `Index::skipping_fullest`; the index comes back with the
-/// lists set aside that the share chose.
-pub fn derive(index: Index, share: f64, growth_limit: f64) -> (Index, FixedCut) {
+/// read off `Index::skipping_fullest`.
+pub fn derive(index: Index, share: f64, growth_limit: f64) -> FixedCut {
     let postings = index.posting_count() as u64;
     let assets = index.assets().len() as u32;
     let index = index.skipping_fullest(share);
@@ -73,16 +69,13 @@ pub fn derive(index: Index, share: f64, growth_limit: f64) -> (Index, FixedCut) 
         .map(|hash| index.scanned_postings(hash).len() as u32)
         .max()
         .unwrap_or(0);
-    (
-        index,
-        FixedCut {
-            postings_per_list: longest_kept,
-            share,
-            growth_limit,
-            postings,
-            assets,
-        },
-    )
+    FixedCut {
+        postings_per_list: longest_kept,
+        share,
+        growth_limit,
+        postings,
+        assets,
+    }
 }
 
 /// `index` searched with the lists longer than `postings_per_list` set
@@ -180,7 +173,7 @@ mod tests {
             .filter(|list| !list.is_empty())
             .count();
         let share = 3.0 / lists as f64;
-        let (_, cut) = derive(index(), share, GROWTH_LIMIT);
+        let cut = derive(index(), share, GROWTH_LIMIT);
         let by_number = set_aside_hashes(&skipping_above(index(), cut.postings_per_list));
         let by_share = the_share(index(), share);
         assert_eq!(by_number, by_share);
@@ -192,7 +185,7 @@ mod tests {
         let dir = std::env::temp_dir().join(format!("gunfinger-cut-{}", std::process::id()));
         fs::create_dir_all(&dir).unwrap();
         let path = dir.join("a.set-aside.json");
-        let (_, cut) = derive(index(), 0.5, GROWTH_LIMIT);
+        let cut = derive(index(), 0.5, GROWTH_LIMIT);
         fs::write(&path, serde_json::to_string(&cut).unwrap()).unwrap();
         let read = FixedCut::read(&path).unwrap();
         fs::remove_dir_all(&dir).unwrap();
@@ -200,38 +193,37 @@ mod tests {
     }
 
     #[test]
-    fn a_small_loss_of_postings_moves_only_lists_that_cross_the_number() {
-        // Leaving a file out shortens every list holding it, so the share's
-        // cut moves; the number does not.
-        let (_, cut) = derive(index(), 0.5, GROWTH_LIMIT);
+    fn leaving_files_out_can_only_take_lists_out_of_what_a_number_sets_aside() {
+        // Leaving a file out only shortens lists, so a list can leave the
+        // set aside by its own length and none can enter it, unlike a share,
+        // whose cut can fall with the lists around it.
+        let cut = derive(index(), 0.5, GROWTH_LIMIT);
+        let before = set_aside_hashes(&skipping_above(index(), cut.postings_per_list));
         let left_out = BTreeSet::from([String::from("c.mp3")]);
-        let smaller = index().without_assets(&left_out);
-        let kept: Vec<u32> = hashes()
-            .filter(|&hash| smaller.postings(hash).len() as u32 > cut.postings_per_list)
-            .map(|hash| hash.0)
-            .collect();
-        let by_number = set_aside_hashes(&skipping_above(smaller, cut.postings_per_list));
-        assert_eq!(by_number, kept);
+        let smaller = || index().without_assets(&left_out);
+        let after = set_aside_hashes(&skipping_above(smaller(), cut.postings_per_list));
+        assert!(!before.is_empty());
+        assert!(after.iter().all(|hash| before.contains(hash)));
+        let shorter = smaller();
+        for hash in before.iter().filter(|hash| !after.contains(hash)) {
+            assert!(shorter.postings(PairHash(*hash)).len() as u32 <= cut.postings_per_list);
+        }
     }
 
     #[test]
     fn the_number_is_kept_up_to_the_growth_limit_and_derived_again_past_it() {
-        let (_, cut) = derive(index(), 0.5, GROWTH_LIMIT);
-        // Copies of a record add its postings to the lists it holds.
-        let at = |copies: usize| {
-            let mut records = records();
-            for copy in 0..copies {
-                let mut again = records[0].clone();
-                again.header.source.path = format!("copy{copy}.mp3");
-                records.push(again);
-            }
-            Index::build(&records).unwrap()
+        let cut = derive(index(), 0.5, GROWTH_LIMIT);
+        let derived_at = |postings: f64| FixedCut {
+            postings: (index().posting_count() as f64 / postings).ceil() as u64,
+            ..cut
         };
-        let (_, kept, derived) = cut.after_growth(index());
-        assert_eq!((kept, derived), (cut, false));
-        let (_, grown, derived) = cut.after_growth(at(5));
+        // Grown by 5% and 9%: within the limit. By 20%: past it.
+        assert!(!derived_at(1.05).after_growth(index()).1);
+        assert!(!derived_at(1.09).after_growth(index()).1);
+        let (grown, derived) = derived_at(1.20).after_growth(index());
         assert!(derived);
-        assert_eq!(grown, derive(at(5), 0.5, GROWTH_LIMIT).1);
+        assert_eq!(grown.postings_per_list, cut.postings_per_list);
+        assert_eq!(grown.postings, index().posting_count() as u64);
     }
 
     #[test]

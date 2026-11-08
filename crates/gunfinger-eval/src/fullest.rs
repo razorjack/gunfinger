@@ -27,6 +27,7 @@ use serde::{Deserialize, Serialize};
 use crate::clusters::Clusters;
 use crate::files::read_lines;
 use crate::padding::{Padding, original_path};
+use crate::set_aside;
 
 /// What the lists set aside are ranked by, instead of their postings.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, clap::ValueEnum)]
@@ -124,15 +125,33 @@ pub struct MovedList {
     pub there_of_files_only_there: usize,
 }
 
+/// How the lists are chosen for `setting_aside_like`, in both indexes.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Cut {
+    /// The fullest share of non-empty lists.
+    Share(f64),
+    /// Every list longer than this many postings (`set_aside`, brief 88).
+    Above(u32),
+}
+
+impl Cut {
+    fn apply(self, index: Index) -> Index {
+        match self {
+            Cut::Share(share) => index.skipping_fullest(share),
+            Cut::Above(postings) => set_aside::skipping_above(index, postings),
+        }
+    }
+}
+
 /// `index` (as built, less `left_out`), searched with the lists set aside
 /// that the index saved at `saved` sets aside with `left_out` left out of
-/// it too, by the same `share`: its own postings, the other index's cut.
+/// it too, by the same `cut`: its own postings, the other index's lists.
 /// The file is only read; both indexes are in memory at once.
 pub fn setting_aside_like(
     index: Index,
     saved: &Path,
     left_out: &BTreeSet<String>,
-    share: f64,
+    cut: Cut,
 ) -> Result<(Index, SetAsideLike), String> {
     let unusable = |error: saved::Unusable| {
         format!(
@@ -140,7 +159,7 @@ pub fn setting_aside_like(
             saved.display()
         )
     };
-    let here = index.skipping_fullest(share);
+    let here = cut.apply(index);
     let here_hashes = set_aside_hashes(&here);
     let there = saved::load(saved, &saved::provenance(saved).map_err(unusable)?)
         .map_err(unusable)?
@@ -160,7 +179,7 @@ pub fn setting_aside_like(
         .map(AssetId)
         .filter(|&asset| only_there.contains(&there.asset(asset).path))
         .collect();
-    let there = there.skipping_fullest(share);
+    let there = cut.apply(there);
     let there_hashes = set_aside_hashes(&there);
     let moved = |hashes: &[u32], elsewhere: &[u32]| -> Vec<MovedList> {
         hashes
@@ -562,7 +581,8 @@ mod tests {
             .unwrap();
         assert!(set_aside_hashes(&Index::build(&after).unwrap().skipping_fullest(0.5)).is_empty());
 
-        let (searched, like) = setting_aside_like(index, &file, &BTreeSet::new(), 0.5).unwrap();
+        let (searched, like) =
+            setting_aside_like(index, &file, &BTreeSet::new(), Cut::Share(0.5)).unwrap();
         fs::remove_dir_all(&dir).unwrap();
 
         assert_eq!(like.only_there, ["gone.mp3"]);

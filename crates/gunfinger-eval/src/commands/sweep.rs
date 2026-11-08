@@ -5,6 +5,7 @@ use std::path::PathBuf;
 use crate::files::{read_lines, write_json};
 use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::library_map::LibraryMap;
+use crate::matching::Matching;
 use crate::padding::{ExactCopies, Padding};
 use crate::{fullest, sweep};
 
@@ -140,9 +141,13 @@ pub fn run_sweep(
             "--rank-fullest-by ranks the default matcher's lists; it takes no other matching option",
         ));
     }
-    if filter.set_aside_like.is_some() && harness.search.matching.name().is_some() {
+    let other_than_a_threshold = Matching {
+        set_aside_above: None,
+        ..harness.search.matching
+    };
+    if filter.set_aside_like.is_some() && other_than_a_threshold.name().is_some() {
         return Err(String::from(
-            "--set-aside-like sets aside the default matcher's lists; it takes no other matching option",
+            "--set-aside-like sets aside the default matcher's or the threshold's lists; it takes no other matching option",
         ));
     }
     let padding = Padding {

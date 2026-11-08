@@ -352,7 +352,7 @@ pub fn run(
         (Some(ranking), _) => (ranking.index(built, clusters), None),
         (None, Some(saved)) => {
             let (index, like) =
-                fullest::setting_aside_like(built, saved, &excluded, SKIPPED_SHARE)?;
+                fullest::setting_aside_like(built, saved, &excluded, matching.cut())?;
             fullest::print_like(&like);
             (index, Some(like))
         }

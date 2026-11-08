@@ -505,6 +505,37 @@ mod tests {
     }
 
     #[test]
+    fn a_threshold_of_postings_excludes_the_other_ways_of_setting_lists_aside() {
+        let refused = |arguments: &[&str]| {
+            Cli::try_parse_from([&["gunfinger-eval"], arguments].concat()).is_err()
+        };
+        assert!(refused(&[
+            "--set-aside-from",
+            "cut.json",
+            "--set-aside-share",
+            "0.02",
+            "sweep"
+        ]));
+        assert!(refused(&[
+            "--set-aside-from",
+            "cut.json",
+            "--drop-fullest",
+            "0.1",
+            "sweep"
+        ]));
+        assert_eq!(checked(&["--set-aside-from", "cut.json", "sweep"]), Ok(()));
+        let mut harness = Cli::try_parse_from([
+            "gunfinger-eval",
+            "--set-aside-from",
+            "/no/such/cut",
+            "sweep",
+        ])
+        .unwrap()
+        .harness;
+        assert!(harness.resolve_fixed_cut().is_err());
+    }
+
+    #[test]
     fn the_search_over_the_gaps_goes_only_to_the_commands_that_search_with_it() {
         assert_eq!(checked(&["--gap-rungs", "1", "sweep"]), Ok(()));
         assert_eq!(checked(&["--gap-rungs", "1", "scan", "stakka"]), Ok(()));
