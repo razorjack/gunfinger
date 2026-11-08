@@ -27,8 +27,8 @@ gain only detections under 60 hits); calibrate as L0 (262: 690, 100; NAS: 704, 2
 bootleg (Cool Rock Stuff on "Cool Rock Shook Ones" at +5%, 268 hits), as 0227 inferred. **C4's losses.** The returning play (position 7 of 12) is always an edge play here and follows its
 confident first play by two plays, so `plays::group` joins the default's possible detection of it
 to that play (within 90 s) and its time counts as covered. 5 of T1's 8 losses against L1 at NAS
-scale are such plays; 3 are found more weakly over the gap (184 against 1,538 hits: chains across
-a default and an extra rung form only in L1); T1 finds 2 plays L1 misses.
+scale are such plays; 3 are found more weakly over the gap (184 against 1,538 hits; by inference
+chains across a default and an extra rung, which form only in L1); T1 finds 2 plays L1 misses.
 **Against the registration.** T1: G1 holds (8.8% > 8.4%); G2 holds (+33.1 points; 552 within
 8.4%, where L1 loses the Siren Bass query); G3 holds at 262 tracks (44 = 44) and fails at NAS scale
 (50 against 56, 6.5 points, 5 allowed); W and C hold. T2: G1 and G2 (+52.7) hold; G3 fails (7.6

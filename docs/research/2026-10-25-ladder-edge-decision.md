@@ -1,6 +1,8 @@
 # The edge of the ladder: what a decision would rest on (2026-10-25)
 
-**Status: the evidence and a recommendation.** Nothing here changes the
+**Status: the evidence and a recommendation; the targeted variant was
+built and measured in session 84 (experiment 0292, section "The
+targeted variant, measured").** Nothing here changes the
 product. Whether to widen the ladder, search extra rungs only where
 nothing confident was found, or leave it, is our decision and needs an
 ADR. Session 51's pre-registration (`docs/brief-51.md`, 07:43) and
@@ -122,3 +124,38 @@ recommendation:
    speed near the ladder's end (session 50 saw the same rip lose
    second-pass hits through a shorter chain). It is worth a look before
    any ladder change, since a wider ladder moves the end where it sits.
+
+## The targeted variant, measured (session 84)
+
+Session 84 built T_k in the harness (`--gap-rungs K`,
+`crates/gunfinger-eval/src/gap_search.rs`; brief 84 holds the design
+and the registration). After the default search, every stretch of 10 s
+or more that no segment of a confident play covers is padded by 10 s
+and searched again on the 4k extra rungs alone; the two searches'
+detections pass ADR 0021's second suppression together. Experiment 0292
+measured it beside L1 and L2 with today's build:
+
+- The sweeps match the estimate above: T1 and T2 recall exactly what L1
+  and L2 recall at every edge speed and both scales (reach 8.8% and
+  9.2%), keep the Siren Bass query that both wider ladders lose, and
+  give fewer wrong possible answers (C2: 24 and 26 against 29 and 34).
+- The cost is smaller than estimated on these mixes: at NAS scale the
+  default leaves no uncovered stretch of 10 s in Stakka or 2003 and 6.1%
+  of Nocny, so T1 costs ×1.000-1.003 of the default's CPU (L1 ×1.045-1.047).
+  Mixes with more unknown time cost more (at 262 tracks T would search
+  39% of 2003 and 54% of Nocny).
+- T2 adds the Cool Rock bootleg answer, as inferred; T1 adds no wrong
+  confident answer anywhere.
+- New, in generated mixes with every second play 8-10% from native
+  speed: T1 recovers 50 of 92 plays beyond 8.4% at NAS scale against
+  L1's 56, which fails the registered allowance of 5 points (at 262
+  tracks 44 against 44). Most losses are the generator's returning play:
+  the default's possible detection of it joins the confident play of
+  its first appearance (`plays::group`, within 90 s), so its time counts
+  as covered and is not searched again.
+
+The recommendation changes only in its second item: T1 as registered is
+not worth an ADR. A revised covered time (confident segments only, or
+the segments at a play's own alignment) is the next variant to
+register, on generated mixes this session did not use.
+

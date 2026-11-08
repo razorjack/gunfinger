@@ -194,10 +194,19 @@ external review (`docs/research/2026-11-05-external-review.md`).
   scan's search, and the roadmap's text concluded that the default need
   not change.)
 - **Key-locked ladder by default.** `--playback both` costs 1.57 times
-  the CPU of the turntable ladder alone, and no development play uses
-  key lock. The user chose both on 2026-10-06. One option is to keep it
-  and search key lock only over stretches with no confident match
-  (roadmap queue, item 8); that needs no reversal.
+  the CPU of the turntable ladder alone (1.78-1.80 times on the
+  development scans at NAS scale in session 84), and no development play
+  uses key lock. The user chose both on 2026-10-06. One option is to
+  keep it and search key lock only over stretches with no confident
+  match (roadmap queue, item 8); that needs no reversal. Session 84
+  measured that option in the harness (`--ladder turntable
+  --gap-key-lock`, experiment 0293): it costs 0.56-0.58 times both
+  ladders' CPU on the development scans at NAS scale, keeps their
+  confident plays, adds no wrong confident answer, and recovers 97 and
+  94 of 109 key-locked plays in generated mixes (262 tracks, NAS scale)
+  against 99 for both ladders over the whole mix (the turntable ladder
+  alone 25). Adopting it would change `identify`'s search and needs an
+  ADR.
 - **Public datasets.** Mixotic and UnmixDB need a download by browser
   (`docs/references.md`, "Datasets"). With them, `gunfinger-eval
   seconds` gives the first external per-second score.

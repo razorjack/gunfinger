@@ -106,8 +106,19 @@ Each session takes the first item it can do without a pending decision.
    strengthens shared material). Next: the decision (queue item 10).
 8. **A second-chance search over the gaps**: the costly searches
    (targeted extra rungs first, estimated at under 1% more CPU in
-   0251-0252; then key lock) only over the stretches `gaps::uncovered`
-   finds without a confident match.
+   0226-0230, session 51; then key lock) only over the stretches
+   `gaps::uncovered` finds without a confident match.
+   *Session 84 (0292, 0293):* built in the harness (`--gap-rungs`,
+   `--gap-key-lock`). T1 equals L1's sweep recall query for query at
+   under 0.3% more CPU on the development mixes at NAS scale, but fails
+   its registration on generated edge mixes (a confident play of the
+   same file covers a returning play's time); T2 brings the Cool Rock
+   bootleg back. Key lock over the gaps of the turntable ladder passes
+   its registration: 0.56-0.58 times both ladders' CPU on the
+   development scans, the same answers, 97 and 94 of 109 key-locked
+   plays in generated mixes against 99 (decisions queue item 9). Next:
+   a revised covered time (confident segments only), registered on new
+   mixes; the key-lock default is the user's decision.
 9. **Hash-rarity weighting** as a diagnostic score beside the hit count
    (hits weighted by the inverse log of their posting-list length), on
    the shared panels' development halves and 0276's break lists.
@@ -282,23 +293,24 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   0220). Evidence: 0022, 0024, 0032, 0166, 0175-0180, 0209-0211, 0219,
   0232, 0236-0240, 0251-0253, 0285-0286;
   `docs/research/2026-10-22-pitch-rides-decision.md`.
-- **The edge of the ladder.** *Measured and undecided; a targeted
-  variant to build (active queue item 8).* Facts: recall holds to about
-  9% of relative speed against the remaining copy; each extra rung pair
-  moves the reach by 0.4% for 4.3-5.3% more search CPU; for a deck at
-  ±5%, copies with no other copy in reach fall from 29 to 19, 7, 3 and 1
-  with 1, 2, 3 and 5 extra rung pairs. The choice depends on how far the
-  decks go beyond about ±5%, and which copy runs at the record's true
-  speed is unknown. One rip near -8% (Siren Bass's upload) loses its
-  confident answer under every wider ladder; better speed fits put it
-  at 241, 237 or 230 hits, at the rule, not clearly above it (0251,
-  0252). The other deciding case, China Cup against ƆƐI3C's upload from
-  two extra rungs, is a same-title credit since ADR 0022. Next: extra
-  rungs only
-  where nothing is confident (2% of the Stakka mix, estimated at under
-  1% more CPU), which with one extra rung pair passes the registration.
-  Evidence: 0033, 0059, 0219, 0226-0230, 0251, 0252;
-  `docs/research/2026-10-25-ladder-edge-decision.md`.
+- **The edge of the ladder.** *Measured and undecided; the targeted
+  variant built and measured (session 84), not passed.* Facts: recall
+  holds to about 9% of relative speed against the remaining copy; each
+  extra rung pair moves the reach by 0.4% for 4.3-5.3% more search CPU
+  over the whole query; for a deck at ±5%, copies with no other copy in
+  reach fall from 29 to 19, 7, 3 and 1 with 1, 2, 3 and 5 extra rung
+  pairs. One rip near -8% (Siren Bass's upload) loses its confident
+  answer under every wider ladder (0251, 0252). The same rungs searched
+  only over the gaps (`--gap-rungs`, 0292) give the wider ladders'
+  sweep recall query for query, keep the Siren Bass answer and cost
+  ×1.000-1.003 on the development mixes at NAS scale (L1 ×1.045); T1
+  fails G3 at NAS scale (generated edge mixes: 50 of 92 edge plays
+  against L1's 56, the losses mostly returning plays whose time a
+  confident play of the same file covers), and T2 adds the Cool Rock
+  bootleg answer. Next: a covered time from confident segments only (or
+  a play's own alignment), registered on new generated mixes; then the
+  decision (ours). Evidence: 0033, 0059, 0219, 0226-0230, 0251, 0252,
+  0292; `docs/research/2026-10-25-ladder-edge-decision.md`.
 - **Peaks across frequency bands.** *Measured and undecided: neither
   variant passed its registration (session 83; decisions queue item
   10).* Under the default matcher at 262 tracks both of 0034's variants

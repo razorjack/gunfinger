@@ -1,0 +1,403 @@
+{
+ "k1-262": {
+  "B": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     99,
+     9,
+     1
+    ],
+    ">1%": [
+     86,
+     7,
+     1
+    ],
+    "<=1%": [
+     13,
+     2,
+     0
+    ]
+   },
+   "edge bins": null,
+   "other plays (confident, possible, weak or none)": [
+    109,
+    7,
+    0
+   ],
+   "held-out plays": 63,
+   "wrong confident": [],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 0
+  },
+  "K": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     25,
+     30,
+     54
+    ],
+    ">1%": [
+     12,
+     28,
+     54
+    ],
+    "<=1%": [
+     13,
+     2,
+     0
+    ]
+   },
+   "edge bins": null,
+   "other plays (confident, possible, weak or none)": [
+    109,
+    7,
+    0
+   ],
+   "held-out plays": 63,
+   "wrong confident": [],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 0
+  },
+  "G": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     97,
+     11,
+     1
+    ],
+    ">1%": [
+     85,
+     8,
+     1
+    ],
+    "<=1%": [
+     12,
+     3,
+     0
+    ]
+   },
+   "edge bins": null,
+   "other plays (confident, possible, weak or none)": [
+    109,
+    7,
+    0
+   ],
+   "held-out plays": 63,
+   "wrong confident": [],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 0
+  }
+ },
+ "k1-nas": {
+  "B": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     99,
+     9,
+     1
+    ],
+    ">1%": [
+     86,
+     7,
+     1
+    ],
+    "<=1%": [
+     13,
+     2,
+     0
+    ]
+   },
+   "edge bins": null,
+   "other plays (confident, possible, weak or none)": [
+    108,
+    8,
+    0
+   ],
+   "held-out plays": 63,
+   "wrong confident": [
+    [
+     "mix-03",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     135
+    ],
+    [
+     "mix-04",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     24
+    ],
+    [
+     "mix-12",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     324
+    ],
+    [
+     "mix-23",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     73
+    ]
+   ],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 9
+  },
+  "K": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     25,
+     32,
+     52
+    ],
+    ">1%": [
+     12,
+     30,
+     52
+    ],
+    "<=1%": [
+     13,
+     2,
+     0
+    ]
+   },
+   "edge bins": null,
+   "other plays (confident, possible, weak or none)": [
+    108,
+    8,
+    0
+   ],
+   "held-out plays": 63,
+   "wrong confident": [
+    [
+     "mix-04",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     24
+    ],
+    [
+     "mix-23",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     73
+    ]
+   ],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 8
+  },
+  "G": {
+   "changed (confident, possible, weak or none)": {
+    "all": [
+     94,
+     14,
+     1
+    ],
+    ">1%": [
+     82,
+     11,
+     1
+    ],
+    "<=1%": [
+     12,
+     3,
+     0
+    ]
+   },
+   "edge bins": null,
+   "other plays (confident, possible, weak or none)": [
+    108,
+    8,
+    0
+   ],
+   "held-out plays": 63,
+   "wrong confident": [
+    [
+     "mix-03",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     135
+    ],
+    [
+     "mix-04",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     24
+    ],
+    [
+     "mix-12",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     324
+    ],
+    [
+     "mix-23",
+     "second-library/__youtube_archivists/i-witness-dnb/Bad Company - The Nine (Evol Intent VIP).m4a",
+     73
+    ]
+   ],
+   "new wrong confident against the first arm": [],
+   "wrong possible": 11
+  }
+ },
+ "k2-cpu": {
+  "nocny-trans-vertical-2002-08-23 B": {
+   "cpu": 882.05,
+   "cpu_range": [
+    881.44,
+    882.66
+   ],
+   "cpu_ratio": 1.0,
+   "wall": 30.24,
+   "wall_ratio": 1.0,
+   "runs": 2
+  },
+  "nocny-trans-vertical-2002-08-23 G": {
+   "cpu": 512.475,
+   "cpu_range": [
+    512.1700000000001,
+    512.78
+   ],
+   "cpu_ratio": 0.581,
+   "wall": 18.72,
+   "wall_ratio": 0.619,
+   "runs": 2
+  },
+  "nocny-trans-vertical-2002-08-23 K": {
+   "cpu": 490.765,
+   "cpu_range": [
+    490.66999999999996,
+    490.85999999999996
+   ],
+   "cpu_ratio": 0.5564,
+   "wall": 17.61,
+   "wall_ratio": 0.5824,
+   "runs": 2
+  },
+  "razorjack-2003-03-29 B": {
+   "cpu": 555.245,
+   "cpu_range": [
+    554.49,
+    556.0
+   ],
+   "cpu_ratio": 1.0,
+   "wall": 19.68,
+   "wall_ratio": 1.0,
+   "runs": 2
+  },
+  "razorjack-2003-03-29 G": {
+   "cpu": 313.235,
+   "cpu_range": [
+    313.08,
+    313.39000000000004
+   ],
+   "cpu_ratio": 0.5641,
+   "wall": 11.59,
+   "wall_ratio": 0.589,
+   "runs": 2
+  },
+  "razorjack-2003-03-29 K": {
+   "cpu": 312.84000000000003,
+   "cpu_range": [
+    312.61,
+    313.07
+   ],
+   "cpu_ratio": 0.5634,
+   "wall": 11.76,
+   "wall_ratio": 0.5977,
+   "runs": 2
+  },
+  "stakka-skynet-knowledge B": {
+   "cpu": 688.3,
+   "cpu_range": [
+    687.4799999999999,
+    689.12
+   ],
+   "cpu_ratio": 1.0,
+   "wall": 24.74,
+   "wall_ratio": 1.0,
+   "runs": 2
+  },
+  "stakka-skynet-knowledge G": {
+   "cpu": 387.15500000000003,
+   "cpu_range": [
+    387.02000000000004,
+    387.29
+   ],
+   "cpu_ratio": 0.5625,
+   "wall": 14.91,
+   "wall_ratio": 0.6026,
+   "runs": 2
+  },
+  "stakka-skynet-knowledge K": {
+   "cpu": 387.66999999999996,
+   "cpu_range": [
+    387.59,
+    387.75
+   ],
+   "cpu_ratio": 0.5632,
+   "wall": 15.03,
+   "wall_ratio": 0.6077,
+   "runs": 2
+  }
+ },
+ "robust-262": [
+  "condition speed indexed | B conf/wrong/wrongposs | K conf/wrong/wrongposs | G conf/wrong/wrongposs",
+  "control 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "control 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "bass-boost-12db 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "bass-boost-12db 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "bass-cut-250hz 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "bass-cut-250hz 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "low-pass-2khz 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "low-pass-2khz 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "low-pass-800hz 0.95 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "low-pass-800hz 1.03 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "high-pass-1khz 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "high-pass-1khz 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "telephone 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "telephone 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "echo 0.95 40 | 37/0/1 | 37/0/1 | 37/0/1",
+  "echo 1.03 40 | 38/0/1 | 38/0/1 | 38/0/1",
+  "clipping-12db 0.95 40 | 31/0/1 | 31/0/1 | 31/0/1",
+  "clipping-12db 1.03 40 | 33/0/1 | 33/0/1 | 33/0/1",
+  "pink-noise-snr-10db 0.95 40 | 37/0/1 | 37/0/1 | 37/0/1",
+  "pink-noise-snr-10db 1.03 40 | 38/0/0 | 38/0/0 | 38/0/0",
+  "pink-noise-snr-0db 0.95 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "pink-noise-snr-0db 1.03 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "mp3-64k 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "mp3-64k 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "mp3-32k 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "mp3-32k 1.03 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "aac-48k 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "aac-48k 1.03 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "opus-24k 0.95 40 | 39/0/0 | 39/0/0 | 39/0/0",
+  "opus-24k 1.03 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "blend--6db 0.95 40 | 36/0/0 | 36/0/0 | 36/0/0",
+  "blend--6db 1.03 40 | 36/0/0 | 36/0/0 | 36/0/0",
+  "blend-0db 0.95 40 | 16/0/0 | 16/0/0 | 16/0/0",
+  "blend-0db 1.03 40 | 15/0/0 | 15/0/0 | 15/0/0",
+  "voice-over 0.95 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "voice-over 1.03 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "speech-insert-8s 0.95 40 | 40/0/0 | 40/0/0 | 40/0/0",
+  "speech-insert-8s 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "needle-skip-2s 0.95 40 | 17/0/1 | 17/0/1 | 17/0/1",
+  "needle-skip-2s 1.03 40 | 14/0/1 | 14/0/1 | 14/0/1",
+  "pitch-ride-2pct 0.95 40 | 10/0/1 | 10/0/1 | 10/0/1",
+  "pitch-ride-2pct 1.03 40 | 14/0/1 | 14/0/1 | 14/0/1",
+  "wow-0.55hz 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "wow-0.55hz 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "wow-0.75hz 0.95 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "wow-0.75hz 1.03 40 | 40/0/1 | 40/0/1 | 40/0/1",
+  "broadcast 0.95 40 | 33/0/1 | 33/0/1 | 33/0/1",
+  "broadcast 1.03 40 | 33/0/1 | 33/0/1 | 33/0/1",
+  "beatmatched--6db 0.95 40 | 34/0/1 | 34/0/1 | 34/0/1",
+  "beatmatched--6db 1.03 40 | 35/0/0 | 35/0/0 | 35/0/0",
+  "beatmatched-0db 0.95 40 | 15/0/0 | 15/0/0 | 15/0/0",
+  "beatmatched-0db 1.03 40 | 13/0/0 | 13/0/0 | 13/0/0",
+  "combined 0.95 40 | 2/0/0 | 2/0/0 | 2/0/0",
+  "combined 1.03 40 | 2/0/0 | 2/0/0 | 2/0/0",
+  "speed-10pct 0.9 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "speed-12pct 0.88 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "speed-16pct 0.84 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "speed+10pct 1.1 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "speed+12pct 1.12 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "speed+16pct 1.16 40 | 0/0/0 | 0/0/0 | 0/0/0",
+  "key-lock-2pct 0.98 40 | 40/0/1 | 1/0/0 | 40/0/1",
+  "key-lock+2pct 1.02 40 | 40/0/1 | 2/0/0 | 40/0/1",
+  "key-lock-5pct 0.95 40 | 40/0/1 | 0/0/0 | 40/0/1",
+  "key-lock+5pct 1.05 40 | 40/0/1 | 0/0/0 | 40/0/1",
+  "key-lock+8pct 1.08 40 | 40/0/0 | 0/0/0 | 40/0/0",
+  "total | B 1938/0/37 | K 1741/0/33 | G 1938/0/37"
+ ]
+}

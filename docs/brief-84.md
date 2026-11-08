@@ -316,3 +316,7 @@ registration and data these runs did not use.
   left out (robust's key-lock conditions are at ±2-8%, which K misses
   past about 1% by 0009). Experiment 0292 was first committed at 44
   lines (`a7ba8b0`) and cut to 40 before key lock's runs started.
+- **(03:40) C5's key-lock part brought back.** Queue K ended at 03:39,
+  earlier than expected, so `robust` with K and G at 262 tracks runs
+  (`work/s84/queue-r.sh`) before 0293 is written; B's `robust` is L0's
+  from 0292's runs (the same arm and behaviour).
