@@ -185,6 +185,15 @@ pub fn questions(harness: &Harness, args: QuestionsArgs) -> Result<(), String> {
                 out.unwrap_or_else(|| questions_dir.join(format!("06-parts-{name}.json"))),
             )
         }
+        QuestionSource::Breaks { picks, roots, out } => {
+            let file =
+                audition::breaks::questions(&audition::breaks::load(&picks)?, &libraries(&roots)?)?;
+            let name = stem_or(&picks, "picks");
+            (
+                file,
+                out.unwrap_or_else(|| questions_dir.join(format!("07-breaks-{name}.json"))),
+            )
+        }
     };
     // The whole command, so the next agent can make the file again.
     file.made_by = std::iter::once(String::from("gunfinger-eval"))
@@ -261,6 +270,17 @@ pub enum QuestionSource {
         /// in order [default: every candidate worth the ear].
         #[arg(long)]
         files: Option<PathBuf>,
+        #[command(flatten)]
+        roots: OtherLibraryRoot,
+        #[arg(long)]
+        out: Option<PathBuf>,
+    },
+    /// Holders picked from `break-search` reports (JSON, `audition::breaks::Pick`),
+    /// each asked "does this file play the same passage as the query's
+    /// span, or is it chance?"; written to
+    /// <work>/audition/questions/07-breaks-<picks name>.json.
+    Breaks {
+        picks: PathBuf,
         #[command(flatten)]
         roots: OtherLibraryRoot,
         #[arg(long)]

@@ -202,7 +202,7 @@ fn holder(file: &str, detection: &Detection, passage_seconds: f64) -> Holder {
 }
 
 /// How a holder's detection was played, as the report names it.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum Played {
     Turntable,

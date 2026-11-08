@@ -23,6 +23,7 @@ gunfinger-eval questions folders PLAN.toml   # 02-folders.json
 gunfinger-eval questions detections REPORT.json   # 03-detections-<report stem>.json
 gunfinger-eval questions shared PAIRS.json   # 04-shared-<report stem>.json
 gunfinger-eval questions parts PARTS.json... [--files LIST]   # 06-parts-<first report stem>.json
+gunfinger-eval questions breaks PICKS.json   # 07-breaks-<picks stem>.json
 ```
 
 `questions detections` reads a saved `gunfinger identify -f json` report
@@ -52,6 +53,30 @@ starts lining up and an `edge` marker where it stops. Without `--files`
 it asks every candidate worth the ear, in the reports' order; `--files`
 names the candidates to ask, in order. Answers (`one`, `several`,
 `unsure`) go to the answer log only; the user writes any ignore entry.
+
+`questions breaks` (session 86) reads a list of holders picked from
+`break-search` reports and asks of each whether it plays the same passage
+as the query's span (the same break, loop or sample) or the match is
+chance. A pick names the query (`query`, `file`, `file_seconds`,
+`start_seconds`, `end_seconds`), the holder (`holder`, `holder_seconds`)
+and the search's alignment (`query_start_seconds`, `query_end_seconds`,
+`found_start_seconds`, `found_end_seconds`, `hits`, `playback`:
+`turntable` or `key-locked`), with `why` it was picked (such as its
+rank); unknown fields are refused. A is the query file from 10 s before
+the span to 10 s after, the reference lane; B is the holder placed by
+the alignment, its speed taken from the two spans (a key-locked holder
+then plays with its pitch moved too, which a detail line says). The
+span carries a span and a `listen` marker. Answers (`same`, `chance`,
+`unsure`) go to the answer log only. Example pick:
+
+```json
+{"query": "special-branch-250", "file": "second-library/ufo/special_branch.mp3",
+ "file_seconds": 400.0, "start_seconds": 250.0, "end_seconds": 270.0,
+ "holder": "Ray Keith - Dark Soldier.mp3", "holder_seconds": 420.0,
+ "query_start_seconds": 251.0, "query_end_seconds": 269.0,
+ "found_start_seconds": 316.0, "found_end_seconds": 334.9,
+ "hits": 74, "playback": "turntable", "why": "rank 1 of 204"}
+```
 
 ## The file
 
