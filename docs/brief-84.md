@@ -162,3 +162,125 @@ the gaps as a recorded next step.
 - **(01:40) Generated mixes at the extremes need a new option** (above),
   for short mixes only: they are quick to render and search, and each
   play's speed is in the truth.
+
+## Registration (committed before the scored runs)
+
+**Design.** `--gap-rungs K` (T_K) and `--gap-key-lock` (G), harness
+options of the matching (`crates/gunfinger-eval/src/gap_search.rs`):
+
+1. The default search of the ladder runs as today.
+2. Its detections are grouped into plays (`plays::group`); every segment
+   of a confident play (a play is as confident as its strongest
+   segment, ADR 0013) covers its time. `gaps::uncovered` lists the
+   stretches of the query that no such segment covers, at least 10 s
+   long (one window; a shorter stretch holds less than a window of its
+   own); each is padded by 10 s on either side within the query, and
+   padded stretches that touch are merged. The CLI's 45 s minimum is not
+   used: a play at a deck's extreme can leave a shorter stretch between
+   two blends.
+3. Each padded stretch's audio is cut out and searched with the same
+   matcher and index on the gap rungs only: for T_K the 4K rungs that
+   `--extra-rungs K` adds (K past either end of both ladders, as session
+   51's L_K and T_K); for G the key-locked rungs at the turntable
+   ladder's 41 tempos (with `--ladder turntable`). The detections' query
+   times are shifted by the stretch's start.
+4. The two searches' detections are joined: sorted by hits, the
+   first search's first on ties, and passed once through the search's
+   last suppression, which for the default matcher is ADR 0021's second
+   suppression (`SpansAtSpeed(0.006)`), unchanged (`search::joined`).
+   A detection of either search is dropped only when it overlaps a
+   stronger one of the same asset within 0.6% in speed.
+5. Every detection keeps its own evidence and meets the frozen rule (240
+   hits in 3 windows; possible at 60); plays and scores are built from
+   the joined detections as from any search.
+
+**Arms.** L0 (the default, 82 rungs), L1 and L2 (`--extra-rungs 1, 2`,
+the whole query), T1 and T2 (`--gap-rungs 1, 2`); for key lock, K
+(`--ladder turntable`), G (`--ladder turntable --gap-key-lock`) and B
+(`--ladder both`, which is L0). Today's build for every arm: session
+51's reports predate ADR 0021 and are not compared.
+
+**Conditions** (seed 2026; NAS scale is the saved index with
+`--other-peaks-dir`; scratch work directory `work/s84/w`):
+
+- C1, `sweep --speeds edge` (1,440 queries, the full index) at 262
+  tracks and NAS scale: L0, L1, L2, T1, T2.
+- C2, `sweep --other-rips` at the sweep's 9 speeds and the edge speeds
+  (NAS scale): L0, L1, T1; L2 and T2 if time allows.
+- C3, the standard protocol: `regress session-78-linux` and `regress
+  session-78-linux-nas` with T1, T2 and G (the sweep's 9 speeds, the
+  three development scans, Stakka's leave-outs 3 and 11), what changes
+  against the baselines (L0), and `calibrate` per arm and scale.
+- C4, generated mixes at the extremes: `mixes --playing edge-speeds
+  --count 24` (short mixes; every second play 8-10% from native speed),
+  at 262 tracks and NAS scale: L0, L1, L2, T1, T2.
+- C5, `robust --seed 2026` at 262 tracks: L0, L1, T1 (its speeds
+  outside the ladder and its key lock among the conditions), and K, G.
+- C6, the cost: the three development scans at NAS scale, alone on the
+  otherwise idle machine, in the order L0 T1 L1 L1 T1 L0 per mix, and
+  T2 L2 L2 T2 for Stakka; process CPU (user + system, `/usr/bin/time`)
+  and the report's `wall_seconds`; the share of each mix the gap search
+  covers.
+- K1, generated key-locked mixes: `mixes --playing key-locked --count 24`
+  (every second play key-locked at its drawn tempo, ±6%) at 262 tracks
+  and NAS scale: K, G, B.
+- K2, the cost: the three development scans at NAS scale in the order
+  B G K K G B per mix, as C6.
+
+**Scores.**
+
+- Recall: confident recall by played speed (C1) and by relative speed
+  to the nearest copy left in (C2, `ladder_edge.py recall`, bins of
+  0226); C4's plays at the edge (|speed - 1| in [8, 10]%) recovered
+  confidently (the scorer's highest level among a play's matching
+  detections), by bins of 0.4%, and the other plays; K1's key-locked
+  plays and its turntable plays apart.
+- Wrong answers: confident detections outside the truth's cluster (and
+  outside the same-title credits, ADR 0022) in every run, with which are
+  new against L0 (B for key lock); the known bootleg of 0227 (Aphrodite
+  - Cool Rock Stuff against the "Cool Rock Shook Ones" upload) and
+  China Cup against ƆƐI3C's upload on their own lines; wrong possible
+  answers.
+- The standard protocol: every change against the baselines listed and
+  explained; calibrate's weakest identifying and strongest false
+  candidate per arm and scale.
+- Cost: the medians and ranges of C6 and K2 and their ratios to L0 (B),
+  and T_K against L_K.
+- Copies in reach (no search): T_K's reach R(T_K) from C1, and 0229's
+  counts at that reach.
+
+**Criteria.** T_K passes, as a proposal for an ADR whose adoption is
+ours, only if all hold:
+
+- (G1) R(T_K) > R(L0) in C1 at 262 tracks (the largest edge speed at
+  which at least 57 of 60 indexed excerpts are confident at both signs,
+  and at every edge speed below it).
+- (G2) In C2, of the queries with |relative speed| in (R(L0), R(L_K) +
+  0.4], T_K's confident recall is at least 30 points above L0's, and
+  within R(L0) T_K recalls no fewer queries than L0.
+- (G3) In C4, of the edge plays beyond R(L0), T_K recovers at least as
+  many as L_K less 5 points, and of the other plays no fewer than L0.
+- (W) No new wrong confident answer against L0 in any run (C1-C5) at
+  either scale; calibrate's strongest false candidate at most 10% above
+  L0's and its weakest identifying not lower; the development scans
+  keep the same confident plays.
+- (C) Process CPU of each NAS-scale development scan within +5% of L0's
+  (session 51's bound for T_K).
+
+G passes, as evidence for decisions queue item 9 (the default is the
+user's), only if: (K-G1) in K1 G recovers at least B's key-locked plays
+less 5 points and every turntable play B recovers; (K-W) no new wrong
+confident answer against B in K1, C3 and C5; the development scans keep
+B's confident plays; (K-C) its CPU on the development scans is at most
+0.8 times B's.
+
+*Expected, declared now.* T1 reaches 8.8% as L1 does, within a few
+queries; T2 brings back the Cool Rock bootleg answer at +5% (inferred in
+0227), so T2 fails W; T1's CPU about +1% on Stakka, more on the mixes
+with more time uncovered (Nocny); G finds the key-locked plays that lie
+in gaps, which in generated mixes is nearly every key-locked play past
+1%, at a cost near K's on the development scans.
+
+What would justify an ADR: a T_K or G that passes every criterion above.
+A failure is reported as a failure; a revised candidate needs a new
+registration and data these runs did not use.
