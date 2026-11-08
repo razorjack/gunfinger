@@ -408,3 +408,23 @@ product, its profile and its defaults are unchanged.
   identical with `--strict`; `docs/pair-verdicts.txt` and the NAS
   clusters file unchanged. A review by a subagent found no figure error
   and corrected several descriptions and B4's verdict.
+
+## 2026-11-08: session 84, a second-chance search over the gaps
+
+Brief `docs/brief-84.md`, checklist `docs/session-84-checklist.md`;
+notes "Session 84"; experiments 0292-0293. A measurement session: no
+default of the product changed.
+
+- The harness can search extra rungs or the key-locked ladder only over
+  the stretches without a confident match (`--gap-rungs`,
+  `--gap-key-lock`; `gap_search.rs`).
+- Targeted extra rungs give the whole-query ladders' sweep recall query
+  for query at ×1.000-1.003 of the default's CPU on the development
+  mixes at NAS scale (one extra rung pair over the whole mix ×1.045),
+  but T1 fails its registration on generated edge mixes (returning
+  plays count as covered) and T2 brings back the Cool Rock bootleg
+  answer (0292).
+- Key lock over the turntable ladder's gaps passes its registration:
+  the same answers for 0.56-0.58 times both ladders' CPU (0293;
+  decisions queue item 9).
+- Final checks: see the notes' "Final checks".

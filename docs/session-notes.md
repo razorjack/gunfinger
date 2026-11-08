@@ -107,6 +107,7 @@ that holds it.
 - "Session 81" (2026-11-07): short chains under library perturbations, and a bounded fit for short chains only. `this file`
 - "Session 82" (2026-11-07): two records for a file with an inverted channel, a harness pilot. `this file`
 - "Session 83" (2026-11-08): the band profile of 0034 under the default matcher. `this file`
+- "Session 84" (2026-11-08): a second-chance search over the gaps. `this file`
 
 
 ## Session 70
@@ -2012,3 +2013,107 @@ and B4's verdict, now "not shown" (brief 83, 00:58; `4e8e3b7`).
   was written (one queue for every registered run); 0290 and 0291 were
   first committed over 40 lines; B4's reading of "unrelated" was written
   after the calibrate runs.
+
+## Session 84
+
+Brief `docs/brief-84.md` (the prompt, the registration and every
+decision), checklist `docs/session-84-checklist.md`, experiments
+0292-0293. A measurement session: no default, threshold or output of
+the product changed; the CLI binary differs only because the core's
+second suppression gained a public form (`search::joined`), and both
+regressions are identical with the options off.
+
+### What changed
+
+- Harness: `--gap-rungs K` and `--gap-key-lock` (`gap_search.rs`,
+  options of `Matching`; `bd7d2a4`): after the search, every stretch of
+  10 s or more that no segment of a confident play covers is padded by
+  10 s, searched on the 4K extra rungs or on the 41 key-locked rungs
+  alone, and joined to the first search by the search's last
+  suppression. Reports go to `variant-gap-rungs-K/` and
+  `ladder-turntable/variant-gap-key-lock/`; only `sweep`, `scan`,
+  `robust`, `mixes`, `recall`, `calibrate`, `baseline` and `regress`
+  take them, and `--gap-key-lock` needs `--ladder turntable`.
+- Harness: `mixes --playing edge-speeds|key-locked` (short mixes; every
+  second play 8-10% from native speed, or key-locked), with the label in
+  the report (`8d20d58`).
+- Core: `search::joined` (the second suppression over detections of
+  several searches), the existing `strongest_per_moment` behind it.
+- Documents: the ladder-edge note's section "The targeted variant,
+  measured", the roadmap's "The edge of the ladder" and active queue
+  item 8 (the citation corrected to 0226-0230), decisions queue item 9.
+
+### Results
+
+- 0292: T1 and T2 recall exactly what L1 and L2 recall in every sweep
+  (edge speeds at both scales, other copies), keep the Siren Bass query
+  that both lose, and add fewer wrong possible answers; at NAS scale T1
+  costs ×1.000-1.003 of the default's CPU on the development scans (L1
+  ×1.045-1.047), since the default leaves no stretch of 10 s uncovered
+  in Stakka or 2003 and 6.1% of Nocny. T2 adds the Cool Rock bootleg
+  answer. In generated edge mixes T1 recovers 50 of 92 plays past 8.4%
+  at NAS scale against L1's 56 (G3 fails; at 262 tracks 44 and 44):
+  most losses are the returning play, whose possible detection joins the
+  confident play of its first appearance (`plays::group`, 90 s) and so
+  counts as covered. Neither T1 nor T2 passes.
+- 0293: key lock over the gaps of the turntable ladder (G) passes: 97
+  and 94 of 109 key-locked plays in generated mixes against both
+  ladders' 99, every turntable play, robust identical (1,938), no new
+  wrong answer, 0.56-0.58 times both ladders' CPU on the development
+  scans at NAS scale.
+
+### Decided this session, open to change
+
+- Covered time follows `gaps::uncovered` with the segments of confident
+  plays (ADR 0023), at 10 s and padded by 10 s; the join orders by hits
+  (the second suppression as it is). Both choices cost plays in 0292
+  and 0293; a revision is the next step.
+- Extra rungs extend both ladders, as session 51's T_k.
+- Key-lock runs were held back until 0292 was written (a wrapper in
+  `work/bin/s84-run/`); C5's key-lock part ran after all (brief 84).
+
+### Questions this leaves for us
+
+- Whether to register a revised covered time: confident segments only
+  (or a play's segments at its own alignment), and an ordering of the
+  join that never drops a confident detection for a possible one; on
+  new generated mixes (another seed) and with the returning play at a
+  normal speed as a control.
+- Decisions queue item 9: key lock over the gaps instead of both
+  ladders over the whole mix (an ADR if adopted).
+
+### Questions for listening (none answered by agents)
+
+- None new. The Planet Dust (DC Breaks Remix) cut stays unsure.
+
+### Handoff for the next session
+
+1. Builds: `work/bin/s84-final/` (master) and `s83-final`. `s84-start`
+   and `s84-run` are deleted.
+2. Baselines unchanged: `session-78-linux` and `session-78-linux-nas`.
+   NAS store 40,666 records, revision `0bd3f0c23fabc698`; corpus store
+   `526a3b978eb3e411`; the clusters file unchanged.
+3. Data in `work/s84/`: the scored reports (`w/reports/`, NAS scale
+   under `library-nas-dnb-peaks/`, one directory per arm), the timing
+   scans (`cpu/reports/`, `logs/cpu-*.json`, `logs/kcpu-*.json`), every
+   log (`logs/`, `queue.log` has every exit line; status 3 marks the
+   runs the wrapper held back or moved), the summaries (`summary/`), the
+   scripts (`py/`: `mixes_playing.py`, `mixes_pairs.py`,
+   `mix_stretches.py`, `sweep_diff.py`, `scan_diff.py`, `gap_share.py`,
+   `robust_rows.py`, `cpu.py`; the queues `queue-*.sh`, `arms.sh`,
+   `run.sh`). The renders are deleted; all of `work/s84/` is safe to
+   delete.
+
+### Final checks
+
+(Filled in at the end of the session.)
+
+### What else to know
+
+- The held-out test set was not touched; only the three development
+  mixes and generated audio were searched. Nothing ran on the candidate
+  mixes of 0065 or the NAS root's broadcast file. The NAS was only
+  read; `work/peaks` only read.
+- Slips, in brief 84: the first queues interleaved 0293's runs with
+  0292's (held back by the wrapper); the mixes report's name lacked the
+  label (fixed, rerun); 0292 was first committed over 40 lines.
