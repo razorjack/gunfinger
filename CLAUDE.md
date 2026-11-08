@@ -15,8 +15,9 @@ anything else:
    `docs/session-rules.md` (2026-11-05). Read an older brief only when a
    document points to it for a procedure, for example `docs/brief-64.md`
    for a prune. The current session is 85: `docs/brief-85.md` and
-   `docs/session-85-checklist.md`, with experiments 0151, 0208,
-   0276-0277 and 0291, the roadmap's "A confidence statistic for shared
+   `docs/session-85-checklist.md`, with experiment 0294 (and 0116,
+   0118, 0129, 0151, 0208, 0236, 0276-0277 and 0291), ADR 0014, the
+   roadmap's "A confidence statistic for shared
    material" and "The filter and famous breaks", and
    `docs/decisions-queue.md` item 7.
 3. `docs/session-notes.md`: its index and the newest session's section

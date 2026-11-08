@@ -102,7 +102,7 @@ def shared_sets(report, panel, cluster_of, tag):
 
 
 def recall_sets(report):
-    right, wrong = [], []
+    right, wrong, weak = [], [], []
     for q in report["queries"]:
         for d in q["detections"]:
             m = measured(d, kind=q["kind"], family=q["family"], query_set=report["query_set"],
@@ -113,7 +113,9 @@ def recall_sets(report):
                 right.append(m)
             elif d["confident"] and not d.get("partner"):
                 wrong.append(m)
-    return right, wrong
+            elif not d.get("partner"):
+                weak.append(m)
+    return right, wrong, weak
 
 
 def separation(pos, neg):
@@ -195,11 +197,12 @@ def main():
             recount=dict(played=recount(played), related=recount(related)),
             paired=paired(played, related))
     out["pooled"] = separation(all_played, all_related)
-    right, wrong = [], []
+    right, wrong, weak = [], [], []
     for path in args.recall:
-        r, w = recall_sets(json.load(open(path, encoding="utf-8")))
+        r, w, k = recall_sets(json.load(open(path, encoding="utf-8")))
         right += r
         wrong += w
+        weak += k
     if right:
         for d in right:
             d["family"] = "recall:" + d["family"]
@@ -209,7 +212,11 @@ def main():
                           for s in sorted({d["query_set"] for d in right})},
             recount=dict(right=recount(right), wrong=recount(wrong)),
             wrong=[dict(asset=os.path.basename(d["asset"]), R=d["R"], m=round(d["m"], 4)) for d in wrong],
-            median_m_right_confident=median(d["m"] for d in right if d["confident"]))
+            median_m_right_confident=median(d["m"] for d in right if d["confident"]),
+            # Wrong detections below confident, against the right ones at
+            # equal hits (session 85's review; not registered).
+            weak_wrong=dict(n=len(weak), median_m=median(d["m"] for d in weak),
+                            right_against_weak_wrong=banded(right, weak, "m")["pooled"]))
     out["rule_counterpart"] = accepted_like_the_rule(
         all_related, {"panels_played": all_played, "recall_right": right})
     families = [(n, f, v) for n, p in out["panels"].items() for f, v in p["by_family"].items()]

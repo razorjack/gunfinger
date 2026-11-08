@@ -153,8 +153,8 @@ measurements without a search) on top of `manifest` and `scoring`;
 that leaves detections unchanged; `rarity` counts a detection's hits
 again at its alignment, each weighted by its hash's list length
 (`--rarity` on `shared` and `recall`, brief 85), another such
-diagnostic; `shared` searches queries cut from a
-passage two recordings share (with `--harmonic`, `harmonic` measures each
+diagnostic; `shared` searches queries cut from a passage two
+recordings share (with `--harmonic`, `harmonic` measures each
 candidate's harmonic and percussive parts, FitzGerald 2010, against the
 query's at the candidate's alignment, a diagnostic of brief 66), and
 `identifiability` compares the files of two recordings over that passage

@@ -267,10 +267,10 @@ const FRONT_END_COMMANDS: [&str; 6] = [
     "variant-store",
 ];
 
-/// The commands whose index takes --second-records.
 /// The commands that measure the hits' rarity with --rarity.
 const RARITY_COMMANDS: [&str; 2] = ["shared", "recall"];
 
+/// The commands whose index takes --second-records.
 const SECOND_RECORDS_COMMANDS: [&str; 3] = ["second-records", "sweep", "shared"];
 
 /// The commands that search with `--gap-rungs` or `--gap-key-lock`
@@ -376,6 +376,11 @@ fn check_global_options(harness: &Harness, command: &Command) -> Result<(), Stri
         return Err(format!(
             "this command does not take --rarity; {} do",
             listed(&RARITY_COMMANDS)
+        ));
+    }
+    if harness.search.rarity && harness.search.matching.name().is_some() {
+        return Err(String::from(
+            "--rarity counts hits as the default second pass counts them: it takes no matching variant",
         ));
     }
     if harness.other.second_records.is_some() && !SECOND_RECORDS_COMMANDS.contains(&name) {
@@ -503,6 +508,10 @@ mod tests {
         assert!(
             checked(&["--rarity", "sweep"])
                 .is_err_and(|message| message.contains("does not take --rarity"))
+        );
+        assert!(
+            checked(&["--rarity", "--speed-per-stretch", "recall"])
+                .is_err_and(|message| message.contains("no matching variant"))
         );
     }
 

@@ -1,6 +1,7 @@
 {
  "registration": "docs/brief-85.md",
  "code": "38dce7d",
+ "note": "plus_109_panel_2_reach_24_frames holds panel 2 alone, under the key 1",
  "scales": {
   "nas": {
    "panels": {
@@ -4076,7 +4077,12 @@
      }
     },
     "wrong": [],
-    "median_m_right_confident": 0.1279
+    "median_m_right_confident": 0.1279,
+    "weak_wrong": {
+     "n": 491,
+     "median_m": 0.1262,
+     "right_against_weak_wrong": 0.318
+    }
    },
    "rule_counterpart": {
     "related_at_240": 930,
@@ -8181,7 +8187,12 @@
      }
     },
     "wrong": [],
-    "median_m_right_confident": 0.3154
+    "median_m_right_confident": 0.3154,
+    "weak_wrong": {
+     "n": 152,
+     "median_m": 0.3184,
+     "right_against_weak_wrong": 0.135
+    }
    },
    "rule_counterpart": {
     "related_at_240": 746,

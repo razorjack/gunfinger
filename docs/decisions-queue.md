@@ -167,10 +167,13 @@ external review (`docs/research/2026-11-05-external-review.md`).
 - **Session 85 (0294).** The last statistic in the active queue, hits
   weighted by their hashes' rarity (`1 / ln(e + list length)`), fails
   its registration at NAS scale: at equal hits it separates played from
-  related detections on panel 1 (AUC 0.697, not with the second form)
-  and not on panel 2 (0.453), adds +0.002 and -0.001 to the overall AUC
-  of raw hits, and ranks damaged true plays of `recall` below shared
-  material (0.395). No candidate statistic is left in the queue.
+  related detections on panel 1 (AUC 0.697; not with the second form,
+  nor at 262 tracks + 109 files, 0.455) and not on panel 2 (0.453),
+  adds +0.002 and -0.001 to the overall AUC of raw hits, and ranks
+  damaged true plays of `recall` below shared material (0.395); its
+  recount matched the second pass within 5% for 85% of played
+  detections (validity line 90%). No candidate statistic is left in the
+  queue.
 - **Recommendation.** If the user confirms this view, the roadmap's "A
   confidence statistic for shared material" becomes "presentation of
   shared passages" (for example marking a confident play whose file
@@ -184,9 +187,10 @@ external review (`docs/research/2026-11-05-external-review.md`).
   several opt-ins and subcommands whose experiments concluded "not
   adopted" (for example the second-pass fits of 0251-0253, the power-sum
   front end of 0245-0250, `harmonic` of 0259-0261, `drop_fullest`,
-  `trim_ends`, `overlap_by_chains`; since session 85 `--rarity`, 0294).
-  The harness has about 44,000 lines
-  against the core's 14,000, and `scripts/analysis/` holds 112 scripts.
+  `trim_ends`, `overlap_by_chains`; since session 85 `--rarity`, 0294,
+  kept against `AGENTS.md`'s rule as it stands, pending this decision).
+  The harness has about 44,000 lines against the core's 14,000, and
+  `scripts/analysis/` holds 112 scripts.
 - **Recommendation.** Amend the rule: a kept diagnostic names its next
   use and the condition for deleting it, in the experiment or the
   roadmap item; everything else is deleted in one cleanup session with

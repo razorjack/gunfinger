@@ -234,8 +234,9 @@ ADR. Failing closes the weight as a separator of shared material.
 - *(04:59)* +109, panel 1: recount within 5% of the second pass's hits
   for 92.1% of played and 94.2% of related detections; panel 2: 85.1%
   and 79.1%, so the +109 pool (88.5% of played) fails the registration's
-  validity line of 90%. The misses are mostly `looped` and `break`
-  queries (228 of 287), over and under alike.
+  validity line of 90%. On panel 2 most detections off by more than 5%
+  (every role, partner and other included) are of `looped` and `break`
+  queries (228 of 287), over and under alike; on panel 1, 93 of 157.
 - *(05:01)* Decision: a revised recount, stated before any NAS-scale
   figure was read. The recount's reach of 48 frames around the line
   through the detection's first hit takes in runs a beat away in a
@@ -263,3 +264,20 @@ ADR. Failing closes the weight as a separator of shared material.
   queries and every report equal apart from timing. Every +109 run and
   NAS panel 2 exit 0. `rarity.py` read `recall`'s queries with the
   query's fields nested; they are flattened in the report (fixed).
+- *(05:45)* A read-only review by a subagent (05:31-05:44) found every
+  figure of 0294 equal to its data and the verdicts read correctly. Its
+  corrections, all taken: four of the six families above 0.5 rest on
+  2-14 played detections (now in 0294, the roadmap and the notes); the
+  validity failure and the +109 reading of panel 1 added to the roadmap
+  and the decisions queue; "varies more between recordings" stated as
+  the likely reason with its evidence; `recall`'s 491 wrong detections
+  below confident, dropped by `rarity.py`, now reported (not
+  registered); `--rarity` refused with any matching variant (the recount
+  imitates the default second pass only; another front end has no mono
+  query); `commands.rs`'s doc comment moved back to
+  `SECOND_RECORDS_COMMANDS`; `rarity.rs`'s description of the line;
+  the run log's miss counts; the 24-frame data's panel label; wraps and
+  wording. On the test that rarity changes no detection or level:
+  `rarity::measure` takes the detection by shared reference and runs
+  after the search, so it cannot move one; the regressions cover the
+  default with the option off.

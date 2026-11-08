@@ -124,10 +124,13 @@ Each session takes the first item it can do without a pending decision.
    (hits weighted by the inverse log of their posting-list length), on
    the shared panels' development halves and 0276's break lists.
    *Session 85 (0294):* measured (`--rarity`); closed: at equal hits the
-   mean weight separates played from related on panel 1 only (AUC 0.697,
-   not with the second form; panel 2 0.453 at NAS scale), adds +0.002
-   and -0.001 to the overall AUC and ranks damaged true plays below
-   shared material (`recall` 0.395).
+   mean weight separates played from related on panel 1 at NAS scale
+   only (AUC 0.697; not with the second form, nor at 262 tracks + 109
+   files, 0.455; panel 2 0.453), adds +0.002 and -0.001 to the overall
+   AUC and ranks damaged true plays below shared material (`recall`
+   0.395), on a recount within 5% of the second pass for 85% of played
+   detections (validity line 90%). The break lists were not rerun (0277
+   holds the second form on them).
 10. **Break search, measured as retrieval** (queue item 4): judged
     holders as relevant, a listening pack across ranks, both playback
     ladders; a library-wide clustering first, so that a null of random
@@ -379,7 +382,8 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   item 10); a posting-count set-aside threshold (active queue item 11);
   if candidates go missing, rank hashes by distinct files (weighting
   hits by rarity does not separate shared material at equal hits, 0294;
-  as a way to recover candidates it is unmeasured); a real collection's duplicates beyond
+  as a way to recover candidates it is unmeasured); a real
+  collection's duplicates beyond
   exact copies (the 65,536-asset limit capped the padding at NAS scale).
   For `identify` the break's many holders change nothing measured; the
   passage query with every list costs about 8 thread seconds per query
@@ -576,7 +580,8 @@ One line per finished or closed item; the history is in
 - **Hash-rarity weighting.** Closed by 0294 (session 85): no separation
   of shared material at equal hits. `--rarity` is kept as a diagnostic
   for one possible next use, a weight relative to each file's own hashes
-  (per family the related files' hits are commoner in 6 of 7); it goes
+  (within the two families with many detections the related files' hits
+  are commoner); it goes
   in the diagnostics cleanup (decisions queue item 8) unless that is
   registered first.
 - **Database.** Not needed: the peak store is one file per asset and the

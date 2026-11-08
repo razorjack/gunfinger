@@ -9,7 +9,10 @@
 //! is repeated here at the detection's alignment, as the second pass
 //! counts (`search/refine.rs`, `hits_near` and `measure`): the query
 //! analysed at the detection's speed, the asset's postings near the line
-//! through its first hit, and per 10 s window of query time the densest
+//! at that speed through the detection's start in the query and in the
+//! file (the opening window's run at its first hit's frame, so the line
+//! lies near the second pass's alignment), and per 10 s window of query
+//! time the densest
 //! run within `RUN_FRAMES` when it holds `MIN_RUN_HITS`. Only hits within
 //! the detection's span count, since the second pass's first and last
 //! hits are its span. The analysis starts at another sample than the
@@ -35,7 +38,7 @@ const WINDOW_SECONDS: f64 = 10.0;
 const RUN_FRAMES: f64 = 2.0;
 const MIN_RUN_HITS: usize = 3;
 /// The second pass keeps hits within 24 frames of its fitted alignment,
-/// and the detection's first hit lies up to 24 frames from that.
+/// and the opening window's run lies up to 24 frames from that.
 const SEARCH_FRAMES: f64 = 48.0;
 /// The analysis reaches this far beyond the span, as the second pass's.
 const MARGIN_SECONDS: f64 = WINDOW_SECONDS;
