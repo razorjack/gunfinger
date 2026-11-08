@@ -14,11 +14,11 @@ anything else:
    history, not live rules: the standing rules are collected in
    `docs/session-rules.md` (2026-11-05). Read an older brief only when a
    document points to it for a procedure, for example `docs/brief-64.md`
-   for a prune. The current session is 83: `docs/brief-83.md` and
-   `docs/session-83-checklist.md`, with experiments 0034 and 0207, the
-   roadmap's "Peaks across frequency bands" (active queue item 7) and
-   `docs/calibration.md`'s row "Peak neighbourhoods that widen with
-   frequency".
+   for a prune. The current session is 84: `docs/brief-84.md` and
+   `docs/session-84-checklist.md`, with experiments 0226-0230, the
+   ladder-edge note `docs/research/2026-10-25-ladder-edge-decision.md`,
+   the roadmap's "The edge of the ladder" (active queue item 8) and
+   `docs/decisions-queue.md` item 9.
 3. `docs/session-notes.md`: its index and the newest session's section
    (the handoff: baselines, store revision, builds, open questions);
    older sessions are in `docs/history/`, named in the index
