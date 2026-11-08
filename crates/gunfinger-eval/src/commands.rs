@@ -13,7 +13,7 @@ mod sweep;
 
 use clap::Subcommand;
 
-use crate::harness::Harness;
+use crate::harness::{Harness, Ladder};
 use crate::stereo::FrontEnd;
 
 #[derive(Subcommand)]
@@ -270,6 +270,19 @@ const FRONT_END_COMMANDS: [&str; 6] = [
 /// The commands whose index takes --second-records.
 const SECOND_RECORDS_COMMANDS: [&str; 3] = ["second-records", "sweep", "shared"];
 
+/// The commands that search with `--gap-rungs` or `--gap-key-lock`
+/// (`gap_search`), or read the reports such searches wrote.
+const GAP_SEARCH_COMMANDS: [&str; 8] = [
+    "sweep",
+    "scan",
+    "robust",
+    "mixes",
+    "recall",
+    "calibrate",
+    "baseline",
+    "regress",
+];
+
 /// The commands that take --other-sample.
 const OTHER_SAMPLE_COMMANDS: [&str; 7] = [
     "sweep",
@@ -362,6 +375,18 @@ fn check_global_options(harness: &Harness, command: &Command) -> Result<(), Stri
             listed(&SECOND_RECORDS_COMMANDS)
         ));
     }
+    let gap_search = harness.search.matching.gap_search();
+    if !gap_search.is_off() && !GAP_SEARCH_COMMANDS.contains(&name) {
+        return Err(format!(
+            "this command does not take --gap-rungs or --gap-key-lock; {} do",
+            listed(&GAP_SEARCH_COMMANDS)
+        ));
+    }
+    if gap_search.key_lock && harness.search.ladder != Ladder::Turntable {
+        return Err(String::from(
+            "--gap-key-lock searches key lock over the gaps of the turntable ladder: give --ladder turntable",
+        ));
+    }
     if harness.other.other_peaks_dir.is_some() && !OTHER_LIBRARY_COMMANDS.contains(&name) {
         return Err(format!(
             "this command does not take --other-peaks-dir; {} do",
@@ -442,6 +467,24 @@ mod tests {
         let cli = Cli::try_parse_from([&["gunfinger-eval"], arguments].concat())
             .map_err(|error| error.to_string())?;
         check_global_options(&cli.harness, &cli.command)
+    }
+
+    #[test]
+    fn the_search_over_the_gaps_goes_only_to_the_commands_that_search_with_it() {
+        assert_eq!(checked(&["--gap-rungs", "1", "sweep"]), Ok(()));
+        assert_eq!(checked(&["--gap-rungs", "1", "scan", "stakka"]), Ok(()));
+        assert!(
+            checked(&["--gap-rungs", "1", "grid"])
+                .is_err_and(|message| message.contains("does not take --gap-rungs"))
+        );
+        assert_eq!(
+            checked(&["--ladder", "turntable", "--gap-key-lock", "mixes"]),
+            Ok(())
+        );
+        assert!(
+            checked(&["--gap-key-lock", "mixes"])
+                .is_err_and(|message| message.contains("--ladder turntable"))
+        );
     }
 
     #[test]

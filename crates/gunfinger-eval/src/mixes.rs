@@ -46,6 +46,40 @@ const PLAYS_PER_MIX: usize = 12;
 const PLAY_SECONDS: (f64, f64) = (20.0, 60.0);
 /// Turntable speeds are drawn within this much of native speed.
 const SPEED_RANGE: f64 = 0.06;
+/// `Playing::EdgeSpeeds` draws its speeds this far from native speed,
+/// either side: from the ladder's end (8%) past the reach of two extra
+/// rung pairs (9.2%, experiment 0226).
+const EDGE_SPEEDS: (f64, f64) = (0.08, 0.10);
+
+/// How a short mix's plays are played (brief 84): as drawn, or every second
+/// play, from the second, at the ladder's edge or key-locked.
+#[derive(clap::ValueEnum, Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum Playing {
+    /// Every play on a turntable within ±6% (`SPEED_RANGE`).
+    #[default]
+    Drawn,
+    /// Every second play on a turntable 8-10% from native speed, either
+    /// side (`EDGE_SPEEDS`).
+    EdgeSpeeds,
+    /// Every second play key-locked at its drawn tempo.
+    KeyLocked,
+}
+
+impl Playing {
+    /// The reports' and renders' label; `None` for the default.
+    pub fn label(self) -> Option<&'static str> {
+        match self {
+            Playing::Drawn => None,
+            Playing::EdgeSpeeds => Some("edge-speeds"),
+            Playing::KeyLocked => Some("key-locked"),
+        }
+    }
+
+    /// Whether the play at `position` in the mix is played otherwise.
+    fn changes(self, position: usize) -> bool {
+        self != Playing::Drawn && position % 2 == 1
+    }
+}
 /// Share of plays drawn from held-out clusters.
 const HELD_OUT_SHARE: f64 = 0.25;
 /// The play that returns: it repeats the track of the play this many
@@ -116,7 +150,8 @@ impl MixKind {
     }
 
     /// The report's and the renders' name: `seed-<seed>` for short mixes
-    /// (`<stereo fault>-seed-<seed>` with a stereo fault), `<kind>-seed-<seed>`
+    /// (`<stereo fault>-seed-<seed>` with a stereo fault,
+    /// `<playing>-seed-<seed>` played otherwise, `Playing::label`), `<kind>-seed-<seed>`
     /// for the others, `rides-<label>-seed-<seed>` for rides drawn
     /// otherwise than by default and
     /// `drops-other-pairs-seed-<seed>` for drops with other pairs
@@ -717,6 +752,7 @@ pub fn draw_mix(
     name: &str,
     pools: &Pools,
     clusters: &Clusters,
+    playing: Playing,
     rng: &mut Rng,
 ) -> Result<PlannedMix, String> {
     let too_few = || String::from("the library has too few long tracks for a generated mix");
@@ -746,8 +782,14 @@ pub fn draw_mix(
 
     let mut plays: Vec<PlannedPlay> = Vec::new();
     let mut start = 0.0;
-    for &(record, held_out) in &chosen {
-        let mut play = drawn_play(record, held_out, start, rng);
+    for (position, &(record, held_out)) in chosen.iter().enumerate() {
+        let changed = playing.changes(position);
+        let speed = match playing {
+            Playing::EdgeSpeeds if changed => Speed::Edge,
+            _ => Speed::Drawn,
+        };
+        let mut play = drawn_play_at(record, held_out, start, speed, rng);
+        play.key_locked = playing == Playing::KeyLocked && changed;
         if let Some(previous) = plays.last_mut() {
             join(previous, &mut play, rng);
         }
@@ -764,8 +806,30 @@ pub fn draw_mix(
 /// A play of `record` from mix time `start`: its length, speed and
 /// position in the track drawn in that order.
 fn drawn_play(record: &PeakRecord, held_out: bool, start: f64, rng: &mut Rng) -> PlannedPlay {
+    drawn_play_at(record, held_out, start, Speed::Drawn, rng)
+}
+
+/// Where a play's speed is drawn.
+#[derive(Clone, Copy)]
+enum Speed {
+    /// Within `SPEED_RANGE`.
+    Drawn,
+    /// Within `EDGE_SPEEDS`, either side.
+    Edge,
+}
+
+fn drawn_play_at(
+    record: &PeakRecord,
+    held_out: bool,
+    start: f64,
+    speed: Speed,
+    rng: &mut Rng,
+) -> PlannedPlay {
     let seconds = PLAY_SECONDS.0 + rng.unit() * (PLAY_SECONDS.1 - PLAY_SECONDS.0);
-    let speed = drawn_speed(rng);
+    let speed = match speed {
+        Speed::Drawn => drawn_speed(rng),
+        Speed::Edge => drawn_edge_speed(rng),
+    };
     // Plays stay clear of the first tenth of a track, often a sparse
     // intro; tracks in the pools are long enough for any play.
     let duration = record.header.duration_seconds;
@@ -794,6 +858,11 @@ fn drawn_play(record: &PeakRecord, held_out: bool, start: f64, rng: &mut Rng) ->
 
 fn drawn_speed(rng: &mut Rng) -> f64 {
     1.0 + (2.0 * rng.unit() - 1.0) * SPEED_RANGE
+}
+
+fn drawn_edge_speed(rng: &mut Rng) -> f64 {
+    let sign = if rng.unit() < 0.5 { -1.0 } else { 1.0 };
+    1.0 + sign * (EDGE_SPEEDS.0 + rng.unit() * (EDGE_SPEEDS.1 - EDGE_SPEEDS.0))
 }
 
 /// What the beatmatched, shared and ridden long mixes draw on besides the
@@ -1325,6 +1394,7 @@ pub enum KindOptions<'a> {
     /// mix's second half (`render`), when one is given.
     Short {
         stereo_fault: Option<Fault>,
+        playing: Playing,
     },
     Long,
     Beatmatched,
@@ -1380,7 +1450,12 @@ impl KindOptions<'_> {
     /// name, or the stereo fault's name.
     fn label(&self) -> Option<String> {
         match self {
-            KindOptions::Short { stereo_fault } => stereo_fault.map(Fault::name),
+            KindOptions::Short {
+                stereo_fault,
+                playing,
+            } => stereo_fault
+                .map(Fault::name)
+                .or_else(|| playing.label().map(str::to_owned)),
             KindOptions::Rides(_) => self.rides_label(),
             KindOptions::Drops(drops) if drops.other_pairs => Some(OTHER_PAIRS.to_owned()),
             KindOptions::Drops(drops) if drops.aligned_drops => Some(ALIGNED_DROPS.to_owned()),
@@ -1391,7 +1466,7 @@ impl KindOptions<'_> {
 
     fn stereo_fault(&self) -> Option<Fault> {
         match self {
-            KindOptions::Short { stereo_fault } => *stereo_fault,
+            KindOptions::Short { stereo_fault, .. } => *stereo_fault,
             _ => None,
         }
     }
@@ -1657,6 +1732,10 @@ pub fn run(
         left_out_pairs,
     };
     let rides = options.kind.rides_label();
+    let playing = match options.kind {
+        KindOptions::Short { playing, .. } => playing,
+        _ => Playing::Drawn,
+    };
     let mut rng = Rng::new(options.seed);
     let dir = kind.renders(work, options.seed, options.kind.label().as_deref());
     let planned: Vec<(PlannedMix, PathBuf)> = (0..options.count)
@@ -1664,7 +1743,7 @@ pub fn run(
             let name = format!("mix-{number:02}");
             let path = dir.join(format!("{name}.mp3"));
             let mix = match kind {
-                MixKind::Short => draw_mix(&name, &pools, clusters, &mut rng),
+                MixKind::Short => draw_mix(&name, &pools, clusters, playing, &mut rng),
                 MixKind::Drops => {
                     drops::draw(&name, &pools, &extras, options.corpus_clusters, &mut rng)
                 }
@@ -2129,6 +2208,7 @@ mod tests {
             "pinned",
             &Pools::new(&records, &held_out),
             &clusters,
+            Playing::Drawn,
             &mut Rng::new(2026),
         )
         .unwrap();
@@ -2165,6 +2245,55 @@ mod tests {
             );
         }
         assert!(close(mix.seconds, 423.6283468830277));
+    }
+
+    #[test]
+    fn every_second_play_is_played_at_the_edge_or_key_locked_when_asked() {
+        let records: Vec<PeakRecord> = (0..16)
+            .map(|n| record(&format!("t{n:02}.mp3"), 150.0 + 37.0 * f64::from(n)))
+            .collect();
+        let held_out = BTreeSet::from([
+            String::from("t03.mp3"),
+            String::from("t07.mp3"),
+            String::from("t11.mp3"),
+        ]);
+        let pools = Pools::new(&records, &held_out);
+        let draw =
+            |playing| draw_mix("m", &pools, &no_clusters(), playing, &mut Rng::new(2026)).unwrap();
+
+        let edge = draw(Playing::EdgeSpeeds);
+        let key_locked = draw(Playing::KeyLocked);
+
+        for (position, play) in edge.plays.iter().enumerate() {
+            let away = (play.speed - 1.0).abs();
+            if position % 2 == 1 {
+                assert!((0.08..=0.10).contains(&away), "{position}: {}", play.speed);
+            } else {
+                assert!(away <= SPEED_RANGE, "{position}: {}", play.speed);
+            }
+            assert!(!play.key_locked);
+        }
+        assert!(edge.plays.iter().any(|play| play.speed < 0.92));
+        assert!(edge.plays.iter().any(|play| play.speed > 1.08));
+        for (position, play) in key_locked.plays.iter().enumerate() {
+            assert_eq!(play.key_locked, position % 2 == 1, "{position}");
+        }
+        // Key lock changes no draw: the same plays as drawn.
+        let drawn = draw(Playing::Drawn);
+        assert_eq!(
+            key_locked
+                .plays
+                .iter()
+                .map(|play| (play.asset.clone(), play.speed))
+                .collect::<Vec<_>>(),
+            drawn
+                .plays
+                .iter()
+                .map(|play| (play.asset.clone(), play.speed))
+                .collect::<Vec<_>>()
+        );
+        assert_eq!(Playing::EdgeSpeeds.label(), Some("edge-speeds"));
+        assert_eq!(Playing::Drawn.label(), None);
     }
 
     #[test]

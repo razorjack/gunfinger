@@ -12,6 +12,7 @@ mod counterexamples;
 mod digest;
 mod files;
 mod fullest;
+mod gap_search;
 mod gaps;
 mod grid;
 mod harmonic;

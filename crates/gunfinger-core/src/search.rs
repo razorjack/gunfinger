@@ -512,11 +512,7 @@ impl Search<'_> {
         }
         let mut refined = refine::refine(self, samples, &first.lines, first.chained);
         refined.sort_by_key(|chained| Reverse(chained.detection.evidence.hits));
-        let chained = match self.options.second_overlap {
-            SecondOverlap::Spans => strongest_per_moment(refined, None),
-            SecondOverlap::Chains => refined,
-            SecondOverlap::SpansAtSpeed(share) => strongest_per_moment(refined, Some(share)),
-        };
+        let chained = suppressed(refined, self.options.second_overlap);
         Searched {
             lines: first.lines,
             chained,
@@ -543,6 +539,41 @@ impl Search<'_> {
             lines,
             chained: strongest_per_moment(chained, None),
         }
+    }
+}
+
+/// The detections of several searches of one query with `options`, as one
+/// search's: strongest first, with the suppression the search applies last
+/// (the second suppression with the second pass, the first without) over
+/// all of them. The harness's search over the gaps (brief 84) joins its
+/// detections to the first search's with it; for the detections of one
+/// search it changes nothing.
+pub fn joined(mut detections: Vec<Detection>, options: Options) -> Vec<Detection> {
+    detections.sort_by_key(|detection| Reverse(detection.evidence.hits));
+    let chained = detections
+        .into_iter()
+        .map(|detection| Chained {
+            detection,
+            lines: Vec::new(),
+        })
+        .collect();
+    let overlap = if options.second_pass {
+        options.second_overlap
+    } else {
+        SecondOverlap::Spans
+    };
+    suppressed(chained, overlap)
+        .into_iter()
+        .map(|chained| chained.detection)
+        .collect()
+}
+
+/// `detections`, strongest first, less those `overlap` drops.
+fn suppressed(detections: Vec<Chained>, overlap: SecondOverlap) -> Vec<Chained> {
+    match overlap {
+        SecondOverlap::Spans => strongest_per_moment(detections, None),
+        SecondOverlap::Chains => detections,
+        SecondOverlap::SpansAtSpeed(share) => strongest_per_moment(detections, Some(share)),
     }
 }
 
@@ -824,5 +855,46 @@ mod tests {
         let kept = strongest_per_moment(strongest_first, Some(1.0 / 128.0));
 
         assert_eq!(kept.len(), 1);
+    }
+
+    #[test]
+    fn joined_detections_pass_the_second_suppression_together() {
+        let at_speed = |start, end, hits, speed| Detection {
+            speed: SpeedRatio(speed),
+            ..detection(1, start, end, hits)
+        };
+        let first = vec![
+            at_speed(0.0, 60.0, 500, 1.0),
+            at_speed(100.0, 160.0, 100, 1.08),
+        ];
+        let second = vec![
+            at_speed(150.0, 200.0, 50, 1.0),    // no overlap: kept
+            at_speed(110.0, 170.0, 300, 1.084), // overlaps the weaker, 0.37% apart
+            at_speed(40.0, 90.0, 400, 1.02),    // overlaps the stronger, 2% apart
+        ];
+
+        let joined = joined(
+            first.into_iter().chain(second).collect(),
+            Matcher::Fitted.options(),
+        );
+
+        let kept: Vec<(f64, u32)> = joined
+            .iter()
+            .map(|detection| (detection.start_seconds, detection.evidence.hits))
+            .collect();
+        assert_eq!(kept, [(0.0, 500), (40.0, 400), (110.0, 300), (150.0, 50)]);
+    }
+
+    #[test]
+    fn one_search_joined_alone_is_unchanged() {
+        let detections = vec![
+            detection(1, 0.0, 60.0, 500),
+            detection(2, 30.0, 90.0, 500),
+            detection(1, 100.0, 160.0, 100),
+        ];
+
+        let joined = joined(detections.clone(), Matcher::Fitted.options());
+
+        assert_eq!(joined, detections);
     }
 }

@@ -7,7 +7,7 @@ use std::path::{Path, PathBuf};
 use crate::files::{read_json, write_json};
 use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::mixes::residual::{Pilot, Timing};
-use crate::mixes::{DropsOptions, KindOptions, MixKind};
+use crate::mixes::{DropsOptions, KindOptions, MixKind, Playing};
 use crate::residual::{Fix, Rule};
 use crate::{counterexamples, grid, mixes, passages, robust};
 
@@ -71,6 +71,12 @@ pub struct MixesArgs {
     /// mixes in stereo without a fault.
     #[arg(long)]
     pub stereo_fault: Option<String>,
+    /// Short mixes only: play every second play, from the second, 8-10%
+    /// from native speed (`edge-speeds`) or key-locked (`key-locked`),
+    /// into their own renders and report (`mixes-<playing>-seed-<seed>.json`;
+    /// brief 84).
+    #[arg(long, value_enum, default_value_t = Playing::Drawn, conflicts_with = "stereo_fault")]
+    pub playing: Playing,
     /// With `--kind drops`: proposal 4's pilot (brief 65). The span of
     /// every play found confidently is searched again as the mix holds
     /// it, with denser query peaks, and with what the play explains taken
@@ -276,6 +282,7 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
         aligned_drops,
         case,
         stereo_fault,
+        playing,
         residual,
         residual_over,
         residual_timing,
@@ -309,9 +316,15 @@ pub fn mixes(harness: &Harness, jobs: usize, args: MixesArgs) -> Result<(), Stri
             _ => Err(String::from("--stereo-fault applies to short mixes only")),
         })
         .transpose()?;
+    if playing != Playing::Drawn && kind != MixKind::Short {
+        return Err(String::from("--playing applies to short mixes only"));
+    }
     let tagged = tagged.map(|path| tagged_assets(kind, &path)).transpose()?;
     let kind_options = match kind {
-        MixKind::Short => KindOptions::Short { stereo_fault },
+        MixKind::Short => KindOptions::Short {
+            stereo_fault,
+            playing,
+        },
         MixKind::Long => KindOptions::Long,
         MixKind::Beatmatched => KindOptions::Beatmatched,
         MixKind::Shared => KindOptions::Shared,

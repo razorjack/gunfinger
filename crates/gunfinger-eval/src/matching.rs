@@ -13,8 +13,10 @@ use gunfinger_core::search::{
     Detection, Matcher, Options, SAME_SPEED_SHARE, SKIPPED_SHARE, SecondOverlap, SecondPassFit,
     Trace, search_signal_with, search_with, trace_with,
 };
+use gunfinger_core::spectrogram::Signal;
 use gunfinger_core::speed::Rung;
 
+use crate::gap_search::{self, GapSearch};
 use crate::stereo::{FrontEnd, QueryAudio};
 
 #[derive(clap::Args, Clone, Copy, PartialEq)]
@@ -73,6 +75,17 @@ pub struct Matching {
     /// session 81's.
     #[arg(long, global = true, value_enum, default_value_t = Fit::ChainSpeed, conflicts_with_all = ["single_pass", "speed_per_stretch"])]
     pub second_pass_fit: Fit,
+    /// After the search, search the stretches without a confident match
+    /// again on the K rungs past either end of each ladder searched (the
+    /// rungs `--extra-rungs K` would add) and no other, padded by a window
+    /// either side (`gap_search`, brief 84).
+    #[arg(long, global = true, value_name = "K", default_value_t = 0)]
+    pub gap_rungs: u32,
+    /// With `--ladder turntable`: after the search, search the stretches
+    /// without a confident match again on the key-locked rungs at the
+    /// ladder's tempos (`gap_search`, brief 84).
+    #[arg(long, global = true)]
+    pub gap_key_lock: bool,
 }
 
 /// `--second-pass-fit`'s values, one per `SecondPassFit`.
@@ -109,8 +122,9 @@ impl Fit {
 }
 
 /// Baselines' provenance records this (`provenance.json`, "matching"):
-/// the derived form, with `set_aside_share` only when it is given, so that
-/// baselines written before it existed still compare.
+/// the derived form, with `set_aside_share` and the search over the gaps
+/// only when they are given, so that baselines written before they existed
+/// still compare.
 impl fmt::Debug for Matching {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         // Destructured, so that a field added later must be written here.
@@ -125,6 +139,8 @@ impl fmt::Debug for Matching {
             apart_in_speed,
             front_end,
             second_pass_fit,
+            gap_rungs,
+            gap_key_lock,
         } = self;
         let mut fields = formatter.debug_struct("Matching");
         fields
@@ -140,8 +156,14 @@ impl fmt::Debug for Matching {
             .field("overlap_by_chains", overlap_by_chains)
             .field("apart_in_speed", apart_in_speed)
             .field("front_end", front_end)
-            .field("second_pass_fit", second_pass_fit)
-            .finish()
+            .field("second_pass_fit", second_pass_fit);
+        if *gap_rungs > 0 {
+            fields.field("gap_rungs", gap_rungs);
+        }
+        if *gap_key_lock {
+            fields.field("gap_key_lock", gap_key_lock);
+        }
+        fields.finish()
     }
 }
 
@@ -216,6 +238,12 @@ impl Matching {
         if let Some(fit) = self.second_pass_fit.name() {
             parts.push(fit.to_owned());
         }
+        if self.gap_rungs > 0 {
+            parts.push(format!("gap-rungs-{}", self.gap_rungs));
+        }
+        if self.gap_key_lock {
+            parts.push(String::from("gap-key-lock"));
+        }
         (!parts.is_empty()).then(|| parts.join("-"))
     }
 
@@ -259,7 +287,8 @@ impl Matching {
         ladder: &[Rung],
         jobs: usize,
     ) -> Vec<Detection> {
-        search_with(index, samples, profile, ladder, jobs, self.options())
+        let first = search_with(index, samples, profile, ladder, jobs, self.options());
+        self.over_gaps(index, Signal::Mono(samples), profile, ladder, jobs, first)
     }
 
     /// The profile of the records searched and of the search's analysis.
@@ -282,14 +311,44 @@ impl Matching {
         jobs: usize,
     ) -> Vec<Detection> {
         let profile = self.profile();
-        search_signal_with(
+        let first = search_signal_with(
             index,
             audio.signal(),
             &profile,
             ladder,
             jobs,
             self.options(),
-        )
+        );
+        self.over_gaps(index, audio.signal(), &profile, ladder, jobs, first)
+    }
+
+    /// What is searched over the gaps (`--gap-rungs`, `--gap-key-lock`).
+    pub fn gap_search(&self) -> GapSearch {
+        GapSearch {
+            extra_rungs: self.gap_rungs,
+            key_lock: self.gap_key_lock,
+        }
+    }
+
+    /// `first`, the search's detections, joined with those of the search
+    /// over its gaps, if one is chosen.
+    fn over_gaps(
+        &self,
+        index: &Index,
+        signal: Signal,
+        profile: &Profile,
+        ladder: &[Rung],
+        jobs: usize,
+        first: Vec<Detection>,
+    ) -> Vec<Detection> {
+        let search = gap_search::Search {
+            index,
+            profile,
+            ladder,
+            jobs,
+            options: self.options(),
+        };
+        self.gap_search().search(&search, signal, first)
     }
 
     /// The first pass alone: the detections the second pass would measure
@@ -339,7 +398,30 @@ mod tests {
         apart_in_speed: None,
         front_end: FrontEnd::Downmix,
         second_pass_fit: Fit::ChainSpeed,
+        gap_rungs: 0,
+        gap_key_lock: false,
     };
+
+    #[test]
+    fn the_search_over_the_gaps_writes_its_own_reports_and_records_its_settings() {
+        let rungs = Matching {
+            gap_rungs: 2,
+            ..DEFAULT
+        };
+        let key_lock = Matching {
+            gap_key_lock: true,
+            ..DEFAULT
+        };
+
+        assert!(DEFAULT.gap_search().is_off());
+        assert_eq!(rungs.name().as_deref(), Some("gap-rungs-2"));
+        assert_eq!(key_lock.name().as_deref(), Some("gap-key-lock"));
+        assert_eq!(rungs.options(), DEFAULT.options());
+        // Baselines written before the option still compare.
+        assert!(!format!("{DEFAULT:?}").contains("gap"));
+        assert!(format!("{rungs:?}").contains("gap_rungs: 2"));
+        assert!(format!("{key_lock:?}").contains("gap_key_lock: true"));
+    }
 
     #[test]
     fn the_default_judges_overlap_at_one_speed_and_writes_the_default_reports() {

@@ -1625,6 +1625,8 @@ mod tests {
             apart_in_speed: None,
             front_end,
             second_pass_fit: Fit::ChainSpeed,
+            gap_rungs: 0,
+            gap_key_lock: false,
         };
 
         let QueryAudio::Mono(samples) = brief_audio(&play, &matching(FrontEnd::Downmix)).unwrap()

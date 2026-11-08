@@ -1689,6 +1689,8 @@ mod tests {
         apart_in_speed: None,
         front_end: FrontEnd::Downmix,
         second_pass_fit: Fit::ChainSpeed,
+        gap_rungs: 0,
+        gap_key_lock: false,
     };
 
     /// Tone bursts at pseudo-random frequencies, a new pair every 50 ms.
