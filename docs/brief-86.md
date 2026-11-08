@@ -80,6 +80,13 @@ conservative option, write it down here and continue.
 
 - `master` at `5a46442`, `git status` clean (apart from the untracked
   `yafc20261031.log`). Builds `s85-final` (master) and `s84-final`.
+  `work/bin/s86-start/`, built from `7909c1e`, is byte-identical to
+  `s85-final` (`gunfinger` `cf8393e36bad...`, `gunfinger-eval`
+  `c20a5f9cd80f...`; `work/s86/start-binaries.txt`), and the store
+  revisions are unchanged (corpus `526a3b978eb3e411`, NAS
+  `0bd3f0c23fabc698`, from a 10 s `identify` with each configuration),
+  so by `docs/session-rules.md` the start regressions are skipped; the
+  final ones run.
 - Baselines `session-78-linux` and `session-78-linux-nas`; NAS store
   40,666 records, revision `0bd3f0c23fabc698`; NAS clusters
   `c4d3da2e7e37...`: 284 clusters, 1,004 files, 2,875 pairs, no cut
@@ -254,3 +261,14 @@ passage as A's span? Written under `work/s86/`, never answered tonight.
   round, not scored) times the full run; if the full run would take
   more than about 60 minutes, the candidate count or the excerpt is
   reduced before the full run, and the change is written here.
+- *(06:17)* **The clustering started without a separate timing
+  sample.** The run prints its progress every 500 queries, which served
+  as the sample: 500 queries in 27 s, so the full run was due in about
+  37 minutes, under the 60 minutes the registration allowed; nothing was
+  scaled down. It started at 06:17 with `work/bin/s86-run/` (`58c53c1`)
+  in tmux `s86clu` (`work/s86/cluster.sh`, log
+  `work/s86/logs/cluster.log`); the index holds 40,688 files (session 75
+  pruned some since session 74's 40,696). The harness's later changes
+  (`break-search --passage-ladder`, `questions breaks`) were built and
+  tested on the same machine while it ran, so its wall time is not a
+  product timing.
