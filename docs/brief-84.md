@@ -299,3 +299,14 @@ registration and data these runs did not use.
   run again in `work/s84/queue-k.sh` after 0292 is committed. The timing
   scans are split the same way: C6 (`queue-cpu.sh`) and K2 (in
   `queue-k.sh`), each palindromic on its own.
+- **(02:20) Queue A split.** Run one after another, queue A's NAS-scale
+  runs would end near 04:05. Its later runs (the NAS-scale edge mixes,
+  then L2's and T2's other-copies sweeps) run in a parallel queue D
+  (`work/s84/queue-d.sh`, 16 workers) from 02:20, and the wrapper exits
+  with status 3 for queue A's copies of them. The 262-track edge mixes
+  ran again in queue C after the report-name fix (`8d20d58`: the first
+  reports were named `mixes-seed-2026.json`, without the label, and were
+  deleted). Runs after 02:12 use the fixed build (`gunfinger-eval`
+  `a0df0182f47d...`; the change is only the mixes report's name and
+  field). The timing queue (`queue-cpu.sh`) starts once A, B and D are
+  done (`work/s84/after.sh`).
