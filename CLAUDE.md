@@ -14,11 +14,10 @@ anything else:
    history, not live rules: the standing rules are collected in
    `docs/session-rules.md` (2026-11-05). Read an older brief only when a
    document points to it for a procedure, for example `docs/brief-64.md`
-   for a prune. The current session is 87: `docs/brief-87.md` and
-   `docs/session-87-checklist.md`, with experiments 0116, 0118, 0124,
-   0134, 0216 and 0297, `docs/research/2026-11-05-external-review.md`
-   ("Decisions and experiments"), the panels in `docs/panels/`, and
-   `crates/gunfinger-eval/src/recall.rs` (the split key).
+   for a prune. The current session is 88: `docs/brief-88.md` and
+   `docs/session-88-checklist.md`, with ADR 0011 and 0014, experiments
+   0242, 0254, 0263 and 0278, and the external review
+   (`docs/research/2026-11-05-external-review.md`).
 3. `docs/session-notes.md`: its index and the newest session's section
    (the handoff: baselines, store revision, builds, open questions);
    older sessions are in `docs/history/`, named in the index
