@@ -21,4 +21,4 @@ for scope and rules.
 - [x] 4. Experiments 0290, 0291
 - [x] 5. Roadmap's item; calibration register unchanged (nothing contradicted); decisions queue item 10
 - [x] 6. Review by a subagent; fixes
-- [~] 7. Wrap-up: notes, status, final checks, commit
+- [x] 7. Wrap-up: notes, status, final checks (check.sh green; both regressions strict-identical; digests unchanged), commit

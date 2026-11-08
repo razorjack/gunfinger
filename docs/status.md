@@ -385,3 +385,26 @@ product and its defaults are unchanged.
   clusters file unchanged. A review by a subagent found one code error
   in the file-level merge (no effect on this session's reports) and
   smaller points; all fixed.
+
+## 2026-11-08: session 83, the band profile of 0034 under the default matcher
+
+Brief `docs/brief-83.md`, checklist `docs/session-83-checklist.md`;
+notes "Session 83"; experiments 0290-0291. A measurement session: the
+product, its profile and its defaults are unchanged.
+
+- Both of 0034's band profiles, run as variant builds on their own
+  stores at 262 tracks under today's default matcher, keep every answer
+  of the protocol, `recall`, `grid` and `robust` with no wrong confident
+  answer, and raise the development mixes' true hits by 16-32% (a) and
+  24-39% (b) (0290).
+- Neither passes its registration: neither gains the registered 2
+  points on recall's damaged sets (+0.38, +1.21); a loses `robust`'s
+  equal-level blends; b strengthens shared material on the second
+  shared panel (0291); B4's "unrelated" is not shown for either.
+- The choice between closing the item and a revised test is the user's
+  (decisions queue item 10).
+- Final checks with `work/bin/s83-final/`: `scripts/check.sh` green;
+  `regress session-78-linux` and `regress session-78-linux-nas`
+  identical with `--strict`; `docs/pair-verdicts.txt` and the NAS
+  clusters file unchanged. A review by a subagent found no figure error
+  and corrected several descriptions and B4's verdict.

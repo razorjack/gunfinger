@@ -106,6 +106,7 @@ that holds it.
 - "Session 80" (2026-11-07): the precision of `identify --under` on harder generated cases. `this file`
 - "Session 81" (2026-11-07): short chains under library perturbations, and a bounded fit for short chains only. `this file`
 - "Session 82" (2026-11-07): two records for a file with an inverted channel, a harness pilot. `this file`
+- "Session 83" (2026-11-08): the band profile of 0034 under the default matcher. `this file`
 
 
 ## Session 70
@@ -1906,3 +1907,108 @@ code and document points; all fixed (brief 82, 22:55; `4abc92d`,
   copied with `cp -p`); `work/peaks` only read.
 - Slips, in brief 82: 0289's sweeps started before 0288 was committed;
   0288 was first committed over 40 lines.
+
+## Session 83
+
+Brief `docs/brief-83.md` (the registration and every decision),
+checklist `docs/session-83-checklist.md`, experiments 0290-0291. A
+measurement session: the product, its profile and every default are
+unchanged, and master's code is unchanged (`git diff 50433c0 -- crates`
+is empty).
+
+### What changed
+
+- Nothing in the code. The variants ran as builds of `50433c0` with
+  `spread` set in `Profile::CURRENT` (`work/s83/variant-a.patch`,
+  `variant-b.patch`), never merged, as session 29's `s29-span`: every
+  harness command then runs on the variant's records, which carry their
+  own profile identifier. Rebuild one with `git archive 50433c0 | tar -x
+  -C DIR`, `patch DIR/crates/gunfinger-core/src/profile.rs < PATCH`
+  and `cargo build --release` with its own `CARGO_TARGET_DIR`.
+- `docs/decisions-queue.md` item 10 (the band profile: close it, or a
+  revised registration); the roadmap's "Peaks across frequency bands"
+  and active queue item 7.
+
+### Results
+
+- 0290: under the default matcher at 262 tracks both variants keep
+  every answer of the sweeps (4 seeds), the development scans and
+  leave-outs, `recall` (+109 NAS files), `grid` and `robust`, with no
+  wrong confident answer; true hits of the development mixes rise 16-32%
+  (a) and 24-39% (b); `loss` reproduces 0034 (Stakka's true hits on the
+  rung 38,770 → 52,069 for a). B5 fails for both: recall's damaged sets
+  gain +0.38 (a) and +1.21 (b) points against the registered +2; a loses
+  `robust`'s equal-level blends (31 → 23 and 28 → 21 confident; 1,932
+  overall against 1,938), b gains (1,969).
+- 0291: on the shared panels' development halves a flags fewer queries
+  on every panel and index (B2 holds); b flags more on panel 2 (8 → 16
+  with everything indexed) and fails B2. B4's figures hold for both
+  (margins 6.94× and 6.76× against 6.75×; audio not in the index 51 and
+  52 hits, China Cup on The Nine), but its "unrelated" was read after the
+  calibrate runs and one pair is unheard, so B4 is not shown.
+- Neither variant passes its registration.
+
+### Decided this session, open to change
+
+- Variant builds instead of a harness option (no change in master).
+- The other library at 262 tracks is byte copies of the 109 NAS files
+  the development halves name, not the NAS store; the NAS map and
+  clusters files stand in for its own. Two mixed-CD tracks the NAS's
+  `.gunfingerignore` leaves out were removed (both recall sources, so 78
+  of 80 searched).
+- Arm b ran (the time allowed), in parallel with T's and a's last runs.
+
+### Questions this leaves for us
+
+- Decisions queue item 10: close the band profile, or register a
+  revised test (variant b at NAS scale in a scratch store, with a
+  precision bar on the shared panels).
+
+### Questions for listening (none answered by agents)
+
+- Aphrodite's APH33 EP: do Clean Decibel and From the East share
+  material? The band profiles raise the pair from 38 to 83 hits
+  (calibrate's false candidates, 0291). It matters only if the profile
+  is taken further.
+- The Planet Dust (DC Breaks Remix) cut stays unsure.
+
+### Handoff for the next session
+
+1. Builds: `work/bin/s83-final/` (master; `gunfinger` `f3ad06283ce8...`,
+   `gunfinger-eval` `f4e86de4b796...`, byte-identical to `s82-final`)
+   and `s82-final`. The variant builds and `s83-start` are deleted.
+2. Baselines unchanged: `session-78-linux` and `session-78-linux-nas`.
+   NAS store 40,666 records, revision `0bd3f0c23fabc698`; corpus store
+   `526a3b978eb3e411`; the clusters file unchanged.
+3. Data in `work/s83/`: the reports of every arm (`w-{T,a,b}/reports`,
+   recall and shared under `library-other/`), logs (`logs/`,
+   `queue.log` has every exit line), stats (`stats/`), the summaries
+   (`protocol.json`, `panels.json`, `robustgrid.json`) and their
+   scripts, the queues (`arm.sh`, `setup.sh`, `setup-b.sh`, `final.sh`),
+   the file lists and the patches. Renders, stores, the scratch library
+   and the variant builds are deleted; all of `work/s83/` is safe to
+   delete.
+
+### Final checks
+
+`work/s83/final.sh` (tmux) with `s83-final`: `scripts/check.sh` green
+(12:14, on its first run); `regress session-78-linux --strict` (1:04)
+and `regress session-78-linux-nas --strict` (4:42) identical, 720 of
+720 sweep queries and every report equal apart from timing.
+`docs/pair-verdicts.txt`, the NAS clusters file and the answer log are
+at their start digests (`work/s83/listening-digests-end.txt`). A
+read-only review by a subagent recomputed the figures and found no
+error in the tables; it corrected descriptions (panel 1's scenarios,
+Phantom 2018's relation, a robust figure, the decomposed recall source)
+and B4's verdict, now "not shown" (brief 83, 00:58; `4e8e3b7`).
+
+### What else to know
+
+- The held-out test set was not touched; only the three development
+  mixes were searched, and generated excerpts. Nothing ran on the
+  candidate mixes of 0065 or the NAS root's broadcast file. The NAS was
+  only read (111 files copied with `cp -p`); `work/peaks` only read.
+- Slips, in brief 83: the shared panels' searches started before 0290
+  was written (one queue for every registered run); 0290 and 0291 were
+  first committed over 40 lines; B4's reading of "unrelated" was written
+  after the calibrate runs.

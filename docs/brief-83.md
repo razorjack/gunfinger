@@ -257,7 +257,7 @@ what a further test would need.
   0290 or 0291 (the "To adopt" column still holds). The decisions queue
   gains item 10 (close the item or register a revised test), since
   neither variant passed.
-- *(01:05)* A read-only review by a subagent recomputed the figures and
+- *(00:58)* A read-only review by a subagent recomputed the figures and
   found no figure error in the tables. It found: panel 1 described as 12
   scenarios of 4 families (it has 16 of 6; flags occur in 12 of 4); the
   00:00 reading of B4's "unrelated" was written after T's and a's
