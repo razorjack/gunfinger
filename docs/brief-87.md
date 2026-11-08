@@ -210,3 +210,11 @@ No bar is registered: the session measures and adopts nothing.
   and 1,022 pairs).
 - 07:42. Family figures are computed offline (`gunfinger-eval
   families`), so no report that `regress` compares changes.
+- 07:50. The key also reads the two frozen shared-material panels: each
+  family's recordings join at the relation tier. Four of their
+  relations are recorded nowhere else (Clockwork's, from experiment
+  0026 and ADR 0019; Fractles' and Watermelon's, from answers 35 and
+  36 of the answer log; The Nine's, from the notes after session 4),
+  and without them 0216's single family (Clockwork) would count as
+  two. Reading the validation families' recordings is a manifest read;
+  nothing of them is searched.

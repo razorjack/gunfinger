@@ -14,7 +14,10 @@
 //!   different (a verdict is written on a pair a search found sharing
 //!   material), and every stored clusters pair whose alignment covers
 //!   `REPORTED_COVERAGE` or more of the shorter file with `RELATED_HITS`
-//!   or more hits. Chains are followed here, unlike in scoring, so a
+//!   or more hits, and the recordings of each family of a shared-material
+//!   panel (`docs/panels/shared-material-*.json`), which records relations
+//!   judged outside the verdicts file (experiment 0026, answers in the
+//!   answer log, notes). Chains are followed here, unlike in scoring, so a
 //!   relation family can hold a remix and the remix's own remixes.
 //!   Coverage alone would chain chance alignments: it counts the span
 //!   from the first hit to the last, and most stored pairs over 20%
@@ -67,6 +70,32 @@ impl Joins {
                 self.related.push((pair.query.clone(), pair.found.clone()));
             }
         }
+    }
+}
+
+/// A shared-material panel as frozen: each family's recordings share a
+/// passage.
+#[derive(Deserialize)]
+struct SharedPanel {
+    families: Vec<SharedFamily>,
+}
+
+#[derive(Deserialize)]
+struct SharedFamily {
+    recordings: Vec<Vec<String>>,
+}
+
+impl Joins {
+    /// A shared-material panel's joins: each family's files as related.
+    pub fn add_shared_panel(&mut self, path: &Path) -> Result<(), String> {
+        let panel: SharedPanel = read_json(path)?;
+        for family in panel.families {
+            let files: Vec<String> = family.recordings.into_iter().flatten().collect();
+            for pair in files.windows(2) {
+                self.related.push((pair[0].clone(), pair[1].clone()));
+            }
+        }
+        Ok(())
     }
 }
 
@@ -676,6 +705,23 @@ mod tests {
         joins.add_clusters(&clusters);
         assert_eq!(joins.same_recording, pairs(&[("a", "b"), ("b", "c")]));
         assert_eq!(joins.related, pairs(&[("a", "r")]));
+    }
+
+    #[test]
+    fn a_shared_panel_relates_every_file_of_a_family() {
+        let dir = std::env::temp_dir().join(format!("gunfinger-panel-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let path = dir.join("shared-material.json");
+        std::fs::write(
+            &path,
+            r#"{"seed": 1, "families": [{"name": "f", "half": "validation", "recordings": [["a", "b"], ["c"]]}]}"#,
+        )
+        .unwrap();
+        let mut joins = Joins::default();
+        joins.add_shared_panel(&path).unwrap();
+        std::fs::remove_dir_all(&dir).unwrap();
+        assert_eq!(joins.related, pairs(&[("a", "b"), ("b", "c")]));
+        assert!(joins.same_recording.is_empty());
     }
 
     fn item(asset: &str, recalled: bool, mix: Option<usize>) -> Item {

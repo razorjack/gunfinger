@@ -122,6 +122,11 @@ pub struct FamiliesArgs {
     /// 86's library-wide clusters; the key names it among its sources.
     #[arg(long)]
     pub scratch_clusters: Option<PathBuf>,
+    /// Shared-material panels whose families relate their recordings
+    /// [default: shared-material-seed-2026.json and
+    /// shared-material-2-seed-2026.json in --panels, where they exist]
+    #[arg(long = "shared-panel")]
+    pub shared_panels: Vec<PathBuf>,
     /// Write the key here: every file a join names, with its family at
     /// each tier.
     #[arg(long)]
@@ -137,6 +142,7 @@ pub fn families(harness: &Harness, args: FamiliesArgs) -> Result<(), String> {
         reports,
         clusters_files,
         scratch_clusters,
+        shared_panels,
         out,
         summary,
     } = args;
@@ -175,6 +181,22 @@ pub fn families(harness: &Harness, args: FamiliesArgs) -> Result<(), String> {
             }
         }
         sources.push(format!("library map: {}", map.display()));
+    }
+    let shared_panels = if shared_panels.is_empty() {
+        [
+            "shared-material-seed-2026.json",
+            "shared-material-2-seed-2026.json",
+        ]
+        .iter()
+        .map(|name| harness.paths.panels.join(name))
+        .filter(|path| path.exists())
+        .collect()
+    } else {
+        shared_panels
+    };
+    for path in &shared_panels {
+        joins.add_shared_panel(path)?;
+        sources.push(format!("shared panel: {}", path.display()));
     }
     let verdicts = harness.verdicts()?;
     for (a, b, same) in verdicts.pairs() {

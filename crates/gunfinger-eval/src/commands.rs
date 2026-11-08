@@ -174,7 +174,8 @@ pub enum Command {
     /// `<stem>-rescored.json`, never over it, and what changed is printed.
     Rescore(saved_reports::RescoreArgs),
     /// Build the family key from stored relations (duplicate clusters, the
-    /// library map, the verdicts by ear and the same-title judgments) and
+    /// library map, the verdicts by ear, the same-title judgments and the
+    /// shared-material panels' families) and
     /// score saved `sweep`, `recall` or `mixes` reports by family: the
     /// distinct recording, title and relation families beside the item
     /// counts, recall and wrong answers weighted by item and by family,
