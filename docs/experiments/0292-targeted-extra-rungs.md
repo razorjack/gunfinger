@@ -1,12 +1,11 @@
 # 0292: targeted extra rungs (T1, T2): extra rungs over the gaps only, against the whole query
 
 **Question** (brief 84, registered in `0d2c4da`). Do extra rungs searched only where nothing is
-confident recover what the whole-query ladders recover, at almost no cost? **Method.**
-`--gap-rungs K` (`bd7d2a4`): stretches of 10 s or more no segment of a confident play covers,
-padded by 10 s, searched on the 4K rungs `--extra-rungs K` adds, joined by ADR 0021's second
-suppression. Arms L0, L1, L2 (`--extra-rungs`), T1, T2; seed 2026; queues A-D, every scored run
-exit 0; timing alone (03:07-03:18, L0 T1 L1 [T2 L2 L2 T2] L1 T1 L0, 32 workers, the saved
-index). Data: `data/0292-targeted-extra-rungs.json`.
+confident recover what whole-query ladders recover, at almost no cost? **Method.** `--gap-rungs K`
+(`bd7d2a4`): stretches of 10 s or more that no segment of a confident play covers, padded by 10 s,
+searched on the 4K rungs `--extra-rungs K` adds, joined by ADR 0021's second suppression. Arms L0,
+L1, L2, T1, T2; seed 2026; every scored run exit 0; timing alone (03:07-03:18, L0 T1 L1 [T2 L2 L2
+T2] L1 T1 L0, 32 workers). Data: `data/0292-targeted-extra-rungs.json`.
 
 | | L0 | L1 | T1 | L2 | T2 |
 |---|--:|--:|--:|--:|--:|
@@ -21,14 +20,11 @@ index). Data: `data/0292-targeted-extra-rungs.json`.
 | C5 robust, 262 (2,600): confident; wrong | 1,938; 0 | 1,938; 0 | 1,938; 0 | | |
 | C6 NAS CPU: Stakka 688.7 s, 2003 555.9, Nocny 883.5 | ×1 | ×1.047, 1.045, 1.046 | ×1.001, 1.000, 1.003 | ×1.095 | ×1.004 |
 
-C4's other plays: 108 (262) and 109 (NAS) of 116 under every arm; its one wrong answer (NAS, The
-Nine's Evol Intent VIP) is L0's too. C6's ranges lie within 0.8% of each median. T searches 0 s of
-Stakka and 2003 at NAS scale (no uncovered stretch of 10 s), 6.1% of Nocny; at 262 tracks 0, 39%
-and 54%. C3 under T1: no answer changes (63 of 720 NAS sweep queries gain only detections under 60
-hits); calibrate as L0 (262: 690, 100; NAS: 704, 282, 7 false accepted). T2 adds the bootleg of
-0227 (Cool Rock Stuff against "Cool Rock Shook Ones" at +5%, 268 hits; 7 → 8), as 0227 inferred;
-China Cup's case (seed 2027, 0230) was not run.
-**C4's losses.** The returning play (position 7 of 12) is always an edge play here and follows its
+C4's other plays: 108 (262) and 109 (NAS) of 116 in every arm; its one wrong answer (NAS) is L0's.
+C6's ranges lie within 0.8% of each median. T searches 0 s of Stakka and 2003 at NAS scale, 6.1%
+of Nocny; at 262 tracks 0, 39% and 54%. C3 under T1: no answer changes (63 of 720 NAS sweep queries
+gain only detections under 60 hits); calibrate as L0 (262: 690, 100; NAS: 704, 282). T2 adds 0227's
+bootleg (Cool Rock Stuff on "Cool Rock Shook Ones" at +5%, 268 hits), as 0227 inferred. **C4's losses.** The returning play (position 7 of 12) is always an edge play here and follows its
 confident first play by two plays, so `plays::group` joins the default's possible detection of it
 to that play (within 90 s) and its time counts as covered. 5 of T1's 8 losses against L1 at NAS
 scale are such plays; 3 are found more weakly over the gap (184 against 1,538 hits: chains across
