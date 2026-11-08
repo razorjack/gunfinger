@@ -2520,12 +2520,15 @@ the panels or the answer log. ADR 0014's rule stays the default.
   re-derived T = 11,904: 1.000% set aside; 20% with T unchanged: 1.350%.
   Against today's rule at the same grown index no confident file differs;
   642 (5%), 684 (20% T unchanged) and 178 (20% re-derived) of 720 queries
-  move, mostly fits; one weak confident detection moved by 36% of hits at
-  5%. Copies add postings, no hashes.
+  move, mostly fits; against its own ungrown arm today's rule moves 323
+  (5%) and 412 (20%) of 720, T kept 648 and 684, T re-derived 399; one
+  low-hit confident detection moved by 36% of hits at 5% with T kept.
+  Copies add postings, no hashes.
 - 262 tracks: T = 118; a prune of 12 drawn files (4.5% of the library):
   sweep queries identical after it, 229 under today's rule, 191 under T.
 - All four registered conditions hold (decisions queue item 11, with the
-  caveats). Recommendation: keep ADR 0014's rule unless prunes or their
+  caveats; condition 2's tracing was run for the sweep, 720 of 720 with
+  state A's lists, and is an inference for the scans). Recommendation: keep ADR 0014's rule unless prunes or their
   checks become a routine cost.
 
 ### Decided this session, open to change
@@ -2549,11 +2552,15 @@ still waits.
    `session-78-linux` and `session-78-linux-nas`; stores and the NAS
    clusters file unchanged (NAS `0bd3f0c23fabc698`, corpus
    `526a3b978eb3e411`, `c4d3da2e7e37...`).
-2. The scratch: `work/s88/queue.sh`, `queue2.sh`, `compare.sh`,
-   `refits.py`, `diff_arms.py`, `lists_cross.py`; reports in `work/s88/w/`,
-   `work/s88/wg/`, `work/s88/w262/`.
+2. The scratch: `work/s88/queue.sh`, `queue2.sh`, `trace.sh`,
+   `compare.sh`, `refits.py`, `diff_arms.py`, `lists_cross.py`; reports
+   in `work/s88/w/`, `work/s88/wg/`, `work/s88/w262/`.
+   `work/s88/cut-g20-keep.json` has `postings` set by hand to 2e9 to
+   force the "kept" branch of `after_growth`, for the 1.350% figure.
 3. Again: `gunfinger-eval --other-peaks-dir NAS set-aside-threshold --out
-   FILE [--after FILE]`; `--set-aside-from FILE` on any harness command;
+   FILE [--after FILE]`; `--set-aside-from FILE` on the commands that
+   search through `Matching::index` (sweep, scan, regress; `clusters`,
+   `parts` and `break-search` call `skipping_fullest` directly and ignore it);
    a prune replayed with `--replay-index OLD.index --replay-leave-out
    LIST`, in a scratch `--work` directory.
 
@@ -2562,8 +2569,8 @@ still waits.
 | Run | Time | Peak memory |
 |---|--:|--:|
 | `regress session-78-linux --strict` (off) | 1:54 | 0.3 GiB |
-| `regress session-78-linux-nas --strict` (off) | 9:04 | 5.4 GiB |
-| one replay arm (NAS regress, loaded index) | 7:53-9:16 | 5.5 GiB |
-| one growth sweep (build + 720 queries) | 5:07-7:48 | 5.1-6.1 GiB |
+| `regress session-78-linux-nas --strict` (off) | 9:04 | 5.2 GiB |
+| one replay arm (NAS regress, loaded index) | 7:53-9:15 | 5.2 GiB |
+| one growth sweep (build + 720 queries) | 5:07-7:48 | 4.9-5.8 GiB |
 
 The times are not product timings: two runs shared the machine.

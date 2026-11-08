@@ -211,3 +211,13 @@ Conservative choices, as they are taken:
   in the scratch directory (the queue created it later); they and the
   20% re-derived arm are rerun in `work/s88/queue2.sh`. Off-regressions
   (`off-262`, `off-nas`, `--strict`) identical with `s88-run`.
+- 09:55 A read-only review by a subagent recomputed the figures (all
+  agree) and found: condition 2's tracing clause not run; "growth moves
+  most queries" unsupported; R's prune-64 cut did not move (9,938); T was
+  derived after both prunes; "weak" misused for a low-hit confident
+  detection; and small document and test points. Taken: the tracing is
+  run (`sweep --set-aside-like` under the threshold, `work/s88/trace.sh`:
+  720 of 720, 2 lists); the growth text gives each rule against its own
+  ungrown arm; the mechanism text and the rest are corrected, tests
+  sharpened; condition 2's scans remain an inference.
+
