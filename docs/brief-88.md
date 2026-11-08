@@ -197,3 +197,13 @@ Conservative choices, as they are taken:
   decoded or searched as a query from them. The queries stay the three
   development mixes and the sweep's excerpts; 0065's listed candidate
   mixes are not run.
+- 08:42 The threshold from today's NAS index is T = 9,932 postings
+  (`work/indexes/library-nas-dnb-peaks.set-aside.json`, 10,865 of
+  1,086,456 lists, 1.000%). The replay is faithful: the index before
+  session 64's prune less the 12 files has the same lists as today's, and
+  less the 4 the same as the index before session 75's prune (digests in
+  `work/s88/logs/replay-*.log`; A's 1% cut would be 9,938, B's 9,938,
+  D's 9,932).
+- 08:43 For the 262-track replay, 12 corpus files named by no
+  development set's manifest and by no sweep panel, drawn with seed 88
+  (`work/s88/prune-262.txt`).
