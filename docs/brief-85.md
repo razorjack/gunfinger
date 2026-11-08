@@ -231,3 +231,35 @@ ADR. Failing closes the weight as a separator of shared material.
   record names (`copy_records.py`; all 109 present). Session 83 found
   those records equal to records made from byte copies, so the arm is
   the same; the report directory stays `library-other`.
+- *(04:59)* +109, panel 1: recount within 5% of the second pass's hits
+  for 92.1% of played and 94.2% of related detections; panel 2: 85.1%
+  and 79.1%, so the +109 pool (88.5% of played) fails the registration's
+  validity line of 90%. The misses are mostly `looped` and `break`
+  queries (228 of 287), over and under alike.
+- *(05:01)* Decision: a revised recount, stated before any NAS-scale
+  figure was read. The recount's reach of 48 frames around the line
+  through the detection's first hit takes in runs a beat away in a
+  looped drum passage (a beat at 170 BPM is about 22 frames), which the
+  second pass's reach of 24 frames around its fitted alignment does not.
+  The revision uses the second pass's 24 frames (`work/bin/s85-run2/`),
+  first on +109's panel 2 (`work/s85/w109b`). If it brings the played
+  detections to 90% or more, every run is repeated with it and the bars
+  are read on the revised runs; the first runs are reported beside them.
+  The bars, the weight and the cases do not change. (The queue's log
+  says "queue test2 done" before the run starts: a slip in the script's
+  order, not an exit.)
+- *(05:07)* The revised recount on +109's panel 2: played 89.4% within
+  5% (from 85.1%), related 81.8% (from 79.1%); S2 for `m` 0.523 against
+  0.526, the per-search reading the same. The revision reaches 90% for
+  neither role on that panel, so by the 05:01 decision the runs are not
+  repeated: the scored runs are the first (48 frames), the code stays
+  as committed in `38dce7d`, and the revision's figures are reported
+  beside them. The remaining differences are most likely the STFT's
+  other start sample (the second pass starts 10 s before its chain's
+  first hit, which the detection does not hold).
+- *(05:21)* With `work/bin/s85-run/` (= `38dce7d`): `regress
+  session-78-linux --strict` (2:55) and `regress session-78-linux-nas
+  --strict` (10:42, beside the scored runs) identical, 720 of 720 sweep
+  queries and every report equal apart from timing. Every +109 run and
+  NAS panel 2 exit 0. `rarity.py` read `recall`'s queries with the
+  query's fields nested; they are flattened in the report (fixed).

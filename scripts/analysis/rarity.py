@@ -104,7 +104,7 @@ def shared_sets(report, panel, cluster_of, tag):
 def recall_sets(report):
     right, wrong = [], []
     for q in report["queries"]:
-        for d in q["query"]["detections"]:
+        for d in q["detections"]:
             m = measured(d, kind=q["kind"], family=q["family"], query_set=report["query_set"],
                          confident=d["confident"])
             if m is None:
