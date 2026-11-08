@@ -455,3 +455,21 @@ did not change (the `gunfinger` binary is byte-identical to session
   identical with `--strict`; `docs/pair-verdicts.txt` and the NAS
   clusters file unchanged. A review by a subagent found no figure error
   and tightened the claims about families and validity.
+
+## 2026-11-08: session 86, a library-wide clustering in a scratch file, and break search as retrieval
+
+Brief `docs/brief-86.md`, checklist `docs/session-86-checklist.md`;
+notes "Session 86"; experiments 0295 and 0296. A measurement session:
+the product, the stores and the NAS clusters file did not change.
+
+- `clusters --library-wide` clustered every file of the NAS-scale index
+  into `work/s86/clusters/library-wide.json` in 36 minutes: 4,880
+  clusters, 4,665 of them NAS rips the clusters in use leave apart;
+  810 of their 811 joins are kept (0295).
+- With those clusters, break search's null holds (95th percentile 46
+  hits against 729), and with the key-locked rungs 63 of 66 expected
+  holders are found; precision over judged holders is undecided because
+  most holders are unjudged (0296). The pack
+  `work/s86/pack/07-breaks-s86.json` (32 questions) waits for the ear;
+  decisions queue item 4.
+
