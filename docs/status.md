@@ -499,3 +499,24 @@ change.
   version verifier's negatives on 4 (Fire 77-80%), the marked-play
   rules' shared plays on 1 (Clockwork); ADR 0021's rides on tens
   (0297).
+
+
+## 2026-11-08: session 88, a set-aside threshold by posting count
+
+Brief `docs/brief-88.md`, checklist `docs/session-88-checklist.md`;
+notes "Session 88"; experiment 0298. A measurement session: the
+product and the stores did not change; ADR 0014's rule stays the
+default.
+
+- `gunfinger-eval set-aside-threshold` and `--set-aside-from` apply a
+  fixed number of postings per list (T = 9,932 from today's NAS index),
+  and `--replay-index` and `--replay-leave-out` re-create a prune in
+  memory.
+- Over the prunes of sessions 64 and 75, T moved 13 of 1,440 sweep
+  comparisons against 32 under today's rule, with no confident file
+  changed under either; but T moved more in one of the two prunes and in
+  the scans' fits, and a list holding pruned postings can still cross T.
+- All four registered conditions hold; the decision is the user's
+  (decisions queue item 11). Our recommendation is to keep today's rule.
+- Final checks are in the notes, section "Session 88".
+

@@ -14,10 +14,10 @@ for scope and rules.
 
 ## Steps
 
-- [ ] 1. Pre-registration committed before the scored runs
-- [ ] 2. The variant, opt-in, tested; regressions identical with it off
-- [ ] 3. The runs at NAS scale and at 262 tracks
-- [ ] 4. Experiment 0298
-- [ ] 5. Roadmap (item and active queue item 11), decisions queue if an ADR is proposed
+- [x] 1. Pre-registration committed before the scored runs (`df1ce0e`)
+- [x] 2. The variant, opt-in, tested (`fa681d2`); `regress --strict` identical with it off at both scales
+- [x] 3. The runs at NAS scale and at 262 tracks
+- [x] 4. Experiment 0298 (`d60d618`)
+- [x] 5. Roadmap (item and active queue item 11), decisions queue item 11 (`d60d618`)
 - [ ] 6. Review by a subagent; fixes
 - [ ] 7. Wrap-up: notes, status, final checks, commit

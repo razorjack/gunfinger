@@ -111,6 +111,7 @@ that holds it.
 - "Session 85" (2026-11-08): hash-rarity weighting as a diagnostic score. `this file`
 - "Session 86" (2026-11-08): a library-wide clustering in a scratch file, and break search as retrieval. `this file`
 - "Session 87" (2026-11-08): results by recording family, and the split audit. `this file`
+- "Session 88" (2026-11-08): a set-aside threshold by posting count. `this file`
 
 
 ## Session 70
@@ -2475,3 +2476,94 @@ file and the answer log are at their start digests
 left as they were. A read-only review by a subagent recomputed every
 figure; its corrections were taken (brief 87, 08:00).
 
+## Session 88
+
+Brief `docs/brief-88.md` (the prompt, the registration, every decision),
+checklist `docs/session-88-checklist.md`, experiment 0298. A measurement
+session: the product did not change (`gunfinger` of `s88-run` is
+byte-identical to `s87-final`'s), nor the stores, the NAS clusters file,
+the panels or the answer log. ADR 0014's rule stays the default.
+
+### What changed
+
+- Harness, tested: `set_aside.rs` (`FixedCut`: a number of postings per
+  list, derived by reading it off `Index::skipping_fullest`, written as
+  JSON beside the saved index; `after_growth`, the rule that keeps it
+  until the whole index's postings have grown past 10%, stated in the
+  brief). `gunfinger-eval set-aside-threshold [--after FILE]` derives or
+  decides, and prints the share set aside and a digest of the files and
+  list lengths. `--set-aside-from FILE` applies it through
+  `Index::skipping_hashes` (reports `variant-set-aside-above-<postings>`).
+  `--replay-index FILE --replay-leave-out LIST` search a saved index by
+  its own provenance and leave named files out of the index searched, so a
+  prune is re-created in memory with no store written (the core is
+  unchanged). Off: `regress --strict` identical at both scales.
+- Documents: `AGENTS.md` (module map), roadmap (active queue item 11 and
+  the fullest-lists bullet), decisions queue item 11, experiment 0298.
+
+### Results (0298)
+
+- The threshold: T = 9,932 postings from today's whole NAS index, 10,865
+  of 1,086,456 lists (`work/indexes/library-nas-dnb-peaks.set-aside.json`).
+  The replay is exact: the index before session 64's prune less its 12
+  pruned files has today's lists; less the first 4 it has the lists of the
+  index before session 75's prune (digests).
+- Prune replays at NAS scale: under today's rule 7 and 25 of 720 sweep
+  queries move (0254 and 0278 agree after their 6 pruned files' own
+  candidates), under T 13 and 0; no confident file changes under either.
+  The scans' confident fits move 8 detections under today's rule and 15
+  under T (by at most 6.5e-6 and 3.5e-5 points), hits unchanged.
+- T does not stop a prune: a list holding pruned postings shortens and
+  crosses T (3 lists per prune in the whole index, 2 under the moving
+  cut). At the first prune T moved more sweep queries than today's rule.
+- Growth by exact copies, sweep only: 5%, T kept: 1.082% set aside; 20%,
+  re-derived T = 11,904: 1.000% set aside; 20% with T unchanged: 1.350%.
+  Against today's rule at the same grown index no confident file differs;
+  642 (5%), 684 (20% T unchanged) and 178 (20% re-derived) of 720 queries
+  move, mostly fits; one weak confident detection moved by 36% of hits at
+  5%. Copies add postings, no hashes.
+- 262 tracks: T = 118; a prune of 12 drawn files (4.5% of the library):
+  sweep queries identical after it, 229 under today's rule, 191 under T.
+- All four registered conditions hold (decisions queue item 11, with the
+  caveats). Recommendation: keep ADR 0014's rule unless prunes or their
+  checks become a routine cost.
+
+### Decided this session, open to change
+
+- The threshold is a sidecar beside the saved index, so that ADR 0011's
+  format stays; an adoption would move it into the header (format 2).
+- The growth limit is 10% (brief 88), simulated at 5% and 20%.
+- The replay's states are read from one file (A, the index before
+  session 64's prune) and its two prunes applied by leaving files out, so
+  all three states come from the same read (digests check them).
+- The review's corrections are noted in the brief.
+
+### Questions for listening (none answered by agents)
+
+None new. The pack of session 86 (`work/s86/pack/07-breaks-s86.json`)
+still waits.
+
+### Handoff for the next session
+
+1. Builds `work/bin/s88-final/` (master) and `s87-final`; baselines
+   `session-78-linux` and `session-78-linux-nas`; stores and the NAS
+   clusters file unchanged (NAS `0bd3f0c23fabc698`, corpus
+   `526a3b978eb3e411`, `c4d3da2e7e37...`).
+2. The scratch: `work/s88/queue.sh`, `queue2.sh`, `compare.sh`,
+   `refits.py`, `diff_arms.py`, `lists_cross.py`; reports in `work/s88/w/`,
+   `work/s88/wg/`, `work/s88/w262/`.
+3. Again: `gunfinger-eval --other-peaks-dir NAS set-aside-threshold --out
+   FILE [--after FILE]`; `--set-aside-from FILE` on any harness command;
+   a prune replayed with `--replay-index OLD.index --replay-leave-out
+   LIST`, in a scratch `--work` directory.
+
+### Times on the Linux machine (two lanes of 16 workers side by side)
+
+| Run | Time | Peak memory |
+|---|--:|--:|
+| `regress session-78-linux --strict` (off) | 1:54 | 0.3 GiB |
+| `regress session-78-linux-nas --strict` (off) | 9:04 | 5.4 GiB |
+| one replay arm (NAS regress, loaded index) | 7:53-9:16 | 5.5 GiB |
+| one growth sweep (build + 720 queries) | 5:07-7:48 | 5.1-6.1 GiB |
+
+The times are not product timings: two runs shared the machine.
