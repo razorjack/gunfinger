@@ -14,12 +14,12 @@ anything else:
    history, not live rules: the standing rules are collected in
    `docs/session-rules.md` (2026-11-05). Read an older brief only when a
    document points to it for a procedure, for example `docs/brief-64.md`
-   for a prune. The current session is 85: `docs/brief-85.md` and
-   `docs/session-85-checklist.md`, with experiment 0294 (and 0116,
-   0118, 0129, 0151, 0208, 0236, 0276-0277 and 0291), ADR 0014, the
-   roadmap's "A confidence statistic for shared
-   material" and "The filter and famous breaks", and
-   `docs/decisions-queue.md` item 7.
+   for a prune. The current session is 86: `docs/brief-86.md` and
+   `docs/session-86-checklist.md`, with experiments 0295-0296 (and
+   0049, 0158, 0169 and 0276-0277), the break-search note
+   `docs/research/2026-11-02-break-search.md`, the roadmap's active
+   queue item 10 and "The filter and famous breaks", and
+   `docs/decisions-queue.md` item 4.
 3. `docs/session-notes.md`: its index and the newest session's section
    (the handoff: baselines, store revision, builds, open questions);
    older sessions are in `docs/history/`, named in the index
