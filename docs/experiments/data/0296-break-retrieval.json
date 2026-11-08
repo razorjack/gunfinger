@@ -1,0 +1,1393 @@
+{
+ "turntable/all": {
+  "groups": {
+   "A": {
+    "queries": 12,
+    "recordings": 11,
+    "search_seconds_median": 5.7936144095,
+    "listed_median": 3.5,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.4375,
+    "at": {
+     "5": {
+      "listed": 39,
+      "relevant": 24,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.6153846153846154,
+      "relevant_share": 0.6153846153846154
+     },
+     "10": {
+      "listed": 48,
+      "relevant": 27,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5625,
+      "relevant_share": 0.5625
+     },
+     "20": {
+      "listed": 48,
+      "relevant": 27,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5625,
+      "relevant_share": 0.5625
+     }
+    },
+    "scored": 12,
+    "found": 10,
+    "in_20": 10,
+    "first": 6,
+    "first_5": 8,
+    "joined_to_query": 0,
+    "expected_hits_median": 76.0,
+    "missed": [
+     "watermelon-1",
+     "watermelon-2"
+    ]
+   },
+   "B": {
+    "queries": 7,
+    "recordings": 5,
+    "search_seconds_median": 8.423710833,
+    "listed_median": 2,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.0625,
+    "at": {
+     "5": {
+      "listed": 16,
+      "relevant": 15,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.9375,
+      "relevant_share": 0.9375
+     },
+     "10": {
+      "listed": 16,
+      "relevant": 15,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.9375,
+      "relevant_share": 0.9375
+     },
+     "20": {
+      "listed": 16,
+      "relevant": 15,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.9375,
+      "relevant_share": 0.9375
+     }
+    },
+    "scored": 7,
+    "found": 6,
+    "in_20": 6,
+    "first": 6,
+    "first_5": 6,
+    "joined_to_query": 0,
+    "expected_hits_median": 57.0,
+    "missed": [
+     "drum-loop-7"
+    ]
+   },
+   "C": {
+    "queries": 6,
+    "recordings": 1,
+    "search_seconds_median": 12.5129141605,
+    "listed_median": 124.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.8673323823109843,
+    "at": {
+     "5": {
+      "listed": 28,
+      "relevant": 20,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.7142857142857143,
+      "relevant_share": 0.7142857142857143
+     },
+     "10": {
+      "listed": 48,
+      "relevant": 28,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5833333333333334,
+      "relevant_share": 0.5833333333333334
+     },
+     "20": {
+      "listed": 88,
+      "relevant": 42,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.4772727272727273,
+      "relevant_share": 0.4772727272727273
+     }
+    },
+    "scored": 6,
+    "found": 6,
+    "in_20": 6,
+    "first": 6,
+    "first_5": 6,
+    "joined_to_query": 0,
+    "expected_hits_median": 77.5,
+    "missed": []
+   },
+   "D": {
+    "queries": 32,
+    "recordings": 32,
+    "search_seconds_median": 10.340175420000001,
+    "listed_median": 18.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.9655810510732791,
+    "at": {
+     "5": {
+      "listed": 138,
+      "relevant": 64,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.463768115942029,
+      "relevant_share": 0.463768115942029
+     },
+     "10": {
+      "listed": 243,
+      "relevant": 73,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.3004115226337449,
+      "relevant_share": 0.3004115226337449
+     },
+     "20": {
+      "listed": 410,
+      "relevant": 79,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.1926829268292683,
+      "relevant_share": 0.1926829268292683
+     }
+    },
+    "scored": 31,
+    "found": 31,
+    "in_20": 30,
+    "first": 14,
+    "first_5": 27,
+    "joined_to_query": 1,
+    "expected_hits_median": 64,
+    "missed": []
+   },
+   "E": {
+    "queries": 10,
+    "recordings": 8,
+    "search_seconds_median": 5.938762692499999,
+    "listed_median": 3.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.1875,
+    "at": {
+     "5": {
+      "listed": 32,
+      "relevant": 26,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.8125,
+      "relevant_share": 0.8125
+     },
+     "10": {
+      "listed": 32,
+      "relevant": 26,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.8125,
+      "relevant_share": 0.8125
+     },
+     "20": {
+      "listed": 32,
+      "relevant": 26,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.8125,
+      "relevant_share": 0.8125
+     }
+    },
+    "scored": 10,
+    "found": 8,
+    "in_20": 8,
+    "first": 8,
+    "first_5": 8,
+    "joined_to_query": 0,
+    "expected_hits_median": 99.5,
+    "missed": [
+     "phantom-force-5",
+     "phantom-force-6"
+    ]
+   },
+   "N1": {
+    "queries": 40,
+    "recordings": 40,
+    "search_seconds_median": 9.0798405205,
+    "listed_median": 0.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.9576470588235294,
+    "at": {
+     "5": {
+      "listed": 39,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.46153846153846156,
+      "relevant_share": 0.46153846153846156
+     },
+     "10": {
+      "listed": 59,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.3050847457627119,
+      "relevant_share": 0.3050847457627119
+     },
+     "20": {
+      "listed": 99,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.18181818181818182,
+      "relevant_share": 0.18181818181818182
+     }
+    },
+    "strongest_outside_median": 0.0,
+    "strongest_outside_max": 111,
+    "reaching_60s_outside": 0,
+    "strongest_outside_95th": 45,
+    "old_clusters": {
+     "strongest_outside_95th": 726,
+     "strongest_outside_median": 0.0,
+     "reaching_60s_outside": 0
+    }
+   },
+   "N2": {
+    "queries": 40,
+    "recordings": 40,
+    "search_seconds_median": 7.017408073,
+    "listed_median": 0.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.8113207547169812,
+    "at": {
+     "5": {
+      "listed": 44,
+      "relevant": 10,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.22727272727272727,
+      "relevant_share": 0.22727272727272727
+     },
+     "10": {
+      "listed": 52,
+      "relevant": 10,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.19230769230769232,
+      "relevant_share": 0.19230769230769232
+     },
+     "20": {
+      "listed": 53,
+      "relevant": 10,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.18867924528301888,
+      "relevant_share": 0.18867924528301888
+     }
+    },
+    "strongest_outside_median": 0.0,
+    "strongest_outside_max": 230,
+    "reaching_60s_outside": 2,
+    "strongest_outside_95th": 34,
+    "old_clusters": {
+     "strongest_outside_95th": 606,
+     "strongest_outside_median": 0.0,
+     "reaching_60s_outside": 2
+    }
+   }
+  },
+  "errors": [],
+  "positives": {
+   "scored": 66,
+   "found": 61,
+   "in_20": 60,
+   "first": 40,
+   "first_5": 55,
+   "joined_to_query": 1,
+   "expected_hits_median": 72,
+   "at": {
+    "5": {
+     "listed": 253,
+     "relevant": 149,
+     "unrelated": 0,
+     "precision_judged": 1.0,
+     "judged_share": 0.5889328063241107,
+     "relevant_share": 0.5889328063241107
+    },
+    "10": {
+     "listed": 387,
+     "relevant": 169,
+     "unrelated": 0,
+     "precision_judged": 1.0,
+     "judged_share": 0.43669250645994834,
+     "relevant_share": 0.43669250645994834
+    },
+    "20": {
+     "listed": 594,
+     "relevant": 189,
+     "unrelated": 0,
+     "precision_judged": 1.0,
+     "judged_share": 0.3181818181818182,
+     "relevant_share": 0.3181818181818182
+    }
+   },
+   "recordings": 56
+  },
+  "null_T": 45,
+  "T_below_expected_median": true
+ },
+ "turntable/filtered": {
+  "groups": {
+   "A": {
+    "queries": 12,
+    "recordings": 11,
+    "search_seconds_median": 1.474742049,
+    "listed_median": 3.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.45652173913043476,
+    "at": {
+     "5": {
+      "listed": 37,
+      "relevant": 22,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5945945945945946,
+      "relevant_share": 0.5945945945945946
+     },
+     "10": {
+      "listed": 46,
+      "relevant": 25,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5434782608695652,
+      "relevant_share": 0.5434782608695652
+     },
+     "20": {
+      "listed": 46,
+      "relevant": 25,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5434782608695652,
+      "relevant_share": 0.5434782608695652
+     }
+    },
+    "scored": 12,
+    "found": 10,
+    "in_20": 10,
+    "first": 6,
+    "first_5": 8,
+    "joined_to_query": 0,
+    "expected_hits_median": 68.0,
+    "missed": [
+     "watermelon-1",
+     "watermelon-2"
+    ]
+   },
+   "B": {
+    "queries": 7,
+    "recordings": 5,
+    "search_seconds_median": 1.485055948,
+    "listed_median": 2,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.0,
+    "at": {
+     "5": {
+      "listed": 15,
+      "relevant": 15,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 1.0,
+      "relevant_share": 1.0
+     },
+     "10": {
+      "listed": 15,
+      "relevant": 15,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 1.0,
+      "relevant_share": 1.0
+     },
+     "20": {
+      "listed": 15,
+      "relevant": 15,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 1.0,
+      "relevant_share": 1.0
+     }
+    },
+    "scored": 7,
+    "found": 6,
+    "in_20": 6,
+    "first": 6,
+    "first_5": 6,
+    "joined_to_query": 0,
+    "expected_hits_median": 43.0,
+    "missed": [
+     "drum-loop-7"
+    ]
+   },
+   "C": {
+    "queries": 6,
+    "recordings": 1,
+    "search_seconds_median": 2.0075522075,
+    "listed_median": 25.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.6049382716049383,
+    "at": {
+     "5": {
+      "listed": 21,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.8571428571428571,
+      "relevant_share": 0.8571428571428571
+     },
+     "10": {
+      "listed": 36,
+      "relevant": 27,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.75,
+      "relevant_share": 0.75
+     },
+     "20": {
+      "listed": 66,
+      "relevant": 45,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.6818181818181818,
+      "relevant_share": 0.6818181818181818
+     }
+    },
+    "scored": 6,
+    "found": 6,
+    "in_20": 6,
+    "first": 6,
+    "first_5": 6,
+    "joined_to_query": 0,
+    "expected_hits_median": 42.0,
+    "missed": []
+   },
+   "D": {
+    "queries": 32,
+    "recordings": 32,
+    "search_seconds_median": 2.0698342170000004,
+    "listed_median": 9.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.9065420560747663,
+    "at": {
+     "5": {
+      "listed": 127,
+      "relevant": 61,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.48031496062992124,
+      "relevant_share": 0.48031496062992124
+     },
+     "10": {
+      "listed": 213,
+      "relevant": 69,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.323943661971831,
+      "relevant_share": 0.323943661971831
+     },
+     "20": {
+      "listed": 341,
+      "relevant": 72,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.21114369501466276,
+      "relevant_share": 0.21114369501466276
+     }
+    },
+    "scored": 31,
+    "found": 28,
+    "in_20": 28,
+    "first": 13,
+    "first_5": 25,
+    "joined_to_query": 1,
+    "expected_hits_median": 49.0,
+    "missed": [
+     "parts-d-genotype-toxic",
+     "parts-heist---sentinels-warning",
+     "parts-01---omni-trio---nu-birth"
+    ]
+   },
+   "E": {
+    "queries": 10,
+    "recordings": 8,
+    "search_seconds_median": 1.217863056,
+    "listed_median": 3.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.038461538461538464,
+    "at": {
+     "5": {
+      "listed": 26,
+      "relevant": 25,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.9615384615384616,
+      "relevant_share": 0.9615384615384616
+     },
+     "10": {
+      "listed": 26,
+      "relevant": 25,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.9615384615384616,
+      "relevant_share": 0.9615384615384616
+     },
+     "20": {
+      "listed": 26,
+      "relevant": 25,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.9615384615384616,
+      "relevant_share": 0.9615384615384616
+     }
+    },
+    "scored": 10,
+    "found": 8,
+    "in_20": 8,
+    "first": 8,
+    "first_5": 8,
+    "joined_to_query": 0,
+    "expected_hits_median": 43.5,
+    "missed": [
+     "phantom-force-5",
+     "phantom-force-6"
+    ]
+   },
+   "N1": {
+    "queries": 40,
+    "recordings": 40,
+    "search_seconds_median": 1.717190517,
+    "listed_median": 0.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.8407079646017699,
+    "at": {
+     "5": {
+      "listed": 33,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5454545454545454,
+      "relevant_share": 0.5454545454545454
+     },
+     "10": {
+      "listed": 43,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.4186046511627907,
+      "relevant_share": 0.4186046511627907
+     },
+     "20": {
+      "listed": 63,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.2857142857142857,
+      "relevant_share": 0.2857142857142857
+     }
+    },
+    "strongest_outside_median": 0.0,
+    "strongest_outside_max": 62,
+    "reaching_60s_outside": 0,
+    "strongest_outside_95th": 26,
+    "old_clusters": {
+     "strongest_outside_95th": 577,
+     "strongest_outside_median": 0.0,
+     "reaching_60s_outside": 0
+    }
+   },
+   "N2": {
+    "queries": 40,
+    "recordings": 40,
+    "search_seconds_median": 1.6463828600000001,
+    "listed_median": 0.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.5238095238095238,
+    "at": {
+     "5": {
+      "listed": 21,
+      "relevant": 10,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.47619047619047616,
+      "relevant_share": 0.47619047619047616
+     },
+     "10": {
+      "listed": 21,
+      "relevant": 10,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.47619047619047616,
+      "relevant_share": 0.47619047619047616
+     },
+     "20": {
+      "listed": 21,
+      "relevant": 10,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.47619047619047616,
+      "relevant_share": 0.47619047619047616
+     }
+    },
+    "strongest_outside_median": 0.0,
+    "strongest_outside_max": 166,
+    "reaching_60s_outside": 1,
+    "strongest_outside_95th": 24,
+    "old_clusters": {
+     "strongest_outside_95th": 465,
+     "strongest_outside_median": 0.0,
+     "reaching_60s_outside": 1
+    }
+   }
+  },
+  "errors": [],
+  "positives": {
+   "scored": 66,
+   "found": 58,
+   "in_20": 58,
+   "first": 39,
+   "first_5": 53,
+   "joined_to_query": 1,
+   "expected_hits_median": 49.0,
+   "at": {
+    "5": {
+     "listed": 226,
+     "relevant": 141,
+     "unrelated": 0,
+     "precision_judged": 1.0,
+     "judged_share": 0.6238938053097345,
+     "relevant_share": 0.6238938053097345
+    },
+    "10": {
+     "listed": 336,
+     "relevant": 161,
+     "unrelated": 0,
+     "precision_judged": 1.0,
+     "judged_share": 0.4791666666666667,
+     "relevant_share": 0.4791666666666667
+    },
+    "20": {
+     "listed": 494,
+     "relevant": 182,
+     "unrelated": 0,
+     "precision_judged": 1.0,
+     "judged_share": 0.3684210526315789,
+     "relevant_share": 0.3684210526315789
+    }
+   },
+   "recordings": 56
+  },
+  "null_T": 26,
+  "T_below_expected_median": true
+ },
+ "both/all": {
+  "groups": {
+   "A": {
+    "queries": 12,
+    "recordings": 11,
+    "search_seconds_median": 12.082476328,
+    "listed_median": 3.5,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.4117647058823529,
+    "at": {
+     "5": {
+      "listed": 42,
+      "relevant": 27,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.6428571428571429,
+      "relevant_share": 0.6428571428571429
+     },
+     "10": {
+      "listed": 51,
+      "relevant": 30,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5882352941176471,
+      "relevant_share": 0.5882352941176471
+     },
+     "20": {
+      "listed": 51,
+      "relevant": 30,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5882352941176471,
+      "relevant_share": 0.5882352941176471
+     }
+    },
+    "scored": 12,
+    "found": 12,
+    "in_20": 12,
+    "first": 8,
+    "first_5": 10,
+    "joined_to_query": 0,
+    "expected_hits_median": 65.0,
+    "missed": []
+   },
+   "B": {
+    "queries": 7,
+    "recordings": 5,
+    "search_seconds_median": 17.658103488,
+    "listed_median": 2,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.0625,
+    "at": {
+     "5": {
+      "listed": 16,
+      "relevant": 15,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.9375,
+      "relevant_share": 0.9375
+     },
+     "10": {
+      "listed": 16,
+      "relevant": 15,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.9375,
+      "relevant_share": 0.9375
+     },
+     "20": {
+      "listed": 16,
+      "relevant": 15,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.9375,
+      "relevant_share": 0.9375
+     }
+    },
+    "scored": 7,
+    "found": 6,
+    "in_20": 6,
+    "first": 6,
+    "first_5": 6,
+    "joined_to_query": 0,
+    "expected_hits_median": 61.5,
+    "missed": [
+     "drum-loop-7"
+    ]
+   },
+   "C": {
+    "queries": 6,
+    "recordings": 1,
+    "search_seconds_median": 25.626208280500002,
+    "listed_median": 134.5,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.8733333333333333,
+    "at": {
+     "5": {
+      "listed": 29,
+      "relevant": 20,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.6896551724137931,
+      "relevant_share": 0.6896551724137931
+     },
+     "10": {
+      "listed": 49,
+      "relevant": 28,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5714285714285714,
+      "relevant_share": 0.5714285714285714
+     },
+     "20": {
+      "listed": 89,
+      "relevant": 42,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.47191011235955055,
+      "relevant_share": 0.47191011235955055
+     }
+    },
+    "scored": 6,
+    "found": 6,
+    "in_20": 6,
+    "first": 6,
+    "first_5": 6,
+    "joined_to_query": 0,
+    "expected_hits_median": 77.5,
+    "missed": []
+   },
+   "D": {
+    "queries": 32,
+    "recordings": 32,
+    "search_seconds_median": 21.096287892,
+    "listed_median": 21.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.9683168316831683,
+    "at": {
+     "5": {
+      "listed": 139,
+      "relevant": 65,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.4676258992805755,
+      "relevant_share": 0.4676258992805755
+     },
+     "10": {
+      "listed": 249,
+      "relevant": 73,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.2931726907630522,
+      "relevant_share": 0.2931726907630522
+     },
+     "20": {
+      "listed": 432,
+      "relevant": 78,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.18055555555555555,
+      "relevant_share": 0.18055555555555555
+     }
+    },
+    "scored": 31,
+    "found": 31,
+    "in_20": 30,
+    "first": 17,
+    "first_5": 28,
+    "joined_to_query": 1,
+    "expected_hits_median": 68,
+    "missed": []
+   },
+   "E": {
+    "queries": 10,
+    "recordings": 8,
+    "search_seconds_median": 12.57165706,
+    "listed_median": 3.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.21212121212121213,
+    "at": {
+     "5": {
+      "listed": 32,
+      "relevant": 26,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.8125,
+      "relevant_share": 0.8125
+     },
+     "10": {
+      "listed": 33,
+      "relevant": 26,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.7878787878787878,
+      "relevant_share": 0.7878787878787878
+     },
+     "20": {
+      "listed": 33,
+      "relevant": 26,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.7878787878787878,
+      "relevant_share": 0.7878787878787878
+     }
+    },
+    "scored": 10,
+    "found": 8,
+    "in_20": 8,
+    "first": 8,
+    "first_5": 8,
+    "joined_to_query": 0,
+    "expected_hits_median": 100.5,
+    "missed": [
+     "phantom-force-5",
+     "phantom-force-6"
+    ]
+   },
+   "N1": {
+    "queries": 40,
+    "recordings": 40,
+    "search_seconds_median": 19.157924965,
+    "listed_median": 0.5,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.9627329192546584,
+    "at": {
+     "5": {
+      "listed": 42,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.42857142857142855,
+      "relevant_share": 0.42857142857142855
+     },
+     "10": {
+      "listed": 62,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.2903225806451613,
+      "relevant_share": 0.2903225806451613
+     },
+     "20": {
+      "listed": 102,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.17647058823529413,
+      "relevant_share": 0.17647058823529413
+     }
+    },
+    "strongest_outside_median": 0.0,
+    "strongest_outside_max": 111,
+    "reaching_60s_outside": 0,
+    "strongest_outside_95th": 46,
+    "old_clusters": {
+     "strongest_outside_95th": 729,
+     "strongest_outside_median": 10.0,
+     "reaching_60s_outside": 0
+    }
+   },
+   "N2": {
+    "queries": 40,
+    "recordings": 40,
+    "search_seconds_median": 14.451476233000001,
+    "listed_median": 0.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.8611111111111112,
+    "at": {
+     "5": {
+      "listed": 51,
+      "relevant": 10,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.19607843137254902,
+      "relevant_share": 0.19607843137254902
+     },
+     "10": {
+      "listed": 62,
+      "relevant": 10,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.16129032258064516,
+      "relevant_share": 0.16129032258064516
+     },
+     "20": {
+      "listed": 72,
+      "relevant": 10,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.1388888888888889,
+      "relevant_share": 0.1388888888888889
+     }
+    },
+    "strongest_outside_median": 0.0,
+    "strongest_outside_max": 230,
+    "reaching_60s_outside": 2,
+    "strongest_outside_95th": 40,
+    "old_clusters": {
+     "strongest_outside_95th": 606,
+     "strongest_outside_median": 0.0,
+     "reaching_60s_outside": 2
+    }
+   }
+  },
+  "errors": [],
+  "positives": {
+   "scored": 66,
+   "found": 63,
+   "in_20": 62,
+   "first": 45,
+   "first_5": 58,
+   "joined_to_query": 1,
+   "expected_hits_median": 72,
+   "at": {
+    "5": {
+     "listed": 258,
+     "relevant": 153,
+     "unrelated": 0,
+     "precision_judged": 1.0,
+     "judged_share": 0.5930232558139535,
+     "relevant_share": 0.5930232558139535
+    },
+    "10": {
+     "listed": 398,
+     "relevant": 172,
+     "unrelated": 0,
+     "precision_judged": 1.0,
+     "judged_share": 0.4321608040201005,
+     "relevant_share": 0.4321608040201005
+    },
+    "20": {
+     "listed": 621,
+     "relevant": 191,
+     "unrelated": 0,
+     "precision_judged": 1.0,
+     "judged_share": 0.3075684380032206,
+     "relevant_share": 0.3075684380032206
+    }
+   },
+   "recordings": 56
+  },
+  "null_T": 46,
+  "T_below_expected_median": true
+ },
+ "both/filtered": {
+  "groups": {
+   "A": {
+    "queries": 12,
+    "recordings": 11,
+    "search_seconds_median": 3.078706724,
+    "listed_median": 3.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.45652173913043476,
+    "at": {
+     "5": {
+      "listed": 37,
+      "relevant": 22,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5945945945945946,
+      "relevant_share": 0.5945945945945946
+     },
+     "10": {
+      "listed": 46,
+      "relevant": 25,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5434782608695652,
+      "relevant_share": 0.5434782608695652
+     },
+     "20": {
+      "listed": 46,
+      "relevant": 25,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5434782608695652,
+      "relevant_share": 0.5434782608695652
+     }
+    },
+    "scored": 12,
+    "found": 10,
+    "in_20": 10,
+    "first": 6,
+    "first_5": 8,
+    "joined_to_query": 0,
+    "expected_hits_median": 68.0,
+    "missed": [
+     "watermelon-1",
+     "watermelon-2"
+    ]
+   },
+   "B": {
+    "queries": 7,
+    "recordings": 5,
+    "search_seconds_median": 3.067691242,
+    "listed_median": 2,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.0,
+    "at": {
+     "5": {
+      "listed": 15,
+      "relevant": 15,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 1.0,
+      "relevant_share": 1.0
+     },
+     "10": {
+      "listed": 15,
+      "relevant": 15,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 1.0,
+      "relevant_share": 1.0
+     },
+     "20": {
+      "listed": 15,
+      "relevant": 15,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 1.0,
+      "relevant_share": 1.0
+     }
+    },
+    "scored": 7,
+    "found": 6,
+    "in_20": 6,
+    "first": 6,
+    "first_5": 6,
+    "joined_to_query": 0,
+    "expected_hits_median": 45.0,
+    "missed": [
+     "drum-loop-7"
+    ]
+   },
+   "C": {
+    "queries": 6,
+    "recordings": 1,
+    "search_seconds_median": 3.9999792340000004,
+    "listed_median": 27.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.6285714285714286,
+    "at": {
+     "5": {
+      "listed": 21,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.8571428571428571,
+      "relevant_share": 0.8571428571428571
+     },
+     "10": {
+      "listed": 36,
+      "relevant": 27,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.75,
+      "relevant_share": 0.75
+     },
+     "20": {
+      "listed": 66,
+      "relevant": 45,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.6818181818181818,
+      "relevant_share": 0.6818181818181818
+     }
+    },
+    "scored": 6,
+    "found": 6,
+    "in_20": 6,
+    "first": 6,
+    "first_5": 6,
+    "joined_to_query": 0,
+    "expected_hits_median": 42.0,
+    "missed": []
+   },
+   "D": {
+    "queries": 32,
+    "recordings": 32,
+    "search_seconds_median": 4.2873821295,
+    "listed_median": 10.5,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.9110878661087866,
+    "at": {
+     "5": {
+      "listed": 130,
+      "relevant": 65,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5,
+      "relevant_share": 0.5
+     },
+     "10": {
+      "listed": 219,
+      "relevant": 72,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.3287671232876712,
+      "relevant_share": 0.3287671232876712
+     },
+     "20": {
+      "listed": 358,
+      "relevant": 76,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.2122905027932961,
+      "relevant_share": 0.2122905027932961
+     }
+    },
+    "scored": 31,
+    "found": 30,
+    "in_20": 30,
+    "first": 17,
+    "first_5": 27,
+    "joined_to_query": 1,
+    "expected_hits_median": 46.5,
+    "missed": [
+     "parts-heist---sentinels-warning"
+    ]
+   },
+   "E": {
+    "queries": 10,
+    "recordings": 8,
+    "search_seconds_median": 2.6074835050000003,
+    "listed_median": 3.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.10714285714285714,
+    "at": {
+     "5": {
+      "listed": 28,
+      "relevant": 25,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.8928571428571429,
+      "relevant_share": 0.8928571428571429
+     },
+     "10": {
+      "listed": 28,
+      "relevant": 25,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.8928571428571429,
+      "relevant_share": 0.8928571428571429
+     },
+     "20": {
+      "listed": 28,
+      "relevant": 25,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.8928571428571429,
+      "relevant_share": 0.8928571428571429
+     }
+    },
+    "scored": 10,
+    "found": 8,
+    "in_20": 8,
+    "first": 8,
+    "first_5": 8,
+    "joined_to_query": 0,
+    "expected_hits_median": 47.0,
+    "missed": [
+     "phantom-force-5",
+     "phantom-force-6"
+    ]
+   },
+   "N1": {
+    "queries": 40,
+    "recordings": 40,
+    "search_seconds_median": 3.5193283665,
+    "listed_median": 0.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.8548387096774194,
+    "at": {
+     "5": {
+      "listed": 34,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.5294117647058824,
+      "relevant_share": 0.5294117647058824
+     },
+     "10": {
+      "listed": 49,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.3673469387755102,
+      "relevant_share": 0.3673469387755102
+     },
+     "20": {
+      "listed": 70,
+      "relevant": 18,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.2571428571428571,
+      "relevant_share": 0.2571428571428571
+     }
+    },
+    "strongest_outside_median": 0.0,
+    "strongest_outside_max": 62,
+    "reaching_60s_outside": 0,
+    "strongest_outside_95th": 26,
+    "old_clusters": {
+     "strongest_outside_95th": 579,
+     "strongest_outside_median": 0.0,
+     "reaching_60s_outside": 0
+    }
+   },
+   "N2": {
+    "queries": 40,
+    "recordings": 40,
+    "search_seconds_median": 3.3504813095,
+    "listed_median": 0.0,
+    "unrelated_share": 0.0,
+    "unjudged_share": 0.6,
+    "at": {
+     "5": {
+      "listed": 25,
+      "relevant": 10,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.4,
+      "relevant_share": 0.4
+     },
+     "10": {
+      "listed": 25,
+      "relevant": 10,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.4,
+      "relevant_share": 0.4
+     },
+     "20": {
+      "listed": 25,
+      "relevant": 10,
+      "unrelated": 0,
+      "precision_judged": 1.0,
+      "judged_share": 0.4,
+      "relevant_share": 0.4
+     }
+    },
+    "strongest_outside_median": 0.0,
+    "strongest_outside_max": 166,
+    "reaching_60s_outside": 1,
+    "strongest_outside_95th": 28,
+    "old_clusters": {
+     "strongest_outside_95th": 466,
+     "strongest_outside_median": 0.0,
+     "reaching_60s_outside": 1
+    }
+   }
+  },
+  "errors": [],
+  "positives": {
+   "scored": 66,
+   "found": 60,
+   "in_20": 60,
+   "first": 43,
+   "first_5": 55,
+   "joined_to_query": 1,
+   "expected_hits_median": 49.0,
+   "at": {
+    "5": {
+     "listed": 231,
+     "relevant": 145,
+     "unrelated": 0,
+     "precision_judged": 1.0,
+     "judged_share": 0.6277056277056277,
+     "relevant_share": 0.6277056277056277
+    },
+    "10": {
+     "listed": 344,
+     "relevant": 164,
+     "unrelated": 0,
+     "precision_judged": 1.0,
+     "judged_share": 0.47674418604651164,
+     "relevant_share": 0.47674418604651164
+    },
+    "20": {
+     "listed": 513,
+     "relevant": 186,
+     "unrelated": 0,
+     "precision_judged": 1.0,
+     "judged_share": 0.36257309941520466,
+     "relevant_share": 0.36257309941520466
+    }
+   },
+   "recordings": 56
+  },
+  "null_T": 26,
+  "T_below_expected_median": true
+ }
+}
