@@ -216,6 +216,11 @@ copies of corpus files `library_map` finds and whose rips of the corpus
 recordings `clusters::find_around` finds; with it, the index is saved in
 `work/indexes/` and runs that leave files out remove them from the
 loaded index (ADR 0014).
+`set_aside` holds a set-aside threshold by posting count, a variant under
+measurement: `set-aside-threshold` derives it from the whole index and
+writes it beside the saved index, `--set-aside-from` applies it, and
+`--replay-index`, `--replay-leave-out` re-create a prune in memory from a
+saved index (session 88; ADR 0014's share stays the default).
 `audition` is the listening tool (below). `platform` names the
 system, for the few programs that only macOS or only Linux has (ADR
 0020).
