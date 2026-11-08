@@ -181,6 +181,11 @@ track), with every part, for `questions parts` to ask by ear.
 of the other library's files (`--second-records`, such as the repaired
 form of a rip with an inverted channel) and keeps, at the file, only the
 stronger of its two records' plays (brief 82).
+`gap_search` searches the stretches without a confident match again on
+extra rungs or the key-locked ladder alone and joins the two searches'
+detections with the core's `search::joined` (`--gap-rungs`,
+`--gap-key-lock`; brief 84); `mixes --playing` plays every second play
+of short mixes past the ladder's end or key-locked.
 `scan --leave-out-slots` leaves runs of named manifest slots out of the
 index, so that each run leaves a gap of known tracks.
 `mixes` generates mixes of library tracks with exact truth (`mixes

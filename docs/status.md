@@ -420,11 +420,15 @@ default of the product changed.
   `--gap-key-lock`; `gap_search.rs`).
 - Targeted extra rungs give the whole-query ladders' sweep recall query
   for query at ×1.000-1.003 of the default's CPU on the development
-  mixes at NAS scale (one extra rung pair over the whole mix ×1.045),
+  mixes at NAS scale (one extra rung pair over the whole mix ×1.045-1.047),
   but T1 fails its registration on generated edge mixes (returning
   plays count as covered) and T2 brings back the Cool Rock bootleg
   answer (0292).
 - Key lock over the turntable ladder's gaps passes its registration:
   the same answers for 0.56-0.58 times both ladders' CPU (0293;
   decisions queue item 9).
-- Final checks: see the notes' "Final checks".
+- Final checks with `work/bin/s84-final/`: `scripts/check.sh` green;
+  `regress session-78-linux` and `regress session-78-linux-nas`
+  identical with `--strict`; `docs/pair-verdicts.txt` and the NAS
+  clusters file unchanged. A review by a subagent found no code or
+  figure error and corrected several descriptions.

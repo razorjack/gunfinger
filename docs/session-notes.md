@@ -2045,15 +2045,15 @@ regressions are identical with the options off.
 
 ### Results
 
-- 0292: T1 and T2 recall exactly what L1 and L2 recall in every sweep
-  (edge speeds at both scales, other copies), keep the Siren Bass query
-  that both lose, and add fewer wrong possible answers; at NAS scale T1
+- 0292: T1 and T2 recall what L1 and L2 recall in every sweep (edge
+  speeds at both scales, other copies), plus the Siren Bass query that
+  both lose, with fewer wrong possible answers; at NAS scale T1
   costs ×1.000-1.003 of the default's CPU on the development scans (L1
   ×1.045-1.047), since the default leaves no stretch of 10 s uncovered
   in Stakka or 2003 and 6.1% of Nocny. T2 adds the Cool Rock bootleg
   answer. In generated edge mixes T1 recovers 50 of 92 plays past 8.4%
   at NAS scale against L1's 56 (G3 fails; at 262 tracks 44 and 44):
-  most losses are the returning play, whose possible detection joins the
+  6 of its 8 losses are the returning play, whose possible detection joins the
   confident play of its first appearance (`plays::group`, 90 s) and so
   counts as covered. Neither T1 nor T2 passes.
 - 0293: key lock over the gaps of the turntable ladder (G) passes: 97
@@ -2098,15 +2098,24 @@ regressions are identical with the options off.
    scans (`cpu/reports/`, `logs/cpu-*.json`, `logs/kcpu-*.json`), every
    log (`logs/`, `queue.log` has every exit line; status 3 marks the
    runs the wrapper held back or moved), the summaries (`summary/`), the
-   scripts (`py/`: `mixes_playing.py`, `mixes_pairs.py`,
-   `mix_stretches.py`, `sweep_diff.py`, `scan_diff.py`, `gap_share.py`,
-   `robust_rows.py`, `cpu.py`; the queues `queue-*.sh`, `arms.sh`,
-   `run.sh`). The renders are deleted; all of `work/s84/` is safe to
-   delete.
+   scripts (`py/`; the queues `queue-*.sh`, `arms.sh`,
+   `run.sh`); the scripts are committed as
+   `scripts/analysis/gap_search_*.py`. The renders are deleted; all of
+   `work/s84/` is safe to delete.
 
 ### Final checks
 
-(Filled in at the end of the session.)
+With `work/bin/s84-final/` (master; `gunfinger` `cf8393e36bad...`,
+`gunfinger-eval` `40922689951c...`): `scripts/check.sh` green (04:14,
+after the review's test fix); `regress session-78-linux --strict`
+(1:04) and `regress session-78-linux-nas --strict` (4:50) identical,
+720 of 720 sweep queries and every report equal apart from timing.
+`docs/pair-verdicts.txt`, the NAS clusters file and the answer log are at
+their start digests (`work/s84/listening-digests-end.txt`). A read-only
+review by a subagent found no code or figure error; its corrections to
+the descriptions (the returning plays among the losses, a reach figure,
+times in brief 84), a merge case in `gap_search.rs`'s test, the scripts
+and `AGENTS.md`'s module map were all taken (brief 84, 04:00).
 
 ### What else to know
 

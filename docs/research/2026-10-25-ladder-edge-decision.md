@@ -135,13 +135,15 @@ and searched again on the 4k extra rungs alone; the two searches'
 detections pass ADR 0021's second suppression together. Experiment 0292
 measured it beside L1 and L2 with today's build:
 
-- The sweeps match the estimate above: T1 and T2 recall exactly what L1
-  and L2 recall at every edge speed and both scales (reach 8.8% and
-  9.2%), keep the Siren Bass query that both wider ladders lose, and
+- The sweeps match the estimate above: T1 and T2 recall what L1 and L2
+  recall at every edge speed and both scales (reach 8.8% and 9.2% at 262
+  tracks; L2 and T2 reach 9.6% at NAS scale), plus the Siren Bass query
+  that both wider ladders lose, and
   give fewer wrong possible answers (C2: 24 and 26 against 29 and 34).
 - The cost is smaller than estimated on these mixes: at NAS scale the
   default leaves no uncovered stretch of 10 s in Stakka or 2003 and 6.1%
-  of Nocny, so T1 costs ×1.000-1.003 of the default's CPU (L1 ×1.045-1.047).
+  of Nocny, so T1 costs ×1.000-1.003 of the default's CPU (L1
+  ×1.045-1.047).
   Mixes with more unknown time cost more (at 262 tracks T would search
   39% of 2003 and 54% of Nocny).
 - T2 adds the Cool Rock bootleg answer, as inferred; T1 adds no wrong
@@ -149,7 +151,8 @@ measured it beside L1 and L2 with today's build:
 - New, in generated mixes with every second play 8-10% from native
   speed: T1 recovers 50 of 92 plays beyond 8.4% at NAS scale against
   L1's 56, which fails the registered allowance of 5 points (at 262
-  tracks 44 against 44). Most losses are the generator's returning play:
+  tracks 44 against 44). 6 of T1's 8 losses are the generator's
+  returning play:
   the default's possible detection of it joins the confident play of
   its first appearance (`plays::group`, within 90 s), so its time counts
   as covered and is not searched again.

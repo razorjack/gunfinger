@@ -109,7 +109,8 @@ Each session takes the first item it can do without a pending decision.
    0226-0230, session 51; then key lock) only over the stretches
    `gaps::uncovered` finds without a confident match.
    *Session 84 (0292, 0293):* built in the harness (`--gap-rungs`,
-   `--gap-key-lock`). T1 equals L1's sweep recall query for query at
+   `--gap-key-lock`). T1 gives L1's sweep recall, plus the Siren Bass
+   query L1 loses, at
    under 0.3% more CPU on the development mixes at NAS scale, but fails
    its registration on generated edge mixes (a confident play of the
    same file covers a returning play's time); T2 brings the Cool Rock
@@ -302,8 +303,9 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   pairs. One rip near -8% (Siren Bass's upload) loses its confident
   answer under every wider ladder (0251, 0252). The same rungs searched
   only over the gaps (`--gap-rungs`, 0292) give the wider ladders'
-  sweep recall query for query, keep the Siren Bass answer and cost
-  ×1.000-1.003 on the development mixes at NAS scale (L1 ×1.045); T1
+  sweep recall, plus the Siren Bass answer they lose, and cost
+  ×1.000-1.003 on the development mixes at NAS scale (L1
+  ×1.045-1.047); T1
   fails G3 at NAS scale (generated edge mixes: 50 of 92 edge plays
   against L1's 56, the losses mostly returning plays whose time a
   confident play of the same file covers), and T2 adds the Cool Rock

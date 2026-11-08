@@ -187,22 +187,16 @@ mod tests {
             detection(1, 30.0, 100.0, 900),
             detection(2, 105.0, 200.0, 900), // 5 s after the first: too short
             detection(3, 230.0, 300.0, 900), // 30 s after the second
-            detection(4, 310.0, 400.0, 900), // 10 s after: padded, it merges
+            detection(4, 310.0, 400.0, 900), // 10 s after: just long enough
             detection(5, 420.0, 500.0, 100), // possible: covers nothing
-            detection(6, 560.0, 590.0, 900),
+            detection(6, 560.0, 575.0, 900), // 15 s: the padded stretches merge
         ];
 
         let stretches = stretches(&detections, 600.0);
 
         assert_eq!(
             stretches,
-            [
-                (0.0, 40.0),
-                (190.0, 240.0),
-                (290.0, 320.0),
-                (390.0, 570.0),
-                (580.0, 600.0)
-            ]
+            [(0.0, 40.0), (190.0, 240.0), (290.0, 320.0), (390.0, 600.0)]
         );
     }
 

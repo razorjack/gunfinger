@@ -121,7 +121,7 @@ conservative option, write it down here and continue.
      scan, regress, robust, mixes, recall), in
      `crates/gunfinger-eval/src/gap_search.rs`. The core gains only a
      public form of the second suppression for detections without
-     chains (`search::strongest_per_moment_of`); the CLI does not change.
+     chains (`search::joined`); the CLI does not change.
    - `mixes --playing edge-speeds|key-locked` (short mixes): every
      second play at a speed 8-10% from native (either side, drawn), or
      key-locked at its drawn tempo; reports `mixes-edge-speeds-seed-S`
@@ -147,19 +147,19 @@ the gaps as a recorded next step.
 
 ## Decisions during the session
 
-- **(01:40) The gap search is a harness option over the matching
+- **(01:17, with the brief) The gap search is a harness option over the matching
   options, not a variant build.** It needs a second search after the
   first, which a profile patch cannot express, and the harness's
   commands then take it without change. Conservative: the product's
   code paths are untouched (the core gains one public function the
   harness calls).
-- **(01:40) Extra rungs extend both ladders**, as `--extra-rungs` and
+- **(01:17, with the brief) Extra rungs extend both ladders**, as `--extra-rungs` and
   session 51's T_k: with `--ladder both` (the default), T_k searches 4k
   rungs over the gaps.
-- **(01:40) T1 and T2 are measured; T3 only if time allows.** T1 is the
+- **(01:17, with the brief) T1 and T2 are measured; T3 only if time allows.** T1 is the
   variant session 51's estimate passed; T2 tests whether the known
   bootleg answer (0227) comes back, as the estimate inferred.
-- **(01:40) Generated mixes at the extremes need a new option** (above),
+- **(01:17, with the brief) Generated mixes at the extremes need a new option** (above),
   for short mixes only: they are quick to render and search, and each
   play's speed is in the truth.
 
@@ -287,7 +287,7 @@ registration and data these runs did not use.
 
 ## Decisions during the runs
 
-- **(02:05) Key lock's runs deferred until 0292 is written.** The first
+- **(02:00) Key lock's runs deferred until 0292 is written.** The first
   queues (`work/s84/queue-a.sh`, `queue-b.sh`) interleaved experiment
   0293's runs (G, K and B on key-locked mixes, `regress` with G, `robust`
   with K and G) with 0292's, against the rule that an experiment file is
@@ -299,10 +299,10 @@ registration and data these runs did not use.
   run again in `work/s84/queue-k.sh` after 0292 is committed. The timing
   scans are split the same way: C6 (`queue-cpu.sh`) and K2 (in
   `queue-k.sh`), each palindromic on its own.
-- **(02:20) Queue A split.** Run one after another, queue A's NAS-scale
+- **(02:17) Queue A split.** Run one after another, queue A's NAS-scale
   runs would end near 04:05. Its later runs (the NAS-scale edge mixes,
   then L2's and T2's other-copies sweeps) run in a parallel queue D
-  (`work/s84/queue-d.sh`, 16 workers) from 02:20, and the wrapper exits
+  (`work/s84/queue-d.sh`, 16 workers) from 02:17, and the wrapper exits
   with status 3 for queue A's copies of them. The 262-track edge mixes
   ran again in queue C after the report-name fix (`8d20d58`: the first
   reports were named `mixes-seed-2026.json`, without the label, and were
@@ -316,7 +316,17 @@ registration and data these runs did not use.
   left out (robust's key-lock conditions are at ±2-8%, which K misses
   past about 1% by 0009). Experiment 0292 was first committed at 44
   lines (`a7ba8b0`) and cut to 40 before key lock's runs started.
-- **(03:40) C5's key-lock part brought back.** Queue K ended at 03:39,
-  earlier than expected, so `robust` with K and G at 262 tracks runs
-  (`work/s84/queue-r.sh`) before 0293 is written; B's `robust` is L0's
+- **(03:36) C5's key-lock part brought back.** Queue K ended at 03:35,
+  earlier than expected, so `robust` with K and G at 262 tracks ran
+  (`work/s84/queue-r.sh`, 03:36-03:40) before 0293 was written; B's `robust` is L0's
   from 0292's runs (the same arm and behaviour).
+- **(04:00) The review's points taken.** A read-only review by a
+  subagent found no code or figure error. Its corrections: 0292 and 0293
+  undercounted the returning plays among the losses (6 of 8 and 6 of 7);
+  the ladder note's NAS-scale reach for L2 and T2 (9.6%); 0293's scans
+  keep their confident plays (2003's unmatched possible plays 3 → 2);
+  0292's sweep queries change below 60 hits both ways; the returning
+  play follows its first appearance by three plays; several times in
+  this brief; a merge case in `gap_search.rs`'s test; the analysis
+  scripts committed as `scripts/analysis/gap_search_*.py`; the module
+  in `AGENTS.md`.

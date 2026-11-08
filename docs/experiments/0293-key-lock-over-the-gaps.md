@@ -7,7 +7,7 @@ turntable ladder finds nothing confident, find what both ladders find, at the tu
 --playing key-locked --count 24` (seed 2026; every second play key-locked at its drawn tempo,
 ±6%; 109 key-locked and 116 turntable plays of indexed tracks); C3: `regress` with G; C5: `robust`
 at 262 tracks (B's is 0292's L0); K2: the development scans at NAS scale alone, B G K K G B, 32
-workers. Every run exit 0. Data: `data/0293-key-lock-over-the-gaps.json`.
+workers. Every run exit 0. Data: `data/0293-key-lock-over-the-gaps.json`; `gap_search_*.py`.
 
 | | B | K | G |
 |---|--:|--:|--:|
@@ -22,15 +22,15 @@ workers. Every run exit 0. Data: `data/0293-key-lock-over-the-gaps.json`.
 - K1's wrong answers are all The Nine's Evol Intent VIP (shared material, 0291), the same under
   B and G (two under K): none is new against B. K2's ranges lie within 0.3%. B costs 1.78-1.80
   times K; G searches T1's stretches (6.1% of Nocny at NAS scale), so it costs about K's CPU.
-- G loses 7 of B's key-locked plays at NAS scale and gains 2 (262: 5 and 3). At NAS scale 4 are
-  the returning play, key-locked here, whose time a confident play of the same file covers (as in
-  0292); 2 are short plays cut by a neighbour's confident play (472 hits in 2 windows against 474
-  in 3); in 1 the join drops K's confident detection (317 hits, 3 windows) for a stronger possible
-  one over the gap (426 hits, 2 windows, 0.4% apart): the suppression orders by hits alone.
-- C3: no confident sweep answer changes at either scale (NAS: 610 of 720 queries change below
-  the confident tier, 3 wrong possible answers fewer); the scans and leave-outs keep their plays;
-  calibrate as B (262: 690, 100; NAS: 704, 282). The scans' detections of 60 hits or more equal
-  K's, so their one-hit moves against the baseline come from the turntable ladder alone.
+- G loses 7 of B's key-locked plays at NAS scale and gains 2 (262: 5 and 3). 6 of the 7 are the
+  returning play (key-locked here): 3 whose time a confident play of the same file covers (as in
+  0292), 1 found more weakly over a partly covered stretch, 1 cut short by a neighbour (295 hits
+  in 2 windows against 299 in 3), and 1 where the join drops K's confident detection (317 hits, 3
+  windows) for a stronger possible one (426, 2 windows, 0.4% apart; the suppression orders by
+  hits alone); the 7th is a short play (472 in 2 windows against 474 in 3).
+- C3: no confident sweep answer changes at either scale (NAS: 610 of 720 queries change below the
+  confident tier); the scans and leave-outs keep their confident plays; calibrate as B. Their
+  detections of 60 hits or more equal K's: the one-hit moves come from the turntable ladder.
 **Against the registration.** K-G1 holds (97 and 94 against 99: 1.8 and 4.6 points, 5 allowed;
 every turntable play kept); K-W holds (K1, C3, C5); K-C holds (×0.56-0.58, at most 0.8 allowed).
 G passes (evidence for decisions queue item 9). **Conclusion.** Key lock searched only over the
