@@ -310,3 +310,9 @@ registration and data these runs did not use.
   `a0df0182f47d...`; the change is only the mixes report's name and
   field). The timing queue (`queue-cpu.sh`) starts once A, B and D are
   done (`work/s84/after.sh`).
+- **(03:20) Key lock scaled down.** The 3-hour aim ends near 04:10. Key
+  lock over the gaps runs in a reduced form: K1 at both scales, `regress`
+  with G at both scales and K2's timing; C5's `robust` with K and G is
+  left out (robust's key-lock conditions are at ±2-8%, which K misses
+  past about 1% by 0009). Experiment 0292 was first committed at 44
+  lines (`a7ba8b0`) and cut to 40 before key lock's runs started.
