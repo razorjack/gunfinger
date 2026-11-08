@@ -13,7 +13,18 @@ class Count(unittest.TestCase):
         rows = count(key, data)
         self.assertEqual(list(rows), ["plays.truth.asset"])
         self.assertEqual(rows["plays.truth.asset"],
-                         {"strings": 3, "files": 3, "recording": 2, "title": 2, "relation": 2})
+                         {"strings": 3, "files": 3, "recording": 2, "title": 2, "relation": 2,
+                          "ambiguous_names": 0})
+
+    def test_file_names_are_looked_up_by_their_last_component(self):
+        fams = lambda f: {"recording": f, "title": f, "relation": f}
+        key = {"x/a.mp3": fams("x/a.mp3"), "y/a-rip.mp3": fams("x/a.mp3"),
+               "p/same.mp3": fams("p/same.mp3"), "q/same.mp3": fams("q/same.mp3")}
+        rows = count(key, {"plays": ["a.mp3", "a-rip.mp3", "same.mp3"], "family": "f",
+                           "more": [{"family": "f"}, {"family": "g"}]})
+        self.assertEqual(rows["plays"]["relation"], 2)
+        self.assertEqual(rows["plays"]["ambiguous_names"], 1)
+        self.assertEqual(rows["more.family"], {"strings": 2, "labels": 2})
 
 
 if __name__ == "__main__":

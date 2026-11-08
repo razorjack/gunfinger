@@ -1,0 +1,1113 @@
+{
+ "key": {
+  "sources": [
+   "duplicate-clusters.json",
+   "duplicate-clusters.json",
+   "library-wide.json",
+   "library-map.json",
+   "shared-material-seed-2026.json",
+   "shared-material-2-seed-2026.json",
+   "pair-verdicts.txt",
+   "same-titles.txt"
+  ],
+  "files": 11946,
+  "with_scratch": {
+   "recording": {
+    "families_of_two_or_more": 4909,
+    "files": 11430,
+    "largest": 12
+   },
+   "title": {
+    "families_of_two_or_more": 4909,
+    "files": 11431,
+    "largest": 12
+   },
+   "relation": {
+    "families_of_two_or_more": 5074,
+    "files": 11946,
+    "largest": 23
+   }
+  },
+  "in_use": {
+   "recording": {
+    "families_of_two_or_more": 284,
+    "files": 1005,
+    "largest": 12
+   },
+   "title": {
+    "families_of_two_or_more": 284,
+    "files": 1006,
+    "largest": 12
+   },
+   "relation": {
+    "families_of_two_or_more": 285,
+    "files": 1057,
+    "largest": 22
+   }
+  }
+ },
+ "audit": {
+  "in_use": {
+   "recall": {
+    "sources": [
+     80,
+     80
+    ],
+    "split_key_overlap": 0,
+    "across": {
+     "recording": 0,
+     "title": 0,
+     "relation": 0
+    },
+    "within_development": {
+     "recording": 0,
+     "title": 0,
+     "relation": 0
+    },
+    "within_validation": {
+     "recording": 0,
+     "title": 0,
+     "relation": 0
+    }
+   },
+   "shared_1": {
+    "files": {
+     "development": 37,
+     "validation": 54
+    },
+    "across": {
+     "recording": 0,
+     "title": 0,
+     "relation": 0
+    }
+   },
+   "shared_2": {
+    "files": {
+     "development": 21,
+     "validation": 19
+    },
+    "across": {
+     "recording": 0,
+     "title": 0,
+     "relation": 0
+    }
+   },
+   "shared_1_against_2": {
+    "recording": 0,
+    "title": 0,
+    "relation": 0
+   },
+   "sweep": {
+    "sweep-seed-2026.json": {
+     "held_out_files": 53,
+     "beyond_left_out": [],
+     "held_out_draws_against_indexed_draws": {
+      "recording": 0,
+      "title": 0,
+      "relation": 0
+     }
+    },
+    "sweep-seed-2027.json": {
+     "held_out_files": 53,
+     "beyond_left_out": [],
+     "held_out_draws_against_indexed_draws": {
+      "recording": 0,
+      "title": 0,
+      "relation": 2
+     }
+    },
+    "sweep-seed-2028.json": {
+     "held_out_files": 55,
+     "beyond_left_out": [
+      {
+       "left_out": "Bad Company - China Cup.mp3",
+       "tier": "title",
+       "still_indexed": [
+        "ƆƐI3C - China Cup.opus"
+       ]
+      },
+      {
+       "left_out": "02. Bad Company - China Cup.mp3",
+       "tier": "title",
+       "still_indexed": [
+        "ƆƐI3C - China Cup.opus"
+       ]
+      },
+      {
+       "left_out": "b-bad_company-china_cup.mp3",
+       "tier": "title",
+       "still_indexed": [
+        "ƆƐI3C - China Cup.opus"
+       ]
+      }
+     ],
+     "held_out_draws_against_indexed_draws": {
+      "recording": 0,
+      "title": 0,
+      "relation": 2
+     }
+    },
+    "sweep-seed-2029.json": {
+     "held_out_files": 52,
+     "beyond_left_out": [],
+     "held_out_draws_against_indexed_draws": {
+      "recording": 0,
+      "title": 0,
+      "relation": 0
+     }
+    },
+    "sweep-seed-7.json": {
+     "held_out_files": 52,
+     "beyond_left_out": [],
+     "held_out_draws_against_indexed_draws": {
+      "recording": 0,
+      "title": 0,
+      "relation": 0
+     }
+    }
+   },
+   "shared_mixes": {
+    "shared-mixes-s21.json": 0,
+    "shared-mixes-s21-rips.json": 0
+   }
+  },
+  "with_scratch": {
+   "recall": {
+    "sources": [
+     80,
+     80
+    ],
+    "split_key_overlap": 0,
+    "across": {
+     "recording": 0,
+     "title": 0,
+     "relation": 0
+    },
+    "within_development": {
+     "recording": 0,
+     "title": 0,
+     "relation": 0
+    },
+    "within_validation": {
+     "recording": 0,
+     "title": 0,
+     "relation": 0
+    }
+   },
+   "shared_1": {
+    "files": {
+     "development": 37,
+     "validation": 54
+    },
+    "across": {
+     "recording": 0,
+     "title": 0,
+     "relation": 0
+    }
+   },
+   "shared_2": {
+    "files": {
+     "development": 21,
+     "validation": 19
+    },
+    "across": {
+     "recording": 0,
+     "title": 0,
+     "relation": 0
+    }
+   },
+   "shared_1_against_2": {
+    "recording": 0,
+    "title": 0,
+    "relation": 0
+   },
+   "sweep": {
+    "sweep-seed-2026.json": {
+     "held_out_files": 53,
+     "beyond_left_out": [],
+     "held_out_draws_against_indexed_draws": {
+      "recording": 0,
+      "title": 0,
+      "relation": 0
+     }
+    },
+    "sweep-seed-2027.json": {
+     "held_out_files": 53,
+     "beyond_left_out": [],
+     "held_out_draws_against_indexed_draws": {
+      "recording": 0,
+      "title": 0,
+      "relation": 2
+     }
+    },
+    "sweep-seed-2028.json": {
+     "held_out_files": 55,
+     "beyond_left_out": [
+      {
+       "left_out": "Bad Company - China Cup.mp3",
+       "tier": "title",
+       "still_indexed": [
+        "ƆƐI3C - China Cup.opus"
+       ]
+      },
+      {
+       "left_out": "02. Bad Company - China Cup.mp3",
+       "tier": "title",
+       "still_indexed": [
+        "ƆƐI3C - China Cup.opus"
+       ]
+      },
+      {
+       "left_out": "b-bad_company-china_cup.mp3",
+       "tier": "title",
+       "still_indexed": [
+        "ƆƐI3C - China Cup.opus"
+       ]
+      }
+     ],
+     "held_out_draws_against_indexed_draws": {
+      "recording": 0,
+      "title": 0,
+      "relation": 2
+     }
+    },
+    "sweep-seed-2029.json": {
+     "held_out_files": 52,
+     "beyond_left_out": [],
+     "held_out_draws_against_indexed_draws": {
+      "recording": 0,
+      "title": 0,
+      "relation": 0
+     }
+    },
+    "sweep-seed-7.json": {
+     "held_out_files": 52,
+     "beyond_left_out": [],
+     "held_out_draws_against_indexed_draws": {
+      "recording": 0,
+      "title": 0,
+      "relation": 0
+     }
+    }
+   },
+   "shared_mixes": {
+    "shared-mixes-s21.json": 0,
+    "shared-mixes-s21-rips.json": 0
+   }
+  }
+ },
+ "reread": [
+  {
+   "experiment": "0091",
+   "decision": "ADR 0019",
+   "items": "0076 passages, played file indexed (by played file)",
+   "count": 92,
+   "families": 5,
+   "recording_families": 15,
+   "largest_share": 0.587,
+   "by": "file"
+  },
+  {
+   "experiment": "0107",
+   "decision": "ADR 0019",
+   "items": "sweeps (NAS): possible plays left out (by confident play's file)",
+   "count": 73,
+   "families": 7,
+   "recording_families": 7,
+   "largest_share": 0.37,
+   "by": "file"
+  },
+  {
+   "experiment": "0107",
+   "decision": "ADR 0019",
+   "items": "recall (NAS): possible plays left out (by confident play's file)",
+   "count": 55,
+   "families": 1,
+   "recording_families": 6,
+   "largest_share": 1.0,
+   "by": "file"
+  },
+  {
+   "experiment": "0175",
+   "decision": "ADR 0021",
+   "items": "seed 3521: lost sides, no detection",
+   "count": 93,
+   "families": 76,
+   "recording_families": 77,
+   "largest_share": 0.043,
+   "by": "file"
+  },
+  {
+   "experiment": "0175",
+   "decision": "ADR 0021",
+   "items": "seed 3522: lost sides, no detection",
+   "count": 99,
+   "families": 80,
+   "recording_families": 81,
+   "largest_share": 0.03,
+   "by": "file"
+  },
+  {
+   "experiment": "0188",
+   "decision": "ADR 0022",
+   "items": "false detections (by query file)",
+   "count": 84,
+   "families": 34,
+   "recording_families": 35,
+   "largest_share": 0.119,
+   "by": "file"
+  },
+  {
+   "experiment": "0230",
+   "decision": "ADR 0022",
+   "items": "seed 2027, L5: new wrong confident",
+   "count": 10,
+   "families": 1,
+   "recording_families": 2,
+   "largest_share": 1.0,
+   "by": "file"
+  },
+  {
+   "experiment": "0232",
+   "decision": "ADR 0021",
+   "items": "NAS 2003 scan: plays added",
+   "count": 13,
+   "families": 12,
+   "recording_families": 12,
+   "largest_share": 0.154,
+   "by": "file"
+  },
+  {
+   "experiment": "0116",
+   "decision": "shared rules",
+   "items": "wrong related, played left out (by played)",
+   "count": 87,
+   "families": 4,
+   "recording_families": null,
+   "largest_share": 0.77,
+   "by": "label"
+  },
+  {
+   "experiment": "0116",
+   "decision": "shared rules",
+   "items": "true drawn plays, played left out",
+   "count": 438,
+   "families": 138,
+   "recording_families": 138,
+   "largest_share": 0.05,
+   "by": "file"
+  },
+  {
+   "experiment": "0118",
+   "decision": "shared rules",
+   "items": "wrong related, played left out (by played)",
+   "count": 87,
+   "families": 4,
+   "recording_families": null,
+   "largest_share": 0.77,
+   "by": "label"
+  },
+  {
+   "experiment": "0118",
+   "decision": "shared rules",
+   "items": "true plays through other rips, played left out",
+   "count": 277,
+   "families": 112,
+   "recording_families": 112,
+   "largest_share": 0.061,
+   "by": "file"
+  },
+  {
+   "experiment": "0124",
+   "decision": "shared rules",
+   "items": "negatives",
+   "count": 312,
+   "families": 4,
+   "recording_families": null,
+   "largest_share": 0.795,
+   "by": "label"
+  },
+  {
+   "experiment": "0124",
+   "decision": "shared rules",
+   "items": "positives",
+   "count": 75,
+   "families": 4,
+   "recording_families": null,
+   "largest_share": 0.467,
+   "by": "label"
+  },
+  {
+   "experiment": "0134",
+   "decision": "shared rules",
+   "items": "E1: true plays, development mixes",
+   "count": 108,
+   "families": 40,
+   "recording_families": 40,
+   "largest_share": 0.056,
+   "by": "file"
+  },
+  {
+   "experiment": "0134",
+   "decision": "shared rules",
+   "items": "E2: wrong related (by played)",
+   "count": 87,
+   "families": 4,
+   "recording_families": null,
+   "largest_share": 0.77,
+   "by": "label"
+  },
+  {
+   "experiment": "0215",
+   "decision": "shared rules",
+   "items": "262-2026: shared plays (by marked file)",
+   "count": 33,
+   "families": 1,
+   "recording_families": 2,
+   "largest_share": 1.0,
+   "by": "file"
+  },
+  {
+   "experiment": "0215",
+   "decision": "shared rules",
+   "items": "262-2026: unrelated playing (by marked file)",
+   "count": 21,
+   "families": 18,
+   "recording_families": 18,
+   "largest_share": 0.095,
+   "by": "file"
+  },
+  {
+   "experiment": "0215",
+   "decision": "shared rules",
+   "items": "262-2028: shared plays (by marked file)",
+   "count": 31,
+   "families": 1,
+   "recording_families": 2,
+   "largest_share": 1.0,
+   "by": "file"
+  },
+  {
+   "experiment": "0215",
+   "decision": "shared rules",
+   "items": "262-2028: unrelated playing (by marked file)",
+   "count": 20,
+   "families": 16,
+   "recording_families": 16,
+   "largest_share": 0.2,
+   "by": "file"
+  },
+  {
+   "experiment": "0215",
+   "decision": "shared rules",
+   "items": "nas-2026: shared plays (by marked file)",
+   "count": 51,
+   "families": 1,
+   "recording_families": 2,
+   "largest_share": 1.0,
+   "by": "file"
+  },
+  {
+   "experiment": "0215",
+   "decision": "shared rules",
+   "items": "nas-2026: unrelated playing (by marked file)",
+   "count": 34,
+   "families": 20,
+   "recording_families": 20,
+   "largest_share": 0.118,
+   "by": "file"
+  },
+  {
+   "experiment": "0215",
+   "decision": "shared rules",
+   "items": "nas-2028: shared plays (by marked file)",
+   "count": 50,
+   "families": 1,
+   "recording_families": 2,
+   "largest_share": 1.0,
+   "by": "file"
+  },
+  {
+   "experiment": "0215",
+   "decision": "shared rules",
+   "items": "nas-2028: unrelated playing (by marked file)",
+   "count": 37,
+   "families": 17,
+   "recording_families": 17,
+   "largest_share": 0.243,
+   "by": "file"
+  },
+  {
+   "experiment": "0216",
+   "decision": "shared rules",
+   "items": "262-2032: shared plays (by marked file)",
+   "count": 34,
+   "families": 1,
+   "recording_families": 2,
+   "largest_share": 1.0,
+   "by": "file"
+  },
+  {
+   "experiment": "0216",
+   "decision": "shared rules",
+   "items": "262-2032: unrelated playing (by marked file)",
+   "count": 15,
+   "families": 12,
+   "recording_families": 12,
+   "largest_share": 0.267,
+   "by": "file"
+  },
+  {
+   "experiment": "0216",
+   "decision": "shared rules",
+   "items": "262-2034: shared plays (by marked file)",
+   "count": 35,
+   "families": 1,
+   "recording_families": 2,
+   "largest_share": 1.0,
+   "by": "file"
+  },
+  {
+   "experiment": "0216",
+   "decision": "shared rules",
+   "items": "262-2034: unrelated playing (by marked file)",
+   "count": 19,
+   "families": 12,
+   "recording_families": 12,
+   "largest_share": 0.263,
+   "by": "file"
+  },
+  {
+   "experiment": "0216",
+   "decision": "shared rules",
+   "items": "nas-2032: shared plays (by marked file)",
+   "count": 59,
+   "families": 1,
+   "recording_families": 2,
+   "largest_share": 1.0,
+   "by": "file"
+  },
+  {
+   "experiment": "0216",
+   "decision": "shared rules",
+   "items": "nas-2032: unrelated playing (by marked file)",
+   "count": 30,
+   "families": 13,
+   "recording_families": 13,
+   "largest_share": 0.267,
+   "by": "file"
+  },
+  {
+   "experiment": "0216",
+   "decision": "shared rules",
+   "items": "nas-2034: shared plays (by marked file)",
+   "count": 58,
+   "families": 1,
+   "recording_families": 2,
+   "largest_share": 1.0,
+   "by": "file"
+  },
+  {
+   "experiment": "0216",
+   "decision": "shared rules",
+   "items": "nas-2034: unrelated playing (by marked file)",
+   "count": 41,
+   "families": 14,
+   "recording_families": 14,
+   "largest_share": 0.244,
+   "by": "file"
+  },
+  {
+   "experiment": "0255",
+   "decision": "0255-0275",
+   "items": "rows (by quiet record b)",
+   "count": 115,
+   "families": 70,
+   "recording_families": 71,
+   "largest_share": 0.165,
+   "by": "file"
+  },
+  {
+   "experiment": "0256",
+   "decision": "0255-0275",
+   "items": "rows (by quiet record b)",
+   "count": 113,
+   "families": 75,
+   "recording_families": 76,
+   "largest_share": 0.15,
+   "by": "file"
+  },
+  {
+   "experiment": "0257",
+   "decision": "0255-0275",
+   "items": "rows (by quiet record b)",
+   "count": 115,
+   "families": 70,
+   "recording_families": 71,
+   "largest_share": 0.165,
+   "by": "file"
+  },
+  {
+   "experiment": "0258",
+   "decision": "0255-0275",
+   "items": "rows (by quiet record b)",
+   "count": 113,
+   "families": 75,
+   "recording_families": 76,
+   "largest_share": 0.15,
+   "by": "file"
+  },
+  {
+   "experiment": "0263",
+   "decision": "0255-0275",
+   "items": "flagged files",
+   "count": 5,
+   "families": 5,
+   "recording_families": 5,
+   "largest_share": 0.2,
+   "by": "file"
+  },
+  {
+   "experiment": "0265",
+   "decision": "0255-0275",
+   "items": "minimal recipes (by target)",
+   "count": 12,
+   "families": 11,
+   "recording_families": 11,
+   "largest_share": 0.167,
+   "by": "file"
+  },
+  {
+   "experiment": "0264",
+   "decision": "0255-0275",
+   "items": "NAS wrong answers (by wrong file)",
+   "count": 4,
+   "families": 2,
+   "recording_families": 2,
+   "largest_share": 0.75,
+   "by": "file"
+  },
+  {
+   "experiment": "0266",
+   "decision": "0255-0275",
+   "items": "NAS wrong answers (by wrong file)",
+   "count": 4,
+   "families": 2,
+   "recording_families": 2,
+   "largest_share": 0.75,
+   "by": "file"
+  }
+ ],
+ "scored": [
+  {
+   "report": "sweep-seed-2026.json",
+   "resampled": "family",
+   "indexed": {
+    "families": {
+     "recording": 59,
+     "title": 59,
+     "relation": 58
+    },
+    "mixes": 0,
+    "rate": {
+     "items": 540,
+     "count": 540,
+     "item_weighted": 1.0,
+     "family_weighted": 1.0,
+     "item_weighted_interval": [
+      1.0,
+      1.0
+     ],
+     "family_weighted_interval": [
+      1.0,
+      1.0
+     ]
+    },
+    "items": 540,
+    "wrong": {
+     "items": 540,
+     "count": 0,
+     "item_weighted": 0.0,
+     "family_weighted": 0.0,
+     "item_weighted_interval": [
+      0.0,
+      0.0
+     ],
+     "family_weighted_interval": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "held_out": {
+    "families": {
+     "recording": 20,
+     "title": 20,
+     "relation": 20
+    },
+    "mixes": 0,
+    "rate": {
+     "items": 180,
+     "count": 7,
+     "item_weighted": 0.03888888888888889,
+     "family_weighted": 0.03888888888888889,
+     "item_weighted_interval": [
+      0.0,
+      0.11666666666666667
+     ],
+     "family_weighted_interval": [
+      0.0,
+      0.11666666666666667
+     ]
+    },
+    "items": 180
+   }
+  },
+  {
+   "report": "recall-seed-2026.json",
+   "resampled": "family",
+   "indexed": {
+    "families": {
+     "recording": 58,
+     "title": 58,
+     "relation": 58
+    },
+    "mixes": 0,
+    "rate": {
+     "items": 522,
+     "count": 522,
+     "item_weighted": 1.0,
+     "family_weighted": 1.0,
+     "item_weighted_interval": [
+      1.0,
+      1.0
+     ],
+     "family_weighted_interval": [
+      1.0,
+      1.0
+     ]
+    },
+    "items": 522,
+    "wrong": {
+     "items": 522,
+     "count": 0,
+     "item_weighted": 0.0,
+     "family_weighted": 0.0,
+     "item_weighted_interval": [
+      0.0,
+      0.0
+     ],
+     "family_weighted_interval": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "held_out": {
+    "families": {
+     "recording": 20,
+     "title": 20,
+     "relation": 20
+    },
+    "mixes": 0,
+    "rate": {
+     "items": 180,
+     "count": 0,
+     "item_weighted": 0.0,
+     "family_weighted": 0.0,
+     "item_weighted_interval": [
+      0.0,
+      0.0
+     ],
+     "family_weighted_interval": [
+      0.0,
+      0.0
+     ]
+    },
+    "items": 180
+   }
+  },
+  {
+   "report": "recall-seed-2026-brief.json",
+   "resampled": "family",
+   "indexed": {
+    "families": {
+     "recording": 58,
+     "title": 58,
+     "relation": 58
+    },
+    "mixes": 0,
+    "rate": {
+     "items": 1044,
+     "count": 721,
+     "item_weighted": 0.6906130268199234,
+     "family_weighted": 0.6906130268199236,
+     "item_weighted_interval": [
+      0.6676245210727969,
+      0.7155172413793104
+     ],
+     "family_weighted_interval": [
+      0.6676245210727975,
+      0.7155172413793104
+     ]
+    },
+    "items": 1044,
+    "wrong": {
+     "items": 1044,
+     "count": 0,
+     "item_weighted": 0.0,
+     "family_weighted": 0.0,
+     "item_weighted_interval": [
+      0.0,
+      0.0
+     ],
+     "family_weighted_interval": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "held_out": {
+    "families": {
+     "recording": 20,
+     "title": 20,
+     "relation": 20
+    },
+    "mixes": 0,
+    "rate": {
+     "items": 360,
+     "count": 0,
+     "item_weighted": 0.0,
+     "family_weighted": 0.0,
+     "item_weighted_interval": [
+      0.0,
+      0.0
+     ],
+     "family_weighted_interval": [
+      0.0,
+      0.0
+     ]
+    },
+    "items": 360
+   }
+  },
+  {
+   "report": "recall-seed-2026-other-rips.json",
+   "resampled": "family",
+   "indexed": {
+    "families": {
+     "recording": 20,
+     "title": 20,
+     "relation": 20
+    },
+    "mixes": 0,
+    "rate": {
+     "items": 180,
+     "count": 175,
+     "item_weighted": 0.9722222222222222,
+     "family_weighted": 0.9722222222222223,
+     "item_weighted_interval": [
+      0.9333333333333333,
+      1.0
+     ],
+     "family_weighted_interval": [
+      0.9333333333333332,
+      1.0
+     ]
+    },
+    "items": 180,
+    "wrong": {
+     "items": 180,
+     "count": 0,
+     "item_weighted": 0.0,
+     "family_weighted": 0.0,
+     "item_weighted_interval": [
+      0.0,
+      0.0
+     ],
+     "family_weighted_interval": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "held_out": {
+    "families": {
+     "recording": 20,
+     "title": 20,
+     "relation": 20
+    },
+    "mixes": 0,
+    "rate": {
+     "items": 180,
+     "count": 0,
+     "item_weighted": 0.0,
+     "family_weighted": 0.0,
+     "item_weighted_interval": [
+      0.0,
+      0.0
+     ],
+     "family_weighted_interval": [
+      0.0,
+      0.0
+     ]
+    },
+    "items": 180
+   }
+  },
+  {
+   "report": "recall-seed-2026-other-rips-brief.json",
+   "resampled": "family",
+   "indexed": {
+    "families": {
+     "recording": 20,
+     "title": 20,
+     "relation": 20
+    },
+    "mixes": 0,
+    "rate": {
+     "items": 360,
+     "count": 176,
+     "item_weighted": 0.4888888888888889,
+     "family_weighted": 0.48888888888888893,
+     "item_weighted_interval": [
+      0.39444444444444443,
+      0.5722222222222222
+     ],
+     "family_weighted_interval": [
+      0.39444444444444443,
+      0.5722222222222222
+     ]
+    },
+    "items": 360,
+    "wrong": {
+     "items": 360,
+     "count": 0,
+     "item_weighted": 0.0,
+     "family_weighted": 0.0,
+     "item_weighted_interval": [
+      0.0,
+      0.0
+     ],
+     "family_weighted_interval": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "held_out": {
+    "families": {
+     "recording": 20,
+     "title": 20,
+     "relation": 20
+    },
+    "mixes": 0,
+    "rate": {
+     "items": 360,
+     "count": 0,
+     "item_weighted": 0.0,
+     "family_weighted": 0.0,
+     "item_weighted_interval": [
+      0.0,
+      0.0
+     ],
+     "family_weighted_interval": [
+      0.0,
+      0.0
+     ]
+    },
+    "items": 360
+   }
+  },
+  {
+   "report": "mixes-drops-seed-2050-rescored.json",
+   "resampled": "mix",
+   "indexed": {
+    "families": {
+     "recording": 103,
+     "title": 103,
+     "relation": 102
+    },
+    "mixes": 16,
+    "rate": {
+     "items": 256,
+     "count": 218,
+     "item_weighted": 0.8515625,
+     "family_weighted": 0.8004323257080611,
+     "item_weighted_interval": [
+      0.828125,
+      0.875
+     ],
+     "family_weighted_interval": [
+      0.7798295454545454,
+      0.8323863636363636
+     ]
+    },
+    "items": 256
+   },
+   "held_out": {
+    "families": {
+     "recording": 14,
+     "title": 14,
+     "relation": 14
+    },
+    "mixes": 16,
+    "items": 16
+   },
+   "wrong_per_mix": {
+    "mixes": 16,
+    "wrong": 0,
+    "per_mix": 0.0,
+    "interval": [
+     0.0,
+     0.0
+    ]
+   }
+  },
+  {
+   "report": "mixes-drops-seed-2053-rescored.json",
+   "resampled": "mix",
+   "indexed": {
+    "families": {
+     "recording": 96,
+     "title": 96,
+     "relation": 95
+    },
+    "mixes": 16,
+    "rate": {
+     "items": 256,
+     "count": 217,
+     "item_weighted": 0.84765625,
+     "family_weighted": 0.7921497873471557,
+     "item_weighted_interval": [
+      0.81640625,
+      0.87890625
+     ],
+     "family_weighted_interval": [
+      0.7727272727272727,
+      0.8366477272727273
+     ]
+    },
+    "items": 256
+   },
+   "held_out": {
+    "families": {
+     "recording": 15,
+     "title": 15,
+     "relation": 15
+    },
+    "mixes": 16,
+    "items": 16
+   },
+   "wrong_per_mix": {
+    "mixes": 16,
+    "wrong": 0,
+    "per_mix": 0.0,
+    "interval": [
+     0.0,
+     0.0
+    ]
+   }
+  }
+ ]
+}
