@@ -16,7 +16,7 @@
 //! leaves files out removes them from it.
 
 use std::borrow::Cow;
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
@@ -211,6 +211,19 @@ impl OtherLibrary {
         )
     }
 
+    /// Its records by the names the index gives them (prefixed), for
+    /// many lookups: `record` searches the list for each.
+    pub fn lookup(&self) -> Lookup<'_> {
+        Lookup {
+            store: &self.store,
+            by_name: self
+                .assets
+                .iter()
+                .map(|asset| (format!("{OTHER_LIBRARY_PREFIX}{}", asset.path), asset))
+                .collect(),
+        }
+    }
+
     /// Its files as the index names them, their paths prefixed.
     fn prefixed_assets(&self) -> impl Iterator<Item = Asset> + '_ {
         self.assets.iter().map(|asset| Asset {
@@ -248,6 +261,29 @@ impl OtherLibrary {
                     format!("{OTHER_LIBRARY_PREFIX}{}", record.header.source.path);
                 Ok(record)
             })
+    }
+}
+
+/// `OtherLibrary::lookup`.
+pub struct Lookup<'a> {
+    store: &'a PeakStore,
+    by_name: BTreeMap<String, &'a Asset>,
+}
+
+impl Lookup<'_> {
+    /// The record of the asset the index names `name`, its path prefixed;
+    /// `None` when it is not one of the other library's.
+    pub fn record(&self, name: &str) -> Option<Result<PeakRecord, String>> {
+        let asset = self.by_name.get(name)?;
+        Some(
+            self.store
+                .load(asset, &Profile::CURRENT)
+                .map(|mut record| {
+                    record.header.source.path = name.to_owned();
+                    record
+                })
+                .map_err(|error| error.to_string()),
+        )
     }
 }
 

@@ -1,19 +1,21 @@
 //! The `clusters` command: duplicate clusters of the library, and with the
 //! other library its rips of the corpus recordings.
 
-use std::collections::BTreeSet;
+use std::borrow::Cow;
+use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
 
 use gunfinger_core::indexing::load_records;
 use gunfinger_core::library::ignore::{self, IGNORE_FILE};
 use gunfinger_core::library::{Asset, Library};
 use gunfinger_core::profile::Profile;
+use gunfinger_core::search::SKIPPED_SHARE;
 use gunfinger_core::store::{PeakRecord, PeakStore};
 
 use super::recall::recall_panel;
-use crate::clusters::Clusters;
+use crate::clusters::{Clusters, library_wide};
 use crate::files::write_json;
-use crate::harness::Harness;
+use crate::harness::{Harness, UNCHANGED_INDEX};
 use crate::library_map::LibraryMap;
 use crate::manifest::Referable;
 use crate::padding::{OTHER_LIBRARY_PREFIX, current_sources};
@@ -61,6 +63,20 @@ pub struct ClustersArgs {
         conflicts_with_all = ["sample", "manifests", "recall_panel"]
     )]
     pub reuse_pairs: Option<Option<PathBuf>>,
+    /// With --other-peaks-dir: cluster every file of the index (the
+    /// library and the other library), each file's candidates found by
+    /// an excerpt of its stored peaks (`clusters::library_wide`), and
+    /// write the clusters to OUT, never over the clusters in use; the
+    /// search's pairs also go to OUT with the extension `pairs.json`.
+    /// With --reuse-pairs REPORT, that report's pairs are clustered again
+    /// without searching.
+    #[arg(
+        long,
+        value_name = "OUT",
+        requires = "from_peaks",
+        conflicts_with_all = ["sample", "manifests", "recall_panel"]
+    )]
+    pub library_wide: Option<PathBuf>,
 }
 
 pub fn clusters(harness: &Harness, jobs: usize, args: ClustersArgs) -> Result<(), String> {
@@ -71,7 +87,16 @@ pub fn clusters(harness: &Harness, jobs: usize, args: ClustersArgs) -> Result<()
         recall_panel,
         cut_sparsest,
         reuse_pairs,
+        library_wide,
     } = args;
+    let contradictions = if cut_sparsest {
+        clusters::Contradictions::CutSparsest
+    } else {
+        clusters::Contradictions::Stop
+    };
+    if let Some(out) = library_wide {
+        return cluster_library_wide(harness, &out, reuse_pairs, contradictions, jobs);
+    }
     let extra = ExtraQueries {
         manifests,
         recall_panel,
@@ -81,12 +106,113 @@ pub fn clusters(harness: &Harness, jobs: usize, args: ClustersArgs) -> Result<()
         (None, Some(report)) => PairSource::LastRun(report),
         (None, None) => PairSource::Search,
     };
-    let contradictions = if cut_sparsest {
-        clusters::Contradictions::CutSparsest
-    } else {
-        clusters::Contradictions::Stop
-    };
     find_clusters(harness, from_peaks, &pairs, &extra, contradictions, jobs)
+}
+
+/// Every file of the index clustered (`clusters::library_wide`), written to
+/// `out` beside the clusters in use.
+fn cluster_library_wide(
+    harness: &Harness,
+    out: &Path,
+    reuse_pairs: Option<Option<PathBuf>>,
+    contradictions: clusters::Contradictions,
+    jobs: usize,
+) -> Result<(), String> {
+    library_wide::check_out(out, &harness.clusters_file())?;
+    let other = harness
+        .other_store()?
+        .ok_or("--library-wide needs --other-peaks-dir")?;
+    let library = harness.library()?;
+    let other_assets = current_sources(&other, jobs)?;
+    let searched =
+        clusters::Searched::corpus(&library).with_other(&other_assets, other_ignore_file(&other)?);
+    let verdicts = verdicts_on(harness, &searched)?;
+    let pairs = match reuse_pairs {
+        Some(report) => {
+            let report =
+                report.ok_or("--library-wide with --reuse-pairs needs the pairs report")?;
+            let last = Clusters::load(&report)?;
+            let (pairs, dropped) = clusters::as_measured(last.pairs, &searched, &verdicts);
+            println!(
+                "{} pairs of {}, clustered again without searching; {dropped} dropped: a file pruned or ignored since",
+                pairs.len(),
+                report.display()
+            );
+            pairs
+        }
+        None => search_library_wide(harness, &library, out, jobs)?,
+    };
+    let clusters = library_wide::clustered(pairs, &verdicts, contradictions)?;
+    clusters::print_cut_links(&clusters);
+    write_json(out, &clusters)?;
+    println!(
+        "{} clusters with duplicates ({} files), written to {}",
+        clusters.duplicates.len(),
+        clusters.duplicates.iter().map(Vec::len).sum::<usize>(),
+        out.display()
+    );
+    Ok(())
+}
+
+/// The library-wide search's pairs, also written beside `out` for
+/// `--reuse-pairs`.
+fn search_library_wide(
+    harness: &Harness,
+    library: &Library,
+    out: &Path,
+    jobs: usize,
+) -> Result<Vec<clusters::Pair>, String> {
+    let profile = Profile::CURRENT;
+    let (corpus, problems) = load_records(library, &harness.store()?, &profile, &BTreeSet::new());
+    for problem in &problems {
+        eprintln!("left out of the index: {problem}");
+    }
+    let padding = harness.padding(&UNCHANGED_INDEX)?;
+    let other = padding
+        .other
+        .as_ref()
+        .ok_or("--library-wide needs --other-peaks-dir")?;
+    let index = padding
+        .index(&corpus, &profile, &BTreeSet::new())?
+        .skipping_fullest(SKIPPED_SHARE);
+    println!("{} files in the index, each a query", index.assets().len());
+    let lookup = other.lookup();
+    let corpus: BTreeMap<&str, &PeakRecord> = corpus
+        .iter()
+        .map(|record| (record.header.source.path.as_str(), record))
+        .collect();
+    let record = |name: &str| -> Result<Cow<'_, PeakRecord>, String> {
+        if let Some(&record) = corpus.get(name) {
+            return Ok(Cow::Borrowed(record));
+        }
+        match lookup.record(name) {
+            Some(record) => record.map(Cow::Owned),
+            None => Err(format!("no record of {name}")),
+        }
+    };
+    let (pairs, counts) = library_wide::pairs(&index, record, jobs);
+    println!(
+        "{} queries ({} without a record), {} candidates measured ({} also on the ladder), {} below {:.0}% coverage; {} pairs kept; {:.0} s",
+        counts.queries,
+        counts.queries_without_record,
+        counts.candidates_measured,
+        counts.measured_on_ladder,
+        counts.below_reported,
+        100.0 * clusters::REPORTED_COVERAGE,
+        pairs.len(),
+        counts.search_seconds
+    );
+    let unclustered = Clusters {
+        criterion: format!(
+            "the pairs of a library-wide search, not clustered: {}",
+            serde_json::to_string(&counts).map_err(|error| error.to_string())?
+        ),
+        duplicates: Vec::new(),
+        pairs,
+        cut_links: Vec::new(),
+    };
+    write_json(&out.with_extension("pairs.json"), &unclustered)?;
+    Ok(unclustered.pairs)
 }
 
 /// The other library's files a clusters run searches beside the corpus

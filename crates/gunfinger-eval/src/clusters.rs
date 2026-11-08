@@ -20,7 +20,10 @@
 //!
 //! In a larger library the corpus was drawn from, `find_around` finds the
 //! clusters of the corpus recordings only: clustering every file of tens of
-//! thousands against every other would take days.
+//! thousands against every other would take days. `library_wide` clusters
+//! every file with candidates from an excerpt of each (session 86).
+
+pub mod library_wide;
 
 use std::collections::{BTreeMap, BTreeSet, VecDeque};
 use std::fs;
@@ -47,7 +50,7 @@ use crate::padding::OTHER_LIBRARY_PREFIX;
 /// The alignment must cover this share of the shorter file.
 pub(crate) const MIN_COVERAGE: f64 = 0.8;
 /// Pairs above this coverage but below `MIN_COVERAGE` are reported for review.
-const REPORTED_COVERAGE: f64 = 0.2;
+pub(crate) const REPORTED_COVERAGE: f64 = 0.2;
 /// In another library, pairs with this many hits are kept whatever their
 /// coverage: the census of related recordings (experiment 0015).
 const RELATED_HITS: u32 = 30;
