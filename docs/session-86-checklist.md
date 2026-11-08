@@ -20,5 +20,5 @@ for scope and rules.
 - [x] 4. Experiments 0295 (clustering) and 0296 (break search as retrieval, the null)
 - [x] 5. The listening pack (`work/s86/pack/07-breaks-s86.json`, 32 questions; not answered)
 - [x] 6. Break-search note, roadmap items, decisions queue item 4
-- [~] 7. Review by a subagent; fixes
-- [ ] 8. Wrap-up: notes, status, final checks, commit
+- [x] 7. Review by a subagent; fixes (`8e59ef8`, `8afcb94`, `5d29677`)
+- [x] 8. Wrap-up: notes, status, final checks (check.sh green; both regressions identical with `--strict`; digests unchanged), commit

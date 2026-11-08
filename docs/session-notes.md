@@ -2260,118 +2260,102 @@ cover the option off.
 
 ## Session 86
 
-Brief `docs/brief-86.md` (the prompt, the registration R1-R3 and every
+Brief `docs/brief-86.md` (the prompt, the registration R1-R3, every
 decision), checklist `docs/session-86-checklist.md`, experiments 0295
-and 0296. A measurement session: no default, threshold or output of the
-product changed, and the `gunfinger` binary is byte-identical to
-session 85's.
+and 0296. A measurement session: the product did not change (the
+`gunfinger` binary of `s86-final` is byte-identical to `s85-final`'s),
+nor the stores, the NAS clusters file or the answer log.
 
 ### What changed
 
 - Harness, opt-in and tested: `clusters --from-peaks --library-wide
-  OUT` (`clusters::library_wide`, `58c53c1`): every file of the index a
-  query, candidates from its middle 20 s of stored peaks (the 20
-  strongest other files of 30 hits or more, the fullest 1% of lists set
-  aside), each measured with the clusters' criterion unchanged; it
-  writes OUT and `OUT` with the extension `pairs.json`, refuses the
-  clusters file in use (and any file named `duplicate-clusters.json`),
-  and with `--reuse-pairs PAIRS` clusters a pairs file again without
-  searching. `OtherLibrary::lookup` gives records by name without a
-  linear search. `break-search --passage-ladder both` adds the
-  key-locked rungs (default `turntable`, as before), and each holder
-  names its `playback`, which its reach follows (`5ab4e2a`). `questions
-  breaks PICKS.json` (`audition/breaks.rs`, `c4a01f0`): "the same
-  passage or chance" for holders picked from `break-search` reports;
-  answers to the log only.
-- `scripts/analysis/library_clusters.py` and `break_retrieval.py`, with
-  tests.
-- Documents: the break-search note's "Session 86" section; the
-  roadmap's active queue item 10, "The filter and famous breaks",
-  "Clustering precision"; decisions queue item 4;
-  `docs/audition-questions.md` (the `breaks` kind); `AGENTS.md`'s
-  module map.
+  OUT` (`clusters::library_wide`): every file of the index a query, its
+  candidates from its middle 20 s of stored peaks, each measured with
+  the clusters' criterion unchanged; it writes OUT and OUT's
+  `pairs.json`, refuses any file named `duplicate-clusters.json`, takes
+  `--reuse-pairs PAIRS`, and names a verdict on a copy a corpus file
+  stands for by the corpus file. `break-search --passage-ladder
+  turntable|key-lock|both` (the global `--ladder` does not apply); each
+  holder names its `playback`, which its reach follows. `questions
+  breaks PICKS.json` (`audition/breaks.rs`): the same passage or chance.
+- Scripts: `library_clusters.py`, `break_retrieval.py` (`--judgments`),
+  `break_answers.py` (the answer log to judgments), with tests.
+- Documents: the break-search note's "Session 86"; the roadmap's
+  active queue item 10, "The filter and famous breaks", "Clustering
+  precision"; decisions queue item 4; `docs/audition-questions.md`;
+  `AGENTS.md`'s module map.
 
 ### Results
 
-- 0295: 40,688 files clustered in 35:41 on 32 jobs (66,425 s CPU, 5.5
-  GiB): 4,880 clusters with 11,165 files, 4,665 of them (10,529 files)
-  without a corpus file. Against the clusters in use: 810 of 811 joins
-  kept (Pyro - Time Is Broken's upload lost), no old clusters merged, 5
-  sparse joins (0.06%), 6 joins cut against verdicts in 3 chains. The
-  registered conditions for using them as labels hold.
-- 0296: with the new clusters, a random passage's strongest holder
-  outside its cluster is 46 hits at the 95th percentile (729 with the
-  clusters in use; expected holders' median 72). Both ladders, every
-  list: 63 of 66 expected holders found (both Watermelon directions,
-  key-locked), 58 in the first five among non-relevant files, a median
-  17.6 thread seconds per query. Precision over judged holders is 1.0
-  by construction and 57% of the first 10 are unjudged, so the
-  precision bar is undecided; three of four registered conditions hold.
+- 0295: 40,688 files in 35:41 (66,425 s CPU, 5.5 GiB); 4,880 clusters,
+  4,664 of them (10,527 files) without a corpus file; all 811 old joins
+  kept (one through a verdict alone), no old clusters merged, 5 sparse
+  joins, 6 joins cut against verdicts. The conditions for labels hold.
+- 0296: with them the null holds (95th percentile 46 hits, 729 with
+  the clusters in use; expected median 72); both ladders find 63 of 66
+  expected holders (Watermelon now) at a median 17.6 thread seconds;
+  57% of the first 10 holders are unjudged, so the precision bar is
+  undecided. Three of four conditions hold.
 
 ### Decided this session, open to change
 
-- Session 74's group A searched panel 1's validation half (clockwork,
-  mind-overload, t-minus, the-nine); this session left those 10 cases
-  out and did not read their old results. The standing rule stands; a
-  session that reruns 0276's cases uses `docs/experiments/data/0296-cases.json`.
-- Candidates come from an excerpt, not the whole file (about 14 hours
-  otherwise); a chain contradicting a verdict is cut (`--cut-sparsest`),
-  not stopped.
-- The pack lives in `work/s86/pack/`, outside the default question
-  folder.
+- Session 74's group A had searched panel 1's validation half; this
+  session left those 10 cases out (`data/0296-cases.json` is the set to
+  rerun). Candidates from an excerpt, not whole files; chains against a
+  verdict cut, not stopped. 0296's runs started under a minute before
+  0295 was committed (brief 86, 07:00).
 
 ### Questions for listening (none answered by agents)
 
-1. The pack, `work/s86/pack/07-breaks-s86.json` (32 questions): for
-   Special Branch 250-270 s, Krome & Time - License and Bigger Star -
-   Raid, unjudged holders at the top, middle and bottom of each list;
-   and the null's five strongest finds (Double-J's passage among them).
-2. 0295's five sparse joins and three cut chains (China Cup's
-   `ƆƐI3C` upload, Mind Overload's Molten Beats rip, We Enter's Optical
-   v.3.0 instrumental), and DJ Slip - Man Of Steal joined with Breaker 1
-   (a `parts` edge of 0276): the same recording or not? Not yet made
-   into questions; `questions pack` or a `pair` report and `questions
-   shared` can ask them.
+1. The pack `work/s86/pack/07-breaks-s86.json` (32 questions):
+   unjudged holders at the top, middle and bottom of Special Branch
+   250-270 s, License and Raid, and the null's five strongest finds.
+2. 0295's 5 sparse joins and 3 cut chains (China Cup's `ƆƐI3C`
+   upload, Mind Overload's Molten Beats rip, We Enter's v.3.0
+   instrumental) and DJ Slip - Man Of Steal joined with Breaker 1; not
+   yet made into questions.
 
 ### Handoff for the next session
 
-1. Builds: `work/bin/s86-final/` (master) and `s85-final`.
-   `s86-start`, `s86-run` (the clustering) and `s86-run2` (break
-   search, the regressions) are deleted at the end.
-2. Baselines unchanged: `session-78-linux` and `session-78-linux-nas`.
-   NAS store 40,666 records, revision `0bd3f0c23fabc698`; corpus store
-   `526a3b978eb3e411`; the NAS clusters file unchanged
-   (`c4d3da2e7e37...`).
-3. The scratch clusters: `work/s86/clusters/library-wide.json` (the
-   clusters file's format, names as in the NAS-scale index: corpus
-   paths and `second-library/<path>`) and `library-wide.pairs.json`
-   (the search's pairs, for `--reuse-pairs`). A later session may use
-   them as labels for negatives: copy the file into a scratch work
-   directory as `reports/library-nas-dnb-peaks/duplicate-clusters.json`
-   (as `work/s86/break.sh` does), or read it in an analysis script, so
-   that another rip of a query's recording counts as its own cluster.
-   They are not the clusters in use; replacing those is a rebuild that
-   needs the user's approval (decisions queue item 4). Their joins are
-   not all heard (the questions above).
-4. To run it again:
-   ```sh
-   E=work/bin/s86-final/gunfinger-eval
-   N=$HOME/.local/share/gunfinger/nas-dnb-peaks
-   $E --work W --panels work/s33/panels --other-peaks-dir $N clusters --from-peaks --library-wide OUT.json --cut-sparsest
-   $E --work W --panels work/s33/panels --other-peaks-dir $N break-search work/s86/queries-nas.json --out OUT.json --passage-ladder both
-   python3 -I scripts/analysis/break_retrieval.py docs/experiments/data/0296-cases.json CLUSTERS.json SUMMARY.json both=OUT.json --same-titles docs/same-titles.txt [--unrelated PAIRS.tsv]
-   ```
-   (`W` as `work/s86/setup.sh` and `break.sh` make it.)
-5. The pack: `gunfinger-eval audition work/s86/pack/07-breaks-s86.json`
-   (on the Mac, `/Volumes/atlas/Music/dnb` is the NAS root the questions
-   name as `/mnt/atlas/Music/dnb`; make the file again there with
+1. Builds `work/bin/s86-final/` (master) and `s85-final`; the session's
+   other builds are deleted. Baselines `session-78-linux` and
+   `session-78-linux-nas`; stores and the NAS clusters file unchanged
+   (NAS `0bd3f0c23fabc698`, corpus `526a3b978eb3e411`, `c4d3da2e7e37...`).
+2. The scratch clusters `work/s86/clusters/library-wide.json` (the
+   clusters file's format and names) and `library-wide.pairs.json`. As
+   labels for negatives: copy the file into a scratch work directory as
+   `reports/library-nas-dnb-peaks/duplicate-clusters.json` (as
+   `work/s86/break.sh` does) or read it in a script, so that another rip
+   of a query's recording is its own cluster. Replacing the clusters in
+   use is a rebuild that needs the user's approval (queue item 4).
+3. Again: `E --work W --panels work/s33/panels --other-peaks-dir N
+   clusters --from-peaks --library-wide OUT --cut-sparsest`; `E ...
+   break-search work/s86/queries-nas.json --out OUT --passage-ladder
+   both`; `python3 -I scripts/analysis/break_retrieval.py
+   docs/experiments/data/0296-cases.json CLUSTERS SUMMARY both=OUT
+   --same-titles docs/same-titles.txt [--judgments TSV]` (`W` as
+   `work/s86/setup.sh` and `break.sh` make it).
+4. The pack: `gunfinger-eval audition work/s86/pack/07-breaks-s86.json`
+   on the Linux machine (it names `/mnt/atlas/Music/dnb`); on the Mac,
    `gunfinger-eval questions breaks work/s86/pack/picks.json --out ...`
-   and the default `--second-library-root`). Answers go to the answer
-   log. For the scores, the `chance` answers become `--unrelated` lines
-   (query file, tab, holder).
-6. Data in `work/s86/`: `clusters/`, `out/` (both break-search
-   reports), `summary-*.json`, `pack/`, `logs/`, the scripts
-   (`setup.sh`, `cluster.sh`, `break.sh`, `regress.sh`, `cases.py`,
-   `picks.py`), `queries-nas.json`; 38 MB, and the work directories
-   `w/` and `wb/` hold hard links to the saved NAS index. No renders.
+   first, with the default `--second-library-root`. Then
+   `python3 -I scripts/analysis/break_answers.py QUESTIONS.json
+   work/audition/answers.jsonl JUDGMENTS.tsv` and the scores with
+   `--judgments JUDGMENTS.tsv`.
+5. `work/s86/` (38 MB, plus hard links to the saved NAS index in `w/`
+   and `wb/`): clusters, both break-search reports (`out/`), summaries,
+   pack, logs, scripts. No renders.
 
+### Final checks
+
+With `work/bin/s86-final/` (master at `5d29677`; `gunfinger`
+`cf8393e36bad...`, byte-identical to `s85-final`'s, `gunfinger-eval`
+`58c1be41b896...`; `work/s86/final.sh`, log `work/s86/logs/final.log`):
+`scripts/check.sh` green (12:32, the analysis tests 82); `regress
+session-78-linux --strict` (1:04) and `regress session-78-linux-nas
+--strict` (4:49) identical, 720 of 720 sweep queries and every report
+equal apart from timing. `docs/pair-verdicts.txt`, the NAS clusters
+file and the answer log are at their start digests
+(`work/s86/listening-digests-end.txt`). A read-only review by a
+subagent recomputed every figure; its corrections were taken (brief 86,
+07:10).

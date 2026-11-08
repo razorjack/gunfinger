@@ -472,4 +472,9 @@ the product, the stores and the NAS clusters file did not change.
   most holders are unjudged (0296). The pack
   `work/s86/pack/07-breaks-s86.json` (32 questions) waits for the ear;
   decisions queue item 4.
+- Final checks with `work/bin/s86-final/`: `scripts/check.sh` green;
+  both regressions identical with `--strict`; `docs/pair-verdicts.txt`,
+  the NAS clusters file and the answer log unchanged. A review by a
+  subagent found a naming fault in the clusters' verdicts (fixed,
+  reclustered) and figure and wording errors (corrected).
 
