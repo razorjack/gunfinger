@@ -123,10 +123,25 @@ external review (`docs/research/2026-11-05-external-review.md`).
   `docs/research/2026-11-02-break-search.md`: 59 of 64 expected holders
   found, 51 in the first five, but only 25 first, because a famous break
   lines up with 120-403 files.
-- **Open.** Whether the command is wanted at all. Its next measurement
-  treats every judged holder as relevant (precision at K over judged
-  holders, with unjudged candidates kept as unjudged) and needs a short
-  listening pack sampled across ranks.
+- **Session 86 (0295, 0296).** With every file of the NAS index
+  clustered in a scratch file (4,880 clusters, 810 of the 811 joins of
+  the clusters in use kept), the null holds: random passages' strongest
+  holder outside their own cluster is 46 hits at the 95th percentile
+  (729 with the clusters in use), below the expected holders' median
+  72. With the key-locked rungs as well, 63 of 66 expected holders are
+  found (both Watermelon directions now) at a median 17.6 thread
+  seconds per query. Precision over judged holders is 1.0 by
+  construction (no holder is judged unrelated), and 57% of the first 10
+  holders are unjudged, so the registered precision bar is undecided.
+  Three of the four registered conditions hold.
+- **Open.** Whether the command is wanted at all. The next step needs
+  the ear: the pack `work/s86/pack/07-breaks-s86.json` (32 questions:
+  holders at the top, middle and bottom of Special Branch's, License's
+  and Raid's lists, and the null's five strongest finds); its answers
+  decide the precision bar.
+- **A second decision.** Whether the library-wide clusters (0295)
+  should replace the clusters in use; that is a rebuild of the NAS
+  clusters file, which needs the user's approval by name.
 
 ### 5. The bar of zero wrong answers and the seven Cool Rock detections
 

@@ -126,3 +126,41 @@ the list. Our recommendation:
    pair shows that some shared passages play key-locked.
 
 The decision is ours.
+
+## Session 86: retrieval with many relevant holders
+
+Session 86 (2026-11-08, brief 86, experiments 0295 and 0296) measured
+the query again with two changes. First, every file of the NAS index
+was clustered into a scratch file (`clusters --library-wide`; 4,880
+clusters, 11,165 files; the clusters in use keep only the corpus
+recordings' 284), so that another rip of a query's recording is part of
+its own cluster instead of an "other" file. Second, a listed file counts
+as relevant when it is in the query file's cluster, in an expected
+file's cluster, or paired with one by a judgment; every other file is
+unjudged, and none is judged unrelated yet. Panel 1's validation half
+was left out (session 74 had searched it), and panel 2's development
+directions were added.
+
+- **The null holds.** With rips clustered, a random passage's strongest
+  holder outside its cluster is 46 hits at the 95th percentile (both
+  ladders, every list), against 729 with the clusters in use and a
+  median 72 for the expected holders found. Two of 40 intros still list
+  a file outside their cluster that goes on matching for 60 s.
+- **Recall.** With the key-locked rungs as well (`--passage-ladder
+  both`), 63 of 66 expected holders are found, 58 in the first five
+  among non-relevant files; both Watermelon directions, missed in 0276,
+  are found. The key-locked rungs double the cost to a median 17.6
+  thread seconds per query (at most 44), with 32 queries at once.
+- **Precision is open.** The first 10 holders of a query are 43%
+  judged, all relevant; the rest have never been heard. For Special
+  Branch, License and Raid the lists hold 224-436 holders, nearly all
+  unjudged. The registered bar for a design note needs the judged share
+  of the first 10 to reach 50% before its precision counts.
+
+The pack `work/s86/pack/07-breaks-s86.json` (32 questions, `questions
+breaks`) asks of holders at the top, middle and bottom of the three
+famous-break lists, and of the null's five strongest finds, whether they
+play the same passage. Its answers, passed to
+`scripts/analysis/break_retrieval.py --unrelated`, give the first
+precision that is not 1.0 by construction. Until then the
+recommendation above stands: no command yet.

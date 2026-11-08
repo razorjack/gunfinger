@@ -135,6 +135,14 @@ Each session takes the first item it can do without a pending decision.
     holders as relevant, a listening pack across ranks, both playback
     ladders; a library-wide clustering first, so that a null of random
     passages is not contaminated by unclustered rips.
+    *Session 86 (0295, 0296):* measured. The library-wide clustering
+    (`clusters --library-wide`, a scratch file) keeps 810 of 811 old
+    joins and adds 4,665 clusters of NAS rips; with them the null holds
+    (95th percentile 46 hits against 729), recall is 63 of 66 with both
+    ladders, and precision over judged holders is undecided: 57% of the
+    first 10 holders are unjudged. Next: the pack
+    (`work/s86/pack/07-breaks-s86.json`, 32 questions) answered by ear,
+    then the scores again with its answers (`--unrelated`).
 11. **Process.** A `gunfinger-eval protocol --variants ...` runner (one
     set of renders, one loaded index, one table against the baseline);
     the roadmap rewritten as open items with state and next step (done
@@ -379,7 +387,7 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   changed). Open: how often a short chain's speed hinges on one hit
   (not counted); break
   search as a command (decisions queue item 4; active queue
-  item 10); a posting-count set-aside threshold (active queue item 11);
+  item 10; with rips clustered its null holds, 0296); a posting-count set-aside threshold (active queue item 11);
   if candidates go missing, rank hashes by distinct files (weighting
   hits by rarity does not separate shared material at equal hits, 0294;
   as a way to recover candidates it is unmeasured); a real
@@ -388,7 +396,7 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   For `identify` the break's many holders change nothing measured; the
   passage query with every list costs about 8 thread seconds per query
   at NAS scale. Evidence: 0012, 0144, 0222-0225,
-  0242, 0276, 0277, 0294; `docs/research/2026-11-02-break-search.md`.
+  0242, 0276, 0277, 0294, 0296; `docs/research/2026-11-02-break-search.md`.
 - **A confidence statistic for shared material.** *Blocked on the user
   (decisions queue item 7; the active queue: it waits on that item).*
   Facts: with the played recording left out at NAS scale a related
@@ -467,9 +475,11 @@ inside the brief's bound; reopen only if `--under`'s default needs it).
   that move the rest by more than 10 s. `pair --fine-rungs` lifts drifting
   same pairs and version pairs alike; the registered variant failed
   (0220). Still to do: inspect long sparse alignments and chains through
-  mixed-CD tracks (0058), and check a sample of joins by ear. A
-  library-wide clustering comes first for break search (active queue
-  item 10). Evidence: 0057, 0058, 0186, 0187, 0220.
+  mixed-CD tracks (0058), and check a sample of joins by ear. The
+  library-wide clustering (0295, `work/s86/clusters/library-wide.json`,
+  not the clusters in use) lists 5 sparse joins and 6 cuts against
+  verdicts to judge by ear; replacing the clusters in use with it is
+  ours to decide. Evidence: 0057, 0058, 0186, 0187, 0220, 0295.
 - **The possible tier at NAS scale.** *Blocked on a larger library; the
   value is decided: 60 stays (our decision); measure at each size.* Every strongest match between
   different recordings checked from 40 hits up shares material, by ear;

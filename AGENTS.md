@@ -143,7 +143,9 @@ The harness adds `sweep`, `scan`, `calibrate`, `regress` (the sweep,
 the three development mixes' scans and Stakka's leave-outs, with
 `provenance`, what a baseline was made from, and `digest`, SHA-256),
 `robust` (transformed excerpts), `synthetic` (the scale proxy), `clusters` and
-`related` (self-match of the library), `pair` (two files' alignments and
+`related` (self-match of the library; `clusters::library_wide`
+clusters every file of the index from an excerpt of each, into a
+scratch file, session 86), `pair` (two files' alignments and
 the time their hits support), `recall` (a panel drawn from the larger
 library's records, beyond the corpus recordings), `survival` and `hash_cost` (hash
 measurements without a search) on top of `manifest` and `scoring`;
@@ -165,7 +167,8 @@ measures each detection for session 21's candidate statistics;
 `holders` runs its lookup in the library's map of shared passages for
 a list of files and spans; `break_search` lists every file holding a
 passage of one file, with every posting list and with the fullest set
-aside (session 74).
+aside (session 74), on the turntable ladder or with the key-locked
+rungs as well (`--passage-ladder both`, session 86).
 `rescore` scores saved `mixes` and `grid` reports again from their
 detections and writes each beside the saved one;
 `seconds` scores saved `mixes`, `shared-mixes` and `scan` reports
